@@ -68,6 +68,13 @@ export default function About() {
               Grade changes require documented evidence and rubric citation
             </li>
             <li>Every grade is a human editorial judgment supported by documented evidence and a published rubric</li>
+            <li>
+              External inter-rater reliability testing has not yet been
+              completed. Subjectivity is reduced through: published rubric
+              thresholds, canonical scoring sheets, 5-tier source hierarchy,
+              QA gatekeeping with 6 blocking conditions, deconfliction
+              matrix, and documented modifier rules
+            </li>
           </ul>
         </div>
 
