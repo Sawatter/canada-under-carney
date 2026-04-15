@@ -8,6 +8,7 @@ import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
 import PromiseTracker from "./PromiseTracker";
 import Methodology from "./Methodology";
+import About from "./About";
 
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
@@ -22,6 +23,7 @@ export default function Dashboard() {
     { key: "scorecard", label: "Scorecard" },
     { key: "promises", label: "Promise Tracker" },
     { key: "methodology", label: "Methodology" },
+    { key: "about", label: "About" },
   ];
 
   return (
@@ -145,6 +147,9 @@ export default function Dashboard() {
 
       {/* Methodology View */}
       {view === "methodology" && <Methodology />}
+
+      {/* About View */}
+      {view === "about" && <About />}
 
       {/* Footer */}
       <div

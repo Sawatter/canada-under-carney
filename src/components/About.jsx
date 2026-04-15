@@ -1,0 +1,161 @@
+export default function About() {
+  return (
+    <div
+      style={{
+        background: "#fff",
+        borderRadius: "12px",
+        border: "1px solid #e0e0e0",
+        padding: "24px",
+      }}
+    >
+      <h2
+        style={{
+          fontFamily: "'DM Serif Display', serif",
+          fontSize: "22px",
+          margin: "0 0 16px",
+          color: "#1a1a1a",
+        }}
+      >
+        About This Dashboard
+      </h2>
+      <div style={{ fontSize: "13px", lineHeight: 1.7, color: "#444" }}>
+        <p style={{ marginBottom: "16px" }}>
+          <strong>Canada Under Carney</strong> is a non-partisan performance
+          dashboard tracking the federal government across 12 policy dimensions.
+          It is updated monthly using official government data, independent
+          analysis, and a transparent scoring rubric.
+        </p>
+        <p style={{ marginBottom: "16px" }}>
+          The dashboard publishes two headline grades because they answer two
+          different questions. The <strong>Household Impact</strong> grade
+          weights the issues Canadians feel most directly: housing, grocery
+          prices, GDP &amp; productivity, and fiscal health. The{" "}
+          <strong>Full Policy Audit</strong> weights all 12 dimensions equally.
+          A government can perform better on statecraft than on affordability.
+          We show both.
+        </p>
+
+        <div
+          style={{
+            borderLeft: "3px solid #1a3c5e",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div
+            style={{ fontWeight: 700, fontSize: "13px", color: "#1a3c5e" }}
+          >
+            Principles
+          </div>
+          <ul style={{ margin: "6px 0", paddingLeft: "18px" }}>
+            <li>
+              Grades reflect what the government chose to do and how well it
+              executed, not what it inherited
+            </li>
+            <li>
+              All data comes from official sources (Statistics Canada, PBO,
+              CMHC, Bank of Canada, IRCC)
+            </li>
+            <li>
+              Commentary sources are balanced across the political spectrum
+              (see Source Balance below)
+            </li>
+            <li>
+              Grade changes require documented evidence and rubric citation
+            </li>
+            <li>Automation handles data; humans make grade decisions</li>
+          </ul>
+        </div>
+
+        <div
+          style={{
+            borderLeft: "3px solid #558b2f",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div
+            style={{ fontWeight: 700, fontSize: "13px", color: "#558b2f" }}
+          >
+            Source Balance
+          </div>
+          <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+            <strong>Official:</strong> Statistics Canada, PBO, CMHC, Bank of
+            Canada, IRCC, OECD, IMF, Fitch
+            <br />
+            <strong>Centre:</strong> CBC News, Globe and Mail, La Presse,
+            Toronto Star
+            <br />
+            <strong>Right:</strong> C.D. Howe, The Hub, National Post
+            <br />
+            <strong>Left:</strong> CCPA, The Narwhal, National Observer
+            <br />
+            <strong>Independent policy:</strong> IRPP / Policy Options,
+            Canadian Climate Institute, IFSD
+            <br />
+            <strong>Academic:</strong> The Conversation Canada, Dalhousie,
+            PROOF (U of T)
+            <br />
+            <strong>Polling:</strong> Angus Reid, L&eacute;ger, Nanos, Abacus
+          </div>
+        </div>
+
+        <div
+          style={{
+            borderLeft: "3px solid #e68a00",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div
+            style={{ fontWeight: 700, fontSize: "13px", color: "#e68a00" }}
+          >
+            Evaluation Period
+          </div>
+          <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+            Mark Carney was sworn in as PM on March 14, 2025. The Liberals
+            secured a majority (174 seats) on April 13, 2026 via byelection
+            wins. This dashboard evaluates the period from March 2025 onward,
+            with monthly updates. Files with realistic one-year improvement
+            potential are graded on outcomes. Structural challenges built over
+            a decade are graded on direction of travel and adequacy of effort.
+          </div>
+        </div>
+
+        <div
+          style={{
+            borderLeft: "3px solid #999",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div style={{ fontWeight: 700, fontSize: "13px", color: "#666" }}>
+            Built By
+          </div>
+          <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+            CJS Strategy &amp; Ops Inc. &middot; Calgary, Canada
+            <br />
+            Dashboard built with Claude Code. Peer-reviewed with ChatGPT.
+            Fact-checked against 42+ primary source claims.
+            <br />
+            Scoring Rubric v1.0 &middot; Open source on{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+
+        <p style={{ fontSize: "11px", color: "#aaa", marginTop: "16px" }}>
+          This dashboard is an independent analytical product. It is not
+          affiliated with any political party, government agency, or advocacy
+          organization. Feedback and corrections are welcome via GitHub Issues.
+        </p>
+      </div>
+    </div>
+  );
+}
