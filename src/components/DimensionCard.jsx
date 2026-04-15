@@ -150,6 +150,54 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
             ))}
           </div>
 
+          {/* Left/Right Perspectives */}
+          {dim.perspectives && (
+            <div style={{ marginBottom: "14px" }}>
+              <div
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#999",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                }}
+              >
+                How Different Perspectives See This
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    lineHeight: 1.5,
+                    padding: "8px 10px",
+                    background: "#f0f4ff",
+                    borderRadius: "6px",
+                    borderLeft: "3px solid #1565c0",
+                    color: "#333",
+                  }}
+                >
+                  <strong style={{ color: "#1565c0" }}>Right / Centre-right:</strong>{" "}
+                  {dim.perspectives.right}
+                </div>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    lineHeight: 1.5,
+                    padding: "8px 10px",
+                    background: "#fff3f0",
+                    borderRadius: "6px",
+                    borderLeft: "3px solid #c62828",
+                    color: "#333",
+                  }}
+                >
+                  <strong style={{ color: "#c62828" }}>Left / Centre-left:</strong>{" "}
+                  {dim.perspectives.left}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Promise Tracker */}
           {dim.promises && dim.promises.length > 0 && (
             <div style={{ marginBottom: "14px" }}>

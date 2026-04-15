@@ -24,6 +24,7 @@ export const STATUS_COLORS = {
   "In Progress": { bg: "#e3f2fd", color: "#0d47a1", label: "\u25D1 In Progress" },
   "Stalled":     { bg: "#fff3e0", color: "#e65100", label: "\u2298 Stalled" },
   "Abandoned":   { bg: "#ffebee", color: "#b71c1c", label: "\u2715 Abandoned" },
+  "Thwarted":    { bg: "#fce4ec", color: "#880e4f", label: "\u26A0 Thwarted" },
   "Too Early":   { bg: "#f3e5f5", color: "#6a1b9a", label: "\u25CC Too Early" },
 };
 
