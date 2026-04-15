@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { STATUS_COLORS } from "../constants";
-import PromiseTag from "./PromiseTag";
 
 export default function PromiseTracker({ allPromises, promiseCounts, totalPromises }) {
+  const [expandedPromise, setExpandedPromise] = useState(null);
+
   return (
     <div
       style={{
@@ -11,7 +13,7 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
         overflow: "hidden",
       }}
     >
-      {/* Summary bar — proportional width per status */}
+      {/* Summary bar */}
       <div style={{ display: "flex", gap: "0", borderBottom: "1px solid #e0e0e0" }}>
         {Object.entries(STATUS_COLORS).map(([status, style]) => {
           const count = promiseCounts[status] || 0;
@@ -65,31 +67,72 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
               >
                 {s.label} ({items.length})
               </div>
-              {items.map((p, i) => (
-                <div
-                  key={i}
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    padding: "8px 16px",
-                    borderBottom: "1px solid #f5f5f5",
-                    gap: "12px",
-                  }}
-                >
-                  <span style={{ fontSize: "13px", color: "#333" }}>{p.text}</span>
-                  <span
+              {items.map((p, i) => {
+                const key = `${status}-${i}`;
+                const isOpen = expandedPromise === key;
+                return (
+                  <div
+                    key={key}
+                    onClick={() => setExpandedPromise(isOpen ? null : key)}
                     style={{
-                      fontSize: "11px",
-                      color: "#999",
-                      whiteSpace: "nowrap",
-                      fontStyle: "italic",
+                      padding: "8px 16px",
+                      borderBottom: "1px solid #f5f5f5",
+                      cursor: p.evidence ? "pointer" : "default",
+                      background: isOpen ? "#fafafa" : "transparent",
+                      transition: "background 0.15s",
                     }}
                   >
-                    {p.dimension}
-                  </span>
-                </div>
-              ))}
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        gap: "12px",
+                      }}
+                    >
+                      <span style={{ fontSize: "13px", color: "#333", flex: 1 }}>
+                        {p.text}
+                        {p.evidence && (
+                          <span style={{ fontSize: "10px", color: "#bbb", marginLeft: "6px" }}>
+                            {isOpen ? "\u25B2" : "\u25BC"}
+                          </span>
+                        )}
+                      </span>
+                      <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+                        <span
+                          style={{
+                            fontSize: "11px",
+                            color: "#999",
+                            whiteSpace: "nowrap",
+                            fontStyle: "italic",
+                          }}
+                        >
+                          {p.dimension}
+                        </span>
+                      </div>
+                    </div>
+                    {isOpen && p.evidence && (
+                      <div
+                        style={{
+                          fontSize: "12px",
+                          color: "#666",
+                          marginTop: "6px",
+                          paddingLeft: "10px",
+                          borderLeft: `2px solid ${s.color}40`,
+                          lineHeight: 1.5,
+                        }}
+                      >
+                        {p.evidence}
+                        {p.since && (
+                          <div style={{ fontSize: "10px", color: "#aaa", marginTop: "4px" }}>
+                            Status since: {p.since}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           );
         }
