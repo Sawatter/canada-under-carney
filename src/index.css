@@ -26,3 +26,19 @@ body {
     min-height: 44px;
   }
 }
+
+/* Print styles */
+@media print {
+  body {
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  button {
+    display: none !important;
+  }
+  /* Force all cards to show expanded for print */
+  div[style*="cursor: pointer"] {
+    break-inside: avoid;
+  }
+}
