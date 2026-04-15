@@ -49,7 +49,7 @@ export default function Methodology() {
           color: "#1a1a1a",
         }}
       >
-        Scoring Rubric v1.0
+        Scoring Rubric v1.1
       </h2>
       <div style={{ fontSize: "13px", lineHeight: 1.7, color: "#444" }}>
         <p style={{ marginBottom: "16px" }}>
@@ -78,15 +78,19 @@ export default function Methodology() {
         ))}
 
         <p style={{ marginTop: "16px", fontSize: "12px", color: "#888" }}>
-          <strong>Modifiers:</strong> Timing fairness (13 months vs. structural),
-          jurisdictional limits (shared federal-provincial), external constraint
-          (trade war), credit-claiming penalty (pre-existing momentum). Grade
-          changes require documented evidence and rubric citation.
+          <strong>Operationalized Modifiers (v1.1):</strong> Timing fairness
+          (grades trajectory not outcomes for long-lag files; expires at 24 months).
+          Jurisdictional limits (cap at C+ if &gt;50% depends on non-federal actors
+          without an agreement). External constraint (+0.3 GPA where trade war
+          demonstrably limits outcomes; does not cover excess reversals).
+          Credit-claiming penalty (-0.3 GPA where overclaiming is documented by
+          independent sources).
         </p>
         <p style={{ fontSize: "12px", color: "#888" }}>
           <strong>Weighting:</strong> The headline grade is unweighted across all
-          12 dimensions. The pocketbook-weighted grade double-weights Fiscal
-          Health, Housing, Grocery Prices, and GDP &amp; Productivity. Both are
+          dimensions. The Household Impact grade double-weights Fiscal
+          Health, Housing Supply, Affordability Response, and Economic Policy
+          Response. Both are
           published; the choice of weighting is an editorial judgment disclosed
           transparently.
         </p>

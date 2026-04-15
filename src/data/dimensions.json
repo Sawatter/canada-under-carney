@@ -378,13 +378,13 @@
     "inherited": "Elevated post-pandemic deficits. Rising debt-servicing costs. Fiscal anchor of reducing debt-to-GDP already abandoned by prior government."
   },
   {
-    "id": "gdp-productivity",
-    "name": "GDP & Productivity",
+    "id": "economic-policy",
+    "name": "Economic Policy Response",
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
-    "status": "Per-capita GDP declining. Business investment flat 4th year. OECD projects Canada last through 2060.",
-    "rationale": "GDP per capita declined 2.0% cumulatively from 2020-2024, the worst since the Depression. 84.9% of GDP growth from 2014-2023 was population-driven. Business investment per worker has declined since 2006. R&D at 1.81% of GDP is roughly half the US rate. The AI and critical minerals investments are directionally correct but have not yet changed the structural trajectory. If Carney is the credibility candidate, the fact that business investment hasn't turned is a sharp critique.",
+    "status": "Structural productivity crisis inherited. AI and minerals investments directionally correct but business investment flat. Grade reflects policy response and trajectory, not inherited conditions.",
+    "rationale": "This dimension grades the government's policy response to Canada's structural productivity and competitiveness challenges — not the inherited GDP per capita level, which reflects a decade of underinvestment. The AI compute strategy ($2B), critical minerals push ($18.5B), and interprovincial reform are directionally correct. But business investment remains flat for a fourth year, specific barriers (permitting, tax rates, electricity costs) remain unresolved, and the OECD projects Canada last among 38 members. The grade reflects whether the policy direction and scale are adequate to change the trajectory, recognizing that outcomes will take years to materialize.",
     "sources": [
       {
         "label": "Fraser Institute — Ugly Growth",
@@ -479,20 +479,20 @@
     },
     "tags": {
       "confidence": "High",
-      "attribution": "Mostly inherited",
+      "attribution": "Direct (policy response)",
       "lag": "Long"
     },
     "nextTrigger": "March 2026 LFS release. Q1 2026 GDP data. Business investment quarterly report.",
     "inherited": "GDP per capita declined 2.0% from 2020-2024. Business investment falling since 2006. R&D at half the US rate. Population-driven growth masked per-capita decline for a decade."
   },
   {
-    "id": "grocery-prices",
-    "name": "Grocery Prices",
+    "id": "affordability-response",
+    "name": "Affordability Response",
     "grade": "D-",
     "previousGrade": null,
     "trend": "down",
-    "status": "Prices 30%+ above pre-pandemic. Relief covers <20% of cost increase. Code of Conduct is voluntary.",
-    "rationale": "Food inflation reached 5.4% by Feb 2026. A family of four spends $17,572/year on food. The $307 grocery benefit covers less than 20% of the ~$1,600 annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs add $1,450-$2,000/year per household. Broader affordability (rents, insurance, utilities) compounds the squeeze. ~10 million Canadians are food insecure.",
+    "status": "Government affordability measures cover <20% of household cost increases. Grocery Code voluntary. Tariff costs add $1,450-$2,000/yr per household. Grade reflects federal policy response, not global price levels.",
+    "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure — not the price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
     "sources": [
       {
         "label": "StatsCan CPI Dec 2025",
@@ -585,20 +585,20 @@
     },
     "tags": {
       "confidence": "High",
-      "attribution": "Mixed",
+      "attribution": "Mixed (prices external, policy response direct)",
       "lag": "Short"
     },
     "nextTrigger": "Next monthly CPI release (StatsCan). Dalhousie 2027 food price forecast. Competition Bureau grocery investigation update.",
     "inherited": "Prices already 30%+ above pre-pandemic levels. Highly concentrated retail sector. Competition Bureau investigations underway."
   },
   {
-    "id": "carbon-tax",
-    "name": "Carbon Tax",
+    "id": "carbon-pricing",
+    "name": "Carbon Pricing Policy",
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Consumer tax eliminated (real win). Industrial OBPS preserved at $95/t. Scrutiny warranted on policy distinction.",
-    "rationale": "Eliminating the consumer carbon tax was a genuine affordability win and a Day 1 commitment delivered. Preserving the industrial OBPS reflects a defensible policy judgment. However, CCI found Alberta industrial credits trade at ~$20/tonne despite the $95 headline, raising questions about the effective price signal. The distinction between eliminating the politically visible consumer tax while preserving the financially significant industrial system warrants scrutiny.",
+    "status": "Consumer carbon price eliminated (affordability win). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the policy handling of both components.",
+    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument — the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a genuine affordability win and Day 1 commitment delivered. The industrial system's preservation is defensible on competitiveness grounds. However, CCI found the effective credit price is ~$20/tonne despite a $95 headline, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
     "sources": [
       {
         "label": "Canada.ca — fuel charge removal",
@@ -1136,12 +1136,12 @@
   },
   {
     "id": "execution-delivery",
-    "name": "Execution & Delivery",
+    "name": "Flagship Delivery",
     "grade": "C-",
     "previousGrade": "C",
     "trend": "down",
-    "status": "Strong on defence/trade. Cooperative federalism failing in practice. 40K job cuts while pursuing ambitious agenda. Intergovernmental coordination weak.",
-    "rationale": "Defence and trade show genuine follow-through. But Policy Options documented that cooperative federalism is failing: BC’s Premier was blindsided by a pipeline deal, Ontario got hours of notice before trade announcements. The 40,000 public service job cuts are happening while pursuing the most ambitious delivery agenda in years. The PBO found a $94B gap between claimed and actual capital investment. The deeper question is whether this is a political, bureaucratic, procurement, or structural state capacity problem.",
+    "status": "Measures delivery capacity across 5 flagship files: defence, housing, major projects, climate, and immigration. Strong on defence. Weak on housing and climate. Cooperative federalism failing.",
+    "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow — it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions.",
     "sources": [
       {
         "label": "Policy Options — federalism failure",
@@ -1163,27 +1163,27 @@
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "Bills introduced",
-        "value": "26",
-        "source": "legisinfo",
-        "automatable": false
-      },
-      {
-        "label": "Bills passed",
-        "value": "11 (5 routine)",
-        "source": "legisinfo",
-        "automatable": false
-      },
-      {
-        "label": "MPO national interest uses",
-        "value": "0",
+        "label": "Flagship files delivering",
+        "value": "2 of 5 (defence, immigration)",
         "source": "manual",
         "automatable": false
       },
       {
-        "label": "PBO investment gap",
-        "value": "$94B",
-        "source": "pbo",
+        "label": "Flagship files stalled",
+        "value": "3 of 5 (housing, climate, projects)",
+        "source": "manual",
+        "automatable": false
+      },
+      {
+        "label": "Bills passed",
+        "value": "11 of 26",
+        "source": "legisinfo",
+        "automatable": false
+      },
+      {
+        "label": "Federal-provincial coordination",
+        "value": "Weak (Policy Options)",
+        "source": "manual",
         "automatable": false
       }
     ],

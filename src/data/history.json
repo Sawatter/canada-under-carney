@@ -2,21 +2,21 @@
   {
     "month": "2026-04",
     "date": "2026-04-15",
-    "overallGPA": 1.70,
+    "overallGPA": 1.7,
     "pocketbookGPA": 1.51,
     "grades": {
       "defence-trade": "A-",
       "major-projects": "C",
       "fiscal-health": "D",
-      "gdp-productivity": "D",
-      "grocery-prices": "D-",
-      "carbon-tax": "C",
       "climate-environment": "D",
       "immigration": "C+",
       "housing-supply": "D",
       "ethics-transparency": "C-",
       "execution-delivery": "C-",
-      "promise-delivery": "C+"
+      "promise-delivery": "C+",
+      "affordability-response": "D-",
+      "economic-policy": "D",
+      "carbon-pricing": "C"
     },
     "promiseCounts": {
       "Delivered": 14,
