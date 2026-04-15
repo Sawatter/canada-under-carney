@@ -102,7 +102,25 @@ export default function Dashboard() {
         totalPromises={totalPromises}
       />
 
-      {/* What Changed This Month */}
+      {/* Legend */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "16px",
+          marginBottom: "16px",
+          fontSize: "11px",
+          color: "#777",
+          flexWrap: "wrap",
+        }}
+      >
+        <span><span style={{ color: "#2e7d32", fontWeight: 700 }}>{"\u25B2"}</span> Improving</span>
+        <span><span style={{ color: "#757575", fontWeight: 700 }}>{"\u25AC"}</span> Stable</span>
+        <span><span style={{ color: "#c62828", fontWeight: 700 }}>{"\u25BC"}</span> Declining</span>
+        <span><span style={{ color: "#c62828", fontSize: "9px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
+      </div>
+
+      {/* What Changed Since Last Update */}
       <WhatsChanged changelog={changelog} />
 
       {/* Tab Navigation */}
@@ -123,13 +141,13 @@ export default function Dashboard() {
             style={{
               flex: 1,
               padding: "10px 6px",
-              fontSize: "12px",
-              fontWeight: view === t.key ? 700 : 600,
+              fontSize: "13px",
+              fontWeight: 700,
               background: view === t.key ? "#fff" : "transparent",
               border: "none",
               borderRadius: "6px",
               cursor: "pointer",
-              color: view === t.key ? "#1a1a1a" : "#555",
+              color: view === t.key ? "#1a1a1a" : "#444",
               transition: "all 0.2s",
               fontFamily: "'DM Sans', sans-serif",
             }}

@@ -917,8 +917,8 @@
     "grade": "C+",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Half of Trudeau reversals are genuine corrections. Half are abandoned commitments reframed. Defence/trade delivery real.",
-    "rationale": "About half of the 15 Trudeau-era reversals are substantive corrections supported across the political spectrum (consumer carbon tax, capital gains, immigration, interprovincial barriers). The other half are abandoned climate commitments reframed as pragmatism (emissions cap, EV mandate, tree planting). Defence and trade delivery is real and measurable. Housing targets have been scaled back. The pattern is consistent: ambitious announcements followed by delivery that falls short.",
+    "status": "Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short. Rhetoric outpaces results in several files.",
+    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files.",
     "sources": [
       {
         "label": "Fraser Institute — policy corrections",
@@ -936,20 +936,20 @@
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "Genuine corrections",
-        "value": "~7-8 of 15",
+        "label": "Key commitments delivered",
+        "value": "14 of 44",
         "source": "manual",
         "automatable": false
       },
       {
-        "label": "Abandoned commitments",
-        "value": "~7-8 of 15",
+        "label": "Commitments stalled or abandoned",
+        "value": "12 of 44",
         "source": "manual",
         "automatable": false
       },
       {
         "label": "Housing target",
-        "value": "Scaled back",
+        "value": "Scaled back from 500K/yr",
         "source": "manual",
         "automatable": false
       },
