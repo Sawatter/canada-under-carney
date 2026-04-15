@@ -47,7 +47,7 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
       </div>
 
       {/* Promise list grouped by status */}
-      {["Delivered", "In Progress", "Stalled", "Abandoned", "Thwarted", "Too Early"].map(
+      {["Delivered", "In Progress", "Stalled", "Abandoned", "Thwarted", "Unclear", "Too Early"].map(
         (status) => {
           const items = allPromises.filter((p) => p.status === status);
           if (items.length === 0) return null;

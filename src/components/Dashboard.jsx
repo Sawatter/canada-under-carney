@@ -32,6 +32,17 @@ export default function Dashboard() {
     window.print();
   };
 
+  const handleExport = () => {
+    const data = JSON.stringify(dimensions, null, 2);
+    const blob = new Blob([data], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `canada-under-carney-data-${meta.lastUpdated}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div
       style={{
@@ -89,6 +100,23 @@ export default function Dashboard() {
           }}
         >
           Print / Export PDF
+        </button>
+        <button
+          onClick={handleExport}
+          style={{
+            marginTop: "8px",
+            marginLeft: "8px",
+            padding: "6px 16px",
+            fontSize: "11px",
+            color: "#888",
+            background: "transparent",
+            border: "1px solid #ddd",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontFamily: "'DM Sans', sans-serif",
+          }}
+        >
+          Download Raw Data
         </button>
       </div>
 
