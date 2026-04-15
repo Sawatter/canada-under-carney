@@ -32,7 +32,8 @@ export default function About() {
           different questions. The <strong>Household Impact</strong> grade
           weights the issues Canadians feel most directly: housing, grocery
           affordability, economic policy response, and fiscal health. The{" "}
-          <strong>Full Policy Audit</strong> weights all 12 dimensions equally.
+          <strong>Full Policy Audit</strong> weights all 11 graded dimensions equally.
+          Promise Delivery is tracked separately as an ungraded accountability tool.
           A government can perform better on statecraft than on affordability.
           We show both.
         </p>

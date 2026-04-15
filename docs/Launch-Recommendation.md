@@ -16,9 +16,9 @@ These are launch-critical. The dashboard should not be promoted publicly until a
 
 **Why:** The corrected March rehearsal confirms removing it changes the headline from C- to D+. Keeping a derivative dimension that inflates the headline by re-counting evidence already scored elsewhere is a known methodological distortion. Publishing with it intact — now that we know the effect — would be indefensible if challenged.
 
-**Headline consequence:** Full Policy Audit moves from C- (GPA 1.70) to D+ (GPA 1.64). This is harsher but more honest. The Household Impact grade (D+, GPA 1.51) is unaffected.
+**Headline consequence:** Full Policy Audit moves from C- (GPA 1.70, 12 dimensions) to C- (GPA 1.65, 11 dimensions). The letter grade holds under the published threshold rule (C- requires ≥ 1.65), but the GPA dropped 0.05 points and now sits exactly on the boundary. The Household Impact grade moves from D+ (GPA 1.51) to D+ (GPA 1.45).
 
-**Communication:** The release must state: "Version 2 of the dashboard uses 11 graded dimensions. Promise Delivery is now tracked as a standalone accountability tool rather than a scored dimension, because its grade movements are derivative of other dimensions. This change reduced the Full Policy Audit headline from C- to D+."
+**Communication:** The release must state: "The dashboard now uses 11 graded dimensions. Promise Delivery is tracked as a standalone accountability tool rather than a scored dimension, because its grade movements are derivative of other dimensions. The Full Policy Audit GPA of 1.65 sits on the C-/D+ boundary; this is disclosed for transparency."
 
 ### 1.2 Promote Defence & Trade sub-scores
 
@@ -132,10 +132,10 @@ This is weaker than a second scorer but defensible if disclosed clearly. It does
 - Household Impact: D+ (GPA 1.51)
 
 **After (launch version):**
-- Full Policy Audit: D+ (GPA ~1.65, 11 dimensions, Ethics and Flagship at whole C instead of C-)
-- Household Impact: D+ (GPA ~1.51, unchanged — Promise Delivery was never pocketbook-weighted)
+- Full Policy Audit: C- (GPA 1.65, 11 dimensions)
+- Household Impact: D+ (GPA 1.45)
 
-**Note:** The headline change from C- to D+ is driven by removing Promise Delivery (C+ was pulling the average up). The Ethics/Flagship adjustment to whole C partially offsets this. The exact GPA should be computed from the final dimension set.
+**Boundary note:** The Full Policy Audit GPA of 1.65 sits exactly on the C-/D+ boundary. Under the published threshold rule (C- requires ≥ 1.65), the grade is C-. This is disclosed because any further deterioration in a single dimension would drop the headline to D+. Ethics and Flagship display as whole-letter C but their GPA contribution remains at the evidence-based C- value (1.7) — display simplification does not provide a free GPA upgrade.
 
 ---
 

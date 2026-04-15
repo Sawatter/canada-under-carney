@@ -88,7 +88,9 @@ export default function Methodology() {
         </p>
         <p style={{ fontSize: "12px", color: "#888" }}>
           <strong>Weighting:</strong> The headline grade is unweighted across all
-          dimensions. The Household Impact grade double-weights Fiscal
+          11 graded dimensions. Promise Delivery is tracked separately
+          as an ungraded accountability tool. The Household Impact grade
+          double-weights Fiscal
           Health, Housing Supply, Affordability Response, and Economic Policy
           Response. Both are
           published; the choice of weighting is an editorial judgment disclosed
