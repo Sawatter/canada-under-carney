@@ -135,10 +135,11 @@ export default function Dashboard() {
         style={{
           display: "flex",
           justifyContent: "center",
-          gap: "16px",
+          gap: "20px",
           marginBottom: "16px",
-          fontSize: "11px",
-          color: "#777",
+          fontSize: "13px",
+          color: "#444",
+          fontWeight: 600,
           flexWrap: "wrap",
         }}
       >
