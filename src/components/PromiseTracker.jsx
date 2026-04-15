@@ -17,6 +17,7 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
       <div style={{ display: "flex", gap: "0", borderBottom: "1px solid #e0e0e0" }}>
         {Object.entries(STATUS_COLORS).map(([status, style]) => {
           const count = promiseCounts[status] || 0;
+          if (count === 0) return null;
           return (
             <div
               key={status}
@@ -25,7 +26,7 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
                 background: style.bg,
                 padding: "12px 8px",
                 textAlign: "center",
-                minWidth: count > 0 ? "60px" : "0",
+                minWidth: "60px",
               }}
             >
               <div
