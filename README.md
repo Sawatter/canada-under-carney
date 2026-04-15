@@ -60,13 +60,14 @@ git add . && git commit && git push  # Deploy (auto-builds)
 
 ## Data Sources
 
-All metrics sourced from official Canadian government data. See [docs/DATA-SOURCES.md](docs/DATA-SOURCES.md) for the complete 20-source monitoring stack.
+Metrics are drawn from official statistics (Statistics Canada, PBO, CMHC, Bank of Canada, IRCC), independent policy analysis, and quality journalism across the political spectrum. See [docs/DATA-SOURCES.md](docs/DATA-SOURCES.md) for the complete 20-source monitoring stack.
 
 ## Built With
 
 - React + Vite, deployed on GitHub Pages
-- Built with Claude Code, peer-reviewed with ChatGPT
-- Fact-checked against 42+ primary source claims
+- Built with AI assistance (Claude Code). Methodology stress-tested through simulated adversarial review.
+- Fact-checked against 42+ primary source claims with documented source manifest.
+- All editorial judgments made by the human editor. AI tools assisted with research, drafting, and QA — they did not make grading decisions.
 - Scoring Rubric v1.1 — [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
 
 ## License
