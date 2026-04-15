@@ -120,10 +120,10 @@
   {
     "id": "climate-environment",
     "name": "Climate & Environment",
-    "grade": "D+",
-    "previousGrade": null,
+    "grade": "D",
+    "previousGrade": "D+",
     "trend": "down",
-    "status": "One of largest environmental policy reversals in Canadian history. No replacement strategy. 2030/2035 targets will be missed.",
+    "status": "One of largest environmental policy reversals in Canadian history. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. Industrial carbon credits trade at ~$20/t despite $95 headline.",
     "metrics": [
       { "label": "Emissions cap", "value": "Suspended", "source": "manual", "automatable": false },
       { "label": "EV mandate", "value": "Repealed", "source": "manual", "automatable": false },
@@ -196,10 +196,10 @@
   {
     "id": "execution-delivery",
     "name": "Execution & Delivery",
-    "grade": "C",
-    "previousGrade": null,
-    "trend": "stable",
-    "status": "Strong on defence/trade. Persistent gap elsewhere. 11 of 26 bills passed. State capacity question unresolved.",
+    "grade": "C-",
+    "previousGrade": "C",
+    "trend": "down",
+    "status": "Strong on defence/trade. Cooperative federalism failing in practice. 40K job cuts while pursuing ambitious agenda. Intergovernmental coordination weak.",
     "metrics": [
       { "label": "Bills introduced", "value": "26", "source": "legisinfo", "automatable": false },
       { "label": "Bills passed", "value": "11 (5 routine)", "source": "legisinfo", "automatable": false },
