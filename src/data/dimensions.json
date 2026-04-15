@@ -1,0 +1,237 @@
+[
+  {
+    "id": "defence-trade",
+    "name": "Defence & Trade",
+    "grade": "A-",
+    "previousGrade": null,
+    "trend": "stable",
+    "status": "NATO 2% met. Trade diversification measurable. Accounting caveats noted.",
+    "metrics": [
+      { "label": "NATO spending", "value": "2.0% of GDP", "source": "nato", "automatable": false },
+      { "label": "US export share", "value": "71.7% (2025 annual)", "source": "statcan", "sourceId": "12-10-0176-01", "automatable": true },
+      { "label": "Non-US exports", "value": "+17.2%", "source": "statcan", "sourceId": "12-10-0176-01", "automatable": true },
+      { "label": "CETA trade", "value": "$134B", "source": "statcan", "sourceId": "12-10-0176-01", "automatable": true }
+    ],
+    "promises": [
+      { "text": "Exceed NATO 2% before 2030", "status": "Delivered", "since": "2026-03-26" },
+      { "text": "Remove interprovincial trade barriers", "status": "Delivered", "since": "2025-06-26" },
+      { "text": "$5B Trade Diversification Corridors Fund", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "Buy Canadian procurement strategy", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "Full foreign policy review (first since 2005)", "status": "Too Early", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "major-projects",
+    "name": "Major Projects",
+    "grade": "C",
+    "previousGrade": null,
+    "trend": "stable",
+    "status": "MPO created with real powers. Credit-claiming exceeds contribution. National interest designation unused.",
+    "metrics": [
+      { "label": "MPO projects referred", "value": "2 tranches", "source": "manual", "automatable": false },
+      { "label": "Headline investment figure", "value": "$116B (mostly pre-existing)", "source": "manual", "automatable": false },
+      { "label": "National interest designation uses", "value": "0", "source": "manual", "automatable": false },
+      { "label": "Bills passed", "value": "Building Canada Act (C-5)", "source": "manual", "automatable": false }
+    ],
+    "promises": [
+      { "text": "Major Federal Project Office with 2-year decisions", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "One Project, One Review within 6 months", "status": "Stalled", "since": "2026-04-14" },
+      { "text": "High-speed rail Windsor\u2013Quebec City", "status": "Too Early", "since": "2026-04-14" },
+      { "text": "$10B Indigenous Loan Guarantee Program", "status": "Delivered", "since": "2025-06-26" }
+    ]
+  },
+  {
+    "id": "fiscal-health",
+    "name": "Fiscal Health",
+    "grade": "D",
+    "previousGrade": null,
+    "trend": "down",
+    "status": "Deficit nearly doubled. No credible medium-term anchor. PBO gives 7.5% chance of meeting targets.",
+    "metrics": [
+      { "label": "Deficit (2025-26)", "value": "$78.3B", "source": "pbo", "automatable": false },
+      { "label": "Net debt", "value": "$1.27T", "source": "statcan", "automatable": false },
+      { "label": "Fitch rating", "value": "AA+ (warning)", "source": "manual", "automatable": false },
+      { "label": "PBO confidence in targets", "value": "7.5%", "source": "pbo", "automatable": false }
+    ],
+    "promises": [
+      { "text": "Balance operational budget in 3 years", "status": "Stalled", "since": "2026-04-14" },
+      { "text": "Reduce civil service by ~40,000", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "Middle class income tax cut", "status": "Delivered", "since": "2025-11-04" },
+      { "text": "Cancel capital gains tax increase", "status": "Delivered", "since": "2025-11-04" }
+    ]
+  },
+  {
+    "id": "gdp-productivity",
+    "name": "GDP & Productivity",
+    "grade": "D",
+    "previousGrade": null,
+    "trend": "down",
+    "status": "Per-capita GDP declining. Business investment flat 4th year. OECD projects Canada last through 2060.",
+    "metrics": [
+      { "label": "GDP per capita change (2020-24)", "value": "-2.0%", "source": "statcan", "sourceId": "36-10-0104-01", "automatable": true },
+      { "label": "OECD per-capita growth rank", "value": "Last of 38", "source": "oecd", "automatable": false },
+      { "label": "Feb 2026 jobs lost", "value": "84,000", "source": "statcan", "sourceId": "14-10-0287-01", "automatable": true },
+      { "label": "R&D spending (% GDP)", "value": "1.81%", "source": "statcan", "sourceId": "27-10-0273-01", "automatable": true }
+    ],
+    "promises": [
+      { "text": "$2B sovereign AI compute strategy", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "Critical minerals: $18.5B across 56 partnerships", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "Red tape review: 60-day department reports", "status": "Too Early", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "grocery-prices",
+    "name": "Grocery Prices",
+    "grade": "D-",
+    "previousGrade": null,
+    "trend": "down",
+    "status": "Prices 30%+ above pre-pandemic. Relief covers <20% of cost increase. Code of Conduct is voluntary.",
+    "metrics": [
+      { "label": "Food CPI (stores, Feb 2026)", "value": "5.4%", "source": "statcan", "sourceId": "18-10-0004-01", "automatable": true },
+      { "label": "Family of 4 food cost (2026)", "value": "$17,572/yr", "source": "dalhousie", "automatable": false },
+      { "label": "Grocery benefit", "value": "~$307/household (incremental)", "source": "pbo", "automatable": false },
+      { "label": "Food insecure Canadians", "value": "~10M", "source": "proof", "automatable": false }
+    ],
+    "promises": [
+      { "text": "Canada Groceries and Essentials Benefit", "status": "Delivered", "since": "2025-11-04" },
+      { "text": "Grocery Code of Conduct", "status": "Delivered", "since": "2026-01-01" },
+      { "text": "Buy Canadian food labelling", "status": "In Progress", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "carbon-tax",
+    "name": "Carbon Tax",
+    "grade": "C",
+    "previousGrade": null,
+    "trend": "stable",
+    "status": "Consumer tax eliminated (real win). Industrial OBPS preserved at $95/t. Scrutiny warranted on policy distinction.",
+    "metrics": [
+      { "label": "Consumer tax", "value": "Eliminated Apr 1, 2025", "source": "manual", "automatable": false },
+      { "label": "Industrial OBPS", "value": "$95/tonne", "source": "manual", "automatable": false },
+      { "label": "PBO carbon GST revenue (7yr)", "value": "$5.7B", "source": "pbo", "automatable": false },
+      { "label": "Small biz share of carbon revenue", "value": "~25-40%", "source": "cfib", "automatable": false }
+    ],
+    "promises": [
+      { "text": "Eliminate consumer carbon tax", "status": "Delivered", "since": "2025-04-01" },
+      { "text": "Preserve industrial carbon pricing", "status": "Delivered", "since": "2025-04-01" },
+      { "text": "Carbon border adjustment mechanism", "status": "Too Early", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "climate-environment",
+    "name": "Climate & Environment",
+    "grade": "D+",
+    "previousGrade": null,
+    "trend": "down",
+    "status": "One of largest environmental policy reversals in Canadian history. No replacement strategy. 2030/2035 targets will be missed.",
+    "metrics": [
+      { "label": "Emissions cap", "value": "Suspended", "source": "manual", "automatable": false },
+      { "label": "EV mandate", "value": "Repealed", "source": "manual", "automatable": false },
+      { "label": "ECCC budget cuts", "value": "$1.3B cumulative", "source": "manual", "automatable": false },
+      { "label": "Low-carbon electricity", "value": "79%", "source": "cer", "automatable": false }
+    ],
+    "promises": [
+      { "text": "East-west electricity grid", "status": "Too Early", "since": "2026-04-14" },
+      { "text": "Conserve biodiversity / freshwater", "status": "Stalled", "since": "2026-04-14" },
+      { "text": "Net-zero commitment", "status": "Stalled", "since": "2026-04-14" },
+      { "text": "2030/2035 climate targets", "status": "Abandoned", "since": "2025-11-27" }
+    ]
+  },
+  {
+    "id": "immigration",
+    "name": "Immigration",
+    "grade": "C+",
+    "previousGrade": null,
+    "trend": "up",
+    "status": "Sharpest contraction in modern history. Necessary correction. Right-sized model undefined.",
+    "metrics": [
+      { "label": "PR target (2026)", "value": "380,000", "source": "ircc", "automatable": true },
+      { "label": "Temp arrivals change", "value": "-53%", "source": "ircc", "automatable": true },
+      { "label": "Student permits change", "value": "-60%", "source": "ircc", "automatable": true },
+      { "label": "Population change (2025)", "value": "-102,436", "source": "statcan", "sourceId": "17-10-0009-01", "automatable": true }
+    ],
+    "promises": [
+      { "text": "PR below 1% of population/year", "status": "Delivered", "since": "2025-11-04" },
+      { "text": "Temp residents below 5% by end of 2027", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "Student/TFW/asylum stream reform", "status": "In Progress", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "housing-supply",
+    "name": "Housing Supply",
+    "grade": "D",
+    "previousGrade": null,
+    "trend": "stable",
+    "status": "4,000 units announced vs. hundreds of thousands needed. Ontario deal is real but scale insufficient.",
+    "metrics": [
+      { "label": "Housing starts (2025)", "value": "259,028", "source": "cmhc", "sourceId": "34-10-0158-01", "automatable": true },
+      { "label": "CMHC annual need", "value": "450,000+/yr", "source": "cmhc", "automatable": false },
+      { "label": "BCH units", "value": "4,000 announced", "source": "manual", "automatable": false },
+      { "label": "Federal spending trajectory", "value": "Declining 56% by 2028-29", "source": "pbo", "automatable": false }
+    ],
+    "promises": [
+      { "text": "500,000 homes/year over next decade", "status": "Stalled", "since": "2026-04-14" },
+      { "text": "Build Canada Homes", "status": "In Progress", "since": "2025-09-14" },
+      { "text": "Canada-Ontario Partnership ($8.8B)", "status": "In Progress", "since": "2026-03-30" },
+      { "text": "Apprenticeship training up to $8,000", "status": "In Progress", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "ethics-transparency",
+    "name": "Ethics & Transparency",
+    "grade": "C-",
+    "previousGrade": null,
+    "trend": "stable",
+    "status": "No proven wrongdoing. Disclosure gap unresolved. Structural conflict warrants independent review.",
+    "metrics": [
+      { "label": "Ethics Commissioner review", "value": "Not published", "source": "manual", "automatable": false },
+      { "label": "Brookfield interests", "value": "Not fully disclosed", "source": "manual", "automatable": false },
+      { "label": "Conflict type", "value": "Perception (minimum)", "source": "manual", "automatable": false }
+    ],
+    "promises": [
+      { "text": "Full financial disclosure", "status": "Stalled", "since": "2026-04-14" },
+      { "text": "Independent Ethics Commissioner review", "status": "Stalled", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "execution-delivery",
+    "name": "Execution & Delivery",
+    "grade": "C",
+    "previousGrade": null,
+    "trend": "stable",
+    "status": "Strong on defence/trade. Persistent gap elsewhere. 11 of 26 bills passed. State capacity question unresolved.",
+    "metrics": [
+      { "label": "Bills introduced", "value": "26", "source": "legisinfo", "automatable": false },
+      { "label": "Bills passed", "value": "11 (5 routine)", "source": "legisinfo", "automatable": false },
+      { "label": "MPO national interest uses", "value": "0", "source": "manual", "automatable": false },
+      { "label": "PBO investment gap", "value": "$94B", "source": "pbo", "automatable": false }
+    ],
+    "promises": [
+      { "text": "2-year project approval timeline", "status": "In Progress", "since": "2026-04-14" },
+      { "text": "Get big projects built quickly", "status": "Stalled", "since": "2026-04-14" }
+    ]
+  },
+  {
+    "id": "promise-delivery",
+    "name": "Promise Delivery",
+    "grade": "C+",
+    "previousGrade": null,
+    "trend": "stable",
+    "status": "Half of Trudeau reversals are genuine corrections. Half are abandoned commitments reframed. Defence/trade delivery real.",
+    "metrics": [
+      { "label": "Genuine corrections", "value": "~7-8 of 15", "source": "manual", "automatable": false },
+      { "label": "Abandoned commitments", "value": "~7-8 of 15", "source": "manual", "automatable": false },
+      { "label": "Housing target", "value": "Scaled back", "source": "manual", "automatable": false },
+      { "label": "Climate commitments", "value": "Largely reversed", "source": "manual", "automatable": false }
+    ],
+    "promises": [
+      { "text": "Consumer carbon tax elimination", "status": "Delivered", "since": "2025-04-01" },
+      { "text": "Capital gains reversal", "status": "Delivered", "since": "2025-11-04" },
+      { "text": "Immigration reduction", "status": "Delivered", "since": "2025-11-04" },
+      { "text": "Interprovincial barrier removal", "status": "Delivered", "since": "2025-06-26" },
+      { "text": "Emissions cap", "status": "Abandoned", "since": "2025-11-27" },
+      { "text": "EV mandate", "status": "Abandoned", "since": "2025-11-27" },
+      { "text": "2 Billion Trees (halved)", "status": "Abandoned", "since": "2025-11-27" }
+    ]
+  }
+]

@@ -1,0 +1,17 @@
+[
+  {
+    "month": "2026-04",
+    "date": "2026-04-14",
+    "summary": "Initial dashboard launch. Baseline grades established from Canada Under Carney report v5.1.",
+    "changes": [
+      {
+        "type": "launch",
+        "text": "Dashboard launched with 12 graded policy dimensions covering March 2025 \u2013 April 2026."
+      },
+      {
+        "type": "event",
+        "text": "Carney wins majority government (174 seats) via 3 byelection wins on April 13, 2026."
+      }
+    ]
+  }
+]
