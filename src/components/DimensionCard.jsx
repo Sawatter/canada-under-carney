@@ -64,8 +64,9 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
           {/* Expand hint */}
           <span
             style={{
-              fontSize: "10px",
-              color: "#bbb",
+              fontSize: "11px",
+              color: "#555",
+              fontWeight: 600,
               transition: "transform 0.2s",
               transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
             }}
