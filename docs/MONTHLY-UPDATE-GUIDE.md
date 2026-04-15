@@ -55,7 +55,7 @@ Open `scripts/output/draft-dimensions.json` in any text editor.
 - **Climate policy status:** Check ECCC announcements
 
 **For grades, trends, and statuses (ALWAYS manual):**
-- Review each dimension against the [Scoring Rubric](Scoring-Rubric-v1.0.md)
+- Review each dimension against the [Scoring Rubric](Scoring-Rubric-v1.1.md)
 - If a grade changes, document: what new evidence triggered it, which rubric criterion applies
 - Update trend arrows (up/stable/down) based on direction of travel
 - Update status summaries if the narrative changed
