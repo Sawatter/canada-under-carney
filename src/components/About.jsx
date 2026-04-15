@@ -66,7 +66,7 @@ export default function About() {
             <li>
               Grade changes require documented evidence and rubric citation
             </li>
-            <li>Automation handles data; humans make grade decisions</li>
+            <li>Every grade is a human editorial judgment supported by documented evidence and a published rubric</li>
           </ul>
         </div>
 

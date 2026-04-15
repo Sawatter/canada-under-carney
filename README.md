@@ -2,7 +2,7 @@
 
 **Live dashboard: [sawatter.github.io/canada-under-carney](https://sawatter.github.io/canada-under-carney/)**
 
-Non-partisan performance dashboard tracking the Carney government across 12 policy dimensions, updated monthly with government data.
+Non-partisan performance dashboard tracking the Carney government across 12 policy dimensions, updated monthly using official statistics, independent policy analysis, and journalism across the political spectrum.
 
 ## Current Grades (April 2026)
 
