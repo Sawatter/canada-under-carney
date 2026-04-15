@@ -142,7 +142,7 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "MPO created with real powers. Credit-claiming exceeds contribution. National interest designation unused.",
-    "rationale": "The Major Projects Office is a real institutional innovation with potentially transformative powers (Building Canada Act, C-5). However, the $116B headline figure primarily represents pre-existing investment decisions. The national interest designation has never been used. The Fraser Institute and Angus Reid both found the government overstated its role. AI investment and northern strategy are too early to judge.",
+    "rationale": "The Major Projects Office is a real institutional innovation with potentially transformative powers (Building Canada Act, C-5). However, the $116B headline figure primarily represents pre-existing investment decisions. The national interest designation has never been used. The Fraser Institute and Angus Reid both found the government overstated its role. AI investment and northern strategy are too early to judge. Note: the credit-claiming penalty modifier (-0.3 GPA) is reflected in the current C grade. Without the penalty, the raw assessment would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
     "sources": [
       {
         "label": "PM second tranche announcement",
@@ -702,7 +702,7 @@
     "grade": "D",
     "previousGrade": "D+",
     "trend": "down",
-    "status": "One of largest environmental policy reversals in Canadian history. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. Industrial carbon credits trade at ~$20/t despite $95 headline.",
+    "status": "One of largest environmental policy reversals in Canadian history. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. See Carbon Pricing Policy for industrial pricing details.",
     "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target. The PM acknowledged targets will be missed. ECCC is losing 840+ positions and $1.3B in budget. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
@@ -825,8 +825,8 @@
     "grade": "C+",
     "previousGrade": null,
     "trend": "up",
-    "status": "Sharpest contraction in modern history. Necessary correction. Right-sized model undefined.",
-    "rationale": "The government executed the sharpest immigration contraction in modern Canadian history. This addresses a real absorption failure — housing, healthcare, and labour market capacity were overwhelmed. However, the correction creates downside risks (healthcare staffing, agriculture, higher ed) and the right-sized long-term model has not been defined. The Toronto Star frames this as cautious stabilization rather than bold reform.",
+    "status": "Sharpest immigration contraction in modern history. Correction is substantial and necessary. Long-term model not yet defined (tracked as next grade trigger).",
+    "rationale": "The government executed the sharpest immigration contraction in modern Canadian history. This addresses a real absorption failure — housing, healthcare, and labour market capacity were overwhelmed. However, the correction creates downside risks (healthcare staffing, agriculture, higher ed) The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than a current grading input. The Toronto Star frames this as cautious stabilization rather than bold reform.",
     "sources": [
       {
         "label": "StatsCan population Q4 2025",
@@ -1055,8 +1055,8 @@
     "grade": "C-",
     "previousGrade": null,
     "trend": "stable",
-    "status": "No proven wrongdoing. Disclosure gap unresolved. Structural conflict warrants independent review.",
-    "rationale": "No public evidence demonstrates self-dealing. The issue is threefold: actual conflict (unproven), structural conflict (career path creates alignment between governing choices and former employer’s interests), and perception conflict (clearly met). Carney held ~$6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch describes the ethics screen as “loophole-filled.” The disclosure standard for a PM with this background should include full public accounting reviewed independently.",
+    "status": "PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved.",
+    "rationale": "No public evidence demonstrates self-dealing. This dimension grades the adequacy of the PM’s ethics framework relative to the novel disclosure requirements of his background. The framework is assessed as a single construct encompassing disclosure completeness, conflict screening, and independent review — not as separate items. Carney held ~$6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch describes the ethics screen as “loophole-filled.” The disclosure standard for a PM with this background should include full public accounting reviewed independently.",
     "sources": [
       {
         "label": "Globe and Mail — ethics filing",
@@ -1236,7 +1236,7 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short. Rhetoric outpaces results in several files.",
-    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files.",
+    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative dimension. Grade movements that are already captured in their home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this grade. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
     "sources": [
       {
         "label": "Fraser Institute — policy corrections",
