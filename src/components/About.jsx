@@ -22,8 +22,10 @@ export default function About() {
         <p style={{ marginBottom: "16px" }}>
           <strong>Canada Under Carney</strong> is a non-partisan performance
           dashboard tracking the federal government across 12 policy dimensions.
-          It is updated monthly using official government data, independent
-          analysis, and a transparent scoring rubric.
+          It is updated monthly using official statistics, independent
+          policy analysis, and quality journalism across the political
+          spectrum. All grading decisions are made by the human editor
+          using a published scoring rubric.
         </p>
         <p style={{ marginBottom: "16px" }}>
           The dashboard publishes two headline grades because they answer two
@@ -53,8 +55,9 @@ export default function About() {
               executed, not what it inherited
             </li>
             <li>
-              All data comes from official sources (Statistics Canada, PBO,
-              CMHC, Bank of Canada, IRCC)
+              Primary data from official statistics (Statistics Canada,
+              PBO, CMHC, Bank of Canada, IRCC), supplemented by
+              independent policy analysis and journalism
             </li>
             <li>
               Commentary sources are balanced across the political spectrum
@@ -135,8 +138,10 @@ export default function About() {
           <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
             CJS Strategy &amp; Ops Inc. &middot; Calgary, Canada
             <br />
-            Dashboard built with Claude Code. Peer-reviewed with ChatGPT.
+            Built with AI assistance (Claude Code). Methodology
+            stress-tested through simulated adversarial review.
             Fact-checked against 42+ primary source claims.
+            All editorial judgments made by the human editor.
             <br />
             Scoring Rubric v1.1 &middot; Open source on{" "}
             <a
