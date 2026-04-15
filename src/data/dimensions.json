@@ -86,6 +86,11 @@
     "perspectives": {
       "critics": "Policy Options: the 3.5% GDP defence target cannot be financed without tax increases or structural deficits. NDP and labour groups: $81.8B for defence while housing, healthcare, and childcare remain underfunded is a priorities failure, not a win.",
       "defenders": "Fraser Institute and NATO allies confirm this is the most significant Canadian defence achievement since the Cold War. Trade diversification is structural and measurable — reducing US dependence from 73% to 67% protects Canada regardless of who governs next."
+    },
+    "tags": {
+      "confidence": "High",
+      "attribution": "Direct",
+      "lag": "Short"
     }
   },
   {
@@ -106,8 +111,8 @@
         "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
       },
       {
-        "label": "Fraser Institute analysis",
-        "url": "https://www.fraserinstitute.org"
+        "label": "Fraser Institute — MPO assessment",
+        "url": "https://www.fraserinstitute.org/article/does-canadas-major-projects-office-actually-do-anything"
       }
     ],
     "lastUpdated": "2026-04-15",
@@ -166,6 +171,11 @@
     "perspectives": {
       "critics": "Angus Reid and Fraser Institute: the $116B headline is mostly pre-existing investment rebranded. The national interest designation has never been used — the MPO's most powerful tool sits on the shelf. Environmental and Indigenous groups: fast-tracking without consent is not progress.",
       "defenders": "The Building Canada Act is genuine institutional reform with bipartisan support. The $10B Indigenous Loan Guarantee is operational. The MPO is less than a year old — judging it on unused powers rather than institutional capacity is premature."
+    },
+    "tags": {
+      "confidence": "Medium",
+      "attribution": "Mixed",
+      "lag": "Long"
     }
   },
   {
@@ -250,6 +260,11 @@
     "perspectives": {
       "critics": "C.D. Howe: every GST dollar now goes to debt servicing. PBO gives 7.5% probability of meeting deficit targets — in any other context that plan gets rejected. The Fitch warning is a real signal. La Presse: the gas tax suspension costs $2.4B the government cannot afford.",
       "defenders": "IMF and IFSD note Canada's debt-to-GDP ratio remains manageable by international standards. Defence spending is strategically necessary during a trade war. The operating/capital budget split is a legitimate framework innovation. Kevin Page: \"There is no fiscal crisis.\""
+    },
+    "tags": {
+      "confidence": "High",
+      "attribution": "Direct",
+      "lag": "Short"
     }
   },
   {
@@ -327,6 +342,11 @@
     "perspectives": {
       "critics": "If Carney is the credibility candidate — the one markets trust — why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD projects Canada dead last through 2060.",
       "defenders": "The AI compute strategy ($2B), critical minerals ($18.5B), and Microsoft's $19B commitment are directionally correct. Productivity is a decade-long structural problem — expecting a 13-month turnaround misunderstands the timeline required."
+    },
+    "tags": {
+      "confidence": "High",
+      "attribution": "Mostly inherited",
+      "lag": "Long"
     }
   },
   {
@@ -402,6 +422,11 @@
     "perspectives": {
       "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design — the government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies.",
       "defenders": "Global food markets, exchange rates, and retaliatory tariffs drive most of the price increase — these are largely outside federal control. The consumer carbon tax elimination was a real cost reduction. The benefit reaches the lowest-income households first."
+    },
+    "tags": {
+      "confidence": "High",
+      "attribution": "Mixed",
+      "lag": "Short"
     }
   },
   {
@@ -476,6 +501,11 @@
     "perspectives": {
       "critics": "Canadian Climate Institute: industrial credits trade at ~$20/tonne despite a $95 headline price — the \"preserved\" system is largely performative. NDP: eliminating the consumer rebate hurt low-income households who received more in rebates than they paid in carbon costs.",
       "defenders": "The consumer tax had become a political liability undermining public support for any climate action. Preserving the industrial system maintains the investment signal for large emitters while removing household burden. Politically and economically defensible."
+    },
+    "tags": {
+      "confidence": "High",
+      "attribution": "Direct",
+      "lag": "Short"
     }
   },
   {
@@ -552,14 +582,19 @@
       },
       {
         "text": "2030/2035 climate targets",
-        "status": "Abandoned",
+        "status": "Stalled",
         "since": "2025-11-27",
-        "evidence": "PM publicly confirmed to Radio-Canada that Canada will miss both targets. CCI projects roughly half of required reduction."
+        "evidence": "PM publicly acknowledged to Radio-Canada that Canada will miss both targets. CCI projects roughly half of required reduction. Targets not formally withdrawn but acknowledged as unachievable under current policy."
       }
     ],
     "perspectives": {
       "critics": "Canadian Climate Institute: Canada is on track for half the required 2030 emissions reduction. PM himself acknowledged targets will be missed. ECCC losing 840+ positions. No replacement strategy exists. National Observer: \"the fight against climate crisis has disappeared from Ottawa's radar.\"",
       "defenders": "The trade-war context is real — maintaining the full climate framework during tariff escalation would have compounded economic pressure. The 30x30 conservation commitment ($3.8B) is genuine. Industrial carbon pricing is preserved. 79% of electricity is already low-carbon."
+    },
+    "tags": {
+      "confidence": "High",
+      "attribution": "Direct",
+      "lag": "Short"
     }
   },
   {
@@ -635,6 +670,11 @@
     "perspectives": {
       "critics": "Toronto Star and healthcare groups: the sharp pullback creates real staffing shortfalls in hospitals, long-term care, and agriculture. Higher education faces revenue collapse. NDP: temporary workers were exploited under the old system — the fix should protect workers, not just cut numbers.",
       "defenders": "The Bank of Canada found the surge suppressed wages by 0.7% and widened the wage gap to -22.6%. Housing and healthcare were overwhelmed. Even the Fraser Institute acknowledges the correction was necessary. Population declined for the first time since Confederation — the pressure valve is working."
+    },
+    "tags": {
+      "confidence": "High",
+      "attribution": "Direct",
+      "lag": "Short"
     }
   },
   {
@@ -720,6 +760,11 @@
     "perspectives": {
       "critics": "NDP: where is the public housing? Build Canada Homes is 3.7% of the shortfall. Federal spending is declining 56% by 2028-29. The Tyee: Vancouver increased housing stock 200% while prices soared — supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
       "defenders": "The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Expert Mike Moffatt called it meaningful. Housing is a shared-jurisdiction problem — the federal government cannot unilaterally override municipal zoning or provincial building codes."
+    },
+    "tags": {
+      "confidence": "Medium",
+      "attribution": "Mixed",
+      "lag": "Long"
     }
   },
   {
@@ -782,6 +827,11 @@
     "perspectives": {
       "critics": "Democracy Watch: the ethics screen is \"loophole-filled.\" Carney held ~$6.8M in unexercised Brookfield options. The structural alignment between his career (TCFD, GFANZ, Brookfield) and preserving industrial carbon pricing is the definition of a perception conflict. Why has this not been resolved proactively?",
       "defenders": "No public evidence demonstrates self-dealing. The frameworks Carney helped build (carbon pricing, ESG disclosure) are mainstream G7 consensus, not one individual's agenda. The industrial carbon system would likely exist under any PM. The Ethics Commissioner has not found wrongdoing."
+    },
+    "tags": {
+      "confidence": "Medium",
+      "attribution": "Direct",
+      "lag": "N/A"
     }
   },
   {
@@ -854,6 +904,11 @@
     "perspectives": {
       "critics": "Policy Options: cooperative federalism is failing — BC's Premier was blindsided by a pipeline deal, Ontario got hours of notice. NDP and PSAC: you cannot cut 40,000 public service positions while pursuing the most ambitious delivery agenda in years. The state literally cannot execute what the government announces.",
       "defenders": "Defence and trade show genuine follow-through — NATO 2%, trade diversification, One Canadian Economy Act. The government has demonstrated it can execute when focused. 11 of 26 bills passed in 13 months under minority conditions. The majority secured April 13 should accelerate the domestic agenda."
+    },
+    "tags": {
+      "confidence": "Medium",
+      "attribution": "Direct",
+      "lag": "Short"
     }
   },
   {
@@ -866,16 +921,16 @@
     "rationale": "About half of the 15 Trudeau-era reversals are substantive corrections supported across the political spectrum (consumer carbon tax, capital gains, immigration, interprovincial barriers). The other half are abandoned climate commitments reframed as pragmatism (emissions cap, EV mandate, tree planting). Defence and trade delivery is real and measurable. Housing targets have been scaled back. The pattern is consistent: ambitious announcements followed by delivery that falls short.",
     "sources": [
       {
-        "label": "Fraser Institute acknowledgment",
-        "url": "https://www.fraserinstitute.org"
+        "label": "Fraser Institute — policy corrections",
+        "url": "https://www.fraserinstitute.org/article/carney-government-takes-some-steps-in-right-direction"
       },
       {
-        "label": "Angus Reid — public opinion split",
-        "url": "https://angusreid.org"
+        "label": "Angus Reid — Carney government report card",
+        "url": "https://angusreid.org/carney-government-report-card/"
       },
       {
-        "label": "The Narwhal — industry wish list alignment",
-        "url": "https://thenarwhal.ca"
+        "label": "The Narwhal — climate rollback analysis",
+        "url": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/"
       }
     ],
     "lastUpdated": "2026-04-15",
@@ -952,6 +1007,11 @@
     "perspectives": {
       "critics": "NDP and environmental groups: the climate rollbacks (emissions cap, EV mandate, tree planting) are abandoned commitments dressed as pragmatism. Several have no connection to trade competitiveness. Housing targets have been quietly scaled back. Rhetoric consistently outpaces results.",
       "defenders": "Fraser Institute acknowledges the consumer carbon tax elimination, capital gains reversal, immigration correction, and interprovincial reform as genuine steps in the right direction. Defence delivery is real and verified by NATO. About half the reversals are supported across the political spectrum."
+    },
+    "tags": {
+      "confidence": "Medium",
+      "attribution": "Direct",
+      "lag": "Short"
     }
   }
 ]

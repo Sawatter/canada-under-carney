@@ -116,6 +116,21 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
             </div>
           )}
 
+          {/* Confidence / Attribution Tags */}
+          {dim.tags && (
+            <div style={{ display: "flex", gap: "6px", marginBottom: "12px", flexWrap: "wrap" }}>
+              <span style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "4px", background: dim.tags.confidence === "High" ? "#e8f5e9" : "#fff8e1", color: dim.tags.confidence === "High" ? "#1b5e20" : "#e65100", fontWeight: 600 }}>
+                {dim.tags.confidence} confidence
+              </span>
+              <span style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "4px", background: dim.tags.attribution === "Direct" ? "#e3f2fd" : dim.tags.attribution === "Mostly inherited" ? "#fce4ec" : "#f3e5f5", color: dim.tags.attribution === "Direct" ? "#0d47a1" : dim.tags.attribution === "Mostly inherited" ? "#880e4f" : "#6a1b9a", fontWeight: 600 }}>
+                {dim.tags.attribution} attribution
+              </span>
+              <span style={{ fontSize: "10px", padding: "2px 8px", borderRadius: "4px", background: "#f5f5f5", color: "#666", fontWeight: 600 }}>
+                {dim.tags.lag === "Short" ? "Moves monthly" : dim.tags.lag === "Long" ? "Moves quarterly+" : "Event-driven"}
+              </span>
+            </div>
+          )}
+
           {/* Key Metrics */}
           <div style={{ marginBottom: "14px" }}>
             <div
