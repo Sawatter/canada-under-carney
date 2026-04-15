@@ -1,12 +1,32 @@
 [
   {
     "month": "2026-04",
-    "date": "2026-04-14",
-    "summary": "Initial dashboard launch. Baseline grades established from Canada Under Carney report v5.1.",
+    "date": "2026-04-15",
+    "summary": "Expanded source review: 6 new sources consulted. Two grades revised. Gas tax suspension added.",
     "changes": [
       {
-        "type": "launch",
-        "text": "Dashboard launched with 12 graded policy dimensions covering March 2025 \u2013 April 2026."
+        "type": "grade_change",
+        "dimensionId": "climate-environment",
+        "from": "D+",
+        "to": "D",
+        "reason": "Canadian Climate Institute finds Canada on track for half of required 2030 reduction. Industrial carbon credits trade at ~$20/t despite $95 headline. ECCC losing 840+ positions. PM acknowledged targets will be missed.",
+        "rubricRef": "D Range: structural trajectory unchanged"
+      },
+      {
+        "type": "grade_change",
+        "dimensionId": "execution-delivery",
+        "from": "C",
+        "to": "C-",
+        "reason": "Policy Options documented cooperative federalism failures. 40K public service cuts while pursuing ambitious delivery agenda. Intergovernmental coordination mechanisms too weak for nation-building agenda.",
+        "rubricRef": "C- Range: effort questionable, measurable impact minimal"
+      },
+      {
+        "type": "event",
+        "text": "Gas tax suspension announced April 14 (same day as majority win). Federal fuel excise suspended Apr 14 \u2013 Sep 7, costing $2.4B in revenue. La Presse: \"une d\u00e9cision insens\u00e9e.\""
+      },
+      {
+        "type": "event",
+        "text": "Source stack expanded: added Canadian Climate Institute, IFSD, IRPP/Policy Options, La Presse, Toronto Star, National Observer, The Conversation Canada."
       },
       {
         "type": "event",

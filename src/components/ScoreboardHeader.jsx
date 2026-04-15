@@ -115,24 +115,34 @@ export default function ScoreboardHeader({
           >
             Promises Delivered
           </div>
-          <div
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "36px",
-              fontWeight: 800,
-              color: "#1a7a3a",
-              lineHeight: 1.2,
-            }}
-          >
-            {promiseCounts["Delivered"] || 0}
-            <span style={{ fontSize: "18px", color: "#999" }}>
-              /{totalPromises}
-            </span>
-          </div>
-          <div style={{ fontSize: "12px", color: "#888", marginTop: "8px" }}>
-            {promiseCounts["Abandoned"] || 0} abandoned &middot;{" "}
-            {promiseCounts["Stalled"] || 0} stalled
-          </div>
+          {(() => {
+            const delivered = promiseCounts["Delivered"] || 0;
+            const pct = totalPromises > 0 ? delivered / totalPromises : 0;
+            // Color: green >60%, amber 30-60%, red <30%
+            const numColor = pct >= 0.6 ? "#1a7a3a" : pct >= 0.3 ? "#e68a00" : "#c62828";
+            return (
+              <>
+                <div
+                  style={{
+                    fontFamily: "'DM Mono', monospace",
+                    fontSize: "36px",
+                    fontWeight: 800,
+                    color: numColor,
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {delivered}
+                  <span style={{ fontSize: "18px", color: "#999" }}>
+                    /{totalPromises}
+                  </span>
+                </div>
+                <div style={{ fontSize: "12px", color: "#888", marginTop: "8px" }}>
+                  {promiseCounts["Abandoned"] || 0} abandoned &middot;{" "}
+                  {promiseCounts["Stalled"] || 0} stalled
+                </div>
+              </>
+            );
+          })()}
         </div>
       </div>
 
