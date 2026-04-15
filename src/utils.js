@@ -9,7 +9,7 @@ export function gpaToGrade(g) {
   if (g >= 2.5)  return "B-";
   if (g >= 2.15) return "C+";
   if (g >= 1.85) return "C";
-  if (g >= 1.5)  return "C-";
+  if (g >= 1.65) return "C-";
   if (g >= 1.15) return "D+";
   if (g >= 0.85) return "D";
   if (g >= 0.35) return "D-";
