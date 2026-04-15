@@ -42,7 +42,7 @@ Non-partisan performance dashboard tracking the Carney government across 12 poli
 We welcome feedback. You can:
 
 1. **Review the dashboard** at [sawatter.github.io/canada-under-carney](https://sawatter.github.io/canada-under-carney/)
-2. **Read the scoring rubric** in the Methodology tab or [docs/Scoring-Rubric-v1.0.md](docs/Scoring-Rubric-v1.0.md)
+2. **Read the scoring rubric** in the Methodology tab or [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
 3. **Submit feedback** via [GitHub Issues](https://github.com/Sawatter/canada-under-carney/issues)
 4. **Run it through your own AI** — paste the dashboard URL into ChatGPT, Claude, or Gemini and ask it to critique the methodology, challenge the grades, or identify missing perspectives
 
@@ -67,7 +67,7 @@ All metrics sourced from official Canadian government data. See [docs/DATA-SOURC
 - React + Vite, deployed on GitHub Pages
 - Built with Claude Code, peer-reviewed with ChatGPT
 - Fact-checked against 42+ primary source claims
-- Scoring Rubric v1.0 — [docs/Scoring-Rubric-v1.0.md](docs/Scoring-Rubric-v1.0.md)
+- Scoring Rubric v1.1 — [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
 
 ## License
 

@@ -29,7 +29,7 @@ export default function About() {
           The dashboard publishes two headline grades because they answer two
           different questions. The <strong>Household Impact</strong> grade
           weights the issues Canadians feel most directly: housing, grocery
-          prices, GDP &amp; productivity, and fiscal health. The{" "}
+          affordability, economic policy response, and fiscal health. The{" "}
           <strong>Full Policy Audit</strong> weights all 12 dimensions equally.
           A government can perform better on statecraft than on affordability.
           We show both.
@@ -138,7 +138,7 @@ export default function About() {
             Dashboard built with Claude Code. Peer-reviewed with ChatGPT.
             Fact-checked against 42+ primary source claims.
             <br />
-            Scoring Rubric v1.0 &middot; Open source on{" "}
+            Scoring Rubric v1.1 &middot; Open source on{" "}
             <a
               href="https://github.com/Sawatter/canada-under-carney"
               target="_blank"
