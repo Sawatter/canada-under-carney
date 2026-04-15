@@ -8,6 +8,7 @@ import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
 import PromiseTracker from "./PromiseTracker";
 import Methodology from "./Methodology";
+import CompareView from "./CompareView";
 import About from "./About";
 
 export default function Dashboard() {
@@ -21,10 +22,15 @@ export default function Dashboard() {
 
   const tabs = [
     { key: "scorecard", label: "Scorecard" },
-    { key: "promises", label: "Promise Tracker" },
-    { key: "methodology", label: "Methodology" },
+    { key: "promises", label: "Promises" },
+    { key: "compare", label: "Compare" },
+    { key: "methodology", label: "Rubric" },
     { key: "about", label: "About" },
   ];
+
+  const handlePrint = () => {
+    window.print();
+  };
 
   return (
     <div
@@ -67,6 +73,23 @@ export default function Dashboard() {
           {meta.coveragePeriod.end.slice(0, 7).replace("-", "/")} &middot;
           Updated {meta.lastUpdated} &middot; v{meta.version}
         </div>
+        {/* Print button */}
+        <button
+          onClick={handlePrint}
+          style={{
+            marginTop: "8px",
+            padding: "6px 16px",
+            fontSize: "11px",
+            color: "#888",
+            background: "transparent",
+            border: "1px solid #ddd",
+            borderRadius: "4px",
+            cursor: "pointer",
+            fontFamily: "'DM Sans', sans-serif",
+          }}
+        >
+          Print / Export PDF
+        </button>
       </div>
 
       {/* Scoreboard header: overall grades + promise count */}
@@ -99,8 +122,8 @@ export default function Dashboard() {
             onClick={() => setView(t.key)}
             style={{
               flex: 1,
-              padding: "10px",
-              fontSize: "13px",
+              padding: "10px 6px",
+              fontSize: "12px",
               fontWeight: view === t.key ? 700 : 500,
               background: view === t.key ? "#fff" : "transparent",
               border: "none",
@@ -144,6 +167,9 @@ export default function Dashboard() {
           totalPromises={totalPromises}
         />
       )}
+
+      {/* Compare View */}
+      {view === "compare" && <CompareView />}
 
       {/* Methodology View */}
       {view === "methodology" && <Methodology />}
