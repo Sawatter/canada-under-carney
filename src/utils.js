@@ -16,16 +16,31 @@ export function gpaToGrade(g) {
   return "F";
 }
 
-// Calculate unweighted GPA across all dimensions
+// Filter to only graded dimensions (excludes Promise Delivery tracker)
+function gradedOnly(dimensions) {
+  return dimensions.filter((d) => !d.excludeFromGPA);
+}
+
+// Get the GPA value for a dimension — uses gpaValue override if present,
+// otherwise falls back to the grade's standard GPA.
+// This allows display grades (e.g., "C" for whole-letter) to differ from
+// scoring values (e.g., 1.7 for evidence-based C-) without a free upgrade.
+function dimGPA(d) {
+  return d.gpaValue != null ? d.gpaValue : GRADES[d.grade].gpa;
+}
+
+// Calculate unweighted GPA across graded dimensions only
 export function calculateOverallGPA(dimensions) {
-  const gpas = dimensions.map((d) => GRADES[d.grade].gpa);
+  const graded = gradedOnly(dimensions);
+  const gpas = graded.map((d) => dimGPA(d));
   return gpas.reduce((a, b) => a + b, 0) / gpas.length;
 }
 
 // Calculate pocketbook-weighted GPA (double-weights household-impact dimensions)
 export function calculatePocketbookGPA(dimensions) {
-  const weighted = dimensions.map((d) => ({
-    gpa: GRADES[d.grade].gpa,
+  const graded = gradedOnly(dimensions);
+  const weighted = graded.map((d) => ({
+    gpa: dimGPA(d),
     weight: POCKETBOOK_DIMS.includes(d.name) ? 2 : 1,
   }));
   const totalWeightedGPA = weighted.reduce((a, b) => a + b.gpa * b.weight, 0);
@@ -33,7 +48,7 @@ export function calculatePocketbookGPA(dimensions) {
   return totalWeightedGPA / totalWeight;
 }
 
-// Count promises by status across all dimensions
+// Count promises by status across all dimensions (including ungraded tracker)
 export function countPromises(dimensions) {
   const all = dimensions.flatMap((d) =>
     d.promises.map((p) => ({ ...p, dimension: d.name }))

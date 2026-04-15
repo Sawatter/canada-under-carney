@@ -133,7 +133,19 @@
       "lag": "Short"
     },
     "nextTrigger": "NATO annual defence spending report (June 2026). CUSMA review (July 2026). Next trade data release.",
-    "inherited": "Canada had not met NATO 2% since the Cold War. Trade was 73% US-dependent. Interprovincial barriers were decades-old."
+    "inherited": "Canada had not met NATO 2% since the Cold War. Trade was 73% US-dependent. Interprovincial barriers were decades-old.",
+    "subScores": {
+      "defence": {
+        "grade": "A",
+        "label": "Defence",
+        "rationale": "NATO 2% met and confirmed by NATO Secretary General Annual Report. $81.8B committed. Procurement advancing."
+      },
+      "trade": {
+        "grade": "B+",
+        "label": "Trade Diversification",
+        "rationale": "US export share down to 71.7% (2025 annual). Non-US exports +17.2% (full-year 2025). January 2026 monthly: -6.5% (volatile, one month)."
+      }
+    }
   },
   {
     "id": "major-projects",
@@ -1052,10 +1064,10 @@
   {
     "id": "ethics-transparency",
     "name": "Ethics & Transparency",
-    "grade": "C-",
-    "previousGrade": null,
+    "grade": "C",
+    "previousGrade": "C-",
     "trend": "stable",
-    "status": "PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved.",
+    "status": "PROBATION. PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved. Whole-letter grade only — plus/minus precision not supported by evidence.",
     "rationale": "No public evidence demonstrates self-dealing. This dimension grades the adequacy of the PM’s ethics framework relative to the novel disclosure requirements of his background. The framework is assessed as a single construct encompassing disclosure completeness, conflict screening, and independent review — not as separate items. Carney held ~$6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch describes the ethics screen as “loophole-filled.” The disclosure standard for a PM with this background should include full public accounting reviewed independently.",
     "sources": [
       {
@@ -1132,15 +1144,16 @@
       "lag": "N/A"
     },
     "nextTrigger": "Ethics Commissioner publication of Brookfield review. Any new disclosure of retained financial interests. House Ethics Committee report.",
-    "inherited": "No prior PM had Carney's specific background in carbon market architecture and transition finance. Novel disclosure challenge without clear precedent."
+    "inherited": "No prior PM had Carney's specific background in carbon market architecture and transition finance. Novel disclosure challenge without clear precedent.",
+    "gpaValue": 1.7
   },
   {
     "id": "execution-delivery",
     "name": "Flagship Delivery",
-    "grade": "C-",
-    "previousGrade": "C",
+    "grade": "C",
+    "previousGrade": "C-",
     "trend": "down",
-    "status": "Measures delivery capacity across 5 flagship files: defence, housing, major projects, climate, and immigration. Strong on defence. Weak on housing and climate. Cooperative federalism failing.",
+    "status": "PROBATION. Measures delivery capacity across 5 flagship files. Strong on defence. Weak on housing and climate. Whole-letter grade only — combination rule determines grade mechanically.",
     "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow — it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions.",
     "sources": [
       {
@@ -1227,7 +1240,8 @@
       "lag": "Short"
     },
     "nextTrigger": "Post-majority legislative pace (bills passed per month). First Ministers Meeting outcomes. April 28 economic update implementation.",
-    "inherited": "Federal delivery capacity had been declining. Procurement timelines among slowest in OECD. Multiple program delivery failures documented in prior government."
+    "inherited": "Federal delivery capacity had been declining. Procurement timelines among slowest in OECD. Multiple program delivery failures documented in prior government.",
+    "gpaValue": 1.7
   },
   {
     "id": "promise-delivery",
@@ -1235,7 +1249,7 @@
     "grade": "C+",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short. Rhetoric outpaces results in several files.",
+    "status": "Standalone accountability tracker. Not included in GPA. Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short.",
     "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative dimension. Grade movements that are already captured in their home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this grade. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
     "sources": [
       {
@@ -1388,6 +1402,7 @@
       "lag": "Short"
     },
     "nextTrigger": "Next major policy announcement or delivery milestone. Housing starts trajectory. Climate replacement strategy if any.",
-    "inherited": "15 major Trudeau-era policies inherited, several already controversial. Election framed as sovereignty referendum, creating specific mandate expectations."
+    "inherited": "15 major Trudeau-era policies inherited, several already controversial. Election framed as sovereignty referendum, creating specific mandate expectations.",
+    "excludeFromGPA": true
   }
 ]
