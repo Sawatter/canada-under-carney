@@ -45,13 +45,15 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
             {dim.previousGrade && (
               <span
                 style={{
-                  fontSize: "10px",
+                  fontSize: "9px",
                   color: "#c62828",
-                  marginLeft: "6px",
+                  marginLeft: "4px",
                   fontWeight: 600,
+                  whiteSpace: "nowrap",
+                  verticalAlign: "middle",
                 }}
               >
-                was {dim.previousGrade}
+                (was {dim.previousGrade})
               </span>
             )}
           </div>
