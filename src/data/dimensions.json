@@ -56,31 +56,71 @@
         "text": "Exceed NATO 2% before 2030",
         "status": "Delivered",
         "since": "2026-03-26",
-        "evidence": "Confirmed by NATO Secretary General annual report. $81.8B committed over five years."
+        "evidence": "Confirmed by NATO Secretary General annual report. $81.8B committed over five years.",
+        "durability": "Target",
+        "history": [
+          {
+            "date": "2026-03-26",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Remove interprovincial trade barriers",
         "status": "Delivered",
         "since": "2025-06-26",
-        "evidence": "One Canadian Economy Act (Bill C-5) received Royal Assent June 26, 2025 with bipartisan support."
+        "evidence": "One Canadian Economy Act (Bill C-5) received Royal Assent June 26, 2025 with bipartisan support.",
+        "durability": "Legislated",
+        "history": [
+          {
+            "date": "2025-06-26",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "$5B Trade Diversification Corridors Fund",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Announced in Budget 2025. Fund structure being designed. No disbursements yet."
+        "evidence": "Announced in Budget 2025. Fund structure being designed. No disbursements yet.",
+        "durability": "Program",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Buy Canadian procurement strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Policy framework announced. Implementation underway across departments."
+        "evidence": "Policy framework announced. Implementation underway across departments.",
+        "durability": "Framework",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Full foreign policy review (first since 2005)",
         "status": "Too Early",
         "since": "2026-04-14",
-        "evidence": "Announced but not yet launched. No timeline confirmed."
+        "evidence": "Announced but not yet launched. No timeline confirmed.",
+        "durability": "Framework",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Too Early",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -91,7 +131,9 @@
       "confidence": "High",
       "attribution": "Direct",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "NATO annual defence spending report (June 2026). CUSMA review (July 2026). Next trade data release.",
+    "inherited": "Canada had not met NATO 2% since the Cold War. Trade was 73% US-dependent. Interprovincial barriers were decades-old."
   },
   {
     "id": "major-projects",
@@ -147,25 +189,57 @@
         "text": "Major Federal Project Office with 2-year decisions",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "MPO created and operational. No project has completed the full 2-year cycle yet."
+        "evidence": "MPO created and operational. No project has completed the full 2-year cycle yet.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "One Project, One Review within 6 months",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "Aspiration stated but regulatory harmonization not yet achieved across agencies."
+        "evidence": "Aspiration stated but regulatory harmonization not yet achieved across agencies.",
+        "durability": "Framework",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "High-speed rail Windsor–Quebec City",
         "status": "Too Early",
         "since": "2026-04-14",
-        "evidence": "Alto concept announced. No construction expected before 2029."
+        "evidence": "Alto concept announced. No construction expected before 2029.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Too Early",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "$10B Indigenous Loan Guarantee Program",
         "status": "Delivered",
         "since": "2025-06-26",
-        "evidence": "Program expanded to $10B. Operational and accepting applications."
+        "evidence": "Program expanded to $10B. Operational and accepting applications.",
+        "durability": "Program",
+        "history": [
+          {
+            "date": "2025-06-26",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -176,7 +250,9 @@
       "confidence": "Medium",
       "attribution": "Mixed",
       "lag": "Long"
-    }
+    },
+    "nextTrigger": "First use of national interest designation. MPO project completion or cancellation. Alto rail feasibility report.",
+    "inherited": "Regulatory assessments routinely exceeded 5 years. Bill C-69 was criticized across the spectrum. Private investment proceeded despite, not because of, the framework."
   },
   {
     "id": "fiscal-health",
@@ -236,25 +312,57 @@
         "text": "Balance operational budget in 3 years",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "No credible path identified. PBO projects 7.5% probability of meeting deficit targets."
+        "evidence": "No credible path identified. PBO projects 7.5% probability of meeting deficit targets.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Reduce civil service by ~40,000",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Spending review announced. Departmental cuts being implemented. Broadbent Institute warns of service delivery impacts."
+        "evidence": "Spending review announced. Departmental cuts being implemented. Broadbent Institute warns of service delivery impacts.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Middle class income tax cut",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "Implemented in Budget 2025."
+        "evidence": "Implemented in Budget 2025.",
+        "durability": "Budget measure",
+        "history": [
+          {
+            "date": "2025-11-04",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Cancel capital gains tax increase",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "Reversed in Budget 2025. Fraser Institute acknowledged as step in right direction."
+        "evidence": "Reversed in Budget 2025. Fraser Institute acknowledged as step in right direction.",
+        "durability": "Budget measure",
+        "history": [
+          {
+            "date": "2025-11-04",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -265,7 +373,9 @@
       "confidence": "High",
       "attribution": "Direct",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "April 28, 2026 economic update from Finance Minister Champagne. PBO spring fiscal outlook. Fitch/Moody's review.",
+    "inherited": "Elevated post-pandemic deficits. Rising debt-servicing costs. Fiscal anchor of reducing debt-to-GDP already abandoned by prior government."
   },
   {
     "id": "gdp-productivity",
@@ -324,19 +434,43 @@
         "text": "$2B sovereign AI compute strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Launched Dec 2024. Microsoft committed C$19B. SCALE AI $128.5M round completed."
+        "evidence": "Launched Dec 2024. Microsoft committed C$19B. SCALE AI $128.5M round completed.",
+        "durability": "Framework",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Critical minerals: $18.5B across 56 partnerships",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "$18.5B across 56 partnerships confirmed. Canada produces 10 of 12 NATO defence-critical minerals."
+        "evidence": "$18.5B across 56 partnerships confirmed. Canada produces 10 of 12 NATO defence-critical minerals.",
+        "durability": "Program",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Red tape review: 60-day department reports",
         "status": "Too Early",
         "since": "2026-04-14",
-        "evidence": "Announced but reports not yet public."
+        "evidence": "Announced but reports not yet public.",
+        "durability": "Framework",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Too Early",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -347,7 +481,9 @@
       "confidence": "High",
       "attribution": "Mostly inherited",
       "lag": "Long"
-    }
+    },
+    "nextTrigger": "March 2026 LFS release. Q1 2026 GDP data. Business investment quarterly report.",
+    "inherited": "GDP per capita declined 2.0% from 2020-2024. Business investment falling since 2006. R&D at half the US rate. Population-driven growth masked per-capita decline for a decade."
   },
   {
     "id": "grocery-prices",
@@ -404,19 +540,43 @@
         "text": "Canada Groceries and Essentials Benefit",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "GST/HST Credit top-up operational. PBO estimates ~$307 incremental per household. Full benefit up to $1,890 for family of four."
+        "evidence": "GST/HST Credit top-up operational. PBO estimates ~$307 incremental per household. Full benefit up to $1,890 for family of four.",
+        "durability": "Budget measure",
+        "history": [
+          {
+            "date": "2025-11-04",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Grocery Code of Conduct",
         "status": "Delivered",
         "since": "2026-01-01",
-        "evidence": "Operational Jan 1, 2026. Voluntary framework. Experts broadly aligned it will not lower retail prices."
+        "evidence": "Operational Jan 1, 2026. Voluntary framework. Experts broadly aligned it will not lower retail prices.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-01-01",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Buy Canadian food labelling",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Policy framework announced. Implementation details pending."
+        "evidence": "Policy framework announced. Implementation details pending.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -427,7 +587,9 @@
       "confidence": "High",
       "attribution": "Mixed",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "Next monthly CPI release (StatsCan). Dalhousie 2027 food price forecast. Competition Bureau grocery investigation update.",
+    "inherited": "Prices already 30%+ above pre-pandemic levels. Highly concentrated retail sector. Competition Bureau investigations underway."
   },
   {
     "id": "carbon-tax",
@@ -483,19 +645,43 @@
         "text": "Eliminate consumer carbon tax",
         "status": "Delivered",
         "since": "2025-04-01",
-        "evidence": "Fuel charge rate set to zero effective April 1, 2025. Signed by PM on March 14, 2025."
+        "evidence": "Fuel charge rate set to zero effective April 1, 2025. Signed by PM on March 14, 2025.",
+        "durability": "Budget measure",
+        "history": [
+          {
+            "date": "2025-04-01",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Preserve industrial carbon pricing",
         "status": "Delivered",
         "since": "2025-04-01",
-        "evidence": "OBPS maintained and extended to 2035 under Made-in-Canada Competitiveness Strategy."
+        "evidence": "OBPS maintained and extended to 2035 under Made-in-Canada Competitiveness Strategy.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2025-04-01",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Carbon border adjustment mechanism",
         "status": "Too Early",
         "since": "2026-04-14",
-        "evidence": "Concept discussed at Davos. No legislation or framework published."
+        "evidence": "Concept discussed at Davos. No legislation or framework published.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Too Early",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -506,7 +692,9 @@
       "confidence": "High",
       "attribution": "Direct",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "OBPS tightening schedule. Carbon border adjustment proposal. CCI next assessment of effective vs headline price.",
+    "inherited": "Consumer fuel charge at $80/tonne, on track for $170 by 2030. Industrial OBPS operating alongside. Both politically and economically contentious."
   },
   {
     "id": "climate-environment",
@@ -566,25 +754,57 @@
         "text": "East-west electricity grid",
         "status": "Too Early",
         "since": "2026-04-14",
-        "evidence": "Concept announced. No construction timeline or funding structure confirmed."
+        "evidence": "Concept announced. No construction timeline or funding structure confirmed.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Too Early",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Conserve biodiversity / freshwater",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "$3.8B recommitted for 30x30 target (March 2026). Marine target will fall short at 28%."
+        "evidence": "$3.8B recommitted for 30x30 target (March 2026). Marine target will fall short at 28%.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Net-zero commitment",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "PM acknowledged 2030 and 2035 targets will be missed. No revised pathway published."
+        "evidence": "PM acknowledged 2030 and 2035 targets will be missed. No revised pathway published.",
+        "durability": "Target",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "2030/2035 climate targets",
         "status": "Stalled",
         "since": "2025-11-27",
-        "evidence": "PM publicly acknowledged to Radio-Canada that Canada will miss both targets. CCI projects roughly half of required reduction. Targets not formally withdrawn but acknowledged as unachievable under current policy."
+        "evidence": "PM publicly acknowledged to Radio-Canada that Canada will miss both targets. CCI projects roughly half of required reduction. Targets not formally withdrawn but acknowledged as unachievable under current policy.",
+        "durability": "Target",
+        "history": [
+          {
+            "date": "2025-11-27",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -595,7 +815,9 @@
       "confidence": "High",
       "attribution": "Direct",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "Government response to CCI February 2026 assessment. Any new climate plan or replacement strategy. ECCC budget execution.",
+    "inherited": "Most comprehensive climate framework in Canadian history, but already off-track on 2030 targets. Trade war creating genuine economic pressure."
   },
   {
     "id": "immigration",
@@ -652,19 +874,43 @@
         "text": "PR below 1% of population/year",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "380,000 PR target for 2026-2028 = ~0.95% of population. Confirmed in November 2025 levels plan."
+        "evidence": "380,000 PR target for 2026-2028 = ~0.95% of population. Confirmed in November 2025 levels plan.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2025-11-04",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Temp residents below 5% by end of 2027",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Non-permanent residents dropped from 3.15M (7.6%) to 2.68M. On track but not yet at 5%."
+        "evidence": "Non-permanent residents dropped from 3.15M (7.6%) to 2.68M. On track but not yet at 5%.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Student/TFW/asylum stream reform",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Student permits down 60%. TFW program tightened. Asylum stream reforms pending."
+        "evidence": "Student permits down 60%. TFW program tightened. Asylum stream reforms pending.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -675,7 +921,9 @@
       "confidence": "High",
       "attribution": "Direct",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "Next quarterly population estimate (StatsCan). IRCC monthly data. Healthcare staffing data showing pullback impact.",
+    "inherited": "Temporary residents peaked at 3.15M (7.6% of population). Housing, healthcare, and labour absorption overwhelmed. Wage suppression documented by Bank of Canada."
   },
   {
     "id": "housing-supply",
@@ -736,25 +984,57 @@
         "text": "500,000 homes/year over next decade",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "259,028 starts in 2025 vs. 450,000+ needed. PBO projects BCH delivers 26,000 units over 5 years (3.7% of shortfall)."
+        "evidence": "259,028 starts in 2025 vs. 450,000+ needed. PBO projects BCH delivers 26,000 units over 5 years (3.7% of shortfall).",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Build Canada Homes",
         "status": "In Progress",
         "since": "2025-09-14",
-        "evidence": "4,000 units announced across 6 sites. Construction not yet underway as of April 2026."
+        "evidence": "4,000 units announced across 6 sites. Construction not yet underway as of April 2026.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2025-09-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Canada-Ontario Partnership ($8.8B)",
         "status": "In Progress",
         "since": "2026-03-30",
-        "evidence": "$8.8B over 10 years. Development charges cut up to 50% for 3 years. HST removed on homes under $1M for 1 year. Expert Mike Moffatt called it a meaningful step."
+        "evidence": "$8.8B over 10 years. Development charges cut up to 50% for 3 years. HST removed on homes under $1M for 1 year. Expert Mike Moffatt called it a meaningful step.",
+        "durability": "Program",
+        "history": [
+          {
+            "date": "2026-03-30",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Apprenticeship training up to $8,000",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Program announced in Budget 2025. Enrollment data not yet available."
+        "evidence": "Program announced in Budget 2025. Enrollment data not yet available.",
+        "durability": "Program",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -765,7 +1045,9 @@
       "confidence": "Medium",
       "attribution": "Mixed",
       "lag": "Long"
-    }
+    },
+    "nextTrigger": "Next CMHC monthly starts release. Build Canada Homes construction commencement. Ontario partnership first results.",
+    "inherited": "430-480K annual starts needed, ~245K actual. Construction insolvencies highest of any sector. Development charges up 1,000% in some municipalities."
   },
   {
     "id": "ethics-transparency",
@@ -815,13 +1097,29 @@
         "text": "Full financial disclosure",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "Ethics screen and blind trust established. Democracy Watch and House Ethics Committee have raised concerns about completeness."
+        "evidence": "Ethics screen and blind trust established. Democracy Watch and House Ethics Committee have raised concerns about completeness.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Independent Ethics Commissioner review",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "No published independent review of the structural conflict between career path and policy decisions."
+        "evidence": "No published independent review of the structural conflict between career path and policy decisions.",
+        "durability": "Framework",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -832,7 +1130,9 @@
       "confidence": "Medium",
       "attribution": "Direct",
       "lag": "N/A"
-    }
+    },
+    "nextTrigger": "Ethics Commissioner publication of Brookfield review. Any new disclosure of retained financial interests. House Ethics Committee report.",
+    "inherited": "No prior PM had Carney's specific background in carbon market architecture and transition finance. Novel disclosure challenge without clear precedent."
   },
   {
     "id": "execution-delivery",
@@ -892,13 +1192,29 @@
         "text": "2-year project approval timeline",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "MPO framework established. No project has completed the full approval cycle yet."
+        "evidence": "MPO framework established. No project has completed the full approval cycle yet.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "In Progress",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Get big projects built quickly",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "National interest designation unused. Most referred projects were already in motion. Federalism coordination gaps documented by Policy Options."
+        "evidence": "National interest designation unused. Most referred projects were already in motion. Federalism coordination gaps documented by Policy Options.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2026-04-14",
+            "status": "Stalled",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -909,7 +1225,9 @@
       "confidence": "Medium",
       "attribution": "Direct",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "Post-majority legislative pace (bills passed per month). First Ministers Meeting outcomes. April 28 economic update implementation.",
+    "inherited": "Federal delivery capacity had been declining. Procurement timelines among slowest in OECD. Multiple program delivery failures documented in prior government."
   },
   {
     "id": "promise-delivery",
@@ -965,43 +1283,99 @@
         "text": "Consumer carbon tax elimination",
         "status": "Delivered",
         "since": "2025-04-01",
-        "evidence": "Day 1 commitment. Fuel charge set to zero April 1, 2025."
+        "evidence": "Day 1 commitment. Fuel charge set to zero April 1, 2025.",
+        "durability": "Budget measure",
+        "history": [
+          {
+            "date": "2025-04-01",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Capital gains reversal",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "Reversed in Budget 2025. Removed disinvestment incentive."
+        "evidence": "Reversed in Budget 2025. Removed disinvestment incentive.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2025-11-04",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Immigration reduction",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "PR targets cut to 380,000. Temp arrivals down 53%. Population declined for first time since Confederation."
+        "evidence": "PR targets cut to 380,000. Temp arrivals down 53%. Population declined for first time since Confederation.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2025-11-04",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Interprovincial barrier removal",
         "status": "Delivered",
         "since": "2025-06-26",
-        "evidence": "One Canadian Economy Act passed with bipartisan support. Genuine structural reform."
+        "evidence": "One Canadian Economy Act passed with bipartisan support. Genuine structural reform.",
+        "durability": "Legislated",
+        "history": [
+          {
+            "date": "2025-06-26",
+            "status": "Delivered",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "Emissions cap",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "Effectively suspended. Guilbeault resigned from cabinet over the pipeline MOU."
+        "evidence": "Effectively suspended. Guilbeault resigned from cabinet over the pipeline MOU.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2025-11-27",
+            "status": "Abandoned",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "EV mandate",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "Repealed. Limited connection to trade competitiveness rationale."
+        "evidence": "Repealed. Limited connection to trade competitiveness rationale.",
+        "durability": "Commitment",
+        "history": [
+          {
+            "date": "2025-11-27",
+            "status": "Abandoned",
+            "note": "Initial assessment"
+          }
+        ]
       },
       {
         "text": "2 Billion Trees (halved)",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "Program halved. Tangential connection to trade-war justification."
+        "evidence": "Program halved. Tangential connection to trade-war justification.",
+        "durability": "Legislated",
+        "history": [
+          {
+            "date": "2025-11-27",
+            "status": "Abandoned",
+            "note": "Initial assessment"
+          }
+        ]
       }
     ],
     "perspectives": {
@@ -1012,6 +1386,8 @@
       "confidence": "Medium",
       "attribution": "Direct",
       "lag": "Short"
-    }
+    },
+    "nextTrigger": "Next major policy announcement or delivery milestone. Housing starts trajectory. Climate replacement strategy if any.",
+    "inherited": "15 major Trudeau-era policies inherited, several already controversial. Election framed as sovereignty referendum, creating specific mandate expectations."
   }
 ]

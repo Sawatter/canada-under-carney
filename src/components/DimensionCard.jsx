@@ -248,6 +248,11 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   >
                     <span style={{ fontSize: "12px", color: "#444", flex: 1 }}>
                       {p.text}
+                      {p.durability && (
+                        <span style={{ fontSize: "9px", color: "#999", marginLeft: "6px", fontStyle: "italic" }}>
+                          {p.durability}
+                        </span>
+                      )}
                     </span>
                     <PromiseTag status={p.status} />
                   </div>
@@ -306,6 +311,30 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                     {s.label} &rarr;
                   </a>
                 ))}
+              </div>
+            </div>
+          )}
+
+          {/* Inherited Baseline */}
+          {dim.inherited && (
+            <div style={{ marginBottom: "14px" }}>
+              <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+                What Was Inherited
+              </div>
+              <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}>
+                {dim.inherited}
+              </div>
+            </div>
+          )}
+
+          {/* Next Evidence Trigger */}
+          {dim.nextTrigger && (
+            <div>
+              <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+                What Would Change This Grade
+              </div>
+              <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}>
+                {dim.nextTrigger}
               </div>
             </div>
           )}
