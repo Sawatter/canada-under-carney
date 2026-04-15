@@ -33,6 +33,6 @@ export const STATUS_COLORS = {
 export const POCKETBOOK_DIMS = [
   "Fiscal Health",
   "Housing Supply",
-  "Grocery Prices",
-  "GDP & Productivity",
+  "Affordability Response",
+  "Economic Policy Response",
 ];

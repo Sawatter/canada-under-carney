@@ -1,26 +1,62 @@
 {
-  "version": "5.3",
+  "version": "5.4",
   "lastUpdated": "2026-04-15",
   "nextUpdate": "2026-05-14",
   "coveragePeriod": {
     "start": "2025-03-14",
     "end": "2026-04-15"
   },
-  "rubricVersion": "1.0",
+  "rubricVersion": "1.1",
   "majorityDate": "2026-04-13",
   "seats": 174,
   "milestones": [
-    { "date": "2025-03-14", "label": "Carney sworn in as PM" },
-    { "date": "2025-03-23", "label": "Parliament dissolved, election called" },
-    { "date": "2025-04-28", "label": "Election: Liberal minority (169 seats)" },
-    { "date": "2025-06-26", "label": "One Canadian Economy Act passed" },
-    { "date": "2025-09-14", "label": "Build Canada Homes announced (6 sites, construction not yet underway)" },
-    { "date": "2025-11-04", "label": "Budget 2025 tabled" },
-    { "date": "2025-11-27", "label": "Alberta pipeline MOU; Guilbeault resigns cabinet" },
-    { "date": "2026-01-20", "label": "Carney Davos speech" },
-    { "date": "2026-03-26", "label": "NATO 2% confirmed" },
-    { "date": "2026-03-30", "label": "Canada-Ontario Housing Partnership" },
-    { "date": "2026-04-13", "label": "Majority government secured (174 seats)" },
-    { "date": "2026-04-14", "label": "Gas tax suspension announced" }
+    {
+      "date": "2025-03-14",
+      "label": "Carney sworn in as PM"
+    },
+    {
+      "date": "2025-03-23",
+      "label": "Parliament dissolved, election called"
+    },
+    {
+      "date": "2025-04-28",
+      "label": "Election: Liberal minority (169 seats)"
+    },
+    {
+      "date": "2025-06-26",
+      "label": "One Canadian Economy Act passed"
+    },
+    {
+      "date": "2025-09-14",
+      "label": "Build Canada Homes announced (6 sites, construction not yet underway)"
+    },
+    {
+      "date": "2025-11-04",
+      "label": "Budget 2025 tabled"
+    },
+    {
+      "date": "2025-11-27",
+      "label": "Alberta pipeline MOU; Guilbeault resigns cabinet"
+    },
+    {
+      "date": "2026-01-20",
+      "label": "Carney Davos speech"
+    },
+    {
+      "date": "2026-03-26",
+      "label": "NATO 2% confirmed"
+    },
+    {
+      "date": "2026-03-30",
+      "label": "Canada-Ontario Housing Partnership"
+    },
+    {
+      "date": "2026-04-13",
+      "label": "Majority government secured (174 seats)"
+    },
+    {
+      "date": "2026-04-14",
+      "label": "Gas tax suspension announced"
+    }
   ]
 }
