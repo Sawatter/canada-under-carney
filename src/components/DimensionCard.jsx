@@ -163,9 +163,23 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   marginBottom: "6px",
                 }}
               >
-                How Different Perspectives See This
+                What Critics and Defenders Say
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div
+                  style={{
+                    fontSize: "11px",
+                    lineHeight: 1.5,
+                    padding: "8px 10px",
+                    background: "#fff3f0",
+                    borderRadius: "6px",
+                    borderLeft: "3px solid #d84315",
+                    color: "#333",
+                  }}
+                >
+                  <strong style={{ color: "#d84315" }}>Critics say:</strong>{" "}
+                  {dim.perspectives.critics}
+                </div>
                 <div
                   style={{
                     fontSize: "11px",
@@ -177,22 +191,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                     color: "#333",
                   }}
                 >
-                  <strong style={{ color: "#1565c0" }}>Right / Centre-right:</strong>{" "}
-                  {dim.perspectives.right}
-                </div>
-                <div
-                  style={{
-                    fontSize: "11px",
-                    lineHeight: 1.5,
-                    padding: "8px 10px",
-                    background: "#fff3f0",
-                    borderRadius: "6px",
-                    borderLeft: "3px solid #c62828",
-                    color: "#333",
-                  }}
-                >
-                  <strong style={{ color: "#c62828" }}>Left / Centre-left:</strong>{" "}
-                  {dim.perspectives.left}
+                  <strong style={{ color: "#1565c0" }}>Defenders say:</strong>{" "}
+                  {dim.perspectives.defenders}
                 </div>
               </div>
             </div>
