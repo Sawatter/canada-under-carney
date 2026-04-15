@@ -1,9 +1,9 @@
 [
   {
     "month": "2026-04",
-    "date": "2026-04-14",
-    "overallGPA": 1.75,
-    "pocketbookGPA": 1.54,
+    "date": "2026-04-15",
+    "overallGPA": 1.70,
+    "pocketbookGPA": 1.51,
     "grades": {
       "defence-trade": "A-",
       "major-projects": "C",
@@ -11,18 +11,19 @@
       "gdp-productivity": "D",
       "grocery-prices": "D-",
       "carbon-tax": "C",
-      "climate-environment": "D+",
+      "climate-environment": "D",
       "immigration": "C+",
       "housing-supply": "D",
       "ethics-transparency": "C-",
-      "execution-delivery": "C",
+      "execution-delivery": "C-",
       "promise-delivery": "C+"
     },
     "promiseCounts": {
       "Delivered": 14,
-      "In Progress": 15,
-      "Stalled": 7,
-      "Abandoned": 3,
+      "In Progress": 13,
+      "Stalled": 8,
+      "Abandoned": 4,
+      "Thwarted": 0,
       "Too Early": 5
     }
   }
