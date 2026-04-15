@@ -457,12 +457,134 @@
 
 10. Flagship Delivery
 
-## Deferred to v2 (decision memos written, shadow tests planned)
+## Provisional — Under v2 Review (scoring sheets document current state only)
 
-11. Promise Delivery (shadow-remove from GPA in May)
-12. Defence & Trade (shadow sub-scores in May)
+---
+
+## 11. Promise Delivery (C+) — PROVISIONAL
+
+> **Current live dimension, but under shadow / v2 review. This sheet documents the current state only and may change if the shadow test is promoted. See v2-Decision-Memo-Promise-Delivery.md for the full case.**
+
+**Construct:** The cumulative rate of fulfillment of specific stated government commitments.
+
+**Type:** Outcome (counts delivered vs. stalled vs. abandoned)
+
+**Attribution:** Federal 85% (these are the government's own promises) · Shared 10% (some promises require provincial cooperation) · External 5% (trade war affected some climate commitments)
+
+**Primary evidence home:** Promise status counts (delivered / in progress / stalled / abandoned / thwarted / unclear / too early)
+
+**Minimum indicators:**
+- Count of commitments by status category
+- Delivery rate (delivered / total)
+- Abandonment rate
+- Pattern analysis (which files deliver, which do not)
+
+**Grade thresholds:**
+| Grade | Threshold |
+|---|---|
+| A | >75% delivered. Abandonments <5%. Delivery pattern broad across files. |
+| B | 50-75% delivered. Abandonments <15%. Most flagship files showing delivery. |
+| C | 25-50% delivered. Mixed pattern. Some files delivering, others stalled or abandoned. |
+| D | <25% delivered. High abandonment rate. Delivery concentrated in 1-2 files only. |
+| F | <10% delivered. Majority abandoned. |
+
+**Modifier rules:**
+- Timing fairness: Applies. Many commitments have multi-year timelines. "Too Early" status exists for this reason.
+- Credit-claiming penalty: Not applicable (this dimension tracks stated commitments, not claimed achievements).
+
+**One-notch move triggers:**
+- Up: Delivery count rises to 18+ of 44 without new abandonments
+- Down: Additional abandonments bring total above 15, OR housing/climate see no movement for another cycle
+
+**Biggest confounder:** This is a derivative dimension. Every promise that delivers or stalls also appears in its home dimension. NATO 2% delivered moves Defence & Trade AND Promise Delivery. Housing scaled back moves Housing Supply AND Promise Delivery. The dimension is not independent — it is a shadow of the other action dimensions.
+
+**Confidence default:** Medium
+
+**Deconfliction rule:** WEAK. This dimension has the worst deconfliction in the framework. Every promise has a primary home elsewhere. Movements already captured in home dimensions should NOT independently drive this grade. This dimension is marked as derivative — it reflects the cumulative pattern, not independent information.
+
+**Rater note:** This dimension is likely leaving the GPA in v2. The Promise Tracker tab already provides the accountability function without contaminating the score. During the shadow test cycle, compute the GPA with and without this dimension. If the difference is <0.15, the removal is validated.
+
+**v2 status:** Shadow-remove from GPA in May 2026 cycle. Decision memo recommends conversion to ungraded Promise Tracker.
+
+---
+
+## 12. Defence & Trade (A-) — PROVISIONAL
+
+> **Current live dimension, but under shadow / v2 review. This sheet documents the current state only and may change if the shadow test is promoted. See v2-Decision-Memo-Defence-Trade.md for the full case.**
+
+**Construct:** The degree to which the federal government has met its stated defence spending commitments and diversified Canada's trade relationships away from single-market dependency.
+
+**Type:** Mixed (defence = action/input on spending; trade = outcome on export diversification)
+
+**Attribution:** Defence: Federal 85% / Shared 10% (NATO rules) / External 5% (geopolitics). Trade: Federal 50% / Shared 20% (provincial trade offices) / External 30% (global demand, exchange rates, US policy).
+
+**Primary evidence home:** NATO spending confirmation, US export share, non-US export growth, CETA utilization
+
+**Minimum indicators:**
+- NATO spending as % GDP (confirmed by NATO, not just domestic claim)
+- US export share (StatsCan 12-10-0176-01)
+- Non-US export growth rate
+- CETA utilization value
+- Defence procurement milestones (DND)
+
+**Grade thresholds:**
+| Grade | Threshold |
+|---|---|
+| A | Defence target sustained 2+ quarters. Trade: non-US share up 5+ points. New agreements ratified. |
+| B | Defence target reached. Trade: non-US share up 1-5 points. Agreements in progress. |
+| C | Defence spending increasing but target not met. Trade: modest diversification. |
+| D | Defence spending flat or declining. Trade: no diversification or regression. |
+| F | Defence cuts. Trade dependence increasing. |
+
+**Shadow sub-scores (to be tested in May 2026):**
+- Defence sub-score: A (NATO 2% met, $81.8B committed, procurement advancing)
+- Trade sub-score: B+ (US share down to 71.7%, non-US +17.2%, partially market-driven)
+- Headline A- = average of sub-scores: (4.0 + 3.3) / 2 = 3.65 → A-
+
+**Modifier rules:**
+- Credit-claiming penalty: Minor. Defence achievement is genuine. Trade diversification is partially market-driven (exchange rates, global demand) but federal trade policy contributed.
+- External constraint (+0.3): Trade diversification is partly driven by the trade war itself (forced diversification). This is a confounder — the external constraint simultaneously creates the problem and drives the improvement.
+
+**One-notch move triggers:**
+- Down: NATO spending falls below 2.0%, OR US export share reverses above 73%
+- Up: 3.5% target gets a funded pathway, OR US share drops below 68%
+
+**Biggest confounder:** Two fundamentally different constructs in one grade. Defence is a binary milestone (met/not met) with high federal attribution. Trade is a continuous outcome with heavy external dependence. The A- currently reflects mostly the defence achievement. If trade regresses while defence holds, the grade would hide the regression.
+
+**Confidence default:** High (defence) / Medium (trade). Blended: High.
+
+**Deconfliction rule:** Defence is clean — nothing else grades it. Trade diversification partially overlaps with Economic Policy Response (interprovincial trade, Buy Canadian). Trade metrics are primary-homed HERE. Economic Policy Response may reference trade context but cannot grade-credit export diversification.
+
+**Rater note:** Defence is the anchor. Trade is the modifier. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch for the decision gate: if sub-scores diverge by >1.0 GPA for 2 consecutive cycles, trigger the full split.
+
+**v2 status:** Shadow sub-scoring in May 2026 cycle. Decision memo recommends keeping combined with explicit sub-scores. Full split only if divergence gate triggered.
+
+---
+
+# COMPLETE SUMMARY — ALL 12 DIMENSIONS
+
+## Stable live (9 dimensions)
+
+1. Fiscal Health — D
+2. Housing Supply — D
+3. Major Projects — C
+4. Immigration — C+
+5. Climate & Environment — D
+6. Affordability Response — D-
+7. Economic Policy Response — D
+8. Carbon Pricing Policy — C
+9. Ethics & Transparency — C-
+
+## Probationary (1 dimension)
+
+10. Flagship Delivery — C-
+
+## Provisional, under v2 review (2 dimensions)
+
+11. Promise Delivery — C+ *(likely leaving GPA)*
+12. Defence & Trade — A- *(likely gaining sub-scores)*
 
 ---
 
 *Canonical Scoring Sheets v1.0 — April 2026*
-*This document is the single reference for all grading decisions.*
+*All 12 dimensions documented. This is the single reference for all grading decisions.*
