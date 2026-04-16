@@ -5,11 +5,15 @@
     "grade": "A-",
     "previousGrade": null,
     "trend": "stable",
-    "status": "NATO 2% met. Trade diversification measurable. Accounting caveats noted.",
-    "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline. Trade diversification produced measurable results. The A- rather than A reflects accounting caveats (Coast Guard reclassification) and Canada placing in NATO's bottom third at exactly 2.0%. Policy Options flags the 3.5% GDP defence target is unfunded long-term.",
+    "status": "NATO 2.01% met. Trade diversification measurable: US share fell from 75.9% to 71.7%.",
+    "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline — NATO confirmed all allies met the 2% target for the first time in 2025 (Canada at 2.01% per NATO expenditure tables). Trade diversification produced measurable results: US export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s; non-US goods exports rose 17.2% to an all-time high (Global Affairs Canada). The A- rather than A reflects Canada meeting but not materially exceeding the 2% floor. Policy Options flags the 3.5% GDP defence target is unfunded long-term.",
     "sources": [
       {
-        "label": "NATO confirmation",
+        "label": "NATO Secretary General Annual Report 2025",
+        "url": "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada"
+      },
+      {
+        "label": "PMO NATO 2% announcement",
         "url": "https://www.pm.gc.ca/en/news/news-releases/2026/03/26/prime-minister-carney-announces-canada-has-achieved-nato-2-defence"
       },
       {
@@ -19,35 +23,42 @@
       {
         "label": "StatsCan trade data",
         "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
+      },
+      {
+        "label": "Global Affairs Canada Monthly Trade Report (December 2025)",
+        "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12"
       }
     ],
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "NATO spending",
-        "value": "2.0% of GDP",
+        "label": "NATO spending (2025e)",
+        "value": "2.01% of GDP",
         "source": "nato",
+        "sourceNote": "NATO Defence Expenditures of NATO Countries (2014-2025), Table 3 (p.8) and Table 4 (p.9): Canada 2025e = 2.01% of GDP. Verified from Tier 1 PDF: nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf",
         "automatable": false
       },
       {
-        "label": "US export share",
-        "value": "71.7% (2025 annual)",
-        "source": "statcan",
+        "label": "US export share (2025 annual)",
+        "value": "71.7%",
+        "source": "global-affairs-canada",
         "sourceId": "12-10-0176-01",
+        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: 'the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025 compared to 2024, the lowest share since the early 1980s.' Based on StatsCan 12-10-0176-01.",
         "automatable": true
       },
       {
-        "label": "Non-US exports",
+        "label": "Non-US exports (2025 annual)",
         "value": "+17.2%",
-        "source": "statcan",
+        "source": "global-affairs-canada",
         "sourceId": "12-10-0176-01",
+        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: 'annual goods exports to non-U.S. countries rose 17.2% to an all-time high.' Based on StatsCan 12-10-0176-01.",
         "automatable": true
       },
       {
-        "label": "CETA trade",
-        "value": "$134B",
-        "source": "statcan",
-        "sourceId": "12-10-0176-01",
+        "label": "EU exports growth (2025 YTD)",
+        "value": "+23.4%",
+        "source": "global-affairs-canada",
+        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: EU goods exports +23.4% year-to-date. Substituted for prior unverified '$134B CETA trade' figure in March 2026 cycle. Canonical-Scoring-Sheets.md and Pilot-Templates.md updated to reflect this substitution.",
         "automatable": true
       }
     ],
@@ -125,7 +136,7 @@
     ],
     "perspectives": {
       "critics": "Policy Options: the 3.5% GDP defence target cannot be financed without tax increases or structural deficits. NDP and labour groups: $81.8B for defence while housing, healthcare, and childcare remain underfunded is a priorities failure, not a win.",
-      "defenders": "Fraser Institute and NATO allies confirm this is the most significant Canadian defence achievement since the Cold War. Trade diversification is structural and measurable — reducing US dependence from 73% to 67% protects Canada regardless of who governs next."
+      "defenders": "Fraser Institute and NATO allies confirm this is the most significant Canadian defence achievement since the Cold War. Trade diversification is measurable: US export share fell from 75.9% (2024) to 71.7% (2025), and non-US goods exports rose 17.2% to an all-time high (Global Affairs Canada)."
     },
     "tags": {
       "confidence": "High",
@@ -133,7 +144,7 @@
       "lag": "Short"
     },
     "nextTrigger": "NATO annual defence spending report (June 2026). CUSMA review (July 2026). Next trade data release.",
-    "inherited": "Canada had not met NATO 2% since the Cold War. Trade was 73% US-dependent. Interprovincial barriers were decades-old.",
+    "inherited": "Canada had not met NATO 2% since the Cold War. Trade was 75.9% US-dependent in 2024 (Global Affairs Canada, December 2025 Monthly Trade Report). Interprovincial barriers were decades-old.",
     "subScores": {
       "defence": {
         "grade": "A",
@@ -143,7 +154,7 @@
       "trade": {
         "grade": "B+",
         "label": "Trade Diversification",
-        "rationale": "US export share down to 71.7% (2025 annual). Non-US exports +17.2% (full-year 2025). January 2026 monthly: -6.5% (volatile, one month)."
+        "rationale": "US export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s (Global Affairs Canada, December 2025 report). Non-US goods exports rose 17.2% to an all-time high. EU exports up 23.4% YTD. January 2026 monthly showed weakness (-6.5%) but single-month data is volatile."
       }
     }
   },
@@ -172,27 +183,31 @@
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "MPO projects referred",
-        "value": "2 tranches",
+        "label": "MPO project tranches announced",
+        "value": "2",
         "source": "manual",
+        "sourceNote": "Two tranches of nation-building projects referred to the Major Projects Office. Source: PMO announcements (see dimension sources). Specific project lists are in the PMO releases.",
         "automatable": false
       },
       {
-        "label": "Headline investment figure",
+        "label": "Headline investment figure (government-announced)",
         "value": "$116B (mostly pre-existing)",
-        "source": "manual",
+        "source": "pmo",
+        "sourceNote": "PMO nation-building project announcements (see dimension sources). $116B is the government's stated total across both tranches. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing investment decisions — qualifier 'mostly pre-existing' reflects their assessment.",
         "automatable": false
       },
       {
         "label": "National interest designation uses",
         "value": "0",
-        "source": "manual",
+        "source": "legisinfo",
+        "sourceNote": "Building Canada Act grants the national interest designation power. As of March 2026, it has not been used. Source: no designation orders found in LEGISinfo or government announcements.",
         "automatable": false
       },
       {
         "label": "Bills passed",
         "value": "Building Canada Act (C-5)",
-        "source": "manual",
+        "source": "legisinfo",
+        "sourceNote": "LEGISinfo (parl.ca/legisinfo): Building Canada Act (Bill C-5) passed. Source URL in dimension sources array.",
         "automatable": false
       }
     ],
@@ -272,8 +287,8 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
-    "status": "Deficit nearly doubled. No credible medium-term anchor. PBO gives 7.5% chance of meeting targets.",
-    "rationale": "The deficit of $78.3B nearly doubled from the prior year. Fitch issued a renewed warning on AA+ rating. The PBO gives only 7.5% probability the deficit-to-GDP ratio will decline as projected. Defence spending is strategically justified, but the broader fiscal package lacks a credible anchor. GST revenue ($54.4B) is now exceeded by debt servicing ($55.6B). IMF/IFSD note current debt levels are manageable, but the trajectory given defence + capital commitments is unsustainable without tax increases.",
+    "status": "Deficit $78.3B projected. No credible medium-term anchor. PBO gives 7.5% chance of meeting targets.",
+    "rationale": "The projected deficit of $78.3B (FY 2025-26, Budget 2025 Annex 1) represents a substantial increase from the prior year. Fitch maintained its AA+ rating with a stable outlook after Budget 2025 but warned that persistent fiscal expansion could increase rating pressure over the medium term. The PBO gives only 7.5% probability the deficit-to-GDP ratio will decline as projected. Defence spending is strategically justified, but the broader fiscal package lacks a credible anchor. GST revenue ($54.4B) is now exceeded by debt servicing ($55.6B) — both figures verified from Budget 2025 Annex 1. IMF/IFSD note current debt levels are manageable, but the trajectory given defence + capital commitments is unsustainable without tax increases.",
     "sources": [
       {
         "label": "Budget 2025",
@@ -288,6 +303,10 @@
         "url": "https://cdhowe.org/publication/fiscal-fantasies-four-incredible-projections-in-the-november-2025-federal-budget/"
       },
       {
+        "label": "Annual Financial Report FY 2024-25",
+        "url": "https://www.canada.ca/en/department-finance/services/publications/annual-financial-report/2025.html"
+      },
+      {
         "label": "IMF Article IV (Jan 2026)",
         "url": "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340/"
       }
@@ -295,21 +314,24 @@
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "Deficit (2025-26)",
+        "label": "Deficit (FY 2025-26, projected)",
         "value": "$78.3B",
-        "source": "pbo",
+        "source": "finance-canada",
+        "sourceNote": "Budget 2025 Annex 1, Table A1.7: budgetary balance -$78.3 billion. This is a budget projection, not an actual outturn.",
         "automatable": false
       },
       {
-        "label": "Net debt",
+        "label": "Federal debt (2024-25)",
         "value": "$1.27T",
-        "source": "statcan",
+        "source": "finance-canada",
+        "sourceNote": "Federal debt (accumulated deficit) $1,266.5B per Annual Financial Report FY 2024-25. Note: Budget 2025 'net debt' (different concept, includes non-financial assets) is $1,480.4B for FY 2025-26.",
         "automatable": false
       },
       {
         "label": "Fitch rating",
-        "value": "AA+ (warning)",
+        "value": "AA+ (stable outlook, fiscal concerns noted)",
         "source": "manual",
+        "sourceNote": "Fitch maintained AA+/stable after Budget 2025 (Nov 2025). Fitch warned that persistent fiscal expansion and rising debt burden 'could increase rating pressure over the medium term' but did not change the outlook to negative. Sources: The Deep Dive (thedeepdive.ca/liberal-victory-triggers-fiscal-warning-from-fitch), Yahoo Finance Canada (ca.finance.yahoo.com/news/heres-only-credit-rating-agency-123856595.html). Event-driven — next check on any Fitch action or statement.",
         "automatable": false
       },
       {
@@ -378,7 +400,7 @@
       }
     ],
     "perspectives": {
-      "critics": "C.D. Howe: every GST dollar now goes to debt servicing. PBO gives 7.5% probability of meeting deficit targets — in any other context that plan gets rejected. The Fitch warning is a real signal. La Presse: the gas tax suspension costs $2.4B the government cannot afford.",
+      "critics": "C.D. Howe: every GST dollar now goes to debt servicing. PBO gives 7.5% probability of meeting deficit targets — in any other context that plan gets rejected. Fitch maintained AA+ but warned persistent deficits could increase rating pressure. La Presse: the gas tax suspension costs $2.4B the government cannot afford.",
       "defenders": "IMF and IFSD note Canada's debt-to-GDP ratio remains manageable by international standards. Defence spending is strategically necessary during a trade war. The operating/capital budget split is a legitimate framework innovation. Kevin Page: \"There is no fiscal crisis.\""
     },
     "tags": {
@@ -396,7 +418,7 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Structural productivity crisis inherited. AI and minerals investments directionally correct but business investment flat. Grade reflects policy response and trajectory, not inherited conditions.",
-    "rationale": "This dimension grades the government's policy response to Canada's structural productivity and competitiveness challenges — not the inherited GDP per capita level, which reflects a decade of underinvestment. The AI compute strategy ($2B), critical minerals push ($18.5B), and interprovincial reform are directionally correct. But business investment remains flat for a fourth year, specific barriers (permitting, tax rates, electricity costs) remain unresolved, and the OECD projects Canada last among 38 members. The grade reflects whether the policy direction and scale are adequate to change the trajectory, recognizing that outcomes will take years to materialize.",
+    "rationale": "This dimension grades the government's policy response to Canada's structural productivity and competitiveness challenges — not the inherited GDP per capita level, which reflects a decade of underinvestment. The AI compute strategy ($2B), critical minerals push (government states $18.5B across 56 partnerships), and interprovincial reform are directionally correct. But business investment remains flat for a fourth year, specific barriers (permitting, tax rates, electricity costs) remain unresolved, and OECD long-term projections rank Canada last among 38 members for per-capita growth. The grade reflects whether the policy direction and scale are adequate to change the trajectory, recognizing that outcomes will take years to materialize.",
     "sources": [
       {
         "label": "Fraser Institute — Ugly Growth",
@@ -421,9 +443,10 @@
         "automatable": true
       },
       {
-        "label": "OECD per-capita growth rank",
+        "label": "OECD per-capita growth rank (2020-2030 forecast)",
         "value": "Last of 38",
         "source": "oecd",
+        "sourceNote": "OECD long-term baseline projections (underlying data via OECD Economic Outlook): Canada's real GDP per capita forecast to grow 0.7%/yr 2020-2030, lowest of 38 OECD members (tied with Italy). 0.8%/yr 2030-2060, remaining near bottom. Analyses: Fraser Institute (fraserinstitute.org/studies/were-getting-poorer-gdp-per-capita-in-canada-and-oecd-2002-2060); BCBC (bcbc.com/insight/oecd-predicts-canada-will-be-the-worst-performing-advanced-economy). Note: ranking is 'last or near-last' depending on exact vintage of OECD projections used; tied with Italy in some versions.",
         "automatable": false
       },
       {
@@ -457,10 +480,10 @@
         ]
       },
       {
-        "text": "Critical minerals: $18.5B across 56 partnerships",
+        "text": "Critical minerals strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "$18.5B across 56 partnerships confirmed. Canada produces 10 of 12 NATO defence-critical minerals.",
+        "evidence": "NRCan Critical Minerals Production Alliance: $18.5B mobilized across Canadian critical minerals projects (NRCan announcements March/October 2025, canada.ca). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. Canada produces 10 of 12 NATO defence-critical minerals.",
         "durability": "Program",
         "history": [
           {
@@ -486,7 +509,7 @@
       }
     ],
     "perspectives": {
-      "critics": "If Carney is the credibility candidate — the one markets trust — why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD projects Canada dead last through 2060.",
+      "critics": "If Carney is the credibility candidate — the one markets trust — why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060 (Fraser Institute / BCBC analysis of OECD data).",
       "defenders": "The AI compute strategy ($2B), critical minerals ($18.5B), and Microsoft's $19B commitment are directionally correct. Productivity is a decade-long structural problem — expecting a 13-month turnaround misunderstands the timeline required."
     },
     "tags": {
@@ -507,8 +530,8 @@
     "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure — not the price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
     "sources": [
       {
-        "label": "StatsCan CPI Dec 2025",
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260119/dq260119a-eng.htm"
+        "label": "StatsCan CPI Feb 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260316/dq260316a-eng.htm"
       },
       {
         "label": "Dalhousie Food Price Report",
@@ -522,10 +545,11 @@
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "Food CPI (stores, Feb 2026)",
-        "value": "5.4%",
+        "label": "Food CPI (stores, YoY, Feb 2026)",
+        "value": "4.1%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
+        "sourceNote": "StatsCan CPI daily release, March 16, 2026: 'Food purchased from stores rose 4.1% in February following a 4.8% increase in January.' Prior dashboard value of 5.4% was incorrect — corrected to match verified source.",
         "automatable": true
       },
       {
@@ -628,15 +652,17 @@
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "Consumer tax",
+        "label": "Consumer carbon tax",
         "value": "Eliminated Apr 1, 2025",
-        "source": "manual",
+        "source": "finance-canada",
+        "sourceNote": "Finance Canada: fuel charge rate set to zero effective April 1, 2025. Source: canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
         "automatable": false
       },
       {
-        "label": "Industrial OBPS",
+        "label": "Industrial OBPS (headline rate)",
         "value": "$95/tonne",
-        "source": "manual",
+        "source": "eccc",
+        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $95/tCO2e in 2025, increasing $15/yr to $170 by 2030. Note: CCI found effective credit trading price is significantly lower (~$20/t) due to market oversupply. Headline and effective rates are different measures — dashboard shows headline; rationale discusses the gap.",
         "automatable": false
       },
       {
@@ -714,8 +740,8 @@
     "grade": "D",
     "previousGrade": "D+",
     "trend": "down",
-    "status": "One of largest environmental policy reversals in Canadian history. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. See Carbon Pricing Policy for industrial pricing details.",
-    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target. The PM acknowledged targets will be missed. ECCC is losing 840+ positions and $1.3B in budget. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
+    "status": "Major environmental policy reversals. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. See Carbon Pricing Policy for industrial pricing details.",
+    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
         "label": "CCI — Canada off course",
@@ -732,6 +758,10 @@
       {
         "label": "ECCC Arctic science cuts",
         "url": "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606"
+      },
+      {
+        "label": "CBC — ECCC job and budget cuts",
+        "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
       }
     ],
     "lastUpdated": "2026-04-15",
@@ -739,19 +769,22 @@
       {
         "label": "Emissions cap",
         "value": "Suspended",
-        "source": "manual",
+        "source": "eccc",
+        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment and CCI analysis. Source: climateinstitute.ca/news/canada-off-course-for-climate-targets/",
         "automatable": false
       },
       {
         "label": "EV mandate",
         "value": "Repealed",
-        "source": "manual",
+        "source": "eccc",
+        "sourceNote": "Zero-emission vehicle mandate repealed November 2025. Event-driven policy reversal documented by CCI and media.",
         "automatable": false
       },
       {
-        "label": "ECCC budget cuts",
+        "label": "ECCC budget cuts (to 2030)",
         "value": "$1.3B cumulative",
-        "source": "manual",
+        "source": "eccc",
+        "sourceNote": "ECCC 2025-26 Departmental Plan and media analysis: reductions of $43M (2024-25), $63M (2025-26), $91M/yr from 2026-27, totaling ~$1.3B by 2030. Approximately 840 FTE positions to be cut (~10% of workforce). Sources: The Conversation (theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606); CBC Radio (cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623).",
         "automatable": false
       },
       {
@@ -829,7 +862,7 @@
       "lag": "Short"
     },
     "nextTrigger": "Government response to CCI February 2026 assessment. Any new climate plan or replacement strategy. ECCC budget execution.",
-    "inherited": "Most comprehensive climate framework in Canadian history, but already off-track on 2030 targets. Trade war creating genuine economic pressure."
+    "inherited": "Broad climate policy framework inherited (emissions cap, EV mandate, carbon pricing, conservation), but already off-track on 2030 targets. Trade war creating genuine economic pressure."
   },
   {
     "id": "immigration",
@@ -837,8 +870,8 @@
     "grade": "C+",
     "previousGrade": null,
     "trend": "up",
-    "status": "Sharpest immigration contraction in modern history. Correction is substantial and necessary. Long-term model not yet defined (tracked as next grade trigger).",
-    "rationale": "The government executed the sharpest immigration contraction in modern Canadian history. This addresses a real absorption failure — housing, healthcare, and labour market capacity were overwhelmed. However, the correction creates downside risks (healthcare staffing, agriculture, higher ed) The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than a current grading input. The Toronto Star frames this as cautious stabilization rather than bold reform.",
+    "status": "Sharp immigration contraction. Correction is substantial and necessary. Long-term model not yet defined (tracked as next grade trigger).",
+    "rationale": "The government executed a sharp immigration contraction — the largest reduction in temporary resident intake in recent decades (IRCC data: -53% in new arrivals, Jan-Sep 2025 vs 2024). This addresses a real absorption failure — housing, healthcare, and labour market capacity were overwhelmed. However, the correction creates downside risks (healthcare staffing, agriculture, higher ed). The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than a current grading input. The Toronto Star frames this as cautious stabilization rather than bold reform.",
     "sources": [
       {
         "label": "StatsCan population Q4 2025",
@@ -856,21 +889,24 @@
     "lastUpdated": "2026-04-15",
     "metrics": [
       {
-        "label": "PR target (2026)",
+        "label": "PR target (2026-2028)",
         "value": "380,000",
         "source": "ircc",
+        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review — all citing 380,000.",
         "automatable": true
       },
       {
-        "label": "Temp arrivals change",
+        "label": "Temp arrivals change (Jan-Sep 2025 vs 2024)",
         "value": "-53%",
         "source": "ircc",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal: open.canada.ca/data/en/dataset/360024f2 (work permits) and /90115b00 (study permits). Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 — the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
         "automatable": true
       },
       {
-        "label": "Student permits change",
+        "label": "Student permits change (Jan-Sep 2025 vs 2024)",
         "value": "-60%",
         "source": "ircc",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 60% decline in new international student arrivals, Jan-Sep 2025 vs same period 2024 (150,220 fewer students). IRCC open data portal: open.canada.ca/data/en/dataset/90115b00. Note: IRCC open data shows 76% decline for Jan-Jun period specifically; the 60% figure covers the longer Jan-Sep window.",
         "automatable": true
       },
       {
@@ -886,7 +922,7 @@
         "text": "PR below 1% of population/year",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "380,000 PR target for 2026-2028 = ~0.95% of population. Confirmed in November 2025 levels plan.",
+        "evidence": "380,000 PR target for 2026-2028 (per IRCC levels plan, November 2025). IRCC source page could not be directly verified in baseline pass — figure widely reported but primary URL returned 403.",
         "durability": "Commitment",
         "history": [
           {
@@ -927,7 +963,7 @@
     ],
     "perspectives": {
       "critics": "Toronto Star and healthcare groups: the sharp pullback creates real staffing shortfalls in hospitals, long-term care, and agriculture. Higher education faces revenue collapse. NDP: temporary workers were exploited under the old system — the fix should protect workers, not just cut numbers.",
-      "defenders": "The Bank of Canada found the surge suppressed wages by 0.7% and widened the wage gap to -22.6%. Housing and healthcare were overwhelmed. Even the Fraser Institute acknowledges the correction was necessary. Population declined for the first time since Confederation — the pressure valve is working."
+      "defenders": "The Bank of Canada found the surge suppressed wages by 0.7% and widened the wage gap to -22.6%. Housing and healthcare were overwhelmed. Even the Fraser Institute acknowledges the correction was necessary. StatsCan reports population declined by 102,436 in 2025 (preliminary) — the pressure valve is working."
     },
     "tags": {
       "confidence": "High",
@@ -944,7 +980,7 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "4,000 units announced vs. hundreds of thousands needed. Ontario deal is real but scale insufficient.",
-    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units (construction not yet underway) against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. Federal housing spending declines 56% by 2028-29. This is leaning toward a proved failure, not merely too early to judge. Policy Options notes supply alone won’t solve the structural affordability problem.",
+    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units (construction not yet underway) against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. Federal housing spending declines 56% by 2028-29 — from $9.8B to $4.3B (PBO, December 2025). This is leaning toward a proved failure, not merely too early to judge. Policy Options notes supply alone won’t solve the structural affordability problem.",
     "sources": [
       {
         "label": "PBO — BCH 26,000 units",
@@ -974,20 +1010,23 @@
       },
       {
         "label": "CMHC annual need",
-        "value": "450,000+/yr",
+        "value": "430,000-480,000/yr",
         "source": "cmhc",
+        "sourceNote": "CMHC 'Canada's Housing Supply Shortages' series: 3.45 million additional units needed. Annual construction need: 430,000-480,000 units by 2035 to restore affordability. See cmhc-schl.gc.ca housing supply shortages reports.",
         "automatable": false
       },
       {
-        "label": "BCH units",
-        "value": "4,000 announced",
-        "source": "manual",
+        "label": "BCH units (announced, 6 federal sites)",
+        "value": "4,000",
+        "source": "housing-infrastructure-canada",
+        "sourceNote": "Housing Infrastructure Canada: 'Build Canada Homes aims to build 4,000 factory-built units in six select Canadian cities' (Dartmouth, Longueuil, Ottawa, Toronto, Winnipeg, Edmonton). Source: canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html. Construction expected to begin 2026. PBO independently projects BCH delivers about 26,000 units total over 5 years (RP-2526-020-S).",
         "automatable": false
       },
       {
         "label": "Federal spending trajectory",
         "value": "Declining 56% by 2028-29",
         "source": "pbo",
+        "sourceNote": "PBO report RP-2526-020-S (December 2025): federal planned spending on housing programs declines from $9.8B in 2025-26 to $4.3B in 2028-29 = 56% decline. Due to expiry of existing program funding and Budget 2025 cuts.",
         "automatable": false
       }
     ],
@@ -996,7 +1035,7 @@
         "text": "500,000 homes/year over next decade",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "259,028 starts in 2025 vs. 450,000+ needed. PBO projects BCH delivers 26,000 units over 5 years (3.7% of shortfall).",
+        "evidence": "259,028 starts in 2025 vs. 450,000+ needed. PBO projects BCH delivers about 26,000 units over five years (a 2.1% increase in housing completions per PBO baseline).",
         "durability": "Commitment",
         "history": [
           {
@@ -1050,7 +1089,7 @@
       }
     ],
     "perspectives": {
-      "critics": "NDP: where is the public housing? Build Canada Homes is 3.7% of the shortfall. Federal spending is declining 56% by 2028-29. The Tyee: Vancouver increased housing stock 200% while prices soared — supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
+      "critics": "NDP: where is the public housing? PBO projects Build Canada Homes delivers about 26,000 units over five years — a 2.1% increase in completions. Federal spending declines 56% by 2028-29 (PBO). The Tyee: Vancouver increased housing stock 200% while prices soared — supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
       "defenders": "The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Expert Mike Moffatt called it meaningful. Housing is a shared-jurisdiction problem — the federal government cannot unilaterally override municipal zoning or provincial building codes."
     },
     "tags": {
@@ -1065,7 +1104,7 @@
     "id": "ethics-transparency",
     "name": "Ethics & Transparency",
     "grade": "C",
-    "previousGrade": "C-",
+    "previousGrade": null,
     "trend": "stable",
     "status": "PROBATION. PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved. Whole-letter grade only — plus/minus precision not supported by evidence.",
     "rationale": "No public evidence demonstrates self-dealing. This dimension grades the adequacy of the PM’s ethics framework relative to the novel disclosure requirements of his background. The framework is assessed as a single construct encompassing disclosure completeness, conflict screening, and independent review — not as separate items. Carney held ~$6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch describes the ethics screen as “loophole-filled.” The disclosure standard for a PM with this background should include full public accounting reviewed independently.",
@@ -1151,7 +1190,7 @@
     "id": "execution-delivery",
     "name": "Flagship Delivery",
     "grade": "C",
-    "previousGrade": "C-",
+    "previousGrade": null,
     "trend": "down",
     "status": "PROBATION. Measures delivery capacity across 5 flagship files. Strong on defence. Weak on housing and climate. Whole-letter grade only — combination rule determines grade mechanically.",
     "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow — it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions.",
@@ -1178,13 +1217,15 @@
       {
         "label": "Flagship files delivering",
         "value": "2 of 5 (defence, immigration)",
-        "source": "manual",
+        "source": "editorial",
+        "sourceNote": "Editorial assessment per Flagship-Delivery-Rules.md Combination Rule. Status derived from home dimension evidence, not an independent metric.",
         "automatable": false
       },
       {
         "label": "Flagship files stalled",
         "value": "3 of 5 (housing, climate, projects)",
-        "source": "manual",
+        "source": "editorial",
+        "sourceNote": "Editorial assessment per Flagship-Delivery-Rules.md Combination Rule. Status derived from home dimension evidence, not an independent metric.",
         "automatable": false
       },
       {
@@ -1196,7 +1237,8 @@
       {
         "label": "Federal-provincial coordination",
         "value": "Weak (Policy Options)",
-        "source": "manual",
+        "source": "policy-options",
+        "sourceNote": "Policy Options / IRPP analysis of competitive federalism failures. Source URL in dimension sources array. Editorial characterization, not a quantitative metric.",
         "automatable": false
       }
     ],
@@ -1270,25 +1312,29 @@
       {
         "label": "Key commitments delivered",
         "value": "14 of 44",
-        "source": "manual",
+        "source": "editorial",
+        "sourceNote": "Editorial tally based on promise-by-promise status assessment. Each promise status is documented with evidence in the promises array. Derivative of home dimension evidence.",
         "automatable": false
       },
       {
         "label": "Commitments stalled or abandoned",
         "value": "12 of 44",
-        "source": "manual",
+        "source": "editorial",
+        "sourceNote": "Editorial tally. See individual promise entries for evidence basis.",
         "automatable": false
       },
       {
         "label": "Housing target",
         "value": "Scaled back from 500K/yr",
-        "source": "manual",
+        "source": "editorial",
+        "sourceNote": "Editorial characterization based on Housing Supply dimension evidence. Derivative of home dimension assessment.",
         "automatable": false
       },
       {
         "label": "Climate commitments",
         "value": "Largely reversed",
-        "source": "manual",
+        "source": "editorial",
+        "sourceNote": "Editorial characterization based on Climate & Environment dimension evidence. Derivative of home dimension assessment.",
         "automatable": false
       }
     ],
@@ -1325,7 +1371,7 @@
         "text": "Immigration reduction",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "PR targets cut to 380,000. Temp arrivals down 53%. Population declined for first time since Confederation.",
+        "evidence": "PR targets cut to 380,000. Temp arrivals down 53% (Jan-Sep 2025 vs 2024). Population declined by 102,436 in 2025 (StatsCan, preliminary).",
         "durability": "Commitment",
         "history": [
           {

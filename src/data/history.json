@@ -2,8 +2,8 @@
   {
     "month": "2026-04",
     "date": "2026-04-15",
-    "overallGPA": 1.7,
-    "pocketbookGPA": 1.51,
+    "overallGPA": 1.65,
+    "pocketbookGPA": 1.45,
     "grades": {
       "defence-trade": "A-",
       "major-projects": "C",
@@ -11,8 +11,8 @@
       "climate-environment": "D",
       "immigration": "C+",
       "housing-supply": "D",
-      "ethics-transparency": "C-",
-      "execution-delivery": "C-",
+      "ethics-transparency": "C",
+      "execution-delivery": "C",
       "promise-delivery": "C+",
       "affordability-response": "D-",
       "economic-policy": "D",
@@ -21,8 +21,8 @@
     "promiseCounts": {
       "Delivered": 14,
       "In Progress": 13,
-      "Stalled": 8,
-      "Abandoned": 4,
+      "Stalled": 9,
+      "Abandoned": 3,
       "Thwarted": 0,
       "Too Early": 5
     }

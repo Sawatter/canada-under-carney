@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { STATUS_COLORS } from "../constants";
 
-export default function PromiseTracker({ allPromises, promiseCounts, totalPromises }) {
+export default function PromiseTracker({ allPromises, promiseCounts }) {
   const [expandedPromise, setExpandedPromise] = useState(null);
 
   return (

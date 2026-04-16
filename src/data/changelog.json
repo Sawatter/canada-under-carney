@@ -13,12 +13,11 @@
         "rubricRef": "D Range: structural trajectory unchanged"
       },
       {
-        "type": "grade_change",
-        "dimensionId": "execution-delivery",
-        "from": "C",
-        "to": "C-",
-        "reason": "Policy Options documented cooperative federalism failures. 40K public service cuts while pursuing ambitious delivery agenda. Intergovernmental coordination mechanisms too weak for nation-building agenda.",
-        "rubricRef": "C- Range: effort questionable, measurable impact minimal"
+        "type": "metric_update",
+        "metric": "Flagship Delivery display",
+        "from": "C- (plus/minus)",
+        "to": "C (whole letter)",
+        "reason": "Display precision reduced to whole-letter grade per Launch Recommendation. Evidence base does not support plus/minus precision for this dimension. GPA contribution unchanged at 1.7."
       },
       {
         "type": "event",
