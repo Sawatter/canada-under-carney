@@ -150,14 +150,18 @@ export default function ScoreboardHeader({
       <div
         style={{
           textAlign: "center",
-          fontSize: "11px",
-          color: "#999",
-          lineHeight: 1.5,
+          fontSize: "13px",
+          color: "#555",
+          lineHeight: 1.6,
           maxWidth: "720px",
           margin: "0 auto",
+          padding: "12px 16px",
+          background: "#f8f8f8",
+          borderRadius: "8px",
+          border: "1px solid #e8e8e8",
         }}
       >
-        <strong style={{ color: "#777" }}>Why two grades?</strong>{" "}
+        <strong style={{ color: "#333" }}>Why two grades?</strong>{" "}
         The Household Impact grade weights the issues Canadians feel most
         directly: housing, affordability, economic policy response, and fiscal
         health. The Full Policy Audit weights all 11 graded dimensions equally,

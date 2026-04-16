@@ -130,25 +130,6 @@ export default function Dashboard() {
         totalPromises={totalPromises}
       />
 
-      {/* Legend */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: "20px",
-          marginBottom: "16px",
-          fontSize: "13px",
-          color: "#444",
-          fontWeight: 600,
-          flexWrap: "wrap",
-        }}
-      >
-        <span><span style={{ color: "#2e7d32", fontWeight: 700 }}>{"\u25B2"}</span> Improving</span>
-        <span><span style={{ color: "#757575", fontWeight: 700 }}>{"\u25AC"}</span> Stable</span>
-        <span><span style={{ color: "#c62828", fontWeight: 700 }}>{"\u25BC"}</span> Declining</span>
-        <span><span style={{ color: "#c62828", fontSize: "9px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
-      </div>
-
       {/* What Changed Since Last Update */}
       <WhatsChanged changelog={changelog} />
 
@@ -188,6 +169,25 @@ export default function Dashboard() {
 
       {/* Scorecard View */}
       {view === "scorecard" && (
+        <>
+        {/* Legend */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "20px",
+            marginBottom: "16px",
+            fontSize: "13px",
+            color: "#444",
+            fontWeight: 600,
+            flexWrap: "wrap",
+          }}
+        >
+          <span><span style={{ color: "#2e7d32", fontWeight: 700 }}>{"\u25B2"}</span> Improving</span>
+          <span><span style={{ color: "#757575", fontWeight: 700 }}>{"\u25AC"}</span> Stable</span>
+          <span><span style={{ color: "#c62828", fontWeight: 700 }}>{"\u25BC"}</span> Declining</span>
+          <span><span style={{ color: "#c62828", fontSize: "9px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
+        </div>
         <div
           style={{
             display: "grid",
@@ -204,6 +204,7 @@ export default function Dashboard() {
             />
           ))}
         </div>
+        </>
       )}
 
       {/* Promise Tracker View */}

@@ -5,6 +5,67 @@ import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
 import PromiseTag from "./PromiseTag";
 
+function DimColumn({ dim }) {
+  const g = GRADES[dim.grade];
+  return (
+    <div style={{ flex: 1, minWidth: 0 }}>
+      {/* Grade header */}
+      <div style={{ textAlign: "center", marginBottom: "16px" }}>
+        <GradeChip grade={dim.grade} size="lg" />
+        <div style={{ marginTop: "6px" }}>
+          <TrendArrow trend={dim.trend} />
+          {dim.previousGrade && (
+            <span style={{ fontSize: "10px", color: "#c62828", marginLeft: "4px" }}>
+              was {dim.previousGrade}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* Status */}
+      <div
+        style={{
+          fontSize: "12px",
+          color: "#555",
+          lineHeight: 1.5,
+          marginBottom: "14px",
+          background: "#fafafa",
+          padding: "10px",
+          borderRadius: "6px",
+          borderLeft: `3px solid ${g.color}`,
+        }}
+      >
+        {dim.rationale || dim.status}
+      </div>
+
+      {/* Metrics */}
+      <div style={{ marginBottom: "14px" }}>
+        <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+          Metrics
+        </div>
+        {dim.metrics.map((m, i) => (
+          <div key={i} style={{ fontSize: "12px", color: "#444", padding: "2px 0", fontFamily: "'DM Mono', monospace" }}>
+            {m.label}: {m.value}
+          </div>
+        ))}
+      </div>
+
+      {/* Promises */}
+      <div>
+        <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+          Promises ({dim.promises.length})
+        </div>
+        {dim.promises.map((p, i) => (
+          <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0", gap: "6px" }}>
+            <span style={{ fontSize: "11px", color: "#444", flex: 1 }}>{p.text}</span>
+            <PromiseTag status={p.status} />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function CompareView() {
   const [leftId, setLeftId] = useState(dimensions[0].id);
   const [rightId, setRightId] = useState(dimensions[3].id);
@@ -23,67 +84,6 @@ export default function CompareView() {
     flex: 1,
     minWidth: 0,
   };
-
-  function DimColumn({ dim }) {
-    const g = GRADES[dim.grade];
-    return (
-      <div style={{ flex: 1, minWidth: 0 }}>
-        {/* Grade header */}
-        <div style={{ textAlign: "center", marginBottom: "16px" }}>
-          <GradeChip grade={dim.grade} size="lg" />
-          <div style={{ marginTop: "6px" }}>
-            <TrendArrow trend={dim.trend} />
-            {dim.previousGrade && (
-              <span style={{ fontSize: "10px", color: "#c62828", marginLeft: "4px" }}>
-                was {dim.previousGrade}
-              </span>
-            )}
-          </div>
-        </div>
-
-        {/* Status */}
-        <div
-          style={{
-            fontSize: "12px",
-            color: "#555",
-            lineHeight: 1.5,
-            marginBottom: "14px",
-            background: "#fafafa",
-            padding: "10px",
-            borderRadius: "6px",
-            borderLeft: `3px solid ${g.color}`,
-          }}
-        >
-          {dim.rationale || dim.status}
-        </div>
-
-        {/* Metrics */}
-        <div style={{ marginBottom: "14px" }}>
-          <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
-            Metrics
-          </div>
-          {dim.metrics.map((m, i) => (
-            <div key={i} style={{ fontSize: "12px", color: "#444", padding: "2px 0", fontFamily: "'DM Mono', monospace" }}>
-              {m.label}: {m.value}
-            </div>
-          ))}
-        </div>
-
-        {/* Promises */}
-        <div>
-          <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
-            Promises ({dim.promises.length})
-          </div>
-          {dim.promises.map((p, i) => (
-            <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0", gap: "6px" }}>
-              <span style={{ fontSize: "11px", color: "#444", flex: 1 }}>{p.text}</span>
-              <PromiseTag status={p.status} />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div style={{ background: "#fff", borderRadius: "12px", border: "1px solid #e0e0e0", padding: "24px" }}>

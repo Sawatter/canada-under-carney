@@ -518,13 +518,13 @@
 
 **Attribution:** Defence: Federal 85% / Shared 10% (NATO rules) / External 5% (geopolitics). Trade: Federal 50% / Shared 20% (provincial trade offices) / External 30% (global demand, exchange rates, US policy).
 
-**Primary evidence home:** NATO spending confirmation, US export share, non-US export growth, CETA utilization
+**Primary evidence home:** NATO spending confirmation, US export share, non-US export growth, EU/CETA-region export growth
 
 **Minimum indicators:**
 - NATO spending as % GDP (confirmed by NATO, not just domestic claim)
 - US export share (StatsCan 12-10-0176-01)
 - Non-US export growth rate
-- CETA utilization value
+- EU/CETA-region export growth (Global Affairs Canada Monthly Trade Report; substituted for prior "CETA utilization value" in March 2026 cycle because the $134B figure could not be verified from any accessed source — EU export growth is a verified proxy from the same Tier 1 source)
 - Defence procurement milestones (DND)
 
 **Grade thresholds:**
