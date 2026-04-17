@@ -5,6 +5,25 @@ import PromiseTag from "./PromiseTag";
 
 export default function DimensionCard({ dim, isExpanded, onClick }) {
   const g = GRADES[dim.grade];
+  const modifierItems = dim.gradeBasis?.activeModifiers || [];
+
+  const renderScopeItem = (item) => {
+    if (!item) return null;
+
+    if (typeof item === "string") {
+      return item;
+    }
+
+    if (item.homedIn) {
+      return `${item.item} (homed in ${item.homedIn})`;
+    }
+
+    if (item.reason) {
+      return `${item.item} (${item.reason})`;
+    }
+
+    return item.item;
+  };
 
   return (
     <div
@@ -60,6 +79,18 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
           <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.4 }}>
             {dim.status}
           </div>
+          {dim.construct && (
+            <div
+              style={{
+                fontSize: "11px",
+                color: "#777",
+                lineHeight: 1.4,
+                marginTop: "6px",
+              }}
+            >
+              <strong style={{ color: "#555" }}>Grades:</strong> {dim.construct}
+            </div>
+          )}
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
           <GradeChip grade={dim.grade} />
@@ -88,7 +119,56 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
           }}
         >
           {/* Grade Rationale */}
-          {dim.rationale && (
+          {dim.gradeBasis ? (
+            <div style={{ marginBottom: "14px" }}>
+              <div
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#999",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                }}
+              >
+                Why This Grade
+              </div>
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "#444",
+                  lineHeight: 1.5,
+                  background: "#fafafa",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  borderLeft: `3px solid ${g.color}`,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <div>
+                  <strong>Band:</strong> {dim.gradeBasis.band} - {dim.gradeBasis.bandCriterion}
+                </div>
+                <div>
+                  <strong>Plus/minus rationale:</strong> {dim.gradeBasis.plusMinusRationale}
+                </div>
+                {modifierItems.length > 0 && (
+                  <div>
+                    <strong>Modifiers:</strong>
+                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                      {modifierItems.map((modifier, i) => (
+                        <div key={i}>
+                          <strong>{modifier.name}</strong>: {modifier.status}. {modifier.reason}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            dim.rationale && (
             <div style={{ marginBottom: "14px" }}>
               <div
                 style={{
@@ -114,6 +194,109 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 }}
               >
                 {dim.rationale}
+              </div>
+            </div>
+            )
+          )}
+
+          {(dim.gradeTriggers || dim.nextTrigger) && (
+            <div style={{ marginBottom: "14px" }}>
+              <div
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#999",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                }}
+              >
+                What Would Change This Grade
+              </div>
+              {dim.gradeTriggers ? (
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: "#666",
+                    lineHeight: 1.5,
+                    background: "#fffde7",
+                    padding: "8px 10px",
+                    borderRadius: "6px",
+                    borderLeft: "3px solid #f9a825",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
+                  <div>
+                    <strong>Up one step:</strong>
+                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                      {dim.gradeTriggers.up.map((trigger, i) => (
+                        <div key={i}>{trigger}</div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <strong>Down one step:</strong>
+                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                      {dim.gradeTriggers.down.map((trigger, i) => (
+                        <div key={i}>{trigger}</div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}>
+                  {dim.nextTrigger}
+                </div>
+              )}
+            </div>
+          )}
+
+          {dim.scope && (
+            <div style={{ marginBottom: "14px" }}>
+              <div
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#999",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                }}
+              >
+                Scope
+              </div>
+              <div
+                style={{
+                  fontSize: "11px",
+                  color: "#666",
+                  lineHeight: 1.5,
+                  background: "#f9f9f9",
+                  padding: "8px 10px",
+                  borderRadius: "6px",
+                  borderLeft: "3px solid #9e9e9e",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <div>
+                  <strong>In scope:</strong>
+                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                    {dim.scope.inScope.map((item, i) => (
+                      <div key={i}>{renderScopeItem(item)}</div>
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <strong>Out of scope:</strong>
+                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                    {dim.scope.outOfScope.map((item, i) => (
+                      <div key={i}>{renderScopeItem(item)}</div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           )}
@@ -327,17 +510,6 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
             </div>
           )}
 
-          {/* Next Evidence Trigger */}
-          {dim.nextTrigger && (
-            <div>
-              <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
-                What Would Change This Grade
-              </div>
-              <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}>
-                {dim.nextTrigger}
-              </div>
-            </div>
-          )}
         </div>
       )}
     </div>
