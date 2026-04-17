@@ -527,7 +527,56 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Government affordability measures cover <20% of household cost increases. Grocery Code voluntary. Tariff costs add $1,450-$2,000/yr per household. Grade reflects federal policy response, not global price levels.",
+    "construct": "Adequacy of the federal policy response to household cost pressure from groceries, tariffs, and targeted relief.",
     "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure — not the price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
+    "gradeBasis": {
+      "band": "D",
+      "bandCriterion": "Federal relief covers less than 20% of estimated annual cost increase.",
+      "plusMinusRationale": "D- per rubric: near-total failure; relief covers a negligible share of the identified cost and structural drivers remain unaddressed.",
+      "activeModifiers": [
+        {
+          "name": "External Constraint",
+          "status": "applicable, not applied",
+          "reason": "Tariffs add $1,450-$2,000/yr per household. Per rubric condition, the modifier applies only when the government's response is adequate given the constraint. Response judged inadequate, so the modifier was not applied."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "New federal benefit >$500/household announced and funded",
+        "Mandatory grocery competition measure enacted"
+      ],
+      "down": [
+        "Food CPI exceeds 7%",
+        "Grocery benefit expires without replacement",
+        "Food insecurity exceeds 12M"
+      ]
+    },
+    "scope": {
+      "inScope": [
+        "Groceries",
+        "Tariff-driven cost increases",
+        "Targeted federal relief"
+      ],
+      "outOfScope": [
+        {
+          "item": "Rents",
+          "homedIn": "Housing Supply"
+        },
+        {
+          "item": "Utilities",
+          "reason": "Shared jurisdiction"
+        },
+        {
+          "item": "Insurance",
+          "reason": "Provincial"
+        },
+        {
+          "item": "Transportation",
+          "reason": "Mixed jurisdiction"
+        }
+      ]
+    },
     "sources": [
       {
         "label": "StatsCan CPI Feb 2026",
@@ -624,7 +673,6 @@
       "attribution": "Mixed (prices external, policy response direct)",
       "lag": "Short"
     },
-    "nextTrigger": "Next monthly CPI release (StatsCan). Dalhousie 2027 food price forecast. Competition Bureau grocery investigation update.",
     "inherited": "Prices already 30%+ above pre-pandemic levels. Highly concentrated retail sector. Competition Bureau investigations underway."
   },
   {
