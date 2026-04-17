@@ -363,7 +363,18 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   marginBottom: "6px",
                 }}
               >
-                What Critics and Defenders Say
+                Interpretive Perspectives
+              </div>
+              <div
+                style={{
+                  fontSize: "10px",
+                  color: "#777",
+                  lineHeight: 1.5,
+                  marginBottom: "8px",
+                  fontStyle: "italic",
+                }}
+              >
+                These are positions held by named sources. The grade is determined by the evidence above, not by which perspective is more persuasive.
               </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 <div
