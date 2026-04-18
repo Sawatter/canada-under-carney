@@ -113,7 +113,7 @@
 
 | Field | Value |
 |---|---|
-| **Status** | Tightening |
+| **Status** | Probation |
 | **Unresolved issue** | Most subjective dimension. All-qualitative metrics. Lowest inter-rater reliability potential. Construct unified under "PM ethics framework" but still thin. |
 | **What needs doing** | Add at least one semi-quantitative indicator: e.g., "disclosure completeness score" (categories disclosed / categories expected). Keep event-driven cadence. Default to Medium confidence. Do not grade-move on media noise — only on Ethics Commissioner actions, formal disclosures, or documented new evidence. |
 | **Before next cycle?** | Add indicator if possible. Otherwise hold as is. |

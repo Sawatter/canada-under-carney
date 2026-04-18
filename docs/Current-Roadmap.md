@@ -19,6 +19,10 @@
 - The weakest current source stacks are Climate & Environment, Flagship Delivery, and Economic Policy Response.
 - Hard rule adopted for source edits: missing URL / source-chain fixes can be added directly, but any new analytical source family must go through a reflection pass and Claude review before it is treated as settled.
 - AI workflow efficiency protocol is now adopted to make reflection/review escalation explicit and reduce over-reflection on bounded tasks.
+- Source hardening pass for the weakest dimensions is complete.
+- Confidence calibration check is complete; no rescore was required after hardening.
+- Source Authority Map is active and integrated into the governance layer.
+- Tiny audit-fix pack is complete: Ethics is correctly marked as probationary in the register, and `meta.json` now reflects the live package update date.
 
 ---
 
@@ -32,29 +36,7 @@
 
 These are the highest-leverage next tasks for the live product.
 
-1. Source hardening pass
-   Tighten source-chain gaps and same-family concentration where the audit found the weakest evidence support:
-   - Major Projects: add the missing Angus Reid source chain
-   - Economic Policy Response: add official OECD / NRCan traceability for the live claims
-   - Carbon Pricing Policy: add a second-family analytical source on industrial carbon pricing integrity
-   - Climate & Environment: add direct ECCC primary sources and reduce dependency on commentary-only sourcing
-   - Flagship Delivery: add a non-IRPP analytical source for state-capacity framing
-   Guardrail:
-   - if the work is only adding a missing URL or making an existing cited claim traceable, it can be done directly
-   - if the work introduces a new analytical source family, run reflection first and have Claude review source fit before shipping
-
-2. Confidence calibration check
-   After the source hardening pass, review whether any visible confidence labels are still too strong for the remaining source stack.
-   Start with:
-   - Climate & Environment
-   - Economic Policy Response
-
-3. Tiny audit-fix pack
-   Resolve the small residuals surfaced by the drift audit:
-   - Ethics status mismatch in [docs/Dimension-Status-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Dimension-Status-Register.md)
-   - clarify `meta.json` `lastUpdated` meaning if needed
-
-4. Live review pass
+1. Live review pass
    Review the live dashboard with fresh eyes after the source hardening / confidence pass:
    - main cards
    - compare view
