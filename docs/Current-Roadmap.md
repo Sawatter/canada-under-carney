@@ -28,6 +28,7 @@
 - Ethics anchored indicator landed — the live Ethics entry now carries an official-status anchor set (Commissioner review status, blind trust status, agreed measure filing, declared screen scope, independent governance review status) anchored to direct official filings and the Commissioner registry.
 - Live review pass of the dashboard is complete; minor copy-staleness in About and the Dashboard footer was corrected in pass.
 - SAM Current State Delta fields reconciled for Ethics, Flagship Delivery, and Climate & Environment after source threading landed.
+- Pre-cycle readiness guardrails refreshed in the live data for the most failure-prone files: announcement-bias wording tightened in Economic Policy Response, scope/trigger discipline sharpened in Affordability Response, Carbon Pricing / Climate deconfliction cues made more explicit, and Housing stage language now distinguishes announced from not started.
 
 ---
 
@@ -39,6 +40,7 @@
 - Ethics anchored-indicator build — official-status anchor added to the live Ethics entry in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json). No grade, GPA, confidence, or rubric change.
 - Orphan-threading and SAM reconciliation bundle — C.D. Howe threaded into Flagship Delivery critics perspective; SAM Ethics, Flagship, and Climate Current State Deltas brought current; Carbon Pricing rationale/sourceNote wording consistency confirmed.
 - Live review pass — code-level pass over main cards, CompareView, Methodology, ScoreboardHeader, PromiseTracker, WhatsChanged, and About; copy-staleness in About ("12 policy dimensions", Official source list, Independent policy list) and the Dashboard footer source list corrected.
+- Pre-cycle readiness guardrail refresh — Economic Policy Response now warns more explicitly against announcement bias, Affordability Response carries a concrete next-trigger, Carbon Pricing / Climate deconfliction cues were tightened, and Housing Supply now labels BCH as announced / not started pending actual construction.
 
 ---
 
