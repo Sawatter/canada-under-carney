@@ -36,9 +36,9 @@ These are launch-critical. The dashboard should not be promoted publicly until a
 
 **Current grades affected:**
 - Ethics & Transparency: C- → C (whole letter, with C matching both display and GPA)
-- Flagship Delivery: C- → C (whole letter display; GPA treatment requires a separate editorial decision)
+- Flagship Delivery: C- → C (whole letter, with C matching both display and GPA)
 
-**Note:** This changes the GPA slightly. Normalizing Ethics from 1.7 to 2.0 raises the Full Policy Audit GPA by approximately 0.03. If Flagship later receives the same treatment after its own editorial decision, the total uplift would be approximately 0.05.
+**Note:** This changes the GPA slightly. Normalizing both Ethics and Flagship from 1.7 to 2.0 raises the Full Policy Audit GPA by approximately 0.05.
 
 ### 1.4 Plus/minus rules for remaining dimensions
 
@@ -132,10 +132,10 @@ This is weaker than a second scorer but defensible if disclosed clearly. It does
 - Household Impact: D+ (GPA 1.51)
 
 **After (launch version):**
-- Full Policy Audit: C- (GPA 1.68, 11 dimensions)
+- Full Policy Audit: C- (GPA 1.70, 11 dimensions)
 - Household Impact: D+ (GPA 1.45)
 
-**Boundary note:** The Full Policy Audit GPA of 1.68 remains in the C- band, but only 0.03 above the C-/D+ cutoff (≥1.65). This is disclosed because a modest deterioration in a single dimension would still push the headline back toward the boundary. Ethics & Transparency displays as a whole-letter C and its GPA contribution matches the display at 2.0 — there is no hidden C- (1.7) value. Flagship Delivery remains on probation and requires a separate editorial decision on whether its GPA contribution should similarly match its whole-letter C display.
+**Boundary note:** The Full Policy Audit GPA of 1.70 remains in the C- band, and now sits 0.05 above the C-/D+ cutoff (≥1.65). This is disclosed because a modest deterioration in a single dimension would still push the headline back toward the boundary. Ethics & Transparency displays as a whole-letter C and its GPA contribution matches the display at 2.0 — there is no hidden C- (1.7) value. Flagship Delivery also displays as a whole-letter C and its GPA contribution matches the display at 2.0 — there is no hidden C- value.
 
 ---
 

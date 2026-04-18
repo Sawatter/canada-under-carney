@@ -1455,7 +1455,7 @@
     "gradeBasis": {
       "band": "C",
       "bandCriterion": "Per the Combination Rule, the headline grade is determined mechanically by the delivery-status distribution across the flagship files.",
-      "plusMinusRationale": "Current C- reflects a mixed delivery machine: defence demonstrates real execution capacity, while housing and climate show weak delivery on domestic files and structural strain in the operating apparatus.",
+      "plusMinusRationale": "C sits at the lower edge of the C band — the delivery machinery produces real execution on defence and partial execution on immigration (distinguishing it from D), but stalled housing, major projects, and climate files prevent progression toward B.",
       "activeModifiers": []
     },
     "gradeTriggers": {
@@ -1556,7 +1556,7 @@
     },
     "nextTrigger": "Post-majority legislative pace (bills passed per month). First Ministers Meeting outcomes. April 28 economic update implementation.",
     "inherited": "Federal delivery capacity had been declining. Procurement timelines among slowest in OECD. Multiple program delivery failures documented in prior government.",
-    "gpaValue": 1.7
+    "gpaValue": 2.0
   },
   {
     "id": "promise-delivery",
