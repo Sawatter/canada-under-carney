@@ -164,6 +164,31 @@ The dashboard's job is accuracy. Perception management is a separate function an
 
 ---
 
+## Rule 8: New Analytical Source-Family Additions
+
+**A new analytical source family touching a grade-moving claim cannot be treated as settled until its role and fit have been reviewed.**
+
+This rule applies when:
+- a new Tier 2 source family is added to support, challenge, or calibrate a grade-moving claim
+- a new analytical Tier 3 source is being used to strengthen a claim beyond its prior evidentiary base
+- a source addition changes the balance between primary anchor, corroborator, and context for a live claim
+
+This rule does **not** apply when:
+- a missing URL is added for a source already cited in the live text
+- a broken source chain is restored without changing the evidentiary role of the source
+- a direct primary source is added for a claim already in use, without changing the analytical frame
+
+**Required steps:**
+1. Classify the new source's role: **primary anchor**, **corroborator**, or **context only**
+2. Run a reflection pass to determine whether the addition is a traceability fix or a methodological/source-authority choice
+3. Run a read-only review pass before the source is treated as settled in the dimension's evidence stack
+4. If the review has not occurred yet, the source may be logged provisionally but must not be used to strengthen wording, raise confidence, or resolve same-family concentration
+5. If the source is added to the sources array, it must be attached to a live rationale, metric sourceNote, or perspective claim — orphaned sources do not count as corroboration
+
+**The rule:** Traceability fixes may proceed directly. New analytical source families require reflection + review before they can change the dashboard's evidentiary posture.
+
+---
+
 ## Process Summary
 
 For every proposed grade change (not grade holds, source-stack-only changes, or probationary precision-only changes):
@@ -202,6 +227,7 @@ For every proposed grade change (not grade holds, source-stack-only changes, or 
 - **Carry-forward of previously verified claims** — [docs/v2/verification/Carry-Forward-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Carry-Forward-Rules.md)
 - **Whole-letter probationary and plus/minus interaction** — [docs/Plus-Minus-Decision-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Plus-Minus-Decision-Rules.md)
 - **Double-counting and primary-home enforcement** — [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md)
+- **Source-role planning by dimension** — [docs/Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) (verbatim source-authority framing until the formal Source Authority Map is built)
 
 ---
 
