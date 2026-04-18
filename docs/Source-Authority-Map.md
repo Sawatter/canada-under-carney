@@ -1,7 +1,7 @@
 # Source Authority Map
 
 - **Purpose:** Define, per dimension, what kinds of truth the dashboard is claiming and which source roles should carry those claims.
-- **Status:** Draft — all 11 graded dimension entries complete; full-review and integration pass pending.
+- **Status:** Draft — all 11 graded dimension entries complete; full review complete; Stage 4 integration pending.
 - **Last updated:** 2026-04-18
 - **Depends on:** Current-Roadmap.md, Parking-Lot.md, DATA-SOURCES.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Canonical-Scoring-Sheets.md, Plus-Minus-Decision-Rules.md, src/data/dimensions.json
 - **Used by:** future source-hardening passes, source-fit reviews, confidence calibration reviews, and the forthcoming full per-dimension authority-map buildout
@@ -356,7 +356,6 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 
 - **Present and well-aligned**
   - `Policy Options — federalism failure` fills independent-challenge truth on cross-file coordination quality.
-  - `C.D. Howe — public service ratio` fills secondary independent-challenge truth on state-capacity strain.
 
 - **Gaps**
   - No Legisinfo source is present in the `sources` array, even though bills passed is a live metric.
@@ -366,7 +365,7 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
   - None in the current stack once orphaned items are set aside. The live attached sources are challenge/context-heavy, but they are not misclassified where they are actually used.
 
 - **Orphaned sources**
-  - `Policy Options — DM shuffle`, `PBO — $94B investment gap`, and `The Hub — $94B gap` do not currently attach to a live rationale, metric sourceNote, promise evidence, or perspectives line.
+  - `Policy Options — DM shuffle`, `PBO — $94B investment gap`, `C.D. Howe — public service ratio`, and `The Hub — $94B gap` do not currently attach to a live rationale, metric sourceNote, promise evidence, or perspectives line.
 
 **Red-flag gaps**
 
@@ -1020,7 +1019,7 @@ CCI — Canada off course, IISD — Canada's 2030 climate target, CCI — indust
 Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:957)
 
 - **Present and well-aligned**
-  - `CCI — Canada off course` and `IISD — Canada's 2030 climate target` fill independent-challenge truth on the target gap.
+  - `CCI — Canada off course` fills independent-challenge truth on the target gap.
   - `ECCC 2024-25 Departmental plan at a glance` and `ECCC 2025-26 Departmental plan at a glance` fill measurement/execution truth on institutional capacity decline.
   - `National Observer`, `The Conversation`, and `CBC` fill context and operational-impact reporting around the reversals and departmental cuts.
 
@@ -1034,7 +1033,7 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
   - The journalism sources are properly useful, but they should remain context/operational-impact reporting rather than primary evidence for grade movement.
 
 - **Orphaned sources**
-  - None in the current stack. Every listed source attaches to a metric, rationale line, or perspective.
+  - `IISD — Canada's 2030 climate target` is present in the `sources` array but does not currently attach to a live rationale, metric sourceNote, or perspectives line.
 
 **Red-flag gaps**
 
