@@ -1,7 +1,7 @@
 # Source Authority Map
 
 - **Purpose:** Define, per dimension, what kinds of truth the dashboard is claiming and which source roles should carry those claims.
-- **Status:** Draft — Housing Supply pilot plus Ethics & Transparency and Flagship Delivery entries complete; remaining 8 dimensions pending.
+- **Status:** Draft — Housing Supply pilot plus Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, and Immigration entries complete; remaining 5 dimensions pending.
 - **Last updated:** 2026-04-18
 - **Depends on:** Current-Roadmap.md, Parking-Lot.md, DATA-SOURCES.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Canonical-Scoring-Sheets.md, Plus-Minus-Decision-Rules.md, src/data/dimensions.json
 - **Used by:** future source-hardening passes, source-fit reviews, confidence calibration reviews, and the forthcoming full per-dimension authority-map buildout
@@ -379,13 +379,262 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 - This dimension remains on probation. If it stops adding analytical value beyond the home dimensions, stronger sourcing alone will not save the construct.
   Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:216), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:218), and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:96)
 
+## 4. Defence & Trade
+
+**Construct**
+
+The degree to which the federal government has met its stated defence spending commitments and diversified Canada's trade relationships away from single-market dependency.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:515)
+
+**Core grade-moving claims**
+
+1. The defence leg meets the A-band threshold because NATO 2% has been achieved and sustained with formal funding behind it.
+   Source basis: grade threshold + current rationale + defence sub-score in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:533), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:32), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:175)
+
+2. The trade leg meets a strong B+/near-A range because export diversification away from the U.S. is measurable, but the improvement is partly market-driven rather than purely policy-caused.
+   Source basis: current rationale + current trade sub-score + external-constraint modifier in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:32), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:177), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:16)
+
+3. The headline A- is a blended result: defence performs at A, trade diversification at B+, averaging to A-.
+   Source basis: shadow sub-score rule in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:539), plus current display grade and sub-scores in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:5) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:171)
+
+4. The minus is driven by caveats, not failure: Canada met but did not materially exceed the 2% defence floor, the 3.5% target lacks a funded pathway, and trade diversification is partly confounded by the trade war itself.
+   Source basis: current `plusMinusRationale`, rationale, and modifier rule in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:13), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:32), and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:545)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The dimension depends on hard defence and trade metrics: NATO spending, U.S. export share, non-U.S. export growth, and EU/CETA-region growth. |
+| Policy truth | Required | The grade rests partly on whether the government set, funded, and legislated the defence and diversification commitments it is claiming credit for. |
+| Execution truth | Required | Meeting NATO 2%, advancing procurement, and sustaining trade diversification all require real-world execution, not just formal intent. |
+| Independent challenge truth | Required | The minus and caveat structure depends on outside scrutiny of accounting limits, funding-pathway weakness, and market-driven confounders. |
+| Context truth | Optional | Wider commentary on geopolitical urgency or industrial strategy can help interpretation but must not move the grade by itself. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | NATO annual defence-spending tables [QA T1]; StatsCan trade by country table 12-10-0176-01 [QA T1]; Global Affairs Monthly Trade Report [QA T1 when used as the official synthesis of the StatsCan data] | Additional Global Affairs trade releases [QA T1] |
+| Policy truth | Budget 2025 defence/trade commitments [QA T1/T4 depending document type]; official legislation and government program documents for interprovincial reform and trade diversification [QA T1/T4 depending document type] | PMO announcement pages [QA T4 as context/policy corroboration only] |
+| Execution truth | NATO annual report confirmation of 2% delivery [QA T1]; official trade data showing export-share movement [QA T1]; direct procurement milestone reporting [QA T1/T4 depending document type] | Legislative completion evidence for interprovincial trade reform [QA T1] |
+| Independent challenge truth | Policy Options / IRPP [QA T2]; other disclosed-methodology institutional analysis on defence affordability or trade-driver attribution [QA T2] | Academic or think-tank scrutiny of accounting caveats, funding paths, or trade-war confounding [QA T2/T3] |
+| Context truth | PMO announcement framing [QA T4]; mainstream reporting on allied reaction or industrial strategy [QA T3] | Additional clearly attributed reporting [QA T3] |
+
+**Context-only sources**
+
+- PMO announcements when NATO or trade results are already confirmed by NATO, StatsCan, or Global Affairs
+- General geopolitical commentary on why NATO spending matters
+- Domestic political commentary on whether defence spending is a good priority choice
+
+These may shape interpretation but must not move the Defence & Trade grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Defence & Trade source stack:  
+NATO Secretary General Annual Report 2025, PMO NATO 2% announcement, Budget 2025 Ch.4, StatsCan trade data, Global Affairs Canada Monthly Trade Report  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:33)
+
+- **Present and well-aligned**
+  - `NATO Secretary General Annual Report 2025` fills defence measurement/execution truth.
+  - `StatsCan trade data` and `Global Affairs Canada Monthly Trade Report` fill trade measurement/execution truth.
+  - `Budget 2025 Ch.4` fills policy truth on the funded defence and diversification commitments.
+
+- **Gaps**
+  - No explicit independent-challenge source is present in the `sources` array, even though the live minus rationale depends on caveats about the unfunded 3.5% target and partly market-driven diversification.
+  - No direct legislative source is present in the `sources` array for the delivered interprovincial-trade-barrier reform promise, even though that promise is part of the current file.
+
+- **Role mismatches**
+  - `PMO NATO 2% announcement` is better understood as context/policy corroboration than as a primary measurement or execution anchor, because NATO already provides the grade-moving confirmation.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to the rationale, metrics, or promise set.
+
+**Red-flag gaps**
+
+- This is a dual-leg mixed dimension. The defence and trade legs do not rely on identical role stacks, even though they share one headline grade.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:517) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:539)
+
+- Trade diversification is partly confounded by the same trade war that created the diversification pressure, so stronger trade metrics cannot be treated as purely policy-caused.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:546) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:18)
+
+- Trade diversification metrics are primary-homed here and should not leak into Economic Policy Response. NATO and defence procurement metrics may appear in Flagship Delivery only as delivery evidence, not as outcome merit.
+  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:29) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:31)
+
+---
+
+## 5. Major Projects
+
+**Construct**
+
+The effectiveness of federal institutional machinery for infrastructure project delivery.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:315)
+
+**Core grade-moving claims**
+
+1. The MPO and Building Canada Act are real institutional reforms, so the file is above D/F territory.
+   Source basis: current rationale + current band criterion in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:194), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:219), and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:334)
+
+2. Most of the headline project pipeline is pre-existing, so the raw case for a stronger grade is weakened by overclaiming.
+   Source basis: biggest confounder + current `plusMinusRationale` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:346), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:195), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:219)
+
+3. The signature power, national interest designation, remains unused, so the framework is still materially untested.
+   Source basis: C threshold + live metric in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:334), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:255), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:219)
+
+4. The current C includes an applied credit-claiming penalty: without documented overstatement of pre-existing projects, the machinery would sit at raw C+.
+   Source basis: modifier rule + live `plusMinusRationale` and active modifier in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:339), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:195), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:198)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The dimension needs concrete institutional indicators: project tranches, designation uses, cycle completion, and eventually approval-time acceleration. |
+| Policy truth | Required | The machinery exists only because the government created legal and administrative instruments around it. |
+| Execution truth | Required | The grade turns on whether those tools are being used in practice, not just enacted on paper. |
+| Independent challenge truth | Required | The penalty and overclaiming assessment rely on outside scrutiny of what is genuinely new versus rebranded. |
+| Context truth | Optional | Commentary on regional politics, consent debates, or sector strategy can inform the file but must not move the grade by itself. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | Official MPO project-status reporting and national-interest-designation record [QA T1/T4 depending document type]; LEGISinfo passage/status records [QA T1] | Direct government project lists and designation orders [QA T1/T4] |
+| Policy truth | Building Canada Act / LEGISinfo [QA T1]; official MPO / PM announcements that define the claimed pipeline [QA T4] | Budget or departmental program documents tied to the machinery [QA T1/T4] |
+| Execution truth | Official evidence that projects have entered, moved through, or exited the MPO cycle [QA T1/T4]; designation-use record [QA T1] | Project-level or departmental implementation updates [QA T1/T4] |
+| Independent challenge truth | Fraser Institute [QA T2/T3 depending claim use]; Angus Reid [QA T3]; other disclosed-methodology institutional analysis on overclaiming or project acceleration [QA T2/T3] | Academic or sector analysis on approval-time acceleration [QA T2/T3] |
+| Context truth | Broader reporting on Indigenous consent, environmental trade-offs, or regional project politics [QA T3] | Additional clearly attributed project-delivery commentary [QA T3] |
+
+**Context-only sources**
+
+- Commentary on whether specific projects are normatively desirable
+- Broader political arguments about industrial strategy or regional favoritism
+- Critical minerals and AI pipeline references when they are being used as economic-policy context rather than MPO machinery evidence
+
+These may shape interpretation but must not move the Major Projects grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Major Projects source stack:  
+PM second tranche announcement, Building Canada Act, Fraser Institute MPO assessment, Angus Reid major projects reaction  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:220)
+
+- **Present and well-aligned**
+  - `Building Canada Act` fills policy truth on the existence and formal powers of the machinery.
+  - `Fraser Institute — MPO assessment` and `Angus Reid — major projects reaction` fill independent-challenge truth on overclaiming and pre-existing momentum.
+  - `PM second tranche announcement` fills policy/context truth for the government's stated $116B pipeline claim.
+
+- **Gaps**
+  - No direct MPO operational-status source is present in the `sources` array beyond PM announcements, even though the file grades live machinery rather than announced intent alone.
+  - No direct source is present for mean approval-time movement or first completed MPO cycle, even though those are eventual core measurement/execution indicators.
+
+- **Role mismatches**
+  - `PM second tranche announcement` is better understood as policy/context truth than as execution evidence, because it documents the government's claim about the pipeline, not acceleration actually achieved.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to the rationale, metrics, or perspectives.
+
+**Red-flag gaps**
+
+- Pre-existing momentum is the central confounder. A larger announced pipeline does not prove the MPO itself accelerated anything.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:346)
+
+- Timing fairness only partially applies: infrastructure is slow-moving, but the machinery itself is already gradeable before outcome acceleration is visible.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:340) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:203)
+
+- Critical minerals pipeline is primary-homed in Economic Policy Response. Major Projects may reference it only if the question is whether the MPO is helping deliver it, not whether the minerals strategy is itself strong.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:350) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:27)
+
+---
+
+## 6. Immigration
+
+**Construct**
+
+The adequacy and coherence of the federal immigration level correction.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:358)
+
+**Core grade-moving claims**
+
+1. The correction has been executed sharply and at real scale, which is why the file sits at C+ rather than C.
+   Source basis: C+ threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:377), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1101), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115)
+
+2. The long-term model remains undefined, which blocks movement toward B despite the scale of the correction.
+   Source basis: C+ threshold + current `bandCriterion`, trigger, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:377), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1101), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1107), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115)
+
+3. Downside risks to service-sensitive sectors are real but not yet large enough to overturn the case for correction.
+   Source basis: current `plusMinusRationale`, rationale, and critics perspective in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1102), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1206)
+
+4. Population, permit, and temporary-resident contraction provide measurable evidence that the pullback is happening in the real world rather than remaining an announced intention.
+   Source basis: minimum indicators + live metrics in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:366), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1133), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1140), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1147), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1154)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The file depends on target levels, permit flows, temporary-resident contraction, and population change. |
+| Policy truth | Required | The correction is gradeable only because the federal government explicitly changed levels and permit policy. |
+| Execution truth | Required | The construct tests whether the correction is actually occurring in admissions, permits, and population data. |
+| Independent challenge truth | Required | Adequacy and downside-risk judgment require external scrutiny of wage pressure, service strain, and sector impacts. |
+| Context truth | Optional | Broader ideological arguments about whether immigration should be higher or lower can inform interpretation but must not move the grade by themselves. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | IRCC levels plan and open-data permit/admissions series [QA T1]; StatsCan population table 17-10-0009-01 [QA T1] | Additional IRCC administrative releases [QA T1] |
+| Policy truth | IRCC levels-plan documents and permit-policy changes [QA T1/T4 depending document type] | Formal departmental or legislative updates on TFW / study / asylum changes [QA T1/T4] |
+| Execution truth | IRCC open-data series on work permits, study permits, and admissions [QA T1]; StatsCan population data [QA T1] | Official departmental tracking of temporary-resident stock [QA T1] |
+| Independent challenge truth | Bank of Canada wage study [QA T1]; additional sector or institutional analysis on housing/healthcare/service strain [QA T2/T3] | Clearly attributed healthcare, agriculture, or higher-ed impact reporting [QA T3] |
+| Context truth | Toronto Star [QA T3]; broader immigration-management reporting [QA T3] | Other clearly attributed commentary that frames but does not score the correction [QA T3] |
+
+**Context-only sources**
+
+- Ideological arguments for permanently higher or lower immigration levels
+- General political commentary on whether the correction is brave or cruel
+- Flagship Delivery references to immigration as one of the five files when the question is delivery capacity rather than adequacy of the correction itself
+
+These may shape interpretation but must not move the Immigration grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Immigration source stack:  
+StatsCan population Q4 2025, IRCC 2026-2028 levels plan, Bank of Canada wage study  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1116)
+
+- **Present and well-aligned**
+  - `StatsCan population Q4 2025` fills measurement/execution truth on the live contraction.
+  - `IRCC 2026-2028 levels plan` fills policy truth on the stated correction.
+  - `Bank of Canada wage study` fills independent-challenge truth on why a correction was needed and what labour-market pressure looked like pre-correction.
+
+- **Gaps**
+  - No direct IRCC open-data source is present in the `sources` array for work-permit and study-permit contraction, even though those are live metrics in the file.
+  - No explicit source is present in the `sources` array for the downside-risk side of the file (healthcare, agriculture, higher education), even though the rationale and critics perspective rely on those risks being real.
+
+- **Role mismatches**
+  - None in the current stack. The three listed sources align cleanly to policy, execution/measurement, and challenge roles.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to a live metric, rationale line, or perspective.
+
+**Red-flag gaps**
+
+- This is a correction file, not a clean-sheet redesign file. The grade measures adequacy of repair, not whether the government has built a settled long-term model.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:388) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115)
+
+- Service-side downside risks may lag the correction itself. A clean contraction in intake data does not by itself answer whether the pullback creates secondary strain in healthcare, agriculture, or higher education.
+
+- Immigration levels and temporary-resident data are primary-homed here. Flagship Delivery may use them only as one flagship-file indicator, and Economic Policy Response may not grade-credit the contraction.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:392) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:32)
+
 ---
 
 **Build note**
 
-This draft now validates the template on Housing Supply plus two Stage 3 hard cases: Ethics & Transparency and Flagship Delivery.
+This draft now validates the template on Housing Supply plus five Stage 3 cases: Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, and Immigration.
 
 The next recommended build order is:
 
-- Defence & Trade
-- the remaining 7 dimensions after that stress case
+- Fiscal Health
+- Economic Policy Response
+- Affordability Response
+- Carbon Pricing Policy
+- Climate & Environment
