@@ -46,7 +46,7 @@
 
 ## Now
 
-No immediate work pending. The product cleanup loop is caught up. Next items are triggered by monthly cycle or by an explicit anchor decision.
+No immediate work pending. The product cleanup loop is caught up. Next items are triggered by the next monthly cycle or by a new explicit methodology decision.
 
 ---
 
