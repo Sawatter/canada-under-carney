@@ -23,52 +23,48 @@
 - Confidence calibration check is complete; no rescore was required after hardening.
 - Source Authority Map is active and integrated into the governance layer.
 - Tiny audit-fix pack is complete: Ethics is correctly marked as probationary in the register, and `meta.json` now reflects the live package update date.
+- QA-Gatekeeping-Rules.md has been amended to cover grade holds with source-stack change, confidence revisits, whole-letter probationary precision, Combination-Rule-driven changes, new analytical source-family additions (new Rule 8), same-family concentration (Rule 6 addition), symmetric confidence revisit (Rule 4 expansion), tier-nuance on government-data vs press-release and advocacy-with-methodology (Rule 1 edge-case notes), and navigation cross-references to SVP, Carry-Forward-Rules, PMDR, Deconfliction-Matrix, and SAM.
+- Ethics source chain strengthened — Office of the Ethics Commissioner and PM blind-trust summary statement added to the live Ethics `sources` array as Tier 1 anchors (traceability fix under the new-analytical-source-family hard rule).
+- Live review pass of the dashboard is complete; minor copy-staleness in About and the Dashboard footer was corrected in pass.
+- SAM Current State Delta fields reconciled for Ethics, Flagship Delivery, and Climate & Environment after source threading landed.
 
 ---
 
 ## Recently Completed
 
 - Per-Dimension Source Authority Map — built across all 11 graded dimensions, full review complete, integrated 2026-04-18. See [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md).
+- QA-Gatekeeping-Rules.md amendments — Rule 1 edge-case notes, Rule 2 carry-forward cross-reference, Rule 4 symmetric confidence revisit, Rule 5 probationary cross-reference, Rule 6 same-family concentration blocking condition, new Rule 8 for analytical source-family additions, and a Companion References section. See [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md).
+- Ethics source-chain strengthening — Office of the Ethics Commissioner and PM blind-trust summary statement added to the Ethics entry's `sources` array in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json). No grade, GPA, or confidence change.
+- Orphan-threading and SAM reconciliation bundle — C.D. Howe threaded into Flagship Delivery critics perspective; SAM Ethics, Flagship, and Climate Current State Deltas brought current; Carbon Pricing rationale/sourceNote wording consistency confirmed.
+- Live review pass — code-level pass over main cards, CompareView, Methodology, ScoreboardHeader, PromiseTracker, WhatsChanged, and About; copy-staleness in About ("12 policy dimensions", Official source list, Independent policy list) and the Dashboard footer source list corrected.
 
 ---
 
 ## Now
 
-These are the highest-leverage next tasks for the live product.
-
-1. Live review pass
-   Review the live dashboard with fresh eyes after the source hardening / confidence pass:
-   - main cards
-   - compare view
-   - methodology tab
-   - any wording that still feels off to a skeptical reader
+No immediate work pending. The product cleanup loop is caught up. Next items are triggered by monthly cycle or by an explicit anchor decision.
 
 ---
 
 ## Next
 
-These should happen after the immediate product cleanup.
+These are on deck awaiting their triggers.
 
-1. QA gatekeeping review pass
-   Run a narrow reflection + review on [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md) to check whether it still fits the dashboard as it exists now:
-   - current scoring workflow
-   - confidence calibration
-   - source-role discipline
-   - probationary dimensions
-   Reference the verbatim QA note in [Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) so the reasoning is preserved exactly.
+1. Ethics anchored indicator — metric decision
+   Source-chain prerequisite for this item has now landed: the Ethics entry carries Tier 1 anchors from the Office of the Ethics Commissioner and from the PM blind-trust summary statement. The remaining decision is whether to build an anchor metric, and if so which one.
+   Candidate shapes already named in repo docs:
+   - Ethics Commissioner action / recommendation tracking (event-count, shadow-build-first recommended)
+   - Disclosure completeness score (editorially-defined denominator; high fake-precision risk — recommend against unless the "expected categories" set can be made non-editorial)
+   Before building anything live, run a narrow research / prep pass to determine what the Commissioner's public record actually supports as a tractable event count. Until then, keep this as a deferred question, not an active build.
 
-2. Ethics anchored indicator
-   Add at least one semi-quantitative anchor if possible, such as:
-   - disclosure completeness score
-   - Ethics Commissioner action/recommendation tracking
-
-3. Next-cycle readiness pass
+2. Next-cycle readiness pass
    Focus on operational discipline, not redesign:
    - Economic Policy Response: no movement on announcements alone
    - Affordability Response: scope boundary holds
    - Carbon Pricing / Climate: deconfliction holds
    - Housing Supply: announced != started != completed
    - Major Projects: credit-claiming penalty remains explicit
+   This item is cycle-triggered — runs when the next monthly update is being assembled.
 
 ---
 

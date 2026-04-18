@@ -269,22 +269,23 @@ These may shape interpretation but must not move the Ethics & Transparency grade
 **Current state delta**
 
 Current `dimensions.json` Ethics & Transparency source stack:  
-Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique  
+Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement  
 Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1397)
 
 - **Present and well-aligned**
+  - `Office of the Ethics Commissioner — registry and reviews` fills the policy-truth / execution-truth role on framework adequacy and published review status.
+  - `PM blind-trust summary statement` fills the policy-truth / execution-truth role on the disclosure filing and blind-trust arrangement itself.
   - `Democracy Watch critique` fills the independent-challenge role on framework adequacy.
   - `Globe and Mail — ethics filing` and `CBC — financial assets` provide context/reporting corroboration on disclosure background and public asset visibility.
 
 - **Gaps**
-  - No Office of the Ethics Commissioner source is present in the `sources` array, even though review status is a minimum indicator and a live metric.
-  - No official disclosure / ethics-screen / blind-trust source is present in the `sources` array, even though the current band depends on the existence and completeness of the framework.
+  - None structural in the `sources` array. The earlier gaps (missing Ethics Commissioner and missing official disclosure / ethics-screen source) were closed on 2026-04-18.
 
 - **Role mismatches**
-  - `Globe and Mail — ethics filing` and `CBC — financial assets` are currently carrying part of the policy/execution truth layer by proxy because official disclosure and commissioner sources are absent. Under this map, they are better understood as context/reporting corroborators than as primary anchors.
+  - None in the current stack. With the two Tier 1 official sources now present, Globe and CBC are free to occupy their intended context/reporting roles rather than carrying policy/execution by proxy.
 
 - **Orphaned sources**
-  - None in the current stack. Every listed source attaches to the rationale or perspectives text.
+  - None in the current stack. Every listed source attaches to the rationale, metrics, promise evidence, or perspectives text.
 
 **Red-flag gaps**
 
@@ -356,6 +357,7 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 
 - **Present and well-aligned**
   - `Policy Options — federalism failure` fills independent-challenge truth on cross-file coordination quality.
+  - `C.D. Howe — public service ratio` fills secondary independent-challenge truth on state-capacity strain, cited in the critics perspective on Budget 2025's executive-to-rank-and-file ratio.
 
 - **Gaps**
   - No Legisinfo source is present in the `sources` array, even though bills passed is a live metric.
@@ -365,7 +367,7 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
   - None in the current stack once orphaned items are set aside. The live attached sources are challenge/context-heavy, but they are not misclassified where they are actually used.
 
 - **Orphaned sources**
-  - `Policy Options — DM shuffle`, `PBO — $94B investment gap`, `C.D. Howe — public service ratio`, and `The Hub — $94B gap` do not currently attach to a live rationale, metric sourceNote, promise evidence, or perspectives line.
+  - `Policy Options — DM shuffle`, `PBO — $94B investment gap`, and `The Hub — $94B gap` do not currently attach to a live rationale, metric sourceNote, promise evidence, or perspectives line.
 
 **Red-flag gaps**
 
@@ -1020,6 +1022,7 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 
 - **Present and well-aligned**
   - `CCI — Canada off course` fills independent-challenge truth on the target gap.
+  - `IISD — Canada's 2030 climate target` fills second-family independent-challenge truth on the same target gap, cited in the rationale alongside CCI.
   - `ECCC 2024-25 Departmental plan at a glance` and `ECCC 2025-26 Departmental plan at a glance` fill measurement/execution truth on institutional capacity decline.
   - `National Observer`, `The Conversation`, and `CBC` fill context and operational-impact reporting around the reversals and departmental cuts.
 
@@ -1033,7 +1036,7 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
   - The journalism sources are properly useful, but they should remain context/operational-impact reporting rather than primary evidence for grade movement.
 
 - **Orphaned sources**
-  - `IISD — Canada's 2030 climate target` is present in the `sources` array but does not currently attach to a live rationale, metric sourceNote, or perspectives line.
+  - None in the current stack. Every listed source attaches to a metric, rationale line, or perspective.
 
 **Red-flag gaps**
 
