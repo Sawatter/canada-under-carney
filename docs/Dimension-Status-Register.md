@@ -109,7 +109,7 @@
 | **Before next cycle?** | Language enforcement: yes. Structural change: no. |
 | **Affects** | Live model only |
 
-### 10. Ethics & Transparency (C-)
+### 10. Ethics & Transparency (C)
 
 | Field | Value |
 |---|---|
@@ -119,7 +119,7 @@
 | **Before next cycle?** | Add indicator if possible. Otherwise hold as is. |
 | **Affects** | Live model only |
 
-### 11. Flagship Delivery (C-)
+### 11. Flagship Delivery (C)
 
 | Field | Value |
 |---|---|
@@ -180,7 +180,7 @@ Ideas that are valid but must NOT leak into the live cycle. These are queued for
 
 ## 3 Highest Risk Dimensions for Next Monthly Update
 
-1. **Flagship Delivery (C-)** — First real test of the Combination Rule. If it produces a confusing or contradictory grade, the probation fails.
+1. **Flagship Delivery (C)** — First real test of the Combination Rule. If it produces a confusing or contradictory grade, the probation fails.
 
 2. **Carbon Pricing Policy (C)** — The Pack 4 drill blocked this dimension for double-counting. The deconfliction fix must hold under real evidence.
 
