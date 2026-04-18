@@ -1,7 +1,7 @@
 # Source Authority Map
 
 - **Purpose:** Define, per dimension, what kinds of truth the dashboard is claiming and which source roles should carry those claims.
-- **Status:** Draft — Housing Supply pilot plus Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, and Immigration entries complete; remaining 5 dimensions pending.
+- **Status:** Draft — Housing Supply pilot plus Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, Immigration, Fiscal Health, and Economic Policy Response entries complete; remaining 3 dimensions pending.
 - **Last updated:** 2026-04-18
 - **Depends on:** Current-Roadmap.md, Parking-Lot.md, DATA-SOURCES.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Canonical-Scoring-Sheets.md, Plus-Minus-Decision-Rules.md, src/data/dimensions.json
 - **Used by:** future source-hardening passes, source-fit reviews, confidence calibration reviews, and the forthcoming full per-dimension authority-map buildout
@@ -627,14 +627,181 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 
 ---
 
+## 7. Fiscal Health
+
+**Construct**
+
+The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:228)
+
+**Core grade-moving claims**
+
+1. The projected deficit remains above a sustainable range and the medium-term anchor lacks credibility.
+   Source basis: D threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:249), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:349), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:369)
+
+2. Independent confidence in the stated fiscal path is extremely low, which is central to why the file is a D rather than a softer C-range warning.
+   Source basis: minimum indicators + live metric + rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:239), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:416), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:369)
+
+3. Credit pressure is not a downgrade event yet, but rating warnings and debt-service burden reinforce the credibility problem.
+   Source basis: D threshold + current `plusMinusRationale`, rationale, and Fitch metric in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:249), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:350), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:369), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:409)
+
+4. Defence spending is strategically justified, but it does not excuse broader unanchored fiscal expansion.
+   Source basis: modifier rule + current active modifier + rater note in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:253), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:353), and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:265)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The file depends on deficit, debt, debt-service, and confidence figures. |
+| Policy truth | Required | The grade turns on the government's chosen fiscal package, anchor, and discretionary measures. |
+| Execution truth | Required | Budget projections alone are not enough; actual outturns, debt path, and budget implementation matter. |
+| Independent challenge truth | Required | Fiscal credibility is inseparable from outside scrutiny by PBO, IMF, ratings agencies, and serious fiscal analysis. |
+| Context truth | Optional | Commentary on political tradeoffs or macro backdrop can inform the file but must not move the grade by itself. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | Finance Canada budget / fiscal monitor / Annual Financial Report [QA T1]; PBO fiscal confidence metrics [QA T1] | Additional official fiscal tables and public accounts [QA T1] |
+| Policy truth | Budget 2025 and official fiscal-policy documents [QA T1/T4 depending document type] | Formal tax or spending measures implemented through legislation or budget annexes [QA T1] |
+| Execution truth | Annual Financial Report and realized fiscal outturns [QA T1]; official debt-service and revenue tables [QA T1] | Fiscal Monitor updates [QA T1] |
+| Independent challenge truth | PBO [QA T1]; IMF [QA T1]; rating agencies [QA T1 event-driven]; C.D. Howe / IFSD [QA T2] | Other disclosed-methodology institutional fiscal analysis [QA T2] |
+| Context truth | Broader reporting on fiscal politics and trade-war macro pressure [QA T3] | Additional clearly attributed fiscal commentary [QA T3] |
+
+**Context-only sources**
+
+- Commentary on whether specific tax cuts are politically popular
+- Broader political arguments about austerity versus stimulus
+- Trade-war or tariff discussion when it is not directly tied to fiscal sustainability
+
+These may shape interpretation but must not move the Fiscal Health grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Fiscal Health source stack:  
+Budget 2025, PBO fiscal analysis, C.D. Howe analysis, Annual Financial Report FY 2024-25, IMF Article IV  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:370)
+
+- **Present and well-aligned**
+  - `Budget 2025` fills measurement/policy truth on the projected deficit, debt-service, and package design.
+  - `PBO fiscal analysis` fills independent-challenge truth on target credibility and confidence.
+  - `Annual Financial Report FY 2024-25` fills execution truth on realized debt levels.
+  - `IMF Article IV (Jan 2026)` and `C.D. Howe analysis` fill independent-challenge/context roles on level vs trajectory.
+
+- **Gaps**
+  - No direct rating-agency source is present in the `sources` array, even though the file uses Fitch pressure as a live metric and rationale input.
+  - No IFSD source is present in the `sources` array, even though the rationale and defenders text invoke IFSD-level "manageable current debt, poor trajectory" framing.
+
+- **Role mismatches**
+  - None in the current stack. The live sources align cleanly across measurement, execution, policy, and challenge roles.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to a metric, rationale line, or perspective.
+
+**Red-flag gaps**
+
+- Level versus trajectory is the core confounder. Manageable current debt levels do not rescue an unsustainable projected path.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:259)
+
+- Defence spending can justify part of the fiscal expansion strategically, but not the rest of the package. Stronger defence evidence does not by itself improve the fiscal grade.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:253) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:265)
+
+- Deficit, PBO confidence, ratings, and fiscal credibility are primary-homed here. Other dimensions may reference them only as context.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:263), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:35), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:36)
+
+---
+
+## 8. Economic Policy Response
+
+**Construct**
+
+The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:59)
+
+**Core grade-moving claims**
+
+1. The government has mounted a real policy response, but key instruments remain more announced than executed, which is why the file stays in D rather than moving to C.
+   Source basis: D threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:79), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:502), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:503), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:527)
+
+2. Business investment and related productivity indicators have not yet turned, so the policy response has not produced measurable traction.
+   Source basis: minimum indicators + current `bandCriterion` and grade triggers in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:68), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:502), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:518)
+
+3. Timing fairness applies because the structural weakness is inherited, but that modifier does not excuse weak execution on current instruments.
+   Source basis: modifier rule + current active modifier + rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:82), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:506), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:527)
+
+4. GDP per capita decline is inherited context rather than a grade-moving metric, while critical minerals and AI compute are primary-homed here as response instruments.
+   Source basis: deconfliction rule + current rationale and promise set in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:94), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:527), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:583), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:597)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The file depends on business investment, R&D, employment, and related productivity indicators. |
+| Policy truth | Required | The construct grades federal instruments such as AI compute, critical minerals, and red-tape review. |
+| Execution truth | Required | The file must distinguish announced from authorized from disbursed. |
+| Independent challenge truth | Required | Productivity adequacy and international comparison require outside scrutiny, not just government self-description. |
+| Context truth | Optional | Inherited GDP-per-capita weakness and broader competitiveness commentary help frame the file but must not move the grade by themselves. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | StatsCan business-investment, GDP-per-capita, R&D, and labour-force data [QA T1] | OECD statistical releases [QA T1] |
+| Policy truth | ISED / Treasury Board / NRCan / official program documents for AI, minerals, and regulatory reform [QA T1/T4 depending document type] | Budget and departmental releases [QA T1/T4] |
+| Execution truth | Treasury Board / PBO / official disbursement and authorization evidence [QA T1]; official program-status updates [QA T1/T4] | Departmental implementation reporting [QA T1/T4] |
+| Independent challenge truth | OECD [QA T1]; Fraser Institute / BCBC / other disclosed-methodology productivity analysis [QA T2/T3 depending claim use] | Additional institutional productivity analysis [QA T2/T3] |
+| Context truth | Inherited GDP-per-capita trend reporting and mainstream business coverage [QA T3] | Additional clearly attributed competitiveness commentary [QA T3] |
+
+**Context-only sources**
+
+- GDP-per-capita decline when used as inherited background rather than response grading
+- Trade diversification outcomes, which are primary-homed in Defence & Trade
+- Immigration or food-price pressure data when used as general economic mood rather than productivity-response evidence
+
+These may shape interpretation but must not move the Economic Policy Response grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Economic Policy Response source stack:  
+Fraser Institute Ugly Growth, OECD Economic Surveys: Canada 2025, StatsCan GDP per capita, StatsCan LFS Feb 2026, NRCan critical minerals partnerships  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:528)
+
+- **Present and well-aligned**
+  - `OECD Economic Surveys: Canada 2025`, `StatsCan GDP per capita`, and `StatsCan LFS Feb 2026` fill inherited-context plus measurement truth on structural weakness and labour conditions.
+  - `NRCan — critical minerals partnerships` fills policy/context truth on one of the government's stated productivity instruments.
+  - `Fraser Institute — Ugly Growth` fills independent-challenge/context framing on the depth of the inherited problem.
+
+- **Gaps**
+  - No direct business-investment source is present in the `sources` array, even though business investment is a minimum indicator and a central grade-moving claim.
+  - No direct R&D source is present in the `sources` array, even though R&D intensity is a listed metric.
+  - No direct AI compute / Treasury Board / PBO authorization source is present in the `sources` array, even though announcement-versus-execution is the file's core gating rule.
+
+- **Role mismatches**
+  - `StatsCan GDP per capita` is best understood as inherited-context measurement rather than a direct grade-moving response metric, because the construct explicitly grades the response, not the inherited outcome.
+  - `NRCan — critical minerals partnerships` is better understood as policy/context corroboration unless paired with authorization or disbursement evidence, because the current rationale still qualifies it as "government states."
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to a metric, rationale line, or promise.
+
+**Red-flag gaps**
+
+- Announcement bias is the core structural risk. A fuller source stack does not solve the problem unless at least some key instruments are shown at authorized-or-higher stage.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:96) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:523)
+
+- GDP per capita is inherited context, not the grade-moving response metric. Stronger GDP-per-capita evidence should not be mistaken for stronger evidence of policy execution.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:90) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:94)
+
+- Critical minerals pipeline and AI compute are primary-homed here. Trade diversification, deficit figures, immigration contraction, and food CPI must stay deconflicted into their home dimensions.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:94), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:27), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:31), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:35), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:47)
+
+---
+
 **Build note**
 
-This draft now validates the template on Housing Supply plus five Stage 3 cases: Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, and Immigration.
+This draft now validates the template on Housing Supply plus seven Stage 3 cases: Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, Immigration, Fiscal Health, and Economic Policy Response.
 
 The next recommended build order is:
 
-- Fiscal Health
-- Economic Policy Response
 - Affordability Response
 - Carbon Pricing Policy
 - Climate & Environment
