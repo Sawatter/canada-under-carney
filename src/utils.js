@@ -23,8 +23,6 @@ function gradedOnly(dimensions) {
 
 // Get the GPA value for a dimension — uses gpaValue override if present,
 // otherwise falls back to the grade's standard GPA.
-// This allows display grades (e.g., "C" for whole-letter) to differ from
-// scoring values (e.g., 1.7 for evidence-based C-) without a free upgrade.
 function dimGPA(d) {
   return d.gpaValue != null ? d.gpaValue : GRADES[d.grade].gpa;
 }

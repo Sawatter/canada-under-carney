@@ -141,7 +141,7 @@
 
 ---
 
-## 4. Ethics & Transparency (C-)
+## 4. Ethics & Transparency (C)
 
 **Construct:** The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.
 
@@ -183,7 +183,7 @@
 
 ---
 
-## 5. Flagship Delivery (C-) — PROBATION
+## 5. Flagship Delivery (C) — PROBATION
 
 **Construct:** The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.
 
@@ -573,11 +573,11 @@
 6. Affordability Response — D-
 7. Economic Policy Response — D
 8. Carbon Pricing Policy — C
-9. Ethics & Transparency — C-
+9. Ethics & Transparency — C
 
 ## Probationary (1 dimension)
 
-10. Flagship Delivery — C-
+10. Flagship Delivery — C
 
 ## Provisional, under v2 review (2 dimensions)
 

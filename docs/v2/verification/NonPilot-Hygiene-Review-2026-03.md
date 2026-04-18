@@ -5,6 +5,8 @@
 - **Date:** 2026-04-15
 - **Scope:** Targeted review, not a full source audit. Read-only against governing methodology docs.
 
+> **Post-hoc note (2026-04-17):** The `gpaValue: 1.7` override references for Ethics & Transparency (below) and Flagship Delivery (below) were accurate as of the 2026-04-15 review date. Both dimensions have since been normalized to `gpaValue: 2.0` per the whole-letter decisions recorded in Launch-Recommendation.md §1.3. The section text below is preserved as a historical record of the 2026-04-15 state; see changelog.json for the subsequent progression.
+
 ---
 
 ## Major Projects

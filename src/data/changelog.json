@@ -17,7 +17,21 @@
         "metric": "Flagship Delivery display",
         "from": "C- (plus/minus)",
         "to": "C (whole letter)",
-        "reason": "Display precision reduced to whole-letter grade per Launch Recommendation. Evidence base does not support plus/minus precision for this dimension. GPA contribution unchanged at 1.7."
+        "reason": "Display precision reduced to whole-letter grade per Launch Recommendation. Evidence base does not support plus/minus precision for this dimension. GPA contribution unchanged at 1.7 at time of display change; subsequently normalized to 2.0 — see later entries."
+      },
+      {
+        "type": "metric_update",
+        "metric": "Ethics & Transparency GPA contribution",
+        "from": "1.7 (hidden C-)",
+        "to": "2.0 (matches whole-letter C display)",
+        "reason": "Public grade and scoring contribution now match per the Launch Recommendation whole-letter decision. Removes hidden C- behind displayed C."
+      },
+      {
+        "type": "metric_update",
+        "metric": "Flagship Delivery GPA contribution",
+        "from": "1.7 (hidden C-)",
+        "to": "2.0 (matches whole-letter C display)",
+        "reason": "Public grade and scoring contribution now match per the Launch Recommendation whole-letter decision. Removes hidden C- behind displayed C. Parallel treatment to Ethics."
       },
       {
         "type": "event",
