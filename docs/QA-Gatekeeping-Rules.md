@@ -6,7 +6,16 @@
 
 ## When These Rules Apply
 
-Every proposed grade change must pass through this protocol before it can be published. Grade holds (no change) are exempt from the full protocol but must still pass the source minimum check.
+Every proposed grade change must pass through this protocol before it can be published.
+
+These rules also apply, as relevant, to:
+- grade holds when the source stack changes
+- confidence revisits
+- whole-letter probationary precision decisions
+- Combination-Rule-driven mechanical changes
+- new analytical source-family additions touching grade-moving claims
+
+Quiet hold cycles with no evidentiary or wording changes are exempt from the full protocol but must still pass the source minimum check.
 
 ---
 
@@ -16,13 +25,17 @@ Every proposed grade change must pass through this protocol before it can be pub
 
 | Tier | Source Type | Examples | Can move a grade alone? |
 |---|---|---|---|
-| **Tier 1** | Official statistics, independent officers of Parliament, audited data | StatsCan, PBO, OAG, CMHC operational data, Environment Commissioner | Yes |
+| **Tier 1** | Official statistics, departmental data publications, independent officers of Parliament, audited data | StatsCan, PBO, OAG, CMHC operational data, ECCC departmental-plan figures, Environment Commissioner | Yes |
 | **Tier 2** | Independent analysis with disclosed methodology | CCI, C.D. Howe, IRPP, IFSD, Full Fact, academic research | Yes (with Tier 1 context) |
-| **Tier 3** | Quality journalism with named sources | CBC, Globe, La Presse, Toronto Star, National Post | Only if corroborated by Tier 1 or 2 |
+| **Tier 3** | Quality journalism with named sources; transparent polling firms | CBC, Globe, La Presse, Toronto Star, National Post, Angus Reid, Nanos, Leger | Only if corroborated by Tier 1 or 2 |
 | **Tier 4** | Government press releases, ministerial statements, PMO announcements | Canada.ca, PMO releases, ministerial speeches | **Never alone.** Context only. |
 | **Tier 5** | Social media, partisan commentary, anonymous sources | Twitter/X, partisan blogs, leaked documents without verification | **Never.** Not admissible. |
 
 **The rule:** If the strongest evidence for a grade change is Tier 4 (government announcement), the change is blocked until Tier 1 or 2 evidence is available. No exceptions.
+
+**Edge-case notes:**
+- Government statistical releases, departmental plans, and official operational datasets belong in Tier 1 when cited for the figures they directly publish. Government press releases, speeches, and announcement pages remain Tier 4.
+- Advocacy organizations with disclosed methodology may qualify as Tier 2 only for the specific claims their published method directly supports. If the methodology is unclear or the claim extends beyond it, treat them as Tier 3 corroboration or context instead.
 
 ---
 
@@ -77,6 +90,12 @@ Confidence moves **up** when:
 - A lagged data point arrives and confirms the trajectory
 - Attribution is clarified by new evidence
 
+Confidence must also be **revisited** when the source stack changes materially, even if the underlying grade does not:
+- A second independent source family is added or removed
+- Same-family concentration is discovered on a grade-moving claim
+- A source's role shifts between primary anchor, corroborator, and context
+- A listed source is found not to support any live claim
+
 **Confidence does NOT change when:**
 - A think tank publishes an opinion that reframes existing data
 - Media coverage changes tone without new underlying evidence
@@ -84,6 +103,8 @@ Confidence moves **up** when:
 - The analyst is uncertain but the evidence points one direction
 
 **The rule:** Every confidence change must cite the specific new evidence that justifies it. "The picture is murkier" is not sufficient. "Pembina published a report showing the effective OBPS price is $18/t vs. our prior estimate of $20/t, which does not materially change the assessment" → confidence holds. "ECCC published new compliance data showing the OBPS effective price dropped from $20/t to $12/t" → confidence drops (new data, material change).
+
+If confidence is explicitly re-reviewed because the source stack changed but the label stays the same, record why the existing confidence still holds.
 
 ---
 
@@ -122,6 +143,7 @@ Confidence moves **up** when:
 4. **Rubric term misapplication:** The analyst is using a rubric term (e.g., "on paper," "initiated," "delivered") in its everyday meaning rather than its defined dashboard meaning
 5. **Unresolved contradiction:** The proposed change contradicts prior cycle reasoning without acknowledgment
 6. **Political pressure as evidence:** The case includes arguments about how the dashboard will be perceived rather than what the evidence shows
+7. **Same-family concentration:** Multiple listed sources for the grade-moving claim trace back to one analytical family without independent corroboration
 
 **Any one of these conditions is sufficient to block.** The block remains until the condition is resolved.
 
