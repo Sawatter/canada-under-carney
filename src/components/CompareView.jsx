@@ -7,11 +7,22 @@ import PromiseTag from "./PromiseTag";
 
 function DimColumn({ dim }) {
   const g = GRADES[dim.grade];
+  const subScoreSummary = dim.subScores
+    ? Object.values(dim.subScores)
+        .map((score) => `${score.label} ${score.grade}`)
+        .join(" · ")
+    : null;
+
   return (
     <div style={{ flex: 1, minWidth: 0 }}>
       {/* Grade header */}
       <div style={{ textAlign: "center", marginBottom: "16px" }}>
         <GradeChip grade={dim.grade} size="lg" />
+        {subScoreSummary && (
+          <div style={{ marginTop: "8px", fontSize: "11px", color: "#666", fontWeight: 600 }}>
+            {subScoreSummary}
+          </div>
+        )}
         <div style={{ marginTop: "6px" }}>
           <TrendArrow trend={dim.trend} />
           {dim.previousGrade && (
@@ -67,11 +78,14 @@ function DimColumn({ dim }) {
 }
 
 export default function CompareView() {
-  const [leftId, setLeftId] = useState(dimensions[0].id);
-  const [rightId, setRightId] = useState(dimensions[3].id);
+  // CompareView stays focused on the 11 graded dimensions; Promise Delivery
+  // remains visible elsewhere as a separate tracker and is not part of GPA comparison.
+  const comparableDimensions = dimensions.filter((d) => !d.excludeFromGPA);
+  const [leftId, setLeftId] = useState(comparableDimensions[0].id);
+  const [rightId, setRightId] = useState(comparableDimensions[3].id);
 
-  const left = dimensions.find((d) => d.id === leftId);
-  const right = dimensions.find((d) => d.id === rightId);
+  const left = comparableDimensions.find((d) => d.id === leftId) || comparableDimensions[0];
+  const right = comparableDimensions.find((d) => d.id === rightId) || comparableDimensions[3];
 
   const selectStyle = {
     padding: "8px 12px",
@@ -97,13 +111,13 @@ export default function CompareView() {
       {/* Selectors */}
       <div style={{ display: "flex", gap: "12px", marginBottom: "24px", flexWrap: "wrap" }}>
         <select value={leftId} onChange={(e) => setLeftId(e.target.value)} style={selectStyle}>
-          {dimensions.map((d) => (
+          {comparableDimensions.map((d) => (
             <option key={d.id} value={d.id}>{d.name} ({d.grade})</option>
           ))}
         </select>
         <span style={{ fontSize: "14px", color: "#999", alignSelf: "center", fontWeight: 700 }}>vs</span>
         <select value={rightId} onChange={(e) => setRightId(e.target.value)} style={selectStyle}>
-          {dimensions.map((d) => (
+          {comparableDimensions.map((d) => (
             <option key={d.id} value={d.id}>{d.name} ({d.grade})</option>
           ))}
         </select>

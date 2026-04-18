@@ -1,3 +1,5 @@
+import meta from "../data/meta.json";
+
 export default function Methodology() {
   const ranges = [
     {
@@ -49,16 +51,17 @@ export default function Methodology() {
           color: "#1a1a1a",
         }}
       >
-        Scoring Rubric v1.1
+        Scoring Rubric v{meta.rubricVersion}
       </h2>
       <div style={{ fontSize: "13px", lineHeight: 1.7, color: "#444" }}>
         <p style={{ marginBottom: "16px" }}>
-          Each of 12 policy dimensions is graded on a standard 4.0 GPA scale.
-          Grades reflect what the government chose to do and how well it
-          executed, not what it inherited. The standard for &ldquo;adequate&rdquo; is
-          threefold: (1) Does the response match the scale of the problem? (2) Is
-          measurable progress occurring? (3) Is the direction likely to close the
-          gap?
+          The dashboard tracks 12 policy dimensions total: 11 are graded on a
+          standard 4.0 GPA scale, and Promise Delivery is presented separately as
+          an ungraded accountability tracker. Grades reflect what the government
+          chose to do and how well it executed, not what it inherited. The standard
+          for &ldquo;adequate&rdquo; is threefold: (1) Does the response match the scale of
+          the problem? (2) Is measurable progress occurring? (3) Is the direction
+          likely to close the gap?
         </p>
 
         {ranges.map((g, i) => (
@@ -87,14 +90,18 @@ export default function Methodology() {
           independent sources).
         </p>
         <p style={{ fontSize: "12px", color: "#888" }}>
+          <strong>Whole-letter probation:</strong> Ethics &amp; Transparency and
+          Flagship Delivery are probationary whole-letter dimensions. Their GPA
+          contribution matches their displayed whole letter, with no hidden C-
+          adjustment behind the public grade.
+        </p>
+        <p style={{ fontSize: "12px", color: "#888" }}>
           <strong>Weighting:</strong> The headline grade is unweighted across all
-          11 graded dimensions. Promise Delivery is tracked separately
-          as an ungraded accountability tool. The Household Impact grade
-          double-weights Fiscal
-          Health, Housing Supply, Affordability Response, and Economic Policy
-          Response. Both are
-          published; the choice of weighting is an editorial judgment disclosed
-          transparently.
+          11 graded dimensions. Promise Delivery is tracked separately as an
+          ungraded accountability tool. The Household Impact grade double-weights
+          Fiscal Health, Housing Supply, Affordability Response, and Economic
+          Policy Response. Both are published; the choice of weighting is an
+          editorial judgment disclosed transparently.
         </p>
       </div>
     </div>
