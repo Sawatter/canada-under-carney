@@ -6,6 +6,29 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "NATO 2.01% met. Trade diversification measurable: US share fell from 75.9% to 71.7%.",
+    "construct": "The degree to which the federal government has met its stated defence spending commitments and diversified Canada's trade relationships away from single-market dependency.",
+    "gradeBasis": {
+      "band": "A",
+      "bandCriterion": "Defence target sustained and trade diversification materially improved away from single-market dependency.",
+      "plusMinusRationale": "A- rather than A reflects Canada meeting but not materially exceeding the 2% defence floor, while trade diversification remains partly market-driven and the 3.5% target lacks a funded pathway.",
+      "activeModifiers": [
+        {
+          "name": "External Constraint",
+          "status": "partly applicable",
+          "reason": "The trade war simultaneously creates the diversification problem and drives some of the measured improvement, so trade gains should not be treated as purely policy-caused."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "3.5% defence target gets a funded pathway",
+        "US export share drops below 68%"
+      ],
+      "down": [
+        "NATO spending falls below 2.0%",
+        "US export share reverses above 73%"
+      ]
+    },
     "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline — NATO confirmed all allies met the 2% target for the first time in 2025 (Canada at 2.01% per NATO expenditure tables). Trade diversification produced measurable results: US export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s; non-US goods exports rose 17.2% to an all-time high (Global Affairs Canada). The A- rather than A reflects Canada meeting but not materially exceeding the 2% floor. Policy Options flags the 3.5% GDP defence target is unfunded long-term.",
     "sources": [
       {
@@ -165,6 +188,34 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "MPO created with real powers. Credit-claiming exceeds contribution. National interest designation unused.",
+    "construct": "The effectiveness of federal institutional machinery for infrastructure project delivery.",
+    "gradeBasis": {
+      "band": "C",
+      "bandCriterion": "MPO created but most projects are pre-existing, the signature power is unused, and the framework remains untested.",
+      "plusMinusRationale": "Current C includes a credit-claiming penalty. Without that documented penalty for overstating ownership of pre-existing projects, the raw assessment would sit at C+.",
+      "activeModifiers": [
+        {
+          "name": "Credit-claiming penalty",
+          "status": "applied",
+          "reason": "Most projects in the pipeline were pre-existing, and documented overclaiming pulls the raw assessment down from C+ to C."
+        },
+        {
+          "name": "Timing Fairness",
+          "status": "partially applicable",
+          "reason": "Infrastructure is multi-year and the MPO is still young, but the machinery itself is already gradeable."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "First use of national interest designation",
+        "First project completes a full MPO cycle"
+      ],
+      "down": [
+        "Project withdrawn from MPO",
+        "Evidence that the framework is being bypassed"
+      ]
+    },
     "rationale": "The Major Projects Office is a real institutional innovation with potentially transformative powers (Building Canada Act, C-5). However, the $116B headline figure primarily represents pre-existing investment decisions. The national interest designation has never been used. The Fraser Institute and Angus Reid both found the government overstated its role. AI investment and northern strategy are too early to judge. Note: the credit-claiming penalty modifier (-0.3 GPA) is reflected in the current C grade. Without the penalty, the raw assessment would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
     "sources": [
       {
@@ -288,6 +339,29 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Deficit $78.3B projected. No credible medium-term anchor. PBO gives 7.5% chance of meeting targets.",
+    "construct": "The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan.",
+    "gradeBasis": {
+      "band": "D",
+      "bandCriterion": "Deficit remains above a sustainable range, the medium-term anchor is not credible, and independent confidence in the fiscal path is low.",
+      "plusMinusRationale": "Current D reflects a large projected deficit, only 7.5% PBO confidence in the stated path, and rating pressure warnings despite strategically justified defence spending.",
+      "activeModifiers": [
+        {
+          "name": "External Constraint",
+          "status": "considered, not determinative",
+          "reason": "Trade-war-era defence spending is strategically justified, but it does not excuse broader discretionary fiscal expansion such as the gas tax suspension."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "PBO confidence rises above 25%",
+        "Fitch removes its warning"
+      ],
+      "down": [
+        "Actual downgrade",
+        "Deficit exceeds $90B without new revenue"
+      ]
+    },
     "rationale": "The projected deficit of $78.3B (FY 2025-26, Budget 2025 Annex 1) represents a substantial increase from the prior year. Fitch maintained its AA+ rating with a stable outlook after Budget 2025 but warned that persistent fiscal expansion could increase rating pressure over the medium term. The PBO gives only 7.5% probability the deficit-to-GDP ratio will decline as projected. Defence spending is strategically justified, but the broader fiscal package lacks a credible anchor. GST revenue ($54.4B) is now exceeded by debt servicing ($55.6B) — both figures verified from Budget 2025 Annex 1. IMF/IFSD note current debt levels are manageable, but the trajectory given defence + capital commitments is unsustainable without tax increases.",
     "sources": [
       {
@@ -418,6 +492,34 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Structural productivity crisis inherited. AI and minerals investments directionally correct but business investment flat. Grade reflects policy response and trajectory, not inherited conditions.",
+    "construct": "The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges.",
+    "gradeBasis": {
+      "band": "D",
+      "bandCriterion": "Productivity instruments are directionally correct but not yet executing strongly enough, while business investment remains flat or declining.",
+      "plusMinusRationale": "Current D reflects a real policy response that has not yet produced measurable traction: key funds are still more announced than executed, business investment remains flat, and major domestic barriers remain unresolved.",
+      "activeModifiers": [
+        {
+          "name": "Timing Fairness",
+          "status": "applied",
+          "reason": "This is a long-lag file, so the grade assesses trajectory and adequacy of response rather than inherited GDP per capita outcomes."
+        },
+        {
+          "name": "External Constraint",
+          "status": "partly applicable",
+          "reason": "The trade war constrains business investment decisions, but it does not resolve the domestic productivity barriers that still sit inside federal control."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "AI compute fund begins actual disbursement confirmed by Treasury Board or PBO",
+        "Business investment turns positive for two or more consecutive quarters"
+      ],
+      "down": [
+        "Additional major fund announced without Treasury Board authorization",
+        "Business investment decline accelerates"
+      ]
+    },
     "rationale": "This dimension grades the government's policy response to Canada's structural productivity and competitiveness challenges — not the inherited GDP per capita level, which reflects a decade of underinvestment. The AI compute strategy ($2B), critical minerals push (government states $18.5B across 56 partnerships), and interprovincial reform are directionally correct. But business investment remains flat for a fourth year, specific barriers (permitting, tax rates, electricity costs) remain unresolved, and OECD long-term projections rank Canada last among 38 members for per-capita growth. The grade reflects whether the policy direction and scale are adequate to change the trajectory, recognizing that outcomes will take years to materialize.",
     "sources": [
       {
@@ -682,6 +784,29 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "Consumer carbon price eliminated (affordability win). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the policy handling of both components.",
+    "construct": "The quality of the federal government's handling of carbon pricing as a policy instrument.",
+    "gradeBasis": {
+      "band": "C",
+      "bandCriterion": "One instrument was delivered, but the remaining industrial instrument is preserved more in form than in clearly effective function.",
+      "plusMinusRationale": "Current C reflects a genuine consumer-policy delivery win alongside an industrial OBPS whose effective price remains far below its headline design and therefore invites doubts about functional coherence.",
+      "activeModifiers": [
+        {
+          "name": "External Constraint",
+          "status": "not applied",
+          "reason": "A US border carbon adjustment could eventually justify tighter industrial pricing, but that proposal is still too early to apply as a modifier."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "OBPS tightened with effective price rising above $40/t",
+        "Formal carbon border adjustment mechanism announced with implementation plan"
+      ],
+      "down": [
+        "OBPS further weakened with effective price below $15/t",
+        "Government announces intention to eliminate industrial pricing"
+      ]
+    },
     "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument — the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a genuine affordability win and Day 1 commitment delivered. The industrial system's preservation is defensible on competitiveness grounds. However, CCI found the effective credit price is ~$20/tonne despite a $95 headline, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
     "sources": [
       {
@@ -789,6 +914,29 @@
     "previousGrade": "D+",
     "trend": "down",
     "status": "Major environmental policy reversals. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. See Carbon Pricing Policy for industrial pricing details.",
+    "construct": "The scale and coherence of the federal environmental policy framework.",
+    "gradeBasis": {
+      "band": "D",
+      "bandCriterion": "Major environmental reversals occurred without a credible replacement strategy, targets are acknowledged as out of reach, and institutional capacity is shrinking.",
+      "plusMinusRationale": "Current D reflects large policy reversals without a funded replacement framework, declining ECCC capacity, and an openly deteriorating path to the 2030 target.",
+      "activeModifiers": [
+        {
+          "name": "External Constraint",
+          "status": "partly applicable",
+          "reason": "The trade war may justify some tactical reversals, but it does not justify the full scale of environmental rollbacks reflected in the current grade."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "Replacement climate strategy published with funded measures",
+        "ECCC budget restored"
+      ],
+      "down": [
+        "Formal withdrawal from Paris commitments",
+        "Additional climate program eliminations"
+      ]
+    },
     "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
@@ -919,6 +1067,23 @@
     "previousGrade": null,
     "trend": "up",
     "status": "Sharp immigration contraction. Correction is substantial and necessary. Long-term model not yet defined (tracked as next grade trigger).",
+    "construct": "The adequacy and coherence of the federal immigration level correction.",
+    "gradeBasis": {
+      "band": "C+",
+      "bandCriterion": "The correction has been executed sharply and at real scale, but the long-term model is not yet defined and downside risks remain only partly addressed.",
+      "plusMinusRationale": "Current C+ reflects a substantial correction that addresses a real overload problem while still leaving the long-term design unresolved and exposing service-sensitive sectors to downside risk.",
+      "activeModifiers": []
+    },
+    "gradeTriggers": {
+      "up": [
+        "Government publishes a right-sized long-term model",
+        "Temporary residents reach the 5% target ahead of schedule"
+      ],
+      "down": [
+        "Evidence of critical service failure directly attributable to the pullback",
+        "Reversal of the contraction"
+      ]
+    },
     "rationale": "The government executed a sharp immigration contraction — the largest reduction in temporary resident intake in recent decades (IRCC data: -53% in new arrivals, Jan-Sep 2025 vs 2024). This addresses a real absorption failure — housing, healthcare, and labour market capacity were overwhelmed. However, the correction creates downside risks (healthcare staffing, agriculture, higher ed). The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than a current grading input. The Toronto Star frames this as cautious stabilization rather than bold reform.",
     "sources": [
       {
@@ -1028,6 +1193,33 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "4,000 units announced vs. hundreds of thousands needed. Ontario deal is real but scale insufficient.",
+    "construct": "The scale and effectiveness of federal housing policy interventions relative to identified need.",
+    "gradeBasis": {
+      "band": "D",
+      "bandCriterion": "Starts remain below the needed level, federal programs cover only a tiny share of the shortfall, and spending is declining rather than scaling.",
+      "plusMinusRationale": "Current D reflects the gap between announced scale and actual starts, the absence of live Build Canada Homes construction, and a federal spending path that is shrinking rather than accelerating.",
+      "activeModifiers": [
+        {
+          "name": "Jurisdictional limits",
+          "status": "non-binding",
+          "reason": "A C+ cap could matter when more than half the result depends on non-federal actors without agreements, but the current D sits below that cap."
+        },
+        {
+          "name": "Timing Fairness",
+          "status": "partially applicable",
+          "reason": "Construction is multi-year, so direction of travel for the BCH pipeline matters, but announcements still do not count as starts."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "Build Canada Homes construction actually begins and starts exceed 300K annualized"
+      ],
+      "down": [
+        "Starts fall below 240K",
+        "Federal spending declines further without offset"
+      ]
+    },
     "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units (construction not yet underway) against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. Federal housing spending declines 56% by 2028-29 — from $9.8B to $4.3B (PBO, December 2025). This is leaning toward a proved failure, not merely too early to judge. Policy Options notes supply alone won’t solve the structural affordability problem.",
     "sources": [
       {
@@ -1155,6 +1347,24 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "PROBATION. PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved. Whole-letter grade only — plus/minus precision not supported by evidence.",
+    "construct": "The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.",
+    "gradeBasis": {
+      "band": "C",
+      "bandCriterion": "Disclosure is partial, an ethics screen exists, but completeness is questioned and no independent review has been published.",
+      "plusMinusRationale": "Current C- reflects that there is some framework in place, but the disclosure standard and independent review still fall short of what this unusually complex background requires.",
+      "activeModifiers": []
+    },
+    "gradeTriggers": {
+      "up": [
+        "Ethics Commissioner publishes a detailed review finding adequate disclosure",
+        "PM proactively publishes full Brookfield accounting"
+      ],
+      "down": [
+        "New evidence of undisclosed interests",
+        "Ethics Commissioner finds screening inadequate",
+        "New credible governance critique at the Democracy Watch level"
+      ]
+    },
     "rationale": "No public evidence demonstrates self-dealing. This dimension grades the adequacy of the PM’s ethics framework relative to the novel disclosure requirements of his background. The framework is assessed as a single construct encompassing disclosure completeness, conflict screening, and independent review — not as separate items. Carney held ~$6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch describes the ethics screen as “loophole-filled.” The disclosure standard for a PM with this background should include full public accounting reviewed independently.",
     "sources": [
       {
@@ -1241,6 +1451,21 @@
     "previousGrade": null,
     "trend": "down",
     "status": "PROBATION. Measures delivery capacity across 5 flagship files. Strong on defence. Weak on housing and climate. Whole-letter grade only — combination rule determines grade mechanically.",
+    "construct": "The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.",
+    "gradeBasis": {
+      "band": "C",
+      "bandCriterion": "Per the Combination Rule, the headline grade is determined mechanically by the delivery-status distribution across the flagship files.",
+      "plusMinusRationale": "Current C- reflects a mixed delivery machine: defence demonstrates real execution capacity, while housing and climate show weak delivery on domestic files and structural strain in the operating apparatus.",
+      "activeModifiers": []
+    },
+    "gradeTriggers": {
+      "up": [
+        "Per Combination Rule, at least one flagship file improves by one status category"
+      ],
+      "down": [
+        "Per Combination Rule, at least one flagship file worsens by one status category"
+      ]
+    },
     "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow — it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions.",
     "sources": [
       {
@@ -1340,6 +1565,28 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "Standalone accountability tracker. Not included in GPA. Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short.",
+    "construct": "The cumulative rate of fulfillment of specific stated government commitments.",
+    "gradeBasis": {
+      "band": "C",
+      "bandCriterion": "Delivery is mixed: some commitments are genuinely fulfilled, while others remain stalled or abandoned and the pattern is not independently clean of the home dimensions.",
+      "plusMinusRationale": "Current C+ reflects genuine delivery on several high-profile commitments, but persistent underdelivery on housing and climate and the derivative nature of the dimension keep it from reading as a stronger independent score.",
+      "activeModifiers": [
+        {
+          "name": "Timing Fairness",
+          "status": "applied",
+          "reason": "Many commitments are multi-year, so a 'Too Early' category remains necessary when judging the cumulative delivery pattern."
+        }
+      ]
+    },
+    "gradeTriggers": {
+      "up": [
+        "Delivery count rises to 18 or more of 44 without new abandonments"
+      ],
+      "down": [
+        "Additional abandonments bring the total above 15",
+        "Housing and climate see no movement for another cycle"
+      ]
+    },
     "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative dimension. Grade movements that are already captured in their home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this grade. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
     "sources": [
       {
