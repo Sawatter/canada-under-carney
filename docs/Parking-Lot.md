@@ -8,6 +8,20 @@
 
 ---
 
+## Working Rules
+
+- Hard rule for source edits
+  If a pass is only adding a missing URL, restoring a broken source chain, or making an already-used claim traceable, it can be done directly.
+  If a pass introduces a new analytical source family that changes the evidentiary stack for a dimension, it must first go through:
+  1. reflection on source role / source fit
+  2. Claude review before the source is treated as settled
+
+  Short version:
+  - traceability fix = direct
+  - new analytical source family = reflect + Claude review first
+
+---
+
 ## Audit Ideas
 
 - Source sufficiency audit by dimension

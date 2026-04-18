@@ -17,6 +17,7 @@
 - Cross-dimension drift audit of the 9 non-probationary graded dimensions passed with minor notes.
 - Source sufficiency audit across the 11 graded live dimensions is complete.
 - The weakest current source stacks are Climate & Environment, Flagship Delivery, and Economic Policy Response.
+- Hard rule adopted for source edits: missing URL / source-chain fixes can be added directly, but any new analytical source family must go through a reflection pass and Claude review before it is treated as settled.
 
 ---
 
@@ -31,6 +32,9 @@ These are the highest-leverage next tasks for the live product.
    - Carbon Pricing Policy: add a second-family analytical source on industrial carbon pricing integrity
    - Climate & Environment: add direct ECCC primary sources and reduce dependency on commentary-only sourcing
    - Flagship Delivery: add a non-IRPP analytical source for state-capacity framing
+   Guardrail:
+   - if the work is only adding a missing URL or making an existing cited claim traceable, it can be done directly
+   - if the work introduces a new analytical source family, run reflection first and have Claude review source fit before shipping
 
 2. Confidence calibration check
    After the source hardening pass, review whether any visible confidence labels are still too strong for the remaining source stack.
