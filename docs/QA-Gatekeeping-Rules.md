@@ -227,7 +227,7 @@ For every proposed grade change (not grade holds, source-stack-only changes, or 
 - **Carry-forward of previously verified claims** — [docs/v2/verification/Carry-Forward-Rules.md](<repo root>/docs/v2/verification/Carry-Forward-Rules.md)
 - **Whole-letter probationary and plus/minus interaction** — [docs/Plus-Minus-Decision-Rules.md](<repo root>/docs/Plus-Minus-Decision-Rules.md)
 - **Double-counting and primary-home enforcement** — [docs/Deconfliction-Matrix.md](<repo root>/docs/Deconfliction-Matrix.md)
-- **Source-role planning by dimension** — [docs/Parking-Lot.md](<repo root>/docs/Parking-Lot.md) (verbatim source-authority framing until the formal Source Authority Map is built)
+- **Source-role planning by dimension** — [docs/Source-Authority-Map.md](<repo root>/docs/Source-Authority-Map.md)
 
 ---
 

@@ -1,10 +1,10 @@
 # Source Authority Map
 
 - **Purpose:** Define, per dimension, what kinds of truth the dashboard is claiming and which source roles should carry those claims.
-- **Status:** Draft — all 11 graded dimension entries complete; full review complete; Stage 4 integration pending.
+- **Status:** Active — all 11 graded dimensions documented; cited by QA-Gatekeeping-Rules.md and Source-Verification-Protocol.md.
 - **Last updated:** 2026-04-18
 - **Depends on:** Current-Roadmap.md, Parking-Lot.md, DATA-SOURCES.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Canonical-Scoring-Sheets.md, Plus-Minus-Decision-Rules.md, src/data/dimensions.json
-- **Used by:** future source-hardening passes, source-fit reviews, confidence calibration reviews, and the forthcoming full per-dimension authority-map buildout
+- **Used by:** QA-Gatekeeping-Rules.md, Source-Verification-Protocol.md, source-fit reviews, and confidence calibration reviews
 
 ---
 
