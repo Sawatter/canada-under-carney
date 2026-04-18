@@ -4,11 +4,16 @@
 
 **Rule:** If an idea is useful but not a "now" task, put it here instead of carrying it in working memory.
 
-**Last updated:** 2026-04-17
+**Last updated:** 2026-04-18
 
 ---
 
 ## Working Rules
+
+- Workflow efficiency protocol
+  The active routing rule for reflection, Claude review, and direct execution now lives in:
+  [docs/v2/verification/AI-Workflow-Efficiency-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/AI-Workflow-Efficiency-Protocol.md)
+  Use that file before turning any prompt idea into a default workflow rule.
 
 - Hard rule for source edits
   If a pass is only adding a missing URL, restoring a broken source chain, or making an already-used claim traceable, it can be done directly.
@@ -53,8 +58,8 @@
 
 ## Prompt Ideas
 
-- Default reflection prompt for every new Claude task
-- Default reflection prompt for every new Codex task
+- Reusable reflection-gate prompt for Lane C / D Claude tasks
+- Reusable execution-vs-review routing prompt for Codex tasks
 - Reusable source sufficiency audit prompt
 - Reusable "source authority by dimension" reflection prompt
 - Reusable "skeptical data scientist" reflection prompt

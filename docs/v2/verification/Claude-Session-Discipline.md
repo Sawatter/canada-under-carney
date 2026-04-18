@@ -2,7 +2,7 @@
 
 - **Purpose:** Governs how Claude sessions are scoped and restarted so context stays lean, threads stay bounded, and the cleanup loops that plagued the March 2026 remediation pass are not repeated.
 - **Status:** Active — companion to Claude-House-Style.md.
-- **Last updated:** 2026-04-16
+- **Last updated:** 2026-04-18
 
 ---
 
@@ -11,6 +11,12 @@
 **New task type = new Claude thread. One bounded task per thread whenever possible.**
 
 If you finish a fix pass and want to do a review pass, start a new thread. If you finish a build pass and want to certify it, start a new thread. The cost of restarting is low. The cost of context drift in a long mixed thread is high.
+
+For whether a task needs reflection, external review, or direct execution, consult:
+
+- [AI-Workflow-Efficiency-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/AI-Workflow-Efficiency-Protocol.md)
+
+This file governs thread shape. The efficiency protocol governs escalation and review routing.
 
 ---
 
@@ -29,6 +35,7 @@ If you finish a fix pass and want to do a review pass, start a new thread. If yo
 
 - **Start a fresh thread when the topic changes.** Don't bolt a UI fix onto a verification architecture thread.
 - **Do not mix review + implementation + certification in one thread** unless the task is trivially small (under ~5 edits).
+- **Do not open a new Claude thread just because work feels important.** Open one because the task falls into a lane that actually needs reflection or external review per the efficiency protocol.
 - **Keep prompts narrow.** "Fix these 3 issues in these 2 files" is better than "clean up the dashboard."
 - **Provide only the files and context needed.** Don't dump the full repo context for a single metric fix.
 - **Prefer exact issues over open-ended asks.** "Line 19 says E1/E3/E5/E6 but should include E7/E8" is better than "review the exception logic for consistency."
@@ -96,4 +103,9 @@ Before starting a Claude thread:
 
 Future prompts may begin with:
 
-> Read and follow `docs/v2/verification/Claude-House-Style.md` and `docs/v2/verification/Claude-Session-Discipline.md` before making edits.
+> Read and follow `docs/v2/verification/Claude-House-Style.md`, `docs/v2/verification/Claude-Session-Discipline.md`, and `docs/v2/verification/AI-Workflow-Efficiency-Protocol.md` before making edits.
+
+Use the efficiency protocol when deciding whether a new thread needs:
+- reflection first
+- Claude review
+- or no Claude pass at all

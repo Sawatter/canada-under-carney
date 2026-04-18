@@ -2,7 +2,7 @@
 
 - **Purpose:** Operating instruction file for how Claude performs bounded repo edit tasks. Ensures work closes cleanly, avoids stale contradictions, and reports residual issues honestly.
 - **Status:** Active — governs all future Claude edit tasks in this repo.
-- **Last updated:** 2026-04-16
+- **Last updated:** 2026-04-18
 
 ---
 
@@ -223,3 +223,12 @@ Future prompts may begin with:
 > Read and follow `docs/v2/verification/Claude-House-Style.md` before making edits.
 
 When this instruction appears, Claude must read this file and apply all operating principles, the reconciliation checklist, the definition of done, and the report-back format before starting work. If strict mode is indicated (explicitly or by task type), apply strict mode requirements as well.
+
+When the task involves reflection, review routing, or deciding whether Claude is needed at all, also consult:
+
+> `docs/v2/verification/AI-Workflow-Efficiency-Protocol.md`
+
+That companion file governs:
+- when reflection is required
+- when stage-boundary review is required
+- when direct execution is preferred

@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-04-17
+**Last updated:** 2026-04-18
 
 ---
 
@@ -18,6 +18,7 @@
 - Source sufficiency audit across the 11 graded live dimensions is complete.
 - The weakest current source stacks are Climate & Environment, Flagship Delivery, and Economic Policy Response.
 - Hard rule adopted for source edits: missing URL / source-chain fixes can be added directly, but any new analytical source family must go through a reflection pass and Claude review before it is treated as settled.
+- AI workflow efficiency protocol is now adopted to make reflection/review escalation explicit and reduce over-reflection on bounded tasks.
 
 ---
 
