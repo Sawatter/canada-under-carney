@@ -105,7 +105,7 @@ export default function CompareView() {
         Compare Dimensions
       </h2>
       <p style={{ fontSize: "12px", color: "#888", marginBottom: "16px" }}>
-        Select two policy dimensions to compare side by side.
+        Select two graded policy dimensions to compare side by side.
       </p>
 
       {/* Selectors */}
