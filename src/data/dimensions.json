@@ -1351,7 +1351,7 @@
     "gradeBasis": {
       "band": "C",
       "bandCriterion": "Disclosure is partial, an ethics screen exists, but completeness is questioned and no independent review has been published.",
-      "plusMinusRationale": "Current C- reflects that there is some framework in place, but the disclosure standard and independent review still fall short of what this unusually complex background requires.",
+      "plusMinusRationale": "C sits at the lower edge of the C band — the framework exists and produces baseline disclosure (distinguishing it from D), but Democracy Watch-level critique and an unpublished Ethics Commissioner review prevent progression toward B.",
       "activeModifiers": []
     },
     "gradeTriggers": {
@@ -1442,7 +1442,7 @@
     },
     "nextTrigger": "Ethics Commissioner publication of Brookfield review. Any new disclosure of retained financial interests. House Ethics Committee report.",
     "inherited": "No prior PM had Carney's specific background in carbon market architecture and transition finance. Novel disclosure challenge without clear precedent.",
-    "gpaValue": 1.7
+    "gpaValue": 2.0
   },
   {
     "id": "execution-delivery",
