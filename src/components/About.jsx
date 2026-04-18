@@ -21,21 +21,22 @@ export default function About() {
       <div style={{ fontSize: "13px", lineHeight: 1.7, color: "#444" }}>
         <p style={{ marginBottom: "16px" }}>
           <strong>Canada Under Carney</strong> is a non-partisan performance
-          dashboard tracking the federal government across 12 policy dimensions.
-          It is updated monthly using official statistics, independent
-          policy analysis, and quality journalism across the political
-          spectrum. All grading decisions are made by the human editor
-          using a published scoring rubric.
+          dashboard tracking the federal government across 11 graded policy
+          dimensions, plus an ungraded Promise Tracker. It is updated monthly
+          using official statistics, independent policy analysis, and quality
+          journalism across the political spectrum. All grading decisions are
+          made by the human editor using a published scoring rubric.
         </p>
         <p style={{ marginBottom: "16px" }}>
           The dashboard publishes two headline grades because they answer two
-          different questions. The <strong>Household Impact</strong> grade
-          weights the issues Canadians feel most directly: housing, grocery
-          affordability, economic policy response, and fiscal health. The{" "}
-          <strong>Full Policy Audit</strong> weights all 11 graded dimensions equally.
-          Promise Delivery is tracked separately as an ungraded accountability tool.
-          A government can perform better on statecraft than on affordability.
-          We show both.
+          different questions using the same 11 graded dimensions. The{" "}
+          <strong>Household Impact</strong> grade is not a separate source
+          stack; it is a weighted composite that double-weights Housing Supply,
+          Affordability Response, Economic Policy Response, and Fiscal Health.
+          The <strong>Full Policy Audit</strong> weights all 11 graded
+          dimensions equally. Promise Delivery is tracked separately as an
+          ungraded accountability tool. A government can perform better on
+          statecraft than on household-facing files. We show both.
         </p>
 
         <div
@@ -92,7 +93,8 @@ export default function About() {
           </div>
           <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
             <strong>Official:</strong> Statistics Canada, PBO, CMHC, Bank of
-            Canada, IRCC, OECD, IMF, Fitch
+            Canada, IRCC, ECCC, Global Affairs Canada, Office of the Ethics
+            Commissioner, NATO, OECD, IMF, Fitch
             <br />
             <strong>Centre:</strong> CBC News, Globe and Mail, La Presse,
             Toronto Star
@@ -102,7 +104,7 @@ export default function About() {
             <strong>Left:</strong> CCPA, The Narwhal, National Observer
             <br />
             <strong>Independent policy:</strong> IRPP / Policy Options,
-            Canadian Climate Institute, IFSD
+            Canadian Climate Institute, IISD, IFSD
             <br />
             <strong>Academic:</strong> The Conversation Canada, Dalhousie,
             PROOF (U of T)

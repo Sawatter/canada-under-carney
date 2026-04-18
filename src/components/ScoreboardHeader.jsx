@@ -162,12 +162,14 @@ export default function ScoreboardHeader({
         }}
       >
         <strong style={{ color: "#333" }}>Why two grades?</strong>{" "}
-        The Household Impact grade weights the issues Canadians feel most
-        directly: housing, affordability, economic policy response, and fiscal
-        health. The Full Policy Audit weights all 11 graded dimensions equally,
-        including defence, trade, climate, immigration, ethics, and flagship delivery.
-        A government can perform better on statecraft than on affordability.
-        We show both.
+        Both headlines are built from the same 11 graded dimensions. The
+        Household Impact grade is a weighted composite that double-weights
+        Housing Supply, Affordability Response, Economic Policy Response, and
+        Fiscal Health. The Full Policy Audit weights all 11 graded dimensions
+        equally, including defence, trade, climate, immigration, ethics, and
+        flagship delivery. Promise Delivery is tracked separately and does not
+        feed either GPA. A government can perform better on statecraft than on
+        household-facing files. We show both.
       </div>
     </div>
   );

@@ -100,8 +100,9 @@ export default function Methodology() {
           11 graded dimensions. Promise Delivery is tracked separately as an
           ungraded accountability tool. The Household Impact grade double-weights
           Fiscal Health, Housing Supply, Affordability Response, and Economic
-          Policy Response. Both are published; the choice of weighting is an
-          editorial judgment disclosed transparently.
+          Policy Response. Both published grades use the same underlying
+          dimension scores; only the weighting changes. The choice of weighting
+          is an editorial judgment disclosed transparently.
         </p>
       </div>
     </div>

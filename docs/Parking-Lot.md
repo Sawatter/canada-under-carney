@@ -29,7 +29,7 @@
 
 ## Audit Ideas
 
-- Source sufficiency audit by dimension
+- Source sufficiency audit by dimension — Completed; see [docs/Current-Roadmap.md](<repo root>/docs/Current-Roadmap.md) Current State
   Check whether each dimension has enough independent, grade-moving evidence to justify its score, confidence, and precision.
 
 - Per-dimension source authority map — Completed; see [docs/Source-Authority-Map.md](<repo root>/docs/Source-Authority-Map.md)
@@ -176,6 +176,8 @@ That's a very solid next-stage methodology move.
 ---
 
 ### Verbatim note — QA gatekeeping review
+
+Note: QA gatekeeping review and amendment pass landed on 2026-04-18. See [docs/QA-Gatekeeping-Rules.md](<repo root>/docs/QA-Gatekeeping-Rules.md) for the current state. Verbatim framing preserved below as historical audit trail.
 
 Yes, those QA rules are coming from our repo work, not from some external hidden standard.
 
