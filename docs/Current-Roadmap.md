@@ -55,12 +55,22 @@ These should happen after the immediate product cleanup.
    - the displayed confidence
    - the current level of precision
 
-2. Ethics anchored indicator
+2. Per-dimension source authority map
+   After the source sufficiency audit, build a source-role map for each dimension:
+   - measurement truth
+   - policy truth
+   - execution truth
+   - independent challenge truth
+   - context truth
+   Use this to identify what kinds of sources should govern each dimension, then
+   build the reflection prompt for a future "source authority by dimension" pass.
+
+3. Ethics anchored indicator
    Add at least one semi-quantitative anchor if possible, such as:
    - disclosure completeness score
    - Ethics Commissioner action/recommendation tracking
 
-3. Next-cycle readiness pass
+4. Next-cycle readiness pass
    Focus on operational discipline, not redesign:
    - Economic Policy Response: no movement on announcements alone
    - Affordability Response: scope boundary holds
@@ -91,4 +101,3 @@ Do not reopen these unless a later audit forces it.
 - Carbon Pricing / Climate merge
 - Promise Delivery redesign
 - New governance/process docs unless they solve a concrete active problem
-
