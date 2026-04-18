@@ -71,12 +71,20 @@ These should happen after the immediate product cleanup.
    build the reflection prompt for a future "source authority by dimension" pass.
    Reference the verbatim note in [Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) so the full framing is preserved, not just the summary bullets.
 
-2. Ethics anchored indicator
+2. QA gatekeeping review pass
+   Run a narrow reflection + review on [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md) to check whether it still fits the dashboard as it exists now:
+   - current scoring workflow
+   - confidence calibration
+   - source-role discipline
+   - probationary dimensions
+   Reference the verbatim QA note in [Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) so the reasoning is preserved exactly.
+
+3. Ethics anchored indicator
    Add at least one semi-quantitative anchor if possible, such as:
    - disclosure completeness score
    - Ethics Commissioner action/recommendation tracking
 
-3. Next-cycle readiness pass
+4. Next-cycle readiness pass
    Focus on operational discipline, not redesign:
    - Economic Policy Response: no movement on announcements alone
    - Affordability Response: scope boundary holds

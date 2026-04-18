@@ -168,6 +168,83 @@ That's a very solid next-stage methodology move.
 
 ---
 
+### Verbatim note — QA gatekeeping review
+
+Yes, those QA rules are coming from our repo work, not from some external hidden standard.
+
+Specifically:
+- The file is [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md).
+- Git history shows it came in with commit `77c9fca`:
+  `Instrument controls: deconfliction matrix, combination rules, QA gatekeeping`
+- The file itself says it was created from the April 2026 simulated drill:
+  “Based on lessons from the April 2026 simulated drill (Pack 5: announcement bias case).”
+- It has become a real governing doc in the repo, not a dead note. A bunch of other files depend on it, including:
+  - [docs/v2/verification/Source-Verification-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Source-Verification-Protocol.md)
+  - [docs/v2/verification/Claude-House-Style.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-House-Style.md)
+  - [docs/v2/Core-Tri-Lens-Architecture.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/Core-Tri-Lens-Architecture.md)
+
+So your instinct is good: because Claude is now actively citing that file to judge source tiers and evidence roles, we should absolutely sanity-check it.
+
+My take is:
+- `Yes`, we should review it.
+- `No`, I would not do a full rubric-style rewrite of it right this second.
+- `Yes`, I would do a targeted QA-governance review pass on it soon, because it is now load-bearing.
+
+Why I wouldn’t jump straight to rewriting it:
+- Most of its rules are still directionally strong:
+  - no press-release-only grade moves
+  - announcements are not implementation
+  - contradiction with prior logic must be resolved
+  - confidence changes need actual new evidence
+- That’s all still good.
+- The risk is not that the file is obviously bad.
+- The risk is that it may now be incomplete for the system we’ve evolved into.
+
+The biggest places I’d expect drift are:
+- It is built for `grade changes`, but we’re now also using it to reason about:
+  - confidence calibration
+  - source-family concentration
+  - whole-letter probation dimensions
+  - source-role discipline like primary anchor vs corroborator vs context
+- It has a tier hierarchy, but it does not yet fully encode the source-role framing we’ve been developing:
+  - measurement truth
+  - policy truth
+  - execution truth
+  - independent challenge truth
+  - context truth
+- It probably predates some of the newer methodology decisions:
+  - Ethics / Flagship whole-letter normalization
+  - source-authority mapping as a planned methodology layer
+  - the hard rule we just adopted about new analytical source families requiring reflection + Claude review
+
+So yes, I think a QA pass is worth doing, but I’d do it in this order:
+
+1. Tiny fix pass from the source-fit review
+   Clean the two medium orphaned-source issues and the low wording drift.
+   That closes the active loose ends first.
+
+2. Reflection pass on the QA file itself
+   Ask: is `QA-Gatekeeping-Rules.md` still the right guardrail set for the dashboard as it exists now?
+
+3. Read-only review pass on the QA file
+   Identify:
+   - what still holds
+   - what is stale
+   - what is missing
+   - what should remain separate from the rubric
+
+4. Only then decide whether to edit the QA file
+   That keeps us from rewriting a governing doc impulsively.
+
+So the short answer is:
+- yes, those are repo rules we created
+- yes, they are now important enough to review
+- no, I would not treat that as an emergency rewrite before we close the current source-fit cleanup
+
+If you want, I can draft the reflection prompt for the `QA-Gatekeeping-Rules.md` review next, and make it narrow so we don’t accidentally reopen the whole methodology stack.
+
+---
+
 ## Future v2 / Structural Questions
 
 - Flagship Delivery probation outcome after one real cycle
