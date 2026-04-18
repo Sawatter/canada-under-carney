@@ -227,7 +227,7 @@ For every proposed grade change (not grade holds, source-stack-only changes, or 
 - **Carry-forward of previously verified claims** — [docs/v2/verification/Carry-Forward-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Carry-Forward-Rules.md)
 - **Whole-letter probationary and plus/minus interaction** — [docs/Plus-Minus-Decision-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Plus-Minus-Decision-Rules.md)
 - **Double-counting and primary-home enforcement** — [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md)
-- **Source-role planning by dimension** — [docs/Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) (verbatim source-authority framing until the formal Source Authority Map is built)
+- **Source-role planning by dimension** — [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md)
 
 ---
 

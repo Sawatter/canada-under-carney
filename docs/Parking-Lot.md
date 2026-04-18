@@ -32,7 +32,7 @@
 - Source sufficiency audit by dimension
   Check whether each dimension has enough independent, grade-moving evidence to justify its score, confidence, and precision.
 
-- Per-dimension source authority map
+- Per-dimension source authority map — Completed; see [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md)
   For each dimension, define the authoritative source roles behind the score:
   - measurement truth
   - policy truth
@@ -61,7 +61,7 @@
 - Reusable reflection-gate prompt for Lane C / D Claude tasks
 - Reusable execution-vs-review routing prompt for Codex tasks
 - Reusable source sufficiency audit prompt
-- Reusable "source authority by dimension" reflection prompt
+- Reusable "source authority by dimension" reflection prompt — Completed
 - Reusable "skeptical data scientist" reflection prompt
 - Reusable live UI smoke-check prompt
 
@@ -93,6 +93,8 @@
 - How should confidence labels be operationalized beyond `High` / `Medium`?
 
 ### Verbatim note — source authority framing
+
+Note: artifact built as [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md) on 2026-04-18. Verbatim framing preserved here as historical audit trail.
 
 Yes, exactly, but I'd frame it a little more carefully than "what would each tribe use."
 

@@ -22,6 +22,12 @@
 
 ---
 
+## Recently Completed
+
+- Per-Dimension Source Authority Map — built across all 11 graded dimensions, full review complete, integrated 2026-04-18. See [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md).
+
+---
+
 ## Now
 
 These are the highest-leverage next tasks for the live product.
@@ -61,18 +67,7 @@ These are the highest-leverage next tasks for the live product.
 
 These should happen after the immediate product cleanup.
 
-1. Per-dimension source authority map
-   After the source sufficiency audit, build a source-role map for each dimension:
-   - measurement truth
-   - policy truth
-   - execution truth
-   - independent challenge truth
-   - context truth
-   Use this to identify what kinds of sources should govern each dimension, then
-   build the reflection prompt for a future "source authority by dimension" pass.
-   Reference the verbatim note in [Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) so the full framing is preserved, not just the summary bullets.
-
-2. QA gatekeeping review pass
+1. QA gatekeeping review pass
    Run a narrow reflection + review on [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md) to check whether it still fits the dashboard as it exists now:
    - current scoring workflow
    - confidence calibration
@@ -80,12 +75,12 @@ These should happen after the immediate product cleanup.
    - probationary dimensions
    Reference the verbatim QA note in [Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) so the reasoning is preserved exactly.
 
-3. Ethics anchored indicator
+2. Ethics anchored indicator
    Add at least one semi-quantitative anchor if possible, such as:
    - disclosure completeness score
    - Ethics Commissioner action/recommendation tracking
 
-4. Next-cycle readiness pass
+3. Next-cycle readiness pass
    Focus on operational discipline, not redesign:
    - Economic Policy Response: no movement on announcements alone
    - Affordability Response: scope boundary holds

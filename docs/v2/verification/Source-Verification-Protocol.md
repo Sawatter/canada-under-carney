@@ -2,8 +2,8 @@
 
 - **Purpose:** Define what must be verified before a metric, claim, or fact is safe to use in v1 scoring or v2 shadow scoring. This is the rules file. The workflow is in Verification-Workflow.md.
 - **Status:** Draft — first version for pilot cycle use.
-- **Last updated:** 2026-04-15
-- **Depends on:** QA-Gatekeeping-Rules.md, Measure-Selection-Rules.md, Deconfliction-Matrix.md, DATA-SOURCES.md, Scoring-Rubric-v1.1.md
+- **Last updated:** 2026-04-18
+- **Depends on:** QA-Gatekeeping-Rules.md, Measure-Selection-Rules.md, Deconfliction-Matrix.md, DATA-SOURCES.md, Scoring-Rubric-v1.1.md, Source-Authority-Map.md
 - **Used by:** Verification-Workflow.md, Verification-Ledger-Template.md, Evidence-Pack-Manifest-Template.md, Shadow-Run-Workflow.md, MONTHLY-UPDATE-GUIDE.md
 
 ---
