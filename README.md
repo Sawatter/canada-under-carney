@@ -66,7 +66,7 @@ Metrics are drawn from official statistics (Statistics Canada, PBO, CMHC, Bank o
 
 - React + Vite, deployed on GitHub Pages
 - Built with AI assistance (Claude Code). Methodology stress-tested through simulated adversarial review.
-- Fact-checked against 42+ primary source claims with documented source manifest.
+- Fact-checked against primary source claims with documented source manifest.
 - All editorial judgments made by the human editor. AI tools assisted with research, drafting, and QA — they did not make grading decisions.
 - Scoring Rubric v1.1 — [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
 
