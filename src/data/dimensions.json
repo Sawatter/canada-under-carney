@@ -495,7 +495,7 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
-    "status": "Structural productivity crisis inherited. AI and minerals investments directionally correct but business investment flat. Grade reflects policy response and trajectory, not inherited conditions.",
+    "status": "Structural productivity crisis inherited. AI and minerals policies are directionally correct, but execution evidence remains thinner than the announcements and business investment is still flat. Grade reflects policy response and trajectory, not inherited conditions.",
     "construct": "The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges.",
     "gradeBasis": {
       "band": "D",
@@ -524,7 +524,7 @@
         "Business investment decline accelerates"
       ]
     },
-    "rationale": "This dimension grades the government's policy response to Canada's structural productivity and competitiveness challenges — not the inherited GDP per capita level, which reflects a decade of underinvestment. The AI compute strategy ($2B), critical minerals push (government states $18.5B across 56 partnerships), and interprovincial reform are directionally correct. But business investment remains flat for a fourth year, specific barriers (permitting, tax rates, electricity costs) remain unresolved, and OECD long-term projections rank Canada last among 38 members for per-capita growth. The grade reflects whether the policy direction and scale are adequate to change the trajectory, recognizing that outcomes will take years to materialize.",
+    "rationale": "This dimension grades the government's policy response to Canada's structural productivity and competitiveness challenges — not the inherited GDP per capita level, which reflects a decade of underinvestment. The AI compute strategy ($2B), critical minerals push (still primarily government-stated rather than authorization/disbursement-backed in the live stack), and interprovincial reform are directionally correct. But business investment remains flat for a fourth year, specific barriers (permitting, tax rates, electricity costs) remain unresolved, and OECD long-term projections rank Canada last among 38 members for per-capita growth. The grade reflects whether the policy direction and scale are adequate to change the trajectory, recognizing that outcomes will take years to materialize.",
     "sources": [
       {
         "label": "Fraser Institute — Ugly Growth",
@@ -597,7 +597,7 @@
         "text": "Critical minerals strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "NRCan Critical Minerals Production Alliance: $18.5B mobilized across Canadian critical minerals projects (see dimension sources; March 2026 NRCan release consolidates the March and October rounds). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. Canada produces 10 of 12 NATO defence-critical minerals.",
+        "evidence": "NRCan states $18.5B mobilized across Canadian critical minerals projects (see dimension sources; March 2026 NRCan release consolidates the March and October rounds). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. This is policy/context evidence, not proof of federal disbursement. Canada produces 10 of 12 NATO defence-critical minerals.",
         "durability": "Program",
         "history": [
           {
@@ -631,7 +631,7 @@
       "attribution": "Direct (policy response)",
       "lag": "Long"
     },
-    "nextTrigger": "March 2026 LFS release. Q1 2026 GDP data. Business investment quarterly report.",
+    "nextTrigger": "Treasury Board authorization or first confirmed disbursement for AI compute. Q1 2026 business investment data. Any authorization or disbursement evidence for critical minerals instruments.",
     "inherited": "GDP per capita declined 2.0% from 2020-2024. Business investment falling since 2006. R&D at half the US rate. Population-driven growth masked per-capita decline for a decade."
   },
   {
@@ -787,6 +787,7 @@
       "attribution": "Mixed (prices external, policy response direct)",
       "lag": "Short"
     },
+    "nextTrigger": "Next monthly CPI release. Any new grocery benefit or mandatory grocery competition measure. Next PROOF food insecurity release.",
     "inherited": "Prices already 30%+ above pre-pandemic levels. Highly concentrated retail sector. Competition Bureau investigations underway."
   },
   {
@@ -795,7 +796,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Consumer carbon price eliminated (affordability win). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the policy handling of both components.",
+    "status": "Consumer carbon price eliminated (affordability win). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
     "construct": "The quality of the federal government's handling of carbon pricing as a policy instrument.",
     "gradeBasis": {
       "band": "C",
@@ -920,7 +921,7 @@
       "attribution": "Direct",
       "lag": "Short"
     },
-    "nextTrigger": "OBPS tightening schedule. Carbon border adjustment proposal. CCI next assessment of effective vs headline price.",
+    "nextTrigger": "OBPS tightening schedule or new effective-price evidence. Carbon border adjustment proposal. Broader replacement climate-plan changes remain primary to Climate & Environment.",
     "inherited": "Consumer fuel charge at $80/tonne, on track for $170 by 2030. Industrial OBPS operating alongside. Both politically and economically contentious."
   },
   {
@@ -1085,7 +1086,7 @@
       "attribution": "Direct",
       "lag": "Short"
     },
-    "nextTrigger": "Government response to CCI February 2026 assessment. Any new climate plan or replacement strategy. ECCC budget execution.",
+    "nextTrigger": "Government response to CCI February 2026 assessment. Any new climate plan or replacement strategy. ECCC budget execution. OBPS-only pricing changes remain primary to Carbon Pricing Policy.",
     "inherited": "Broad climate policy framework inherited (emissions cap, EV mandate, carbon pricing, conservation), but already off-track on 2030 targets. Trade war creating genuine economic pressure."
   },
   {
@@ -1220,7 +1221,7 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "stable",
-    "status": "4,000 units announced vs. hundreds of thousands needed. Ontario deal is real but scale insufficient.",
+    "status": "4,000 BCH units announced, but construction is not yet underway. Ontario deal is real but scale insufficient.",
     "construct": "The scale and effectiveness of federal housing policy interventions relative to identified need.",
     "gradeBasis": {
       "band": "D",
@@ -1284,7 +1285,7 @@
         "automatable": false
       },
       {
-        "label": "BCH units (announced, 6 federal sites)",
+        "label": "BCH units (announced, not started, 6 federal sites)",
         "value": "4,000",
         "source": "housing-infrastructure-canada",
         "sourceNote": "Housing Infrastructure Canada: 'Build Canada Homes aims to build 4,000 factory-built units in six select Canadian cities' (Dartmouth, Longueuil, Ottawa, Toronto, Winnipeg, Edmonton). Source: canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html. Construction expected to begin 2026. PBO independently projects BCH delivers about 26,000 units total over 5 years (RP-2526-020-S).",
@@ -1365,7 +1366,7 @@
       "attribution": "Mixed",
       "lag": "Long"
     },
-    "nextTrigger": "Next CMHC monthly starts release. Build Canada Homes construction commencement. Ontario partnership first results.",
+    "nextTrigger": "Next CMHC monthly starts release. Actual Build Canada Homes construction commencement. Ontario partnership first results.",
     "inherited": "430-480K annual starts needed, ~245K actual. Construction insolvencies highest of any sector. Development charges up 1,000% in some municipalities."
   },
   {
