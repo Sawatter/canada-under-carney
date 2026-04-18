@@ -1,7 +1,7 @@
 # Source Authority Map
 
 - **Purpose:** Define, per dimension, what kinds of truth the dashboard is claiming and which source roles should carry those claims.
-- **Status:** Draft — template and Housing Supply pilot complete; remaining 10 dimensions pending.
+- **Status:** Draft — Housing Supply pilot plus Ethics & Transparency and Flagship Delivery entries complete; remaining 8 dimensions pending.
 - **Last updated:** 2026-04-18
 - **Depends on:** Current-Roadmap.md, Parking-Lot.md, DATA-SOURCES.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Canonical-Scoring-Sheets.md, Plus-Minus-Decision-Rules.md, src/data/dimensions.json
 - **Used by:** future source-hardening passes, source-fit reviews, confidence calibration reviews, and the forthcoming full per-dimension authority-map buildout
@@ -217,11 +217,175 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 
 ---
 
-**Pilot note**
+## 2. Ethics & Transparency
 
-This draft validates the template on Housing Supply only. The remaining 10 dimensions should be built in later passes after a review of:
+**Construct**
 
-- whether the 5-role taxonomy is the right granularity
-- whether probationary dimensions need a reduced role set
-- whether derivative dimensions need a distinct sub-template
-- whether the Current State Delta field is sufficiently actionable for later fix passes
+The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:146)
+
+**Core grade-moving claims**
+
+1. Disclosure is partial rather than full, and Brookfield-related interests are not yet fully publicly accounted for.
+   Source basis: C threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1381), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1396)
+
+2. An ethics screen and blind-trust framework exist, which keeps the file in the C band rather than D, but completeness of that framework is credibly challenged.
+   Source basis: C threshold + current `plusMinusRationale` and promise evidence in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1382), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1437)
+
+3. No independent Ethics Commissioner review has been published.
+   Source basis: minimum indicators + C threshold + current metric and promise status in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:155), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1414), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1448)
+
+4. Democracy Watch-level critique is material to the grade and blocks movement toward B unless offset by stronger disclosure or an independent review.
+   Source basis: down-trigger + current `plusMinusRationale` and critics text in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:174), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1382), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1463)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Not applicable to this construct | The dimension grades framework adequacy and review status rather than a quantitative outcome. |
+| Policy truth | Required | Official disclosures, ethics-screen arrangements, and commissioner actions define the framework being graded. |
+| Execution truth | Required | The framework must exist and function in practice: screening active, disclosure made, review published or not published. |
+| Independent challenge truth | Required | Adequacy cannot be judged from official disclosures alone; governance critique is part of the grade. |
+| Context truth | Optional | Reporting on Brookfield background, conflict perception, and the novelty of the case helps interpretation but must not move the grade by itself. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | No true primary source role for this construct | Event-style status indicators may still appear as editorial metrics, but they do not create a quantitative measurement layer. |
+| Policy truth | Office of the Ethics Commissioner review/public filings [QA T1]; official PM disclosure records or commissioner registry entries [QA T1 when cited for the filing itself] | Official ethics-screen or blind-trust disclosures [QA T1/T4 depending document type] |
+| Execution truth | Published Ethics Commissioner review status [QA T1]; official evidence that an ethics screen or blind trust is active [QA T1/T4 depending document type] | Formal committee records or commissioner correspondence when public [QA T1] |
+| Independent challenge truth | Democracy Watch governance critique [QA T2 when citing its published methodology-backed critique directly; otherwise QA T3]; published committee findings where available [QA T1] | Governance-law commentary or institutional-analysis critique [QA T2/T3] |
+| Context truth | Globe and Mail [QA T3]; CBC News [QA T3]; broader reporting on Brookfield background and conflict perception [QA T3] | Other clearly attributed federal accountability reporting [QA T3] |
+
+**Context-only sources**
+
+- Globe and CBC reporting on asset history, background, and conflict perception
+- Carbon Pricing references to Brookfield / industrial OBPS conflict perception when used as context only
+- Broader commentary on whether Carney's policy worldview overlaps with transition finance or ESG norms
+
+These may shape interpretation but must not move the Ethics & Transparency grade without the policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Ethics & Transparency source stack:  
+Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1397)
+
+- **Present and well-aligned**
+  - `Democracy Watch critique` fills the independent-challenge role on framework adequacy.
+  - `Globe and Mail — ethics filing` and `CBC — financial assets` provide context/reporting corroboration on disclosure background and public asset visibility.
+
+- **Gaps**
+  - No Office of the Ethics Commissioner source is present in the `sources` array, even though review status is a minimum indicator and a live metric.
+  - No official disclosure / ethics-screen / blind-trust source is present in the `sources` array, even though the current band depends on the existence and completeness of the framework.
+
+- **Role mismatches**
+  - `Globe and Mail — ethics filing` and `CBC — financial assets` are currently carrying part of the policy/execution truth layer by proxy because official disclosure and commissioner sources are absent. Under this map, they are better understood as context/reporting corroborators than as primary anchors.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to the rationale or perspectives text.
+
+**Red-flag gaps**
+
+- This dimension has little to no true measurement truth. Stronger sourcing can harden the process file, but it cannot turn it into a quantitative dimension.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:176) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:178)
+
+- Absence of evidence is not evidence of absence. No proven wrongdoing does not equal an adequate disclosure framework.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:176)
+
+- Brookfield conflict perception may appear in Carbon Pricing Policy only as context; Ethics & Transparency owns the grade impact.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:180) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:42)
+
+- A detailed Ethics Commissioner review is the clearest path to hardening this file. Until then, the source stack will remain partly journalism- and critique-mediated by design.
+
+## 3. Flagship Delivery
+
+**Construct**
+
+The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:188)
+
+**Core grade-moving claims**
+
+1. The headline grade is determined mechanically by the distribution of delivery statuses across the five flagship files.
+   Source basis: grade-threshold rule + current `bandCriterion` in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:202), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:36), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1485)
+
+2. Defence is delivering and immigration is at least partially delivering, which keeps the file in the C band rather than D.
+   Source basis: current `plusMinusRationale`, rationale, and Combination Rule current assessment in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1486), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1497), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:52), and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:56)
+
+3. Housing, major projects, and climate remain stalled or worse, which prevents movement toward B and keeps execution concentrated rather than broad-based.
+   Source basis: current `plusMinusRationale` and Combination Rule current assessment in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1486), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:53), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:54), and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:55)
+
+4. Federal-provincial coordination quality is weak and materially affects delivery on the domestic flagship files.
+   Source basis: minimum indicators + live metric and promise evidence in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:199), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1543), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1546), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1569)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The Combination Rule needs a flagship-file status distribution and a small set of cross-file delivery counters, even though much of that measurement is inherited or editorial rather than native to this dimension. |
+| Policy truth | Required | Delivery can be judged only against the official commitments and targets attached to the flagship files. |
+| Execution truth | Required | The construct is explicitly about whether the government's delivery machinery is actually working. |
+| Independent challenge truth | Required | Cross-file coordination and state-capacity critique test whether the delivery story is real or selectively framed. |
+| Context truth | Optional | Commentary on majority politics, public-service strain, or political strategy can inform interpretation but must not move the grade by itself. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | Flagship-Delivery-Rules current assessment and home-dimension delivery metrics [editorial / inherited from home dimensions]; Legisinfo bills-passed data [QA T1] | Home-dimension operational tables for NATO delivery, housing execution, immigration levels, climate implementation, and MPO status [QA tiers inherited from home files] |
+| Policy truth | Official target-setting and framework documents for the five flagship files [QA T1/T4 depending document type] | Budget or legislative documents that define the commitments being tested [QA T1/T4] |
+| Execution truth | Home-dimension evidence that flagship-file machinery is actually delivering [QA tiers inherited from home files]; Legisinfo bills-passed data [QA T1] | Fund-disbursement or implementation-status reporting tied to a flagship file [QA T1/T2] |
+| Independent challenge truth | Policy Options / IRPP [QA T2]; C.D. Howe [QA T2]; PBO [QA T1] | IFSD or academic public-administration analysis [QA T2] |
+| Context truth | The Hub [QA T3]; broader federal-delivery coverage [QA T3] | Party, labour, or stakeholder criticism when clearly attributed [QA T3] |
+
+**Context-only sources**
+
+- Home-dimension outcome metrics when they are being used to argue policy merit rather than delivery quality
+- Promise Delivery counts
+- Commentary on majority politics, cabinet strategy, or generalized momentum
+
+These may shape interpretation but must not move the Flagship Delivery grade without the measurement / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Flagship Delivery source stack:  
+Policy Options federalism failure, Policy Options DM shuffle, PBO $94B investment gap, C.D. Howe public service ratio, The Hub $94B gap  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1498)
+
+- **Present and well-aligned**
+  - `Policy Options — federalism failure` fills independent-challenge truth on cross-file coordination quality.
+  - `C.D. Howe — public service ratio` fills secondary independent-challenge truth on state-capacity strain.
+
+- **Gaps**
+  - No Legisinfo source is present in the `sources` array, even though bills passed is a live metric.
+  - No direct home-file execution source is present in the `sources` array, even though the headline grade is mechanically derived from the five flagship-file statuses.
+
+- **Role mismatches**
+  - None in the current stack once orphaned items are set aside. The live attached sources are challenge/context-heavy, but they are not misclassified where they are actually used.
+
+- **Orphaned sources**
+  - `Policy Options — DM shuffle`, `PBO — $94B investment gap`, and `The Hub — $94B gap` do not currently attach to a live rationale, metric sourceNote, promise evidence, or perspectives line.
+
+**Red-flag gaps**
+
+- This is a derivative / combination dimension. Much of its measurement truth is inherited from home dimensions rather than native to Flagship Delivery.
+  Source: [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:17) and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:83)
+
+- Double-counting risk is structural: outcome evidence belongs in the home dimensions, while Flagship Delivery owns only the execution question.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:210), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:214), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:63)
+
+- This dimension remains on probation. If it stops adding analytical value beyond the home dimensions, stronger sourcing alone will not save the construct.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:216), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:218), and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:96)
+
+---
+
+**Build note**
+
+This draft now validates the template on Housing Supply plus two Stage 3 hard cases: Ethics & Transparency and Flagship Delivery.
+
+The next recommended build order is:
+
+- Defence & Trade
+- the remaining 7 dimensions after that stress case
