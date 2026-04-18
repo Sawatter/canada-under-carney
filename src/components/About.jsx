@@ -150,7 +150,7 @@ export default function About() {
             <br />
             Built with AI assistance (Claude Code). Methodology
             stress-tested through simulated adversarial review.
-            Fact-checked against 42+ primary source claims.
+            Fact-checked against primary source claims.
             All editorial judgments made by the human editor.
             <br />
             Scoring Rubric v1.1 &middot; Open source on{" "}
