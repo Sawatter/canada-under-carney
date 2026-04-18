@@ -42,6 +42,8 @@ The implementation ladder:
 
 **The rule:** A grade move requires evidence at the "Authorized" stage or higher. Evidence at the "Announced" stage is context only and cannot support a grade change.
 
+**Carry-forward note:** If a claim was already implemented and is being carried forward from a prior cycle rather than newly introduced, apply [docs/v2/verification/Carry-Forward-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Carry-Forward-Rules.md) to determine whether re-verification is required.
+
 ---
 
 ## Rule 3: Contradiction with Prior Logic
@@ -106,6 +108,8 @@ Confidence moves **up** when:
 - Must be flagged as "extraordinary movement" in the release log
 - Should be accompanied by a sensitivity note
 
+**Probationary note:** Whole-letter probationary dimensions and plus/minus-collapse mechanics are governed by [docs/Plus-Minus-Decision-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Plus-Minus-Decision-Rules.md). Apply Rule 5 here only after the probationary display/precision rule has been resolved there.
+
 ---
 
 ## Rule 6: Release Blocking Conditions
@@ -140,7 +144,7 @@ The dashboard's job is accuracy. Perception management is a separate function an
 
 ## Process Summary
 
-For every proposed grade change:
+For every proposed grade change (not grade holds, source-stack-only changes, or probationary precision-only changes):
 
 ```
 1. Does the evidence meet the Source Hierarchy Minimum? (Rule 1)
@@ -167,6 +171,15 @@ For every proposed grade change:
 8. Write release log entry with: evidence, rubric criterion,
    modifier application (if any), confidence level, and date
 ```
+
+---
+
+## Companion References
+
+- **Claim-level verification mechanics** — [docs/v2/verification/Source-Verification-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Source-Verification-Protocol.md)
+- **Carry-forward of previously verified claims** — [docs/v2/verification/Carry-Forward-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Carry-Forward-Rules.md)
+- **Whole-letter probationary and plus/minus interaction** — [docs/Plus-Minus-Decision-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Plus-Minus-Decision-Rules.md)
+- **Double-counting and primary-home enforcement** — [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md)
 
 ---
 
