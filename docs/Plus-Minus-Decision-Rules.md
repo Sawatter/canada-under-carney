@@ -48,7 +48,7 @@ Every dimension starts at the straight letter grade. Plus or minus is added only
 | Dimension | Display grade | Reason |
 |---|---|---|
 | Ethics & Transparency | C | Evidence too thin for plus/minus. All qualitative. |
-| Flagship Delivery | C | Combination rule produces whole-letter mechanically. |
+| Flagship Delivery | C | Probationary dimension; Combination Rule output (currently C-) collapses to whole letter. |
 
 ---
 
