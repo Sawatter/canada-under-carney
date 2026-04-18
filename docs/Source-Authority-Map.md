@@ -268,13 +268,14 @@ These may shape interpretation but must not move the Ethics & Transparency grade
 
 **Current state delta**
 
-Current `dimensions.json` Ethics & Transparency source stack:  
-Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement  
+Current `dimensions.json` Ethics & Transparency source stack:
+Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement, PM Annex A public declaration of agreed measure  
 Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1397)
 
 - **Present and well-aligned**
   - `Office of the Ethics Commissioner — registry and reviews` fills the policy-truth / execution-truth role on framework adequacy and published review status.
   - `PM blind-trust summary statement` fills the policy-truth / execution-truth role on the disclosure filing and blind-trust arrangement itself.
+  - `PM Annex A public declaration of agreed measure` fills the policy-truth / execution-truth role on the agreed measure filing and the public declaration of screen scope.
   - `Democracy Watch critique` fills the independent-challenge role on framework adequacy.
   - `Globe and Mail — ethics filing` and `CBC — financial assets` provide context/reporting corroboration on disclosure background and public asset visibility.
 
@@ -282,7 +283,7 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
   - None structural in the `sources` array. The earlier gaps (missing Ethics Commissioner and missing official disclosure / ethics-screen source) were closed on 2026-04-18.
 
 - **Role mismatches**
-  - None in the current stack. With the two Tier 1 official sources now present, Globe and CBC are free to occupy their intended context/reporting roles rather than carrying policy/execution by proxy.
+  - None in the current stack. With the three Tier 1 official sources now present, Globe and CBC are free to occupy their intended context/reporting roles rather than carrying policy/execution by proxy.
 
 - **Orphaned sources**
   - None in the current stack. Every listed source attaches to the rationale, metrics, promise evidence, or perspectives text.

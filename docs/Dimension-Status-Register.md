@@ -114,9 +114,9 @@
 | Field | Value |
 |---|---|
 | **Status** | Probation |
-| **Unresolved issue** | Most subjective dimension. All-qualitative metrics. Lowest inter-rater reliability potential. Construct unified under "PM ethics framework" but still thin. |
-| **What needs doing** | Add at least one semi-quantitative indicator: e.g., "disclosure completeness score" (categories disclosed / categories expected). Keep event-driven cadence. Default to Medium confidence. Do not grade-move on media noise — only on Ethics Commissioner actions, formal disclosures, or documented new evidence. |
-| **Before next cycle?** | Add indicator if possible. Otherwise hold as is. |
+| **Unresolved issue** | Most subjective dimension. Live metrics now include an official-status anchor set, but adequacy of disclosure remains partly qualitative and inter-rater reliability risk is still highest here. |
+| **What needs doing** | Maintain the new event-driven official-status anchor (Commissioner review, blind trust, agreed measure filing, declared screen scope, independent governance review). Do not add a disclosure-completeness score unless a non-editorial official denominator exists. Do not grade-move on media noise — only on Ethics Commissioner actions, formal disclosures, or documented new evidence. |
+| **Before next cycle?** | Official-status anchor landed. Monitor for new Commissioner publication, new filing, or documented evidence. |
 | **Affects** | Live model only |
 
 ### 11. Flagship Delivery (C)
@@ -148,7 +148,7 @@ These items must be completed before the May 2026 cycle:
 - [ ] **Affordability Response:** Define scope boundary (groceries + tariff costs + targeted relief; NOT rents, utilities, insurance)
 - [ ] **Economic Policy Response:** Enforce QA Rule 2 (no grade moves on announcements alone)
 - [ ] **Carbon Pricing / Climate deconfliction:** Confirm boundary holds in release log
-- [ ] **Ethics & Transparency:** Add one semi-quantitative indicator if available
+- [x] **Ethics & Transparency:** Add one anchored indicator
 - [ ] **Defence & Trade:** Add sub-scores (Defence: A, Trade: B+) to expanded card display
 - [ ] **Flagship Delivery:** Apply Combination Rule mechanically to produce grade
 - [ ] **Promise Delivery:** Run shadow 11-dimension GPA alongside 12-dimension
