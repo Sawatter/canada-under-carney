@@ -64,6 +64,7 @@ These should happen after the immediate product cleanup.
    - context truth
    Use this to identify what kinds of sources should govern each dimension, then
    build the reflection prompt for a future "source authority by dimension" pass.
+   Reference the verbatim note in [Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) so the full framing is preserved, not just the summary bullets.
 
 3. Ethics anchored indicator
    Add at least one semi-quantitative anchor if possible, such as:
