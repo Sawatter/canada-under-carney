@@ -15,6 +15,8 @@
 - Flagship Delivery is normalized to a true whole-letter `C` with GPA `2.0`.
 - Stale whole-letter scoring references have been cleaned up in current-state docs.
 - Cross-dimension drift audit of the 9 non-probationary graded dimensions passed with minor notes.
+- Source sufficiency audit across the 11 graded live dimensions is complete.
+- The weakest current source stacks are Climate & Environment, Flagship Delivery, and Economic Policy Response.
 
 ---
 
@@ -22,14 +24,19 @@
 
 These are the highest-leverage next tasks for the live product.
 
-1. CompareView consistency pass
-   Update the compare surface to use the current inspectability structure instead of the older `rationale || status` path.
+1. Source hardening pass
+   Tighten source-chain gaps and same-family concentration where the audit found the weakest evidence support:
+   - Major Projects: add the missing Angus Reid source chain
+   - Economic Policy Response: add official OECD / NRCan traceability for the live claims
+   - Carbon Pricing Policy: add a second-family analytical source on industrial carbon pricing integrity
+   - Climate & Environment: add direct ECCC primary sources and reduce dependency on commentary-only sourcing
+   - Flagship Delivery: add a non-IRPP analytical source for state-capacity framing
 
-2. Methodology panel cleanup
-   Reconcile [src/components/Methodology.jsx](/Users/chrissawatsky/Downloads/canada-under-carney/src/components/Methodology.jsx) with the current live model:
-   - 11 graded dimensions, not 12
-   - Promise Delivery tracked separately
-   - whole-letter probation handling explained cleanly
+2. Confidence calibration check
+   After the source hardening pass, review whether any visible confidence labels are still too strong for the remaining source stack.
+   Start with:
+   - Climate & Environment
+   - Economic Policy Response
 
 3. Tiny audit-fix pack
    Resolve the small residuals surfaced by the drift audit:
@@ -37,7 +44,7 @@ These are the highest-leverage next tasks for the live product.
    - clarify `meta.json` `lastUpdated` meaning if needed
 
 4. Live review pass
-   Review the live dashboard with fresh eyes after the UI consistency pass:
+   Review the live dashboard with fresh eyes after the source hardening / confidence pass:
    - main cards
    - compare view
    - methodology tab
@@ -49,13 +56,7 @@ These are the highest-leverage next tasks for the live product.
 
 These should happen after the immediate product cleanup.
 
-1. Source sufficiency audit by dimension
-   For each dimension, ask whether the evidence stack is strong enough to justify:
-   - the displayed score
-   - the displayed confidence
-   - the current level of precision
-
-2. Per-dimension source authority map
+1. Per-dimension source authority map
    After the source sufficiency audit, build a source-role map for each dimension:
    - measurement truth
    - policy truth
@@ -66,12 +67,12 @@ These should happen after the immediate product cleanup.
    build the reflection prompt for a future "source authority by dimension" pass.
    Reference the verbatim note in [Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) so the full framing is preserved, not just the summary bullets.
 
-3. Ethics anchored indicator
+2. Ethics anchored indicator
    Add at least one semi-quantitative anchor if possible, such as:
    - disclosure completeness score
    - Ethics Commissioner action/recommendation tracking
 
-4. Next-cycle readiness pass
+3. Next-cycle readiness pass
    Focus on operational discipline, not redesign:
    - Economic Policy Response: no movement on announcements alone
    - Affordability Response: scope boundary holds

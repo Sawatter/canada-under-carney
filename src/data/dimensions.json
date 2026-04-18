@@ -229,9 +229,13 @@
       {
         "label": "Fraser Institute — MPO assessment",
         "url": "https://www.fraserinstitute.org/article/does-canadas-major-projects-office-actually-do-anything"
+      },
+      {
+        "label": "Angus Reid — major projects reaction",
+        "url": "https://angusreid.org/major-projects-reaction-canada/"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-17",
     "metrics": [
       {
         "label": "MPO project tranches announced",
@@ -527,15 +531,23 @@
         "url": "https://www.fraserinstitute.org/studies/canadas-ugly-growth-experience-2020-2024-why-gdp-per-capita-declined-while-overall-economy-grew"
       },
       {
+        "label": "OECD Economic Surveys: Canada 2025",
+        "url": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html"
+      },
+      {
         "label": "StatsCan GDP per capita",
         "url": "https://www150.statcan.gc.ca/n1/pub/36-28-0001/2024004/article/00001-eng.htm"
       },
       {
         "label": "StatsCan LFS Feb 2026",
         "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260313/dq260313a-eng.htm"
+      },
+      {
+        "label": "NRCan — critical minerals partnerships",
+        "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-17",
     "metrics": [
       {
         "label": "GDP per capita change (2020-24)",
@@ -548,7 +560,7 @@
         "label": "OECD per-capita growth rank (2020-2030 forecast)",
         "value": "Last of 38",
         "source": "oecd",
-        "sourceNote": "OECD long-term baseline projections (underlying data via OECD Economic Outlook): Canada's real GDP per capita forecast to grow 0.7%/yr 2020-2030, lowest of 38 OECD members (tied with Italy). 0.8%/yr 2030-2060, remaining near bottom. Analyses: Fraser Institute (fraserinstitute.org/studies/were-getting-poorer-gdp-per-capita-in-canada-and-oecd-2002-2060); BCBC (bcbc.com/insight/oecd-predicts-canada-will-be-the-worst-performing-advanced-economy). Note: ranking is 'last or near-last' depending on exact vintage of OECD projections used; tied with Italy in some versions.",
+        "sourceNote": "OECD long-term baseline projections remain the primary reference point; OECD Economic Surveys: Canada 2025 summarizes the weak per-capita outlook, while Fraser Institute and BCBC analyses map those baseline projections into the 'last or near-last' framing used here. Canada's real GDP per capita is forecast at roughly 0.7%/yr in 2020-2030 and 0.8%/yr in 2030-2060. Note: ranking is 'last or near-last' depending on projection vintage; tied with Italy in some versions.",
         "automatable": false
       },
       {
@@ -585,7 +597,7 @@
         "text": "Critical minerals strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "NRCan Critical Minerals Production Alliance: $18.5B mobilized across Canadian critical minerals projects (NRCan announcements March/October 2025, canada.ca). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. Canada produces 10 of 12 NATO defence-critical minerals.",
+        "evidence": "NRCan Critical Minerals Production Alliance: $18.5B mobilized across Canadian critical minerals projects (see dimension sources; March 2026 NRCan release consolidates the March and October rounds). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. Canada produces 10 of 12 NATO defence-critical minerals.",
         "durability": "Program",
         "history": [
           {
@@ -818,11 +830,15 @@
         "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/"
       },
       {
+        "label": "IISD — Canadian Carbon Pricing Systems: 2025 Review",
+        "url": "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review"
+      },
+      {
         "label": "PBO carbon GST revenue",
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-17",
     "metrics": [
       {
         "label": "Consumer carbon tax",
@@ -835,7 +851,7 @@
         "label": "Industrial OBPS (headline rate)",
         "value": "$95/tonne",
         "source": "eccc",
-        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $95/tCO2e in 2025, increasing $15/yr to $170 by 2030. Note: CCI found effective credit trading price is significantly lower (~$20/t) due to market oversupply. Headline and effective rates are different measures — dashboard shows headline; rationale discusses the gap.",
+        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $95/tCO2e in 2025, increasing $15/yr to $170 by 2030. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures — dashboard shows the headline rate; rationale discusses the gap.",
         "automatable": false
       },
       {
@@ -944,8 +960,20 @@
         "url": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/"
       },
       {
+        "label": "IISD — Canada's 2030 climate target",
+        "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
+      },
+      {
         "label": "CCI — industrial pricing gaps",
         "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/"
+      },
+      {
+        "label": "ECCC 2024-25 Departmental plan at a glance",
+        "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2024-2025/dp-at-glance.html"
+      },
+      {
+        "label": "ECCC 2025-26 Departmental plan at a glance",
+        "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
       },
       {
         "label": "National Observer — fossil fuel course",
@@ -960,7 +988,7 @@
         "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-17",
     "metrics": [
       {
         "label": "Emissions cap",
@@ -980,7 +1008,7 @@
         "label": "ECCC budget cuts (to 2030)",
         "value": "$1.3B cumulative",
         "source": "eccc",
-        "sourceNote": "ECCC 2025-26 Departmental Plan and media analysis: reductions of $43M (2024-25), $63M (2025-26), $91M/yr from 2026-27, totaling ~$1.3B by 2030. Approximately 840 FTE positions to be cut (~10% of workforce). Sources: The Conversation (theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606); CBC Radio (cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623).",
+        "sourceNote": "ECCC departmental plan pages document refocusing reductions of $43M (2024-25), $63M (2025-26), and $91M annually from 2026-27 onward, implying roughly $1.3B in cumulative reductions by 2030. The staffing pressure is documented through departmental plan staffing tables and contemporaneous media reporting on the associated cuts. See the ECCC departmental-plan links in the dimension sources, plus CBC Radio and The Conversation for operational impact reporting.",
         "automatable": false
       },
       {
@@ -1481,11 +1509,15 @@
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires"
       },
       {
+        "label": "C.D. Howe — public service ratio",
+        "url": "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/"
+      },
+      {
         "label": "The Hub — $94B gap",
         "url": "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-17",
     "metrics": [
       {
         "label": "Flagship files delivering",
