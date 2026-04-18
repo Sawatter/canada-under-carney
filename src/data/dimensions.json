@@ -819,7 +819,7 @@
         "Government announces intention to eliminate industrial pricing"
       ]
     },
-    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument — the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a genuine affordability win and Day 1 commitment delivered. The industrial system's preservation is defensible on competitiveness grounds. However, CCI found the effective credit price is ~$20/tonne despite a $95 headline, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
+    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument — the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a genuine affordability win and Day 1 commitment delivered. The industrial system's preservation is defensible on competitiveness grounds. However, CCI and IISD both note that credit oversupply can pull the effective compliance price far below the $95 headline schedule, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
     "sources": [
       {
         "label": "Canada.ca — fuel charge removal",
@@ -953,7 +953,7 @@
         "Additional climate program eliminations"
       ]
     },
-    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
+    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
         "label": "CCI — Canada off course",
@@ -994,7 +994,7 @@
         "label": "Emissions cap",
         "value": "Suspended",
         "source": "eccc",
-        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment and CCI analysis. Source: climateinstitute.ca/news/canada-off-course-for-climate-targets/",
+        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, and IISD's analysis that stronger policy is still required to meet the 2030 target. Source URLs in the dimension sources array.",
         "automatable": false
       },
       {
@@ -1494,7 +1494,7 @@
         "Per Combination Rule, at least one flagship file worsens by one status category"
       ]
     },
-    "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow — it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions.",
+    "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow — it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions, a concern reinforced by C.D. Howe's analysis of a worsening executive-to-rank-and-file ratio.",
     "sources": [
       {
         "label": "Policy Options — federalism failure",
