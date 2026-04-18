@@ -6,6 +6,9 @@ import PromiseTag from "./PromiseTag";
 export default function DimensionCard({ dim, isExpanded, onClick }) {
   const g = GRADES[dim.grade];
   const modifierItems = dim.gradeBasis?.activeModifiers || [];
+  const rationaleLabel = dim.status?.includes("Whole-letter grade only")
+    ? "Within-band rationale"
+    : "Plus/minus rationale";
 
   const renderScopeItem = (item) => {
     if (!item) return null;
@@ -151,7 +154,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   <strong>Band:</strong> {dim.gradeBasis.band} - {dim.gradeBasis.bandCriterion}
                 </div>
                 <div>
-                  <strong>Plus/minus rationale:</strong> {dim.gradeBasis.plusMinusRationale}
+                  <strong>{rationaleLabel}:</strong> {dim.gradeBasis.plusMinusRationale}
                 </div>
                 {modifierItems.length > 0 && (
                   <div>
