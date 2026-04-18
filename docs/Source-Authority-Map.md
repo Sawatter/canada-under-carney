@@ -1,7 +1,7 @@
 # Source Authority Map
 
 - **Purpose:** Define, per dimension, what kinds of truth the dashboard is claiming and which source roles should carry those claims.
-- **Status:** Draft — Housing Supply pilot plus Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, Immigration, Fiscal Health, and Economic Policy Response entries complete; remaining 3 dimensions pending.
+- **Status:** Draft — all 11 graded dimension entries complete; full-review and integration pass pending.
 - **Last updated:** 2026-04-18
 - **Depends on:** Current-Roadmap.md, Parking-Lot.md, DATA-SOURCES.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Canonical-Scoring-Sheets.md, Plus-Minus-Decision-Rules.md, src/data/dimensions.json
 - **Used by:** future source-hardening passes, source-fit reviews, confidence calibration reviews, and the forthcoming full per-dimension authority-map buildout
@@ -796,12 +796,261 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 
 ---
 
+## 9. Affordability Response
+
+**Construct**
+
+The adequacy of the federal government's policy response to household cost pressure from groceries, tariffs, and targeted relief programs.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:14)
+
+**Core grade-moving claims**
+
+1. Federal relief covers less than 20% of the identified household cost increase, which is the central reason the file sits in D rather than C.
+   Source basis: D threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:34), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:648), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:645)
+
+2. Some instruments exist, but they are too weak or too voluntary to match the scale of the affordability problem, which is why the file resolves to D- rather than a cleaner D.
+   Source basis: C/D thresholds + current `plusMinusRationale`, rationale, and promises in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:33), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:34), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:649), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:645), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:752)
+
+3. Tariff-driven cost pressure is real, but the external-constraint modifier does not apply because the federal response is still judged inadequate.
+   Source basis: modifier rule + current active modifier + status line in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:38), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:652), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:643)
+
+4. The file grades the policy response, not the food-price level itself; global food prices and exchange-rate pressure are confounders rather than grade movers.
+   Source basis: confounder/rater note + current rationale and scope in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:45), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:51), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:645), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:669)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The file depends on food CPI, tariff burden, food insecurity, and relief-to-burden ratios. |
+| Policy truth | Required | The grade turns on benefit design, Grocery Code structure, and tariff choices. |
+| Execution truth | Required | The file must distinguish announced relief from operational relief and mandatory measures from voluntary ones. |
+| Independent challenge truth | Required | Adequacy of the response requires outside scrutiny, not just government descriptions of benefits. |
+| Context truth | Optional | Journalism and commentary can explain the market backdrop but must not move the grade on their own. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | StatsCan food CPI [QA T1]; PBO tariff-burden and benefit-costing work [QA T1]; PROOF food insecurity [QA T2] | Dalhousie food-cost reporting [QA T2] |
+| Policy truth | Budget / GST-credit / grocery-benefit documents [QA T1/T4 depending document type]; Grocery Code official framework [QA T1/T4] | Formal tariff or relief announcements [QA T1/T4] |
+| Execution truth | Operational proof that benefits were delivered and the Grocery Code was actually in force [QA T1/T4] | Ongoing program-status reporting [QA T1/T4] |
+| Independent challenge truth | PBO [QA T1]; PROOF [QA T2]; disclosed-methodology affordability analysis such as CCPA / Broadbent [QA T2/T3 depending use] | Dalhousie [QA T2] |
+| Context truth | Mainstream affordability reporting and retail-concentration coverage [QA T3] | Additional clearly attributed commentary [QA T3] |
+
+**Context-only sources**
+
+- Food-price reporting that does not speak to the adequacy of the federal response
+- Broader retail-concentration commentary
+- Utility, insurance, rent, or transportation cost reporting that sits outside this construct's scope
+
+These may shape interpretation but must not move the Affordability Response grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Affordability Response source stack:  
+StatsCan CPI Feb 2026, Dalhousie Food Price Report, PROOF food insecurity 2024  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:694)
+
+- **Present and well-aligned**
+  - `StatsCan CPI Feb 2026` fills measurement truth on current food-price pressure.
+  - `PROOF food insecurity 2024` fills measurement/challenge truth on the scale of household strain.
+  - `Dalhousie Food Price Report` fills challenge/context on annual household food-cost burden.
+
+- **Gaps**
+  - No PBO source is present in the `sources` array even though the live grocery-benefit metric depends on PBO costing and the tariff-burden estimate is a minimum indicator for the file.
+  - No direct government or operational source is present in the `sources` array for the grocery benefit or Grocery Code of Conduct, even though those instruments are central to the response being graded.
+  - No tariff-household-cost source is present in the `sources` array even though the status line uses the `$1,450-$2,000/yr per household` figure as a live framing claim.
+
+- **Role mismatches**
+  - `StatsCan CPI Feb 2026` and `Dalhousie Food Price Report` mostly measure household pressure, not the adequacy of the federal response. They are necessary inputs, but by themselves they should not be mistaken for response evidence.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to a metric, rationale line, or perspective.
+
+**Red-flag gaps**
+
+- The price level is the core confounder. A stronger stack on food inflation alone does not improve the grade unless the response-to-burden ratio changes.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:45) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:51)
+
+- Food CPI and tariff household cost burden are primary-homed here. Other dimensions may cite them only as context.
+  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:33), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:34), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:55)
+
+- Consumer carbon tax elimination is primary-homed in Carbon Pricing Policy, while consumer carbon tax affordability savings are primary-homed here. The two must not be collapsed into one response claim.
+  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:19) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:20)
+
+---
+
+## 10. Carbon Pricing Policy
+
+**Construct**
+
+The quality of the federal government's handling of carbon pricing as a policy instrument.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:102)
+
+**Core grade-moving claims**
+
+1. Eliminating the consumer carbon charge was a genuine policy delivery win and is the strongest cleanly-delivered component of the file.
+   Source basis: C threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:122), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:802), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:803), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:822)
+
+2. The industrial OBPS has been preserved more in form than in clearly effective function, because the effective price appears far below the headline schedule.
+   Source basis: C threshold + current `bandCriterion`, rationale, and confounder note in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:122), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:134), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:802), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:822)
+
+3. External-constraint arguments about a future border adjustment are too early to improve the grade.
+   Source basis: modifier rule + current active modifier in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:127), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:806), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:807)
+
+4. This file grades the carbon-pricing instrument, not emissions outcomes or the broader climate framework.
+   Source basis: deconfliction/rater note + current rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:138), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:140), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:822)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The file depends on the consumer-charge status, OBPS headline/effective price, revenue, and related design indicators. |
+| Policy truth | Required | The grade turns on the federal decision to eliminate the consumer levy while preserving the industrial system. |
+| Execution truth | Required | The file must distinguish nominal preservation from actual functional pricing pressure. |
+| Independent challenge truth | Required | Coherence of the industrial system requires outside analytical scrutiny, not just official schedules. |
+| Context truth | Optional | Broader political or climate-framing commentary can inform but must not move the grade by itself. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | ECCC OBPS schedule and design documents [QA T1]; Finance Canada consumer-charge status [QA T1/T4]; PBO revenue analysis [QA T1] | Additional official program documents [QA T1/T4] |
+| Policy truth | Finance Canada and ECCC policy documents on levy elimination and OBPS preservation [QA T1/T4] | Budget and strategy documents [QA T1/T4] |
+| Execution truth | Evidence on actual compliance pricing, credit oversupply, and operational design [QA T1/T2 depending source] | Official updates plus independent market analysis [QA T1/T2] |
+| Independent challenge truth | Canadian Climate Institute [QA T2]; IISD [QA T2] | Additional disclosed-methodology carbon-pricing analysis [QA T2] |
+| Context truth | Business-response or household-response commentary [QA T3] | Additional clearly attributed reporting [QA T3] |
+
+**Context-only sources**
+
+- Emissions-pathway reporting that belongs to Climate & Environment
+- Household-affordability narratives that belong to Affordability Response
+- General political commentary about carbon pricing's popularity
+
+These may shape interpretation but must not move the Carbon Pricing Policy grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Carbon Pricing Policy source stack:  
+Canada.ca — fuel charge removal, CCI — industrial pricing, IISD — Canadian Carbon Pricing Systems: 2025 Review, PBO carbon GST revenue  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:823)
+
+- **Present and well-aligned**
+  - `Canada.ca — fuel charge removal` fills policy/execution truth on the consumer-side delivery.
+  - `CCI — industrial pricing` and `IISD — Canadian Carbon Pricing Systems: 2025 Review` fill independent-challenge truth on the industrial-side coherence problem.
+  - `PBO carbon GST revenue` fills measurement/context on the consumer-side fiscal implications of eliminating the charge.
+
+- **Gaps**
+  - No direct ECCC source is present in the `sources` array even though the live OBPS headline-rate metric is sourced to ECCC and the headline/effective gap is central to the file.
+  - No direct CFIB source is present in the `sources` array even though the small-business-share metric uses CFIB.
+  - No direct free-allocation or comparable design-detail source is present in the `sources` array even though the scoring sheet treats industrial design strength as part of the instrument's quality.
+
+- **Role mismatches**
+  - `PBO carbon GST revenue` is best treated as consumer-side measurement/context, not as the central evidence for the industrial-side coherence problem.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to a metric, rationale line, or promise.
+
+**Red-flag gaps**
+
+- The headline-versus-effective-price gap is the core confounder. Stronger evidence on the headline schedule alone does not prove the instrument is functionally effective.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:134) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:854)
+
+- Consumer carbon tax elimination is primary-homed here, but the consumer affordability savings are primary-homed in Affordability Response. The event and the household-savings effect must stay separated.
+  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:19) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:20)
+
+- Industrial OBPS emissions impact is primary-homed in Climate & Environment. This file owns the instrument's design and coherence, not the emissions outcome.
+  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:21) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:22)
+
+---
+
+## 11. Climate & Environment
+
+**Construct**
+
+The scale and coherence of the federal environmental policy framework.  
+Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:400)
+
+**Core grade-moving claims**
+
+1. Major environmental reversals occurred without a credible replacement strategy, which is the central reason the file is a D rather than a C.
+   Source basis: D threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:422), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:936), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:937), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956)
+
+2. Independent analysis and government acknowledgment both indicate that current policy is not on track for the 2030 target.
+   Source basis: minimum indicators + rationale and promise evidence in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:412), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1065)
+
+3. Institutional climate capacity is shrinking through ECCC budget and staffing cuts, which is part of the grade-moving framework deterioration.
+   Source basis: minimum indicators + current `plusMinusRationale`, metric, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:411), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:937), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1008), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956)
+
+4. Trade-war pressure provides only partial justification; it does not explain the full scale of reversals in the live framework.
+   Source basis: modifier rule + current active modifier + confounder note in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:426), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:432), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:940), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956)
+
+**Required source roles**
+
+| Role | Status | Why |
+|---|---|---|
+| Measurement truth | Required | The file depends on target-pathway, capacity, and framework-status metrics. |
+| Policy truth | Required | The grade turns on federal choices about caps, mandates, conservation, and replacement strategy. |
+| Execution truth | Required | The file must capture whether reversals, budget cuts, and replacement plans are actually operational. |
+| Independent challenge truth | Required | Off-course judgments and framework-coherence assessments require outside scrutiny. |
+| Context truth | Optional | Journalism and commentary can describe political framing or operational impact but must not move the grade by themselves. |
+
+**Preferred sources by role**
+
+| Role | Preferred primary | Acceptable corroborators |
+|---|---|---|
+| Measurement truth | ECCC / CER official climate and electricity data [QA T1]; ECCC departmental plans / GC InfoBase [QA T1] | Additional official climate reporting [QA T1] |
+| Policy truth | Official policy and regulatory documents on emissions cap, EV mandate, conservation, and replacement strategy [QA T1/T4] | Budget and departmental releases [QA T1/T4] |
+| Execution truth | Departmental plans, staffing tables, budget execution, and formal program-status updates [QA T1] | Additional official implementation reporting [QA T1/T4] |
+| Independent challenge truth | Canadian Climate Institute [QA T2]; IISD [QA T2] | Additional disclosed-methodology climate-policy analysis [QA T2] |
+| Context truth | National Observer, CBC, The Conversation, and similar operational-impact reporting [QA T3] | Additional clearly attributed reporting [QA T3] |
+
+**Context-only sources**
+
+- Industrial carbon-price design commentary, which is primary-homed in Carbon Pricing Policy
+- Broader narrative comparisons between Carney's climate reputation and governing record
+- General trade-war coverage that does not speak to specific climate-policy reversals
+
+These may shape interpretation but must not move the Climate & Environment grade without the measurement / policy / execution / challenge roles above.
+
+**Current state delta**
+
+Current `dimensions.json` Climate & Environment source stack:  
+CCI — Canada off course, IISD — Canada's 2030 climate target, CCI — industrial pricing gaps, ECCC 2024-25 Departmental plan at a glance, ECCC 2025-26 Departmental plan at a glance, National Observer — fossil fuel course, ECCC Arctic science cuts, CBC — ECCC job and budget cuts  
+Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:957)
+
+- **Present and well-aligned**
+  - `CCI — Canada off course` and `IISD — Canada's 2030 climate target` fill independent-challenge truth on the target gap.
+  - `ECCC 2024-25 Departmental plan at a glance` and `ECCC 2025-26 Departmental plan at a glance` fill measurement/execution truth on institutional capacity decline.
+  - `National Observer`, `The Conversation`, and `CBC` fill context and operational-impact reporting around the reversals and departmental cuts.
+
+- **Gaps**
+  - No direct CER or equivalent official source is present in the `sources` array even though the file carries a low-carbon-electricity metric.
+  - No direct official conservation / 30x30 source is present in the `sources` array even though conservation spending and target status are part of the live promise set.
+  - No direct official event source is present in the `sources` array for the EV mandate repeal, even though it is a core framework reversal in the file.
+
+- **Role mismatches**
+  - `CCI — industrial pricing gaps` is best treated as context-only here, because industrial OBPS design and the headline-versus-effective-price gap are primary-homed in Carbon Pricing Policy.
+  - The journalism sources are properly useful, but they should remain context/operational-impact reporting rather than primary evidence for grade movement.
+
+- **Orphaned sources**
+  - None in the current stack. Every listed source attaches to a metric, rationale line, or perspective.
+
+**Red-flag gaps**
+
+- Trade-war justification is only partial. A stronger trade-war source stack would not by itself rescue the file if replacement strategy and capacity remain absent.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:426) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:432)
+
+- This file owns the emissions framework, not the carbon-pricing instrument. Industrial OBPS design belongs in Carbon Pricing Policy; emissions-cap status, EV mandate status, and ECCC capacity belong here.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:436), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:21), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:22), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:38), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:40)
+
+- Stronger evidence on preserved low-carbon assets or industrial pricing does not substitute for the missing replacement strategy that would move this file upward.
+  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:421), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:422), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:936)
+
+---
+
 **Build note**
 
-This draft now validates the template on Housing Supply plus seven Stage 3 cases: Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, Immigration, Fiscal Health, and Economic Policy Response.
+This draft now covers Housing Supply plus all 10 remaining graded dimensions: Ethics & Transparency, Flagship Delivery, Defence & Trade, Major Projects, Immigration, Fiscal Health, Economic Policy Response, Affordability Response, Carbon Pricing Policy, and Climate & Environment.
 
-The next recommended build order is:
-
-- Affordability Response
-- Carbon Pricing Policy
-- Climate & Environment
+The next recommended step is a full-SAM review pass against QA tiers, Deconfliction-Matrix ownership, Canonical-Scoring-Sheets constructs, and the live `dimensions.json` source stacks before any integration edits are made elsewhere in the methodology layer.
