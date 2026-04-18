@@ -143,6 +143,37 @@ Bad review boundaries:
 
 ---
 
+## Thread and Compaction Discipline
+
+Use the same thread when the work is still the same workstream:
+- same artifact
+- same stage
+- same governing decision set
+- same review/fix loop
+
+Start a fresh thread or window when:
+- the task changes materially
+- the current thread contains more baggage than useful context
+- a completed stage is handing off into a distinct next stage
+- a new workstream would otherwise require re-explaining what matters and what no longer matters
+
+Before switching threads, preserve only the smallest useful handoff:
+- repo path
+- current status
+- next step
+- critical constraints
+- must-not-touch files if any
+
+Use compaction at natural milestones, not as a panic button:
+- after a draft is complete
+- after a review is complete
+- after a fix batch is complete
+- before beginning a distinct next phase in the same workstream
+
+Do not compact in the middle of active reasoning if a short handoff or task completion is close.
+
+---
+
 ## Context Discipline
 
 Treat context as layered, not flat.
@@ -154,6 +185,13 @@ These are stable enough to live in standing docs and be reused:
 - [Claude-Session-Discipline.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-Session-Discipline.md)
 - this protocol
 - active governing methodology docs when relevant to a task
+
+Keep standing docs lean:
+- high-signal rules
+- durable constraints
+- file pointers to deeper material
+
+Do not overload standing docs with long explanatory text that can live in linked companion docs instead.
 
 ### Task-specific context
 
@@ -170,6 +208,9 @@ These belong in the prompt for the current task:
 - Do not stuff repeated repo context into every prompt if a standing doc already owns it
 - Prefer a small set of high-signal files over broad repo dumps
 - Use the repo docs as memory; do not keep re-litigating settled decisions in chat
+- Do not paste giant raw articles, transcripts, or logs into the thread when a short extracted summary will do
+- If long external material matters, distill it to the actionable points first, then carry source links separately
+- Trim logs to the error, the immediate surrounding context, and the specific lines needed for diagnosis
 
 ---
 
@@ -190,6 +231,8 @@ Prefer:
 - numbered issues
 - examples
 - checklists
+- explicit output-shape constraints when verbosity is not needed
+  Examples: findings only, one-line verdict, changed section only, no explanation unless asked
 
 Avoid:
 - vague "be thorough" language when a checklist would do
