@@ -1414,6 +1414,10 @@
       {
         "label": "PM blind-trust summary statement",
         "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf"
+      },
+      {
+        "label": "PM Annex A public declaration of agreed measure",
+        "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf"
       }
     ],
     "lastUpdated": "2026-04-18",
@@ -1422,19 +1426,36 @@
         "label": "Ethics Commissioner review",
         "value": "Not published",
         "source": "manual",
-        "automatable": false
+        "automatable": false,
+        "sourceNote": "No PM-specific Ethics Commissioner review is published in the Office's current public materials."
       },
       {
-        "label": "Brookfield interests",
-        "value": "Not fully disclosed",
+        "label": "Blind trust status",
+        "value": "Established",
         "source": "manual",
-        "automatable": false
+        "automatable": false,
+        "sourceNote": "PM blind-trust summary statement records divestment of listed assets into a blind trust established pursuant to section 27 of the Act."
       },
       {
-        "label": "Conflict type",
-        "value": "Perception (minimum)",
+        "label": "Agreed measure filing",
+        "value": "Filed",
         "source": "manual",
-        "automatable": false
+        "automatable": false,
+        "sourceNote": "Annex A public declaration of agreed measure is published."
+      },
+      {
+        "label": "Conflict screening scope",
+        "value": "Declared in Annex A",
+        "source": "manual",
+        "automatable": false,
+        "sourceNote": "Annex A publicly lists the entities covered by the agreed measure and ethics screen."
+      },
+      {
+        "label": "Independent governance review",
+        "value": "Not published",
+        "source": "manual",
+        "automatable": false,
+        "sourceNote": "No non-Commissioner independent governance review is published in the live source stack."
       }
     ],
     "promises": [
