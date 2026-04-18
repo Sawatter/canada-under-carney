@@ -91,7 +91,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 marginTop: "6px",
               }}
             >
-              <strong style={{ color: "#555" }}>Grades:</strong> {dim.construct}
+              <strong style={{ color: "#555" }}>Construct:</strong> {dim.construct}
             </div>
           )}
         </div>
