@@ -100,15 +100,14 @@
   Explore whether Carney approval / vote-strength / public-support data belongs
   at the top of the dashboard as an ungraded signal, a tracker, or a true
   dimension. Do not assume popularity and performance are the same thing.
-- Rewrite the Household Impact / "Why two grades?" explainer for clarity — Completed; live on the dashboard, About, and README
-  The ScoreboardHeader "Why two grades?" block, the About paragraph, and the
-  README block now use plain-language wording that leads with motivation,
-  names the four household-weighted dimensions in household-experience terms
-  (housing, cost of living, the economy, government spending), reassures the
-  reader that both grades use the same 11 dimensions / sources / rubric / QA,
-  clarifies that Promises Delivered is tracked separately, and explains the
-  divergence signal. Score-box subtitles added under "Full Policy Audit" and
-  "Household Impact" labels.
+- Rewrite the Household Impact / "Why two grades?" explainer for clarity — Completed; parked in the About tab and README
+  The explainer lives in About.jsx and README.md with plain-language wording
+  (names the four household-weighted areas as housing, cost of living, the
+  economy, government spending; reassures same 11 areas / sources / rubric /
+  QA; clarifies that Promises Delivered is tracked separately; explains the
+  divergence signal). The block was removed from the live dashboard header on
+  2026-04-19 to cut visual clutter. Score-box subtitles remain on the
+  dashboard so each grade card still answers "what is this?" at first glance.
 - Expanded-dimension readability / information-overload review
   Open each expanded dimension as a customer would and review whether the
   content helps understanding or overwhelms the reader. Check desktop and
