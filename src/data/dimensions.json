@@ -1429,7 +1429,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "PROBATION. PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved. Whole-letter grade only — plus/minus precision not supported by evidence.",
+    "status": "PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved.",
     "construct": "The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.",
     "gradeBasis": {
       "band": "C",
@@ -1569,7 +1569,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "down",
-    "status": "PROBATION. Measures delivery capacity across 5 flagship files. Strong on defence. Weak on housing and climate. Whole-letter grade only — combination rule determines grade mechanically.",
+    "status": "Strong on defence. Weak on housing and climate.",
     "construct": "The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.",
     "gradeBasis": {
       "band": "C",
