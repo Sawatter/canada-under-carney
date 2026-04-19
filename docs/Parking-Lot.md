@@ -74,7 +74,9 @@
 
 ## Product / UX Ideas
 
-- CompareView overhaul using inspectability fields
+- CompareView overhaul using inspectability fields — Deprioritized
+  Removed from the live nav on 2026-04-18. Revisit only if it earns a unique
+  analyst/power-user job that is meaningfully better than opening two expanded cards.
 - Methodology tab cleanup and simplification
 - Small confidence explanation on-card or in methodology — Completed
   Live DimensionCards now surface confidence, attribution, and lag tags directly on-card.

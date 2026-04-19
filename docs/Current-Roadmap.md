@@ -49,6 +49,7 @@
 - MPO timeline overlap cleanup — removed the duplicate Flagship Delivery promise so the Major Projects two-year-timeline commitment now has a single primary home, consistent with overlap-prevention discipline.
 - Headline GPA display precision reduced from two decimals to one on the live dashboard and README (1.70 → 1.7, 1.49 → 1.5). Underlying math, grade bands, sensitivity analysis, and shadow-log methodology retain full precision; the change is display-only and removes false precision the methodology cannot actually support.
 - Card metadata surfacing — live DimensionCards now show confidence, attribution, and lag tags directly on-card using the existing dimension metadata.
+- Compare tab removed from the live nav. The feature is now parked as a future analyst tool only if it can justify itself beyond duplicating two expanded cards.
 
 ---
 
