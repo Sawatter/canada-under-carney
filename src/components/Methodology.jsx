@@ -104,6 +104,22 @@ export default function Methodology() {
           dimension scores; only the weighting changes. The choice of weighting
           is an editorial judgment disclosed transparently.
         </p>
+        <p style={{ fontSize: "12px", color: "#888" }}>
+          <strong>Commitment traceability:</strong> Commitments from campaign
+          platforms, budgets, throne speeches, mandate letters, and official
+          public announcements are mapped through a published{" "}
+          <a
+            href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Commitment-Traceability-Map.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#1a73e8" }}
+          >
+            Commitment Traceability Map
+          </a>
+          . It shows the path from commitment source to home dimension,
+          construct, indicators, source roles, deconfliction notes, and
+          derivative handling without creating a separate scoring layer.
+        </p>
       </div>
     </div>
   );

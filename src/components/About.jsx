@@ -38,6 +38,21 @@ export default function About() {
           ungraded accountability tool. A government can perform better on
           statecraft than on household-facing files. We show both.
         </p>
+        <p style={{ marginBottom: "16px" }}>
+          The scoring stack now also includes a published{" "}
+          <a
+            href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Commitment-Traceability-Map.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#1a73e8" }}
+          >
+            Commitment Traceability Map
+          </a>{" "}
+          that links each tracked commitment to its home dimension, construct,
+          indicator path, source-role requirements, deconfliction notes, and
+          derivative handling. It is a reference layer, not a separate scoring
+          system.
+        </p>
 
         <div
           style={{
@@ -67,6 +82,11 @@ export default function About() {
             </li>
             <li>
               Grade changes require documented evidence and rubric citation
+            </li>
+            <li>
+              Commitments are traceable from their original public source to
+              their home dimension, indicator path, and derivative treatment
+              through the published Commitment Traceability Map
             </li>
             <li>Every grade is a human editorial judgment supported by documented evidence and a published rubric</li>
             <li>

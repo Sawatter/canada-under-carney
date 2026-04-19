@@ -18,6 +18,7 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 
 - **Scorecard** — 11 graded policy dimensions (A through F) plus an ungraded Promise Tracker, with expandable details, rationale, evidence, and source links
 - **Promise Tracker** — 44 government commitments tracked by status with expandable evidence
+- **Commitment Traceability Map** — published join layer linking commitments to home dimensions, constructs, indicators, source roles, and derivative handling
 - **Compare** — Side-by-side dimension comparison
 - **Methodology** — Transparent scoring rubric embedded in the dashboard
 - **What Changed** — Monthly change log with grade changes and evidence
@@ -29,13 +30,13 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 
 | Category | Sources |
 |---|---|
-| **Official** | Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, Global Affairs Canada, Office of the Ethics Commissioner, NATO, OECD, IMF, Fitch |
-| **Centre** | CBC News, Globe and Mail, La Presse, Toronto Star |
-| **Right** | C.D. Howe, The Hub, National Post |
-| **Left** | CCPA, The Narwhal, National Observer |
-| **Independent** | IRPP / Policy Options, Canadian Climate Institute, IISD, IFSD |
+| **Official** | Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, Global Affairs Canada, NRCan, Finance Canada / Canada.ca, Office of the Ethics Commissioner, LEGISinfo / parl.ca, direct PM ethics filings, NATO, OECD, IMF |
+| **Centre** | CBC News, Globe and Mail |
+| **Right** | C.D. Howe, Fraser Institute, The Hub |
+| **Left** | The Narwhal, National Observer |
+| **Independent** | IRPP / Policy Options, Canadian Climate Institute, IISD, Democracy Watch |
 | **Academic** | The Conversation Canada, Dalhousie, PROOF (U of T) |
-| **Polling** | Angus Reid, Leger, Nanos, Abacus |
+| **Polling** | Angus Reid |
 
 ## Want to Review or Contribute?
 
@@ -43,8 +44,9 @@ We welcome feedback. You can:
 
 1. **Review the dashboard** at [sawatter.github.io/canada-under-carney](https://sawatter.github.io/canada-under-carney/)
 2. **Read the scoring rubric** in the Methodology tab or [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
-3. **Submit feedback** via [GitHub Issues](https://github.com/Sawatter/canada-under-carney/issues)
-4. **Run it through your own AI** — paste the dashboard URL into ChatGPT, Claude, or Gemini and ask it to critique the methodology, challenge the grades, or identify missing perspectives
+3. **Read the commitment traceability layer** in [docs/Commitment-Traceability-Map.md](docs/Commitment-Traceability-Map.md)
+4. **Submit feedback** via [GitHub Issues](https://github.com/Sawatter/canada-under-carney/issues)
+5. **Run it through your own AI** — paste the dashboard URL into ChatGPT, Claude, or Gemini and ask it to critique the methodology, challenge the grades, or identify missing perspectives
 
 ## Monthly Updates
 
