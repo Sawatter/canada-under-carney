@@ -8,9 +8,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
   const modifierItems = dim.gradeBasis?.activeModifiers || [];
   const [scopeOpen, setScopeOpen] = useState(false);
   const [inheritedOpen, setInheritedOpen] = useState(false);
-  const rationaleLabel = dim.status?.includes("Whole-letter grade only")
-    ? "Within-band rationale"
-    : "Plus/minus rationale";
+  const [triggersOpen, setTriggersOpen] = useState(false);
+  const [perspectivesOpen, setPerspectivesOpen] = useState(false);
 
   const renderScopeItem = (item) => {
     if (!item) return null;
@@ -107,18 +106,6 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
           <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.4 }}>
             {dim.status}
           </div>
-          {dim.construct && (
-            <div
-              style={{
-                fontSize: "11px",
-                color: "#777",
-                lineHeight: 1.4,
-                marginTop: "6px",
-              }}
-            >
-              <strong style={{ color: "#555" }}>Construct:</strong> {dim.construct}
-            </div>
-          )}
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
           <GradeChip grade={dim.grade} />
@@ -175,16 +162,14 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   gap: "8px",
                 }}
               >
-                <div>
-                  <strong>Band:</strong> {dim.gradeBasis.band} - {dim.gradeBasis.bandCriterion}
-                </div>
-                <div>
-                  <strong>{rationaleLabel}:</strong> {dim.gradeBasis.plusMinusRationale}
+                <div>{dim.gradeBasis.plusMinusRationale}</div>
+                <div style={{ fontSize: "11px", color: "#777" }}>
+                  <strong>{dim.gradeBasis.band}</strong> band — {dim.gradeBasis.bandCriterion}
                 </div>
                 {modifierItems.length > 0 && (
-                  <div>
+                  <div style={{ fontSize: "11px", color: "#666" }}>
                     <strong>Modifiers:</strong>
-                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
                       {modifierItems.map((modifier, i) => (
                         <div key={i}>
                           <strong>{modifier.name}</strong>: {modifier.status}. {modifier.reason}
@@ -229,7 +214,12 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
 
           {(dim.gradeTriggers || dim.nextTrigger) && (
             <div style={{ marginBottom: "14px" }}>
-              <div
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setTriggersOpen((v) => !v);
+                }}
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
@@ -237,46 +227,57 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontFamily: "inherit",
                 }}
               >
+                <span style={{ fontSize: "9px" }}>{triggersOpen ? "\u25BE" : "\u25B8"}</span>
                 What Would Change This Grade
-              </div>
-              {dim.gradeTriggers ? (
-                <div
-                  style={{
-                    fontSize: "11px",
-                    color: "#666",
-                    lineHeight: 1.5,
-                    background: "#fffde7",
-                    padding: "8px 10px",
-                    borderRadius: "6px",
-                    borderLeft: "3px solid #f9a825",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                  }}
-                >
-                  <div>
-                    <strong>Up one step:</strong>
-                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                      {dim.gradeTriggers.up.map((trigger, i) => (
-                        <div key={i}>{trigger}</div>
-                      ))}
+              </button>
+              {triggersOpen && (
+                dim.gradeTriggers ? (
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      color: "#666",
+                      lineHeight: 1.5,
+                      background: "#fffde7",
+                      padding: "8px 10px",
+                      borderRadius: "6px",
+                      borderLeft: "3px solid #f9a825",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "8px",
+                    }}
+                  >
+                    <div>
+                      <strong>Up one step:</strong>
+                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                        {dim.gradeTriggers.up.map((trigger, i) => (
+                          <div key={i}>{trigger}</div>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <strong>Down one step:</strong>
+                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                        {dim.gradeTriggers.down.map((trigger, i) => (
+                          <div key={i}>{trigger}</div>
+                        ))}
+                      </div>
                     </div>
                   </div>
-                  <div>
-                    <strong>Down one step:</strong>
-                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                      {dim.gradeTriggers.down.map((trigger, i) => (
-                        <div key={i}>{trigger}</div>
-                      ))}
-                    </div>
+                ) : (
+                  <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}>
+                    {dim.nextTrigger}
                   </div>
-                </div>
-              ) : (
-                <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}>
-                  {dim.nextTrigger}
-                </div>
+                )
               )}
             </div>
           )}
@@ -397,7 +398,12 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
           {/* Left/Right Perspectives */}
           {dim.perspectives && (
             <div style={{ marginBottom: "14px" }}>
-              <div
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setPerspectivesOpen((v) => !v);
+                }}
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
@@ -405,40 +411,51 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontFamily: "inherit",
                 }}
               >
+                <span style={{ fontSize: "9px" }}>{perspectivesOpen ? "\u25BE" : "\u25B8"}</span>
                 Interpretive Perspectives
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-                <div
-                  style={{
-                    fontSize: "11px",
-                    lineHeight: 1.5,
-                    padding: "8px 10px",
-                    background: "#fff3f0",
-                    borderRadius: "6px",
-                    borderLeft: "3px solid #d84315",
-                    color: "#333",
-                  }}
-                >
-                  <strong style={{ color: "#d84315" }}>Critics say:</strong>{" "}
-                  {dim.perspectives.critics}
+              </button>
+              {perspectivesOpen && (
+                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      lineHeight: 1.5,
+                      padding: "8px 10px",
+                      background: "#fff3f0",
+                      borderRadius: "6px",
+                      borderLeft: "3px solid #d84315",
+                      color: "#333",
+                    }}
+                  >
+                    <strong style={{ color: "#d84315" }}>Critics say:</strong>{" "}
+                    {dim.perspectives.critics}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: "11px",
+                      lineHeight: 1.5,
+                      padding: "8px 10px",
+                      background: "#f0f4ff",
+                      borderRadius: "6px",
+                      borderLeft: "3px solid #1565c0",
+                      color: "#333",
+                    }}
+                  >
+                    <strong style={{ color: "#1565c0" }}>Defenders say:</strong>{" "}
+                    {dim.perspectives.defenders}
+                  </div>
                 </div>
-                <div
-                  style={{
-                    fontSize: "11px",
-                    lineHeight: 1.5,
-                    padding: "8px 10px",
-                    background: "#f0f4ff",
-                    borderRadius: "6px",
-                    borderLeft: "3px solid #1565c0",
-                    color: "#333",
-                  }}
-                >
-                  <strong style={{ color: "#1565c0" }}>Defenders say:</strong>{" "}
-                  {dim.perspectives.defenders}
-                </div>
-              </div>
+              )}
             </div>
           )}
 
