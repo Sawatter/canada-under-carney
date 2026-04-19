@@ -171,36 +171,74 @@ export default function ScoreboardHeader({
       {/* Method note */}
       <div
         style={{
-          textAlign: "center",
           fontSize: "13px",
           color: "#555",
           lineHeight: 1.6,
           maxWidth: "720px",
           margin: "0 auto",
-          padding: "12px 16px",
+          padding: "14px 20px",
           background: "#f8f8f8",
           borderRadius: "8px",
           border: "1px solid #e8e8e8",
+          textAlign: "left",
         }}
       >
-        <strong style={{ color: "#333" }}>Why two grades?</strong>{" "}
-        The government does a lot of different things. We grade it across
-        11 areas — defence, immigration, climate, housing, the cost of living,
-        ethics, and more.{" "}
-        <strong style={{ color: "#333" }}>Full Policy Audit</strong> is the
-        overall grade, weighting all 11 areas equally.{" "}
-        <strong style={{ color: "#333" }}>Household Impact</strong> cares more
-        about the four areas you feel in your own life: housing, the cost of
-        living, the economy, and whether government spending is under control.
-        Those four count twice as much in this grade. The other seven still
-        count — just not double.{" "}
-        <strong style={{ color: "#333" }}>Promises Delivered is tracked separately</strong>{" "}
-        and doesn't feed either grade; it's a commitment tracker, not a policy
-        grade.{" "}
-        <strong style={{ color: "#333" }}>If the two grades don't match, that's the point.</strong>{" "}
-        A government can do well on big-picture things like defence or climate
-        and badly on the cost of your life, or the other way around. Showing
-        both grades means you can see the difference.
+        <div
+          style={{
+            fontWeight: 700,
+            fontSize: "14px",
+            color: "#333",
+            marginBottom: "10px",
+            textAlign: "center",
+          }}
+        >
+          Why two grades?
+        </div>
+        <p style={{ margin: "0 0 10px" }}>
+          The government does a lot of different things. We grade it across
+          11 areas — defence, immigration, climate, housing, the cost of
+          living, ethics, and more.
+        </p>
+        <p style={{ margin: "0 0 6px" }}>
+          <strong style={{ color: "#333" }}>Full Policy Audit</strong> is the
+          overall grade. All 11 areas count equally.
+        </p>
+        <p style={{ margin: "0 0 6px" }}>
+          <strong style={{ color: "#333" }}>Household Impact</strong> doubles
+          the weight of the four areas you feel in your own life:
+        </p>
+        <ul style={{ margin: "0 0 10px", paddingLeft: "22px" }}>
+          <li>
+            <strong>Housing</strong> — can you afford a place to live
+          </li>
+          <li>
+            <strong>Cost of living</strong> — are groceries and everyday bills
+            under control
+          </li>
+          <li>
+            <strong>The economy</strong> — are jobs, wages, and productivity
+            going the right way
+          </li>
+          <li>
+            <strong>Government spending</strong> — is the fiscal picture under
+            control
+          </li>
+        </ul>
+        <p style={{ margin: "0 0 10px" }}>
+          The other seven areas still count — just not double.{" "}
+          <strong style={{ color: "#333" }}>
+            Promises Delivered is tracked separately
+          </strong>{" "}
+          and doesn't feed either grade.
+        </p>
+        <p style={{ margin: 0 }}>
+          <strong style={{ color: "#333" }}>
+            If the two grades don't match, that's the point.
+          </strong>{" "}
+          A government can do well on big-picture things like defence or
+          climate and badly on the cost of your life, or the other way around.
+          Showing both grades means you can see the difference.
+        </p>
       </div>
     </div>
   );
