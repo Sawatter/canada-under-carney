@@ -92,14 +92,24 @@
   Removed from the live nav on 2026-04-18. Revisit only if it earns a unique
   analyst/power-user job that is meaningfully better than opening two expanded cards.
 - Methodology tab cleanup and simplification
-- Small confidence explanation on-card or in methodology — Completed
-  Live DimensionCards now surface confidence, attribution, and lag tags directly on-card.
+- Small confidence explanation on-card or in methodology — Revisited 2026-04-19; on-card pill treatment removed
+  Confidence, attribution, and lag pills were added to DimensionCard, then
+  removed on 2026-04-19 because the labels were not self-explanatory to
+  general readers and added cognitive load. The underlying metadata remains in
+  dimensions.json and in docs. Re-add only if a user-tested treatment clearly
+  clarifies the concepts (e.g., plain-language renames, tooltips, or an
+  expanded methodology-tab explainer) rather than repeating the same pill
+  model.
 - Possible tag for construct type (`Process`, `Implementation`, `Response`, etc.)
 - Better explanation of whole-letter probation dimensions
 - Top-of-dashboard popularity / political durability signal
   Explore whether Carney approval / vote-strength / public-support data belongs
   at the top of the dashboard as an ungraded signal, a tracker, or a true
   dimension. Do not assume popularity and performance are the same thing.
+- Approval / popularity placement explainer
+  Future work item: show the exact difference between approval / popularity as
+  a top signal, approval as a scored dimension, and approval staying completely
+  outside the scoring model.
 - Rewrite the Household Impact / "Why two grades?" explainer for clarity — Completed; parked in the About tab and README
   The explainer lives in About.jsx and README.md with plain-language wording
   (names the four household-weighted areas as housing, cost of living, the
