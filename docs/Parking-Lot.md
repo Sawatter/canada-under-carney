@@ -48,6 +48,14 @@
   home dimension, construct, indicators, source roles, deconfliction notes, and
   derivative handling.
 
+- Source characterization / source taxonomy review
+  Run a stringent reflection + deep-research pass on the non-official source
+  stack. Goal: replace blunt public left / centre / right labels with a more
+  defensible source-characterization framework based on institution type,
+  ownership / funding, editorial independence, methodological rigor, SAM-role
+  eligibility, political tendency, and best-use boundary (grade-moving,
+  corroborative, or context-only).
+
 - Skeptical data scientist reflection pass
   Pressure-test the dashboard as if a critical data scientist reviewed the model, especially:
   - mixed constructs
@@ -283,6 +291,79 @@ A reader should be able to:
 
 **Primary user**
 A skeptical, informed reader who wants more than partisan vibes but less than a full academic paper.
+
+---
+
+### Verbatim note — source taxonomy / governance review
+
+Note: preserve this framing for a future source-characterization reflection and
+deep-research pass. The live About / README copy has already been softened away
+from blunt left / centre / right labels, but the deeper governance review
+below still remains to be done.
+
+Short answer: **yes, this is a real thing to review**, and **no, I would not
+trust our current About-tab left/centre/right labels as a strong governance
+layer**.
+
+For CBC specifically, the clean factual statement is:
+
+- CBC/Radio-Canada is a **public broadcaster and Crown corporation**, not a
+  private independent outlet in the same category as Globe or The Hub.
+- The Government of Canada says CBC/Radio-Canada is **independent in its
+  day-to-day operations**, and the Broadcasting Act protects its
+  **journalistic, creative, and programming independence**.
+- That means "federally owned/publicly funded" is **true in an institutional
+  sense**, but "therefore left-wing" is **not a rigorous governance
+  conclusion**. That is a political interpretation, not a source-selection
+  rule.
+
+The bigger issue is that a public taxonomy like:
+
+- `Centre: CBC News, Globe and Mail`
+- `Right: C.D. Howe, Fraser Institute, The Hub`
+- `Left: The Narwhal, National Observer`
+
+is probably **too blunt to be defensible**. It mixes:
+
+- public broadcaster
+- private newsrooms
+- think tanks
+- advocacy/watchdog groups
+- policy journals
+
+under one ideological-axis label. That is not strong source governance.
+
+What this means for the actual work:
+
+1. Run a **Source Characterization Reflection** first.
+2. Then run a **deep-research source review** across the non-official and
+   public-facing source families.
+3. Then do one narrow build / fix pass to:
+   - rewrite the About source-balance section
+   - rewrite the README source-balance section
+   - optionally add a source-classification note to governance docs if needed
+
+The stronger source-review framework should include:
+
+- `Institution type`
+- `Ownership / funding`
+- `Editorial independence`
+- `Methodological rigor`
+- `Role eligibility`
+  - measurement truth
+  - policy truth
+  - execution truth
+  - independent challenge truth
+  - context truth
+- `Political / ideological tendency`
+- `Best-use boundary`
+  - can move grade
+  - can corroborate
+  - context only
+
+The real issue is less "is CBC secretly left-wing?" and more "are we using a
+source taxonomy that is strong enough for a serious public methodology?" Right
+now, the answer is probably not yet.
 
 ---
 

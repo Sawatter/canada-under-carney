@@ -23,9 +23,10 @@ export default function About() {
           <strong>Canada Under Carney</strong> is a non-partisan performance
           dashboard tracking the federal government across 11 graded policy
           dimensions, plus an ungraded Promise Tracker. It is updated monthly
-          using official statistics, independent policy analysis, and quality
-          journalism across the political spectrum. All grading decisions are
-          made by the human editor using a published scoring rubric.
+          using official statistics, independent policy analysis, and
+          documented journalism from multiple institution types and
+          perspectives. All grading decisions are made by the human editor
+          using a published scoring rubric.
         </p>
         <p style={{ marginBottom: "16px" }}>
           The dashboard publishes two headline grades because they answer two
@@ -77,7 +78,8 @@ export default function About() {
               independent policy analysis and journalism
             </li>
             <li>
-              Commentary sources are balanced across the political spectrum
+              Non-official sources are drawn from multiple institution types
+              and perspectives, not a single editorial or analytical family
               (see Source Balance below)
             </li>
             <li>
@@ -112,23 +114,27 @@ export default function About() {
             Source Balance
           </div>
           <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
-            This is a current source-balance summary, not a full manifest. Click
-            any expanded dimension card for the exact source URLs used on that
-            file.
+            This is a current source-type summary, not a full manifest and not
+            a formal left/right scorecard. Click any expanded dimension card
+            for the exact source URLs used on that file.
             <br />
-            <strong>Official:</strong> Statistics Canada, PBO, CMHC, Bank of
-            Canada, IRCC, ECCC, Global Affairs Canada, NRCan, Finance Canada /
-            Canada.ca, Office of the Ethics Commissioner, LEGISinfo / parl.ca,
-            direct PM ethics filings, NATO, OECD, IMF
+            <strong>Official / administrative:</strong> Statistics Canada, PBO,
+            CMHC, Bank of Canada, IRCC, ECCC, Global Affairs Canada, NRCan,
+            Finance Canada / Canada.ca, Office of the Ethics Commissioner,
+            LEGISinfo / parl.ca, direct PM ethics filings, NATO, OECD, IMF
             <br />
-            <strong>Centre:</strong> CBC News, Globe and Mail
+            <strong>Public broadcaster:</strong> CBC News
             <br />
-            <strong>Right:</strong> C.D. Howe, Fraser Institute, The Hub
+            <strong>Mainstream reporting:</strong> Globe and Mail
             <br />
-            <strong>Left:</strong> The Narwhal, National Observer
+            <strong>Analysis / commentary:</strong> The Hub
             <br />
-            <strong>Independent policy:</strong> IRPP / Policy Options,
-            Canadian Climate Institute, IISD, Democracy Watch
+            <strong>Policy institutes / watchdogs:</strong> C.D. Howe, Fraser
+            Institute, IRPP / Policy Options, Canadian Climate Institute, IISD,
+            Democracy Watch
+            <br />
+            <strong>Issue-focused reporting:</strong> The Narwhal, National
+            Observer
             <br />
             <strong>Academic:</strong> The Conversation Canada, Dalhousie,
             PROOF (U of T)
