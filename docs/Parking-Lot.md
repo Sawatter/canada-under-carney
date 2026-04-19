@@ -118,7 +118,7 @@
   divergence signal). The block was removed from the live dashboard header on
   2026-04-19 to cut visual clutter. Score-box subtitles remain on the
   dashboard so each grade card still answers "what is this?" at first glance.
-- Expanded-dimension readability / information-overload review — Completed 2026-04-19 (four passes)
+- Expanded-dimension readability / information-overload review — Completed 2026-04-19 (five passes)
   First pass landed a density trim: nested Promise Tracker replaced with a
   one-line summary pointing to the Promises tab; Scope and "What Was
   Inherited" collapsed behind disclosure toggles; repeated italic methodology
@@ -139,6 +139,11 @@
   `aria-controls`, and matching region `id`s; PromiseTracker rows expose
   `role="button"`, `tabIndex={0}`, and keyboard Enter/Space handling;
   disclosure buttons meet WCAG 2.5.8 24×24 touch-target minimum.
+  Fifth pass landed the `whatThisGrades` subtitle: each graded dimension
+  now carries a plain-language one-liner (12–13 words) in dimensions.json,
+  rendered as small italic grey text between the dimension name and the
+  status one-liner. Closes the comprehension gap left by the removal of
+  the old `Construct:` line without reintroducing methodology jargon.
   Revisit only if user-testing surfaces a specific remaining overload.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four

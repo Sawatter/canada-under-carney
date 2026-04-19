@@ -2,6 +2,7 @@
   {
     "id": "defence-trade",
     "name": "Defence & Trade",
+    "whatThisGrades": "Federal action on defence spending and trade diversification away from U.S. reliance.",
     "grade": "A-",
     "previousGrade": null,
     "trend": "stable",
@@ -196,6 +197,7 @@
   {
     "id": "major-projects",
     "name": "Major Projects",
+    "whatThisGrades": "How well the federal machinery for approving and delivering major infrastructure is working.",
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
@@ -355,6 +357,7 @@
   {
     "id": "fiscal-health",
     "name": "Fiscal Health",
+    "whatThisGrades": "Federal fiscal trajectory — is the spending and deficit path sustainable and credible?",
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
@@ -512,6 +515,7 @@
   {
     "id": "economic-policy",
     "name": "Economic Policy Response",
+    "whatThisGrades": "Federal action on Canada's productivity and competitiveness — investment, innovation, jobs, wages.",
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
@@ -659,6 +663,7 @@
   {
     "id": "affordability-response",
     "name": "Affordability Response",
+    "whatThisGrades": "Federal response to household cost pressure — groceries, tariff-driven costs, targeted relief.",
     "grade": "D-",
     "previousGrade": null,
     "trend": "down",
@@ -815,6 +820,7 @@
   {
     "id": "carbon-pricing",
     "name": "Carbon Pricing Policy",
+    "whatThisGrades": "Federal carbon pricing policy — consumer charge changes and the industrial system.",
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
@@ -957,6 +963,7 @@
   {
     "id": "climate-environment",
     "name": "Climate & Environment",
+    "whatThisGrades": "Federal climate and environmental policy — emissions path, conservation, and whether targets hold.",
     "grade": "D",
     "previousGrade": "D+",
     "trend": "down",
@@ -1124,6 +1131,7 @@
   {
     "id": "immigration",
     "name": "Immigration",
+    "whatThisGrades": "Federal immigration policy — permanent resident levels, temporary residents, and student/worker streams.",
     "grade": "C+",
     "previousGrade": null,
     "trend": "up",
@@ -1254,6 +1262,7 @@
   {
     "id": "housing-supply",
     "name": "Housing Supply",
+    "whatThisGrades": "Whether federal housing policy is delivering homes at the scale Canada needs.",
     "grade": "D",
     "previousGrade": null,
     "trend": "stable",
@@ -1416,6 +1425,7 @@
   {
     "id": "ethics-transparency",
     "name": "Ethics & Transparency",
+    "whatThisGrades": "Whether the PM's ethics arrangements match the unusual scope of his business background.",
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
@@ -1555,6 +1565,7 @@
   {
     "id": "execution-delivery",
     "name": "Flagship Delivery",
+    "whatThisGrades": "How well the government is executing on its five flagship files, taken together.",
     "grade": "C",
     "previousGrade": null,
     "trend": "down",

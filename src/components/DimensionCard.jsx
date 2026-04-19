@@ -103,6 +103,19 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               Tracker · Not in GPA
             </div>
           )}
+          {dim.whatThisGrades && (
+            <div
+              style={{
+                fontSize: "11px",
+                color: "#888",
+                fontStyle: "italic",
+                lineHeight: 1.3,
+                marginBottom: "4px",
+              }}
+            >
+              {dim.whatThisGrades}
+            </div>
+          )}
           <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.4 }}>
             {dim.status}
           </div>
