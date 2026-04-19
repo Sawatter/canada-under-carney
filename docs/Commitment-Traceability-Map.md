@@ -118,7 +118,7 @@ The CTM must **not**:
 - **commitment_text:** "500,000 homes/year over next decade"
 - **source_type:** campaign platform
 - **source_document:** Original Liberal platform commitment. The specific platform document is not currently cited in the live source stack; [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) promise entry carries the commitment text but not a platform URL. **Residual:** source document reference needs to be resolved in a next-cycle research pass; CTM flags the gap rather than inventing a citation.
-- **durability:** Commitment *(live tag in [dimensions.json promises[0]](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json))*. **Note:** Promise Coding Rules §Durability Classification defines "Target" as *"A stated goal without a legislated mechanism"* which arguably fits better than "Commitment" (the lowest-durability tier). Potential durability re-tag flagged as a residual for a separate hygiene pass.
+- **durability:** Target *(live tag matches PCR tier — PCR names "500K homes/year" as a Target example)*.
 - **home_dimension:** Housing Supply
 - **promise_tracker_entry:** [dimensions.json promises[0]](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) — text matches verbatim; current status Stalled.
 - **construct_tested:** "The scale and effectiveness of federal housing policy interventions relative to identified need" *(verbatim from [Canonical-Scoring-Sheets.md:271](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md))*. Specifically the **scale** component — tests whether federal delivery approaches the stated target relative to CMHC's annual need estimate.
@@ -152,7 +152,7 @@ The CTM must **not**:
 - **commitment_text:** "Build Canada Homes"
 - **source_type:** official press conference (the live source is an official Housing Infrastructure Canada news release announcing the program)
 - **source_document:** [canada.ca — Build Canada Homes news release](https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html) *(cited in the BCH metric sourceNote in [dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json))*
-- **durability:** Commitment *(live tag in [dimensions.json promises[1]](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json))*. **Note:** now that BCH is a funded program with institutional structure, Promise Coding Rules' "Program" durability (defined as *"Funded program with institutional structure"*) arguably fits better than "Commitment". Potential durability re-tag flagged as a residual.
+- **durability:** Program *(live tag matches PCR tier — PCR names "Build Canada Homes" as a Program example)*.
 - **home_dimension:** Housing Supply
 - **promise_tracker_entry:** [dimensions.json promises[1]](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) — text matches verbatim; current status In Progress since 2025-09-14.
 - **construct_tested:** "The scale and effectiveness of federal housing policy interventions relative to identified need" *(verbatim from [Canonical-Scoring-Sheets.md:271](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md))*. Specifically the **federal-program-scale and execution** components — tests whether BCH delivers at a scale proportionate to need, and whether announced pipeline converts to actual construction.
@@ -375,7 +375,7 @@ The CTM must **not**:
 - **commitment_text:** "Grocery Code of Conduct"
 - **source_type:** official press conference
 - **source_document:** **Residual:** specific government announcement URL for the Grocery Code launch is not in the Affordability Response `sources` array.
-- **durability:** Commitment *(live tag)*. **Note:** PCR "Framework" arguably fits better (voluntary code with institutional structure but not legislated); re-tag flagged as residual.
+- **durability:** Framework *(live tag matches PCR tier — voluntary code with institutional structure but not legislated)*.
 - **home_dimension:** Affordability Response
 - **promise_tracker_entry:** Affordability Response `promises[1]`; status Delivered 2026-01-01.
 - **construct_tested:** [CSS:14](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md) construct — **competition-instrument** component.
@@ -398,7 +398,7 @@ The CTM must **not**:
 - **commitment_text:** "Buy Canadian food labelling"
 - **source_type:** official press conference
 - **source_document:** **Residual:** original announcement URL not in live source stack.
-- **durability:** Commitment *(live tag)*. **Note:** "Framework" arguably fits once implementation details are published; re-tag candidate.
+- **durability:** Framework *(live tag matches PCR tier — announced policy framework with institutional direction; binding implementation details pending)*.
 - **home_dimension:** Affordability Response
 - **promise_tracker_entry:** Affordability Response `promises[2]`; status In Progress.
 - **construct_tested:** [CSS:14](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md) construct — **policy-instrument** component.
@@ -446,7 +446,7 @@ The CTM must **not**:
 - **commitment_text:** "Preserve industrial carbon pricing"
 - **source_type:** campaign platform; Day 1 commitment
 - **source_document:** OBPS statutory framework (ECCC). **Residual:** no direct ECCC source is present in the Carbon Pricing Policy `sources` array — the OBPS rate is used via metric sourceNote only; source-hardening candidate.
-- **durability:** Commitment *(live tag)*. **Note:** "Legislated" arguably fits (OBPS is statutorily grounded); re-tag candidate.
+- **durability:** Legislated *(live tag matches PCR tier — OBPS is statutorily grounded)*.
 - **home_dimension:** Carbon Pricing Policy
 - **promise_tracker_entry:** Carbon Pricing `promises[1]`; status Delivered 2025-04-01.
 - **construct_tested:** [CSS:102](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md) construct — **industrial-instrument** component (preservation in form AND function).
@@ -660,7 +660,7 @@ The CTM must **not**:
 - **commitment_text:** "Major Federal Project Office with 2-year decisions"
 - **source_type:** campaign platform; legislated via Building Canada Act
 - **source_document:** [Building Canada Act (Bill C-5)](https://www.parl.ca/legisinfo/en/bill/45-1/c-5) *(in Major Projects `sources` array)*.
-- **durability:** Commitment *(live tag)*. **Note:** "Legislated" better-fits given statutory basis; re-tag candidate.
+- **durability:** Legislated *(live tag matches PCR tier — MPO created by Building Canada Act; PCR names Building Canada Act as a Legislated example)*.
 - **home_dimension:** Major Projects
 - **promise_tracker_entry:** Major Projects `promises[0]`; status In Progress.
 - **construct_tested:** "The effectiveness of federal institutional machinery for infrastructure project delivery" *(verbatim from [Canonical-Scoring-Sheets.md:315](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md))*. Specifically the **MPO-timeline** component.
@@ -754,7 +754,7 @@ The CTM must **not**:
 - **commitment_text:** "$2B sovereign AI compute strategy"
 - **source_type:** campaign platform; budget (launched Dec 2024)
 - **source_document:** **Residual:** specific AI compute strategy announcement URL not in Economic Policy Response `sources` array.
-- **durability:** Framework *(live tag matches PCR tier)*. **Note:** "Program" once Treasury Board authorizes disbursement.
+- **durability:** Program *(live tag matches PCR tier — PCR names "$2B AI compute strategy" as a Program example)*. Federal disbursement is not yet confirmed; the funded structure meets the Program threshold.
 - **home_dimension:** Economic Policy Response
 - **promise_tracker_entry:** Economic Policy Response `promises[0]`; status In Progress.
 - **construct_tested:** "The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges" *(verbatim from [Canonical-Scoring-Sheets.md:59](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md))*. Specifically the **AI-compute-fund** component.
@@ -1030,7 +1030,6 @@ The CTM must **not**:
 
 These are findings inside the CTM's own scope. None block future use of the artifact; they are normal operating residuals from the "flag gaps" discipline.
 
-- **CTM-T1** — Seven commitments have durability tags in dimensions.json that arguably fit a different PCR tier better (HOUSING-001 Commitment→Target; HOUSING-002 Commitment→Program; CARBON-002 Commitment→Legislated; MPROJ-001 Commitment→Legislated; AFFORD-002 Commitment→Framework; AFFORD-003 Commitment→Framework; ECONPOL-001 Framework→Program). The CTM flags each without re-tagging. **Candidate:** Promise-Tracker hygiene pass on durability tags.
 - **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-002, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-002, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these, many via existing available URLs.
 
 ### Upstream governance residuals surfaced during the build
@@ -1047,8 +1046,8 @@ These are findings that live in upstream docs (CSS, Matrix, SAM, MSR, Flagship-D
 - **U9 — MSR does not specify canonical measurement for apprenticeship programs, conservation spending / protected-area percentage, civil-service headcount, food-labelling programs, voluntary competition codes, red-tape review reports, MPO cycle-time, Buy Canadian procurement-share, interprovincial trade integration, foreign policy review output, or Indigenous Loan disbursement.** **Upstream resolution:** MSR extension candidates as these commitments' indicators become grade-moving.
 - **U10 — Carbon Pricing Policy and Ethics & Transparency `sources` arrays have gaps relative to commitments cited** (ECCC OBPS direct source for CARBON-002; original platform / announcement URLs for ETHICS-001, ETHICS-002). **Upstream resolution:** source-hardening passes on affected dimensions.
 
-**Note on counting.** CTM-T1 and CTM-T2 are scoped to CTM presentation (what the map says). U2–U10 are open upstream governance content findings (what the upstream docs say). The earlier U1 overlap on the MPO 2-year timeline has now been resolved by returning the commitment to its Major Projects home and keeping Flagship derivative-only on that evidence.
+**Note on counting.** CTM-T2 is scoped to CTM presentation (what the map says). U2–U10 are open upstream governance content findings (what the upstream docs say). The earlier U1 overlap on the MPO 2-year timeline has now been resolved by returning the commitment to its Major Projects home and keeping Flagship derivative-only on that evidence. CTM-T1 has also been resolved: the seven durability re-tags (HOUSING-001 → Target, HOUSING-002 → Program, CARBON-002 → Legislated, MPROJ-001 → Legislated, AFFORD-002 → Framework, AFFORD-003 → Framework, ECONPOL-001 → Program) have been applied to dimensions.json and the corresponding CTM body notes updated to reflect PCR-tier matches.
 
 ---
 
-**One-line build verdict:** FULL CTM BUILD COMPLETE — 36 COMMITMENTS ACROSS 11 DIMENSIONS, TEMPLATE HELD AT SCALE, TWO CTM RESIDUAL CATEGORIES AND NINE OPEN UPSTREAM GOVERNANCE RESIDUALS SURFACED. The artifact is ready for final review when the user requests it; no CTM template amendment is required.
+**One-line build verdict:** FULL CTM BUILD COMPLETE — 36 COMMITMENTS ACROSS 11 DIMENSIONS, TEMPLATE HELD AT SCALE, ONE REMAINING CTM RESIDUAL CATEGORY (CTM-T2) AND NINE OPEN UPSTREAM GOVERNANCE RESIDUALS SURFACED. CTM-T1 resolved post-verdict via the durability-tag hygiene pass. The artifact is ready for final review when the user requests it; no CTM template amendment is required.
