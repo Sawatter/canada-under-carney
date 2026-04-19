@@ -11,6 +11,7 @@ import PromiseTracker from "./PromiseTracker";
 import Methodology from "./Methodology";
 import About from "./About";
 import EmailSignup from "./EmailSignup";
+import VisitorCount from "./VisitorCount";
 
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
@@ -43,8 +44,10 @@ export default function Dashboard() {
         padding: "24px 16px",
         background: "#fafafa",
         minHeight: "100vh",
+        position: "relative",
       }}
     >
+      <VisitorCount />
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
         <div
@@ -279,8 +282,7 @@ export default function Dashboard() {
         }}
       >
         <div style={{ fontSize: "11px", color: "#aaa" }}>
-          Canada Under Carney &middot; CJS Strategy &amp; Ops Inc. &middot;
-          Data: Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, NATO, OECD, IMF, Fitch
+          Canada Under Carney &middot; Data: Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, NATO, OECD, IMF, Fitch
         </div>
         <div style={{ fontSize: "11px", color: "#aaa", marginTop: "4px" }}>
           Monthly updates with ad-hoc revisions on major events &middot; Rubric
