@@ -286,6 +286,135 @@ A skeptical, informed reader who wants more than partisan vibes but less than a 
 
 ---
 
+### Verbatim note — what “the remaining items in that cluster” actually means
+
+Note: preserve this wording as a plain-language explanation of the current post-hardening backlog shape.
+
+When I said:
+
+> “The remaining items in that cluster are now mostly:
+> research-dependent URLs
+> slower hygiene passes
+> optional methodology extensions”
+
+what I meant in actual work terms was this:
+
+**1. Research-dependent URLs**
+
+This means the remaining source-chain gaps are no longer the easy kind where we can fix them by threading URLs that already exist somewhere in-repo.
+
+The easy in-repo wins have mostly been taken:
+- CARBON-002 closed by threading the direct ECCC OBPS URL
+- DEFTRADE-002 closed by threading the Bill C-5 LEGISinfo URL already cited elsewhere
+
+What remains now is the harder class of source work where the needed URL is **not present anywhere in the repo** and has to be found externally, verified, and then threaded back into the correct place.
+
+In practice, that means a future pass would have to do real source research for things like:
+- original Liberal platform URLs
+- specific program-launch / press-announcement pages
+- budget chapter-level URLs rather than broad budget pages
+- specific framework / regulatory documents
+- specific IRCC stream-policy pages
+- ethics platform / announcement URLs
+
+Examples from the current CTM-T2 / U10 state:
+- campaign-platform source gaps like `HOUSING-001`, `FISCAL-001`, `FISCAL-002`, `IMMIG-002`, `FLAG-001`
+- announcement-page gaps like `AFFORD-002`, `AFFORD-003`, `CARBON-003`, `CLIMATE-001`, `MPROJ-003`, `ECONPOL-001`, `ECONPOL-003`, `DEFTRADE-004`, `DEFTRADE-005`
+- framework / document gaps like `HOUSING-004`, `AFFORD-001`, `CLIMATE-002`, `CLIMATE-003`, `CLIMATE-004`, `IMMIG-003`, `MPROJ-002`, `MPROJ-004`
+- Ethics-specific U10 gaps like `ETHICS-001` and `ETHICS-002`
+
+What the actual work would be:
+- run a scoped research pass
+- inventory each missing commitment/document pair explicitly
+- find the best original public source URL
+- verify it is actually the right source and not just a related page
+- thread it into the home dimension `sources` array
+- update the CTM `source_document` field
+- reconcile SAM / roadmap wording if a previously named source-gap closes
+
+What this category explicitly does **not** mean:
+- not “just one more hygiene tweak”
+- not “Claude should guess the URL”
+- not “we can finish it from repo memory alone”
+
+This is real research work, not bounded in-repo cleanup.
+
+**2. Slower hygiene passes**
+
+This means low-risk, usually non-controversial cleanup work that improves internal consistency, but does not materially change reader trust or the live score story as much as the previous passes did.
+
+These are the kinds of tasks that are still worth doing, but are slower because they involve:
+- checking multiple entries one by one
+- reconciling labels, tags, or wording across several files
+- confirming consistency without changing the underlying methodology
+
+Examples in the current repo:
+- remaining durability-tag hygiene where a commitment’s PCR tier fit is clearer than the live tag
+- version-string housekeeping like the `QA-Gatekeeping-Rules.md` footer
+- clarifying metadata semantics like `meta.json lastUpdated`
+- minor residual-count or wording reconciliation when a CTM or SAM residual is partially closed
+- non-urgent doc consistency updates after a narrow pass lands
+
+What the actual work would be:
+- enumerate the affected fields or entries
+- apply the clean-up one by one
+- reconcile any downstream docs that repeat the same metadata
+- stop without broadening into new scoring or methodology decisions
+
+Why this category is “slower”:
+- each item is small
+- but each item gives only modest value on its own
+- so the work is best done in small bundles, not as the main project lane
+
+This is maintenance and consistency work, not a major trust or product leap.
+
+**3. Optional methodology extensions**
+
+This means ideas that may eventually improve the scoring system or governance layer, but are **not required** to keep the current dashboard functioning coherently.
+
+These are not bugs. They are not blockers. They are candidates for later extension if:
+- a repeated scoring problem keeps surfacing
+- a commitment becomes grade-moving and exposes a real gap
+- a future cycle proves the current framework is missing something important
+
+Examples from the current upstream residual list:
+- adding new CSS minimum-indicator coverage where current commitment fit is oblique
+  - Housing labour-capacity
+  - Affordability competition-code / labelling coverage
+  - Economic Policy regulatory-review reports
+  - Climate east-west grid integration
+  - Major Projects Indigenous Loan Guarantee
+  - Defence & Trade interprovincial trade integration / foreign-policy review output
+- adding Deconfliction Matrix rows for metrics that now exist in CTM but do not yet have explicit matrix rows
+- adding MSR canonical measurement rules for commitment types that are not yet fully specified
+
+What the actual work would be:
+- decide whether the gap is truly structural or just occasional
+- reflect before editing methodology
+- amend CSS / Matrix / MSR only if the missing rule is now worth making permanent
+
+What this category explicitly does **not** mean:
+- not “must fix before next release”
+- not “current grades are invalid until we do this”
+- not “open the whole rubric again”
+
+These are “only if needed” extensions, not active cleanup blockers.
+
+**Short practical translation**
+
+So in plain language:
+- **research-dependent URLs** = work we can’t finish without going outside the repo
+- **slower hygiene passes** = small consistency cleanups that matter, but do not have high leverage individually
+- **optional methodology extensions** = maybe-useful future framework improvements, only worth doing if repeated real-world use proves they are needed
+
+And the implied sequencing is:
+1. finish bounded in-repo cleanup while it still yields real wins
+2. stop when the remaining source gaps become true research work
+3. do product-thesis / quality-bar work while the system is stable
+4. return later to research passes or methodology extensions only when they are scoped tightly enough to justify the effort
+
+---
+
 ## Future v2 / Structural Questions
 
 - Flagship Delivery probation outcome after one real cycle
