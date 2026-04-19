@@ -104,6 +104,32 @@
   It should be crystal clear how Household Impact is calculated, which
   dimensions are double-weighted, what is excluded, whether the source stack is
   different, and why a reader should care about the second grade.
+- Expanded-dimension readability / information-overload review
+  Open each expanded dimension as a customer would and review whether the
+  content helps understanding or overwhelms the reader. Check desktop and
+  mobile separately. Questions to test:
+  - Is there too much information at once?
+  - Is the order of information helping or hurting understanding?
+  - Which parts are essential vs clutter?
+  - Does the expanded state make the dimension easier to understand, or just
+    denser?
+  - On mobile, does the amount of content become hard to scan or mentally hold?
+  Build a future prompt around reader-trust, information architecture, and
+  product-UX expert lenses rather than only methodology.
+- Promise Tracker item detail / link model review
+  Review what an expanded promise item should link to so a reader can actually
+  understand the promise, the current status, and why that status is justified.
+  Questions to test:
+  - When a promise is marked Delivered / Stalled / Abandoned / In progress,
+    what evidence link should explain that status?
+  - Should each promise link to the original campaign / budget / announcement
+    source that defines what the promise meant?
+  - Should it also link to explanatory context showing what completion would
+    actually look like in practice?
+  - What is the minimum link set that makes the tracker understandable without
+    making each item too heavy?
+  Think through this as a product-trust and accountability-design problem, not
+  just a link-count problem.
 
 ---
 
