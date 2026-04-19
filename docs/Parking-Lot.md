@@ -144,6 +144,11 @@
   rendered as small italic grey text between the dimension name and the
   status one-liner. Closes the comprehension gap left by the removal of
   the old `Construct:` line without reintroducing methodology jargon.
+  Sixth-pass tiny follow-on: Flagship Delivery subtitle rewritten to name
+  the five flagship files explicitly (defence, housing, major projects,
+  climate, immigration); Promise Delivery added a parallel tracker-scoped
+  subtitle line so every dimension card now has the same orienting
+  pattern. Data-only change; no code changes required.
   Revisit only if user-testing surfaces a specific remaining overload.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four
