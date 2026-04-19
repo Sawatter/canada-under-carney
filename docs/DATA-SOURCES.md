@@ -1,5 +1,7 @@
 # Data Sources
 
+> **Status (2026-04-19):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) now lives in the [Source Characterization Register](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md). Portions of the lean-based taxonomy and source lists below are out of sync with the live stack in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) and are being realigned to point at the SCR and the live source families actually in use. Treat the SCR as authoritative where the two documents disagree.
+
 Every metric in the dashboard is mapped to a specific source. This document lists them all, organized by type and political lean.
 
 ---

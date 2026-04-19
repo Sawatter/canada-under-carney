@@ -48,13 +48,19 @@
   home dimension, construct, indicators, source roles, deconfliction notes, and
   derivative handling.
 
-- Source characterization / source taxonomy review
-  Run a stringent reflection + deep-research pass on the non-official source
-  stack. Goal: replace blunt public left / centre / right labels with a more
-  defensible source-characterization framework based on institution type,
-  ownership / funding, editorial independence, methodological rigor, SAM-role
-  eligibility, political tendency, and best-use boundary (grade-moving,
-  corroborative, or context-only).
+- Source characterization / source taxonomy review — Completed; see [docs/Source-Characterization-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md)
+  Reflection and deep-research passes are complete and the Source
+  Characterization Register is built across all 30 live source families.
+  About.jsx and README.md source-balance taxonomy were moved away from
+  blunt left / centre / right labels to institution-type framing in commit
+  71d7df2 and now point at the SCR for the canonical per-source-family
+  record. Remaining within this workstream: ongoing SCR maintenance as the
+  live stack shifts; independent-challenge diversification on the
+  Fraser-concentrated dimensions (Economic Policy Response, Major Projects,
+  Promise Delivery) if future grade moves rely on Fraser alone; and optional
+  addition of a second domestic T2 challenge voice in Defence & Trade and
+  Immigration where the live non-official stack currently has no T2
+  challenge source.
 
 - Skeptical data scientist reflection pass
   Pressure-test the dashboard as if a critical data scientist reviewed the model, especially:

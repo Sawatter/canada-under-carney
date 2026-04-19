@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-04-18
+**Last updated:** 2026-04-19
 
 ---
 
@@ -22,6 +22,7 @@
 - Source hardening pass for the weakest dimensions is complete.
 - Confidence calibration check is complete; no rescore was required after hardening.
 - Source Authority Map is active and integrated into the governance layer.
+- Source Characterization Register is active as the canonical per-source-family record (institution type, ownership/funding, editorial independence, grounded ideological tendency, best-use boundary, strongest SAM-role fit, trust flags) across all 30 live source families in dimensions.json.
 - Tiny audit-fix pack is complete: Ethics is correctly marked as probationary in the register, and `meta.json` now reflects the live package update date.
 - QA-Gatekeeping-Rules.md has been amended to cover grade holds with source-stack change, confidence revisits, whole-letter probationary precision, Combination-Rule-driven changes, new analytical source-family additions (new Rule 8), same-family concentration (Rule 6 addition), symmetric confidence revisit (Rule 4 expansion), tier-nuance on government-data vs press-release and advocacy-with-methodology (Rule 1 edge-case notes), and navigation cross-references to SVP, Carry-Forward-Rules, PMDR, Deconfliction-Matrix, and SAM.
 - Ethics source chain strengthened — Office of the Ethics Commissioner and PM blind-trust summary statement added to the live Ethics `sources` array as Tier 1 anchors (traceability fix under the new-analytical-source-family hard rule).
@@ -53,6 +54,7 @@
 - CTM-T1 durability-tag hygiene pass — seven commitments re-tagged in dimensions.json to match PCR tier examples (HOUSING-001 Commitment → Target; HOUSING-002 Commitment → Program; CARBON-002 Commitment → Legislated; MPROJ-001 Commitment → Legislated; AFFORD-002 Commitment → Framework; AFFORD-003 Commitment → Framework; ECONPOL-001 Framework → Program). CTM body notes reconciled and CTM-T1 residual closed. No grade, GPA, or confidence change (durability is display-only metadata).
 - Carbon Pricing Policy source-chain hardening — ECCC Output-Based Pricing System landing page threaded into the live Carbon Pricing Policy `sources` array, closing the CARBON-002 direct-source gap flagged by U10 and CTM-T2. Readers clicking into Carbon Pricing Policy now see the statutory OBPS page alongside the existing CCI / IISD challenge sources. No grade, GPA, or confidence change.
 - CTM-T2 partial thread pass — single clean in-repo match threaded: Bill C-5 LEGISinfo URL (already cited in Major Projects for MPROJ-001) added to Defence & Trade `sources` array, closing DEFTRADE-002's direct-legislative-source gap. The remaining 22 CTM-T2 items genuinely require external research (original platform URLs, program announcement pages, specific policy framework documents) and are left as explicit residuals. SAM Defence & Trade Current State Delta reconciled. No grade, GPA, or confidence change.
+- Source Characterization Register built — 30-family register with institution type, ownership/funding, editorial independence, grounded ideological tendency (only where sourced in external raters or self-description), best-use boundary, strongest SAM-role fit, and trust flags. Closes the source-characterization reflection + deep-research workstream and provides the canonical record that About/README/DATA-SOURCES source-balance views now point to. Flags Fraser Institute concentration on independent-challenge role across three dimensions, Canadian Climate Institute federal-funding disclosure requirement, and CBC institutional descriptor (public broadcaster / Crown corporation) as stronger than any ideological label. No grade, GPA, or confidence change. See [docs/Source-Characterization-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md).
 
 ---
 

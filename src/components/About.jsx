@@ -116,7 +116,17 @@ export default function About() {
           <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
             This is a current source-type summary, not a full manifest and not
             a formal left/right scorecard. Click any expanded dimension card
-            for the exact source URLs used on that file.
+            for the exact source URLs used on that file. For the canonical
+            per-source-family record (institution type, ownership / funding,
+            editorial independence, tier, best-use boundary), see the{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Source-Characterization-Register.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              Source Characterization Register
+            </a>.
             <br />
             <strong>Official / administrative:</strong> Statistics Canada, PBO,
             CMHC, Bank of Canada, IRCC, ECCC, Global Affairs Canada, NRCan,
