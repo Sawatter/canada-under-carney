@@ -36,7 +36,8 @@ Granularity rule:
 ## Category summary
 
 - **Total unique citation labels across all live `sources` arrays:** 57
-- **Total source families registered below:** 30 (15 official / administrative / institutional; 15 non-official)
+- **Total source families registered below for graded dimensions:** 30 (15 official / administrative / institutional; 15 non-official)
+- **Additional polling families registered for the Approval Signal (outside the GPA):** 5 (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group). See the dedicated *Approval Signal source families* section below and [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
 
 | Institution-type category | Count | Families |
 |---|---|---|

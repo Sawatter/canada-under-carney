@@ -41,6 +41,7 @@ export default function VisitorCount() {
 
   return (
     <div
+      className="visitor-count-pill"
       style={{
         position: "absolute",
         top: "12px",

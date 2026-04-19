@@ -13,12 +13,34 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Mobile adjustments */
+/* Narrow-screen overrides. Inline styles live on the components; these rules
+   shrink or reflow specific elements that otherwise collide or overflow. */
 @media (max-width: 480px) {
   h1 {
     font-size: 24px !important;
   }
+
+  /* Visitor counter pill in the top-right: shrink so it cannot collide
+     with the centered page title on narrow screens. */
+  .visitor-count-pill {
+    top: 6px !important;
+    right: 6px !important;
+    padding: 2px 6px !important;
+    font-size: 9px !important;
+  }
+
+  /* Approval Signal large stat numbers: a bit smaller on mobile so the
+     approve/disapprove/net row wraps cleanly inside the box. */
+  .approval-stat-number {
+    font-size: 18px !important;
+  }
+
+  /* Header subtitle line (coverage period / updated / version). */
+  .header-subtitle {
+    font-size: 12px !important;
+  }
 }
+
 
 /* Ensure touch targets are large enough on mobile */
 @media (max-width: 768px) {
