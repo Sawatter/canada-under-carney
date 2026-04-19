@@ -2,7 +2,7 @@
 
 - **Purpose:** Name what this project optimizes for. Captures the problem, the primary user, the job-to-be-done, what the dashboard is and is not, the quality bar for shipping, and the filter for choosing between features. Read alongside Claude-House-Style, which governs how that work is executed.
 - **Status:** Active — foundational governance artifact.
-- **Last updated:** 2026-04-18
+- **Last updated:** 2026-04-19
 - **Depends on:** [docs/Scoring-Rubric-v1.1.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Scoring-Rubric-v1.1.md), [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md), [docs/Commitment-Traceability-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Commitment-Traceability-Map.md), [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md), [docs/v2/verification/Claude-House-Style.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-House-Style.md)
 - **Used by:** roadmap triage in [docs/Current-Roadmap.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Current-Roadmap.md), [docs/Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) triage, feature scoping, stage-boundary reviews for new features or artifacts.
 
@@ -44,7 +44,7 @@ Help me audit a government performance claim end-to-end — from published commi
 
 - Evidence-based performance assessment across 11 graded dimensions, updated monthly.
 - A published method-governed scoring stack: Scoring Rubric v1.1 → Canonical Scoring Sheets → Source Authority Map → Commitment Traceability Map → QA Gatekeeping Rules → Deconfliction Matrix → Measure Selection Rules.
-- A reader-facing dashboard where the grade, rationale, evidence strength (confidence, attribution, lag), and source stack are visible on-card; the full methodology stack is one click away.
+- A reader-facing dashboard where the grade, rationale, and source stack are visible on-card; the full methodology stack (confidence calibration, attribution, lag, rubric mechanics, source authority) is one click away in docs.
 - Cross-government portable by construction.
 - The dashboard is not fully automated. When evidence is mixed, judgments are made through a published methodology and recorded with explicit rationale, source links, and review rules.
 

@@ -33,7 +33,7 @@
 - Independent methods review is complete; methods hold with targeted amendments and no structural defect blocks another full cycle.
 - Commitment Traceability Map is active as a governance join layer across 36 commitments in 11 graded dimensions.
 - The Major Projects / Flagship Delivery overlap on the MPO two-year-timeline commitment is resolved. Major Projects remains the sole home; Flagship now carries it only as derivative delivery evidence.
-- Dimension cards now surface confidence, attribution, and lag directly on-card, reducing the need to leave the scorecard to interpret evidence strength.
+- Dimension cards show grade, rationale, scope, metrics, perspectives, and sources on expansion; confidence / attribution / lag metadata lives in dimensions.json and docs but is no longer rendered as on-card pills (pills were removed 2026-04-19 as not self-explanatory to general readers).
 
 ---
 
@@ -57,6 +57,7 @@
 - Source Characterization Register built — 30-family register with institution type, ownership/funding, editorial independence, grounded ideological tendency (only where sourced in external raters or self-description), best-use boundary, strongest SAM-role fit, and trust flags. Closes the source-characterization reflection + deep-research workstream and provides the canonical record that About/README/DATA-SOURCES source-balance views now point to. Flags Fraser Institute concentration on independent-challenge role across three dimensions, Canadian Climate Institute federal-funding disclosure requirement, and CBC institutional descriptor (public broadcaster / Crown corporation) as stronger than any ideological label. No grade, GPA, or confidence change. See [docs/Source-Characterization-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md).
 - Household Impact / "Why two grades?" explainer rewrite — plain-language wording replaces the prior methodology-heavy block across the live dashboard (ScoreboardHeader), About, and README. Leads with motivation, names the four household-weighted dimensions in household-experience terms (housing, cost of living, the economy, government spending), notes Promise Delivery is tracked separately, and closes with the divergence signal. One-line subtitles added under "Full Policy Audit" and "Household Impact" score boxes so each explains itself without requiring the reader to read the full paragraph. No grade, GPA, confidence, weighting, or methodology change.
 - "Why two grades?" explainer moved off the live dashboard header and parked in the About tab (plus README for GitHub readers). Score-box subtitles remain on the dashboard so each grade card still answers "what is this?" at first glance; the fuller explanation is now one click away in About rather than a block of text under the score row.
+- Card metadata pill removal — Confidence, Attribution, and Lag pills were removed from the live DimensionCard on 2026-04-19. The labels were not self-explanatory to general readers and added cognitive load without clearly clarifying the concepts. Underlying metadata remains in dimensions.json and in governance docs; it simply no longer renders as on-card chips. Re-add only if a user-tested treatment meaningfully clarifies the concepts rather than repeating the same pill model.
 
 ---
 
