@@ -126,7 +126,17 @@
   Core hierarchy preserved: Why This Grade → What Would Change This Grade →
   Sub-Scores → Key Metrics → Perspectives → Promises summary → Sources.
   Revisit only if user-testing surfaces a specific remaining overload.
-- Promise Tracker item detail / link model review
+- Promise Tracker item detail / link model review — Completed 2026-04-19
+  Reflection + narrow build pass landed. Promise schema extended with four
+  optional fields per promise (`originalSourceUrl`, `originalSourceLabel`,
+  `statusSourceUrl`, `statusSourceLabel`). The dedicated Promises tab now
+  renders up to two small link chips on each expanded promise row —
+  `Source →` for the original promise source and `Status evidence →` for the
+  document that justifies the current status. Chips render only when the
+  corresponding URL exists; promises without links are unchanged. 22 of 43
+  promises seeded from clean in-repo matches (CTM source_document URLs + live
+  sources arrays); 21 remain blank where no in-repo match exists and would
+  require external research. Original review notes preserved below.
   Review what an expanded promise item should link to so a reader can actually
   understand the promise, the current status, and why that status is justified.
   Questions to test:

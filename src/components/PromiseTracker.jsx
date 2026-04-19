@@ -71,6 +71,10 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
               {items.map((p, i) => {
                 const key = `${status}-${i}`;
                 const isOpen = expandedPromise === key;
+                const hasExpandContent =
+                  Boolean(p.evidence) ||
+                  Boolean(p.originalSourceUrl) ||
+                  Boolean(p.statusSourceUrl);
                 return (
                   <div
                     key={key}
@@ -78,7 +82,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                     style={{
                       padding: "8px 16px",
                       borderBottom: "1px solid #f5f5f5",
-                      cursor: p.evidence ? "pointer" : "default",
+                      cursor: hasExpandContent ? "pointer" : "default",
                       background: isOpen ? "#fafafa" : "transparent",
                       transition: "background 0.15s",
                     }}
@@ -93,7 +97,19 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                     >
                       <span style={{ fontSize: "13px", color: "#333", flex: 1 }}>
                         {p.text}
-                        {p.evidence && (
+                        {p.durability && (
+                          <span
+                            style={{
+                              fontSize: "10px",
+                              color: "#999",
+                              marginLeft: "6px",
+                              fontStyle: "italic",
+                            }}
+                          >
+                            {p.durability}
+                          </span>
+                        )}
+                        {hasExpandContent && (
                           <span style={{ fontSize: "10px", color: "#bbb", marginLeft: "6px" }}>
                             {isOpen ? "\u25B2" : "\u25BC"}
                           </span>
@@ -112,7 +128,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                         </span>
                       </div>
                     </div>
-                    {isOpen && p.evidence && (
+                    {isOpen && hasExpandContent && (
                       <div
                         style={{
                           fontSize: "12px",
@@ -123,10 +139,61 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                           lineHeight: 1.5,
                         }}
                       >
-                        {p.evidence}
+                        {p.evidence && <div>{p.evidence}</div>}
                         {p.since && (
                           <div style={{ fontSize: "10px", color: "#aaa", marginTop: "4px" }}>
                             Status since: {p.since}
+                          </div>
+                        )}
+                        {(p.originalSourceUrl || p.statusSourceUrl) && (
+                          <div
+                            style={{
+                              display: "flex",
+                              flexWrap: "wrap",
+                              gap: "6px",
+                              marginTop: "8px",
+                            }}
+                          >
+                            {p.originalSourceUrl && (
+                              <a
+                                href={p.originalSourceUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                style={{
+                                  fontSize: "11px",
+                                  color: "#1a73e8",
+                                  textDecoration: "none",
+                                  background: "#e8f0fe",
+                                  padding: "3px 8px",
+                                  borderRadius: "4px",
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
+                                <strong>Source:</strong>{" "}
+                                {p.originalSourceLabel || "link"} &rarr;
+                              </a>
+                            )}
+                            {p.statusSourceUrl && (
+                              <a
+                                href={p.statusSourceUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={(e) => e.stopPropagation()}
+                                style={{
+                                  fontSize: "11px",
+                                  color: "#b26a00",
+                                  textDecoration: "none",
+                                  background: "#fff3e0",
+                                  padding: "3px 8px",
+                                  borderRadius: "4px",
+                                  whiteSpace: "nowrap",
+                                }}
+                              >
+                                <strong>Status evidence:</strong>{" "}
+                                {p.statusSourceLabel || "link"} &rarr;
+                              </a>
+                            )}
                           </div>
                         )}
                       </div>
