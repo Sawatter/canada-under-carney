@@ -4,7 +4,7 @@
 
 **Rule:** If an idea is useful but not a "now" task, put it here instead of carrying it in working memory.
 
-**Last updated:** 2026-04-18
+**Last updated:** 2026-04-19
 
 ---
 
@@ -90,6 +90,14 @@
   Live DimensionCards now surface confidence, attribution, and lag tags directly on-card.
 - Possible tag for construct type (`Process`, `Implementation`, `Response`, etc.)
 - Better explanation of whole-letter probation dimensions
+- Top-of-dashboard popularity / political durability signal
+  Explore whether Carney approval / vote-strength / public-support data belongs
+  at the top of the dashboard as an ungraded signal, a tracker, or a true
+  dimension. Do not assume popularity and performance are the same thing.
+- Rewrite the Household Impact / "Why two grades?" explainer for clarity
+  It should be crystal clear how Household Impact is calculated, which
+  dimensions are double-weighted, what is excluded, whether the source stack is
+  different, and why a reader should care about the second grade.
 
 ---
 
@@ -107,6 +115,8 @@
 - Should the `band` field always represent the whole letter, with the display grade carrying the plus/minus, or is mixed modeling acceptable?
 - When is a source stack too thin to justify a full letter move?
 - How should confidence labels be operationalized beyond `High` / `Medium`?
+- Should popularity / approval be a scored dimension, an ungraded top-line
+  signal, or stay outside the scoring model entirely?
 
 ### Verbatim note — source authority framing
 
