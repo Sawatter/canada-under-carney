@@ -28,25 +28,52 @@ export default function About() {
           perspectives. All grading decisions are made by the human editor
           using a published scoring rubric.
         </p>
-        <p style={{ marginBottom: "16px" }}>
-          <strong>Why two grades?</strong> The government does a lot of
-          different things. We grade it across 11 areas — defence, immigration,
-          climate, housing, the cost of living, ethics, and more.{" "}
-          <strong>Full Policy Audit</strong> is the overall grade, weighting
-          all 11 areas equally.{" "}
-          <strong>Household Impact</strong> cares more about the four areas you
-          feel in your own life: housing, the cost of living, the economy, and
-          whether government spending is under control. Those four count twice
-          as much in this grade. The other seven still count — just not double.
-          Both grades use the same 11 dimensions, the same sources, the same
-          rubric, and the same QA rules; only the weighting changes.{" "}
-          <strong>Promises Delivered is tracked separately</strong> as an
-          accountability tool and doesn't feed either grade.{" "}
-          <strong>If the two grades don't match, that's the point.</strong> A
-          government can do well on big-picture things like defence or climate
-          and badly on the cost of your life, or the other way around. Showing
-          both means you can see the difference.
-        </p>
+        <div style={{ marginBottom: "16px" }}>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>Why two grades?</strong> The government does a lot of
+            different things. We grade it across 11 areas — defence,
+            immigration, climate, housing, the cost of living, ethics, and
+            more.
+          </p>
+          <p style={{ margin: "0 0 6px" }}>
+            <strong>Full Policy Audit</strong> is the overall grade. All 11
+            areas count equally.
+          </p>
+          <p style={{ margin: "0 0 6px" }}>
+            <strong>Household Impact</strong> doubles the weight of the four
+            areas you feel in your own life:
+          </p>
+          <ul style={{ margin: "0 0 10px", paddingLeft: "22px" }}>
+            <li>
+              <strong>Housing</strong> — can you afford a place to live
+            </li>
+            <li>
+              <strong>Cost of living</strong> — are groceries and everyday
+              bills under control
+            </li>
+            <li>
+              <strong>The economy</strong> — are jobs, wages, and productivity
+              going the right way
+            </li>
+            <li>
+              <strong>Government spending</strong> — is the fiscal picture
+              under control
+            </li>
+          </ul>
+          <p style={{ margin: "0 0 10px" }}>
+            The other seven areas still count — just not double. Both grades
+            use the same 11 dimensions, the same sources, the same rubric, and
+            the same QA rules; only the weighting changes.{" "}
+            <strong>Promises Delivered is tracked separately</strong> as an
+            accountability tool and doesn't feed either grade.
+          </p>
+          <p style={{ margin: 0 }}>
+            <strong>If the two grades don't match, that's the point.</strong>{" "}
+            A government can do well on big-picture things like defence or
+            climate and badly on the cost of your life, or the other way
+            around. Showing both means you can see the difference.
+          </p>
+        </div>
         <p style={{ marginBottom: "16px" }}>
           The scoring stack now also includes a published{" "}
           <a
