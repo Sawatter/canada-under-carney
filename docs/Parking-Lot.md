@@ -76,7 +76,8 @@
 
 - CompareView overhaul using inspectability fields
 - Methodology tab cleanup and simplification
-- Small confidence explanation on-card or in methodology
+- Small confidence explanation on-card or in methodology — Completed
+  Live DimensionCards now surface confidence, attribution, and lag tags directly on-card.
 - Possible tag for construct type (`Process`, `Implementation`, `Response`, etc.)
 - Better explanation of whole-letter probation dimensions
 

@@ -32,6 +32,7 @@
 - Independent methods review is complete; methods hold with targeted amendments and no structural defect blocks another full cycle.
 - Commitment Traceability Map is active as a governance join layer across 36 commitments in 11 graded dimensions.
 - The Major Projects / Flagship Delivery overlap on the MPO two-year-timeline commitment is resolved. Major Projects remains the sole home; Flagship now carries it only as derivative delivery evidence.
+- Dimension cards now surface confidence, attribution, and lag directly on-card, reducing the need to leave the scorecard to interpret evidence strength.
 
 ---
 
@@ -47,6 +48,7 @@
 - Commitment Traceability Map — built, pilot-reviewed, full-built, and accepted as a published governance join layer. See [docs/Commitment-Traceability-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Commitment-Traceability-Map.md).
 - MPO timeline overlap cleanup — removed the duplicate Flagship Delivery promise so the Major Projects two-year-timeline commitment now has a single primary home, consistent with overlap-prevention discipline.
 - Headline GPA display precision reduced from two decimals to one on the live dashboard and README (1.70 → 1.7, 1.49 → 1.5). Underlying math, grade bands, sensitivity analysis, and shadow-log methodology retain full precision; the change is display-only and removes false precision the methodology cannot actually support.
+- Card metadata surfacing — live DimensionCards now show confidence, attribution, and lag tags directly on-card using the existing dimension metadata.
 
 ---
 
