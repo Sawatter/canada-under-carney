@@ -934,16 +934,16 @@ These may shape interpretation but must not move the Carbon Pricing Policy grade
 **Current state delta**
 
 Current `dimensions.json` Carbon Pricing Policy source stack:  
-Canada.ca — fuel charge removal, CCI — industrial pricing, IISD — Canadian Carbon Pricing Systems: 2025 Review, PBO carbon GST revenue  
+Canada.ca — fuel charge removal, ECCC — Output-Based Pricing System, CCI — industrial pricing, IISD — Canadian Carbon Pricing Systems: 2025 Review, PBO carbon GST revenue  
 Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:823)
 
 - **Present and well-aligned**
   - `Canada.ca — fuel charge removal` fills policy/execution truth on the consumer-side delivery.
+  - `ECCC — Output-Based Pricing System` fills policy/execution truth on the industrial-side statutory framework (added 2026-04-18 to close the direct-ECCC gap flagged by U10 / CTM-T2).
   - `CCI — industrial pricing` and `IISD — Canadian Carbon Pricing Systems: 2025 Review` fill independent-challenge truth on the industrial-side coherence problem.
   - `PBO carbon GST revenue` fills measurement/context on the consumer-side fiscal implications of eliminating the charge.
 
 - **Gaps**
-  - No direct ECCC source is present in the `sources` array even though the live OBPS headline-rate metric is sourced to ECCC and the headline/effective gap is central to the file.
   - No direct CFIB source is present in the `sources` array even though the small-business-share metric uses CFIB.
   - No direct free-allocation or comparable design-detail source is present in the `sources` array even though the scoring sheet treats industrial design strength as part of the instrument's quality.
 

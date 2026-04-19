@@ -445,7 +445,7 @@ The CTM must **not**:
 - **commitment_id:** `CARBON-002`
 - **commitment_text:** "Preserve industrial carbon pricing"
 - **source_type:** campaign platform; Day 1 commitment
-- **source_document:** OBPS statutory framework (ECCC). **Residual:** no direct ECCC source is present in the Carbon Pricing Policy `sources` array — the OBPS rate is used via metric sourceNote only; source-hardening candidate.
+- **source_document:** [ECCC — Output-Based Pricing System](https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html) *(in Carbon Pricing Policy `sources` array)*.
 - **durability:** Legislated *(live tag matches PCR tier — OBPS is statutorily grounded)*.
 - **home_dimension:** Carbon Pricing Policy
 - **promise_tracker_entry:** Carbon Pricing `promises[1]`; status Delivered 2025-04-01.
@@ -1030,7 +1030,7 @@ The CTM must **not**:
 
 These are findings inside the CTM's own scope. None block future use of the artifact; they are normal operating residuals from the "flag gaps" discipline.
 
-- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-002, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-002, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these, many via existing available URLs.
+- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-002, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these, many via existing available URLs. *(CARBON-002 was previously on this list; resolved 2026-04-18 by threading the ECCC Output-Based Pricing System URL.)*
 
 ### Upstream governance residuals surfaced during the build
 
@@ -1044,7 +1044,7 @@ These are findings that live in upstream docs (CSS, Matrix, SAM, MSR, Flagship-D
 - **U7 — CSS Defence & Trade minimum-indicator list does not cover interprovincial trade integration or foreign policy review output.** DEFTRADE-002, DEFTRADE-005. Interprovincial trade integration is also noted in the CSS Defence & Trade rater note as overlapping Economic Policy Response. **Upstream resolution:** CSS amendment decision.
 - **U8 — Deconfliction Matrix has no row for apprenticeship programs, AI compute fund (private-sector commitments), critical minerals disbursement, Indigenous Loan Guarantee, interprovincial trade integration, or Buy Canadian procurement uptake.** **Upstream resolution:** Matrix amendment candidate to add rows for these as dimension interactions clarify.
 - **U9 — MSR does not specify canonical measurement for apprenticeship programs, conservation spending / protected-area percentage, civil-service headcount, food-labelling programs, voluntary competition codes, red-tape review reports, MPO cycle-time, Buy Canadian procurement-share, interprovincial trade integration, foreign policy review output, or Indigenous Loan disbursement.** **Upstream resolution:** MSR extension candidates as these commitments' indicators become grade-moving.
-- **U10 — Carbon Pricing Policy and Ethics & Transparency `sources` arrays have gaps relative to commitments cited** (ECCC OBPS direct source for CARBON-002; original platform / announcement URLs for ETHICS-001, ETHICS-002). **Upstream resolution:** source-hardening passes on affected dimensions.
+- **U10 — Ethics & Transparency `sources` array has gaps relative to commitments cited** (original platform / announcement URLs for ETHICS-001, ETHICS-002). **Upstream resolution:** source-hardening pass on Ethics & Transparency. *(Previously included a Carbon Pricing Policy gap for CARBON-002; resolved 2026-04-18 by threading the ECCC Output-Based Pricing System URL into the Carbon Pricing Policy `sources` array.)*
 
 **Note on counting.** CTM-T2 is scoped to CTM presentation (what the map says). U2–U10 are open upstream governance content findings (what the upstream docs say). The earlier U1 overlap on the MPO 2-year timeline has now been resolved by returning the commitment to its Major Projects home and keeping Flagship derivative-only on that evidence. CTM-T1 has also been resolved: the seven durability re-tags (HOUSING-001 → Target, HOUSING-002 → Program, CARBON-002 → Legislated, MPROJ-001 → Legislated, AFFORD-002 → Framework, AFFORD-003 → Framework, ECONPOL-001 → Program) have been applied to dimensions.json and the corresponding CTM body notes updated to reflect PCR-tier matches.
 

@@ -827,6 +827,10 @@
         "url": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html"
       },
       {
+        "label": "ECCC — Output-Based Pricing System",
+        "url": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
+      },
+      {
         "label": "CCI — industrial pricing",
         "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/"
       },
@@ -839,7 +843,7 @@
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
       }
     ],
-    "lastUpdated": "2026-04-17",
+    "lastUpdated": "2026-04-18",
     "metrics": [
       {
         "label": "Consumer carbon tax",
