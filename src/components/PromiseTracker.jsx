@@ -75,10 +75,24 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                   Boolean(p.evidence) ||
                   Boolean(p.originalSourceUrl) ||
                   Boolean(p.statusSourceUrl);
+                const detailId = `promise-${key}-detail`;
+                const toggle = () => setExpandedPromise(isOpen ? null : key);
+                const handleKeyDown = (e) => {
+                  if (!hasExpandContent) return;
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    toggle();
+                  }
+                };
                 return (
                   <div
                     key={key}
-                    onClick={() => setExpandedPromise(isOpen ? null : key)}
+                    onClick={hasExpandContent ? toggle : undefined}
+                    onKeyDown={handleKeyDown}
+                    role={hasExpandContent ? "button" : undefined}
+                    tabIndex={hasExpandContent ? 0 : undefined}
+                    aria-expanded={hasExpandContent ? isOpen : undefined}
+                    aria-controls={hasExpandContent ? detailId : undefined}
                     style={{
                       padding: "8px 16px",
                       borderBottom: "1px solid #f5f5f5",
@@ -130,6 +144,8 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                     </div>
                     {isOpen && hasExpandContent && (
                       <div
+                        id={detailId}
+                        role="region"
                         style={{
                           fontSize: "12px",
                           color: "#666",

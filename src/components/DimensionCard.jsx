@@ -220,6 +220,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   e.stopPropagation();
                   setTriggersOpen((v) => !v);
                 }}
+                aria-expanded={triggersOpen}
+                aria-controls={`dim-${dim.id}-triggers`}
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
@@ -229,7 +231,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   marginBottom: "6px",
                   background: "none",
                   border: "none",
-                  padding: 0,
+                  padding: "2px 0",
+                  minHeight: "24px",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
@@ -243,6 +246,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               {triggersOpen && (
                 dim.gradeTriggers ? (
                   <div
+                    id={`dim-${dim.id}-triggers`}
+                    role="region"
                     style={{
                       fontSize: "11px",
                       color: "#666",
@@ -274,7 +279,11 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                     </div>
                   </div>
                 ) : (
-                  <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}>
+                  <div
+                    id={`dim-${dim.id}-triggers`}
+                    role="region"
+                    style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}
+                  >
                     {dim.nextTrigger}
                   </div>
                 )
@@ -290,6 +299,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   e.stopPropagation();
                   setScopeOpen((v) => !v);
                 }}
+                aria-expanded={scopeOpen}
+                aria-controls={`dim-${dim.id}-scope`}
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
@@ -299,7 +310,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   marginBottom: "6px",
                   background: "none",
                   border: "none",
-                  padding: 0,
+                  padding: "2px 0",
+                  minHeight: "24px",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
@@ -312,6 +324,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               </button>
               {scopeOpen && (
                 <div
+                  id={`dim-${dim.id}-scope`}
+                  role="region"
                   style={{
                     fontSize: "11px",
                     color: "#666",
@@ -404,6 +418,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   e.stopPropagation();
                   setPerspectivesOpen((v) => !v);
                 }}
+                aria-expanded={perspectivesOpen}
+                aria-controls={`dim-${dim.id}-perspectives`}
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
@@ -413,7 +429,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   marginBottom: "6px",
                   background: "none",
                   border: "none",
-                  padding: 0,
+                  padding: "2px 0",
+                  minHeight: "24px",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
@@ -425,7 +442,11 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 Critics and defenders
               </button>
               {perspectivesOpen && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                <div
+                  id={`dim-${dim.id}-perspectives`}
+                  role="region"
+                  style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+                >
                   <div
                     style={{
                       fontSize: "11px",
@@ -542,6 +563,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   e.stopPropagation();
                   setInheritedOpen((v) => !v);
                 }}
+                aria-expanded={inheritedOpen}
+                aria-controls={`dim-${dim.id}-inherited`}
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
@@ -551,7 +574,8 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   marginBottom: "6px",
                   background: "none",
                   border: "none",
-                  padding: 0,
+                  padding: "2px 0",
+                  minHeight: "24px",
                   cursor: "pointer",
                   display: "flex",
                   alignItems: "center",
@@ -563,7 +587,11 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 What Was Inherited
               </button>
               {inheritedOpen && (
-                <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}>
+                <div
+                  id={`dim-${dim.id}-inherited`}
+                  role="region"
+                  style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}
+                >
                   {dim.inherited}
                 </div>
               )}
