@@ -19,7 +19,6 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 - **Scorecard** — 11 graded policy dimensions (A through F) plus an ungraded Promise Tracker, with expandable details, rationale, evidence, and source links
 - **Promise Tracker** — 43 government commitments tracked by status with expandable evidence
 - **Commitment Traceability Map** — published join layer linking commitments to home dimensions, constructs, indicators, source roles, and derivative handling
-- **Compare** — Side-by-side dimension comparison
 - **Methodology** — Transparent scoring rubric embedded in the dashboard
 - **What Changed** — Monthly change log with grade changes and evidence
 - **About** — Source balance, principles, and evaluation methodology

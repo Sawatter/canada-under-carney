@@ -8,7 +8,6 @@ import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
 import PromiseTracker from "./PromiseTracker";
 import Methodology from "./Methodology";
-import CompareView from "./CompareView";
 import About from "./About";
 
 export default function Dashboard() {
@@ -25,7 +24,6 @@ export default function Dashboard() {
   const tabs = [
     { key: "scorecard", label: "Scorecard" },
     { key: "promises", label: "Promises" },
-    { key: "compare", label: "Compare" },
     { key: "methodology", label: "Rubric" },
     { key: "about", label: "About" },
   ];
@@ -232,9 +230,6 @@ export default function Dashboard() {
           totalPromises={totalPromises}
         />
       )}
-
-      {/* Compare View */}
-      {view === "compare" && <CompareView />}
 
       {/* Methodology View */}
       {view === "methodology" && <Methodology />}
