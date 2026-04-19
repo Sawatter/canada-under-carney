@@ -50,6 +50,7 @@
 - Headline GPA display precision reduced from two decimals to one on the live dashboard and README (1.70 → 1.7, 1.49 → 1.5). Underlying math, grade bands, sensitivity analysis, and shadow-log methodology retain full precision; the change is display-only and removes false precision the methodology cannot actually support.
 - Card metadata surfacing — live DimensionCards now show confidence, attribution, and lag tags directly on-card using the existing dimension metadata.
 - Compare tab removed from the live nav. The feature is now parked as a future analyst tool only if it can justify itself beyond duplicating two expanded cards.
+- CTM-T1 durability-tag hygiene pass — seven commitments re-tagged in dimensions.json to match PCR tier examples (HOUSING-001 Commitment → Target; HOUSING-002 Commitment → Program; CARBON-002 Commitment → Legislated; MPROJ-001 Commitment → Legislated; AFFORD-002 Commitment → Framework; AFFORD-003 Commitment → Framework; ECONPOL-001 Framework → Program). CTM body notes reconciled and CTM-T1 residual closed. No grade, GPA, or confidence change (durability is display-only metadata).
 
 ---
 
