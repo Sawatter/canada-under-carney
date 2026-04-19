@@ -228,6 +228,7 @@ For every proposed grade change (not grade holds, source-stack-only changes, or 
 - **Whole-letter probationary and plus/minus interaction** — [docs/Plus-Minus-Decision-Rules.md](<repo root>/docs/Plus-Minus-Decision-Rules.md)
 - **Double-counting and primary-home enforcement** — [docs/Deconfliction-Matrix.md](<repo root>/docs/Deconfliction-Matrix.md)
 - **Source-role planning by dimension** — [docs/Source-Authority-Map.md](<repo root>/docs/Source-Authority-Map.md)
+- **Per-source-family characterization (institution type, ownership, editorial independence, tier assignment, best-use boundary)** — [docs/Source-Characterization-Register.md](<repo root>/docs/Source-Characterization-Register.md)
 
 ---
 

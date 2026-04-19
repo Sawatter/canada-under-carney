@@ -27,7 +27,7 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 
 ## Source Balance
 
-This is a source-type summary, not a full manifest and not a formal left/right scorecard.
+This is a source-type summary, not a full manifest and not a formal left/right scorecard. For the canonical per-source-family record (institution type, ownership / funding, editorial independence, tier, best-use boundary), see the [Source Characterization Register](docs/Source-Characterization-Register.md).
 
 | Category | Sources |
 |---|---|
