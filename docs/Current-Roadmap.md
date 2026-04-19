@@ -58,12 +58,15 @@
 - Household Impact / "Why two grades?" explainer rewrite — plain-language wording replaces the prior methodology-heavy block across the live dashboard (ScoreboardHeader), About, and README. Leads with motivation, names the four household-weighted dimensions in household-experience terms (housing, cost of living, the economy, government spending), notes Promise Delivery is tracked separately, and closes with the divergence signal. One-line subtitles added under "Full Policy Audit" and "Household Impact" score boxes so each explains itself without requiring the reader to read the full paragraph. No grade, GPA, confidence, weighting, or methodology change.
 - "Why two grades?" explainer moved off the live dashboard header and parked in the About tab (plus README for GitHub readers). Score-box subtitles remain on the dashboard so each grade card still answers "what is this?" at first glance; the fuller explanation is now one click away in About rather than a block of text under the score row.
 - Card metadata pill removal — Confidence, Attribution, and Lag pills were removed from the live DimensionCard on 2026-04-19. The labels were not self-explanatory to general readers and added cognitive load without clearly clarifying the concepts. Underlying metadata remains in dimensions.json and in governance docs; it simply no longer renders as on-card chips. Re-add only if a user-tested treatment meaningfully clarifies the concepts rather than repeating the same pill model.
+- Expanded-dimension readability pass — DimensionCard expansion simplified on 2026-04-19 to cut density. The nested Promise Tracker (previously per-promise text + durability + status pill + evidence blurb inside every dimension card) was replaced with a one-line summary pointing readers to the dedicated Promises tab for item-level detail. Scope and "What Was Inherited" are now collapsed behind disclosure toggles inside the expanded state so default expansion shows only the grade-logic content. The repeated italic methodology disclaimer in the Perspectives section was removed; substantive Critics / Defenders content preserved. Core hierarchy retained: Why This Grade → What Would Change This Grade → Sub-Scores (where applicable) → Key Metrics → Perspectives → Promises (summary) → Sources → optional disclosures (Scope, What Was Inherited). No grade, GPA, confidence, source-array, rubric, SAM, CTM, or schema change.
 
 ---
 
 ## Now
 
 No immediate work pending. The product cleanup loop is caught up. Next items are triggered by the next monthly cycle or by a new explicit methodology decision.
+
+The next queued customer-trust UX task after the expanded-dimension readability pass is the Promise Tracker item detail / link-model pass (see Parking-Lot "Promise Tracker item detail / link model review"): add optional `originalSourceUrl` and `statusSourceUrl` fields to the promise schema and render them as small link chips on the Promises tab so a reader can click through to both the original promise source and the status justification. Not started — queued.
 
 ---
 
