@@ -121,6 +121,18 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.4 }}>
             {dim.status}
           </div>
+          {dim.lastUpdated && (
+            <div
+              style={{
+                fontSize: "10px",
+                color: "#aaa",
+                marginTop: "6px",
+                fontStyle: "italic",
+              }}
+            >
+              Last reviewed {dim.lastUpdated}
+            </div>
+          )}
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
           {dim.excludeFromGPA && trackerStat ? (

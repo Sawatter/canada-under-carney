@@ -64,24 +64,35 @@ Readers ask "is the PM popular?" as a first-order question. Burying the answer a
 ### Why dashed border and muted styling
 To break the visual pattern of the three white-card scorecard. Same top-of-page real estate, different design language, so a reader's pattern-matching does not group it with the grades.
 
-### Why no sample-size weighting in v1
-Simple arithmetic mean across pollsters is transparent and auditable. Multi-pollster coverage is the control for house effects in v1. A weighted mean can be layered on later if inter-pollster variance starts drowning the signal.
+### Aggregation: sample-size weighted mean (v2)
+The v1 launch used a simple arithmetic mean across pollsters. v2 switched to a sample-size-weighted mean: a poll of n = 2,000 carries twice the weight of one at n = 1,000. This is a standard inverse-variance-approximating weighting when methodologies are broadly comparable, and is more defensible than a simple mean now that Abacus publishes polls with n ≈ 1,900 regularly while Ipsos's typical n ≈ 1,000. The change is methodological, not presentational — the v1-to-v2 shift in displayed numbers is <1 percentage point because sample sizes across the included firms sit in a narrow band (roughly 1,000 – 2,000). Explicit de-housing of systematic per-firm effects remains a v3 option if inter-pollster variance widens.
 
 ---
 
 ## Source selection
 
 ### Inclusion rule
-CRIC member · publishes direct PM or government approval question · publishes both approve and disapprove percentages · discloses sample size and methodology.
+Canadian polling firm · publishes a direct PM or government approval question · publishes both approve and disapprove percentages · discloses sample size and methodology. CRIC accreditation (Canadian Research Insights Council) is preferred but not strictly required — public-interest institutes and well-established firms operating under equivalent transparency standards are admissible.
 
-### v1 included
-Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group.
+### CRIC accreditation status (verified against the CRIC member directory, 2026-04-19)
+- **Léger** — CRIC accredited. Included.
+- **Abacus Data** — CRIC accredited. Included.
+- **Ipsos Canada** — CRIC accredited. Included.
+- **Angus Reid Institute** — *Not* CRIC accredited (the Institute is a non-profit public-interest polling arm; CRIC accreditation covers commercial research agencies). Included under the equivalent-transparency exception: the Institute publishes full methodology, cross-tabs, and sample details for every release.
+- **Innovative Research Group** — *Not* CRIC accredited per the current member directory, but a well-established Canadian public-affairs research firm publishing full methodology. Included under the equivalent-transparency exception. Worth rechecking CRIC status next cycle.
+- **Nanos Research Corporation** — CRIC accredited but *excluded* because Nanos publicly tracks "preferred PM" (best-choice question), not direct approve/disapprove. Different construct. Consider as a separate preferred-PM signal in v2.
+- **Pollara Strategic Insights** — CRIC accredited. No direct Carney approve/disapprove release surfaced in v1 research. Revisit on next cycle.
+- **Mainstreet Research** — CRIC accredited. No recent direct Carney approval release surfaced in v1 research. Revisit on next cycle.
+- **Ekos Research Associates** — CRIC accredited. No recent direct Carney approval release surfaced in v1 research. Revisit on next cycle.
+
+### v1 included (5 firms)
+Léger, Abacus Data, Ipsos Canada, Angus Reid Institute, Innovative Research Group.
 
 ### v1 excluded (with reason)
-- **Nanos Research.** Tracks "preferred PM" (best-choice question), not direct approval. Different construct. Consider a separate preferred-PM signal in v2 if additive.
-- **Spark Insights.** House numbers are systematically higher than the other CRIC members (~66–68% vs. the 54–60% band from the rest). CRIC membership and methodology disclosure not verified during v1 hardening. Held out until reviewed.
-- **Research Co. / Mario Canseco.** Publishes approve% but disapprove% is frequently omitted from public release. Dropped for v1 to keep the mean math clean. Add back when a consistent approve/disapprove pair is available.
-- **Pollara, Mainstreet, EKOS.** No recent direct Carney approval release surfaced in v1 research window. Revisit in v2.
+- **Nanos Research** — different construct (preferred-PM, not approval). Separate signal candidate.
+- **Spark Insights** — *confirmed not* CRIC accredited (2026-04-19 check against the CRIC member directory). Additionally, Spark's house numbers are 6–10 points higher than the CRIC-accredited firms in the same weeks, suggesting either a different question wording or a house-effect worth isolating. Remains excluded pending independent methodology review.
+- **Research Co. / Mario Canseco** — not CRIC accredited. Publishes approve% but disapprove% is frequently omitted from the public release, which makes the poll unusable for a consistent approve–disapprove pair. Revisit when a consistent pair is available.
+- **Pollara, Mainstreet, EKOS** — CRIC accredited, no recent direct Carney approval release surfaced in v1 research window. Revisit on next cycle.
 
 ### New analytical source family treatment
 Per QA Rule 8, polling firms constitute a new analytical source family on this dashboard. This memo IS the reflection pass. Each of the five v1 pollsters receives a row in the Source Characterization Register covering institution type, ownership/funding, editorial independence, grounded ideological tendency (where sourced), best-use boundary, strongest SAM-role fit, and trust flags. The signal is live-shipping with this governance layer, not ahead of it.
