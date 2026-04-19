@@ -73,7 +73,7 @@ export default function Dashboard() {
         >
           Canada Under Carney
         </h1>
-        <div style={{ fontSize: "13px", color: "#888" }}>
+        <div className="header-subtitle" style={{ fontSize: "13px", color: "#888" }}>
           {meta.coveragePeriod.start.slice(0, 7).replace("-", "/")} &ndash;{" "}
           {meta.coveragePeriod.end.slice(0, 7).replace("-", "/")} &middot;
           Updated {meta.lastUpdated} &middot; v{meta.version}

@@ -110,6 +110,7 @@ export default function ApprovalSignal() {
       >
         <div>
           <span
+            className="approval-stat-number"
             style={{
               fontFamily: "'DM Mono', monospace",
               fontSize: "22px",
@@ -131,6 +132,7 @@ export default function ApprovalSignal() {
 
         <div>
           <span
+            className="approval-stat-number"
             style={{
               fontFamily: "'DM Mono', monospace",
               fontSize: "22px",
@@ -143,6 +145,7 @@ export default function ApprovalSignal() {
           <span style={{ marginLeft: "6px", fontSize: "12px", color: "#777" }}>
             disapprove
           </span>
+
           {disapproveDelta && (
             <span style={{ marginLeft: "6px", fontSize: "11px", color: "#999" }}>
               ({disapproveDelta} vs prior {windowDays}d)
