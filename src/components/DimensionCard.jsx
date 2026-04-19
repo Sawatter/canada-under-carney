@@ -100,7 +100,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 letterSpacing: "0.4px",
               }}
             >
-              Tracker · Not in GPA
+              Tracker · Not scored
             </div>
           )}
           {dim.whatThisGrades && (

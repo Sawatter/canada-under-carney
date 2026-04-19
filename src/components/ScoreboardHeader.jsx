@@ -68,7 +68,7 @@ export default function ScoreboardHeader({
               fontFamily: "'DM Mono', monospace",
             }}
           >
-            GPA: {pocketbookGPA}
+            Score: {pocketbookGPA}
           </div>
         </div>
 
@@ -119,7 +119,7 @@ export default function ScoreboardHeader({
               fontFamily: "'DM Mono', monospace",
             }}
           >
-            GPA: {overallGPA}
+            Score: {overallGPA}
           </div>
         </div>
 
