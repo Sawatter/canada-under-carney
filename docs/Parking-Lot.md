@@ -91,7 +91,16 @@
 - CompareView overhaul using inspectability fields — Deprioritized
   Removed from the live nav on 2026-04-18. Revisit only if it earns a unique
   analyst/power-user job that is meaningfully better than opening two expanded cards.
-- Methodology tab cleanup and simplification
+- Methodology tab cleanup and simplification — Completed 2026-04-19
+  Modifiers restructured into four scannable visual blocks (Timing fairness,
+  Jurisdictional limits, External constraint, Credit-claiming penalty) with
+  "Grade adjustments" section header replacing "Operationalized Modifiers
+  (v1.1)". Whole-letter probation paragraph trimmed to reader-facing
+  statement only ("Ethics & Transparency and Flagship Delivery are graded on
+  whole letters only"). Duplicative weighting paragraph replaced with a
+  two-sentence summary + pointer to About's "Why two grades?" block. CTM
+  pointer preserved. GPA terminology retained in methodology context per
+  the hybrid language policy.
 - Small confidence explanation on-card or in methodology — Revisited 2026-04-19; on-card pill treatment removed
   Confidence, attribution, and lag pills were added to DimensionCard, then
   removed on 2026-04-19 because the labels were not self-explanatory to

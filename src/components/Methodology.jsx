@@ -34,6 +34,33 @@ export default function Methodology() {
     },
   ];
 
+  const modifiers = [
+    {
+      name: "Timing fairness",
+      desc: "Grades trajectory rather than current outcomes on long-lag files. Expires after 24 months.",
+      effect: "Grade reflects trajectory, not current outcomes",
+      color: "#1565c0",
+    },
+    {
+      name: "Jurisdictional limits",
+      desc: "Applied where more than 50% of delivery depends on non-federal actors without a funded agreement.",
+      effect: "Caps the grade at C+",
+      color: "#6a1b9a",
+    },
+    {
+      name: "External constraint",
+      desc: "Applied where trade war or similar forces demonstrably limit achievable outcomes. Does not cover excess reversals.",
+      effect: "+0.3 GPA",
+      color: "#2e7d32",
+    },
+    {
+      name: "Credit-claiming penalty",
+      desc: "Applied where overclaiming is documented by independent sources.",
+      effect: "-0.3 GPA",
+      color: "#d84315",
+    },
+  ];
+
   return (
     <div
       style={{
@@ -80,29 +107,55 @@ export default function Methodology() {
           </div>
         ))}
 
+        <div
+          style={{
+            marginTop: "20px",
+            marginBottom: "10px",
+            fontSize: "13px",
+            fontWeight: 700,
+            color: "#333",
+          }}
+        >
+          Grade adjustments
+        </div>
+        {modifiers.map((m, i) => (
+          <div
+            key={i}
+            style={{
+              borderLeft: `3px solid ${m.color}`,
+              paddingLeft: "12px",
+              marginBottom: "12px",
+            }}
+          >
+            <div style={{ fontWeight: 700, fontSize: "13px", color: m.color }}>
+              {m.name}
+            </div>
+            <div style={{ fontSize: "12px", color: "#666" }}>{m.desc}</div>
+            <div
+              style={{
+                fontSize: "11px",
+                color: "#888",
+                marginTop: "2px",
+                fontStyle: "italic",
+              }}
+            >
+              Effect: {m.effect}
+            </div>
+          </div>
+        ))}
+
         <p style={{ marginTop: "16px", fontSize: "12px", color: "#888" }}>
-          <strong>Operationalized Modifiers (v1.1):</strong> Timing fairness
-          (grades trajectory not outcomes for long-lag files; expires at 24 months).
-          Jurisdictional limits (cap at C+ if &gt;50% depends on non-federal actors
-          without an agreement). External constraint (+0.3 GPA where trade war
-          demonstrably limits outcomes; does not cover excess reversals).
-          Credit-claiming penalty (-0.3 GPA where overclaiming is documented by
-          independent sources).
+          <strong>Whole-letter dimensions:</strong> Ethics &amp; Transparency
+          and Flagship Delivery are graded on whole letters only (A through F,
+          no plus/minus variants). Their score contribution matches the
+          displayed whole letter.
         </p>
         <p style={{ fontSize: "12px", color: "#888" }}>
-          <strong>Whole-letter probation:</strong> Ethics &amp; Transparency and
-          Flagship Delivery are probationary whole-letter dimensions. Their GPA
-          contribution matches their displayed whole letter, with no hidden C-
-          adjustment behind the public grade.
-        </p>
-        <p style={{ fontSize: "12px", color: "#888" }}>
-          <strong>Weighting:</strong> The headline grade is unweighted across all
-          11 graded dimensions. Promise Delivery is tracked separately as an
-          ungraded accountability tool. The Household Impact grade double-weights
-          Fiscal Health, Housing Supply, Affordability Response, and Economic
-          Policy Response. Both published grades use the same underlying
-          dimension scores; only the weighting changes. The choice of weighting
-          is an editorial judgment disclosed transparently.
+          <strong>Weighting:</strong> Both headline scores are built from the
+          same 11 graded dimensions, with different weightings — Full Policy
+          Audit treats them equally, Household Impact doubles the four
+          household-facing files. See the About tab for the plain-language
+          breakdown.
         </p>
         <p style={{ fontSize: "12px", color: "#888" }}>
           <strong>Commitment traceability:</strong> Commitments from campaign
