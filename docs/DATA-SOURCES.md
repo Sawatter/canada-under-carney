@@ -1,81 +1,52 @@
 # Data Sources
 
-> **Status (2026-04-19):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) now lives in the [Source Characterization Register](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md). Portions of the lean-based taxonomy and source lists below are out of sync with the live stack in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) and are being realigned to point at the SCR and the live source families actually in use. Treat the SCR as authoritative where the two documents disagree.
+> **Status (2026-04-19):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) lives in the [Source Characterization Register](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md). Content below has been realigned to reflect the live stack in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) and to distinguish live sources from monitoring watchlist. Treat the SCR as authoritative for per-source characterization.
 
-Every metric in the dashboard is mapped to a specific source. This document lists them all, organized by type and political lean.
+Every metric in the live dashboard is sourced to a specific citation in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json). This file describes the monitoring and source-guide stack that sits around that live use: which families are currently cited in the live `sources` arrays, which are supplementary monitoring sources that may be consulted when a file moves, and which data pipelines feed specific metrics.
 
----
-
-## Monthly Source Monitoring Stack (20 sources)
-
-### Official & Non-Partisan Backbone (check on release dates)
-
-| # | Source | Best for | Frequency |
-|---|--------|----------|-----------|
-| 1 | **Statistics Canada** | GDP, productivity, CPI, labour, trade, population | Monthly releases |
-| 2 | **PBO** (Parliamentary Budget Officer) | Fiscal health, costing, promise realism | Monthly/periodic |
-| 3 | **CMHC** | Housing starts, completions, supply forecasts | Monthly |
-| 4 | **Bank of Canada** | Inflation, rates, macro context | Monthly |
-| 5 | **IRCC** | Immigration flows, permits, category changes | Monthly |
-| 6 | **PMO + Finance Canada** | Announcements, budget updates, new commitments | Weekly skim |
-
-### Centre & Mainstream Press (weekly skim)
-
-| # | Source | Lean | Best for |
-|---|--------|------|----------|
-| 7 | **CBC News** | Centre / centre-left | Broad federal coverage, policy rollout, accountability |
-| 8 | **Globe and Mail** | Centre / centre-right | Fiscal, business, federal politics, major projects |
-| 9 | **La Presse** | Quebec mainstream | Quebec reaction, federal legitimacy, energy/language politics |
-| 10 | **Toronto Star** | Centre-left | Affordability, housing, social policy, urban perspective |
-
-### Right & Centre-Right Interpretation (weekly skim, monthly deep read)
-
-| # | Source | Lean | Best for |
-|---|--------|------|----------|
-| 11 | **C.D. Howe Institute** | Centre-right fiscal | Fiscal, productivity, housing, tax, institutional reform |
-| 12 | **The Hub** | Centre-right policy | Federal strategy, political economy, elite debate |
-| 13 | **National Post** | Right | Scrutiny of reversals, carbon, ethics, politics |
-
-### Independent Policy & Academic (monthly)
-
-| # | Source | Lean | Best for |
-|---|--------|------|----------|
-| 14 | **Policy Options / IRPP** | Independent policy | Cross-file synthesis, institutions, federalism, implementation |
-| 15 | **The Conversation Canada** | Academic explainer | Issue briefs, context, researcher analysis |
-| 16 | **IFSD** (Institute of Fiscal Studies and Democracy) | Non-partisan institutional | Fiscal health, budget credibility, state capacity |
-| 17 | **Canadian Climate Institute** | Non-partisan climate policy | Climate, carbon, competitiveness, transition trade-offs |
-
-### Specialist Supplements (check when relevant file moves)
-
-| # | Source | Lean | Check when |
-|---|--------|------|------------|
-| 18 | **Canada's National Observer** | Centre-left environmental | Climate or energy file moves |
-| 19 | **The Narwhal** | Environmental / left | Environment, projects, land use, Indigenous dimension |
-| 20 | **One pollster + one bank economist** | Non-partisan | Use Nanos or Leger for political durability; RBC or BMO Economics for macro |
-
-### Left-Leaning Supplements (check when relevant)
-
-| Source | Lean | Check when |
-|--------|------|------------|
-| **CCPA** | Left | Affordability, inequality, social programs |
-| **The Tyee** | Left / BC | Housing or BC-specific developments |
-| **Broadbent Institute** | Social democratic | Affordability, labour, inequality data |
-| **Parkland Institute** | Alberta left | Energy policy, Alberta-specific |
+For the canonical per-source-family characterization (institution type, ownership / funding, editorial independence, tier, best-use boundary, grounded ideological tendency where sourced), see [docs/Source-Characterization-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md). This file does not duplicate that record.
 
 ---
 
-## Source Balance Assessment
+## Live source stack (currently cited in dimensions.json)
 
-| Lean | Monthly Core | Supplements | Total |
-|------|-------------|-------------|-------|
-| Official / non-partisan | 6 | — | 6 |
-| Centre | 4 | — | 4 |
-| Right / centre-right | 3 | — | 3 |
-| Left / centre-left | 1 (Star) | 4 (CCPA, Narwhal, Observer, Tyee) | 5 |
-| Independent policy / academic | 4 | — | 4 |
-| Polling + bank econ | 2 | — | 2 |
+Grouped by institution type. See SCR for per-family detail and trust flags. As of 2026-04-19, 30 source families are live in [dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) across 12 dimensions.
 
-**Design principle:** Balance is achieved through *function*, not ideology alone. Every perspective has at least one voice in the monthly core. The official/academic backbone ensures the interpretive layer cannot skew the underlying data.
+### Official / administrative / institutional
+
+- **Official statistics & Officers of Parliament:** Statistics Canada, Parliamentary Budget Officer (PBO), CMHC, Bank of Canada
+- **Federal departmental data & communications:** Environment and Climate Change Canada (ECCC), Immigration, Refugees and Citizenship Canada (IRCC), Finance Canada, Natural Resources Canada (NRCan), Global Affairs Canada
+- **Other federal institutional:** Office of the Ethics Commissioner
+- **International official:** NATO, OECD, IMF
+- **Parliamentary / legislative record:** Parliament of Canada / LEGISinfo
+- **Context-only government communications (Tier 4):** Prime Minister's Office (pm.gc.ca) — never moves a grade alone per QA Rule 1
+
+### Non-official
+
+- **Public broadcaster:** CBC / Radio-Canada *(federally chartered Crown corporation; statutory editorial independence under the Broadcasting Act)*
+- **Mainstream newspaper:** The Globe and Mail
+- **Independent research policy institutes:** C.D. Howe Institute, IRPP / Policy Options, IISD, Canadian Climate Institute *(federally arm's-length; ECCC is a major federal funder — see SCR entry 18 for disclosure)*
+- **Market-oriented policy institute:** Fraser Institute
+- **Nonprofit policy commentary platform:** The Hub *(right-of-centre orientation; see SCR entry 23)*
+- **Watchdog / advocacy:** Democracy Watch *(advocacy organization, not neutral research)*
+- **Issue-focused nonprofit journalism:** The Narwhal, Canada's National Observer
+- **Academic research:** Dalhousie Agri-Food Analytics Lab, PROOF (University of Toronto), The Conversation Canada
+- **Polling:** Angus Reid
+
+---
+
+## Monitoring watchlist (not currently live in dimensions.json)
+
+Families that may be consulted when a file moves, but do not currently carry a live citation in a `sources` array. Introducing any of these into the live stack requires a reflection + review pass per the hard source-edit rule in [docs/Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) (traceability fix = direct; new analytical source family = reflect + Claude review first).
+
+- **Mainstream reporting:** La Presse, Toronto Star, National Post
+- **Other polling firms:** Nanos, Leger, Abacus
+- **Bank economics:** RBC Economics, BMO Economics, TD Economics, Scotiabank Economics
+- **Policy and fiscal institutes:** IFSD (Institute of Fiscal Studies and Democracy — referenced narratively in Fiscal Health rationale but not currently in the live `sources` array)
+- **Left-oriented policy organizations:** CCPA, Broadbent Institute, Parkland Institute, The Tyee
+- **Rating agencies:** Fitch, Moody's, S&P (event-driven)
+
+Inclusion here is not an endorsement; it is a record of families that have been discussed as potential future additions, appeared in earlier drafts, or are consulted as context. The live `sources` arrays in [dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) are the authority on what is actually in use.
 
 ---
 
@@ -116,7 +87,7 @@ Every metric in the dashboard is mapped to a specific source. This document list
 |--------|--------|-----------|-------|
 | Fitch/Moody's/S&P ratings | Agency websites | Event-driven | Changes are rare |
 | Ethics Commissioner review | Office of Ethics Commissioner | Event-driven | ciec-ccie.parl.gc.ca |
-| Carney approval ratings | Angus Reid, Leger, Nanos, Abacus | Monthly | No API |
+| Carney approval ratings | Angus Reid (live in dimensions.json); Leger, Nanos, Abacus (watchlist) | Monthly | No API |
 | OBPS carbon price | ECCC legislated schedule | Annual | $95/t in 2025, +$15/year |
 | Food insecurity | PROOF (U of T) | Annual | proof.utoronto.ca |
 | Dalhousie food cost | Canada Food Price Report | Annual | dal.ca/agri-food |
