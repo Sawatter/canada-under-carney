@@ -52,7 +52,7 @@ export default function ScoreboardHeader({
               lineHeight: 1.3,
             }}
           >
-            Focused on housing, cost of living, the economy, and government spending.
+            How the government is performing on housing, cost of living, the economy, and spending.
           </div>
           <GradeChip grade={pocketbookGrade} size="lg" />
           <div
@@ -99,7 +99,7 @@ export default function ScoreboardHeader({
               lineHeight: 1.3,
             }}
           >
-            Overall grade. All 11 policy areas count equally.
+            How the Carney government is performing across all 11 policy areas.
           </div>
           <GradeChip grade={overallGrade} size="lg" />
           <div
@@ -195,17 +195,20 @@ export default function ScoreboardHeader({
           Why two grades?
         </div>
         <p style={{ margin: "0 0 10px" }}>
-          The government does a lot of different things. We grade it across
-          11 areas — defence, immigration, climate, housing, the cost of
-          living, ethics, and more.
+          Every policy area on this dashboard gets its own letter grade. The
+          two grades above are different ways of summarizing all 11 areas,
+          because one average can hide important differences.
+        </p>
+        <p style={{ margin: "0 0 10px" }}>
+          <strong style={{ color: "#333" }}>Full Policy Audit</strong> is how
+          the Carney government is performing overall, across all 11 policy
+          areas weighted equally. Defence counts the same as housing; ethics
+          counts the same as cost of living.
         </p>
         <p style={{ margin: "0 0 6px" }}>
-          <strong style={{ color: "#333" }}>Full Policy Audit</strong> is the
-          overall grade. All 11 areas count equally.
-        </p>
-        <p style={{ margin: "0 0 6px" }}>
-          <strong style={{ color: "#333" }}>Household Impact</strong> doubles
-          the weight of the four areas you feel in your own life:
+          <strong style={{ color: "#333" }}>Household Impact</strong> is the
+          same kind of grade, but focused on the four areas that hit daily
+          life hardest:
         </p>
         <ul style={{ margin: "0 0 10px", paddingLeft: "22px" }}>
           <li>
@@ -225,19 +228,23 @@ export default function ScoreboardHeader({
           </li>
         </ul>
         <p style={{ margin: "0 0 10px" }}>
-          The other seven areas still count — just not double.{" "}
-          <strong style={{ color: "#333" }}>
-            Promises Delivered is tracked separately
-          </strong>{" "}
-          and doesn't feed either grade.
+          These four areas count twice as much in Household Impact; the other
+          seven still count, just not as heavily. Both grades use the same 11
+          areas, the same evidence, and the same grading rules — only the
+          weighting changes.
+        </p>
+        <p style={{ margin: "0 0 10px" }}>
+          <strong style={{ color: "#333" }}>Promises Delivered</strong> is a
+          running tracker of specific commitments (kept, broken, stalled,
+          delivered). It's separate and doesn't feed either grade.
         </p>
         <p style={{ margin: 0 }}>
           <strong style={{ color: "#333" }}>
             If the two grades don't match, that's the point.
           </strong>{" "}
-          A government can do well on big-picture things like defence or
-          climate and badly on the cost of your life, or the other way around.
-          Showing both grades means you can see the difference.
+          A government can do well on defence or climate and still be failing
+          on the cost of your life, or the other way around. Showing both
+          means you can see that.
         </p>
       </div>
     </div>

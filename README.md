@@ -14,20 +14,20 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 
 **Why two grades?**
 
-The government does a lot of different things. We grade it across 11 areas — defence, immigration, climate, housing, the cost of living, ethics, and more.
+Every policy area on this dashboard gets its own letter grade across 11 areas — defence, immigration, climate, housing, the cost of living, ethics, major projects, and more. The two headline grades are different ways of summarizing all 11, because one average can hide important differences.
 
-- **Full Policy Audit** is the overall grade. All 11 areas count equally.
-- **Household Impact** doubles the weight of the four areas you feel in your own life:
+- **Full Policy Audit** is how the Carney government is performing overall, across all 11 policy areas weighted equally. Defence counts the same as housing; ethics counts the same as cost of living.
+- **Household Impact** is the same kind of grade, but focused on the four areas that hit daily life hardest:
   - **Housing** — can you afford a place to live
   - **Cost of living** — are groceries and everyday bills under control
   - **The economy** — are jobs, wages, and productivity going the right way
   - **Government spending** — is the fiscal picture under control
 
-The other seven areas still count — just not double. Both grades use the same 11 dimensions, the same sources, the same rubric, and the same QA rules; only the weighting changes.
+These four areas count twice as much in Household Impact; the other seven still count, just not as heavily. Both grades use the same 11 areas, the same sources, the same rubric, and the same QA rules — only the weighting changes.
 
-**Promises Delivered is tracked separately** as an accountability tool and doesn't feed either grade.
+**Promises Delivered** is a running tracker of specific commitments (kept, broken, stalled, delivered). It's separate and doesn't feed either grade.
 
-**If the two grades don't match, that's the point.** A government can do well on big-picture things like defence or climate and badly on the cost of your life, or the other way around. Showing both means you can see the difference.
+**If the two grades don't match, that's the point.** A government can do well on defence or climate and still be failing on the cost of your life, or the other way around. Showing both means you can see that.
 
 ## Features
 

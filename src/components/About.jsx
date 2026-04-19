@@ -30,18 +30,22 @@ export default function About() {
         </p>
         <div style={{ marginBottom: "16px" }}>
           <p style={{ margin: "0 0 10px" }}>
-            <strong>Why two grades?</strong> The government does a lot of
-            different things. We grade it across 11 areas — defence,
-            immigration, climate, housing, the cost of living, ethics, and
-            more.
+            <strong>Why two grades?</strong> Every policy area on this
+            dashboard gets its own letter grade across 11 areas — defence,
+            immigration, climate, housing, the cost of living, ethics, major
+            projects, and more. The two headline grades are different ways of
+            summarizing all 11, because one average can hide important
+            differences.
+          </p>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>Full Policy Audit</strong> is how the Carney government is
+            performing overall, across all 11 policy areas weighted equally.
+            Defence counts the same as housing; ethics counts the same as cost
+            of living.
           </p>
           <p style={{ margin: "0 0 6px" }}>
-            <strong>Full Policy Audit</strong> is the overall grade. All 11
-            areas count equally.
-          </p>
-          <p style={{ margin: "0 0 6px" }}>
-            <strong>Household Impact</strong> doubles the weight of the four
-            areas you feel in your own life:
+            <strong>Household Impact</strong> is the same kind of grade, but
+            focused on the four areas that hit daily life hardest:
           </p>
           <ul style={{ margin: "0 0 10px", paddingLeft: "22px" }}>
             <li>
@@ -61,17 +65,21 @@ export default function About() {
             </li>
           </ul>
           <p style={{ margin: "0 0 10px" }}>
-            The other seven areas still count — just not double. Both grades
-            use the same 11 dimensions, the same sources, the same rubric, and
-            the same QA rules; only the weighting changes.{" "}
-            <strong>Promises Delivered is tracked separately</strong> as an
-            accountability tool and doesn't feed either grade.
+            These four areas count twice as much in Household Impact; the
+            other seven still count, just not as heavily. Both grades use the
+            same 11 areas, the same sources, the same rubric, and the same QA
+            rules — only the weighting changes.
+          </p>
+          <p style={{ margin: "0 0 10px" }}>
+            <strong>Promises Delivered</strong> is a running tracker of
+            specific commitments (kept, broken, stalled, delivered). It's
+            separate and doesn't feed either grade.
           </p>
           <p style={{ margin: 0 }}>
             <strong>If the two grades don't match, that's the point.</strong>{" "}
-            A government can do well on big-picture things like defence or
-            climate and badly on the cost of your life, or the other way
-            around. Showing both means you can see the difference.
+            A government can do well on defence or climate and still be
+            failing on the cost of your life, or the other way around.
+            Showing both means you can see that.
           </p>
         </div>
         <p style={{ marginBottom: "16px" }}>
