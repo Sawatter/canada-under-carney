@@ -14,6 +14,8 @@ import About from "./About";
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
   const [view, setView] = useState("scorecard");
+  const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
+  const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
 
   // Calculate grades and promises from the data
   const overallGPA = calculateOverallGPA(dimensions).toFixed(2);
@@ -167,15 +169,58 @@ export default function Dashboard() {
             gap: "12px",
           }}
         >
-          {dimensions.map((d, i) => (
+          {scoredDimensions.map((d) => (
             <DimensionCard
               key={d.id}
               dim={d}
-              isExpanded={expanded === i}
-              onClick={() => setExpanded(expanded === i ? null : i)}
+              isExpanded={expanded === d.id}
+              onClick={() => setExpanded(expanded === d.id ? null : d.id)}
             />
           ))}
         </div>
+        {trackerDimensions.length > 0 && (
+          <div style={{ marginTop: "20px" }}>
+            <div
+              style={{
+                fontSize: "11px",
+                fontWeight: 700,
+                color: "#777",
+                textTransform: "uppercase",
+                letterSpacing: "0.8px",
+                marginBottom: "6px",
+              }}
+            >
+              Accountability Tracker
+            </div>
+            <div
+              style={{
+                fontSize: "12px",
+                color: "#666",
+                marginBottom: "12px",
+                lineHeight: 1.5,
+              }}
+            >
+              Promise Delivery is tracked separately as a political accountability
+              tool. It is visible here, but it is not part of the 11-dimension GPA.
+            </div>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                gap: "12px",
+              }}
+            >
+              {trackerDimensions.map((d) => (
+                <DimensionCard
+                  key={d.id}
+                  dim={d}
+                  isExpanded={expanded === d.id}
+                  onClick={() => setExpanded(expanded === d.id ? null : d.id)}
+                />
+              ))}
+            </div>
+          </div>
+        )}
         </>
       )}
 

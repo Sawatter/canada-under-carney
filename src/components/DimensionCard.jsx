@@ -32,8 +32,10 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
     <div
       onClick={onClick}
       style={{
-        background: "#fff",
-        border: `1px solid ${isExpanded ? g.color : "#e0e0e0"}`,
+        background: dim.excludeFromGPA ? "#fcfcf7" : "#fff",
+        border: `1px solid ${
+          isExpanded ? g.color : dim.excludeFromGPA ? "#d9d4b8" : "#e0e0e0"
+        }`,
         borderRadius: "8px",
         padding: "16px",
         cursor: "pointer",
@@ -79,6 +81,27 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               </span>
             )}
           </div>
+          {dim.excludeFromGPA && (
+            <div
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontSize: "10px",
+                fontWeight: 700,
+                color: "#7a6a28",
+                background: "#f5edd0",
+                border: "1px solid #e6d79b",
+                borderRadius: "999px",
+                padding: "3px 8px",
+                marginBottom: "6px",
+                textTransform: "uppercase",
+                letterSpacing: "0.4px",
+              }}
+            >
+              Tracker · Not in GPA
+            </div>
+          )}
           <div style={{ fontSize: "12px", color: "#666", lineHeight: 1.4 }}>
             {dim.status}
           </div>
