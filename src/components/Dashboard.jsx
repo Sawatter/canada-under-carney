@@ -4,6 +4,7 @@ import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
 import { gpaToGrade, calculateOverallGPA, calculatePocketbookGPA, countPromises } from "../utils";
 import ScoreboardHeader from "./ScoreboardHeader";
+import ApprovalSignal from "./ApprovalSignal";
 import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
 import PromiseTracker from "./PromiseTracker";
@@ -91,6 +92,9 @@ export default function Dashboard() {
           Print / Export PDF
         </button>
       </div>
+
+      {/* Approval signal: ungraded public-opinion tracker, explicitly outside the GPA */}
+      <ApprovalSignal />
 
       {/* Scoreboard header: overall grades + promise count */}
       <ScoreboardHeader
