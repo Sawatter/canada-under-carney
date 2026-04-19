@@ -118,14 +118,19 @@
   divergence signal). The block was removed from the live dashboard header on
   2026-04-19 to cut visual clutter. Score-box subtitles remain on the
   dashboard so each grade card still answers "what is this?" at first glance.
-- Expanded-dimension readability / information-overload review — Completed 2026-04-19
-  Reflection + narrow build pass landed. DimensionCard expansion was trimmed:
-  nested Promise Tracker replaced with a one-line summary pointing to the
-  Promises tab; Scope and "What Was Inherited" collapsed behind disclosure
-  toggles; repeated italic methodology disclaimer in Perspectives removed.
-  Core hierarchy preserved: Why This Grade → What Would Change This Grade →
-  Sub-Scores → Key Metrics → Perspectives → Promises summary → Sources.
-  Revisit only if user-testing surfaces a specific remaining overload.
+- Expanded-dimension readability / information-overload review — Completed 2026-04-19 (two passes)
+  First pass landed a density trim: nested Promise Tracker replaced with a
+  one-line summary pointing to the Promises tab; Scope and "What Was
+  Inherited" collapsed behind disclosure toggles; repeated italic methodology
+  disclaimer in Perspectives removed.
+  Second pass landed a hierarchy restructure: the default-expanded card now
+  prioritizes the headline triad (Why This Grade → Key Metrics → Sources).
+  The case-specific rationale leads Why This Grade; the band criterion is
+  demoted to a smaller subtitle; modifiers kept visible but compact. "What
+  Would Change This Grade" and "Interpretive Perspectives" collapsed behind
+  disclosure toggles. The methodology-jargon `Construct:` line removed from
+  the card header. Revisit only if user-testing surfaces a specific remaining
+  overload.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four
   optional fields per promise (`originalSourceUrl`, `originalSourceLabel`,
