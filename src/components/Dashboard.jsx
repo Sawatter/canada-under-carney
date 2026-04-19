@@ -142,6 +142,22 @@ export default function Dashboard() {
       {/* Scorecard View */}
       {view === "scorecard" && (
         <>
+        {/* Scorecard intro */}
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "13px",
+            color: "#666",
+            fontStyle: "italic",
+            lineHeight: 1.5,
+            marginBottom: "14px",
+            maxWidth: "640px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          11 policy areas graded A–F across the federal government, updated monthly. Click any card to see the reasoning behind its grade.
+        </div>
         {/* Legend */}
         <div
           style={{

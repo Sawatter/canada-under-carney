@@ -180,6 +180,18 @@ export default function ScoreboardHeader({
           })()}
         </div>
       </div>
+      {/* Why-two-grades pointer */}
+      <div
+        style={{
+          textAlign: "center",
+          fontSize: "12px",
+          color: "#888",
+          fontStyle: "italic",
+          lineHeight: 1.4,
+        }}
+      >
+        Two grades, same 11 dimensions. Why? See the About tab.
+      </div>
     </div>
   );
 }
