@@ -164,11 +164,11 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               >
                 <div>{dim.gradeBasis.plusMinusRationale}</div>
                 <div style={{ fontSize: "11px", color: "#777" }}>
-                  <strong>{dim.gradeBasis.band}</strong> band — {dim.gradeBasis.bandCriterion}
+                  <strong>{dim.gradeBasis.band}</strong> means: {dim.gradeBasis.bandCriterion}
                 </div>
                 {modifierItems.length > 0 && (
                   <div style={{ fontSize: "11px", color: "#666" }}>
-                    <strong>Modifiers:</strong>
+                    <strong>Adjustments:</strong>
                     <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
                       {modifierItems.map((modifier, i) => (
                         <div key={i}>
@@ -422,7 +422,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 }}
               >
                 <span style={{ fontSize: "9px" }}>{perspectivesOpen ? "\u25BE" : "\u25B8"}</span>
-                Interpretive Perspectives
+                Critics and defenders
               </button>
               {perspectivesOpen && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
