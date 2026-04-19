@@ -46,6 +46,7 @@
 - Pre-cycle readiness guardrail refresh — Economic Policy Response now warns more explicitly against announcement bias, Affordability Response carries a concrete next-trigger, Carbon Pricing / Climate deconfliction cues were tightened, and Housing Supply now labels BCH as announced / not started pending actual construction.
 - Commitment Traceability Map — built, pilot-reviewed, full-built, and accepted as a published governance join layer. See [docs/Commitment-Traceability-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Commitment-Traceability-Map.md).
 - MPO timeline overlap cleanup — removed the duplicate Flagship Delivery promise so the Major Projects two-year-timeline commitment now has a single primary home, consistent with overlap-prevention discipline.
+- Headline GPA display precision reduced from two decimals to one on the live dashboard and README (1.70 → 1.7, 1.49 → 1.5). Underlying math, grade bands, sensitivity analysis, and shadow-log methodology retain full precision; the change is display-only and removes false precision the methodology cannot actually support.
 
 ---
 
