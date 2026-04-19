@@ -112,10 +112,9 @@ export default function EmailSignup() {
             style={{ marginTop: "2px" }}
           />
           <span>
-            I consent to receive email updates from Canada Under Carney
-            (CJS Strategy &amp; Ops Inc.). I can unsubscribe at any time
-            via the link in any email. (Required by Canadian anti-spam
-            law.)
+            I consent to receive email updates from the Canada Under
+            Carney dashboard. I can unsubscribe at any time via the
+            link in any email. (Required by Canadian anti-spam law.)
           </span>
         </label>
 

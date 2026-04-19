@@ -235,7 +235,7 @@ export default function About() {
             Built By
           </div>
           <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
-            CJS Strategy &amp; Ops Inc. &middot; Calgary, Canada
+            Independent project &middot; Calgary, Canada
             <br />
             Built with AI assistance (Claude Code). Methodology
             stress-tested through simulated adversarial review.
