@@ -262,6 +262,30 @@ If you want, I can draft the reflection prompt for the `QA-Gatekeeping-Rules.md`
 
 ---
 
+### Verbatim note — product thesis / future dashboard copy
+
+Note: preserve this wording for a future product-vision / dashboard-copy pass. Do not treat it as adopted live copy until a reflection/build pass settles the final artifact and placement.
+
+A strong draft for this project would be something like this:
+
+**Problem statement**
+Political performance information is fragmented, partisan, and hard to audit. Readers can find claims, headlines, and commentary, but they usually cannot find a transparent, repeatable, source-traceable way to judge how a government is performing across major policy dimensions.
+
+**Vision**
+Build the most inspectable, disciplined, and reader-trustworthy public performance dashboard for the Carney government: fast enough for a reader to understand at a glance, rigorous enough for a skeptical auditor to trace and challenge.
+
+**Core outcome**
+A reader should be able to:
+- understand the headline assessment quickly
+- inspect why a dimension got its grade
+- trace the judgment back to evidence, rules, and source roles
+- see uncertainty, attribution limits, and inherited constraints clearly
+
+**Primary user**
+A skeptical, informed reader who wants more than partisan vibes but less than a full academic paper.
+
+---
+
 ## Future v2 / Structural Questions
 
 - Flagship Delivery probation outcome after one real cycle
