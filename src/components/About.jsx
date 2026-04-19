@@ -29,15 +29,23 @@ export default function About() {
           using a published scoring rubric.
         </p>
         <p style={{ marginBottom: "16px" }}>
-          The dashboard publishes two headline grades because they answer two
-          different questions using the same 11 graded dimensions. The{" "}
-          <strong>Household Impact</strong> grade is not a separate source
-          stack; it is a weighted composite that double-weights Housing Supply,
-          Affordability Response, Economic Policy Response, and Fiscal Health.
-          The <strong>Full Policy Audit</strong> weights all 11 graded
-          dimensions equally. Promise Delivery is tracked separately as an
-          ungraded accountability tool. A government can perform better on
-          statecraft than on household-facing files. We show both.
+          <strong>Why two grades?</strong> The government does a lot of
+          different things. We grade it across 11 areas — defence, immigration,
+          climate, housing, the cost of living, ethics, and more.{" "}
+          <strong>Full Policy Audit</strong> is the overall grade, weighting
+          all 11 areas equally.{" "}
+          <strong>Household Impact</strong> cares more about the four areas you
+          feel in your own life: housing, the cost of living, the economy, and
+          whether government spending is under control. Those four count twice
+          as much in this grade. The other seven still count — just not double.
+          Both grades use the same 11 dimensions, the same sources, the same
+          rubric, and the same QA rules; only the weighting changes.{" "}
+          <strong>Promises Delivered is tracked separately</strong> as an
+          accountability tool and doesn't feed either grade.{" "}
+          <strong>If the two grades don't match, that's the point.</strong> A
+          government can do well on big-picture things like defence or climate
+          and badly on the cost of your life, or the other way around. Showing
+          both means you can see the difference.
         </p>
         <p style={{ marginBottom: "16px" }}>
           The scoring stack now also includes a published{" "}

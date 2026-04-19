@@ -38,10 +38,21 @@ export default function ScoreboardHeader({
               color: "#999",
               textTransform: "uppercase",
               letterSpacing: "0.5px",
-              marginBottom: "8px",
+              marginBottom: "4px",
             }}
           >
             Household Impact
+          </div>
+          <div
+            style={{
+              fontSize: "10px",
+              color: "#999",
+              marginBottom: "8px",
+              fontStyle: "italic",
+              lineHeight: 1.3,
+            }}
+          >
+            Focused on housing, cost of living, the economy, and government spending.
           </div>
           <GradeChip grade={pocketbookGrade} size="lg" />
           <div
@@ -74,10 +85,21 @@ export default function ScoreboardHeader({
               color: "#999",
               textTransform: "uppercase",
               letterSpacing: "0.5px",
-              marginBottom: "8px",
+              marginBottom: "4px",
             }}
           >
             Full Policy Audit
+          </div>
+          <div
+            style={{
+              fontSize: "10px",
+              color: "#999",
+              marginBottom: "8px",
+              fontStyle: "italic",
+              lineHeight: 1.3,
+            }}
+          >
+            Overall grade. All 11 policy areas count equally.
           </div>
           <GradeChip grade={overallGrade} size="lg" />
           <div
@@ -162,14 +184,23 @@ export default function ScoreboardHeader({
         }}
       >
         <strong style={{ color: "#333" }}>Why two grades?</strong>{" "}
-        Both headlines are built from the same 11 graded dimensions. The
-        Household Impact grade is a weighted composite that double-weights
-        Housing Supply, Affordability Response, Economic Policy Response, and
-        Fiscal Health. The Full Policy Audit weights all 11 graded dimensions
-        equally, including defence, trade, climate, immigration, ethics, and
-        flagship delivery. Promise Delivery is tracked separately and does not
-        feed either GPA. A government can perform better on statecraft than on
-        household-facing files. We show both.
+        The government does a lot of different things. We grade it across
+        11 areas — defence, immigration, climate, housing, the cost of living,
+        ethics, and more.{" "}
+        <strong style={{ color: "#333" }}>Full Policy Audit</strong> is the
+        overall grade, weighting all 11 areas equally.{" "}
+        <strong style={{ color: "#333" }}>Household Impact</strong> cares more
+        about the four areas you feel in your own life: housing, the cost of
+        living, the economy, and whether government spending is under control.
+        Those four count twice as much in this grade. The other seven still
+        count — just not double.{" "}
+        <strong style={{ color: "#333" }}>Promises Delivered is tracked separately</strong>{" "}
+        and doesn't feed either grade; it's a commitment tracker, not a policy
+        grade.{" "}
+        <strong style={{ color: "#333" }}>If the two grades don't match, that's the point.</strong>{" "}
+        A government can do well on big-picture things like defence or climate
+        and badly on the cost of your life, or the other way around. Showing
+        both grades means you can see the difference.
       </div>
     </div>
   );
