@@ -282,6 +282,14 @@ export default function Dashboard() {
           Monthly updates with ad-hoc revisions on major events &middot; Rubric
           v{meta.rubricVersion} &middot; Next scheduled update: {meta.nextUpdate}
         </div>
+        <div style={{ fontSize: "11px", color: "#aaa", marginTop: "8px" }}>
+          <a
+            href="feed.xml"
+            style={{ color: "#1a73e8", textDecoration: "none" }}
+          >
+            Subscribe via RSS &rarr;
+          </a>
+        </div>
       </div>
     </div>
   );
