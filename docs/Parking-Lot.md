@@ -118,7 +118,7 @@
   divergence signal). The block was removed from the live dashboard header on
   2026-04-19 to cut visual clutter. Score-box subtitles remain on the
   dashboard so each grade card still answers "what is this?" at first glance.
-- Expanded-dimension readability / information-overload review — Completed 2026-04-19 (three passes)
+- Expanded-dimension readability / information-overload review — Completed 2026-04-19 (four passes)
   First pass landed a density trim: nested Promise Tracker replaced with a
   one-line summary pointing to the Promises tab; Scope and "What Was
   Inherited" collapsed behind disclosure toggles; repeated italic methodology
@@ -134,6 +134,11 @@
   and defenders"; "Modifiers:" → "Adjustments:"; "**{band}** band —
   {bandCriterion}" → "**{band}** means: {bandCriterion}". Copy-only; no
   structural change.
+  Fourth pass landed an accessibility cleanup: all DimensionCard and
+  PromiseTracker disclosure controls now carry `aria-expanded`,
+  `aria-controls`, and matching region `id`s; PromiseTracker rows expose
+  `role="button"`, `tabIndex={0}`, and keyboard Enter/Space handling;
+  disclosure buttons meet WCAG 2.5.8 24×24 touch-target minimum.
   Revisit only if user-testing surfaces a specific remaining overload.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four
