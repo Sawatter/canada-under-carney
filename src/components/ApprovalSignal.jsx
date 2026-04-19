@@ -1,10 +1,18 @@
 import { useState } from "react";
 import data from "../data/approval-polls.json";
 
-function avg(nums) {
-  const defined = nums.filter((n) => typeof n === "number");
-  if (defined.length === 0) return null;
-  return defined.reduce((s, n) => s + n, 0) / defined.length;
+function weightedMean(values, weights) {
+  if (values.length === 0) return null;
+  let num = 0;
+  let den = 0;
+  for (let i = 0; i < values.length; i++) {
+    const v = values[i];
+    const w = weights[i];
+    if (typeof v !== "number" || typeof w !== "number" || w <= 0) continue;
+    num += v * w;
+    den += w;
+  }
+  return den > 0 ? num / den : null;
 }
 
 function formatPct(v) {
@@ -40,10 +48,16 @@ export default function ApprovalSignal() {
   const recent = filterByWindow(data.polls, asOf, recentStart);
   const prior = filterByWindow(data.polls, recentStart, priorStart);
 
-  const approveNow = avg(recent.map((p) => p.approve));
-  const disapproveNow = avg(recent.map((p) => p.disapprove));
-  const approvePrior = avg(prior.map((p) => p.approve));
-  const disapprovePrior = avg(prior.map((p) => p.disapprove));
+  // Sample-size weighted mean: a poll of n=2,000 carries twice the weight of
+  // one at n=1,000. This is the standard "inverse-variance-approximating"
+  // weighting for equal-methodology polls; house effects across CRIC members
+  // are small enough for this to be defensible without explicit de-housing.
+  const recentWeights = recent.map((p) => p.sampleSize || 0);
+  const priorWeights = prior.map((p) => p.sampleSize || 0);
+  const approveNow = weightedMean(recent.map((p) => p.approve), recentWeights);
+  const disapproveNow = weightedMean(recent.map((p) => p.disapprove), recentWeights);
+  const approvePrior = weightedMean(prior.map((p) => p.approve), priorWeights);
+  const disapprovePrior = weightedMean(prior.map((p) => p.disapprove), priorWeights);
 
   const net = approveNow !== null && disapproveNow !== null
     ? Math.round(approveNow - disapproveNow)
@@ -177,10 +191,10 @@ export default function ApprovalSignal() {
           lineHeight: 1.5,
         }}
       >
-        {recent.length} polls in window ({pollstersInWindow.join(", ")}). Simple
-        mean across pollsters; no sample-size weighting. Tracked as an ungraded
-        signal so popularity does not contaminate the 11-dimension performance
-        grades.
+        {recent.length} polls in window ({pollstersInWindow.join(", ")}).
+        Sample-size-weighted mean: a poll of n=2,000 counts twice a poll of
+        n=1,000. Tracked as an ungraded signal so popularity does not
+        contaminate the 11-dimension performance grades.
       </div>
 
       <div
@@ -203,6 +217,41 @@ export default function ApprovalSignal() {
       >
         {expanded ? "\u25BC Hide underlying polls" : "\u25B6 Show underlying polls"}
       </div>
+
+      {data.preferredPM && data.preferredPM.polls && data.preferredPM.polls.length > 0 && (() => {
+        const sorted = data.preferredPM.polls
+          .slice()
+          .sort((a, b) => (a.fieldEnd < b.fieldEnd ? 1 : -1));
+        const latest = sorted[0];
+        const prev = sorted[1];
+        return (
+          <div
+            style={{
+              marginTop: "10px",
+              paddingTop: "8px",
+              borderTop: "1px dashed #d4d4d4",
+              fontSize: "11px",
+              color: "#666",
+              lineHeight: 1.5,
+            }}
+          >
+            <span style={{ fontWeight: 700, color: "#333" }}>
+              Preferred PM (Nanos):
+            </span>{" "}
+            Carney {latest.carney}% &middot; Poilievre {latest.poilievre}%
+            &middot; week ending {latest.fieldEnd}
+            {prev && (
+              <span style={{ color: "#999" }}>
+                {" "}
+                (prior week: {prev.carney}% / {prev.poilievre}%)
+              </span>
+            )}
+            . Different construct from approval above &mdash; a best-choice
+            question, not approve/disapprove. Shown as secondary context; not
+            averaged into the approval mean.
+          </div>
+        );
+      })()}
 
       {expanded && (
         <div
