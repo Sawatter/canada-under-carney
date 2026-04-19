@@ -1565,7 +1565,7 @@
   {
     "id": "execution-delivery",
     "name": "Flagship Delivery",
-    "whatThisGrades": "How well the government is executing on its five flagship files, taken together.",
+    "whatThisGrades": "How well the government is executing on its five flagship files — defence, housing, major projects, climate, immigration.",
     "grade": "C",
     "previousGrade": null,
     "trend": "down",
@@ -1672,6 +1672,7 @@
   {
     "id": "promise-delivery",
     "name": "Promise Delivery",
+    "whatThisGrades": "A running tracker of specific government commitments — delivered, in progress, stalled, or abandoned.",
     "grade": "C+",
     "previousGrade": null,
     "trend": "stable",
