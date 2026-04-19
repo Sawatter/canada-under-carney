@@ -10,14 +10,14 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 |---|---|---|
 | **Household Impact** | **D+** | 1.49 |
 | **Full Policy Audit** | **C-** | 1.70 |
-| **Promises Delivered** | **14/44** | 32% |
+| **Promises Delivered** | **14/43** | 33% |
 
 *Why two grades?* Both headline grades are built from the same 11 graded dimensions. Household Impact is a weighted composite that double-weights Housing Supply, Affordability Response, Economic Policy Response, and Fiscal Health. The Full Policy Audit weights all 11 graded dimensions equally. Promise Delivery is tracked separately and does not feed either GPA. A government can perform better on statecraft than on household-facing files. We show both.
 
 ## Features
 
 - **Scorecard** — 11 graded policy dimensions (A through F) plus an ungraded Promise Tracker, with expandable details, rationale, evidence, and source links
-- **Promise Tracker** — 44 government commitments tracked by status with expandable evidence
+- **Promise Tracker** — 43 government commitments tracked by status with expandable evidence
 - **Commitment Traceability Map** — published join layer linking commitments to home dimensions, constructs, indicators, source roles, and derivative handling
 - **Compare** — Side-by-side dimension comparison
 - **Methodology** — Transparent scoring rubric embedded in the dashboard

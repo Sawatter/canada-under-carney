@@ -1547,7 +1547,7 @@
         "url": "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/"
       }
     ],
-    "lastUpdated": "2026-04-17",
+    "lastUpdated": "2026-04-18",
     "metrics": [
       {
         "label": "Flagship files delivering",
@@ -1578,20 +1578,6 @@
       }
     ],
     "promises": [
-      {
-        "text": "2-year project approval timeline",
-        "status": "In Progress",
-        "since": "2026-04-14",
-        "evidence": "MPO framework established. No project has completed the full approval cycle yet.",
-        "durability": "Commitment",
-        "history": [
-          {
-            "date": "2026-04-14",
-            "status": "In Progress",
-            "note": "Initial assessment"
-          }
-        ]
-      },
       {
         "text": "Get big projects built quickly",
         "status": "Stalled",
@@ -1642,7 +1628,7 @@
     },
     "gradeTriggers": {
       "up": [
-        "Delivery count rises to 18 or more of 44 without new abandonments"
+        "Delivery count rises to 18 or more of 43 without new abandonments"
       ],
       "down": [
         "Additional abandonments bring the total above 15",
@@ -1664,18 +1650,18 @@
         "url": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-18",
     "metrics": [
       {
         "label": "Key commitments delivered",
-        "value": "14 of 44",
+        "value": "14 of 43",
         "source": "editorial",
         "sourceNote": "Editorial tally based on promise-by-promise status assessment. Each promise status is documented with evidence in the promises array. Derivative of home dimension evidence.",
         "automatable": false
       },
       {
         "label": "Commitments stalled or abandoned",
-        "value": "12 of 44",
+        "value": "12 of 43",
         "source": "editorial",
         "sourceNote": "Editorial tally. See individual promise entries for evidence basis.",
         "automatable": false
