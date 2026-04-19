@@ -670,7 +670,7 @@ The CTM must **not**:
   - **Execution (required):** first project completing full MPO 2-year cycle (none yet)
   - **Measurement (required):** mean approval-time data vs pre-MPO baseline
   - **Independent challenge (required):** Fraser Institute [QA T2]; Angus Reid polling context [QA T3]
-- **deconfliction_notes:** MPO institutional machinery → primary home Major Projects. **Note on Flagship overlap:** Flagship Delivery's `promises[0]` ("2-year project approval timeline") appears to duplicate this commitment. The Deconfliction Matrix does not currently have a row explicitly resolving which dimension owns the 2-year-timeline commitment as a live promise; **upstream residual U1** flagged for future resolution. Per overlap-prevention discipline, Flagship should treat this as delivery evidence only, not as a home commitment.
+- **deconfliction_notes:** MPO institutional machinery → primary home Major Projects. Flagship Delivery now carries this only as derivative delivery evidence under the major-projects flagship file, consistent with [Flagship-Delivery-Rules.md §Overlap Prevention](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md).
 - **derivative_handling:** Flagship Delivery uses Major Projects as one of five flagship files; the MPO cycle-completion milestone is a delivery indicator (execution machinery) on that file, not an outcome indicator, per [Flagship-Delivery-Rules.md §Overlap Prevention](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md). Aggregated in Promise Delivery.
 - **update_trigger:** First project completes full MPO 2-year cycle; first use of national interest designation; documented approval-time acceleration vs pre-MPO baseline.
 - **measurement_rules_notes:** No MSR rule for MPO cycle time. **Residual:** MSR extension candidate if cycle-completion becomes grade-moving.
@@ -868,34 +868,15 @@ The CTM must **not**:
 
 ## 10. Flagship Delivery
 
-### FLAG-001 — "2-year project approval timeline"
+### FLAG-001 — "Get big projects built quickly"
 
 - **commitment_id:** `FLAG-001`
-- **commitment_text:** "2-year project approval timeline"
-- **source_type:** campaign platform; legislated via Building Canada Act
-- **source_document:** [Building Canada Act (Bill C-5)](https://www.parl.ca/legisinfo/en/bill/45-1/c-5) via the Major Projects dimension's `sources` array. **Residual:** Flagship Delivery's own `sources` array does not contain this citation; the Flagship `promises[0]` entry references the MPO framework that is properly homed in Major Projects.
-- **durability:** Commitment *(live tag)*. **Upstream residual:** this commitment substantially overlaps with MPROJ-001; flagged as **U1**.
-- **home_dimension:** Flagship Delivery *(live assignment in dimensions.json)*. **Upstream residual:** per [Flagship-Delivery-Rules.md §Overlap Prevention](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md), the MPO 2-year timeline is a Major Projects machinery commitment and should be home-dimension Major Projects with Flagship carrying it only as a derivative delivery indicator. The live dimensions.json has it in both. Surfaced, not resolved.
-- **promise_tracker_entry:** Flagship Delivery `promises[0]`; status In Progress. Note that Major Projects `promises[0]` carries the functionally-equivalent commitment (MPROJ-001).
-- **construct_tested:** "The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files" *(verbatim from [Canonical-Scoring-Sheets.md:188](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md))*. Specifically the **MPO-delivery-machinery** component of the major-projects flagship file.
-- **primary_indicators:** Per CSS Flagship uses the Combination Rule; this commitment contributes to the major-projects-file status assessment rather than to its own stand-alone indicator.
-- **source_roles_required:** Derivative of Major Projects' role stack (per the derivative construct-type in [Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md) Flagship entry); Flagship does not independently source this commitment.
-- **deconfliction_notes:** See Upstream U1 above. The same commitment cannot legitimately occupy primary-home in two dimensions simultaneously; per overlap-prevention rule, Major Projects is the correct primary home and Flagship should carry this only as delivery evidence.
-- **derivative_handling:** Flagship Delivery *is* the derivative home in this case; aggregation in Flagship is the raison d'être of the combination dimension. Aggregated in Promise Delivery.
-- **update_trigger:** First project completes the full MPO 2-year cycle (shared with MPROJ-001).
-- **measurement_rules_notes:** No MSR rule.
-
----
-
-### FLAG-002 — "Get big projects built quickly"
-
-- **commitment_id:** `FLAG-002`
 - **commitment_text:** "Get big projects built quickly"
 - **source_type:** campaign platform
 - **source_document:** **Residual:** platform commitment URL not in Flagship `sources` array.
 - **durability:** Commitment *(live tag)*. **Note:** slogan-level framing rather than a specific mechanism; PCR might classify as a lower-tier commitment. Genuine Flagship-native commitment (it asks the cross-cutting delivery question directly).
-- **home_dimension:** Flagship Delivery *(live assignment)*. Unlike FLAG-001, this commitment is Flagship-native in that it addresses the cross-cutting delivery machinery across all five flagship files rather than a specific project's timeline.
-- **promise_tracker_entry:** Flagship Delivery `promises[1]`; status Stalled.
+- **home_dimension:** Flagship Delivery *(live assignment)*. This commitment is Flagship-native in that it addresses the cross-cutting delivery machinery across all five flagship files rather than a specific project's timeline.
+- **promise_tracker_entry:** Flagship Delivery `promises[0]`; status Stalled.
 - **construct_tested:** [CSS:188](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md) construct — **cross-cutting execution** component; tests the full five-flagship-file delivery picture rather than any single file.
 - **primary_indicators:** Per the Combination Rule ([Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md)): flagship file status distribution (delivering / partially delivering / stalled / failing); bills passed vs introduced; federal-provincial coordination quality; fund disbursement rates on flagship programs.
 - **source_roles_required:**
@@ -1030,7 +1011,7 @@ The CTM must **not**:
 
 ## Build note — full build complete, stress-test findings, residuals
 
-**Full build summary.** Template + Housing Supply pilot (from Stage 1) retained verbatim. Ten remaining graded dimensions now built: Fiscal Health (4), Affordability Response (3), Carbon Pricing Policy (3), Climate & Environment (4), Immigration (3), Major Projects (4), Economic Policy Response (3), Ethics & Transparency (2), Flagship Delivery (2), Defence & Trade (5). Total commitments documented: 37 across 11 dimensions (Housing Supply 4 + new 33).
+**Full build summary.** Template + Housing Supply pilot (from Stage 1) retained verbatim. Ten remaining graded dimensions now built: Fiscal Health (4), Affordability Response (3), Carbon Pricing Policy (3), Climate & Environment (4), Immigration (3), Major Projects (4), Economic Policy Response (3), Ethics & Transparency (2), Flagship Delivery (1), Defence & Trade (5). Total commitments documented: 36 across 11 dimensions (Housing Supply 4 + new 32).
 
 **Template behavior at scale.** All 14 fields populated for every commitment, or explicitly flagged as residual where a field could not be resolved from the in-scope files. The "flag gaps rather than invent answers" design rule held across every commitment type tested:
 
@@ -1038,7 +1019,7 @@ The CTM must **not**:
 - **Delivered commitments** (FISCAL-003, FISCAL-004, AFFORD-001, AFFORD-002, CARBON-001, CARBON-002, MPROJ-004, DEFTRADE-001, DEFTRADE-002): update_trigger correctly oriented toward policy-reversal / material-outturn-divergence rather than "first action" triggers.
 - **Too Early commitments** (CARBON-003, CLIMATE-001, MPROJ-003, ECONPOL-003, DEFTRADE-005): Future-tense roles clearly marked; update_trigger names the first-concrete-action thresholds.
 - **Process-construct commitments** (ETHICS-001, ETHICS-002): Measurement marked "not applicable to this construct" with explicit reference to the Process construct type in SAM; no fake-precision indicator invented.
-- **Derivative/Combination commitments** (FLAG-001, FLAG-002): Derivative-home framing applied; the FLAG-001 overlap with MPROJ-001 surfaced as upstream residual U1 rather than resolved.
+- **Derivative/Combination commitments** (FLAG-001): Derivative-home framing held cleanly once the MPO timeline commitment was returned to its proper Major Projects home and left in Flagship as derivative delivery evidence only.
 - **Dual-leg dimension** (Defence & Trade): Each commitment assigned to a single leg (defence or trade); no blended rows. The Defence & Trade pilot did not produce a true dual-leg commitment requiring a cluster split, but the leg-assignment discipline held.
 
 **Cross-doc consistency at scale.** Across 33 new commitments, no row silently redefined constructs, tiers, minimum indicators, source roles, deconfliction ownership, or MSR canonical measures. Every construct quote is verbatim from CSS. Every Deconfliction Matrix citation names a Matrix row. Every SAM role assignment is a subset of the dimension's SAM role-requirement set.
@@ -1050,13 +1031,12 @@ The CTM must **not**:
 These are findings inside the CTM's own scope. None block future use of the artifact; they are normal operating residuals from the "flag gaps" discipline.
 
 - **CTM-T1** — Seven commitments have durability tags in dimensions.json that arguably fit a different PCR tier better (HOUSING-001 Commitment→Target; HOUSING-002 Commitment→Program; CARBON-002 Commitment→Legislated; MPROJ-001 Commitment→Legislated; AFFORD-002 Commitment→Framework; AFFORD-003 Commitment→Framework; ECONPOL-001 Framework→Program). The CTM flags each without re-tagging. **Candidate:** Promise-Tracker hygiene pass on durability tags.
-- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-002, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-002, DEFTRADE-002, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these, many via existing available URLs.
+- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-002, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-002, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these, many via existing available URLs.
 
 ### Upstream governance residuals surfaced during the build
 
 These are findings that live in upstream docs (CSS, Matrix, SAM, MSR, Flagship-Delivery-Rules). The CTM surfaced them; resolution belongs in the relevant upstream pass, not in the CTM.
 
-- **U1 — Flagship Delivery / Major Projects commitment overlap on MPO 2-year timeline.** FLAG-001 ("2-year project approval timeline") and MPROJ-001 ("Major Federal Project Office with 2-year decisions") are substantively the same commitment in two dimensions' `promises` arrays. Per [Flagship-Delivery-Rules.md §Overlap Prevention](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md), Major Projects should own primary home and Flagship should carry this only as derivative delivery evidence. Live state has both. **Upstream resolution:** move FLAG-001 out of Flagship's `promises` array (or explicitly relabel it as a derivative reference) so the commitment has a single primary-home.
 - **U2 — CSS Housing Supply minimum-indicator list does not cover labour-capacity.** HOUSING-004 ("Apprenticeship training up to $8,000"). Either add a minimum indicator or re-home the commitment to Economic Policy Response. **Upstream resolution:** CSS amendment or re-homing decision.
 - **U3 — CSS Affordability Response minimum-indicator list does not cover voluntary competition codes or food-labelling programs.** AFFORD-002, AFFORD-003. Indicator anchors are thin. **Upstream resolution:** CSS amendment decision.
 - **U4 — CSS Economic Policy Response minimum-indicator list does not cover regulatory-review reports.** ECONPOL-003. Indirectly tested via business-investment response only. **Upstream resolution:** CSS amendment decision.
@@ -1067,8 +1047,8 @@ These are findings that live in upstream docs (CSS, Matrix, SAM, MSR, Flagship-D
 - **U9 — MSR does not specify canonical measurement for apprenticeship programs, conservation spending / protected-area percentage, civil-service headcount, food-labelling programs, voluntary competition codes, red-tape review reports, MPO cycle-time, Buy Canadian procurement-share, interprovincial trade integration, foreign policy review output, or Indigenous Loan disbursement.** **Upstream resolution:** MSR extension candidates as these commitments' indicators become grade-moving.
 - **U10 — Carbon Pricing Policy and Ethics & Transparency `sources` arrays have gaps relative to commitments cited** (ECCC OBPS direct source for CARBON-002; original platform / announcement URLs for ETHICS-001, ETHICS-002). **Upstream resolution:** source-hardening passes on affected dimensions.
 
-**Note on counting.** CTM-T1 and CTM-T2 are scoped to CTM presentation (what the map says). U1–U10 are scoped to upstream governance content (what the upstream docs say). Both are normal findings at this scale; U1 is the most structural (a commitment in two dimensions' promises arrays simultaneously) and is the one most worth an explicit upstream resolution before next cycle.
+**Note on counting.** CTM-T1 and CTM-T2 are scoped to CTM presentation (what the map says). U2–U10 are open upstream governance content findings (what the upstream docs say). The earlier U1 overlap on the MPO 2-year timeline has now been resolved by returning the commitment to its Major Projects home and keeping Flagship derivative-only on that evidence.
 
 ---
 
-**One-line build verdict:** FULL CTM BUILD COMPLETE — 37 COMMITMENTS ACROSS 11 DIMENSIONS, TEMPLATE HELD AT SCALE, TWO CTM RESIDUAL CATEGORIES AND TEN UPSTREAM GOVERNANCE RESIDUALS SURFACED. The artifact is ready for final review when the user requests it; no CTM template amendment is required.
+**One-line build verdict:** FULL CTM BUILD COMPLETE — 36 COMMITMENTS ACROSS 11 DIMENSIONS, TEMPLATE HELD AT SCALE, TWO CTM RESIDUAL CATEGORIES AND NINE OPEN UPSTREAM GOVERNANCE RESIDUALS SURFACED. The artifact is ready for final review when the user requests it; no CTM template amendment is required.

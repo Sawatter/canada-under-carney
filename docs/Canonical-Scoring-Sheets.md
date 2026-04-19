@@ -493,7 +493,7 @@
 - Credit-claiming penalty: Not applicable (this dimension tracks stated commitments, not claimed achievements).
 
 **One-notch move triggers:**
-- Up: Delivery count rises to 18+ of 44 without new abandonments
+- Up: Delivery count rises to 18+ of 43 without new abandonments
 - Down: Additional abandonments bring total above 15, OR housing/climate see no movement for another cycle
 
 **Biggest confounder:** This is a derivative dimension. Every promise that delivers or stalls also appears in its home dimension. NATO 2% delivered moves Defence & Trade AND Promise Delivery. Housing scaled back moves Housing Supply AND Promise Delivery. The dimension is not independent — it is a shadow of the other action dimensions.

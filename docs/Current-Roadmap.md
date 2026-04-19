@@ -30,7 +30,8 @@
 - SAM Current State Delta fields reconciled for Ethics, Flagship Delivery, and Climate & Environment after source threading landed.
 - Pre-cycle readiness guardrails refreshed in the live data for the most failure-prone files: announcement-bias wording tightened in Economic Policy Response, scope/trigger discipline sharpened in Affordability Response, Carbon Pricing / Climate deconfliction cues made more explicit, and Housing stage language now distinguishes announced from not started.
 - Independent methods review is complete; methods hold with targeted amendments and no structural defect blocks another full cycle.
-- Commitment Traceability Map is active as a governance join layer across 37 commitments in 11 graded dimensions.
+- Commitment Traceability Map is active as a governance join layer across 36 commitments in 11 graded dimensions.
+- The Major Projects / Flagship Delivery overlap on the MPO two-year-timeline commitment is resolved. Major Projects remains the sole home; Flagship now carries it only as derivative delivery evidence.
 
 ---
 
@@ -44,6 +45,7 @@
 - Live review pass — code-level pass over main cards, CompareView, Methodology, ScoreboardHeader, PromiseTracker, WhatsChanged, and About; copy-staleness in About ("12 policy dimensions", Official source list, Independent policy list) and the Dashboard footer source list corrected.
 - Pre-cycle readiness guardrail refresh — Economic Policy Response now warns more explicitly against announcement bias, Affordability Response carries a concrete next-trigger, Carbon Pricing / Climate deconfliction cues were tightened, and Housing Supply now labels BCH as announced / not started pending actual construction.
 - Commitment Traceability Map — built, pilot-reviewed, full-built, and accepted as a published governance join layer. See [docs/Commitment-Traceability-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Commitment-Traceability-Map.md).
+- MPO timeline overlap cleanup — removed the duplicate Flagship Delivery promise so the Major Projects two-year-timeline commitment now has a single primary home, consistent with overlap-prevention discipline.
 
 ---
 
@@ -65,9 +67,6 @@ These are on deck awaiting their triggers.
    - Housing Supply: announced != started != completed
    - Major Projects: credit-claiming penalty remains explicit
    This item is cycle-triggered — runs when the next monthly update is being assembled.
-2. Resolve the MPO two-year-timeline commitment overlap between Major Projects and Flagship Delivery before the next monthly cycle.
-   The CTM final review surfaced one commitment currently living in two primary homes. Fix upstream; do not patch around it in the CTM.
-
 ---
 
 ## Later
