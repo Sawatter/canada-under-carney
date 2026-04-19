@@ -92,24 +92,32 @@ export default function About() {
             Source Balance
           </div>
           <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+            This is a current source-balance summary, not a full manifest. Click
+            any expanded dimension card for the exact source URLs used on that
+            file.
+            <br />
             <strong>Official:</strong> Statistics Canada, PBO, CMHC, Bank of
-            Canada, IRCC, ECCC, Global Affairs Canada, Office of the Ethics
-            Commissioner, NATO, OECD, IMF, Fitch
+            Canada, IRCC, ECCC, Global Affairs Canada, NRCan, Finance Canada /
+            Canada.ca, Office of the Ethics Commissioner, LEGISinfo / parl.ca,
+            direct PM ethics filings, NATO, OECD, IMF
             <br />
-            <strong>Centre:</strong> CBC News, Globe and Mail, La Presse,
-            Toronto Star
+            <strong>Centre:</strong> CBC News, Globe and Mail
             <br />
-            <strong>Right:</strong> C.D. Howe, The Hub, National Post
+            <strong>Right:</strong> C.D. Howe, Fraser Institute, The Hub
             <br />
-            <strong>Left:</strong> CCPA, The Narwhal, National Observer
+            <strong>Left:</strong> The Narwhal, National Observer
             <br />
             <strong>Independent policy:</strong> IRPP / Policy Options,
-            Canadian Climate Institute, IISD, IFSD
+            Canadian Climate Institute, IISD, Democracy Watch
             <br />
             <strong>Academic:</strong> The Conversation Canada, Dalhousie,
             PROOF (U of T)
             <br />
-            <strong>Polling:</strong> Angus Reid, L&eacute;ger, Nanos, Abacus
+            <strong>Polling:</strong> Angus Reid
+            <br />
+            <strong>Context-only official announcements:</strong> PMO or other
+            government press releases may appear as context, but they do not by
+            themselves move grades.
           </div>
         </div>
 
