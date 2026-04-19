@@ -433,17 +433,17 @@ These may shape interpretation but must not move the Defence & Trade grade witho
 **Current state delta**
 
 Current `dimensions.json` Defence & Trade source stack:  
-NATO Secretary General Annual Report 2025, PMO NATO 2% announcement, Budget 2025 Ch.4, StatsCan trade data, Global Affairs Canada Monthly Trade Report  
+NATO Secretary General Annual Report 2025, PMO NATO 2% announcement, Budget 2025 Ch.4, Building Canada Act (Bill C-5), StatsCan trade data, Global Affairs Canada Monthly Trade Report  
 Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:33)
 
 - **Present and well-aligned**
   - `NATO Secretary General Annual Report 2025` fills defence measurement/execution truth.
   - `StatsCan trade data` and `Global Affairs Canada Monthly Trade Report` fill trade measurement/execution truth.
   - `Budget 2025 Ch.4` fills policy truth on the funded defence and diversification commitments.
+  - `Building Canada Act (Bill C-5)` fills policy/legislative truth on the delivered interprovincial-trade-barrier reform promise (added 2026-04-18 to close the direct-legislative-source gap flagged by U10 / CTM-T2; same URL cross-referenced in the Major Projects `sources` array for MPROJ-001).
 
 - **Gaps**
   - No explicit independent-challenge source is present in the `sources` array, even though the live minus rationale depends on caveats about the unfunded 3.5% target and partly market-driven diversification.
-  - No direct legislative source is present in the `sources` array for the delivered interprovincial-trade-barrier reform promise, even though that promise is part of the current file.
 
 - **Role mismatches**
   - `PMO NATO 2% announcement` is better understood as context/policy corroboration than as a primary measurement or execution anchor, because NATO already provides the grade-moving confirmation.

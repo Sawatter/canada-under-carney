@@ -923,7 +923,7 @@ The CTM must **not**:
 - **commitment_id:** `DEFTRADE-002`
 - **commitment_text:** "Remove interprovincial trade barriers"
 - **source_type:** campaign platform; legislated via One Canadian Economy Act (Bill C-5)
-- **source_document:** [Building Canada Act (Bill C-5) — LEGISinfo](https://www.parl.ca/legisinfo/en/bill/45-1/c-5). **Residual:** Defence & Trade's `sources` array does not currently include a LEGISinfo citation for Bill C-5; source-hardening candidate.
+- **source_document:** [Building Canada Act (Bill C-5) — LEGISinfo](https://www.parl.ca/legisinfo/en/bill/45-1/c-5) *(now in Defence & Trade `sources` array; same URL is also threaded in Major Projects `sources`)*.
 - **durability:** Legislated *(live tag matches PCR tier)*.
 - **home_dimension:** Defence & Trade — **trade leg** *(live assignment)*. **Construct-fit note:** per [CSS:556](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md) rater note, interprovincial trade is acknowledged to overlap with Economic Policy Response (productivity/competitiveness). CSS nonetheless primary-homes trade diversification metrics in Defence & Trade. Construct-fit question surfaced, not resolved.
 - **promise_tracker_entry:** Defence & Trade `promises[1]`; status Delivered 2025-06-26.
@@ -1030,7 +1030,7 @@ The CTM must **not**:
 
 These are findings inside the CTM's own scope. None block future use of the artifact; they are normal operating residuals from the "flag gaps" discipline.
 
-- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-002, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these, many via existing available URLs. *(CARBON-002 was previously on this list; resolved 2026-04-18 by threading the ECCC Output-Based Pricing System URL.)*
+- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these; the remaining 22 gaps require external research for original platform URLs, program announcement pages, or specific policy framework documents not currently present anywhere in-repo. *(Previously included CARBON-002 — resolved 2026-04-18 by threading the ECCC Output-Based Pricing System URL. Previously included DEFTRADE-002 — resolved 2026-04-18 by threading the Bill C-5 LEGISinfo URL already cited in Major Projects.)*
 
 ### Upstream governance residuals surfaced during the build
 
