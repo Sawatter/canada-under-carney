@@ -118,18 +118,14 @@
   divergence signal). The block was removed from the live dashboard header on
   2026-04-19 to cut visual clutter. Score-box subtitles remain on the
   dashboard so each grade card still answers "what is this?" at first glance.
-- Expanded-dimension readability / information-overload review
-  Open each expanded dimension as a customer would and review whether the
-  content helps understanding or overwhelms the reader. Check desktop and
-  mobile separately. Questions to test:
-  - Is there too much information at once?
-  - Is the order of information helping or hurting understanding?
-  - Which parts are essential vs clutter?
-  - Does the expanded state make the dimension easier to understand, or just
-    denser?
-  - On mobile, does the amount of content become hard to scan or mentally hold?
-  Build a future prompt around reader-trust, information architecture, and
-  product-UX expert lenses rather than only methodology.
+- Expanded-dimension readability / information-overload review — Completed 2026-04-19
+  Reflection + narrow build pass landed. DimensionCard expansion was trimmed:
+  nested Promise Tracker replaced with a one-line summary pointing to the
+  Promises tab; Scope and "What Was Inherited" collapsed behind disclosure
+  toggles; repeated italic methodology disclaimer in Perspectives removed.
+  Core hierarchy preserved: Why This Grade → What Would Change This Grade →
+  Sub-Scores → Key Metrics → Perspectives → Promises summary → Sources.
+  Revisit only if user-testing surfaces a specific remaining overload.
 - Promise Tracker item detail / link model review
   Review what an expanded promise item should link to so a reader can actually
   understand the promise, the current status, and why that status is justified.

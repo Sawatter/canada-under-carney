@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { GRADES } from "../constants";
 import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
-import PromiseTag from "./PromiseTag";
 
 export default function DimensionCard({ dim, isExpanded, onClick }) {
   const g = GRADES[dim.grade];
   const modifierItems = dim.gradeBasis?.activeModifiers || [];
+  const [scopeOpen, setScopeOpen] = useState(false);
+  const [inheritedOpen, setInheritedOpen] = useState(false);
   const rationaleLabel = dim.status?.includes("Whole-letter grade only")
     ? "Within-band rationale"
     : "Plus/minus rationale";
@@ -281,7 +283,12 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
 
           {dim.scope && (
             <div style={{ marginBottom: "14px" }}>
-              <div
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setScopeOpen((v) => !v);
+                }}
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
@@ -289,41 +296,52 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
-                }}
-              >
-                Scope
-              </div>
-              <div
-                style={{
-                  fontSize: "11px",
-                  color: "#666",
-                  lineHeight: 1.5,
-                  background: "#f9f9f9",
-                  padding: "8px 10px",
-                  borderRadius: "6px",
-                  borderLeft: "3px solid #9e9e9e",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
                   display: "flex",
-                  flexDirection: "column",
-                  gap: "8px",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontFamily: "inherit",
                 }}
               >
-                <div>
-                  <strong>In scope:</strong>
-                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                    {dim.scope.inScope.map((item, i) => (
-                      <div key={i}>{renderScopeItem(item)}</div>
-                    ))}
+                <span style={{ fontSize: "9px" }}>{scopeOpen ? "\u25BE" : "\u25B8"}</span>
+                Scope
+              </button>
+              {scopeOpen && (
+                <div
+                  style={{
+                    fontSize: "11px",
+                    color: "#666",
+                    lineHeight: 1.5,
+                    background: "#f9f9f9",
+                    padding: "8px 10px",
+                    borderRadius: "6px",
+                    borderLeft: "3px solid #9e9e9e",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "8px",
+                  }}
+                >
+                  <div>
+                    <strong>In scope:</strong>
+                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                      {dim.scope.inScope.map((item, i) => (
+                        <div key={i}>{renderScopeItem(item)}</div>
+                      ))}
+                    </div>
+                  </div>
+                  <div>
+                    <strong>Out of scope:</strong>
+                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                      {dim.scope.outOfScope.map((item, i) => (
+                        <div key={i}>{renderScopeItem(item)}</div>
+                      ))}
+                    </div>
                   </div>
                 </div>
-                <div>
-                  <strong>Out of scope:</strong>
-                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                    {dim.scope.outOfScope.map((item, i) => (
-                      <div key={i}>{renderScopeItem(item)}</div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           )}
 
@@ -391,17 +409,6 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               >
                 Interpretive Perspectives
               </div>
-              <div
-                style={{
-                  fontSize: "10px",
-                  color: "#777",
-                  lineHeight: 1.5,
-                  marginBottom: "8px",
-                  fontStyle: "italic",
-                }}
-              >
-                These are positions held by named sources. The grade is determined by the evidence above, not by which perspective is more persuasive.
-              </div>
               <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
                 <div
                   style={{
@@ -435,7 +442,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
             </div>
           )}
 
-          {/* Promise Tracker */}
+          {/* Promise Tracker summary — per-item detail lives on the Promises tab */}
           {dim.promises && dim.promises.length > 0 && (
             <div style={{ marginBottom: "14px" }}>
               <div
@@ -448,50 +455,24 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                   marginBottom: "6px",
                 }}
               >
-                Promise Tracker
+                Promises
               </div>
-              {dim.promises.map((p, i) => (
-                <div
-                  key={i}
-                  style={{
-                    padding: "6px 0",
-                    borderBottom: i < dim.promises.length - 1 ? "1px solid #f5f5f5" : "none",
-                  }}
-                >
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                      gap: "8px",
-                    }}
-                  >
-                    <span style={{ fontSize: "12px", color: "#444", flex: 1 }}>
-                      {p.text}
-                      {p.durability && (
-                        <span style={{ fontSize: "9px", color: "#999", marginLeft: "6px", fontStyle: "italic" }}>
-                          {p.durability}
-                        </span>
-                      )}
-                    </span>
-                    <PromiseTag status={p.status} />
-                  </div>
-                  {p.evidence && (
-                    <div
-                      style={{
-                        fontSize: "11px",
-                        color: "#888",
-                        marginTop: "3px",
-                        paddingLeft: "8px",
-                        borderLeft: "2px solid #eee",
-                        lineHeight: 1.4,
-                      }}
-                    >
-                      {p.evidence}
-                    </div>
-                  )}
-                </div>
-              ))}
+              <div
+                style={{
+                  fontSize: "12px",
+                  color: "#555",
+                  lineHeight: 1.5,
+                  background: "#fafafa",
+                  padding: "8px 10px",
+                  borderRadius: "6px",
+                  borderLeft: "3px solid #9e9e9e",
+                }}
+              >
+                {dim.promises.length} promise
+                {dim.promises.length === 1 ? "" : "s"} tracked on this file. For
+                per-promise status and evidence, see the{" "}
+                <strong>Promises</strong> tab.
+              </div>
             </div>
           )}
 
@@ -538,12 +519,37 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
           {/* Inherited Baseline */}
           {dim.inherited && (
             <div style={{ marginBottom: "14px" }}>
-              <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setInheritedOpen((v) => !v);
+                }}
+                style={{
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#999",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                  fontFamily: "inherit",
+                }}
+              >
+                <span style={{ fontSize: "9px" }}>{inheritedOpen ? "\u25BE" : "\u25B8"}</span>
                 What Was Inherited
-              </div>
-              <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}>
-                {dim.inherited}
-              </div>
+              </button>
+              {inheritedOpen && (
+                <div style={{ fontSize: "11px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}>
+                  {dim.inherited}
+                </div>
+              )}
             </div>
           )}
 
