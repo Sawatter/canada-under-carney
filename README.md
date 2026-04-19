@@ -2,7 +2,7 @@
 
 **Live dashboard: [sawatter.github.io/canada-under-carney](https://sawatter.github.io/canada-under-carney/)**
 
-Non-partisan performance dashboard tracking the Carney government across 11 graded policy dimensions plus an ungraded Promise Tracker, updated monthly using official statistics, independent policy analysis, and journalism across the political spectrum.
+Non-partisan performance dashboard tracking the Carney government across 11 graded policy dimensions plus an ungraded Promise Tracker, updated monthly using official statistics, independent policy analysis, and documented journalism from multiple institution types and perspectives.
 
 ## Current Grades (April 2026)
 
@@ -27,13 +27,16 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 
 ## Source Balance
 
+This is a source-type summary, not a full manifest and not a formal left/right scorecard.
+
 | Category | Sources |
 |---|---|
-| **Official** | Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, Global Affairs Canada, NRCan, Finance Canada / Canada.ca, Office of the Ethics Commissioner, LEGISinfo / parl.ca, direct PM ethics filings, NATO, OECD, IMF |
-| **Centre** | CBC News, Globe and Mail |
-| **Right** | C.D. Howe, Fraser Institute, The Hub |
-| **Left** | The Narwhal, National Observer |
-| **Independent** | IRPP / Policy Options, Canadian Climate Institute, IISD, Democracy Watch |
+| **Official / administrative** | Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, Global Affairs Canada, NRCan, Finance Canada / Canada.ca, Office of the Ethics Commissioner, LEGISinfo / parl.ca, direct PM ethics filings, NATO, OECD, IMF |
+| **Public broadcaster** | CBC News |
+| **Mainstream reporting** | Globe and Mail |
+| **Analysis / commentary** | The Hub |
+| **Policy institutes / watchdogs** | C.D. Howe, Fraser Institute, IRPP / Policy Options, Canadian Climate Institute, IISD, Democracy Watch |
+| **Issue-focused reporting** | The Narwhal, National Observer |
 | **Academic** | The Conversation Canada, Dalhousie, PROOF (U of T) |
 | **Polling** | Angus Reid |
 
@@ -61,7 +64,7 @@ git add . && git commit && git push  # Deploy (auto-builds)
 
 ## Data Sources
 
-Metrics are drawn from official statistics (Statistics Canada, PBO, CMHC, Bank of Canada, IRCC), independent policy analysis, and quality journalism across the political spectrum. See [docs/DATA-SOURCES.md](docs/DATA-SOURCES.md) for the complete 20-source monitoring stack.
+Metrics are drawn from official statistics (Statistics Canada, PBO, CMHC, Bank of Canada, IRCC), independent policy analysis, and documented journalism from multiple institution types and perspectives. See [docs/DATA-SOURCES.md](docs/DATA-SOURCES.md) for the complete 20-source monitoring stack.
 
 ## Built With
 
