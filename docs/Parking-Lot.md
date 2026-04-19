@@ -157,8 +157,12 @@
   Follow-on hybrid GPA/score language pass: reader-facing surfaces now
   use `Score` for the aggregate numeric value and `Grade` for the letter
   grade; `GPA` retained only in methodology contexts and internal code.
-  Lane now paused; further changes should wait for a whole-dashboard
-  visual review rather than another speculative pass.
+  Final first-time-reader framing pass: one italic intro line above the
+  Scorecard grid explaining the 12-card layout; one italic pointer below
+  the ScoreboardHeader three-card row directing readers to the About tab
+  for the "Why two grades?" explanation.
+  Lane is now paused. No further polish passes should land without actual
+  user-testing signal or a completely different lane priority.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four
   optional fields per promise (`originalSourceUrl`, `originalSourceLabel`,
