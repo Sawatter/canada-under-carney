@@ -95,6 +95,10 @@
         "status": "Delivered",
         "since": "2026-03-26",
         "evidence": "Confirmed by NATO Secretary General annual report. $81.8B committed over five years.",
+        "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap4-en.html",
+        "originalSourceLabel": "Budget 2025 Ch.4",
+        "statusSourceUrl": "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada",
+        "statusSourceLabel": "NATO Secretary General Annual Report 2025",
         "durability": "Target",
         "history": [
           {
@@ -109,6 +113,8 @@
         "status": "Delivered",
         "since": "2025-06-26",
         "evidence": "One Canadian Economy Act (Bill C-5) received Royal Assent June 26, 2025 with bipartisan support.",
+        "originalSourceUrl": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
+        "originalSourceLabel": "Building Canada Act (Bill C-5)",
         "durability": "Legislated",
         "history": [
           {
@@ -123,6 +129,8 @@
         "status": "In Progress",
         "since": "2026-04-14",
         "evidence": "Announced in Budget 2025. Fund structure being designed. No disbursements yet.",
+        "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap4-en.html",
+        "originalSourceLabel": "Budget 2025 Ch.4",
         "durability": "Program",
         "history": [
           {
@@ -276,6 +284,10 @@
         "status": "In Progress",
         "since": "2026-04-14",
         "evidence": "MPO created and operational. No project has completed the full 2-year cycle yet.",
+        "originalSourceUrl": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
+        "originalSourceLabel": "Building Canada Act (Bill C-5)",
+        "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+        "statusSourceLabel": "PM second tranche announcement",
         "durability": "Legislated",
         "history": [
           {
@@ -457,6 +469,8 @@
         "status": "Delivered",
         "since": "2025-11-04",
         "evidence": "Implemented in Budget 2025.",
+        "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
+        "originalSourceLabel": "Budget 2025 Annex 1",
         "durability": "Budget measure",
         "history": [
           {
@@ -471,6 +485,8 @@
         "status": "Delivered",
         "since": "2025-11-04",
         "evidence": "Reversed in Budget 2025. Fraser Institute acknowledged as step in right direction.",
+        "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
+        "originalSourceLabel": "Budget 2025 Annex 1",
         "durability": "Budget measure",
         "history": [
           {
@@ -602,6 +618,8 @@
         "status": "In Progress",
         "since": "2026-04-14",
         "evidence": "NRCan states $18.5B mobilized across Canadian critical minerals projects (see dimension sources; March 2026 NRCan release consolidates the March and October rounds). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. This is policy/context evidence, not proof of federal disbursement. Canada produces 10 of 12 NATO defence-critical minerals.",
+        "originalSourceUrl": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html",
+        "originalSourceLabel": "NRCan — critical minerals partnerships",
         "durability": "Program",
         "history": [
           {
@@ -882,6 +900,8 @@
         "status": "Delivered",
         "since": "2025-04-01",
         "evidence": "Fuel charge rate set to zero effective April 1, 2025. Signed by PM on March 14, 2025.",
+        "originalSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
+        "originalSourceLabel": "Canada.ca — fuel charge removal",
         "durability": "Budget measure",
         "history": [
           {
@@ -896,6 +916,8 @@
         "status": "Delivered",
         "since": "2025-04-01",
         "evidence": "OBPS maintained and extended to 2035 under Made-in-Canada Competitiveness Strategy.",
+        "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
+        "originalSourceLabel": "ECCC — Output-Based Pricing System",
         "durability": "Legislated",
         "history": [
           {
@@ -1075,6 +1097,8 @@
         "status": "Stalled",
         "since": "2025-11-27",
         "evidence": "PM publicly acknowledged to Radio-Canada that Canada will miss both targets. CCI projects roughly half of required reduction. Targets not formally withdrawn but acknowledged as unachievable under current policy.",
+        "statusSourceUrl": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
+        "statusSourceLabel": "CCI — Canada off course",
         "durability": "Target",
         "history": [
           {
@@ -1173,6 +1197,8 @@
         "status": "Delivered",
         "since": "2025-11-04",
         "evidence": "380,000 PR target for 2026-2028 (per IRCC levels plan, November 2025). IRCC source page could not be directly verified in baseline pass — figure widely reported but primary URL returned 403.",
+        "originalSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
+        "originalSourceLabel": "IRCC 2026-2028 levels plan",
         "durability": "Commitment",
         "history": [
           {
@@ -1187,6 +1213,8 @@
         "status": "In Progress",
         "since": "2026-04-14",
         "evidence": "Non-permanent residents dropped from 3.15M (7.6%) to 2.68M. On track but not yet at 5%.",
+        "statusSourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
+        "statusSourceLabel": "StatsCan population Q4 2025",
         "durability": "Commitment",
         "history": [
           {
@@ -1313,6 +1341,8 @@
         "status": "Stalled",
         "since": "2026-04-14",
         "evidence": "259,028 starts in 2025 vs. 450,000+ needed. PBO projects BCH delivers about 26,000 units over five years (a 2.1% increase in housing completions per PBO baseline).",
+        "statusSourceUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
+        "statusSourceLabel": "CMHC 2025 starts",
         "durability": "Target",
         "history": [
           {
@@ -1327,6 +1357,10 @@
         "status": "In Progress",
         "since": "2025-09-14",
         "evidence": "4,000 units announced across 6 sites. Construction not yet underway as of April 2026.",
+        "originalSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
+        "originalSourceLabel": "Canada.ca — Build Canada Homes",
+        "statusSourceUrl": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
+        "statusSourceLabel": "PBO — BCH 26,000 units",
         "durability": "Program",
         "history": [
           {
@@ -1341,6 +1375,8 @@
         "status": "In Progress",
         "since": "2026-03-30",
         "evidence": "$8.8B over 10 years. Development charges cut up to 50% for 3 years. HST removed on homes under $1M for 1 year. Expert Mike Moffatt called it a meaningful step.",
+        "originalSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes",
+        "originalSourceLabel": "Canada-Ontario Partnership",
         "durability": "Program",
         "history": [
           {
@@ -1473,6 +1509,10 @@
         "status": "Stalled",
         "since": "2026-04-14",
         "evidence": "Ethics screen and blind trust established. Democracy Watch and House Ethics Committee have raised concerns about completeness.",
+        "originalSourceUrl": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
+        "originalSourceLabel": "PM blind-trust summary statement",
+        "statusSourceUrl": "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/",
+        "statusSourceLabel": "Democracy Watch critique",
         "durability": "Commitment",
         "history": [
           {
@@ -1487,6 +1527,8 @@
         "status": "Stalled",
         "since": "2026-04-14",
         "evidence": "No published independent review of the structural conflict between career path and policy decisions.",
+        "statusSourceUrl": "https://ciec-ccie.parl.gc.ca/en/",
+        "statusSourceLabel": "Office of the Ethics Commissioner — registry",
         "durability": "Framework",
         "history": [
           {
@@ -1591,6 +1633,8 @@
         "status": "Stalled",
         "since": "2026-04-14",
         "evidence": "National interest designation unused. Most referred projects were already in motion. Federalism coordination gaps documented by Policy Options.",
+        "statusSourceUrl": "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
+        "statusSourceLabel": "Policy Options — federalism failure",
         "durability": "Commitment",
         "history": [
           {
@@ -1695,6 +1739,8 @@
         "status": "Delivered",
         "since": "2025-04-01",
         "evidence": "Day 1 commitment. Fuel charge set to zero April 1, 2025.",
+        "originalSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
+        "originalSourceLabel": "Canada.ca — fuel charge removal",
         "durability": "Budget measure",
         "history": [
           {
@@ -1709,6 +1755,8 @@
         "status": "Delivered",
         "since": "2025-11-04",
         "evidence": "Reversed in Budget 2025. Removed disinvestment incentive.",
+        "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
+        "originalSourceLabel": "Budget 2025 Annex 1",
         "durability": "Commitment",
         "history": [
           {
@@ -1723,6 +1771,10 @@
         "status": "Delivered",
         "since": "2025-11-04",
         "evidence": "PR targets cut to 380,000. Temp arrivals down 53% (Jan-Sep 2025 vs 2024). Population declined by 102,436 in 2025 (StatsCan, preliminary).",
+        "originalSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
+        "originalSourceLabel": "IRCC 2026-2028 levels plan",
+        "statusSourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
+        "statusSourceLabel": "StatsCan population Q4 2025",
         "durability": "Commitment",
         "history": [
           {
@@ -1737,6 +1789,8 @@
         "status": "Delivered",
         "since": "2025-06-26",
         "evidence": "One Canadian Economy Act passed with bipartisan support. Genuine structural reform.",
+        "originalSourceUrl": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
+        "originalSourceLabel": "Building Canada Act (Bill C-5)",
         "durability": "Legislated",
         "history": [
           {
