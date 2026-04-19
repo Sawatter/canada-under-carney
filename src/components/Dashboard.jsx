@@ -218,8 +218,12 @@ export default function Dashboard() {
                 lineHeight: 1.5,
               }}
             >
-              Promise Delivery is tracked separately as a political accountability
-              tool. It is visible here, but it is not part of the 11-dimension GPA.
+              Promise Delivery is a running count of the government&rsquo;s
+              specific commitments: how many are delivered, in progress,
+              stalled, or abandoned. Tracked here for accountability but
+              kept separate from the 11 performance grades, because the
+              same events are already scored inside those grades. The
+              number beside the card is delivered / total.
             </div>
             <div
               style={{
@@ -234,6 +238,10 @@ export default function Dashboard() {
                   dim={d}
                   isExpanded={expanded === d.id}
                   onClick={() => setExpanded(expanded === d.id ? null : d.id)}
+                  trackerStat={{
+                    delivered: promiseCounts["Delivered"] || 0,
+                    total: totalPromises,
+                  }}
                 />
               ))}
             </div>

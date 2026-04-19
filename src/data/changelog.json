@@ -1,49 +1,53 @@
 [
   {
     "month": "2026-04",
+    "date": "2026-04-19",
+    "summary": "Public approval of Prime Minister Carney now shown at the top of the dashboard, tracked separately from the grades. Climate & Environment dropped from D+ to D. Majority government secured April 13; gas tax suspension announced April 14.",
+    "changes": [
+      {
+        "type": "launch",
+        "text": "New at the top: a public approval signal for Prime Minister Carney. It averages approve/disapprove numbers from five major Canadian pollsters (L\u00e9ger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group) over a rolling 60-day window. It is tracked beside the grades but is explicitly not one of them — popularity is not performance."
+      },
+      {
+        "type": "grade_change",
+        "dimensionId": "climate-environment",
+        "from": "D+",
+        "to": "D",
+        "reason": "Canada is on track for about half of its required 2030 emissions reduction. Industrial carbon credits are trading around $20/tonne even though the headline price is $95. Environment Canada is losing 840+ positions. The PM has acknowledged targets will be missed."
+      },
+      {
+        "type": "event",
+        "text": "Carney won a majority government on April 13, 2026 — 174 seats after three byelection wins."
+      },
+      {
+        "type": "event",
+        "text": "Gas tax suspension announced April 14. The federal fuel excise is suspended from April 14 through September 7 at an estimated cost of $2.4 billion in foregone revenue. La Presse called the move \"une d\u00e9cision insens\u00e9e.\""
+      },
+      {
+        "type": "event",
+        "text": "Readability pass on the dashboard: plainer card labels, shorter status lines, and a new \"Limits of this model\" note in the Rubric tab that explains what the scorecard can and cannot do."
+      }
+    ]
+  },
+  {
+    "month": "2026-04",
     "date": "2026-04-15",
-    "summary": "Expanded source review: 6 new sources consulted. Two grades revised. Gas tax suspension added.",
+    "summary": "Climate grade revised, source stack broadened, probation dimensions (Ethics, Flagship Delivery) normalized to whole-letter C.",
     "changes": [
       {
         "type": "grade_change",
         "dimensionId": "climate-environment",
         "from": "D+",
         "to": "D",
-        "reason": "Canadian Climate Institute finds Canada on track for half of required 2030 reduction. Industrial carbon credits trade at ~$20/t despite $95 headline. ECCC losing 840+ positions. PM acknowledged targets will be missed.",
-        "rubricRef": "D Range: structural trajectory unchanged"
-      },
-      {
-        "type": "metric_update",
-        "metric": "Flagship Delivery display",
-        "from": "C- (plus/minus)",
-        "to": "C (whole letter)",
-        "reason": "Display precision reduced to whole-letter grade per Launch Recommendation. Evidence base does not support plus/minus precision for this dimension. GPA contribution unchanged at 1.7 at time of display change; subsequently normalized to 2.0 — see later entries."
-      },
-      {
-        "type": "metric_update",
-        "metric": "Ethics & Transparency GPA contribution",
-        "from": "1.7 (hidden C-)",
-        "to": "2.0 (matches whole-letter C display)",
-        "reason": "Public grade and scoring contribution now match per the Launch Recommendation whole-letter decision. Removes hidden C- behind displayed C."
-      },
-      {
-        "type": "metric_update",
-        "metric": "Flagship Delivery GPA contribution",
-        "from": "1.7 (hidden C-)",
-        "to": "2.0 (matches whole-letter C display)",
-        "reason": "Public grade and scoring contribution now match per the Launch Recommendation whole-letter decision. Removes hidden C- behind displayed C. Parallel treatment to Ethics."
+        "reason": "Originally recorded in the 2026-04-15 cycle; rolled forward into the 2026-04-19 publication above."
       },
       {
         "type": "event",
-        "text": "Gas tax suspension announced April 14 (same day as majority win). Federal fuel excise suspended Apr 14 \u2013 Sep 7, costing $2.4B in revenue. La Presse: \"une d\u00e9cision insens\u00e9e.\""
+        "text": "Source stack expanded: added Canadian Climate Institute, IFSD, IRPP / Policy Options, La Presse, Toronto Star, National Observer, The Conversation Canada."
       },
       {
         "type": "event",
-        "text": "Source stack expanded: added Canadian Climate Institute, IFSD, IRPP/Policy Options, La Presse, Toronto Star, National Observer, The Conversation Canada."
-      },
-      {
-        "type": "event",
-        "text": "Carney wins majority government (174 seats) via 3 byelection wins on April 13, 2026."
+        "text": "Probation dimensions (Ethics & Transparency, Flagship Delivery) now score as whole-letter C with no hidden plus/minus precision behind the displayed grade."
       }
     ]
   }

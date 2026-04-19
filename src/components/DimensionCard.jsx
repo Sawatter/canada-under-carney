@@ -3,7 +3,7 @@ import { GRADES } from "../constants";
 import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
 
-export default function DimensionCard({ dim, isExpanded, onClick }) {
+export default function DimensionCard({ dim, isExpanded, onClick, trackerStat }) {
   const g = GRADES[dim.grade];
   const modifierItems = dim.gradeBasis?.activeModifiers || [];
   const [scopeOpen, setScopeOpen] = useState(false);
@@ -35,14 +35,16 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
       style={{
         background: dim.excludeFromGPA ? "#fcfcf7" : "#fff",
         border: `1px solid ${
-          isExpanded ? g.color : dim.excludeFromGPA ? "#d9d4b8" : "#e0e0e0"
+          isExpanded
+            ? (dim.excludeFromGPA ? "#bfa86b" : g.color)
+            : (dim.excludeFromGPA ? "#d9d4b8" : "#e0e0e0")
         }`,
         borderRadius: "8px",
         padding: "16px",
         cursor: "pointer",
         transition: "all 0.2s",
         boxShadow: isExpanded
-          ? `0 2px 12px ${g.color}22`
+          ? (dim.excludeFromGPA ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`)
           : "0 1px 3px rgba(0,0,0,0.06)",
       }}
     >
@@ -100,7 +102,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 letterSpacing: "0.4px",
               }}
             >
-              Tracker · Not scored
+              Tracker &middot; No letter grade
             </div>
           )}
           {dim.whatThisGrades && (
@@ -121,7 +123,43 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-          <GradeChip grade={dim.grade} />
+          {dim.excludeFromGPA && trackerStat ? (
+            <div
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                textAlign: "center",
+                minWidth: "64px",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "28px",
+                  fontWeight: 800,
+                  color: "#7a6a28",
+                  lineHeight: 1,
+                }}
+              >
+                {trackerStat.delivered}
+                <span style={{ fontSize: "15px", color: "#bbb", fontWeight: 600 }}>
+                  /{trackerStat.total}
+                </span>
+              </div>
+              <div
+                style={{
+                  fontSize: "10px",
+                  color: "#888",
+                  marginTop: "3px",
+                  letterSpacing: "0.4px",
+                  textTransform: "uppercase",
+                  fontWeight: 700,
+                }}
+              >
+                delivered
+              </div>
+            </div>
+          ) : (
+            <GradeChip grade={dim.grade} />
+          )}
           {/* Expand hint */}
           <span
             style={{
