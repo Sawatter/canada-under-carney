@@ -18,8 +18,8 @@ export default function Dashboard() {
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
 
   // Calculate grades and promises from the data
-  const overallGPA = calculateOverallGPA(dimensions).toFixed(2);
-  const pocketbookGPA = calculatePocketbookGPA(dimensions).toFixed(2);
+  const overallGPA = calculateOverallGPA(dimensions).toFixed(1);
+  const pocketbookGPA = calculatePocketbookGPA(dimensions).toFixed(1);
   const { all: allPromises, counts: promiseCounts, total: totalPromises } = countPromises(dimensions);
 
   const tabs = [
