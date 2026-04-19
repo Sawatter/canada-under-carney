@@ -153,7 +153,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
@@ -200,7 +200,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
@@ -238,7 +238,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
@@ -317,7 +317,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
@@ -378,7 +378,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
             <div style={{ display: "flex", gap: "10px", marginBottom: "12px", flexWrap: "wrap" }}>
               {Object.values(dim.subScores).map((sub, i) => (
                 <div key={i} style={{ flex: 1, minWidth: "120px", background: "#fafafa", borderRadius: "6px", padding: "8px 10px", border: "1px solid #eee" }}>
-                  <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", marginBottom: "4px" }}>{sub.label}</div>
+                  <div style={{ fontSize: "11px", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", marginBottom: "4px" }}>{sub.label}</div>
                   <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                     <GradeChip grade={sub.grade} size="sm" />
                     <span style={{ fontSize: "11px", color: "#666", lineHeight: 1.3 }}>{sub.rationale}</span>
@@ -394,7 +394,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               style={{
                 fontSize: "11px",
                 fontWeight: 700,
-                color: "#999",
+                color: "#1a1a1a",
                 textTransform: "uppercase",
                 letterSpacing: "0.5px",
                 marginBottom: "6px",
@@ -436,7 +436,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
@@ -500,7 +500,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
@@ -534,7 +534,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
@@ -581,7 +581,7 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
                 style={{
                   fontSize: "11px",
                   fontWeight: 700,
-                  color: "#999",
+                  color: "#1a1a1a",
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
