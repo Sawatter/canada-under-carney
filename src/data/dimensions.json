@@ -44,6 +44,10 @@
         "url": "https://budget.canada.ca/2025/report-rapport/chap4-en.html"
       },
       {
+        "label": "Building Canada Act (Bill C-5)",
+        "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
+      },
+      {
         "label": "StatsCan trade data",
         "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
       },
@@ -52,7 +56,7 @@
         "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-18",
     "metrics": [
       {
         "label": "NATO spending (2025e)",

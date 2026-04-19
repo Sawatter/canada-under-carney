@@ -52,6 +52,7 @@
 - Compare tab removed from the live nav. The feature is now parked as a future analyst tool only if it can justify itself beyond duplicating two expanded cards.
 - CTM-T1 durability-tag hygiene pass — seven commitments re-tagged in dimensions.json to match PCR tier examples (HOUSING-001 Commitment → Target; HOUSING-002 Commitment → Program; CARBON-002 Commitment → Legislated; MPROJ-001 Commitment → Legislated; AFFORD-002 Commitment → Framework; AFFORD-003 Commitment → Framework; ECONPOL-001 Framework → Program). CTM body notes reconciled and CTM-T1 residual closed. No grade, GPA, or confidence change (durability is display-only metadata).
 - Carbon Pricing Policy source-chain hardening — ECCC Output-Based Pricing System landing page threaded into the live Carbon Pricing Policy `sources` array, closing the CARBON-002 direct-source gap flagged by U10 and CTM-T2. Readers clicking into Carbon Pricing Policy now see the statutory OBPS page alongside the existing CCI / IISD challenge sources. No grade, GPA, or confidence change.
+- CTM-T2 partial thread pass — single clean in-repo match threaded: Bill C-5 LEGISinfo URL (already cited in Major Projects for MPROJ-001) added to Defence & Trade `sources` array, closing DEFTRADE-002's direct-legislative-source gap. The remaining 22 CTM-T2 items genuinely require external research (original platform URLs, program announcement pages, specific policy framework documents) and are left as explicit residuals. SAM Defence & Trade Current State Delta reconciled. No grade, GPA, or confidence change.
 
 ---
 
