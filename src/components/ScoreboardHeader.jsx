@@ -16,6 +16,7 @@ export default function ScoreboardHeader({
           display: "flex",
           gap: "16px",
           justifyContent: "center",
+          alignItems: "stretch",
           flexWrap: "wrap",
           marginBottom: "12px",
         }}
@@ -28,7 +29,11 @@ export default function ScoreboardHeader({
             borderRadius: "12px",
             padding: "20px 32px",
             textAlign: "center",
-            minWidth: "200px",
+            flex: "1 1 220px",
+            maxWidth: "280px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
           <div
@@ -75,7 +80,11 @@ export default function ScoreboardHeader({
             borderRadius: "12px",
             padding: "20px 32px",
             textAlign: "center",
-            minWidth: "200px",
+            flex: "1 1 220px",
+            maxWidth: "280px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
           <div
@@ -122,7 +131,11 @@ export default function ScoreboardHeader({
             borderRadius: "12px",
             padding: "20px 32px",
             textAlign: "center",
-            minWidth: "180px",
+            flex: "1 1 220px",
+            maxWidth: "280px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
           }}
         >
           <div
