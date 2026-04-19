@@ -153,8 +153,12 @@
   Delivery `status` strings trimmed to remove methodology-tail language
   (leading `PROBATION.` prefix, trailing whole-letter-precision clauses).
   Reader-facing state preserved; methodology context stays in governance
-  docs. Lane now paused; further changes should wait for user-testing
-  signal rather than another speculative pass.
+  docs.
+  Follow-on hybrid GPA/score language pass: reader-facing surfaces now
+  use `Score` for the aggregate numeric value and `Grade` for the letter
+  grade; `GPA` retained only in methodology contexts and internal code.
+  Lane now paused; further changes should wait for a whole-dashboard
+  visual review rather than another speculative pass.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four
   optional fields per promise (`originalSourceUrl`, `originalSourceLabel`,

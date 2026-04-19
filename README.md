@@ -6,7 +6,7 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 
 ## Current Grades (April 2026)
 
-| Grade Type | Score | GPA |
+| Grade Type | Grade | Score |
 |---|---|---|
 | **Household Impact** | **D+** | 1.5 |
 | **Full Policy Audit** | **C-** | 1.7 |
