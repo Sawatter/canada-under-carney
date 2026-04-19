@@ -349,6 +349,9 @@ The stronger source-review framework should include:
 - `Ownership / funding`
 - `Editorial independence`
 - `Methodological rigor`
+- `Beat expertise / reporter or desk credibility`
+  - is trust driven by the outlet overall, a specific desk, or a named reporter?
+  - when reporter-level track record should matter more than outlet-level branding
 - `Role eligibility`
   - measurement truth
   - policy truth
