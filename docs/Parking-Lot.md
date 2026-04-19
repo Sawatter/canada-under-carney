@@ -149,7 +149,12 @@
   climate, immigration); Promise Delivery added a parallel tracker-scoped
   subtitle line so every dimension card now has the same orienting
   pattern. Data-only change; no code changes required.
-  Revisit only if user-testing surfaces a specific remaining overload.
+  Seventh-pass closing micro-edit: Ethics & Transparency and Flagship
+  Delivery `status` strings trimmed to remove methodology-tail language
+  (leading `PROBATION.` prefix, trailing whole-letter-precision clauses).
+  Reader-facing state preserved; methodology context stays in governance
+  docs. Lane now paused; further changes should wait for user-testing
+  signal rather than another speculative pass.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four
   optional fields per promise (`originalSourceUrl`, `originalSourceLabel`,
