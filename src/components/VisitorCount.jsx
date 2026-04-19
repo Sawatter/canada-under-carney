@@ -9,23 +9,31 @@ export default function VisitorCount() {
 
   useEffect(() => {
     let cancelled = false;
-    fetch(COUNTER_URL)
-      .then((r) => {
-        if (!r.ok) throw new Error(`HTTP ${r.status}`);
-        return r.json();
-      })
-      .then((data) => {
-        if (cancelled) return;
-        const raw = data?.count_unique ?? data?.count ?? null;
-        if (raw == null) throw new Error("no count field");
-        const n = parseInt(String(raw).replace(/[^0-9]/g, ""), 10);
-        setCount(Number.isFinite(n) ? n : null);
-      })
-      .catch(() => {
-        if (!cancelled) setError(true);
-      });
+
+    const loadCount = () => {
+      if (cancelled) return;
+      fetch(COUNTER_URL, { cache: "no-store" })
+        .then((r) => {
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          return r.json();
+        })
+        .then((data) => {
+          if (cancelled) return;
+          const raw = data?.count_unique ?? data?.count ?? null;
+          if (raw == null) throw new Error("no count field");
+          const n = parseInt(String(raw).replace(/[^0-9]/g, ""), 10);
+          setCount(Number.isFinite(n) ? n : null);
+        })
+        .catch(() => {
+          if (!cancelled) setError(true);
+        });
+    };
+
+    const delay = setTimeout(loadCount, 1500);
+
     return () => {
       cancelled = true;
+      clearTimeout(delay);
     };
   }, []);
 
