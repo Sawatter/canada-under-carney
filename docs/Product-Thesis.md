@@ -3,14 +3,14 @@
 - **Purpose:** Name what this project optimizes for. Captures the problem, the primary user, the job-to-be-done, what the dashboard is and is not, the quality bar for shipping, and the filter for choosing between features. Read alongside Claude-House-Style, which governs how that work is executed.
 - **Status:** Active — foundational governance artifact.
 - **Last updated:** 2026-04-19
-- **Depends on:** [docs/Scoring-Rubric-v1.1.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Scoring-Rubric-v1.1.md), [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md), [docs/Commitment-Traceability-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Commitment-Traceability-Map.md), [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md), [docs/v2/verification/Claude-House-Style.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-House-Style.md)
-- **Used by:** roadmap triage in [docs/Current-Roadmap.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Current-Roadmap.md), [docs/Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) triage, feature scoping, stage-boundary reviews for new features or artifacts.
+- **Depends on:** [docs/Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [docs/Source-Authority-Map.md](Source-Authority-Map.md), [docs/Commitment-Traceability-Map.md](Commitment-Traceability-Map.md), [docs/QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [docs/v2/verification/Claude-House-Style.md](v2/verification/Claude-House-Style.md)
+- **Used by:** roadmap triage in [docs/Current-Roadmap.md](Current-Roadmap.md), [docs/Parking-Lot.md](Parking-Lot.md) triage, feature scoping, stage-boundary reviews for new features or artifacts.
 
 ---
 
 ## Positioning
 
-This document governs **what** the project optimizes for. [docs/v2/verification/Claude-House-Style.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-House-Style.md) governs **how** that work is executed. The two are complementary and both apply to any non-trivial change.
+This document governs **what** the project optimizes for. [docs/v2/verification/Claude-House-Style.md](v2/verification/Claude-House-Style.md) governs **how** that work is executed. The two are complementary and both apply to any non-trivial change.
 
 The published scoring stack — Scoring Rubric, Canonical Scoring Sheets, Source Authority Map, Commitment Traceability Map, QA Gatekeeping Rules, Deconfliction Matrix, Measure Selection Rules — is the measurement system this thesis describes. The dashboard is its reader-facing surface. This file does not introduce new methodology; it names the standard against which features are chosen.
 

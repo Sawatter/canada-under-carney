@@ -55,7 +55,7 @@ The implementation ladder:
 
 **The rule:** A grade move requires evidence at the "Authorized" stage or higher. Evidence at the "Announced" stage is context only and cannot support a grade change.
 
-**Carry-forward note:** If a claim was already implemented and is being carried forward from a prior cycle rather than newly introduced, apply [docs/v2/verification/Carry-Forward-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Carry-Forward-Rules.md) to determine whether re-verification is required.
+**Carry-forward note:** If a claim was already implemented and is being carried forward from a prior cycle rather than newly introduced, apply [docs/v2/verification/Carry-Forward-Rules.md](v2/verification/Carry-Forward-Rules.md) to determine whether re-verification is required.
 
 ---
 
@@ -129,7 +129,7 @@ If confidence is explicitly re-reviewed because the source stack changed but the
 - Must be flagged as "extraordinary movement" in the release log
 - Should be accompanied by a sensitivity note
 
-**Probationary note:** Whole-letter probationary dimensions and plus/minus-collapse mechanics are governed by [docs/Plus-Minus-Decision-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Plus-Minus-Decision-Rules.md). Apply Rule 5 here only after the probationary display/precision rule has been resolved there.
+**Probationary note:** Whole-letter probationary dimensions and plus/minus-collapse mechanics are governed by [docs/Plus-Minus-Decision-Rules.md](Plus-Minus-Decision-Rules.md). Apply Rule 5 here only after the probationary display/precision rule has been resolved there.
 
 ---
 
@@ -223,12 +223,12 @@ For every proposed grade change (not grade holds, source-stack-only changes, or 
 
 ## Companion References
 
-- **Claim-level verification mechanics** — [docs/v2/verification/Source-Verification-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Source-Verification-Protocol.md)
-- **Carry-forward of previously verified claims** — [docs/v2/verification/Carry-Forward-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Carry-Forward-Rules.md)
-- **Whole-letter probationary and plus/minus interaction** — [docs/Plus-Minus-Decision-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Plus-Minus-Decision-Rules.md)
-- **Double-counting and primary-home enforcement** — [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md)
-- **Source-role planning by dimension** — [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md)
-- **Per-source-family characterization (institution type, ownership, editorial independence, tier assignment, best-use boundary)** — [docs/Source-Characterization-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md)
+- **Claim-level verification mechanics** — [docs/v2/verification/Source-Verification-Protocol.md](v2/verification/Source-Verification-Protocol.md)
+- **Carry-forward of previously verified claims** — [docs/v2/verification/Carry-Forward-Rules.md](v2/verification/Carry-Forward-Rules.md)
+- **Whole-letter probationary and plus/minus interaction** — [docs/Plus-Minus-Decision-Rules.md](Plus-Minus-Decision-Rules.md)
+- **Double-counting and primary-home enforcement** — [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md)
+- **Source-role planning by dimension** — [docs/Source-Authority-Map.md](Source-Authority-Map.md)
+- **Per-source-family characterization (institution type, ownership, editorial independence, tier assignment, best-use boundary)** — [docs/Source-Characterization-Register.md](Source-Characterization-Register.md)
 
 ---
 

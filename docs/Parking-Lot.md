@@ -12,7 +12,7 @@
 
 - Workflow efficiency protocol
   The active routing rule for reflection, Claude review, and direct execution now lives in:
-  [docs/v2/verification/AI-Workflow-Efficiency-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/AI-Workflow-Efficiency-Protocol.md)
+  [docs/v2/verification/AI-Workflow-Efficiency-Protocol.md](v2/verification/AI-Workflow-Efficiency-Protocol.md)
   Use that file before turning any prompt idea into a default workflow rule.
 
 - Hard rule for source edits
@@ -29,10 +29,10 @@
 
 ## Audit Ideas
 
-- Source sufficiency audit by dimension — Completed; see [docs/Current-Roadmap.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Current-Roadmap.md) Current State
+- Source sufficiency audit by dimension — Completed; see [docs/Current-Roadmap.md](Current-Roadmap.md) Current State
   Check whether each dimension has enough independent, grade-moving evidence to justify its score, confidence, and precision.
 
-- Per-dimension source authority map — Completed; see [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md)
+- Per-dimension source authority map — Completed; see [docs/Source-Authority-Map.md](Source-Authority-Map.md)
   For each dimension, define the authoritative source roles behind the score:
   - measurement truth
   - policy truth
@@ -43,12 +43,12 @@
   verified truth are we claiming, and which sources are allowed to carry each
   kind of claim?"
 
-- Commitment traceability map — Completed; see [docs/Commitment-Traceability-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Commitment-Traceability-Map.md)
+- Commitment traceability map — Completed; see [docs/Commitment-Traceability-Map.md](Commitment-Traceability-Map.md)
   For each tracked commitment, publish the path from original public source to
   home dimension, construct, indicators, source roles, deconfliction notes, and
   derivative handling.
 
-- Source characterization / source taxonomy review — Completed; see [docs/Source-Characterization-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md)
+- Source characterization / source taxonomy review — Completed; see [docs/Source-Characterization-Register.md](Source-Characterization-Register.md)
   Reflection and deep-research passes are complete and the Source
   Characterization Register is built across all 30 live source families.
   About.jsx and README.md source-balance taxonomy were moved away from
@@ -62,13 +62,16 @@
   Immigration where the live non-official stack currently has no T2
   challenge source.
 
-- Skeptical data scientist reflection pass
-  Pressure-test the dashboard as if a critical data scientist reviewed the model, especially:
-  - mixed constructs
-  - equal-weight averaging
-  - plus/minus precision
-  - ordinal-to-GPA assumptions
-  - confidence calibration
+- Skeptical data scientist reflection pass — Completed 2026-04-19
+  Adversarial audit run across eight critique categories: mixed constructs,
+  ordinal-to-interval conversion, equal-weight averaging, plus/minus
+  precision, confidence calibration, aggregate false precision, subjective
+  judgment, and construct selection. Verdict: no critique is fatal given the
+  product's honestly-scoped framing as a rule-governed accountability
+  scorecard. One narrow gap was flagged as worth closing — an explicit
+  "Limits of this model" disclosure on the Methodology tab — and landed
+  the same day as a five-bullet small-print block after the CTM pointer.
+  Remaining critiques are carryable with current disclosure.
 
 - Reader trust audit
   Ask where a skeptical reader would still feel the dashboard is hand-wavy, overconfident, or internally inconsistent.
@@ -111,14 +114,19 @@
   model.
 - Possible tag for construct type (`Process`, `Implementation`, `Response`, etc.)
 - Better explanation of whole-letter probation dimensions
-- Top-of-dashboard popularity / political durability signal
-  Explore whether Carney approval / vote-strength / public-support data belongs
-  at the top of the dashboard as an ungraded signal, a tracker, or a true
-  dimension. Do not assume popularity and performance are the same thing.
-- Approval / popularity placement explainer
-  Future work item: show the exact difference between approval / popularity as
-  a top signal, approval as a scored dimension, and approval staying completely
-  outside the scoring model.
+- Top-of-dashboard popularity / political durability signal — Completed 2026-04-19 (ungraded signal chosen)
+  Landed as an ungraded Approval Signal above the three score cards.
+  Placement, construct, source set, aggregation rule, and relationship to
+  the scoring model are all reasoned in
+  [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
+  v1 source set: Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative
+  Research Group. 60-day rolling simple mean. Component computes the
+  aggregate from `src/data/approval-polls.json` at render time.
+- Approval / popularity placement explainer — Completed 2026-04-19
+  The decision memo (above) explicitly walks through the three options
+  (graded dimension / tracker / ungraded signal) with reasons for accepting
+  or rejecting each. Kept out of the Methodology tab to avoid bloating it;
+  Methodology now carries a short pointer paragraph to the memo.
 - Rewrite the Household Impact / "Why two grades?" explainer for clarity — Completed; parked in the About tab and README
   The explainer lives in About.jsx and README.md with plain-language wording
   (names the four household-weighted areas as housing, cost of living, the
@@ -218,7 +226,7 @@
 
 ### Verbatim note — source authority framing
 
-Note: artifact built as [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md) on 2026-04-18. Verbatim framing preserved here as historical audit trail.
+Note: artifact built as [docs/Source-Authority-Map.md](Source-Authority-Map.md) on 2026-04-18. Verbatim framing preserved here as historical audit trail.
 
 Yes, exactly, but I'd frame it a little more carefully than "what would each tribe use."
 
@@ -301,20 +309,20 @@ That's a very solid next-stage methodology move.
 
 ### Verbatim note — QA gatekeeping review
 
-Note: QA gatekeeping review and amendment pass landed on 2026-04-18. See [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md) for the current state. Verbatim framing preserved below as historical audit trail.
+Note: QA gatekeeping review and amendment pass landed on 2026-04-18. See [docs/QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md) for the current state. Verbatim framing preserved below as historical audit trail.
 
 Yes, those QA rules are coming from our repo work, not from some external hidden standard.
 
 Specifically:
-- The file is [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md).
+- The file is [docs/QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md).
 - Git history shows it came in with commit `77c9fca`:
   `Instrument controls: deconfliction matrix, combination rules, QA gatekeeping`
 - The file itself says it was created from the April 2026 simulated drill:
   “Based on lessons from the April 2026 simulated drill (Pack 5: announcement bias case).”
 - It has become a real governing doc in the repo, not a dead note. A bunch of other files depend on it, including:
-  - [docs/v2/verification/Source-Verification-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Source-Verification-Protocol.md)
-  - [docs/v2/verification/Claude-House-Style.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-House-Style.md)
-  - [docs/v2/Core-Tri-Lens-Architecture.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/Core-Tri-Lens-Architecture.md)
+  - [docs/v2/verification/Source-Verification-Protocol.md](v2/verification/Source-Verification-Protocol.md)
+  - [docs/v2/verification/Claude-House-Style.md](v2/verification/Claude-House-Style.md)
+  - [docs/v2/Core-Tri-Lens-Architecture.md](v2/Core-Tri-Lens-Architecture.md)
 
 So your instinct is good: because Claude is now actively citing that file to judge source tiers and evidence roles, we should absolutely sanity-check it.
 

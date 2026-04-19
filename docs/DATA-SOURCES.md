@@ -1,16 +1,16 @@
 # Data Sources
 
-> **Status (2026-04-19):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) lives in the [Source Characterization Register](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md). Content below has been realigned to reflect the live stack in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) and to distinguish live sources from monitoring watchlist. Treat the SCR as authoritative for per-source characterization.
+> **Status (2026-04-19):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) lives in the [Source Characterization Register](Source-Characterization-Register.md). Content below has been realigned to reflect the live stack in [src/data/dimensions.json](../src/data/dimensions.json) and to distinguish live sources from monitoring watchlist. Treat the SCR as authoritative for per-source characterization.
 
-Every metric in the live dashboard is sourced to a specific citation in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json). This file describes the monitoring and source-guide stack that sits around that live use: which families are currently cited in the live `sources` arrays, which are supplementary monitoring sources that may be consulted when a file moves, and which data pipelines feed specific metrics.
+Every metric in the live dashboard is sourced to a specific citation in [src/data/dimensions.json](../src/data/dimensions.json). This file describes the monitoring and source-guide stack that sits around that live use: which families are currently cited in the live `sources` arrays, which are supplementary monitoring sources that may be consulted when a file moves, and which data pipelines feed specific metrics.
 
-For the canonical per-source-family characterization (institution type, ownership / funding, editorial independence, tier, best-use boundary, grounded ideological tendency where sourced), see [docs/Source-Characterization-Register.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Characterization-Register.md). This file does not duplicate that record.
+For the canonical per-source-family characterization (institution type, ownership / funding, editorial independence, tier, best-use boundary, grounded ideological tendency where sourced), see [docs/Source-Characterization-Register.md](Source-Characterization-Register.md). This file does not duplicate that record.
 
 ---
 
 ## Live source stack (currently cited in dimensions.json)
 
-Grouped by institution type. See SCR for per-family detail and trust flags. As of 2026-04-19, 30 source families are live in [dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) across 12 dimensions.
+Grouped by institution type. See SCR for per-family detail and trust flags. As of 2026-04-19, 30 source families are live in [dimensions.json](../src/data/dimensions.json) across 12 dimensions.
 
 ### Official / administrative / institutional
 
@@ -37,7 +37,7 @@ Grouped by institution type. See SCR for per-family detail and trust flags. As o
 
 ## Monitoring watchlist (not currently live in dimensions.json)
 
-Families that may be consulted when a file moves, but do not currently carry a live citation in a `sources` array. Introducing any of these into the live stack requires a reflection + review pass per the hard source-edit rule in [docs/Parking-Lot.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Parking-Lot.md) (traceability fix = direct; new analytical source family = reflect + Claude review first).
+Families that may be consulted when a file moves, but do not currently carry a live citation in a `sources` array. Introducing any of these into the live stack requires a reflection + review pass per the hard source-edit rule in [docs/Parking-Lot.md](Parking-Lot.md) (traceability fix = direct; new analytical source family = reflect + Claude review first).
 
 - **Mainstream reporting:** La Presse, Toronto Star, National Post
 - **Other polling firms:** Nanos, Leger, Abacus
@@ -46,7 +46,7 @@ Families that may be consulted when a file moves, but do not currently carry a l
 - **Left-oriented policy organizations:** CCPA, Broadbent Institute, Parkland Institute, The Tyee
 - **Rating agencies:** Fitch, Moody's, S&P (event-driven)
 
-Inclusion here is not an endorsement; it is a record of families that have been discussed as potential future additions, appeared in earlier drafts, or are consulted as context. The live `sources` arrays in [dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json) are the authority on what is actually in use.
+Inclusion here is not an endorsement; it is a record of families that have been discussed as potential future additions, appeared in earlier drafts, or are consulted as context. The live `sources` arrays in [dimensions.json](../src/data/dimensions.json) are the authority on what is actually in use.
 
 ---
 

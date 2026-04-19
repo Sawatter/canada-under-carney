@@ -1,10 +1,10 @@
 # Source Characterization Register
 
-- **Purpose:** Canonical per-source-family record of institution type, ownership/funding, editorial independence, grounded ideological tendency (only where well-sourced), best-use boundary, and strongest SAM-role fit for every source family currently live in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json). Replaces scattered ideological-lean labels with institutional description as the primary characterization.
+- **Purpose:** Canonical per-source-family record of institution type, ownership/funding, editorial independence, grounded ideological tendency (only where well-sourced), best-use boundary, and strongest SAM-role fit for every source family currently live in [src/data/dimensions.json](../src/data/dimensions.json). Replaces scattered ideological-lean labels with institutional description as the primary characterization.
 - **Status:** Active — governance artifact; sits alongside SAM (per-dimension role fit) and QA-Gatekeeping-Rules (admissibility / tier discipline).
 - **Last updated:** 2026-04-19
-- **Depends on:** [docs/Source-Authority-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md), [docs/QA-Gatekeeping-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md), [docs/Product-Thesis.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Product-Thesis.md), [docs/v2/verification/Claude-House-Style.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-House-Style.md)
-- **Used by:** [src/components/About.jsx](/Users/chrissawatsky/Downloads/canada-under-carney/src/components/About.jsx) (Source Balance block), [README.md](/Users/chrissawatsky/Downloads/canada-under-carney/README.md) (Source Balance section), [docs/DATA-SOURCES.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/DATA-SOURCES.md) (monitoring-stack layer), SAM per-dimension Current State Deltas, QA Rule 1 per-source tier assignment.
+- **Depends on:** [docs/Source-Authority-Map.md](Source-Authority-Map.md), [docs/QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [docs/Product-Thesis.md](Product-Thesis.md), [docs/v2/verification/Claude-House-Style.md](v2/verification/Claude-House-Style.md)
+- **Used by:** [src/components/About.jsx](../src/components/About.jsx) (Source Balance block), [README.md](../README.md) (Source Balance section), [docs/DATA-SOURCES.md](DATA-SOURCES.md) (monitoring-stack layer), SAM per-dimension Current State Deltas, QA Rule 1 per-source tier assignment.
 
 ---
 
@@ -13,8 +13,8 @@
 Three governance files overlap on sources but answer different questions:
 
 - **Source Characterization Register (this file) — per-source-family truth.** What each source family *is*: institution type, ownership, governance, editorial independence, grounded ideological tendency (where evidence supports a label), best-use boundary.
-- **[Source Authority Map](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Source-Authority-Map.md) — per-dimension role fit.** For each dimension's construct, which source roles (measurement / policy / execution / independent-challenge / context) are required and how well the live stack covers them.
-- **[QA-Gatekeeping-Rules](/Users/chrissawatsky/Downloads/canada-under-carney/docs/QA-Gatekeeping-Rules.md) — admissibility and tier discipline.** The 5-tier system that determines whether a source can move a grade alone, move it with context, corroborate, or serve as context only.
+- **[Source Authority Map](Source-Authority-Map.md) — per-dimension role fit.** For each dimension's construct, which source roles (measurement / policy / execution / independent-challenge / context) are required and how well the live stack covers them.
+- **[QA-Gatekeeping-Rules](QA-Gatekeeping-Rules.md) — admissibility and tier discipline.** The 5-tier system that determines whether a source can move a grade alone, move it with context, corroborate, or serve as context only.
 
 SCR does not assign grades, verify claim entailment, or change scoring logic. It is the reference record the other files cite when they need to know what a source family is.
 
@@ -22,7 +22,7 @@ SCR does not assign grades, verify claim entailment, or change scoring logic. It
 
 ## Scope and family granularity rule
 
-Scope: every source family with at least one live citation in a `sources` array of [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json). Families mentioned only in `sourceNote` narrative or in rationale / perspective text, without a threaded URL in a `sources` array, are not registered here.
+Scope: every source family with at least one live citation in a `sources` array of [src/data/dimensions.json](../src/data/dimensions.json). Families mentioned only in `sourceNote` narrative or in rationale / perspective text, without a threaded URL in a `sources` array, are not registered here.
 
 Granularity rule:
 - One entry per distinct institutional entity.
@@ -54,7 +54,8 @@ Granularity rule:
 | Watchdog / advocacy | 1 | Democracy Watch |
 | Issue-focused nonprofit journalism | 2 | The Narwhal, Canada's National Observer |
 | Academic research | 3 | Dalhousie Agri-Food Analytics, PROOF (U of T), The Conversation Canada |
-| Polling | 1 | Angus Reid |
+| Polling (dimensions) | 1 | Angus Reid |
+| Polling (Approval Signal, outside GPA) | 5 | Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group |
 
 ---
 
@@ -420,6 +421,67 @@ Granularity rule:
 - **Best-use boundary:** Grade-moving (Tier 2) **for public-opinion claims only**; Tier 3 for any editorial analysis Angus Reid publishes alongside polling data
 - **Strongest SAM-role fit:** Context truth (reader / public sentiment) — not measurement of government performance itself
 - **Trust flags:** Polling is evidence of public sentiment, not evidence of government performance. Should not be used to carry performance claims; in the current use (Major Projects reaction, Promise Delivery report card) it is appropriately positioned as public-sentiment context.
+
+---
+
+## Approval Signal source families (outside GPA)
+
+These five polling families feed the ungraded Approval Signal at the top of the dashboard. They are listed separately because the signal sits outside the scoring model — see [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md). None of them can move a graded dimension; their trust boundary is "public-opinion context only." Angus Reid Institute appears twice in the register because its Public Interest Research arm (live in the Approval Signal) is institutionally distinct from the Vision Critical / Angus Reid commercial polling business (live in graded dimensions above).
+
+### S1. Léger
+
+- **Live usage:** Approval Signal (PM / government approval)
+- **Institution type:** Private Canadian market research firm; oldest continuously operating Canadian-owned polling firm
+- **Ownership / funding:** Privately held (Léger family); CRIC member
+- **Editorial independence / governance:** Commercial market research; publishes methodology and weighting; maintains LEO opt-in online panel
+- **Grounded ideological tendency:** None established; non-partisan commercial mandate
+- **Best-use boundary:** Approval Signal only (outside GPA). Not grade-moving for any performance dimension.
+- **Strongest SAM-role fit:** Context truth (public sentiment)
+- **Trust flags:** Online non-probability panel — MoE is reported as a comparable-probability-sample equivalent, not a true probability-sample MoE. Flagged in the signal's methodology disclosure.
+
+### S2. Abacus Data
+
+- **Live usage:** Approval Signal (federal government approval)
+- **Institution type:** Private Canadian market research firm, founded 2010
+- **Ownership / funding:** Privately held; CRIC member
+- **Editorial independence / governance:** Commercial market research; publishes methodology and writes public-facing analysis on its own blog
+- **Grounded ideological tendency:** None established by external raters; David Coletto (CEO) publishes commentary that is sometimes read as sympathetic to centre-left frames. Commercial polling work remains cross-partisan.
+- **Best-use boundary:** Approval Signal only (outside GPA). Abacus's editorial commentary posts are not admissible even as Tier 3 context for the graded dimensions.
+- **Strongest SAM-role fit:** Context truth (public sentiment)
+- **Trust flags:** Online non-probability panel. Abacus's frequent publication cadence gives heavy weight to its numbers in any equal-weighted mean — mitigation in v1 is multi-pollster coverage (diversified sample). If Abacus publishes 3+ polls in a window and other pollsters publish 0, note the concentration.
+
+### S3. Ipsos
+
+- **Live usage:** Approval Signal (PM approval)
+- **Institution type:** Multinational market research firm (HQ Paris, Canadian operations long-established); CRIC member
+- **Ownership / funding:** Publicly traded (Euronext Paris)
+- **Editorial independence / governance:** Commercial market research; publishes methodology; conducts work for government, corporate, and media clients across partisan lines
+- **Grounded ideological tendency:** None; non-partisan by commercial mandate
+- **Best-use boundary:** Approval Signal only (outside GPA)
+- **Strongest SAM-role fit:** Context truth (public sentiment)
+- **Trust flags:** Online non-probability panel — MoE reported as probability-sample equivalent. Sample sizes typically smaller (n≈1,000) than the Canadian-only firms.
+
+### S4. Angus Reid Institute (public-interest polling arm)
+
+- **Live usage:** Approval Signal (PM approval). Institutionally distinct from Angus Reid commercial market research firm (family entry #30) — the Institute is a non-profit arm doing public-interest polling, run by Shachi Kurl. Same founder lineage as the Forum panel but separate governance.
+- **Institution type:** Registered Canadian non-profit (Angus Reid Institute)
+- **Ownership / funding:** Non-profit foundation funded by donations; CRIC member
+- **Editorial independence / governance:** Non-profit governance; publishes methodology, full cross-tabs, and commentary
+- **Grounded ideological tendency:** None established; non-partisan non-profit mandate
+- **Best-use boundary:** Approval Signal only (outside GPA). Distinct from commercial Angus Reid entry (#30) which is admissible to specific dimensions as Tier 2 public-opinion context.
+- **Strongest SAM-role fit:** Context truth (public sentiment)
+- **Trust flags:** Shares the Angus Reid Forum online panel with the commercial firm; the two entities are separately governed but their panel is the same instrument. Panel is opt-in, not probability-sampled.
+
+### S5. Innovative Research Group
+
+- **Live usage:** Approval Signal (federal government approval)
+- **Institution type:** Private Canadian public affairs research firm; CRIC member
+- **Ownership / funding:** Privately held; Canadian
+- **Editorial independence / governance:** Commercial public affairs research; publishes Canada 20/20 syndicated tracking methodology
+- **Grounded ideological tendency:** None established
+- **Best-use boundary:** Approval Signal only (outside GPA)
+- **Strongest SAM-role fit:** Context truth (public sentiment)
+- **Trust flags:** Lower publication frequency than Abacus / Léger — can contribute 0–1 polls to a 60-day window. Sample size typically n≈1,000, smaller than Léger's typical n≈1,600.
 
 ---
 

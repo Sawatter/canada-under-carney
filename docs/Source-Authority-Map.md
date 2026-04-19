@@ -135,24 +135,24 @@ Each dimension entry must contain exactly these fields:
 **Construct**
 
 The scale and effectiveness of federal housing policy interventions relative to identified need.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:271)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:271)
 
 **Core grade-moving claims**
 
 1. Housing starts remain materially below the level CMHC says is needed to restore affordability.
-   Source basis: minimum indicators + D threshold in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:280) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:292)
+   Source basis: minimum indicators + D threshold in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:280) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:292)
 
 2. Federal programs cover only a tiny share of the shortfall, even after Build Canada Homes is counted.
-   Source basis: D threshold + current rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:292) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1227)
+   Source basis: D threshold + current rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:292) and [src/data/dimensions.json](../src/data/dimensions.json:1227)
 
 3. Build Canada Homes remains an announced pipeline rather than a live construction program.
-   Source basis: current `plusMinusRationale` and rationale in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1228) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1251)
+   Source basis: current `plusMinusRationale` and rationale in [src/data/dimensions.json](../src/data/dimensions.json:1228) and [src/data/dimensions.json](../src/data/dimensions.json:1251)
 
 4. The federal housing spending trajectory is declining rather than scaling.
-   Source basis: current rationale and metric in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1251) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1294)
+   Source basis: current rationale and metric in [src/data/dimensions.json](../src/data/dimensions.json:1251) and [src/data/dimensions.json](../src/data/dimensions.json:1294)
 
 5. The Ontario development-charge agreement is real but insufficient in scale and does not resolve the broader federal-attribution constraint.
-   Source basis: current rationale + jurisdictional-limits modifier in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1231) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1251)
+   Source basis: current rationale + jurisdictional-limits modifier in [src/data/dimensions.json](../src/data/dimensions.json:1231) and [src/data/dimensions.json](../src/data/dimensions.json:1251)
 
 **Required source roles**
 
@@ -186,7 +186,7 @@ These may shape interpretation but must not move the Housing Supply grade withou
 
 Current `dimensions.json` Housing Supply source stack:  
 PBO BCH forecast, CMHC starts, Canada-Ontario Partnership, Policy Options  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1252)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:1252)
 
 - **Present and well-aligned**
   - `CMHC 2025 starts` fills the measurement-truth role for current starts.
@@ -206,12 +206,12 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - The scoring sheet explicitly says the federal government controls only about 30% of what determines housing starts.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:309)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:309)
 
 - Because attribution is mixed, stronger federal sources cannot by themselves settle the full outcome question. Provincial approvals, municipal development charges, land-use constraints, labour capacity, and interest rates still sit outside the federal stack.
 
 - The biggest confounder remains announced vs. started vs. completed.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:303)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:303)
 
 - This means the authority map can improve role clarity, but it cannot eliminate the underlying attribution limit built into the construct.
 
@@ -222,21 +222,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:146)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:146)
 
 **Core grade-moving claims**
 
 1. Disclosure is partial rather than full, and Brookfield-related interests are not yet fully publicly accounted for.
-   Source basis: C threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1381), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1396)
+   Source basis: C threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](../src/data/dimensions.json:1381), and [src/data/dimensions.json](../src/data/dimensions.json:1396)
 
 2. An ethics screen and blind-trust framework exist, which keeps the file in the C band rather than D, but completeness of that framework is credibly challenged.
-   Source basis: C threshold + current `plusMinusRationale` and promise evidence in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1382), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1437)
+   Source basis: C threshold + current `plusMinusRationale` and promise evidence in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](../src/data/dimensions.json:1382), and [src/data/dimensions.json](../src/data/dimensions.json:1437)
 
 3. No independent Ethics Commissioner review has been published.
-   Source basis: minimum indicators + C threshold + current metric and promise status in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:155), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1414), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1448)
+   Source basis: minimum indicators + C threshold + current metric and promise status in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:155), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](../src/data/dimensions.json:1414), and [src/data/dimensions.json](../src/data/dimensions.json:1448)
 
 4. Democracy Watch-level critique is material to the grade and blocks movement toward B unless offset by stronger disclosure or an independent review.
-   Source basis: down-trigger + current `plusMinusRationale` and critics text in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:174), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1382), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1463)
+   Source basis: down-trigger + current `plusMinusRationale` and critics text in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:174), [src/data/dimensions.json](../src/data/dimensions.json:1382), and [src/data/dimensions.json](../src/data/dimensions.json:1463)
 
 **Required source roles**
 
@@ -270,7 +270,7 @@ These may shape interpretation but must not move the Ethics & Transparency grade
 
 Current `dimensions.json` Ethics & Transparency source stack:
 Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement, PM Annex A public declaration of agreed measure  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1397)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:1397)
 
 - **Present and well-aligned**
   - `Office of the Ethics Commissioner — registry and reviews` fills the policy-truth / execution-truth role on framework adequacy and published review status.
@@ -291,13 +291,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - This dimension has little to no true measurement truth. Stronger sourcing can harden the process file, but it cannot turn it into a quantitative dimension.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:176) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:178)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:176) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:178)
 
 - Absence of evidence is not evidence of absence. No proven wrongdoing does not equal an adequate disclosure framework.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:176)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:176)
 
 - Brookfield conflict perception may appear in Carbon Pricing Policy only as context; Ethics & Transparency owns the grade impact.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:180) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:42)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:180) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:42)
 
 - A detailed Ethics Commissioner review is the clearest path to hardening this file. Until then, the source stack will remain partly journalism- and critique-mediated by design.
 
@@ -306,21 +306,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:188)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:188)
 
 **Core grade-moving claims**
 
 1. The headline grade is determined mechanically by the distribution of delivery statuses across the five flagship files.
-   Source basis: grade-threshold rule + current `bandCriterion` in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:202), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:36), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1485)
+   Source basis: grade-threshold rule + current `bandCriterion` in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:202), [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:36), and [src/data/dimensions.json](../src/data/dimensions.json:1485)
 
 2. Defence is delivering and immigration is at least partially delivering, which keeps the file in the C band rather than D.
-   Source basis: current `plusMinusRationale`, rationale, and Combination Rule current assessment in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1486), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1497), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:52), and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:56)
+   Source basis: current `plusMinusRationale`, rationale, and Combination Rule current assessment in [src/data/dimensions.json](../src/data/dimensions.json:1486), [src/data/dimensions.json](../src/data/dimensions.json:1497), [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:52), and [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:56)
 
 3. Housing, major projects, and climate remain stalled or worse, which prevents movement toward B and keeps execution concentrated rather than broad-based.
-   Source basis: current `plusMinusRationale` and Combination Rule current assessment in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1486), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:53), [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:54), and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:55)
+   Source basis: current `plusMinusRationale` and Combination Rule current assessment in [src/data/dimensions.json](../src/data/dimensions.json:1486), [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:53), [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:54), and [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:55)
 
 4. Federal-provincial coordination quality is weak and materially affects delivery on the domestic flagship files.
-   Source basis: minimum indicators + live metric and promise evidence in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:199), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1543), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1546), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1569)
+   Source basis: minimum indicators + live metric and promise evidence in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:199), [src/data/dimensions.json](../src/data/dimensions.json:1543), [src/data/dimensions.json](../src/data/dimensions.json:1546), and [src/data/dimensions.json](../src/data/dimensions.json:1569)
 
 **Required source roles**
 
@@ -354,7 +354,7 @@ These may shape interpretation but must not move the Flagship Delivery grade wit
 
 Current `dimensions.json` Flagship Delivery source stack:  
 Policy Options federalism failure, Policy Options DM shuffle, PBO $94B investment gap, C.D. Howe public service ratio, The Hub $94B gap  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1498)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:1498)
 
 - **Present and well-aligned**
   - `Policy Options — federalism failure` fills independent-challenge truth on cross-file coordination quality.
@@ -373,34 +373,34 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - This is a derivative / combination dimension. Much of its measurement truth is inherited from home dimensions rather than native to Flagship Delivery.
-  Source: [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:17) and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:83)
+  Source: [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:17) and [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:83)
 
 - Double-counting risk is structural: outcome evidence belongs in the home dimensions, while Flagship Delivery owns only the execution question.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:210), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:214), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:63)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:210), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:214), and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:63)
 
 - This dimension remains on probation. If it stops adding analytical value beyond the home dimensions, stronger sourcing alone will not save the construct.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:216), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:218), and [docs/Flagship-Delivery-Rules.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Flagship-Delivery-Rules.md:96)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:216), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:218), and [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:96)
 
 ## 4. Defence & Trade
 
 **Construct**
 
 The degree to which the federal government has met its stated defence spending commitments and diversified Canada's trade relationships away from single-market dependency.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:515)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:515)
 
 **Core grade-moving claims**
 
 1. The defence leg meets the A-band threshold because NATO 2% has been achieved and sustained with formal funding behind it.
-   Source basis: grade threshold + current rationale + defence sub-score in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:533), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:32), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:175)
+   Source basis: grade threshold + current rationale + defence sub-score in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:533), [src/data/dimensions.json](../src/data/dimensions.json:32), and [src/data/dimensions.json](../src/data/dimensions.json:175)
 
 2. The trade leg meets a strong B+/near-A range because export diversification away from the U.S. is measurable, but the improvement is partly market-driven rather than purely policy-caused.
-   Source basis: current rationale + current trade sub-score + external-constraint modifier in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:32), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:177), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:16)
+   Source basis: current rationale + current trade sub-score + external-constraint modifier in [src/data/dimensions.json](../src/data/dimensions.json:32), [src/data/dimensions.json](../src/data/dimensions.json:177), and [src/data/dimensions.json](../src/data/dimensions.json:16)
 
 3. The headline A- is a blended result: defence performs at A, trade diversification at B+, averaging to A-.
-   Source basis: shadow sub-score rule in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:539), plus current display grade and sub-scores in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:5) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:171)
+   Source basis: shadow sub-score rule in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:539), plus current display grade and sub-scores in [src/data/dimensions.json](../src/data/dimensions.json:5) and [src/data/dimensions.json](../src/data/dimensions.json:171)
 
 4. The minus is driven by caveats, not failure: Canada met but did not materially exceed the 2% defence floor, the 3.5% target lacks a funded pathway, and trade diversification is partly confounded by the trade war itself.
-   Source basis: current `plusMinusRationale`, rationale, and modifier rule in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:13), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:32), and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:545)
+   Source basis: current `plusMinusRationale`, rationale, and modifier rule in [src/data/dimensions.json](../src/data/dimensions.json:13), [src/data/dimensions.json](../src/data/dimensions.json:32), and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:545)
 
 **Required source roles**
 
@@ -434,7 +434,7 @@ These may shape interpretation but must not move the Defence & Trade grade witho
 
 Current `dimensions.json` Defence & Trade source stack:  
 NATO Secretary General Annual Report 2025, PMO NATO 2% announcement, Budget 2025 Ch.4, Building Canada Act (Bill C-5), StatsCan trade data, Global Affairs Canada Monthly Trade Report  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:33)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:33)
 
 - **Present and well-aligned**
   - `NATO Secretary General Annual Report 2025` fills defence measurement/execution truth.
@@ -454,13 +454,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - This is a dual-leg mixed dimension. The defence and trade legs do not rely on identical role stacks, even though they share one headline grade.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:517) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:539)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:517) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:539)
 
 - Trade diversification is partly confounded by the same trade war that created the diversification pressure, so stronger trade metrics cannot be treated as purely policy-caused.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:546) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:18)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:546) and [src/data/dimensions.json](../src/data/dimensions.json:18)
 
 - Trade diversification metrics are primary-homed here and should not leak into Economic Policy Response. NATO and defence procurement metrics may appear in Flagship Delivery only as delivery evidence, not as outcome merit.
-  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:29) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:31)
+  Source: [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:29) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:31)
 
 ---
 
@@ -469,21 +469,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The effectiveness of federal institutional machinery for infrastructure project delivery.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:315)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:315)
 
 **Core grade-moving claims**
 
 1. The MPO and Building Canada Act are real institutional reforms, so the file is above D/F territory.
-   Source basis: current rationale + current band criterion in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:194), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:219), and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:334)
+   Source basis: current rationale + current band criterion in [src/data/dimensions.json](../src/data/dimensions.json:194), [src/data/dimensions.json](../src/data/dimensions.json:219), and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:334)
 
 2. Most of the headline project pipeline is pre-existing, so the raw case for a stronger grade is weakened by overclaiming.
-   Source basis: biggest confounder + current `plusMinusRationale` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:346), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:195), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:219)
+   Source basis: biggest confounder + current `plusMinusRationale` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:346), [src/data/dimensions.json](../src/data/dimensions.json:195), and [src/data/dimensions.json](../src/data/dimensions.json:219)
 
 3. The signature power, national interest designation, remains unused, so the framework is still materially untested.
-   Source basis: C threshold + live metric in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:334), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:255), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:219)
+   Source basis: C threshold + live metric in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:334), [src/data/dimensions.json](../src/data/dimensions.json:255), and [src/data/dimensions.json](../src/data/dimensions.json:219)
 
 4. The current C includes an applied credit-claiming penalty: without documented overstatement of pre-existing projects, the machinery would sit at raw C+.
-   Source basis: modifier rule + live `plusMinusRationale` and active modifier in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:339), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:195), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:198)
+   Source basis: modifier rule + live `plusMinusRationale` and active modifier in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:339), [src/data/dimensions.json](../src/data/dimensions.json:195), and [src/data/dimensions.json](../src/data/dimensions.json:198)
 
 **Required source roles**
 
@@ -517,7 +517,7 @@ These may shape interpretation but must not move the Major Projects grade withou
 
 Current `dimensions.json` Major Projects source stack:  
 PM second tranche announcement, Building Canada Act, Fraser Institute MPO assessment, Angus Reid major projects reaction  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:220)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:220)
 
 - **Present and well-aligned**
   - `Building Canada Act` fills policy truth on the existence and formal powers of the machinery.
@@ -537,13 +537,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - Pre-existing momentum is the central confounder. A larger announced pipeline does not prove the MPO itself accelerated anything.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:346)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:346)
 
 - Timing fairness only partially applies: infrastructure is slow-moving, but the machinery itself is already gradeable before outcome acceleration is visible.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:340) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:203)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:340) and [src/data/dimensions.json](../src/data/dimensions.json:203)
 
 - Critical minerals pipeline is primary-homed in Economic Policy Response. Major Projects may reference it only if the question is whether the MPO is helping deliver it, not whether the minerals strategy is itself strong.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:350) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:27)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:350) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:27)
 
 ---
 
@@ -552,21 +552,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The adequacy and coherence of the federal immigration level correction.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:358)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:358)
 
 **Core grade-moving claims**
 
 1. The correction has been executed sharply and at real scale, which is why the file sits at C+ rather than C.
-   Source basis: C+ threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:377), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1101), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115)
+   Source basis: C+ threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:377), [src/data/dimensions.json](../src/data/dimensions.json:1101), and [src/data/dimensions.json](../src/data/dimensions.json:1115)
 
 2. The long-term model remains undefined, which blocks movement toward B despite the scale of the correction.
-   Source basis: C+ threshold + current `bandCriterion`, trigger, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:377), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1101), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1107), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115)
+   Source basis: C+ threshold + current `bandCriterion`, trigger, and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:377), [src/data/dimensions.json](../src/data/dimensions.json:1101), [src/data/dimensions.json](../src/data/dimensions.json:1107), and [src/data/dimensions.json](../src/data/dimensions.json:1115)
 
 3. Downside risks to service-sensitive sectors are real but not yet large enough to overturn the case for correction.
-   Source basis: current `plusMinusRationale`, rationale, and critics perspective in [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1102), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1206)
+   Source basis: current `plusMinusRationale`, rationale, and critics perspective in [src/data/dimensions.json](../src/data/dimensions.json:1102), [src/data/dimensions.json](../src/data/dimensions.json:1115), and [src/data/dimensions.json](../src/data/dimensions.json:1206)
 
 4. Population, permit, and temporary-resident contraction provide measurable evidence that the pullback is happening in the real world rather than remaining an announced intention.
-   Source basis: minimum indicators + live metrics in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:366), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1133), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1140), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1147), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1154)
+   Source basis: minimum indicators + live metrics in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:366), [src/data/dimensions.json](../src/data/dimensions.json:1133), [src/data/dimensions.json](../src/data/dimensions.json:1140), [src/data/dimensions.json](../src/data/dimensions.json:1147), and [src/data/dimensions.json](../src/data/dimensions.json:1154)
 
 **Required source roles**
 
@@ -600,7 +600,7 @@ These may shape interpretation but must not move the Immigration grade without t
 
 Current `dimensions.json` Immigration source stack:  
 StatsCan population Q4 2025, IRCC 2026-2028 levels plan, Bank of Canada wage study  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1116)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:1116)
 
 - **Present and well-aligned**
   - `StatsCan population Q4 2025` fills measurement/execution truth on the live contraction.
@@ -620,12 +620,12 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - This is a correction file, not a clean-sheet redesign file. The grade measures adequacy of repair, not whether the government has built a settled long-term model.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:388) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1115)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:388) and [src/data/dimensions.json](../src/data/dimensions.json:1115)
 
 - Service-side downside risks may lag the correction itself. A clean contraction in intake data does not by itself answer whether the pullback creates secondary strain in healthcare, agriculture, or higher education.
 
 - Immigration levels and temporary-resident data are primary-homed here. Flagship Delivery may use them only as one flagship-file indicator, and Economic Policy Response may not grade-credit the contraction.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:392) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:32)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:392) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:32)
 
 ---
 
@@ -634,21 +634,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:228)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:228)
 
 **Core grade-moving claims**
 
 1. The projected deficit remains above a sustainable range and the medium-term anchor lacks credibility.
-   Source basis: D threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:249), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:349), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:369)
+   Source basis: D threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:249), [src/data/dimensions.json](../src/data/dimensions.json:349), and [src/data/dimensions.json](../src/data/dimensions.json:369)
 
 2. Independent confidence in the stated fiscal path is extremely low, which is central to why the file is a D rather than a softer C-range warning.
-   Source basis: minimum indicators + live metric + rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:239), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:416), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:369)
+   Source basis: minimum indicators + live metric + rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:239), [src/data/dimensions.json](../src/data/dimensions.json:416), and [src/data/dimensions.json](../src/data/dimensions.json:369)
 
 3. Credit pressure is not a downgrade event yet, but rating warnings and debt-service burden reinforce the credibility problem.
-   Source basis: D threshold + current `plusMinusRationale`, rationale, and Fitch metric in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:249), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:350), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:369), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:409)
+   Source basis: D threshold + current `plusMinusRationale`, rationale, and Fitch metric in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:249), [src/data/dimensions.json](../src/data/dimensions.json:350), [src/data/dimensions.json](../src/data/dimensions.json:369), and [src/data/dimensions.json](../src/data/dimensions.json:409)
 
 4. Defence spending is strategically justified, but it does not excuse broader unanchored fiscal expansion.
-   Source basis: modifier rule + current active modifier + rater note in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:253), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:353), and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:265)
+   Source basis: modifier rule + current active modifier + rater note in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:253), [src/data/dimensions.json](../src/data/dimensions.json:353), and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:265)
 
 **Required source roles**
 
@@ -682,7 +682,7 @@ These may shape interpretation but must not move the Fiscal Health grade without
 
 Current `dimensions.json` Fiscal Health source stack:  
 Budget 2025, PBO fiscal analysis, C.D. Howe analysis, Annual Financial Report FY 2024-25, IMF Article IV  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:370)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:370)
 
 - **Present and well-aligned**
   - `Budget 2025` fills measurement/policy truth on the projected deficit, debt-service, and package design.
@@ -703,13 +703,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - Level versus trajectory is the core confounder. Manageable current debt levels do not rescue an unsustainable projected path.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:259)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:259)
 
 - Defence spending can justify part of the fiscal expansion strategically, but not the rest of the package. Stronger defence evidence does not by itself improve the fiscal grade.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:253) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:265)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:253) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:265)
 
 - Deficit, PBO confidence, ratings, and fiscal credibility are primary-homed here. Other dimensions may reference them only as context.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:263), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:35), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:36)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:263), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:35), and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:36)
 
 ---
 
@@ -718,21 +718,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:59)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:59)
 
 **Core grade-moving claims**
 
 1. The government has mounted a real policy response, but key instruments remain more announced than executed, which is why the file stays in D rather than moving to C.
-   Source basis: D threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:79), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:502), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:503), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:527)
+   Source basis: D threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:79), [src/data/dimensions.json](../src/data/dimensions.json:502), [src/data/dimensions.json](../src/data/dimensions.json:503), and [src/data/dimensions.json](../src/data/dimensions.json:527)
 
 2. Business investment and related productivity indicators have not yet turned, so the policy response has not produced measurable traction.
-   Source basis: minimum indicators + current `bandCriterion` and grade triggers in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:68), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:502), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:518)
+   Source basis: minimum indicators + current `bandCriterion` and grade triggers in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:68), [src/data/dimensions.json](../src/data/dimensions.json:502), and [src/data/dimensions.json](../src/data/dimensions.json:518)
 
 3. Timing fairness applies because the structural weakness is inherited, but that modifier does not excuse weak execution on current instruments.
-   Source basis: modifier rule + current active modifier + rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:82), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:506), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:527)
+   Source basis: modifier rule + current active modifier + rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:82), [src/data/dimensions.json](../src/data/dimensions.json:506), and [src/data/dimensions.json](../src/data/dimensions.json:527)
 
 4. GDP per capita decline is inherited context rather than a grade-moving metric, while critical minerals and AI compute are primary-homed here as response instruments.
-   Source basis: deconfliction rule + current rationale and promise set in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:94), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:527), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:583), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:597)
+   Source basis: deconfliction rule + current rationale and promise set in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:94), [src/data/dimensions.json](../src/data/dimensions.json:527), [src/data/dimensions.json](../src/data/dimensions.json:583), and [src/data/dimensions.json](../src/data/dimensions.json:597)
 
 **Required source roles**
 
@@ -766,7 +766,7 @@ These may shape interpretation but must not move the Economic Policy Response gr
 
 Current `dimensions.json` Economic Policy Response source stack:  
 Fraser Institute Ugly Growth, OECD Economic Surveys: Canada 2025, StatsCan GDP per capita, StatsCan LFS Feb 2026, NRCan critical minerals partnerships  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:528)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:528)
 
 - **Present and well-aligned**
   - `OECD Economic Surveys: Canada 2025`, `StatsCan GDP per capita`, and `StatsCan LFS Feb 2026` fill inherited-context plus measurement truth on structural weakness and labour conditions.
@@ -788,13 +788,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - Announcement bias is the core structural risk. A fuller source stack does not solve the problem unless at least some key instruments are shown at authorized-or-higher stage.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:96) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:523)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:96) and [src/data/dimensions.json](../src/data/dimensions.json:523)
 
 - GDP per capita is inherited context, not the grade-moving response metric. Stronger GDP-per-capita evidence should not be mistaken for stronger evidence of policy execution.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:90) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:94)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:90) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:94)
 
 - Critical minerals pipeline and AI compute are primary-homed here. Trade diversification, deficit figures, immigration contraction, and food CPI must stay deconflicted into their home dimensions.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:94), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:27), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:31), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:35), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:47)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:94), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:27), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:31), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:35), and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:47)
 
 ---
 
@@ -803,21 +803,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The adequacy of the federal government's policy response to household cost pressure from groceries, tariffs, and targeted relief programs.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:14)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:14)
 
 **Core grade-moving claims**
 
 1. Federal relief covers less than 20% of the identified household cost increase, which is the central reason the file sits in D rather than C.
-   Source basis: D threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:34), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:648), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:645)
+   Source basis: D threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:34), [src/data/dimensions.json](../src/data/dimensions.json:648), and [src/data/dimensions.json](../src/data/dimensions.json:645)
 
 2. Some instruments exist, but they are too weak or too voluntary to match the scale of the affordability problem, which is why the file resolves to D- rather than a cleaner D.
-   Source basis: C/D thresholds + current `plusMinusRationale`, rationale, and promises in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:33), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:34), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:649), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:645), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:752)
+   Source basis: C/D thresholds + current `plusMinusRationale`, rationale, and promises in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:33), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:34), [src/data/dimensions.json](../src/data/dimensions.json:649), [src/data/dimensions.json](../src/data/dimensions.json:645), and [src/data/dimensions.json](../src/data/dimensions.json:752)
 
 3. Tariff-driven cost pressure is real, but the external-constraint modifier does not apply because the federal response is still judged inadequate.
-   Source basis: modifier rule + current active modifier + status line in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:38), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:652), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:643)
+   Source basis: modifier rule + current active modifier + status line in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:38), [src/data/dimensions.json](../src/data/dimensions.json:652), and [src/data/dimensions.json](../src/data/dimensions.json:643)
 
 4. The file grades the policy response, not the food-price level itself; global food prices and exchange-rate pressure are confounders rather than grade movers.
-   Source basis: confounder/rater note + current rationale and scope in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:45), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:51), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:645), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:669)
+   Source basis: confounder/rater note + current rationale and scope in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:45), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:51), [src/data/dimensions.json](../src/data/dimensions.json:645), and [src/data/dimensions.json](../src/data/dimensions.json:669)
 
 **Required source roles**
 
@@ -851,7 +851,7 @@ These may shape interpretation but must not move the Affordability Response grad
 
 Current `dimensions.json` Affordability Response source stack:  
 StatsCan CPI Feb 2026, Dalhousie Food Price Report, PROOF food insecurity 2024  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:694)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:694)
 
 - **Present and well-aligned**
   - `StatsCan CPI Feb 2026` fills measurement truth on current food-price pressure.
@@ -872,13 +872,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - The price level is the core confounder. A stronger stack on food inflation alone does not improve the grade unless the response-to-burden ratio changes.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:45) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:51)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:45) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:51)
 
 - Food CPI and tariff household cost burden are primary-homed here. Other dimensions may cite them only as context.
-  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:33), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:34), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:55)
+  Source: [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:33), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:34), and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:55)
 
 - Consumer carbon tax elimination is primary-homed in Carbon Pricing Policy, while consumer carbon tax affordability savings are primary-homed here. The two must not be collapsed into one response claim.
-  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:19) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:20)
+  Source: [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:19) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:20)
 
 ---
 
@@ -887,21 +887,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The quality of the federal government's handling of carbon pricing as a policy instrument.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:102)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:102)
 
 **Core grade-moving claims**
 
 1. Eliminating the consumer carbon charge was a genuine policy delivery win and is the strongest cleanly-delivered component of the file.
-   Source basis: C threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:122), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:802), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:803), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:822)
+   Source basis: C threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:122), [src/data/dimensions.json](../src/data/dimensions.json:802), [src/data/dimensions.json](../src/data/dimensions.json:803), and [src/data/dimensions.json](../src/data/dimensions.json:822)
 
 2. The industrial OBPS has been preserved more in form than in clearly effective function, because the effective price appears far below the headline schedule.
-   Source basis: C threshold + current `bandCriterion`, rationale, and confounder note in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:122), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:134), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:802), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:822)
+   Source basis: C threshold + current `bandCriterion`, rationale, and confounder note in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:122), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:134), [src/data/dimensions.json](../src/data/dimensions.json:802), and [src/data/dimensions.json](../src/data/dimensions.json:822)
 
 3. External-constraint arguments about a future border adjustment are too early to improve the grade.
-   Source basis: modifier rule + current active modifier in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:127), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:806), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:807)
+   Source basis: modifier rule + current active modifier in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:127), [src/data/dimensions.json](../src/data/dimensions.json:806), and [src/data/dimensions.json](../src/data/dimensions.json:807)
 
 4. This file grades the carbon-pricing instrument, not emissions outcomes or the broader climate framework.
-   Source basis: deconfliction/rater note + current rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:138), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:140), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:822)
+   Source basis: deconfliction/rater note + current rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:138), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:140), and [src/data/dimensions.json](../src/data/dimensions.json:822)
 
 **Required source roles**
 
@@ -935,7 +935,7 @@ These may shape interpretation but must not move the Carbon Pricing Policy grade
 
 Current `dimensions.json` Carbon Pricing Policy source stack:  
 Canada.ca — fuel charge removal, ECCC — Output-Based Pricing System, CCI — industrial pricing, IISD — Canadian Carbon Pricing Systems: 2025 Review, PBO carbon GST revenue  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:823)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:823)
 
 - **Present and well-aligned**
   - `Canada.ca — fuel charge removal` fills policy/execution truth on the consumer-side delivery.
@@ -956,13 +956,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - The headline-versus-effective-price gap is the core confounder. Stronger evidence on the headline schedule alone does not prove the instrument is functionally effective.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:134) and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:854)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:134) and [src/data/dimensions.json](../src/data/dimensions.json:854)
 
 - Consumer carbon tax elimination is primary-homed here, but the consumer affordability savings are primary-homed in Affordability Response. The event and the household-savings effect must stay separated.
-  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:19) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:20)
+  Source: [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:19) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:20)
 
 - Industrial OBPS emissions impact is primary-homed in Climate & Environment. This file owns the instrument's design and coherence, not the emissions outcome.
-  Source: [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:21) and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:22)
+  Source: [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:21) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:22)
 
 ---
 
@@ -971,21 +971,21 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Construct**
 
 The scale and coherence of the federal environmental policy framework.  
-Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:400)
+Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:400)
 
 **Core grade-moving claims**
 
 1. Major environmental reversals occurred without a credible replacement strategy, which is the central reason the file is a D rather than a C.
-   Source basis: D threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:422), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:936), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:937), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956)
+   Source basis: D threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:422), [src/data/dimensions.json](../src/data/dimensions.json:936), [src/data/dimensions.json](../src/data/dimensions.json:937), and [src/data/dimensions.json](../src/data/dimensions.json:956)
 
 2. Independent analysis and government acknowledgment both indicate that current policy is not on track for the 2030 target.
-   Source basis: minimum indicators + rationale and promise evidence in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:412), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1065)
+   Source basis: minimum indicators + rationale and promise evidence in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:412), [src/data/dimensions.json](../src/data/dimensions.json:956), and [src/data/dimensions.json](../src/data/dimensions.json:1065)
 
 3. Institutional climate capacity is shrinking through ECCC budget and staffing cuts, which is part of the grade-moving framework deterioration.
-   Source basis: minimum indicators + current `plusMinusRationale`, metric, and rationale in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:411), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:937), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:1008), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956)
+   Source basis: minimum indicators + current `plusMinusRationale`, metric, and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:411), [src/data/dimensions.json](../src/data/dimensions.json:937), [src/data/dimensions.json](../src/data/dimensions.json:1008), and [src/data/dimensions.json](../src/data/dimensions.json:956)
 
 4. Trade-war pressure provides only partial justification; it does not explain the full scale of reversals in the live framework.
-   Source basis: modifier rule + current active modifier + confounder note in [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:426), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:432), [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:940), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:956)
+   Source basis: modifier rule + current active modifier + confounder note in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:426), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:432), [src/data/dimensions.json](../src/data/dimensions.json:940), and [src/data/dimensions.json](../src/data/dimensions.json:956)
 
 **Required source roles**
 
@@ -1019,7 +1019,7 @@ These may shape interpretation but must not move the Climate & Environment grade
 
 Current `dimensions.json` Climate & Environment source stack:  
 CCI — Canada off course, IISD — Canada's 2030 climate target, CCI — industrial pricing gaps, ECCC 2024-25 Departmental plan at a glance, ECCC 2025-26 Departmental plan at a glance, National Observer — fossil fuel course, ECCC Arctic science cuts, CBC — ECCC job and budget cuts  
-Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:957)
+Source: [src/data/dimensions.json](../src/data/dimensions.json:957)
 
 - **Present and well-aligned**
   - `CCI — Canada off course` fills independent-challenge truth on the target gap.
@@ -1042,13 +1042,13 @@ Source: [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-c
 **Red-flag gaps**
 
 - Trade-war justification is only partial. A stronger trade-war source stack would not by itself rescue the file if replacement strategy and capacity remain absent.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:426) and [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:432)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:426) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:432)
 
 - This file owns the emissions framework, not the carbon-pricing instrument. Industrial OBPS design belongs in Carbon Pricing Policy; emissions-cap status, EV mandate status, and ECCC capacity belong here.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:436), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:21), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:22), [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:38), and [docs/Deconfliction-Matrix.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Deconfliction-Matrix.md:40)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:436), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:21), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:22), [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:38), and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:40)
 
 - Stronger evidence on preserved low-carbon assets or industrial pricing does not substitute for the missing replacement strategy that would move this file upward.
-  Source: [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:421), [docs/Canonical-Scoring-Sheets.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Canonical-Scoring-Sheets.md:422), and [src/data/dimensions.json](/Users/chrissawatsky/Downloads/canada-under-carney/src/data/dimensions.json:936)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:421), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:422), and [src/data/dimensions.json](../src/data/dimensions.json:936)
 
 ---
 

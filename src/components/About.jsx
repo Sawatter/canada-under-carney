@@ -122,8 +122,10 @@ export default function About() {
             </li>
             <li>
               Non-official sources are drawn from multiple institution types
-              and perspectives, not a single editorial or analytical family
-              (see Source Balance below)
+              and perspectives — think tanks, policy institutes, journalism,
+              and academic research are all used, but no single editorial or
+              analytical family is allowed to dominate the stack (see Source
+              Balance below)
             </li>
             <li>
               Grade changes require documented evidence and rubric citation

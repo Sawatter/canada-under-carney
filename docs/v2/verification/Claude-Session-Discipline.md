@@ -14,7 +14,7 @@ If you finish a fix pass and want to do a review pass, start a new thread. If yo
 
 For whether a task needs reflection, external review, or direct execution, consult:
 
-- [AI-Workflow-Efficiency-Protocol.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/AI-Workflow-Efficiency-Protocol.md)
+- [AI-Workflow-Efficiency-Protocol.md](AI-Workflow-Efficiency-Protocol.md)
 
 This file governs thread shape. The efficiency protocol governs escalation and review routing.
 

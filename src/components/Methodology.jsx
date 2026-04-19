@@ -173,6 +173,74 @@ export default function Methodology() {
           construct, indicators, source roles, deconfliction notes, and
           derivative handling without creating a separate scoring layer.
         </p>
+
+        <div
+          style={{
+            marginTop: "20px",
+            marginBottom: "8px",
+            fontSize: "13px",
+            fontWeight: 700,
+            color: "#333",
+          }}
+        >
+          Limits of this model
+        </div>
+        <ul
+          style={{
+            fontSize: "12px",
+            color: "#888",
+            paddingLeft: "20px",
+            margin: 0,
+            lineHeight: 1.6,
+          }}
+        >
+          <li style={{ marginBottom: "6px" }}>
+            This is a rule-governed accountability scorecard, not a
+            statistically-validated measurement instrument. Grades are
+            editor judgments bound by a published rubric.
+          </li>
+          <li style={{ marginBottom: "6px" }}>
+            Aggregate scores use equal-weight averaging of ordinal letter
+            grades converted to a 4.0 scale. That conversion is a disclosed
+            editorial convention, not a latent-variable model.
+          </li>
+          <li style={{ marginBottom: "6px" }}>
+            Plus/minus precision reflects editor judgment under the rubric.
+            Evidence-thin files (Ethics &amp; Transparency, Flagship
+            Delivery) are held to whole letters to prevent false precision.
+          </li>
+          <li style={{ marginBottom: "6px" }}>
+            External inter-rater reliability has not been tested. The
+            three-lane QA (Analyst {"→"} Red Team {"→"} Referee) is an
+            internal discipline, not a substitute for independent
+            replication.
+          </li>
+          <li>
+            The two headline scores (Full Policy Audit and Household
+            Impact) use the same 11 dimensions with different weights and
+            act as a built-in sensitivity check on weighting choices.
+          </li>
+        </ul>
+
+        <p style={{ marginTop: "16px", fontSize: "12px", color: "#888" }}>
+          <strong>Approval Signal at the top of the dashboard:</strong> The
+          public-opinion approval box above the grades is not part of the
+          scoring model. It averages direct PM/government approval across
+          five CRIC-member pollsters (Léger, Abacus Data, Ipsos, Angus Reid
+          Institute, Innovative Research Group) over a rolling 60-day
+          window. It is placed visibly so readers do not mistake the grades
+          for popularity, but it does not feed either headline score. See
+          the{" "}
+          <a
+            href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#1a73e8" }}
+          >
+            Approval Signal decision memo
+          </a>{" "}
+          for the full rule set.
+        </p>
       </div>
     </div>
   );

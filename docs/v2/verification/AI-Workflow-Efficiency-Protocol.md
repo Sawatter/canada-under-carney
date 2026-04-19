@@ -181,8 +181,8 @@ Treat context as layered, not flat.
 ### Persistent context
 
 These are stable enough to live in standing docs and be reused:
-- [Claude-House-Style.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-House-Style.md)
-- [Claude-Session-Discipline.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/v2/verification/Claude-Session-Discipline.md)
+- [Claude-House-Style.md](Claude-House-Style.md)
+- [Claude-Session-Discipline.md](Claude-Session-Discipline.md)
 - this protocol
 - active governing methodology docs when relevant to a task
 
