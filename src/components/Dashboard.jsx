@@ -10,6 +10,7 @@ import DimensionCard from "./DimensionCard";
 import PromiseTracker from "./PromiseTracker";
 import Methodology from "./Methodology";
 import About from "./About";
+import EmailSignup from "./EmailSignup";
 
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
@@ -264,6 +265,9 @@ export default function Dashboard() {
 
       {/* About View */}
       {view === "about" && <About />}
+
+      {/* Email signup */}
+      <EmailSignup />
 
       {/* Footer */}
       <div
