@@ -118,7 +118,7 @@
   divergence signal). The block was removed from the live dashboard header on
   2026-04-19 to cut visual clutter. Score-box subtitles remain on the
   dashboard so each grade card still answers "what is this?" at first glance.
-- Expanded-dimension readability / information-overload review — Completed 2026-04-19 (two passes)
+- Expanded-dimension readability / information-overload review — Completed 2026-04-19 (three passes)
   First pass landed a density trim: nested Promise Tracker replaced with a
   one-line summary pointing to the Promises tab; Scope and "What Was
   Inherited" collapsed behind disclosure toggles; repeated italic methodology
@@ -129,8 +129,12 @@
   demoted to a smaller subtitle; modifiers kept visible but compact. "What
   Would Change This Grade" and "Interpretive Perspectives" collapsed behind
   disclosure toggles. The methodology-jargon `Construct:` line removed from
-  the card header. Revisit only if user-testing surfaces a specific remaining
-  overload.
+  the card header.
+  Third pass landed a label cleanup: "Interpretive Perspectives" → "Critics
+  and defenders"; "Modifiers:" → "Adjustments:"; "**{band}** band —
+  {bandCriterion}" → "**{band}** means: {bandCriterion}". Copy-only; no
+  structural change.
+  Revisit only if user-testing surfaces a specific remaining overload.
 - Promise Tracker item detail / link model review — Completed 2026-04-19
   Reflection + narrow build pass landed. Promise schema extended with four
   optional fields per promise (`originalSourceUrl`, `originalSourceLabel`,
