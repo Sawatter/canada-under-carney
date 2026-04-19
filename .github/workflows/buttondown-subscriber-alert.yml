@@ -1,0 +1,46 @@
+name: Buttondown subscriber-count alert
+
+# Runs daily at 13:00 UTC. Polls the Buttondown API for the current subscriber
+# count and fails the workflow run when the count crosses 95 — well below the
+# 100-subscriber free-tier limit so there is room to upgrade or trim before
+# Buttondown stops accepting new sign-ups. A failed scheduled run sends an
+# email to the repo owner via GitHub's default notification settings.
+
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  check-subscriber-count:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Query Buttondown subscriber count
+        env:
+          BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
+          ALERT_THRESHOLD: "95"
+          FREE_TIER_LIMIT: "100"
+        run: |
+          set -euo pipefail
+
+          if [ -z "${BUTTONDOWN_API_KEY:-}" ]; then
+            echo "::error::BUTTONDOWN_API_KEY secret is not set on this repository."
+            exit 1
+          fi
+
+          response=$(curl --silent --show-error \
+            --header "Authorization: Token ${BUTTONDOWN_API_KEY}" \
+            "https://api.buttondown.com/v1/subscribers?type=regular")
+
+          count=$(printf '%s' "$response" | python3 -c "import json,sys; print(json.load(sys.stdin).get('count',0))")
+
+          echo "Current Buttondown subscriber count: ${count}"
+          echo "Alert threshold: ${ALERT_THRESHOLD}"
+          echo "Free-tier limit: ${FREE_TIER_LIMIT}"
+
+          if [ "$count" -ge "$ALERT_THRESHOLD" ]; then
+            echo "::error::Buttondown subscriber count is ${count} (>= ${ALERT_THRESHOLD}). Free-tier limit is ${FREE_TIER_LIMIT}. Upgrade the plan or prune inactive subscribers."
+            exit 1
+          fi
+
+          echo "Subscriber count is below alert threshold. No action required."
