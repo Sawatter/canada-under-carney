@@ -6,6 +6,11 @@ import PromiseTag from "./PromiseTag";
 export default function DimensionCard({ dim, isExpanded, onClick }) {
   const g = GRADES[dim.grade];
   const modifierItems = dim.gradeBasis?.activeModifiers || [];
+  const metaTags = [
+    { label: "Confidence", value: dim.tags?.confidence, tone: "blue" },
+    { label: "Attribution", value: dim.tags?.attribution, tone: "gray" },
+    { label: "Lag", value: dim.tags?.lag, tone: "amber" },
+  ].filter((tag) => tag.value);
   const rationaleLabel = dim.status?.includes("Whole-letter grade only")
     ? "Within-band rationale"
     : "Plus/minus rationale";
@@ -26,6 +31,30 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
     }
 
     return item.item;
+  };
+
+  const metaTagStyle = (tone) => {
+    if (tone === "blue") {
+      return {
+        color: "#3551a0",
+        background: "#eef3ff",
+        border: "1px solid #d7defa",
+      };
+    }
+
+    if (tone === "amber") {
+      return {
+        color: "#7a5d1b",
+        background: "#fbf4e5",
+        border: "1px solid #eadfbd",
+      };
+    }
+
+    return {
+      color: "#555",
+      background: "#f5f5f5",
+      border: "1px solid #e3e3e3",
+    };
   };
 
   return (
@@ -115,6 +144,36 @@ export default function DimensionCard({ dim, isExpanded, onClick }) {
               }}
             >
               <strong style={{ color: "#555" }}>Construct:</strong> {dim.construct}
+            </div>
+          )}
+          {metaTags.length > 0 && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "6px",
+                marginTop: "8px",
+              }}
+            >
+              {metaTags.map((tag) => (
+                <div
+                  key={tag.label}
+                  style={{
+                    ...metaTagStyle(tag.tone),
+                    fontSize: "10px",
+                    lineHeight: 1.35,
+                    borderRadius: "999px",
+                    padding: "3px 8px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    maxWidth: "100%",
+                  }}
+                >
+                  <strong style={{ fontWeight: 700 }}>{tag.label}:</strong>
+                  <span>{tag.value}</span>
+                </div>
+              ))}
             </div>
           )}
         </div>
