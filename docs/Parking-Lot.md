@@ -43,6 +43,11 @@
   verified truth are we claiming, and which sources are allowed to carry each
   kind of claim?"
 
+- Commitment traceability map — Completed; see [docs/Commitment-Traceability-Map.md](/Users/chrissawatsky/Downloads/canada-under-carney/docs/Commitment-Traceability-Map.md)
+  For each tracked commitment, publish the path from original public source to
+  home dimension, construct, indicators, source roles, deconfliction notes, and
+  derivative handling.
+
 - Skeptical data scientist reflection pass
   Pressure-test the dashboard as if a critical data scientist reviewed the model, especially:
   - mixed constructs
