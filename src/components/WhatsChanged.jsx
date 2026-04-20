@@ -230,7 +230,7 @@ export default function WhatsChanged({ changelog }) {
             letterSpacing: "1px",
           }}
         >
-          What changed
+          What changed since last update
         </div>
         <div style={{ fontSize: "13px", color: "#666" }}>
           Last updated {latest.date}

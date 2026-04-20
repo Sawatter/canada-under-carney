@@ -17,26 +17,29 @@
           "ECCC staffing cut",
           "Industrial credits detached from headline price"
         ],
-        "link": { "label": "See methodology", "href": "#methodology" }
+        "link": {
+          "label": "Scoring rubric",
+          "href": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Scoring-Rubric-v1.1.md"
+        }
       },
       {
         "type": "event",
         "headline": "Majority government confirmed",
-        "body": "Carney won a majority government on April 13, 2026 — 174 seats after three byelection wins.",
+        "body": "Carney's Liberals won 3 Toronto/Quebec byelections on April 13, 2026, reaching 174 seats and securing a majority in the House of Commons.",
         "affects": ["Ethics & Transparency", "Execution & Delivery"],
         "link": {
-          "label": "Elections Canada",
-          "href": "https://www.elections.ca/"
+          "label": "CBC News: byelection results",
+          "href": "https://www.cbc.ca/news/politics/byelection-liberal-conservatives-carney-majority-government-9.7161054"
         }
       },
       {
         "type": "event",
         "headline": "Federal gas tax suspension announced",
-        "body": "Federal fuel excise suspended April 14 through September 7. Estimated $2.4B in foregone revenue. La Presse called the move \"une décision insensée.\"",
+        "body": "Federal fuel excise suspended April 20 through September 7, 2026. Estimated $2.4B in foregone revenue over the window.",
         "affects": ["Fiscal Health", "Climate & Environment", "Affordability Response"],
         "link": {
-          "label": "La Presse",
-          "href": "https://www.lapresse.ca/"
+          "label": "Department of Finance announcement",
+          "href": "https://www.canada.ca/en/department-finance/news/2026/04/temporarily-suspending-the-federal-fuel-excise-tax.html"
         }
       },
       {

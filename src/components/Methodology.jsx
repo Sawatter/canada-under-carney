@@ -103,7 +103,7 @@ export default function Methodology() {
             <div style={{ fontWeight: 700, fontSize: "14px", color: g.color }}>
               {g.range}: {g.title}
             </div>
-            <div style={{ fontSize: "13px", color: "#666" }}>{g.desc}</div>
+            <div style={{ fontSize: "14px", color: "#444" }}>{g.desc}</div>
           </div>
         ))}
 
@@ -130,7 +130,7 @@ export default function Methodology() {
             <div style={{ fontWeight: 700, fontSize: "14px", color: m.color }}>
               {m.name}
             </div>
-            <div style={{ fontSize: "13px", color: "#666" }}>{m.desc}</div>
+            <div style={{ fontSize: "14px", color: "#444" }}>{m.desc}</div>
             <div
               style={{
                 fontSize: "14px",
@@ -187,8 +187,8 @@ export default function Methodology() {
         </div>
         <ul
           style={{
-            fontSize: "13px",
-            color: "#888",
+            fontSize: "14px",
+            color: "#444",
             paddingLeft: "20px",
             margin: 0,
             lineHeight: 1.6,

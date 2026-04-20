@@ -26,12 +26,12 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                 background: style.bg,
                 padding: "12px 8px",
                 textAlign: "center",
-                minWidth: "60px",
+                minWidth: "96px",
               }}
             >
               <div
                 style={{
-                  fontSize: "18px",
+                  fontSize: "20px",
                   fontWeight: 800,
                   color: style.color,
                   fontFamily: "'DM Mono', monospace",
@@ -39,7 +39,17 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
               >
                 {count}
               </div>
-              <div style={{ fontSize: "13px", color: style.color, fontWeight: 600 }}>
+              <div
+                style={{
+                  fontSize: "13px",
+                  color: style.color,
+                  fontWeight: 600,
+                  whiteSpace: "normal",
+                  wordBreak: "keep-all",
+                  overflowWrap: "normal",
+                  lineHeight: 1.2,
+                }}
+              >
                 {status}
               </div>
             </div>
@@ -109,7 +119,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                         gap: "12px",
                       }}
                     >
-                      <span style={{ fontSize: "14px", color: "#333", flex: 1 }}>
+                      <span style={{ fontSize: "15px", color: "#333", flex: 1 }}>
                         {p.text}
                         {p.durability && (
                           <span
