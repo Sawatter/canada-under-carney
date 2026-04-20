@@ -46,7 +46,7 @@ export default function VisitorCount() {
         position: "absolute",
         top: "12px",
         right: "16px",
-        fontSize: "12px",
+        fontSize: "13px",
         color: "#888",
         background: "#fff",
         border: "1px solid #e0e0e0",

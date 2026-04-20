@@ -29,7 +29,7 @@ export default function EmailSignup() {
     >
       <div
         style={{
-          fontSize: "13px",
+          fontSize: "14px",
           fontWeight: 700,
           color: "#1a3c5e",
           textTransform: "uppercase",
@@ -41,7 +41,7 @@ export default function EmailSignup() {
       </div>
       <div
         style={{
-          fontSize: "12px",
+          fontSize: "13px",
           color: "#666",
           lineHeight: 1.5,
           marginBottom: "10px",
@@ -69,7 +69,7 @@ export default function EmailSignup() {
             style={{
               flex: "1 1 240px",
               padding: "8px 10px",
-              fontSize: "13px",
+              fontSize: "14px",
               border: "1px solid #d0d0d0",
               borderRadius: "6px",
               fontFamily: "'DM Sans', sans-serif",
@@ -80,7 +80,7 @@ export default function EmailSignup() {
             disabled={!consent || !email}
             style={{
               padding: "8px 18px",
-              fontSize: "13px",
+              fontSize: "14px",
               fontWeight: 700,
               color: "#fff",
               background: !consent || !email ? "#bbb" : "#1a3c5e",
@@ -99,7 +99,7 @@ export default function EmailSignup() {
             display: "flex",
             alignItems: "flex-start",
             gap: "8px",
-            fontSize: "13px",
+            fontSize: "14px",
             color: "#666",
             lineHeight: 1.4,
             cursor: "pointer",
@@ -121,7 +121,7 @@ export default function EmailSignup() {
         {submitted && (
           <div
             style={{
-              fontSize: "12px",
+              fontSize: "13px",
               color: "#1a7a3a",
               marginTop: "4px",
             }}
@@ -130,7 +130,7 @@ export default function EmailSignup() {
           </div>
         )}
 
-        <div style={{ fontSize: "12px", color: "#999", marginTop: "4px" }}>
+        <div style={{ fontSize: "13px", color: "#999", marginTop: "4px" }}>
           Powered by Buttondown. Prefer RSS?{" "}
           <a href="feed.xml" style={{ color: "#1a73e8" }}>
             Subscribe via RSS instead &rarr;

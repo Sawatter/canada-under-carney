@@ -18,7 +18,7 @@ export default function About() {
       >
         About This Dashboard
       </h2>
-      <div style={{ fontSize: "15px", lineHeight: 1.6, color: "#333" }}>
+      <div style={{ fontSize: "16px", lineHeight: 1.6, color: "#333" }}>
         <p style={{ marginBottom: "16px" }}>
           <strong>Canada Under Carney</strong> is a non-partisan performance
           dashboard tracking the federal government across 11 graded policy
@@ -106,7 +106,7 @@ export default function About() {
           }}
         >
           <div
-            style={{ fontWeight: 700, fontSize: "13px", color: "#1a3c5e" }}
+            style={{ fontWeight: 700, fontSize: "14px", color: "#1a3c5e" }}
           >
             Principles
           </div>
@@ -154,11 +154,11 @@ export default function About() {
           }}
         >
           <div
-            style={{ fontWeight: 700, fontSize: "13px", color: "#558b2f" }}
+            style={{ fontWeight: 700, fontSize: "14px", color: "#558b2f" }}
           >
             Source Balance
           </div>
-          <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+          <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
             This is a current source-type summary, not a full manifest and not
             a formal left/right scorecard. Click any expanded dimension card
             for the exact source URLs used on that file. For the canonical
@@ -210,11 +210,11 @@ export default function About() {
           }}
         >
           <div
-            style={{ fontWeight: 700, fontSize: "13px", color: "#e68a00" }}
+            style={{ fontWeight: 700, fontSize: "14px", color: "#e68a00" }}
           >
             Evaluation Period
           </div>
-          <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+          <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
             Mark Carney was sworn in as PM on March 14, 2025. The Liberals
             secured a majority (174 seats) on April 13, 2026 via byelection
             wins. This dashboard evaluates the period from March 2025 onward,
@@ -231,10 +231,10 @@ export default function About() {
             marginBottom: "16px",
           }}
         >
-          <div style={{ fontWeight: 700, fontSize: "13px", color: "#666" }}>
+          <div style={{ fontWeight: 700, fontSize: "14px", color: "#666" }}>
             Built By
           </div>
-          <div style={{ fontSize: "12px", color: "#555", marginTop: "4px" }}>
+          <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
             Independent project &middot; Calgary, Canada
             <br />
             Built with AI assistance (Claude Code). Methodology
@@ -254,7 +254,7 @@ export default function About() {
           </div>
         </div>
 
-        <p style={{ fontSize: "13px", color: "#aaa", marginTop: "16px" }}>
+        <p style={{ fontSize: "14px", color: "#aaa", marginTop: "16px" }}>
           This dashboard is an independent analytical product. It is not
           affiliated with any political party, government agency, or advocacy
           organization. Feedback and corrections are welcome via GitHub Issues.

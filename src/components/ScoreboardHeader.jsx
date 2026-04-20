@@ -20,7 +20,7 @@ const cardBase = {
 };
 
 const cardTitle = {
-  fontSize: "14px",
+  fontSize: "15px",
   fontWeight: 700,
   color: "#1a1a1a",
   textTransform: "uppercase",
@@ -29,7 +29,7 @@ const cardTitle = {
 };
 
 const cardSubtitle = {
-  fontSize: "13px",
+  fontSize: "14px",
   color: "#444",
   fontStyle: "italic",
   lineHeight: 1.4,
@@ -38,7 +38,7 @@ const cardSubtitle = {
 };
 
 const cardScoreCaption = {
-  fontSize: "13px",
+  fontSize: "14px",
   color: "#333",
   marginTop: "10px",
   fontFamily: "'DM Mono', monospace",
@@ -133,18 +133,6 @@ export default function ScoreboardHeader({
         />
       </div>
 
-      {/* Why-two-grades pointer */}
-      <div
-        style={{
-          textAlign: "center",
-          fontSize: "13px",
-          color: "#555",
-          fontStyle: "italic",
-          lineHeight: 1.5,
-        }}
-      >
-        Two grades, same 11 dimensions. Why? See the About tab.
-      </div>
     </div>
   );
 }

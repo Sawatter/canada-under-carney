@@ -53,7 +53,7 @@ export default function Dashboard() {
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
         <div
           style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: 700,
             color: "#c62828",
             textTransform: "uppercase",
@@ -74,7 +74,7 @@ export default function Dashboard() {
         >
           Canada Under Carney
         </h1>
-        <div className="header-subtitle" style={{ fontSize: "14px", color: "#555" }}>
+        <div className="header-subtitle" style={{ fontSize: "15px", color: "#555" }}>
           {meta.coveragePeriod.start.slice(0, 7).replace("-", "/")} &ndash;{" "}
           {meta.coveragePeriod.end.slice(0, 7).replace("-", "/")} &middot;
           Updated {meta.lastUpdated} &middot; v{meta.version}
@@ -85,7 +85,7 @@ export default function Dashboard() {
           style={{
             marginTop: "8px",
             padding: "6px 16px",
-            fontSize: "13px",
+            fontSize: "14px",
             color: "#888",
             background: "transparent",
             border: "1px solid #ddd",
@@ -135,7 +135,7 @@ export default function Dashboard() {
             style={{
               flex: 1,
               padding: "10px 6px",
-              fontSize: "13px",
+              fontSize: "14px",
               fontWeight: 700,
               background: view === t.key ? "#fff" : "transparent",
               border: "none",
@@ -158,9 +158,9 @@ export default function Dashboard() {
         <div
           style={{
             textAlign: "center",
-            fontSize: "15px",
-            color: "#444",
-            fontStyle: "italic",
+            fontSize: "16px",
+            color: "#1a1a1a",
+            fontWeight: 700,
             lineHeight: 1.5,
             marginBottom: "16px",
             maxWidth: "640px",
@@ -177,7 +177,7 @@ export default function Dashboard() {
             justifyContent: "center",
             gap: "20px",
             marginBottom: "16px",
-            fontSize: "13px",
+            fontSize: "14px",
             color: "#444",
             fontWeight: 600,
             flexWrap: "wrap",
@@ -208,9 +208,9 @@ export default function Dashboard() {
           <div style={{ marginTop: "20px" }}>
             <div
               style={{
-                fontSize: "13px",
+                fontSize: "14px",
                 fontWeight: 700,
-                color: "#777",
+                color: "#1a1a1a",
                 textTransform: "uppercase",
                 letterSpacing: "0.8px",
                 marginBottom: "6px",
@@ -220,7 +220,7 @@ export default function Dashboard() {
             </div>
             <div
               style={{
-                fontSize: "14px",
+                fontSize: "15px",
                 color: "#444",
                 marginBottom: "12px",
                 lineHeight: 1.5,
@@ -285,14 +285,14 @@ export default function Dashboard() {
           borderTop: "1px solid #e0e0e0",
         }}
       >
-        <div style={{ fontSize: "13px", color: "#555" }}>
+        <div style={{ fontSize: "14px", color: "#555" }}>
           Canada Under Carney &middot; Data: Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, NATO, OECD, IMF, Fitch
         </div>
-        <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
+        <div style={{ fontSize: "14px", color: "#555", marginTop: "4px" }}>
           Monthly updates with ad-hoc revisions on major events &middot; Rubric
           v{meta.rubricVersion} &middot; Next scheduled update: {meta.nextUpdate}
         </div>
-        <div style={{ fontSize: "13px", color: "#555", marginTop: "8px" }}>
+        <div style={{ fontSize: "14px", color: "#555", marginTop: "8px" }}>
           <a
             href="feed.xml"
             style={{ color: "#1a73e8", textDecoration: "none" }}

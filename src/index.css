@@ -49,7 +49,7 @@ html {
 
 body {
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  font-size: var(--fs-body);
+  font-size: 17px;
   line-height: var(--lh-body);
   background: #fafafa;
   color: var(--text-primary);
@@ -93,7 +93,7 @@ a:hover { text-decoration: underline; }
    where inline values are too small for mobile.
    ---------------------------------------------------------------*/
 @media (max-width: 480px) {
-  /* Body content tightens slightly on mobile; base stays 16px. */
+  body { font-size: 17px; }
 
   /* Visitor counter pill — shrink + tuck so it cannot collide with
      the centered page title. */
@@ -101,17 +101,17 @@ a:hover { text-decoration: underline; }
     top: 6px !important;
     right: 6px !important;
     padding: 3px 8px !important;
-    font-size: 11px !important;
+    font-size: 12px !important;
   }
 
   /* Approval Signal large stat numbers */
   .approval-stat-number {
-    font-size: 22px !important;
+    font-size: 24px !important;
   }
 
   /* Header subtitle (coverage period / updated / version) */
   .header-subtitle {
-    font-size: 13px !important;
+    font-size: 14px !important;
   }
 }
 

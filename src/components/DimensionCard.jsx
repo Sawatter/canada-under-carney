@@ -61,7 +61,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           <div
             style={{
               fontWeight: 700,
-              fontSize: "14px",
+              fontSize: "15px",
               color: "#1a1a1a",
               fontFamily: "'DM Sans', sans-serif",
               marginBottom: "4px",
@@ -90,7 +90,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "6px",
-                fontSize: "12px",
+                fontSize: "13px",
                 fontWeight: 700,
                 color: "#7a6a28",
                 background: "#f5edd0",
@@ -108,7 +108,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           {dim.whatThisGrades && (
             <div
               style={{
-                fontSize: "13px",
+                fontSize: "14px",
                 color: "#555",
                 fontStyle: "italic",
                 lineHeight: 1.4,
@@ -118,13 +118,13 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               {dim.whatThisGrades}
             </div>
           )}
-          <div style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+          <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
             {dim.status}
           </div>
           {dim.lastUpdated && (
             <div
               style={{
-                fontSize: "12px",
+                fontSize: "13px",
                 color: "#666",
                 marginTop: "6px",
                 fontStyle: "italic",
@@ -152,13 +152,13 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 }}
               >
                 {trackerStat.delivered}
-                <span style={{ fontSize: "15px", color: "#bbb", fontWeight: 600 }}>
+                <span style={{ fontSize: "16px", color: "#bbb", fontWeight: 600 }}>
                   /{trackerStat.total}
                 </span>
               </div>
               <div
                 style={{
-                  fontSize: "12px",
+                  fontSize: "13px",
                   color: "#888",
                   marginTop: "3px",
                   letterSpacing: "0.4px",
@@ -175,7 +175,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           {/* Expand hint */}
           <span
             style={{
-              fontSize: "13px",
+              fontSize: "14px",
               color: "#555",
               fontWeight: 600,
               transition: "transform 0.2s",
@@ -201,7 +201,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             <div style={{ marginBottom: "14px" }}>
               <div
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -213,7 +213,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               </div>
               <div
                 style={{
-                  fontSize: "14px",
+                  fontSize: "15px",
                   color: "#333",
                   lineHeight: 1.6,
                   background: "#fafafa",
@@ -226,11 +226,11 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 }}
               >
                 <div>{dim.gradeBasis.plusMinusRationale}</div>
-                <div style={{ fontSize: "13px", color: "#555" }}>
+                <div style={{ fontSize: "14px", color: "#555" }}>
                   <strong>{dim.gradeBasis.band}</strong> means: {dim.gradeBasis.bandCriterion}
                 </div>
                 {modifierItems.length > 0 && (
-                  <div style={{ fontSize: "13px", color: "#444" }}>
+                  <div style={{ fontSize: "14px", color: "#444" }}>
                     <strong>Adjustments:</strong>
                     <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
                       {modifierItems.map((modifier, i) => (
@@ -248,7 +248,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             <div style={{ marginBottom: "14px" }}>
               <div
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -260,7 +260,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               </div>
               <div
                 style={{
-                  fontSize: "12px",
+                  fontSize: "13px",
                   color: "#444",
                   lineHeight: 1.5,
                   background: "#fafafa",
@@ -286,7 +286,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 aria-expanded={triggersOpen}
                 aria-controls={`dim-${dim.id}-triggers`}
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -312,7 +312,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                     id={`dim-${dim.id}-triggers`}
                     role="region"
                     style={{
-                      fontSize: "13px",
+                      fontSize: "14px",
                       color: "#666",
                       lineHeight: 1.5,
                       background: "#fffde7",
@@ -345,7 +345,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                   <div
                     id={`dim-${dim.id}-triggers`}
                     role="region"
-                    style={{ fontSize: "13px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}
+                    style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}
                   >
                     {dim.nextTrigger}
                   </div>
@@ -365,7 +365,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 aria-expanded={scopeOpen}
                 aria-controls={`dim-${dim.id}-scope`}
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -390,7 +390,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                   id={`dim-${dim.id}-scope`}
                   role="region"
                   style={{
-                    fontSize: "13px",
+                    fontSize: "14px",
                     color: "#666",
                     lineHeight: 1.5,
                     background: "#f9f9f9",
@@ -428,10 +428,10 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             <div style={{ display: "flex", gap: "10px", marginBottom: "12px", flexWrap: "wrap" }}>
               {Object.values(dim.subScores).map((sub, i) => (
                 <div key={i} style={{ flex: 1, minWidth: "120px", background: "#fafafa", borderRadius: "6px", padding: "8px 10px", border: "1px solid #eee" }}>
-                  <div style={{ fontSize: "13px", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", marginBottom: "4px" }}>{sub.label}</div>
+                  <div style={{ fontSize: "14px", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", marginBottom: "4px" }}>{sub.label}</div>
                   <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
                     <GradeChip grade={sub.grade} size="sm" />
-                    <span style={{ fontSize: "13px", color: "#666", lineHeight: 1.3 }}>{sub.rationale}</span>
+                    <span style={{ fontSize: "14px", color: "#666", lineHeight: 1.3 }}>{sub.rationale}</span>
                   </div>
                 </div>
               ))}
@@ -442,7 +442,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           <div style={{ marginBottom: "14px" }}>
             <div
               style={{
-                fontSize: "13px",
+                fontSize: "14px",
                 fontWeight: 700,
                 color: "#1a1a1a",
                 textTransform: "uppercase",
@@ -461,7 +461,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               <div
                 key={i}
                 style={{
-                  fontSize: "12px",
+                  fontSize: "13px",
                   color: "#444",
                   padding: "2px 0",
                   fontFamily: "'DM Mono', monospace",
@@ -484,7 +484,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 aria-expanded={perspectivesOpen}
                 aria-controls={`dim-${dim.id}-perspectives`}
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -512,7 +512,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 >
                   <div
                     style={{
-                      fontSize: "13px",
+                      fontSize: "14px",
                       lineHeight: 1.5,
                       padding: "8px 10px",
                       background: "#fff3f0",
@@ -526,7 +526,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                   </div>
                   <div
                     style={{
-                      fontSize: "13px",
+                      fontSize: "14px",
                       lineHeight: 1.5,
                       padding: "8px 10px",
                       background: "#f0f4ff",
@@ -548,7 +548,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             <div style={{ marginBottom: "14px" }}>
               <div
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -560,7 +560,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               </div>
               <div
                 style={{
-                  fontSize: "12px",
+                  fontSize: "13px",
                   color: "#555",
                   lineHeight: 1.5,
                   background: "#fafafa",
@@ -582,7 +582,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             <div>
               <div
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -601,7 +601,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                     rel="noopener noreferrer"
                     onClick={(e) => e.stopPropagation()}
                     style={{
-                      fontSize: "13px",
+                      fontSize: "14px",
                       color: "#1a73e8",
                       textDecoration: "none",
                       background: "#e8f0fe",
@@ -629,7 +629,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 aria-expanded={inheritedOpen}
                 aria-controls={`dim-${dim.id}-inherited`}
                 style={{
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: "#1a1a1a",
                   textTransform: "uppercase",
@@ -653,7 +653,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 <div
                   id={`dim-${dim.id}-inherited`}
                   role="region"
-                  style={{ fontSize: "13px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}
+                  style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}
                 >
                   {dim.inherited}
                 </div>

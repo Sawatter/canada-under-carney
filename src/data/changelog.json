@@ -1,53 +1,73 @@
 [
   {
-    "month": "2026-04",
     "date": "2026-04-19",
-    "summary": "Public approval of Prime Minister Carney now shown at the top of the dashboard, tracked separately from the grades. Climate & Environment dropped from D+ to D. Majority government secured April 13; gas tax suspension announced April 14.",
-    "changes": [
+    "summary": "Majority government confirmed, climate grade moved down to D, new public-approval signal at the top, and a readability pass across the dashboard.",
+    "items": [
       {
-        "type": "launch",
-        "text": "New at the top: a public approval signal for Prime Minister Carney. It averages approve/disapprove numbers from five major Canadian pollsters (L\u00e9ger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group) over a rolling 60-day window. It is tracked beside the grades but is explicitly not one of them — popularity is not performance."
-      },
-      {
-        "type": "grade_change",
+        "type": "grade",
         "dimensionId": "climate-environment",
+        "dimensionName": "Climate & Environment",
         "from": "D+",
         "to": "D",
-        "reason": "Canada is on track for about half of its required 2030 emissions reduction. Industrial carbon credits are trading around $20/tonne even though the headline price is $95. Environment Canada is losing 840+ positions. The PM has acknowledged targets will be missed."
+        "deltaLabel": "−1 notch",
+        "headline": "Climate & Environment moved D+ → D",
+        "body": "Canada is tracking for about half of its required 2030 emissions reduction. Industrial carbon credits are trading near $20/t despite a $95 headline. ECCC is losing 840+ positions. The PM has acknowledged targets will be missed.",
+        "drivers": [
+          "Gas tax suspension (reverses price signal)",
+          "ECCC staffing cut",
+          "Industrial credits detached from headline price"
+        ],
+        "link": { "label": "See methodology", "href": "#methodology" }
       },
       {
         "type": "event",
-        "text": "Carney won a majority government on April 13, 2026 — 174 seats after three byelection wins."
+        "headline": "Majority government confirmed",
+        "body": "Carney won a majority government on April 13, 2026 — 174 seats after three byelection wins.",
+        "affects": ["Ethics & Transparency", "Execution & Delivery"],
+        "link": {
+          "label": "Elections Canada",
+          "href": "https://www.elections.ca/"
+        }
       },
       {
         "type": "event",
-        "text": "Gas tax suspension announced April 14. The federal fuel excise is suspended from April 14 through September 7 at an estimated cost of $2.4 billion in foregone revenue. La Presse called the move \"une d\u00e9cision insens\u00e9e.\""
+        "headline": "Federal gas tax suspension announced",
+        "body": "Federal fuel excise suspended April 14 through September 7. Estimated $2.4B in foregone revenue. La Presse called the move \"une décision insensée.\"",
+        "affects": ["Fiscal Health", "Climate & Environment", "Affordability Response"],
+        "link": {
+          "label": "La Presse",
+          "href": "https://www.lapresse.ca/"
+        }
       },
       {
-        "type": "event",
-        "text": "Readability pass on the dashboard: plainer card labels, shorter status lines, and a new \"Limits of this model\" note in the Rubric tab that explains what the scorecard can and cannot do."
+        "type": "product",
+        "headline": "Approval Signal added to the top of the dashboard",
+        "body": "60-day rolling average of approve/disapprove across five CRIC-era pollsters (Léger, Abacus, Ipsos, Angus Reid Institute, Innovative Research). Tracked beside the grades but explicitly not one of them — popularity is not performance.",
+        "link": {
+          "label": "Read the decision memo",
+          "href": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md"
+        }
+      },
+      {
+        "type": "minor",
+        "headline": "Readability pass on the dashboard",
+        "body": "Plainer card labels, shorter status lines, a new \"Limits of this model\" note in the Rubric tab, a per-dimension \"Last reviewed\" line, and an across-the-board font-size bump for mobile."
       }
     ]
   },
   {
-    "month": "2026-04",
     "date": "2026-04-15",
-    "summary": "Climate grade revised, source stack broadened, probation dimensions (Ethics, Flagship Delivery) normalized to whole-letter C.",
-    "changes": [
-      {
-        "type": "grade_change",
-        "dimensionId": "climate-environment",
-        "from": "D+",
-        "to": "D",
-        "reason": "Originally recorded in the 2026-04-15 cycle; rolled forward into the 2026-04-19 publication above."
-      },
+    "summary": "Climate grade revision (since rolled forward), source stack broadened, probation dimensions normalized to whole-letter C.",
+    "items": [
       {
         "type": "event",
-        "text": "Source stack expanded: added Canadian Climate Institute, IFSD, IRPP / Policy Options, La Presse, Toronto Star, National Observer, The Conversation Canada."
+        "headline": "Source stack expanded",
+        "body": "Added Canadian Climate Institute, IFSD, IRPP / Policy Options, La Presse, Toronto Star, National Observer, and The Conversation Canada to the graded dimensions."
       },
       {
-        "type": "event",
-        "text": "Probation dimensions (Ethics & Transparency, Flagship Delivery) now score as whole-letter C with no hidden plus/minus precision behind the displayed grade."
+        "type": "method",
+        "headline": "Probation dimensions normalized to whole-letter C",
+        "body": "Ethics & Transparency and Flagship Delivery now score as whole letters only (no plus/minus precision behind the displayed grade)."
       }
     ]
   }

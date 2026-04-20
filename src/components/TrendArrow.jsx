@@ -6,7 +6,7 @@ export default function TrendArrow({ trend }) {
       style={{
         color: TREND_COLOR[trend],
         fontWeight: 700,
-        fontSize: "14px",
+        fontSize: "15px",
         marginLeft: "6px",
       }}
     >
