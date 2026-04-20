@@ -165,7 +165,7 @@ export function ApprovalCard({
             fontWeight: 700,
           }}
         >
-          {expanded ? "\u25B2 Hide poll details" : "\u25BC See polls & sources"}
+          {expanded ? "\u25BE Hide poll details" : "\u25B8 See polls & sources"}
         </div>
       </div>
     </div>

@@ -27,6 +27,16 @@
   --space-1: 4px; --space-2: 8px; --space-3: 12px;
   --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px;
 
+  /* Card design tokens — one source of truth for every card in the app so
+     the scoreboard row and the dimension grid visually ladder instead of
+     looking like they came from two different designs. */
+  --card-radius: 12px;
+  --card-padding: 20px;
+  --card-padding-mobile: 14px;
+  --card-border: 1px solid #e0e0e0;
+  --card-shadow-rest: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --card-shadow-raised: 0 2px 12px rgba(0, 0, 0, 0.08);
+
   /* Color tokens — contrast-tested against #fff and #fafafa backgrounds */
   --text-primary:   #1a1a1a;  /* 17:1 on white — AAA */
   --text-body:      #333333;  /*  13:1 on white — AAA */
@@ -82,6 +92,19 @@ button, [role="button"], a.button {
   min-width: 44px;
 }
 
+/* Keyboard focus ring — visible for keyboard users, invisible for mouse
+   users. Applied to any element that's actionable via Tab navigation.
+   WCAG 2.4.7 (Focus Visible) requires this for AA conformance. */
+:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+button:focus-visible, [role="button"]:focus-visible {
+  outline: 2px solid #1a73e8;
+  outline-offset: 3px;
+}
+
 /* Preserve link affordances without overriding inline colors set by
    components (dashboard uses lots of color-coded links). */
 a { color: inherit; }
@@ -99,6 +122,15 @@ a:hover { text-decoration: underline; }
    targeted inline fontSize overrides for the specific tiers. */
 @media (max-width: 640px) {
   body { font-size: 18px; }
+
+  /* Card padding tightens on phones — each card's content area gains ~16px
+     of horizontal room on a 375px viewport without the card feeling
+     cramped. Applied via an inline-style attribute selector so every card
+     that uses the 16–20px padding range gets the mobile treatment. */
+  [style*="padding: 16px"] { padding: 14px !important; }
+  [style*="padding: 20px 20px 18px"] { padding: 16px 14px 14px !important; }
+  [style*="padding: 20px 32px"] { padding: 16px 14px !important; }
+  [style*="padding: 24px"] { padding: 16px !important; }
 
   /* Inline-style overrides that hit the dashboard's text tiers so everything
      goes up by one tier on mobile. Applied with !important to override inline
