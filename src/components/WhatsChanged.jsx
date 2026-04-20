@@ -26,7 +26,7 @@ export default function WhatsChanged({ changelog }) {
       >
         <div
           style={{
-            fontSize: "11px",
+            fontSize: "13px",
             fontWeight: 700,
             color: "#c62828",
             textTransform: "uppercase",
@@ -35,15 +35,16 @@ export default function WhatsChanged({ changelog }) {
         >
           What Changed Since Last Update
         </div>
-        <div style={{ fontSize: "11px", color: "#999" }}>{latest.date}</div>
+        <div style={{ fontSize: "13px", color: "#999" }}>{latest.date}</div>
       </div>
 
       <div
         style={{
-          fontSize: "13px",
-          color: "#333",
+          fontSize: "15px",
+          color: "#1a1a1a",
           fontWeight: 500,
-          marginBottom: latest.changes.length > 0 ? "10px" : "0",
+          lineHeight: 1.5,
+          marginBottom: latest.changes.length > 0 ? "12px" : "0",
         }}
       >
         {latest.summary}
@@ -54,11 +55,12 @@ export default function WhatsChanged({ changelog }) {
           key={i}
           style={{
             display: "flex",
-            alignItems: "center",
+            alignItems: "flex-start",
             gap: "8px",
-            padding: "4px 0",
-            fontSize: "12px",
-            color: "#555",
+            padding: "6px 0",
+            fontSize: "14px",
+            color: "#333",
+            lineHeight: 1.5,
           }}
         >
           {/* Grade change: show before → after chips */}

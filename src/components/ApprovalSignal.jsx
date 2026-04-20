@@ -79,11 +79,17 @@ function computeApproval() {
 
 const DETAIL_ID = "approval-signal-detail";
 
-// Compact card for the scoreboard row. Matches the visual pattern of the
-// three grade cards (white bg, solid border, centered content) so the reader
-// reads it as part of the headline row, but the copy and the "Not part of
-// the grades" italic subtitle keep the separation honest.
-export function ApprovalCard({ expanded, onToggle }) {
+// Compact card for the scoreboard row. Accepts shared style props from
+// ScoreboardHeader so its container, title, subtitle, and caption all match
+// the three grade cards exactly.
+export function ApprovalCard({
+  expanded,
+  onToggle,
+  cardStyle,
+  titleStyle,
+  subtitleStyle,
+  captionStyle,
+}) {
   const s = computeApproval();
 
   const handleKey = (e) => {
@@ -105,91 +111,62 @@ export function ApprovalCard({ expanded, onToggle }) {
       onClick={onToggle}
       onKeyDown={handleKey}
       style={{
-        background: "#fff",
-        border: "1px solid #e0e0e0",
-        borderRadius: "12px",
-        padding: "20px 24px",
-        textAlign: "center",
-        flex: "1 1 220px",
-        maxWidth: "280px",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
+        ...cardStyle,
         cursor: "pointer",
         userSelect: "none",
       }}
     >
-      <div
-        style={{
-          fontSize: "11px",
-          fontWeight: 700,
-          color: "#999",
-          textTransform: "uppercase",
-          letterSpacing: "0.5px",
-          marginBottom: "4px",
-        }}
-      >
-        Approval Signal
-      </div>
-      <div
-        style={{
-          fontSize: "10px",
-          color: "#999",
-          marginBottom: "8px",
-          fontStyle: "italic",
-          lineHeight: 1.3,
-        }}
-      >
+      <div style={titleStyle}>Approval Signal</div>
+      <div style={subtitleStyle}>
         Public approval of PM Carney. Not part of the grades.
       </div>
-      <div>
-        <span
-          className="approval-stat-number"
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div>
+          <span
+            className="approval-stat-number"
+            style={{
+              fontFamily: "'DM Mono', monospace",
+              fontSize: "32px",
+              fontWeight: 800,
+              color: "#1a7a3a",
+              lineHeight: 1.1,
+            }}
+          >
+            {formatPct(s.approveNow)}
+          </span>
+          <span
+            style={{
+              fontFamily: "'DM Mono', monospace",
+              fontSize: "18px",
+              fontWeight: 700,
+              color: "#888",
+              marginLeft: "6px",
+            }}
+          >
+            / {formatPct(s.disapproveNow)}
+          </span>
+        </div>
+        <div
           style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "28px",
-            fontWeight: 800,
-            color: "#1a7a3a",
-            lineHeight: 1.1,
+            ...captionStyle,
+            color: s.net != null && s.net >= 0 ? "#1a7a3a" : "#c62828",
           }}
         >
-          {formatPct(s.approveNow)}
-        </span>
-        <span
+          {netText}
+        </div>
+        <div style={{ fontSize: "12px", color: "#555", marginTop: "4px", fontWeight: 500 }}>
+          {s.recent.length} polls &middot; {s.windowDays}-day avg
+        </div>
+        <div
           style={{
-            fontFamily: "'DM Mono', monospace",
-            fontSize: "18px",
+            fontSize: "12px",
+            color: "#1a73e8",
+            marginTop: "8px",
             fontWeight: 700,
-            color: "#bbb",
-            marginLeft: "6px",
           }}
         >
-          / {formatPct(s.disapproveNow)}
-        </span>
-      </div>
-      <div
-        style={{
-          fontFamily: "'DM Mono', monospace",
-          fontSize: "12px",
-          color: s.net != null && s.net >= 0 ? "#1a7a3a" : "#c62828",
-          marginTop: "6px",
-          fontWeight: 700,
-        }}
-      >
-        {netText}
-      </div>
-      <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>
-        {s.recent.length} polls &middot; {s.windowDays}-day avg
-      </div>
-      <div
-        style={{
-          fontSize: "10px",
-          color: "#1a73e8",
-          marginTop: "8px",
-          fontWeight: 600,
-        }}
-      >
-        {expanded ? "\u25B2 Hide poll details" : "\u25BC See polls & sources"}
+          {expanded ? "\u25B2 Hide poll details" : "\u25BC See polls & sources"}
+        </div>
       </div>
     </div>
   );
@@ -229,7 +206,7 @@ export function ApprovalDetail() {
       >
         <div
           style={{
-            fontSize: "11px",
+            fontSize: "13px",
             fontWeight: 700,
             color: "#333",
             textTransform: "uppercase",
@@ -238,7 +215,7 @@ export function ApprovalDetail() {
         >
           Approval Signal &mdash; drill-down
         </div>
-        <div style={{ fontSize: "10px", color: "#999" }}>
+        <div style={{ fontSize: "12px", color: "#999" }}>
           {s.windowDays}-day rolling avg &middot; as of {s.asOf}
         </div>
       </div>
@@ -268,7 +245,7 @@ export function ApprovalDetail() {
             approve
           </span>
           {s.approveDelta && (
-            <span style={{ marginLeft: "6px", fontSize: "11px", color: "#999" }}>
+            <span style={{ marginLeft: "6px", fontSize: "13px", color: "#999" }}>
               ({s.approveDelta} vs prior {s.windowDays}d)
             </span>
           )}
@@ -289,7 +266,7 @@ export function ApprovalDetail() {
             disapprove
           </span>
           {s.disapproveDelta && (
-            <span style={{ marginLeft: "6px", fontSize: "11px", color: "#999" }}>
+            <span style={{ marginLeft: "6px", fontSize: "13px", color: "#999" }}>
               ({s.disapproveDelta} vs prior {s.windowDays}d)
             </span>
           )}
@@ -312,7 +289,7 @@ export function ApprovalDetail() {
 
       <div
         style={{
-          fontSize: "11px",
+          fontSize: "13px",
           color: "#777",
           lineHeight: 1.5,
           marginBottom: "10px",
@@ -336,7 +313,7 @@ export function ApprovalDetail() {
               marginTop: "10px",
               paddingTop: "8px",
               borderTop: "1px dashed #d4d4d4",
-              fontSize: "11px",
+              fontSize: "13px",
               color: "#666",
               lineHeight: 1.5,
             }}
@@ -362,7 +339,7 @@ export function ApprovalDetail() {
       <div style={{ marginTop: "12px" }}>
         <div
           style={{
-            fontSize: "11px",
+            fontSize: "13px",
             color: "#666",
             marginBottom: "6px",
             lineHeight: 1.5,
@@ -377,7 +354,7 @@ export function ApprovalDetail() {
             style={{
               width: "100%",
               borderCollapse: "collapse",
-              fontSize: "11px",
+              fontSize: "13px",
             }}
           >
             <thead>

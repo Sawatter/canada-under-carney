@@ -53,7 +53,7 @@ export default function Dashboard() {
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
         <div
           style={{
-            fontSize: "11px",
+            fontSize: "13px",
             fontWeight: 700,
             color: "#c62828",
             textTransform: "uppercase",
@@ -66,15 +66,15 @@ export default function Dashboard() {
         <h1
           style={{
             fontFamily: "'DM Serif Display', serif",
-            fontSize: "32px",
+            fontSize: "clamp(1.75rem, 1.25rem + 2vw, 2.25rem)",
             color: "#1a1a1a",
-            margin: "0 0 4px",
-            lineHeight: 1.2,
+            margin: "0 0 6px",
+            lineHeight: 1.15,
           }}
         >
           Canada Under Carney
         </h1>
-        <div className="header-subtitle" style={{ fontSize: "13px", color: "#888" }}>
+        <div className="header-subtitle" style={{ fontSize: "14px", color: "#555" }}>
           {meta.coveragePeriod.start.slice(0, 7).replace("-", "/")} &ndash;{" "}
           {meta.coveragePeriod.end.slice(0, 7).replace("-", "/")} &middot;
           Updated {meta.lastUpdated} &middot; v{meta.version}
@@ -85,7 +85,7 @@ export default function Dashboard() {
           style={{
             marginTop: "8px",
             padding: "6px 16px",
-            fontSize: "11px",
+            fontSize: "13px",
             color: "#888",
             background: "transparent",
             border: "1px solid #ddd",
@@ -158,11 +158,11 @@ export default function Dashboard() {
         <div
           style={{
             textAlign: "center",
-            fontSize: "13px",
-            color: "#666",
+            fontSize: "15px",
+            color: "#444",
             fontStyle: "italic",
             lineHeight: 1.5,
-            marginBottom: "14px",
+            marginBottom: "16px",
             maxWidth: "640px",
             marginLeft: "auto",
             marginRight: "auto",
@@ -186,7 +186,7 @@ export default function Dashboard() {
           <span><span style={{ color: "#2e7d32", fontWeight: 700 }}>{"\u25B2"}</span> Improving</span>
           <span><span style={{ color: "#757575", fontWeight: 700 }}>{"\u25AC"}</span> Stable</span>
           <span><span style={{ color: "#c62828", fontWeight: 700 }}>{"\u25BC"}</span> Declining</span>
-          <span><span style={{ color: "#c62828", fontSize: "9px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
+          <span><span style={{ color: "#c62828", fontSize: "11px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
         </div>
         <div
           style={{
@@ -208,7 +208,7 @@ export default function Dashboard() {
           <div style={{ marginTop: "20px" }}>
             <div
               style={{
-                fontSize: "11px",
+                fontSize: "13px",
                 fontWeight: 700,
                 color: "#777",
                 textTransform: "uppercase",
@@ -220,8 +220,8 @@ export default function Dashboard() {
             </div>
             <div
               style={{
-                fontSize: "12px",
-                color: "#666",
+                fontSize: "14px",
+                color: "#444",
                 marginBottom: "12px",
                 lineHeight: 1.5,
               }}
@@ -285,14 +285,14 @@ export default function Dashboard() {
           borderTop: "1px solid #e0e0e0",
         }}
       >
-        <div style={{ fontSize: "11px", color: "#aaa" }}>
+        <div style={{ fontSize: "13px", color: "#555" }}>
           Canada Under Carney &middot; Data: Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, NATO, OECD, IMF, Fitch
         </div>
-        <div style={{ fontSize: "11px", color: "#aaa", marginTop: "4px" }}>
+        <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
           Monthly updates with ad-hoc revisions on major events &middot; Rubric
           v{meta.rubricVersion} &middot; Next scheduled update: {meta.nextUpdate}
         </div>
-        <div style={{ fontSize: "11px", color: "#aaa", marginTop: "8px" }}>
+        <div style={{ fontSize: "13px", color: "#555", marginTop: "8px" }}>
           <a
             href="feed.xml"
             style={{ color: "#1a73e8", textDecoration: "none" }}
