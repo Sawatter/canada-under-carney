@@ -80,7 +80,7 @@ export default function Methodology() {
       >
         Scoring Rubric v{meta.rubricVersion}
       </h2>
-      <div style={{ fontSize: "13px", lineHeight: 1.7, color: "#444" }}>
+      <div style={{ fontSize: "15px", lineHeight: 1.6, color: "#333" }}>
         <p style={{ marginBottom: "16px" }}>
           The dashboard tracks 12 policy dimensions total: 11 are graded on a
           standard 4.0 GPA scale, and Promise Delivery is presented separately as
@@ -133,7 +133,7 @@ export default function Methodology() {
             <div style={{ fontSize: "12px", color: "#666" }}>{m.desc}</div>
             <div
               style={{
-                fontSize: "11px",
+                fontSize: "13px",
                 color: "#888",
                 marginTop: "2px",
                 fontStyle: "italic",

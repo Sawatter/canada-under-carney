@@ -18,7 +18,7 @@ export default function About() {
       >
         About This Dashboard
       </h2>
-      <div style={{ fontSize: "13px", lineHeight: 1.7, color: "#444" }}>
+      <div style={{ fontSize: "15px", lineHeight: 1.6, color: "#333" }}>
         <p style={{ marginBottom: "16px" }}>
           <strong>Canada Under Carney</strong> is a non-partisan performance
           dashboard tracking the federal government across 11 graded policy
@@ -254,7 +254,7 @@ export default function About() {
           </div>
         </div>
 
-        <p style={{ fontSize: "11px", color: "#aaa", marginTop: "16px" }}>
+        <p style={{ fontSize: "13px", color: "#aaa", marginTop: "16px" }}>
           This dashboard is an independent analytical product. It is not
           affiliated with any political party, government agency, or advocacy
           organization. Feedback and corrections are welcome via GitHub Issues.

@@ -29,7 +29,7 @@ export default function EmailSignup() {
     >
       <div
         style={{
-          fontSize: "11px",
+          fontSize: "13px",
           fontWeight: 700,
           color: "#1a3c5e",
           textTransform: "uppercase",
@@ -99,7 +99,7 @@ export default function EmailSignup() {
             display: "flex",
             alignItems: "flex-start",
             gap: "8px",
-            fontSize: "11px",
+            fontSize: "13px",
             color: "#666",
             lineHeight: 1.4,
             cursor: "pointer",
@@ -130,7 +130,7 @@ export default function EmailSignup() {
           </div>
         )}
 
-        <div style={{ fontSize: "10px", color: "#999", marginTop: "4px" }}>
+        <div style={{ fontSize: "12px", color: "#999", marginTop: "4px" }}>
           Powered by Buttondown. Prefer RSS?{" "}
           <a href="feed.xml" style={{ color: "#1a73e8" }}>
             Subscribe via RSS instead &rarr;

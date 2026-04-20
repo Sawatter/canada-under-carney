@@ -1,55 +1,121 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=DM+Serif+Display&display=swap');
 
+/* Design tokens — derived from a research pass against Material Design 3,
+   Apple HIG, WCAG 2.2, GOV.UK Design System, USWDS, Nielsen Norman,
+   Bootstrap 5.3, Tailwind, Smashing Magazine, Baymard Institute, and
+   web.dev. Values chosen to land the dashboard body text at ≥16px
+   (Bootstrap/USWDS/Material body size), keep touch targets ≥44px (Apple +
+   WCAG AAA), and ensure contrast ≥4.5:1 for body text (WCAG AA). Headings
+   use clamp() for fluid desktop→mobile scaling (Smashing). */
+:root {
+  /* Type scale (~1.25 major-third ratio, flattened at small end for
+     stat-heavy dashboard density) */
+  --fs-caption: 0.75rem;    /* 12px — smallest acceptable per Lighthouse */
+  --fs-small:   0.875rem;   /* 14px — body-small */
+  --fs-body:    1rem;       /* 16px — default body */
+  --fs-lead:    1.125rem;   /* 18px — lead paragraph */
+  --fs-h3:      clamp(1.125rem, 1rem + 0.75vw, 1.375rem);  /* 18–22 */
+  --fs-h2:      clamp(1.375rem, 1.1rem + 1.2vw, 1.75rem);  /* 22–28 */
+  --fs-h1:      clamp(1.75rem, 1.25rem + 2vw, 2.25rem);    /* 28–36 */
+
+  /* Line heights (unitless, inherits correctly per WCAG 1.4.12) */
+  --lh-tight: 1.2;   /* big stat numbers */
+  --lh-snug:  1.3;   /* labels, chips, captions */
+  --lh-body:  1.5;   /* body copy, paragraphs */
+
+  /* 8-point spacing scale (Material + Apple + Bootstrap) */
+  --space-1: 4px; --space-2: 8px; --space-3: 12px;
+  --space-4: 16px; --space-5: 24px; --space-6: 32px; --space-7: 48px;
+
+  /* Color tokens — contrast-tested against #fff and #fafafa backgrounds */
+  --text-primary:   #1a1a1a;  /* 17:1 on white — AAA */
+  --text-body:      #333333;  /*  13:1 on white — AAA */
+  --text-secondary: #555555;  /* 7.4:1 on white — AAA */
+  --text-muted:     #666666;  /* 5.7:1 on white — AA */
+  --text-subtle:    #767676;  /* 4.5:1 on white — AA minimum for body */
+  /* #888 ≈ 3.5:1 (fails AA for body). #999 ≈ 2.85:1 (fails even AA large).
+     Use --text-subtle or darker for anything non-decorative. */
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  background: #fafafa;
-  color: #1a1a1a;
-  -webkit-font-smoothing: antialiased;
+html {
+  font-size: 100%;  /* respects user zoom preference */
 }
 
-/* Narrow-screen overrides. Inline styles live on the components; these rules
-   shrink or reflow specific elements that otherwise collide or overflow. */
-@media (max-width: 480px) {
-  h1 {
-    font-size: 24px !important;
-  }
+body {
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  background: #fafafa;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+}
 
-  /* Visitor counter pill in the top-right: shrink so it cannot collide
-     with the centered page title on narrow screens. */
+/* Headings get the fluid clamp scale */
+h1 { font-size: var(--fs-h1); line-height: var(--lh-tight); }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-tight); }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-snug); }
+
+/* Body prose constrained to ≤65ch so line length stays readable even
+   inside wide cards (Baymard, Bringhurst). Does not constrain stat
+   blocks or grid layouts — only paragraph text. */
+p, li {
+  max-width: 65ch;
+}
+
+/* Form inputs at ≥16px to prevent iOS Safari's auto-zoom on focus. */
+input, select, textarea {
+  font-size: 16px;
+  font-family: inherit;
+}
+
+/* Touch targets: Apple HIG 44×44, WCAG 2.5.5 AAA. Applied at all viewports
+   rather than only mobile — touch screens exist on laptops too. */
+button, [role="button"], a.button {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Preserve link affordances without overriding inline colors set by
+   components (dashboard uses lots of color-coded links). */
+a { color: inherit; }
+a:hover { text-decoration: underline; }
+
+/* ---------------------------------------------------------------
+   Narrow-screen overrides. The dashboard uses inline styles on most
+   elements so these targeted class hooks catch the specific spots
+   where inline values are too small for mobile.
+   ---------------------------------------------------------------*/
+@media (max-width: 480px) {
+  /* Body content tightens slightly on mobile; base stays 16px. */
+
+  /* Visitor counter pill — shrink + tuck so it cannot collide with
+     the centered page title. */
   .visitor-count-pill {
     top: 6px !important;
     right: 6px !important;
-    padding: 2px 6px !important;
-    font-size: 9px !important;
+    padding: 3px 8px !important;
+    font-size: 11px !important;
   }
 
-  /* Approval Signal large stat numbers: a bit smaller on mobile so the
-     approve/disapprove/net row wraps cleanly inside the box. */
+  /* Approval Signal large stat numbers */
   .approval-stat-number {
-    font-size: 18px !important;
+    font-size: 22px !important;
   }
 
-  /* Header subtitle line (coverage period / updated / version). */
+  /* Header subtitle (coverage period / updated / version) */
   .header-subtitle {
-    font-size: 12px !important;
+    font-size: 13px !important;
   }
 }
 
-
-/* Ensure touch targets are large enough on mobile */
-@media (max-width: 768px) {
-  button {
-    min-height: 44px;
-  }
-}
-
-/* Print styles */
+/* Print styles — preserved from the earlier pass. */
 @media print {
   body {
     background: #fff;
@@ -59,7 +125,6 @@ body {
   button {
     display: none !important;
   }
-  /* Force all cards to show expanded for print */
   div[style*="cursor: pointer"] {
     break-inside: avoid;
   }

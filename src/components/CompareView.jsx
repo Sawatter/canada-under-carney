@@ -19,14 +19,14 @@ function DimColumn({ dim }) {
       <div style={{ textAlign: "center", marginBottom: "16px" }}>
         <GradeChip grade={dim.grade} size="lg" />
         {subScoreSummary && (
-          <div style={{ marginTop: "8px", fontSize: "11px", color: "#666", fontWeight: 600 }}>
+          <div style={{ marginTop: "8px", fontSize: "13px", color: "#666", fontWeight: 600 }}>
             {subScoreSummary}
           </div>
         )}
         <div style={{ marginTop: "6px" }}>
           <TrendArrow trend={dim.trend} />
           {dim.previousGrade && (
-            <span style={{ fontSize: "10px", color: "#c62828", marginLeft: "4px" }}>
+            <span style={{ fontSize: "12px", color: "#c62828", marginLeft: "4px" }}>
               was {dim.previousGrade}
             </span>
           )}
@@ -51,7 +51,7 @@ function DimColumn({ dim }) {
 
       {/* Metrics */}
       <div style={{ marginBottom: "14px" }}>
-        <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+        <div style={{ fontSize: "13px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
           Metrics
         </div>
         {dim.metrics.map((m, i) => (
@@ -63,12 +63,12 @@ function DimColumn({ dim }) {
 
       {/* Promises */}
       <div>
-        <div style={{ fontSize: "11px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+        <div style={{ fontSize: "13px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
           Promises ({dim.promises.length})
         </div>
         {dim.promises.map((p, i) => (
           <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0", gap: "6px" }}>
-            <span style={{ fontSize: "11px", color: "#444", flex: 1 }}>{p.text}</span>
+            <span style={{ fontSize: "13px", color: "#444", flex: 1 }}>{p.text}</span>
             <PromiseTag status={p.status} />
           </div>
         ))}
