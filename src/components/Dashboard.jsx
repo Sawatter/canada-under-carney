@@ -40,7 +40,7 @@ export default function Dashboard() {
     <div
       style={{
         fontFamily: "'DM Sans', sans-serif",
-        maxWidth: "960px",
+        maxWidth: "1040px",
         margin: "0 auto",
         padding: "24px 16px",
         background: "#fafafa",

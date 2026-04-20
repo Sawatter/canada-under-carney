@@ -92,8 +92,22 @@ a:hover { text-decoration: underline; }
    elements so these targeted class hooks catch the specific spots
    where inline values are too small for mobile.
    ---------------------------------------------------------------*/
-@media (max-width: 480px) {
-  body { font-size: 17px; }
+/* Mobile font bump — on small screens everything that's in the 12–16px
+   tier gets +1px. Research: GOV.UK ships 19px body on mobile, iOS body is
+   17pt default; the user explicitly asked for "one more point" bigger on
+   phone. This rule scales body tokens up via a root font-size bump, then
+   targeted inline fontSize overrides for the specific tiers. */
+@media (max-width: 640px) {
+  body { font-size: 18px; }
+
+  /* Inline-style overrides that hit the dashboard's text tiers so everything
+     goes up by one tier on mobile. Applied with !important to override inline
+     styles; scoped to mobile-only so desktop is unaffected. */
+  [style*="font-size: 12px"] { font-size: 13px !important; }
+  [style*="font-size: 13px"] { font-size: 14px !important; }
+  [style*="font-size: 14px"] { font-size: 15px !important; }
+  [style*="font-size: 15px"] { font-size: 16px !important; }
+  [style*="font-size: 16px"] { font-size: 17px !important; }
 
   /* Visitor counter pill — shrink + tuck so it cannot collide with
      the centered page title. */
@@ -111,7 +125,7 @@ a:hover { text-decoration: underline; }
 
   /* Header subtitle (coverage period / updated / version) */
   .header-subtitle {
-    font-size: 14px !important;
+    font-size: 15px !important;
   }
 }
 
