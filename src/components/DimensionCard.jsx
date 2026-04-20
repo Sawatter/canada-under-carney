@@ -275,154 +275,6 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             )
           )}
 
-          {(dim.gradeTriggers || dim.nextTrigger) && (
-            <div style={{ marginBottom: "14px" }}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setTriggersOpen((v) => !v);
-                }}
-                aria-expanded={triggersOpen}
-                aria-controls={`dim-${dim.id}-triggers`}
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                  background: "none",
-                  border: "none",
-                  padding: "2px 0",
-                  minHeight: "24px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontFamily: "inherit",
-                }}
-              >
-                <span style={{ fontSize: "11px" }}>{triggersOpen ? "\u25BE" : "\u25B8"}</span>
-                What Would Change This Grade
-              </button>
-              {triggersOpen && (
-                dim.gradeTriggers ? (
-                  <div
-                    id={`dim-${dim.id}-triggers`}
-                    role="region"
-                    style={{
-                      fontSize: "14px",
-                      color: "#666",
-                      lineHeight: 1.5,
-                      background: "#fffde7",
-                      padding: "8px 10px",
-                      borderRadius: "6px",
-                      borderLeft: "3px solid #f9a825",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "8px",
-                    }}
-                  >
-                    <div>
-                      <strong>Up one step:</strong>
-                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                        {dim.gradeTriggers.up.map((trigger, i) => (
-                          <div key={i}>{trigger}</div>
-                        ))}
-                      </div>
-                    </div>
-                    <div>
-                      <strong>Down one step:</strong>
-                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                        {dim.gradeTriggers.down.map((trigger, i) => (
-                          <div key={i}>{trigger}</div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    id={`dim-${dim.id}-triggers`}
-                    role="region"
-                    style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}
-                  >
-                    {dim.nextTrigger}
-                  </div>
-                )
-              )}
-            </div>
-          )}
-
-          {dim.scope && (
-            <div style={{ marginBottom: "14px" }}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setScopeOpen((v) => !v);
-                }}
-                aria-expanded={scopeOpen}
-                aria-controls={`dim-${dim.id}-scope`}
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                  background: "none",
-                  border: "none",
-                  padding: "2px 0",
-                  minHeight: "24px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontFamily: "inherit",
-                }}
-              >
-                <span style={{ fontSize: "11px" }}>{scopeOpen ? "\u25BE" : "\u25B8"}</span>
-                Scope
-              </button>
-              {scopeOpen && (
-                <div
-                  id={`dim-${dim.id}-scope`}
-                  role="region"
-                  style={{
-                    fontSize: "14px",
-                    color: "#666",
-                    lineHeight: 1.5,
-                    background: "#f9f9f9",
-                    padding: "8px 10px",
-                    borderRadius: "6px",
-                    borderLeft: "3px solid #9e9e9e",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "8px",
-                  }}
-                >
-                  <div>
-                    <strong>In scope:</strong>
-                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                      {dim.scope.inScope.map((item, i) => (
-                        <div key={i}>{renderScopeItem(item)}</div>
-                      ))}
-                    </div>
-                  </div>
-                  <div>
-                    <strong>Out of scope:</strong>
-                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                      {dim.scope.outOfScope.map((item, i) => (
-                        <div key={i}>{renderScopeItem(item)}</div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-
           {/* Sub-Scores (Defence & Trade) */}
           {dim.subScores && (
             <div style={{ display: "flex", gap: "10px", marginBottom: "12px", flexWrap: "wrap" }}>
@@ -471,77 +323,6 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               </div>
             ))}
           </div>
-
-          {/* Left/Right Perspectives */}
-          {dim.perspectives && (
-            <div style={{ marginBottom: "14px" }}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setPerspectivesOpen((v) => !v);
-                }}
-                aria-expanded={perspectivesOpen}
-                aria-controls={`dim-${dim.id}-perspectives`}
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                  background: "none",
-                  border: "none",
-                  padding: "2px 0",
-                  minHeight: "24px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontFamily: "inherit",
-                }}
-              >
-                <span style={{ fontSize: "11px" }}>{perspectivesOpen ? "\u25BE" : "\u25B8"}</span>
-                Critics and defenders
-              </button>
-              {perspectivesOpen && (
-                <div
-                  id={`dim-${dim.id}-perspectives`}
-                  role="region"
-                  style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-                >
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: 1.5,
-                      padding: "8px 10px",
-                      background: "#fff3f0",
-                      borderRadius: "6px",
-                      borderLeft: "3px solid #d84315",
-                      color: "#333",
-                    }}
-                  >
-                    <strong style={{ color: "#d84315" }}>Critics say:</strong>{" "}
-                    {dim.perspectives.critics}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: "14px",
-                      lineHeight: 1.5,
-                      padding: "8px 10px",
-                      background: "#f0f4ff",
-                      borderRadius: "6px",
-                      borderLeft: "3px solid #1565c0",
-                      color: "#333",
-                    }}
-                  >
-                    <strong style={{ color: "#1565c0" }}>Defenders say:</strong>{" "}
-                    {dim.perspectives.defenders}
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
 
           {/* Promise Tracker summary — per-item detail lives on the Promises tab */}
           {dim.promises && dim.promises.length > 0 && (
@@ -617,45 +398,286 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             </div>
           )}
 
-          {/* Inherited Baseline */}
-          {dim.inherited && (
-            <div style={{ marginBottom: "14px" }}>
-              <button
-                type="button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setInheritedOpen((v) => !v);
-                }}
-                aria-expanded={inheritedOpen}
-                aria-controls={`dim-${dim.id}-inherited`}
+          {/* ─── More details: collapsibles stacked below the main flow ─── */}
+          {(dim.gradeTriggers || dim.nextTrigger || dim.perspectives || dim.scope || dim.inherited) && (
+            <div
+              style={{
+                marginTop: "18px",
+                paddingTop: "12px",
+                borderTop: "1px dashed #d8d8d8",
+              }}
+            >
+              <div
                 style={{
-                  fontSize: "14px",
+                  fontSize: "12px",
                   fontWeight: 700,
-                  color: "#1a1a1a",
+                  color: "#777",
                   textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                  background: "none",
-                  border: "none",
-                  padding: "2px 0",
-                  minHeight: "24px",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                  fontFamily: "inherit",
+                  letterSpacing: "0.8px",
+                  marginBottom: "10px",
                 }}
               >
-                <span style={{ fontSize: "11px" }}>{inheritedOpen ? "\u25BE" : "\u25B8"}</span>
-                What Was Inherited
-              </button>
-              {inheritedOpen && (
-                <div
-                  id={`dim-${dim.id}-inherited`}
-                  role="region"
-                  style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}
-                >
-                  {dim.inherited}
+                More details
+              </div>
+
+              {(dim.gradeTriggers || dim.nextTrigger) && (
+                <div style={{ marginBottom: "12px" }}>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setTriggersOpen((v) => !v);
+                    }}
+                    aria-expanded={triggersOpen}
+                    aria-controls={`dim-${dim.id}-triggers`}
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      color: "#1a1a1a",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                      marginBottom: "6px",
+                      background: "none",
+                      border: "none",
+                      padding: "2px 0",
+                      minHeight: "24px",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontFamily: "inherit",
+                    }}
+                  >
+                    <span style={{ fontSize: "11px" }}>{triggersOpen ? "\u25BE" : "\u25B8"}</span>
+                    What Would Change This Grade
+                  </button>
+                  {triggersOpen && (
+                    dim.gradeTriggers ? (
+                      <div
+                        id={`dim-${dim.id}-triggers`}
+                        role="region"
+                        style={{
+                          fontSize: "14px",
+                          color: "#666",
+                          lineHeight: 1.5,
+                          background: "#fffde7",
+                          padding: "8px 10px",
+                          borderRadius: "6px",
+                          borderLeft: "3px solid #f9a825",
+                          display: "flex",
+                          flexDirection: "column",
+                          gap: "8px",
+                        }}
+                      >
+                        <div>
+                          <strong>Up one step:</strong>
+                          <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                            {dim.gradeTriggers.up.map((trigger, i) => (
+                              <div key={i}>{trigger}</div>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <strong>Down one step:</strong>
+                          <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                            {dim.gradeTriggers.down.map((trigger, i) => (
+                              <div key={i}>{trigger}</div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div
+                        id={`dim-${dim.id}-triggers`}
+                        role="region"
+                        style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}
+                      >
+                        {dim.nextTrigger}
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+
+              {dim.perspectives && (
+                <div style={{ marginBottom: "12px" }}>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPerspectivesOpen((v) => !v);
+                    }}
+                    aria-expanded={perspectivesOpen}
+                    aria-controls={`dim-${dim.id}-perspectives`}
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      color: "#1a1a1a",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                      marginBottom: "6px",
+                      background: "none",
+                      border: "none",
+                      padding: "2px 0",
+                      minHeight: "24px",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontFamily: "inherit",
+                    }}
+                  >
+                    <span style={{ fontSize: "11px" }}>{perspectivesOpen ? "\u25BE" : "\u25B8"}</span>
+                    Critics and defenders
+                  </button>
+                  {perspectivesOpen && (
+                    <div
+                      id={`dim-${dim.id}-perspectives`}
+                      role="region"
+                      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
+                    >
+                      <div
+                        style={{
+                          fontSize: "14px",
+                          lineHeight: 1.5,
+                          padding: "8px 10px",
+                          background: "#fff3f0",
+                          borderRadius: "6px",
+                          borderLeft: "3px solid #d84315",
+                          color: "#333",
+                        }}
+                      >
+                        <strong style={{ color: "#d84315" }}>Critics say:</strong>{" "}
+                        {dim.perspectives.critics}
+                      </div>
+                      <div
+                        style={{
+                          fontSize: "14px",
+                          lineHeight: 1.5,
+                          padding: "8px 10px",
+                          background: "#f0f4ff",
+                          borderRadius: "6px",
+                          borderLeft: "3px solid #1565c0",
+                          color: "#333",
+                        }}
+                      >
+                        <strong style={{ color: "#1565c0" }}>Defenders say:</strong>{" "}
+                        {dim.perspectives.defenders}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {dim.scope && (
+                <div style={{ marginBottom: "12px" }}>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setScopeOpen((v) => !v);
+                    }}
+                    aria-expanded={scopeOpen}
+                    aria-controls={`dim-${dim.id}-scope`}
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      color: "#1a1a1a",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                      marginBottom: "6px",
+                      background: "none",
+                      border: "none",
+                      padding: "2px 0",
+                      minHeight: "24px",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontFamily: "inherit",
+                    }}
+                  >
+                    <span style={{ fontSize: "11px" }}>{scopeOpen ? "\u25BE" : "\u25B8"}</span>
+                    Scope
+                  </button>
+                  {scopeOpen && (
+                    <div
+                      id={`dim-${dim.id}-scope`}
+                      role="region"
+                      style={{
+                        fontSize: "14px",
+                        color: "#666",
+                        lineHeight: 1.5,
+                        background: "#f9f9f9",
+                        padding: "8px 10px",
+                        borderRadius: "6px",
+                        borderLeft: "3px solid #9e9e9e",
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: "8px",
+                      }}
+                    >
+                      <div>
+                        <strong>In scope:</strong>
+                        <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                          {dim.scope.inScope.map((item, i) => (
+                            <div key={i}>{renderScopeItem(item)}</div>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <strong>Out of scope:</strong>
+                        <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                          {dim.scope.outOfScope.map((item, i) => (
+                            <div key={i}>{renderScopeItem(item)}</div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {dim.inherited && (
+                <div style={{ marginBottom: "0" }}>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setInheritedOpen((v) => !v);
+                    }}
+                    aria-expanded={inheritedOpen}
+                    aria-controls={`dim-${dim.id}-inherited`}
+                    style={{
+                      fontSize: "14px",
+                      fontWeight: 700,
+                      color: "#1a1a1a",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.5px",
+                      marginBottom: "6px",
+                      background: "none",
+                      border: "none",
+                      padding: "2px 0",
+                      minHeight: "24px",
+                      cursor: "pointer",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontFamily: "inherit",
+                    }}
+                  >
+                    <span style={{ fontSize: "11px" }}>{inheritedOpen ? "\u25BE" : "\u25B8"}</span>
+                    What Was Inherited
+                  </button>
+                  {inheritedOpen && (
+                    <div
+                      id={`dim-${dim.id}-inherited`}
+                      role="region"
+                      style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}
+                    >
+                      {dim.inherited}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
