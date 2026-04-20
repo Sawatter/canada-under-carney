@@ -152,39 +152,50 @@ export default function Dashboard() {
       {/* Scorecard View */}
       {view === "scorecard" && (
         <>
-        {/* Scorecard intro */}
+        {/* Combined scorecard orientation block — intro line + legend sit as
+            one "how to read this" unit immediately above the grid, per NN/g's
+            principle that instruction text belongs adjacent to the action. */}
         <div
           style={{
             textAlign: "center",
-            fontSize: "16px",
-            color: "#1a1a1a",
-            fontWeight: 700,
-            lineHeight: 1.5,
             marginBottom: "16px",
-            maxWidth: "640px",
+            maxWidth: "720px",
             marginLeft: "auto",
             marginRight: "auto",
           }}
         >
-          11 policy areas graded A–F across the federal government, updated monthly. Click any card to see the reasoning behind its grade.
-        </div>
-        {/* Legend */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            marginBottom: "16px",
-            fontSize: "14px",
-            color: "#444",
-            fontWeight: 600,
-            flexWrap: "wrap",
-          }}
-        >
-          <span><span style={{ color: "#2e7d32", fontWeight: 700 }}>{"\u25B2"}</span> Improving</span>
-          <span><span style={{ color: "#757575", fontWeight: 700 }}>{"\u25AC"}</span> Stable</span>
-          <span><span style={{ color: "#c62828", fontWeight: 700 }}>{"\u25BC"}</span> Declining</span>
-          <span><span style={{ color: "#c62828", fontSize: "11px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
+          <div
+            style={{
+              fontSize: "16px",
+              color: "#1a1a1a",
+              fontWeight: 700,
+              lineHeight: 1.5,
+              marginBottom: "8px",
+            }}
+          >
+            11 policy areas graded A–F, updated monthly.
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: "18px",
+              rowGap: "6px",
+              fontSize: "14px",
+              color: "#444",
+              fontWeight: 600,
+              flexWrap: "wrap",
+            }}
+          >
+            <span><span style={{ color: "#2e7d32", fontWeight: 700 }}>{"\u25B2"}</span> Improving</span>
+            <span><span style={{ color: "#757575", fontWeight: 700 }}>{"\u25AC"}</span> Stable</span>
+            <span><span style={{ color: "#c62828", fontWeight: 700 }}>{"\u25BC"}</span> Declining</span>
+            <span><span style={{ color: "#c62828", fontSize: "12px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
+            <span style={{ color: "#666", fontWeight: 500, fontStyle: "italic" }}>
+              Click any card for the reasoning.
+            </span>
+          </div>
         </div>
         <div
           style={{
