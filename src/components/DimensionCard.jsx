@@ -46,6 +46,11 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
         boxShadow: isExpanded
           ? (dim.excludeFromGPA ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`)
           : "0 1px 3px rgba(0,0,0,0.06)",
+        // When expanded, take the full grid row so we don't leave adjacent
+        // cards stranded in whitespace. Same pattern YouTube / Material use
+        // for in-grid expansions. Ignored on single-column (mobile) layouts
+        // because there's nothing to span.
+        gridColumn: isExpanded ? "1 / -1" : "auto",
       }}
     >
       {/* Header row: name + grade */}
