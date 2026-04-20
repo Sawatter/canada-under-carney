@@ -1,4 +1,3 @@
-import { useState } from "react";
 import data from "../data/approval-polls.json";
 
 function weightedMean(values, weights) {
@@ -34,12 +33,11 @@ function filterByWindow(polls, windowEnd, windowStart) {
   });
 }
 
-export default function ApprovalSignal() {
-  const [expanded, setExpanded] = useState(false);
-
+// Shared compute helper — both the card and the drilldown call this so the
+// displayed numbers are guaranteed consistent.
+function computeApproval() {
   const asOf = new Date(data.asOf);
   const windowDays = data.rollingWindowDays;
-
   const recentStart = new Date(asOf);
   recentStart.setDate(recentStart.getDate() - windowDays);
   const priorStart = new Date(recentStart);
@@ -48,43 +46,174 @@ export default function ApprovalSignal() {
   const recent = filterByWindow(data.polls, asOf, recentStart);
   const prior = filterByWindow(data.polls, recentStart, priorStart);
 
-  // Sample-size weighted mean: a poll of n=2,000 carries twice the weight of
-  // one at n=1,000. This is the standard "inverse-variance-approximating"
-  // weighting for equal-methodology polls; house effects across CRIC members
-  // are small enough for this to be defensible without explicit de-housing.
   const recentWeights = recent.map((p) => p.sampleSize || 0);
   const priorWeights = prior.map((p) => p.sampleSize || 0);
+
   const approveNow = weightedMean(recent.map((p) => p.approve), recentWeights);
   const disapproveNow = weightedMean(recent.map((p) => p.disapprove), recentWeights);
   const approvePrior = weightedMean(prior.map((p) => p.approve), priorWeights);
   const disapprovePrior = weightedMean(prior.map((p) => p.disapprove), priorWeights);
 
-  const net = approveNow !== null && disapproveNow !== null
-    ? Math.round(approveNow - disapproveNow)
-    : null;
+  const net =
+    approveNow !== null && disapproveNow !== null
+      ? Math.round(approveNow - disapproveNow)
+      : null;
 
   const approveDelta = formatDelta(approveNow, approvePrior);
   const disapproveDelta = formatDelta(disapproveNow, disapprovePrior);
 
   const pollstersInWindow = Array.from(new Set(recent.map((p) => p.pollster)));
-  const regionId = "approval-signal-detail";
+
+  return {
+    asOf: data.asOf,
+    windowDays,
+    approveNow,
+    disapproveNow,
+    net,
+    approveDelta,
+    disapproveDelta,
+    recent,
+    pollstersInWindow,
+  };
+}
+
+const DETAIL_ID = "approval-signal-detail";
+
+// Compact card for the scoreboard row. Matches the visual pattern of the
+// three grade cards (white bg, solid border, centered content) so the reader
+// reads it as part of the headline row, but the copy and the "Not part of
+// the grades" italic subtitle keep the separation honest.
+export function ApprovalCard({ expanded, onToggle }) {
+  const s = computeApproval();
 
   const handleKey = (e) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      setExpanded(!expanded);
+      onToggle();
     }
   };
 
+  const netText =
+    s.net == null ? "—" : s.net >= 0 ? `Net +${s.net}` : `Net ${s.net}`;
+
   return (
     <div
+      role="button"
+      tabIndex={0}
+      aria-expanded={expanded}
+      aria-controls={DETAIL_ID}
+      onClick={onToggle}
+      onKeyDown={handleKey}
+      style={{
+        background: "#fff",
+        border: "1px solid #e0e0e0",
+        borderRadius: "12px",
+        padding: "20px 24px",
+        textAlign: "center",
+        flex: "1 1 220px",
+        maxWidth: "280px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        cursor: "pointer",
+        userSelect: "none",
+      }}
+    >
+      <div
+        style={{
+          fontSize: "11px",
+          fontWeight: 700,
+          color: "#999",
+          textTransform: "uppercase",
+          letterSpacing: "0.5px",
+          marginBottom: "4px",
+        }}
+      >
+        Approval Signal
+      </div>
+      <div
+        style={{
+          fontSize: "10px",
+          color: "#999",
+          marginBottom: "8px",
+          fontStyle: "italic",
+          lineHeight: 1.3,
+        }}
+      >
+        Public approval of PM Carney. Not part of the grades.
+      </div>
+      <div>
+        <span
+          className="approval-stat-number"
+          style={{
+            fontFamily: "'DM Mono', monospace",
+            fontSize: "28px",
+            fontWeight: 800,
+            color: "#1a7a3a",
+            lineHeight: 1.1,
+          }}
+        >
+          {formatPct(s.approveNow)}
+        </span>
+        <span
+          style={{
+            fontFamily: "'DM Mono', monospace",
+            fontSize: "18px",
+            fontWeight: 700,
+            color: "#bbb",
+            marginLeft: "6px",
+          }}
+        >
+          / {formatPct(s.disapproveNow)}
+        </span>
+      </div>
+      <div
+        style={{
+          fontFamily: "'DM Mono', monospace",
+          fontSize: "12px",
+          color: s.net != null && s.net >= 0 ? "#1a7a3a" : "#c62828",
+          marginTop: "6px",
+          fontWeight: 700,
+        }}
+      >
+        {netText}
+      </div>
+      <div style={{ fontSize: "11px", color: "#888", marginTop: "2px" }}>
+        {s.recent.length} polls &middot; {s.windowDays}-day avg
+      </div>
+      <div
+        style={{
+          fontSize: "10px",
+          color: "#1a73e8",
+          marginTop: "8px",
+          fontWeight: 600,
+        }}
+      >
+        {expanded ? "\u25B2 Hide poll details" : "\u25BC See polls & sources"}
+      </div>
+    </div>
+  );
+}
+
+// Drilldown panel — lives below the scoreboard row, visible only when the
+// card is toggled open. Carries the full detail the card can't fit:
+// delta-vs-prior-window breakdown, Nanos preferred-PM context, and the
+// per-poll table with source links.
+export function ApprovalDetail() {
+  const s = computeApproval();
+
+  return (
+    <div
+      id={DETAIL_ID}
+      role="region"
       style={{
         background: "#fafafa",
         border: "1px dashed #c8c8c8",
         borderRadius: "10px",
-        padding: "12px 16px",
+        padding: "14px 18px",
+        marginTop: "-8px",
         marginBottom: "16px",
-        fontSize: "13px",
+        fontSize: "12px",
         color: "#444",
       }}
     >
@@ -95,21 +224,22 @@ export default function ApprovalSignal() {
           alignItems: "baseline",
           flexWrap: "wrap",
           gap: "8px",
+          marginBottom: "8px",
         }}
       >
         <div
           style={{
-            fontSize: "10px",
+            fontSize: "11px",
             fontWeight: 700,
-            color: "#888",
+            color: "#333",
             textTransform: "uppercase",
             letterSpacing: "0.5px",
           }}
         >
-          Approval Signal &middot; Not part of the scorecard
+          Approval Signal &mdash; drill-down
         </div>
-        <div style={{ fontSize: "11px", color: "#999" }}>
-          {windowDays}-day rolling avg &middot; as of {data.asOf}
+        <div style={{ fontSize: "10px", color: "#999" }}>
+          {s.windowDays}-day rolling avg &middot; as of {s.asOf}
         </div>
       </div>
 
@@ -119,7 +249,7 @@ export default function ApprovalSignal() {
           alignItems: "baseline",
           flexWrap: "wrap",
           gap: "16px",
-          marginTop: "6px",
+          marginBottom: "10px",
         }}
       >
         <div>
@@ -127,57 +257,54 @@ export default function ApprovalSignal() {
             className="approval-stat-number"
             style={{
               fontFamily: "'DM Mono', monospace",
-              fontSize: "22px",
+              fontSize: "20px",
               fontWeight: 700,
               color: "#1a7a3a",
             }}
           >
-            {formatPct(approveNow)}
+            {formatPct(s.approveNow)}
           </span>
           <span style={{ marginLeft: "6px", fontSize: "12px", color: "#777" }}>
             approve
           </span>
-          {approveDelta && (
+          {s.approveDelta && (
             <span style={{ marginLeft: "6px", fontSize: "11px", color: "#999" }}>
-              ({approveDelta} vs prior {windowDays}d)
+              ({s.approveDelta} vs prior {s.windowDays}d)
             </span>
           )}
         </div>
-
         <div>
           <span
             className="approval-stat-number"
             style={{
               fontFamily: "'DM Mono', monospace",
-              fontSize: "22px",
+              fontSize: "20px",
               fontWeight: 700,
               color: "#c62828",
             }}
           >
-            {formatPct(disapproveNow)}
+            {formatPct(s.disapproveNow)}
           </span>
           <span style={{ marginLeft: "6px", fontSize: "12px", color: "#777" }}>
             disapprove
           </span>
-
-          {disapproveDelta && (
+          {s.disapproveDelta && (
             <span style={{ marginLeft: "6px", fontSize: "11px", color: "#999" }}>
-              ({disapproveDelta} vs prior {windowDays}d)
+              ({s.disapproveDelta} vs prior {s.windowDays}d)
             </span>
           )}
         </div>
-
-        {net !== null && (
+        {s.net !== null && (
           <div>
             <span
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: "16px",
                 fontWeight: 700,
-                color: net >= 0 ? "#1a7a3a" : "#c62828",
+                color: s.net >= 0 ? "#1a7a3a" : "#c62828",
               }}
             >
-              Net {net >= 0 ? `+${net}` : net}
+              Net {s.net >= 0 ? `+${s.net}` : s.net}
             </span>
           </div>
         )}
@@ -185,37 +312,16 @@ export default function ApprovalSignal() {
 
       <div
         style={{
-          marginTop: "6px",
           fontSize: "11px",
           color: "#777",
           lineHeight: 1.5,
+          marginBottom: "10px",
         }}
       >
-        {recent.length} polls in window ({pollstersInWindow.join(", ")}).
+        {s.recent.length} polls in window ({s.pollstersInWindow.join(", ")}).
         Sample-size-weighted mean: a poll of n=2,000 counts twice a poll of
         n=1,000. Tracked as an ungraded signal so popularity does not
         contaminate the 11-dimension performance grades.
-      </div>
-
-      <div
-        role="button"
-        tabIndex={0}
-        onClick={() => setExpanded(!expanded)}
-        onKeyDown={handleKey}
-        aria-expanded={expanded}
-        aria-controls={regionId}
-        style={{
-          marginTop: "8px",
-          minHeight: "24px",
-          padding: "4px 0",
-          display: "inline-block",
-          fontSize: "11px",
-          color: "#1a73e8",
-          cursor: "pointer",
-          userSelect: "none",
-        }}
-      >
-        {expanded ? "\u25BC Hide underlying polls" : "\u25B6 Show underlying polls"}
       </div>
 
       {data.preferredPM && data.preferredPM.polls && data.preferredPM.polls.length > 0 && (() => {
@@ -253,85 +359,86 @@ export default function ApprovalSignal() {
         );
       })()}
 
-      {expanded && (
+      <div style={{ marginTop: "12px" }}>
         <div
-          id={regionId}
-          role="region"
           style={{
-            marginTop: "8px",
-            borderTop: "1px solid #e0e0e0",
-            paddingTop: "8px",
+            fontSize: "11px",
+            color: "#666",
+            marginBottom: "6px",
+            lineHeight: 1.5,
           }}
         >
-          <div
+          All polls in the {s.windowDays}-day window. Older polls in the file
+          are retained for historical trend but not included in the current
+          aggregate.
+        </div>
+        <div style={{ overflowX: "auto" }}>
+          <table
             style={{
+              width: "100%",
+              borderCollapse: "collapse",
               fontSize: "11px",
-              color: "#666",
-              marginBottom: "6px",
-              lineHeight: 1.5,
             }}
           >
-            All polls in the {windowDays}-day window. Older polls in the file
-            are retained for historical trend but not included in the current
-            aggregate.
-          </div>
-          <div style={{ overflowX: "auto" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                fontSize: "11px",
-              }}
-            >
-              <thead>
-                <tr style={{ color: "#777", textAlign: "left" }}>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Pollster</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Field</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>N</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Approve</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Disapprove</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Source</th>
-                </tr>
-              </thead>
-              <tbody>
-                {recent
-                  .slice()
-                  .sort((a, b) => (a.fieldEnd < b.fieldEnd ? 1 : -1))
-                  .map((p, i) => (
-                    <tr
-                      key={i}
-                      style={{ borderTop: "1px solid #eee", color: "#444" }}
-                    >
-                      <td style={{ padding: "4px 6px" }}>{p.pollster}</td>
-                      <td style={{ padding: "4px 6px", color: "#777" }}>
-                        {p.fieldStart}&nbsp;&ndash;&nbsp;{p.fieldEnd}
-                      </td>
-                      <td style={{ padding: "4px 6px", color: "#777" }}>
-                        {p.sampleSize.toLocaleString()}
-                      </td>
-                      <td style={{ padding: "4px 6px", fontWeight: 700 }}>
-                        {p.approve}%
-                      </td>
-                      <td style={{ padding: "4px 6px", fontWeight: 700 }}>
-                        {p.disapprove}%
-                      </td>
-                      <td style={{ padding: "4px 6px" }}>
-                        <a
-                          href={p.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          style={{ color: "#1a73e8" }}
-                        >
-                          link &rarr;
-                        </a>
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          </div>
+            <thead>
+              <tr style={{ color: "#777", textAlign: "left" }}>
+                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Pollster</th>
+                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Field</th>
+                <th style={{ padding: "4px 6px", fontWeight: 700 }}>N</th>
+                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Approve</th>
+                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Disapprove</th>
+                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {s.recent
+                .slice()
+                .sort((a, b) => (a.fieldEnd < b.fieldEnd ? 1 : -1))
+                .map((p, i) => (
+                  <tr
+                    key={i}
+                    style={{ borderTop: "1px solid #eee", color: "#444" }}
+                  >
+                    <td style={{ padding: "4px 6px" }}>{p.pollster}</td>
+                    <td style={{ padding: "4px 6px", color: "#777" }}>
+                      {p.fieldStart}&nbsp;&ndash;&nbsp;{p.fieldEnd}
+                    </td>
+                    <td style={{ padding: "4px 6px", color: "#777" }}>
+                      {p.sampleSize.toLocaleString()}
+                    </td>
+                    <td style={{ padding: "4px 6px", fontWeight: 700 }}>
+                      {p.approve}%
+                    </td>
+                    <td style={{ padding: "4px 6px", fontWeight: 700 }}>
+                      {p.disapprove}%
+                    </td>
+                    <td style={{ padding: "4px 6px" }}>
+                      <a
+                        href={p.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: "#1a73e8" }}
+                      >
+                        link &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
         </div>
-      )}
+      </div>
     </div>
+  );
+}
+
+// Default export kept for any legacy import site; not currently used by
+// Dashboard.jsx, which imports ApprovalCard + ApprovalDetail by name.
+export default function ApprovalSignalLegacy() {
+  return (
+    <>
+      <ApprovalCard expanded={true} onToggle={() => {}} />
+      <ApprovalDetail />
+    </>
   );
 }

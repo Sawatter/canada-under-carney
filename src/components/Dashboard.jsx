@@ -4,7 +4,7 @@ import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
 import { gpaToGrade, calculateOverallGPA, calculatePocketbookGPA, countPromises } from "../utils";
 import ScoreboardHeader from "./ScoreboardHeader";
-import ApprovalSignal from "./ApprovalSignal";
+import { ApprovalDetail } from "./ApprovalSignal";
 import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
 import PromiseTracker from "./PromiseTracker";
@@ -16,6 +16,7 @@ import VisitorCount from "./VisitorCount";
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
   const [view, setView] = useState("scorecard");
+  const [approvalExpanded, setApprovalExpanded] = useState(false);
   const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
 
@@ -97,10 +98,7 @@ export default function Dashboard() {
         </button>
       </div>
 
-      {/* Approval signal: ungraded public-opinion tracker, explicitly outside the GPA */}
-      <ApprovalSignal />
-
-      {/* Scoreboard header: overall grades + promise count */}
+      {/* Scoreboard header: overall grades + promise count + approval signal card */}
       <ScoreboardHeader
         overallGrade={gpaToGrade(parseFloat(overallGPA))}
         overallGPA={overallGPA}
@@ -108,7 +106,13 @@ export default function Dashboard() {
         pocketbookGPA={pocketbookGPA}
         promiseCounts={promiseCounts}
         totalPromises={totalPromises}
+        approvalExpanded={approvalExpanded}
+        onToggleApproval={() => setApprovalExpanded((v) => !v)}
       />
+
+      {/* Approval Signal drill-down: full polling detail, visible only when the
+          card above is toggled open. Explicitly outside the GPA. */}
+      {approvalExpanded && <ApprovalDetail />}
 
       {/* What Changed Since Last Update */}
       <WhatsChanged changelog={changelog} />

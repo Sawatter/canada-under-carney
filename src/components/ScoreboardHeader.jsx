@@ -1,4 +1,5 @@
 import GradeChip from "./GradeChip";
+import { ApprovalCard } from "./ApprovalSignal";
 
 export default function ScoreboardHeader({
   overallGrade,
@@ -7,6 +8,8 @@ export default function ScoreboardHeader({
   pocketbookGPA,
   promiseCounts,
   totalPromises,
+  approvalExpanded,
+  onToggleApproval,
 }) {
   return (
     <div style={{ marginBottom: "24px" }}>
@@ -179,6 +182,12 @@ export default function ScoreboardHeader({
             );
           })()}
         </div>
+
+        {/* Approval Signal card (not a grade — public-opinion tracker) */}
+        <ApprovalCard
+          expanded={!!approvalExpanded}
+          onToggle={onToggleApproval}
+        />
       </div>
       {/* Why-two-grades pointer */}
       <div
