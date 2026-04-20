@@ -33,31 +33,38 @@ function pubDate(isoDate) {
   return d.toUTCString();
 }
 
-function renderChange(c) {
-  if (c.type === "grade_change") {
-    return `<strong>${xmlEscape(c.dimensionId)}</strong>: ${xmlEscape(
-      c.from
-    )} → ${xmlEscape(c.to)}. ${xmlEscape(c.reason || "")}`;
+const TYPE_LABELS = {
+  grade:   "Grade change",
+  event:   "Policy event",
+  product: "Product update",
+  method:  "Methodology",
+  minor:   "Minor update",
+};
+
+function renderItem(it) {
+  if (it.type === "grade") {
+    const dim = it.dimensionName || it.dimensionId || "Graded dimension";
+    const tail = it.body ? `. ${it.body}` : "";
+    const delta = it.deltaLabel ? ` (${it.deltaLabel})` : "";
+    return `<strong>[${TYPE_LABELS.grade}] ${xmlEscape(dim)}</strong>: ${xmlEscape(
+      it.from
+    )} → ${xmlEscape(it.to)}${xmlEscape(delta)}${xmlEscape(tail)}`;
   }
-  if (c.type === "metric_update") {
-    return `<strong>${xmlEscape(c.metric)}</strong>: ${xmlEscape(
-      c.from
-    )} → ${xmlEscape(c.to)}. ${xmlEscape(c.reason || "")}`;
-  }
-  if (c.type === "event" || c.type === "launch") {
-    return xmlEscape(c.text || "");
-  }
-  return "";
+  const label = TYPE_LABELS[it.type] || "Update";
+  const head = it.headline ? `<strong>[${label}] ${xmlEscape(it.headline)}</strong>` : `<strong>[${label}]</strong>`;
+  const body = it.body ? `. ${xmlEscape(it.body)}` : "";
+  return `${head}${body}`;
 }
 
 function renderItemDescription(entry) {
   const summary = entry.summary ? `<p>${xmlEscape(entry.summary)}</p>` : "";
-  const bullets = (entry.changes || [])
-    .map((c) => `<li>${renderChange(c)}</li>`)
+  const list = (entry.items || entry.changes || []);
+  const bullets = list
+    .map((it) => `<li>${renderItem(it)}</li>`)
     .filter((li) => li !== "<li></li>")
     .join("");
-  const list = bullets ? `<ul>${bullets}</ul>` : "";
-  return `${summary}${list}`.trim();
+  const block = bullets ? `<ul>${bullets}</ul>` : "";
+  return `${summary}${block}`.trim();
 }
 
 const items = changelog
@@ -83,6 +90,7 @@ const items = changelog
 const lastBuild = new Date().toUTCString();
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="feed.xsl"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Canada Under Carney — Dashboard Updates</title>

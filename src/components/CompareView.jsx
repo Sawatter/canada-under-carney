@@ -19,14 +19,14 @@ function DimColumn({ dim }) {
       <div style={{ textAlign: "center", marginBottom: "16px" }}>
         <GradeChip grade={dim.grade} size="lg" />
         {subScoreSummary && (
-          <div style={{ marginTop: "8px", fontSize: "13px", color: "#666", fontWeight: 600 }}>
+          <div style={{ marginTop: "8px", fontSize: "14px", color: "#666", fontWeight: 600 }}>
             {subScoreSummary}
           </div>
         )}
         <div style={{ marginTop: "6px" }}>
           <TrendArrow trend={dim.trend} />
           {dim.previousGrade && (
-            <span style={{ fontSize: "12px", color: "#c62828", marginLeft: "4px" }}>
+            <span style={{ fontSize: "13px", color: "#c62828", marginLeft: "4px" }}>
               was {dim.previousGrade}
             </span>
           )}
@@ -36,7 +36,7 @@ function DimColumn({ dim }) {
       {/* Status */}
       <div
         style={{
-          fontSize: "12px",
+          fontSize: "13px",
           color: "#555",
           lineHeight: 1.5,
           marginBottom: "14px",
@@ -51,11 +51,11 @@ function DimColumn({ dim }) {
 
       {/* Metrics */}
       <div style={{ marginBottom: "14px" }}>
-        <div style={{ fontSize: "13px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+        <div style={{ fontSize: "14px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
           Metrics
         </div>
         {dim.metrics.map((m, i) => (
-          <div key={i} style={{ fontSize: "12px", color: "#444", padding: "2px 0", fontFamily: "'DM Mono', monospace" }}>
+          <div key={i} style={{ fontSize: "13px", color: "#444", padding: "2px 0", fontFamily: "'DM Mono', monospace" }}>
             {m.label}: {m.value}
           </div>
         ))}
@@ -63,12 +63,12 @@ function DimColumn({ dim }) {
 
       {/* Promises */}
       <div>
-        <div style={{ fontSize: "13px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+        <div style={{ fontSize: "14px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
           Promises ({dim.promises.length})
         </div>
         {dim.promises.map((p, i) => (
           <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "4px 0", gap: "6px" }}>
-            <span style={{ fontSize: "13px", color: "#444", flex: 1 }}>{p.text}</span>
+            <span style={{ fontSize: "14px", color: "#444", flex: 1 }}>{p.text}</span>
             <PromiseTag status={p.status} />
           </div>
         ))}
@@ -89,7 +89,7 @@ export default function CompareView() {
 
   const selectStyle = {
     padding: "8px 12px",
-    fontSize: "13px",
+    fontSize: "14px",
     borderRadius: "6px",
     border: "1px solid #ddd",
     background: "#fff",
@@ -104,7 +104,7 @@ export default function CompareView() {
       <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "22px", margin: "0 0 16px", color: "#1a1a1a" }}>
         Compare Dimensions
       </h2>
-      <p style={{ fontSize: "12px", color: "#888", marginBottom: "16px" }}>
+      <p style={{ fontSize: "13px", color: "#888", marginBottom: "16px" }}>
         Select two graded policy dimensions to compare side by side.
       </p>
 
@@ -115,7 +115,7 @@ export default function CompareView() {
             <option key={d.id} value={d.id}>{d.name} ({d.grade})</option>
           ))}
         </select>
-        <span style={{ fontSize: "14px", color: "#999", alignSelf: "center", fontWeight: 700 }}>vs</span>
+        <span style={{ fontSize: "15px", color: "#999", alignSelf: "center", fontWeight: 700 }}>vs</span>
         <select value={rightId} onChange={(e) => setRightId(e.target.value)} style={selectStyle}>
           {comparableDimensions.map((d) => (
             <option key={d.id} value={d.id}>{d.name} ({d.grade})</option>

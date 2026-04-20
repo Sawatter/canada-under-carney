@@ -7,7 +7,7 @@ export default function PromiseTag({ status }) {
       style={{
         background: s.bg,
         color: s.color,
-        fontSize: "13px",
+        fontSize: "14px",
         fontWeight: 600,
         padding: "2px 8px",
         borderRadius: "4px",

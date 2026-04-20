@@ -39,7 +39,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
               >
                 {count}
               </div>
-              <div style={{ fontSize: "12px", color: style.color, fontWeight: 600 }}>
+              <div style={{ fontSize: "13px", color: style.color, fontWeight: 600 }}>
                 {status}
               </div>
             </div>
@@ -58,7 +58,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
               <div
                 style={{
                   padding: "12px 16px 4px",
-                  fontSize: "13px",
+                  fontSize: "14px",
                   fontWeight: 700,
                   color: s.color,
                   textTransform: "uppercase",
@@ -109,12 +109,12 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                         gap: "12px",
                       }}
                     >
-                      <span style={{ fontSize: "13px", color: "#333", flex: 1 }}>
+                      <span style={{ fontSize: "14px", color: "#333", flex: 1 }}>
                         {p.text}
                         {p.durability && (
                           <span
                             style={{
-                              fontSize: "12px",
+                              fontSize: "13px",
                               color: "#999",
                               marginLeft: "6px",
                               fontStyle: "italic",
@@ -124,7 +124,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                           </span>
                         )}
                         {hasExpandContent && (
-                          <span style={{ fontSize: "12px", color: "#bbb", marginLeft: "6px" }}>
+                          <span style={{ fontSize: "13px", color: "#bbb", marginLeft: "6px" }}>
                             {isOpen ? "\u25B2" : "\u25BC"}
                           </span>
                         )}
@@ -132,7 +132,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                       <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
                         <span
                           style={{
-                            fontSize: "13px",
+                            fontSize: "14px",
                             color: "#999",
                             whiteSpace: "nowrap",
                             fontStyle: "italic",
@@ -147,7 +147,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                         id={detailId}
                         role="region"
                         style={{
-                          fontSize: "12px",
+                          fontSize: "13px",
                           color: "#666",
                           marginTop: "6px",
                           paddingLeft: "10px",
@@ -157,7 +157,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                       >
                         {p.evidence && <div>{p.evidence}</div>}
                         {p.since && (
-                          <div style={{ fontSize: "12px", color: "#aaa", marginTop: "4px" }}>
+                          <div style={{ fontSize: "13px", color: "#aaa", marginTop: "4px" }}>
                             Status since: {p.since}
                           </div>
                         )}
@@ -177,7 +177,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                                 style={{
-                                  fontSize: "13px",
+                                  fontSize: "14px",
                                   color: "#1a73e8",
                                   textDecoration: "none",
                                   background: "#e8f0fe",
@@ -197,7 +197,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                                 rel="noopener noreferrer"
                                 onClick={(e) => e.stopPropagation()}
                                 style={{
-                                  fontSize: "13px",
+                                  fontSize: "14px",
                                   color: "#b26a00",
                                   textDecoration: "none",
                                   background: "#fff3e0",

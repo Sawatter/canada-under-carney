@@ -154,12 +154,12 @@ export function ApprovalCard({
         >
           {netText}
         </div>
-        <div style={{ fontSize: "12px", color: "#555", marginTop: "4px", fontWeight: 500 }}>
+        <div style={{ fontSize: "13px", color: "#555", marginTop: "4px", fontWeight: 500 }}>
           {s.recent.length} polls &middot; {s.windowDays}-day avg
         </div>
         <div
           style={{
-            fontSize: "12px",
+            fontSize: "13px",
             color: "#1a73e8",
             marginTop: "8px",
             fontWeight: 700,
@@ -190,7 +190,7 @@ export function ApprovalDetail() {
         padding: "14px 18px",
         marginTop: "-8px",
         marginBottom: "16px",
-        fontSize: "12px",
+        fontSize: "13px",
         color: "#444",
       }}
     >
@@ -206,7 +206,7 @@ export function ApprovalDetail() {
       >
         <div
           style={{
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: 700,
             color: "#333",
             textTransform: "uppercase",
@@ -215,7 +215,7 @@ export function ApprovalDetail() {
         >
           Approval Signal &mdash; drill-down
         </div>
-        <div style={{ fontSize: "12px", color: "#999" }}>
+        <div style={{ fontSize: "13px", color: "#999" }}>
           {s.windowDays}-day rolling avg &middot; as of {s.asOf}
         </div>
       </div>
@@ -241,11 +241,11 @@ export function ApprovalDetail() {
           >
             {formatPct(s.approveNow)}
           </span>
-          <span style={{ marginLeft: "6px", fontSize: "12px", color: "#777" }}>
+          <span style={{ marginLeft: "6px", fontSize: "13px", color: "#777" }}>
             approve
           </span>
           {s.approveDelta && (
-            <span style={{ marginLeft: "6px", fontSize: "13px", color: "#999" }}>
+            <span style={{ marginLeft: "6px", fontSize: "14px", color: "#999" }}>
               ({s.approveDelta} vs prior {s.windowDays}d)
             </span>
           )}
@@ -262,11 +262,11 @@ export function ApprovalDetail() {
           >
             {formatPct(s.disapproveNow)}
           </span>
-          <span style={{ marginLeft: "6px", fontSize: "12px", color: "#777" }}>
+          <span style={{ marginLeft: "6px", fontSize: "13px", color: "#777" }}>
             disapprove
           </span>
           {s.disapproveDelta && (
-            <span style={{ marginLeft: "6px", fontSize: "13px", color: "#999" }}>
+            <span style={{ marginLeft: "6px", fontSize: "14px", color: "#999" }}>
               ({s.disapproveDelta} vs prior {s.windowDays}d)
             </span>
           )}
@@ -289,7 +289,7 @@ export function ApprovalDetail() {
 
       <div
         style={{
-          fontSize: "13px",
+          fontSize: "14px",
           color: "#777",
           lineHeight: 1.5,
           marginBottom: "10px",
@@ -313,7 +313,7 @@ export function ApprovalDetail() {
               marginTop: "10px",
               paddingTop: "8px",
               borderTop: "1px dashed #d4d4d4",
-              fontSize: "13px",
+              fontSize: "14px",
               color: "#666",
               lineHeight: 1.5,
             }}
@@ -339,7 +339,7 @@ export function ApprovalDetail() {
       <div style={{ marginTop: "12px" }}>
         <div
           style={{
-            fontSize: "13px",
+            fontSize: "14px",
             color: "#666",
             marginBottom: "6px",
             lineHeight: 1.5,
@@ -354,7 +354,7 @@ export function ApprovalDetail() {
             style={{
               width: "100%",
               borderCollapse: "collapse",
-              fontSize: "13px",
+              fontSize: "14px",
             }}
           >
             <thead>

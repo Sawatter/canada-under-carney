@@ -80,7 +80,7 @@ export default function Methodology() {
       >
         Scoring Rubric v{meta.rubricVersion}
       </h2>
-      <div style={{ fontSize: "15px", lineHeight: 1.6, color: "#333" }}>
+      <div style={{ fontSize: "16px", lineHeight: 1.6, color: "#333" }}>
         <p style={{ marginBottom: "16px" }}>
           The dashboard tracks 12 policy dimensions total: 11 are graded on a
           standard 4.0 GPA scale, and Promise Delivery is presented separately as
@@ -100,10 +100,10 @@ export default function Methodology() {
               marginBottom: "12px",
             }}
           >
-            <div style={{ fontWeight: 700, fontSize: "13px", color: g.color }}>
+            <div style={{ fontWeight: 700, fontSize: "14px", color: g.color }}>
               {g.range}: {g.title}
             </div>
-            <div style={{ fontSize: "12px", color: "#666" }}>{g.desc}</div>
+            <div style={{ fontSize: "13px", color: "#666" }}>{g.desc}</div>
           </div>
         ))}
 
@@ -111,7 +111,7 @@ export default function Methodology() {
           style={{
             marginTop: "20px",
             marginBottom: "10px",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: 700,
             color: "#333",
           }}
@@ -127,13 +127,13 @@ export default function Methodology() {
               marginBottom: "12px",
             }}
           >
-            <div style={{ fontWeight: 700, fontSize: "13px", color: m.color }}>
+            <div style={{ fontWeight: 700, fontSize: "14px", color: m.color }}>
               {m.name}
             </div>
-            <div style={{ fontSize: "12px", color: "#666" }}>{m.desc}</div>
+            <div style={{ fontSize: "13px", color: "#666" }}>{m.desc}</div>
             <div
               style={{
-                fontSize: "13px",
+                fontSize: "14px",
                 color: "#888",
                 marginTop: "2px",
                 fontStyle: "italic",
@@ -144,20 +144,20 @@ export default function Methodology() {
           </div>
         ))}
 
-        <p style={{ marginTop: "16px", fontSize: "12px", color: "#888" }}>
+        <p style={{ marginTop: "16px", fontSize: "14px", color: "#444" }}>
           <strong>Whole-letter dimensions:</strong> Ethics &amp; Transparency
           and Flagship Delivery are graded on whole letters only (A through F,
           no plus/minus variants). Their score contribution matches the
           displayed whole letter.
         </p>
-        <p style={{ fontSize: "12px", color: "#888" }}>
+        <p style={{ fontSize: "14px", color: "#444" }}>
           <strong>Weighting:</strong> Both headline scores are built from the
           same 11 graded dimensions, with different weightings — Full Policy
           Audit treats them equally, Household Impact doubles the four
           household-facing files. See the About tab for the plain-language
           breakdown.
         </p>
-        <p style={{ fontSize: "12px", color: "#888" }}>
+        <p style={{ fontSize: "14px", color: "#444" }}>
           <strong>Commitment traceability:</strong> Commitments from campaign
           platforms, budgets, throne speeches, mandate letters, and official
           public announcements are mapped through a published{" "}
@@ -178,7 +178,7 @@ export default function Methodology() {
           style={{
             marginTop: "20px",
             marginBottom: "8px",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: 700,
             color: "#333",
           }}
@@ -187,7 +187,7 @@ export default function Methodology() {
         </div>
         <ul
           style={{
-            fontSize: "12px",
+            fontSize: "13px",
             color: "#888",
             paddingLeft: "20px",
             margin: 0,
@@ -222,7 +222,7 @@ export default function Methodology() {
           </li>
         </ul>
 
-        <p style={{ marginTop: "16px", fontSize: "12px", color: "#888" }}>
+        <p style={{ marginTop: "16px", fontSize: "14px", color: "#444" }}>
           <strong>Approval Signal at the top of the dashboard:</strong> The
           public-opinion approval box above the grades is not part of the
           scoring model. It averages direct PM/government approval across
