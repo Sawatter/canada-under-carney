@@ -135,7 +135,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                         )}
                         {hasExpandContent && (
                           <span style={{ fontSize: "13px", color: "#bbb", marginLeft: "6px" }}>
-                            {isOpen ? "\u25B2" : "\u25BC"}
+                            {isOpen ? "\u25BE" : "\u25B8"}
                           </span>
                         )}
                       </span>
