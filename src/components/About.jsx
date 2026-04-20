@@ -135,7 +135,12 @@ export default function About() {
               their home dimension, indicator path, and derivative treatment
               through the published Commitment Traceability Map
             </li>
-            <li>Every grade is a human editorial judgment supported by documented evidence and a published rubric</li>
+            <li>
+              Every grade is anchored to the published rubric and documented
+              evidence, with the reasoning shown on every card. Any reader
+              can apply the rubric to the evidence themselves and reach
+              their own conclusion.
+            </li>
             <li>
               External inter-rater reliability testing has not yet been
               completed. Subjectivity is reduced through: published rubric
@@ -237,10 +242,11 @@ export default function About() {
           <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
             Independent project &middot; Calgary, Canada
             <br />
-            Built with AI assistance (Claude Code). Methodology
-            stress-tested through simulated adversarial review.
-            Fact-checked against primary source claims.
-            All editorial judgments made by the human editor.
+            Built with AI assistance (Claude Code + ChatGPT) under human
+            editorial direction. The rubric, evidence sources, and per-grade
+            reasoning are all public so any grade can be checked against
+            its evidence. Methodology stress-tested through simulated
+            adversarial review.
             <br />
             Scoring Rubric v1.1 &middot; Open source on{" "}
             <a
