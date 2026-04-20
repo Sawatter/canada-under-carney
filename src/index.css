@@ -92,6 +92,10 @@ button, [role="button"], a.button {
   min-width: 44px;
 }
 
+/* Hide the horizontal scrollbar on the tab rail (Chrome/Safari) — the rail
+   still scrolls, it just doesn't show a persistent scrollbar on macOS. */
+.dashboard-tabs::-webkit-scrollbar { display: none; }
+
 /* Keyboard focus ring — visible for keyboard users, invisible for mouse
    users. Applied to any element that's actionable via Tab navigation.
    WCAG 2.4.7 (Focus Visible) requires this for AA conformance. */

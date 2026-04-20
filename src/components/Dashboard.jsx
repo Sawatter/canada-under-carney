@@ -115,8 +115,10 @@ export default function Dashboard() {
           card above is toggled open. Explicitly outside the GPA. */}
       {approvalExpanded && <ApprovalDetail />}
 
-      {/* Tab Navigation */}
+      {/* Tab Navigation — horizontally scrollable rail on narrow screens so
+          longer labels like "Change Log" don't spill into their neighbours. */}
       <div
+        className="dashboard-tabs"
         style={{
           display: "flex",
           gap: "4px",
@@ -124,6 +126,9 @@ export default function Dashboard() {
           background: "#eee",
           borderRadius: "8px",
           padding: "4px",
+          overflowX: "auto",
+          WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "none",
         }}
       >
         {tabs.map((t) => (
@@ -131,8 +136,9 @@ export default function Dashboard() {
             key={t.key}
             onClick={() => setView(t.key)}
             style={{
-              flex: 1,
-              padding: "10px 6px",
+              flex: "1 1 auto",
+              minWidth: "fit-content",
+              padding: "10px 14px",
               fontSize: "14px",
               fontWeight: 700,
               background: view === t.key ? "#fff" : "transparent",
@@ -142,6 +148,7 @@ export default function Dashboard() {
               color: view === t.key ? "#1a1a1a" : "#444",
               transition: "all 0.2s",
               fontFamily: "'DM Sans', sans-serif",
+              whiteSpace: "nowrap",
             }}
           >
             {t.label}
