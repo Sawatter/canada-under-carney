@@ -28,6 +28,7 @@ export default function Dashboard() {
   const tabs = [
     { key: "scorecard", label: "Scorecard" },
     { key: "promises", label: "Promises" },
+    { key: "changelog", label: "Change Log" },
     { key: "methodology", label: "Rubric" },
     { key: "about", label: "About" },
   ];
@@ -113,9 +114,6 @@ export default function Dashboard() {
       {/* Approval Signal drill-down: full polling detail, visible only when the
           card above is toggled open. Explicitly outside the GPA. */}
       {approvalExpanded && <ApprovalDetail />}
-
-      {/* What Changed Since Last Update */}
-      <WhatsChanged changelog={changelog} />
 
       {/* Tab Navigation */}
       <div
@@ -266,6 +264,9 @@ export default function Dashboard() {
           totalPromises={totalPromises}
         />
       )}
+
+      {/* Change Log View */}
+      {view === "changelog" && <WhatsChanged changelog={changelog} />}
 
       {/* Methodology View */}
       {view === "methodology" && <Methodology />}
