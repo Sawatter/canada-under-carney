@@ -123,7 +123,7 @@ This is weaker than a second scorer but defensible if disclosed clearly. It does
 | 9 | Housing Supply | D | Plus/minus |
 | 10 | Ethics & Transparency | C | Whole letter (probation) |
 | 11 | Flagship Delivery | C | Whole letter (probation) |
-| — | Promise Delivery | Ungraded tracker | Not in GPA |
+| — | Promise Delivery | Ungraded tracker | Tracked separately |
 
 ### Headlines (estimated after changes):
 
