@@ -24,7 +24,7 @@ cd canada-under-carney
 python3 scripts/fetch-data.py
 ```
 
-This checks all government data sources and produces three files in `scripts/output/`:
+This checks government data endpoints and produces three files in `scripts/output/`:
 - `fetch-report.txt` — human-readable summary of what's available
 - `draft-dimensions.json` — copy of current data (you'll edit this)
 - `draft-changelog-entry.json` — template for the changelog
@@ -34,7 +34,7 @@ This checks all government data sources and produces three files in `scripts/out
 ## Step 2: Review the fetch report (5 minutes)
 
 Open `scripts/output/fetch-report.txt`. It tells you:
-- Which StatCan tables have new data
+- Which StatCan tables were reachable
 - Which IRCC datasets downloaded successfully
 - Which metrics need manual checking
 - Source URLs to visit for each data point
@@ -50,7 +50,7 @@ Open `scripts/output/draft-dimensions.json` in any text editor.
 **For manual metrics:** Check these sources:
 - **Fitch/Moody's/S&P ratings:** Check agency websites (changes are rare)
 - **PBO reports:** Check [pbo-dpb.ca](https://www.pbo-dpb.ca/en/publications/)
-- **Polling:** Check [Angus Reid](https://angusreid.org), [Leger](https://leger360.com), [Nanos](https://nanos.co)
+- **Approval Signal polling:** Check Léger, Abacus Data, Ipsos, Angus Reid Institute, and Innovative Research Group for direct approve/disapprove releases; check Nanos only for preferred-PM context.
 - **Ethics/Transparency:** Check news for Ethics Commissioner updates
 - **Climate policy status:** Check ECCC announcements
 
@@ -82,16 +82,14 @@ Then edit these files:
 **`src/data/changelog.json`** — Add a new entry at the TOP of the array:
 ```json
 {
-  "month": "2026-05",
   "date": "2026-05-14",
   "summary": "May 2026 update: [what changed in one sentence]",
-  "changes": [
+  "items": [
     {
-      "type": "metric_update",
-      "metric": "Food CPI",
-      "from": "5.4%",
-      "to": "5.1%",
-      "reason": "April 2026 CPI release, Statistics Canada"
+      "type": "event",
+      "headline": "Food inflation updated",
+      "body": "Food CPI moved from 5.4% to 5.1% in the April 2026 Statistics Canada release.",
+      "affects": ["Affordability Response"]
     }
   ]
 }
@@ -100,12 +98,15 @@ Then edit these files:
 For grade changes, use this format:
 ```json
 {
-  "type": "grade_change",
+  "type": "grade",
   "dimensionId": "fiscal-health",
+  "dimensionName": "Fiscal Health",
   "from": "D",
   "to": "D-",
-  "reason": "PBO spring report projects deficit widening",
-  "rubricRef": "D Range: response minimal relative to scale"
+  "deltaLabel": "−1 notch",
+  "headline": "Fiscal Health moved D → D-",
+  "body": "PBO's spring report projects a wider deficit path than previously expected.",
+  "drivers": ["PBO spring report", "Deficit path widened"]
 }
 ```
 

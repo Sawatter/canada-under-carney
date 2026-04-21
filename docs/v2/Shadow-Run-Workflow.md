@@ -31,7 +31,7 @@ The v2 shadow cycle runs inside the v1 monthly cycle, not as a separate process.
 
 ### Step 1: Data Fetch and Source Scan (shared with v1)
 
-This step is unchanged from v1. Run `python3 scripts/fetch-data.py` and scan the 20-source monitoring stack (Tier 1 and Tier 2). No separate v2 data fetch is required.
+This step is unchanged from v1. Run `python3 scripts/fetch-data.py` and scan the live monitoring stack (Tier 1 and Tier 2). No separate v2 data fetch is required.
 
 **v2 addition:** While scanning sources, tag each new piece of evidence with its probable primary lens:
 - Is this a new commitment, a change in commitment scope, or a withdrawal? → **Commitment**

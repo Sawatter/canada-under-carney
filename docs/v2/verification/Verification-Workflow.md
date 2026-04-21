@@ -48,7 +48,7 @@ Step 6: Deploy                       Step V9: Ledger close-out
    - Right & Centre-Right interpretation: check only if a dimension under review lacks contradicting evidence (EFCSN requires presenting both sides for central claims).
    - Independent Policy & Academic: check only if a new publication appeared relevant to a pilot dimension.
    - Specialist Supplements: check only if their specific file moved (climate, environment, Indigenous).
-   - If nothing relevant is found in a secondary scan, no manifest entry is needed. The full 20-source monitoring stack remains the UNIVERSE of possible sources, but the evidence pack for any given cycle only includes sources that are actually relevant to this cycle's scoring decisions.
+   - If nothing relevant is found in a secondary scan, no manifest entry is needed. The full monitoring stack remains the UNIVERSE of possible sources, but the evidence pack for any given cycle only includes sources that are actually relevant to this cycle's scoring decisions.
 5. For any source considered but excluded, add a row to the Excluded Sources table with reason.
 6. Sign the manifest header.
 

@@ -2,15 +2,15 @@
 """
 Canada Under Carney — Monthly Data Fetch Script
 
-Pulls fresh data from government APIs (Statistics Canada, IRCC, Bank of Canada)
-and generates a draft update for human review.
+Checks government data endpoints (Statistics Canada, IRCC, Bank of Canada)
+and generates draft files for human review.
 
 Usage:
     python scripts/fetch-data.py
 
 Outputs (in scripts/output/):
-    draft-dimensions.json   — current dimensions with auto-updated metric values
-    fetch-report.txt        — human-readable summary of what changed
+    draft-dimensions.json   — copy of current dimensions for manual edits
+    fetch-report.txt        — human-readable source-availability report
 """
 
 import json
@@ -77,13 +77,17 @@ IRCC_DATASETS = {
         "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-PR-Gender.csv",
         "description": "Permanent resident admissions by gender, monthly",
     },
-    "temp_residents_work": {
-        "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TFWP-IMP-WorkPermitHolders.csv",
-        "description": "Temporary foreign worker permit holders, monthly",
+    "work_permits_imp": {
+        "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Work-IMP-PT_program.csv",
+        "description": "International Mobility Program work permit holders by province/territory and program, monthly",
     },
-    "temp_residents_study": {
-        "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-StudyPermitHolders.csv",
-        "description": "Study permit holders, monthly",
+    "work_permits_tfwp": {
+        "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Work-TFWP-PT_program.csv",
+        "description": "Temporary Foreign Worker Program work permit holders by province/territory and program, monthly",
+    },
+    "study_permits": {
+        "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-IS_PT_study.csv",
+        "description": "Study permit holders by province/territory and study level, monthly",
     },
 }
 
@@ -235,7 +239,8 @@ def generate_fetch_report(dimensions, results):
     lines.append("  - All status summaries (editorial judgment)")
     lines.append("  - All promise statuses (editorial judgment)")
     lines.append("  - Fitch/Moody's/S&P ratings (check agency websites)")
-    lines.append("  - Polling data (check Angus Reid, Leger, Nanos)")
+    lines.append("  - Approval Signal polls (check Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group)")
+    lines.append("  - Nanos preferred-PM context (secondary signal only)")
     lines.append("")
 
     lines.append("NEXT STEPS:")
@@ -320,16 +325,14 @@ def main():
 
     # 3. Draft changelog entry template
     changelog_entry = {
-        "month": date.today().strftime("%Y-%m"),
         "date": date.today().isoformat(),
         "summary": f"{date.today().strftime('%B %Y')} update: [DESCRIBE CHANGES HERE]",
-        "changes": [
+        "items": [
             {
-                "type": "metric_update",
-                "metric": "[METRIC NAME]",
-                "from": "[OLD VALUE]",
-                "to": "[NEW VALUE]",
-                "reason": "[SOURCE AND DATE]",
+                "type": "event",
+                "headline": "[WHAT CHANGED]",
+                "body": "[PLAIN-LANGUAGE SUMMARY AND SOURCE]",
+                "affects": ["[DIMENSION NAME]"],
             }
         ],
     }
