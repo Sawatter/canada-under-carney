@@ -80,7 +80,7 @@ If these five constructs produce stable, defensible shadow scores through one re
 
 - Removed from GPA. Operates as an ungraded commitment accountability tracker.
 - Does NOT receive tri-lens scoring. Its function is already captured by the Commitment lens across all other dimensions.
-- The Promise Tracker tab continues to display 44 commitments with status tags, evidence, and durability classifications.
+- The Promise Tracker tab continues to display 43 commitments with status tags, evidence, and durability classifications.
 - **Strictly downstream.** Promise status changes are derived from home-dimension evidence and reflect scoring decisions already made in those dimensions. The tracker does NOT feed back into home-dimension Commitment lens scoring. Editors score the Commitment lens using primary evidence (canonical government documents, Tier 1/2 analysis), then the Promise Tracker is updated to reflect the result. The tracker is a display layer, not a scoring input.
 
 ---

@@ -3,7 +3,7 @@
 **Question:** Should Promise Delivery remain a graded dimension in v2?
 
 **Date:** April 2026
-**Status:** Decision pending
+**Status:** Decision landed — Promise Delivery is now an ungraded tracker outside the scores
 
 ---
 
@@ -18,13 +18,13 @@ The diagnostic question — "what moves this grade that is not already captured 
 ## Option 1: Keep as Graded Dimension
 
 ### What it measures
-The cumulative rate of commitment fulfillment (14 of 44 delivered, 12 stalled/abandoned).
+The cumulative rate of commitment fulfillment (14 of 43 delivered, 12 stalled/abandoned).
 
 ### Double-counting risk
 **High.** Every promise status change is mechanically linked to a home dimension. The same evidence scores twice — once as policy performance, once as promise accountability. This inflates the weight of events that happen to have been promised vs. events that were not.
 
 ### Readability
-Good. "14 of 44 delivered" is instantly understandable.
+Good. "14 of 43 delivered" is instantly understandable.
 
 ### Accountability value
 Real. Promise tracking is a legitimate democratic accountability function. Voters care whether the government did what it said.
@@ -43,13 +43,13 @@ Keeping it as graded means accepting permanent double-counting and GPA contamina
 ## Option 2: Convert to Ungraded Promise Tracker Only
 
 ### What it measures
-Same information — 44 commitments tracked by status — but displayed as an accountability tool, not a GPA-contributing grade.
+Same information — 43 commitments tracked by status — but displayed as an accountability tool, not a GPA-contributing grade.
 
 ### Double-counting risk
 **Eliminated.** The tracker exists as a reference layer. It does not feed into either the Household Impact or Full Policy Audit GPA. Events are scored once, in their home dimension.
 
 ### Readability
-**Better.** The Promise Tracker tab already exists and is one of the dashboard's strongest features. "14 of 44 delivered" remains prominently displayed in the header. Nothing is lost visually.
+**Better.** The Promise Tracker tab already exists and is one of the dashboard's strongest features. "14 of 43 delivered" remains prominently displayed in the header. Nothing is lost visually.
 
 ### Accountability value
 **Preserved.** The tracker still shows every promise, its status, its evidence, and its durability classification. Readers can still assess whether the government kept its word. The function is identical — only the GPA contribution is removed.
@@ -94,7 +94,7 @@ Inferior to Option 2 on every dimension except maintenance. The Promise Tracker 
 
 **Option 2: Convert to ungraded Promise Tracker.**
 
-Remove Promise Delivery from the 12 graded dimensions. The dashboard becomes 11 dimensions contributing to the GPA. The Promise Tracker tab remains exactly as it is — 44 commitments, status tags, evidence, durability classifications, expandable detail. The header still shows "14/44 delivered." Nothing is lost to the reader. The GPA gains integrity.
+Remove Promise Delivery from the 12 graded dimensions. The dashboard becomes 11 dimensions contributing to the GPA. The Promise Tracker tab remains exactly as it is — 43 commitments, status tags, evidence, durability classifications, expandable detail. The header still shows "14/43 delivered." Nothing is lost to the reader. The GPA gains integrity.
 
 ### Strongest argument against this recommendation
 
@@ -102,11 +102,11 @@ The counter-argument is that removing a dimension from the GPA reduces the dashb
 
 ### Response to the counter-argument
 
-That concern is addressed by the Promise Tracker's continued prominence. It is the second tab on the dashboard. The 14/44 number is in the header next to the two GPAs. Readers can see it before they see any grades. The accountability signal is not weakened — it is decoupled from a measurement system it was contaminating. And the concern about a government scoring well on outcomes while breaking promises is actually an argument for separation: outcomes and commitment-keeping are different things, and they should not be forced into the same score.
+That concern is addressed by the Promise Tracker's continued prominence. It is the second tab on the dashboard. The 14/43 number is in the header next to the two headline scores. Readers can see it before they see any grades. The accountability signal is not weakened — it is decoupled from a measurement system it was contaminating. And the concern about a government scoring well on outcomes while breaking promises is actually an argument for separation: outcomes and commitment-keeping are different things, and they should not be forced into the same score.
 
 ### Timing
 
-**Implement in v2.** Do not change the live dashboard yet. Run a shadow calculation showing the 11-dimension GPA alongside the current 12-dimension GPA for one cycle. If the difference is small (expected: minimal, since Promise Delivery at C+ is close to the current average), promote to live.
+**Implemented in April 2026.** Promise Delivery is excluded from the headline scores and shown as an ungraded accountability tracker.
 
 ---
 

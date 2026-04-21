@@ -72,7 +72,8 @@ export default function About() {
           </p>
           <p style={{ margin: "0 0 10px" }}>
             <strong>Promises Delivered</strong> is a running tracker of
-            specific commitments (kept, broken, stalled, delivered). It's
+            specific commitments (delivered, in progress, too early, stalled,
+            abandoned). It's
             separate and doesn't feed either grade.
           </p>
           <p style={{ margin: 0 }}>
@@ -199,7 +200,10 @@ export default function About() {
             <strong>Academic:</strong> The Conversation Canada, Dalhousie,
             PROOF (U of T)
             <br />
-            <strong>Polling:</strong> Angus Reid
+            <strong>Polling / public opinion:</strong> Angus Reid; Approval
+            Signal pollsters are tracked separately outside the grades (Léger,
+            Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group;
+            Nanos preferred-PM context)
             <br />
             <strong>Context-only official announcements:</strong> PMO or other
             government press releases may appear as context, but they do not by

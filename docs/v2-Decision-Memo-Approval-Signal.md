@@ -50,7 +50,7 @@ Rejected. The tracker slot is earned by being graded-quality evidence that got h
 ## Option 3: Add approval as an ungraded signal at the top of the dashboard (chosen)
 
 ### What it measures
-A 60-day rolling average of direct PM / government approval polls from CRIC-member pollsters publishing full methodology, both an approve and a disapprove percentage, and a disclosed sample size.
+A 60-day rolling average of direct PM / government approval polls from included pollsters publishing full methodology, both an approve and a disapprove percentage, and a disclosed sample size.
 
 ### Placement
 Top of the dashboard, above the three-card scorecard header, in a visually distinct dashed-border "signal" strip. Explicit text on the box: *"Approval Signal — Not part of the scorecard."*
@@ -80,7 +80,7 @@ Canadian polling firm · publishes a direct PM or government approval question �
 - **Ipsos Canada** — CRIC accredited. Included.
 - **Angus Reid Institute** — *Not* CRIC accredited (the Institute is a non-profit public-interest polling arm; CRIC accreditation covers commercial research agencies). Included under the equivalent-transparency exception: the Institute publishes full methodology, cross-tabs, and sample details for every release.
 - **Innovative Research Group** — *Not* CRIC accredited per the current member directory, but a well-established Canadian public-affairs research firm publishing full methodology. Included under the equivalent-transparency exception. Worth rechecking CRIC status next cycle.
-- **Nanos Research Corporation** — CRIC accredited but *excluded* because Nanos publicly tracks "preferred PM" (best-choice question), not direct approve/disapprove. Different construct. Consider as a separate preferred-PM signal in v2.
+- **Nanos Research Corporation** — CRIC accredited but *excluded from the approval mean* because Nanos publicly tracks "preferred PM" (best-choice question), not direct approve/disapprove. Different construct; shown as secondary context only.
 - **Pollara Strategic Insights** — CRIC accredited. No direct Carney approve/disapprove release surfaced in v1 research. Revisit on next cycle.
 - **Mainstreet Research** — CRIC accredited. No recent direct Carney approval release surfaced in v1 research. Revisit on next cycle.
 - **Ekos Research Associates** — CRIC accredited. No recent direct Carney approval release surfaced in v1 research. Revisit on next cycle.
@@ -89,7 +89,7 @@ Canadian polling firm · publishes a direct PM or government approval question �
 Léger, Abacus Data, Ipsos Canada, Angus Reid Institute, Innovative Research Group.
 
 ### v1 excluded (with reason)
-- **Nanos Research** — different construct (preferred-PM, not approval). Separate signal candidate.
+- **Nanos Research** — different construct (preferred-PM, not approval). Shown as secondary context only; not averaged into the approval mean.
 - **Spark Insights** — *confirmed not* CRIC accredited (2026-04-19 check against the CRIC member directory). Additionally, Spark's house numbers are 6–10 points higher than the CRIC-accredited firms in the same weeks, suggesting either a different question wording or a house-effect worth isolating. Remains excluded pending independent methodology review.
 - **Research Co. / Mario Canseco** — not CRIC accredited. Publishes approve% but disapprove% is frequently omitted from the public release, which makes the poll unusable for a consistent approve–disapprove pair. Revisit when a consistent pair is available.
 - **Pollara, Mainstreet, EKOS** — CRIC accredited, no recent direct Carney approval release surfaced in v1 research window. Revisit on next cycle.
@@ -122,7 +122,7 @@ Neither the Full Policy Audit nor the Household Impact grade includes approval. 
 
 ## What could go wrong
 
-- **House-effect drift.** If one pollster's house average diverges materially from the others (as Spark currently does), the simple mean misleads. v1 mitigation: diversified pollster set. v2 option: weighted mean or exclude extreme outliers.
+- **House-effect drift.** If one pollster's house average diverges materially from the others (as Spark currently does), even the sample-size-weighted mean can mislead. Current mitigation: diversified pollster set plus exclusion of extreme outliers.
 - **Construct drift.** If the PM-approval and government-approval answers drift apart in v2, the mixed aggregate stops being comparable across pollsters. v1 mitigation: this is disclosed in the memo. v2 action: split into two signals or pick one construct.
 - **Sample recency drops.** If the included pollster set slows publication cadence, the 60-day window can shrink to 1–2 polls and the signal becomes noisy. v1 mitigation: the component displays the actual poll count in the window so a reader can tell. v2 option: widen to 90 days if the count drops under 3.
 - **Politicization of the signal.** If the approval number is mistaken for a "pass/fail" on the government, the page has failed the Product Thesis. v1 mitigation: explicit "Not part of the scorecard" label, dashed border, muted styling, placement above the grades (not alongside them).
@@ -132,6 +132,6 @@ Neither the Full Policy Audit nor the Household Impact grade includes approval. 
 ## Followups
 
 - Add Research Co. once a reliable approve/disapprove pair is published consistently.
-- Add Nanos preferred-PM as a separate signal if a second construct adds value.
+- Keep Nanos preferred-PM as secondary context only; do not average it into the approval mean.
 - Consider a sparkline on the approval signal if 6+ months of in-file polls accumulate and the trend is the more interesting story than the level.
-- Consider sample-size-weighted mean if house-effect dispersion widens.
+- Consider explicit house-effect adjustment if inter-pollster dispersion widens.
