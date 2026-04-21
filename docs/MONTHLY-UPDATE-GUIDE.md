@@ -130,7 +130,7 @@ npm run dev
 ```
 
 Open http://localhost:5173/canada-under-carney/ and verify:
-- "What Changed This Month" shows the right items
+- "Change Log" shows the right items
 - Grades and metrics look correct
 - Promise Tracker counts are right
 - No broken layouts

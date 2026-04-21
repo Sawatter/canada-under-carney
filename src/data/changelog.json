@@ -26,7 +26,7 @@
         "type": "event",
         "headline": "Majority government confirmed",
         "body": "Carney's Liberals won 3 Toronto/Quebec byelections on April 13, 2026, reaching 174 seats and securing a majority in the House of Commons.",
-        "affects": ["Ethics & Transparency", "Execution & Delivery"],
+        "affects": ["Ethics & Transparency", "Flagship Delivery"],
         "link": {
           "label": "CBC News: byelection results",
           "href": "https://www.cbc.ca/news/politics/byelection-liberal-conservatives-carney-majority-government-9.7161054"
@@ -45,7 +45,7 @@
       {
         "type": "product",
         "headline": "Approval Signal added to the top of the dashboard",
-        "body": "60-day rolling average of approve/disapprove across five CRIC-era pollsters (Léger, Abacus, Ipsos, Angus Reid Institute, Innovative Research). Tracked beside the grades but explicitly not one of them — popularity is not performance.",
+        "body": "60-day rolling average of approve/disapprove across five included pollsters (Léger, Abacus, Ipsos, Angus Reid Institute, Innovative Research). Tracked beside the grades but explicitly not one of them — popularity is not performance.",
         "link": {
           "label": "Read the decision memo",
           "href": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md"
