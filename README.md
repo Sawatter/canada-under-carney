@@ -34,8 +34,8 @@ These four areas count twice as much in Household Impact; the other seven still 
 - **Scorecard** — 11 graded policy dimensions (A through F) plus an ungraded Promise Tracker, with expandable details, rationale, evidence, and source links
 - **Promise Tracker** — 43 government commitments tracked by status with expandable evidence
 - **Commitment Traceability Map** — published join layer linking commitments to home dimensions, constructs, indicators, source roles, and derivative handling
-- **Methodology** — Transparent scoring rubric embedded in the dashboard
-- **What Changed** — Monthly change log with grade changes and evidence
+- **Rubric** — Transparent scoring rubric embedded in the dashboard
+- **Change Log** — Monthly change log with grade changes and evidence
 - **About** — Source balance, principles, and evaluation methodology
 - **Print/PDF** — Export-ready for meetings
 - **Mobile** — Responsive design for phones and tablets
@@ -60,7 +60,7 @@ This is a source-type summary, not a full manifest and not a formal left/right s
 We welcome feedback. You can:
 
 1. **Review the dashboard** at [sawatter.github.io/canada-under-carney](https://sawatter.github.io/canada-under-carney/)
-2. **Read the scoring rubric** in the Methodology tab or [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
+2. **Read the scoring rubric** in the Rubric tab or [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
 3. **Read the commitment traceability layer** in [docs/Commitment-Traceability-Map.md](docs/Commitment-Traceability-Map.md)
 4. **Submit feedback** via [GitHub Issues](https://github.com/Sawatter/canada-under-carney/issues)
 5. **Run it through your own AI** — paste the dashboard URL into ChatGPT, Claude, or Gemini and ask it to critique the methodology, challenge the grades, or identify missing perspectives
@@ -84,7 +84,7 @@ Metrics are drawn from official statistics (Statistics Canada, PBO, CMHC, Bank o
 ## Built With
 
 - React + Vite, deployed on GitHub Pages
-- Built with AI assistance (Claude Code). Methodology stress-tested through simulated adversarial review.
+- Built with AI assistance (Claude Code + ChatGPT). Methodology stress-tested through simulated adversarial review.
 - Fact-checked against primary source claims with documented source manifest.
 - All editorial judgments made by the human editor. AI tools assisted with research, drafting, and QA — they did not make grading decisions.
 - Scoring Rubric v1.1 — [docs/Scoring-Rubric-v1.1.md](docs/Scoring-Rubric-v1.1.md)
