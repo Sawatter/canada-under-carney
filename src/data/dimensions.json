@@ -159,7 +159,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
+        "statusSourceLabel": "Budget 2025 Ch.2 \u2014 Buy Canadian Policy"
       },
       {
         "text": "Full foreign policy review (first since 2005)",
@@ -339,7 +341,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://tc.canada.ca/en/corporate-services/transparency/corporate-management-reporting/strategic-environmental-economic-assessment/public-statement-strategic-environmental-economic-assessment-co-development-phase-alto-s-high-speed-rail-initiative",
+        "statusSourceLabel": "Transport Canada \u2014 Alto co-development phase"
       },
       {
         "text": "$10B Indigenous Loan Guarantee Program",
@@ -489,7 +493,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
+        "statusSourceLabel": "Budget 2025 Ch.5 \u2014 Workforce Renewal"
       },
       {
         "text": "Middle class income tax cut",
@@ -645,7 +651,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
+        "statusSourceLabel": "ISED \u2014 Canadian Sovereign AI Compute Strategy"
       },
       {
         "text": "Critical minerals strategy",
@@ -810,7 +818,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html",
+        "statusSourceLabel": "CRA \u2014 Canada Groceries and Essentials Benefit"
       },
       {
         "text": "Grocery Code of Conduct",
@@ -844,7 +854,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
+        "statusSourceLabel": "Budget 2025 Ch.2 \u2014 Buy Canadian food standards"
       }
     ],
     "perspectives": {
@@ -1119,7 +1131,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap1-en.html",
+        "statusSourceLabel": "Budget 2025 Ch.1 \u2014 electricity grid interties"
       },
       {
         "text": "Conserve biodiversity / freshwater",
@@ -1135,7 +1149,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://www.canada.ca/en/services/environment/nature/nature-strategy.html",
+        "statusSourceLabel": "Canada.ca \u2014 A Force of Nature strategy"
       },
       {
         "text": "Net-zero commitment",
@@ -1151,7 +1167,9 @@
           }
         ],
         "originalSourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/",
-        "originalSourceLabel": "Canadian Net-Zero Emissions Accountability Act"
+        "originalSourceLabel": "Canadian Net-Zero Emissions Accountability Act",
+        "statusSourceUrl": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
+        "statusSourceLabel": "CCI \u2014 Canada off course"
       },
       {
         "text": "2030/2035 climate targets",
@@ -1306,7 +1324,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "statusSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html",
+        "statusSourceLabel": "IRCC \u2014 Temporary Resident Targets"
       }
     ],
     "perspectives": {
@@ -1942,7 +1962,9 @@
           }
         ],
         "originalSourceUrl": "https://www.canada.ca/en/campaign/2-billion-trees.html",
-        "originalSourceLabel": "NRCan \u2014 2 Billion Trees program page"
+        "originalSourceLabel": "NRCan \u2014 2 Billion Trees program page",
+        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
+        "statusSourceLabel": "Budget 2025 Ch.5 \u2014 2 Billion Trees wind-down"
       }
     ],
     "perspectives": {

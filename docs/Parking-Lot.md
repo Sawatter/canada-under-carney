@@ -187,10 +187,12 @@
   renders up to two small link chips on each expanded promise row —
   `Source →` for the original promise source and `Status evidence →` for the
   document that justifies the current status. Chips render only when the
-  corresponding URL exists; promises without links are unchanged. 22 of 43
-  promises seeded from clean in-repo matches (CTM source_document URLs + live
-  sources arrays); 21 remain blank where no in-repo match exists and would
-  require external research. Original review notes preserved below.
+  corresponding URL exists; promises without links are unchanged. Initial pass
+  seeded 22 of 43 promises from clean in-repo matches (CTM source_document URLs
+  + live sources arrays); a later source-evidence closeout raised coverage to
+  40 of 43 promises with `statusSourceUrl`. Three status gaps remain intentionally
+  blank until a clean document appears: Foreign Policy Review, Red Tape Review,
+  and Carbon Border Adjustment Mechanism. Original review notes preserved below.
   Review what an expanded promise item should link to so a reader can actually
   understand the promise, the current status, and why that status is justified.
   Questions to test:
