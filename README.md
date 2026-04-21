@@ -67,10 +67,10 @@ We welcome feedback. You can:
 
 ## Monthly Updates
 
-See [docs/MONTHLY-UPDATE-GUIDE.md](docs/MONTHLY-UPDATE-GUIDE.md) for the step-by-step process.
+See [docs/Monthly-Cycle-Playbook.md](docs/Monthly-Cycle-Playbook.md) for the full cycle checklist and [docs/MONTHLY-UPDATE-GUIDE.md](docs/MONTHLY-UPDATE-GUIDE.md) for the shorter step-by-step update guide.
 
 ```bash
-python3 scripts/fetch-data.py     # Pull fresh government data
+python3 scripts/fetch-data.py     # Check source endpoints and create review drafts
 # Review and edit scripts/output/draft-dimensions.json
 cp scripts/output/draft-dimensions.json src/data/dimensions.json
 npm run dev                        # Preview locally
@@ -79,7 +79,7 @@ git add . && git commit && git push  # Deploy (auto-builds)
 
 ## Data Sources
 
-Metrics are drawn from official statistics (Statistics Canada, PBO, CMHC, Bank of Canada, IRCC), independent policy analysis, and documented journalism from multiple institution types and perspectives. See [docs/DATA-SOURCES.md](docs/DATA-SOURCES.md) for the complete 20-source monitoring stack.
+Metrics are drawn from official statistics (Statistics Canada, PBO, CMHC, Bank of Canada, IRCC), independent policy analysis, and documented journalism from multiple institution types and perspectives. See [docs/DATA-SOURCES.md](docs/DATA-SOURCES.md) for the live source stack and monitoring watchlist.
 
 ## Built With
 
