@@ -107,7 +107,7 @@ First full monthly cycle after the April 19 "ship-readiness" burst. Specific cyc
 
 - **Approval Signal v2 first production data-add.** The polls file currently runs through March 30, 2026. The May 14 cycle is the first pull that extends past the April 19 signal snapshot. Expect the rolling window to shift forward cleanly — the weighted-mean code already handles it, but spot-check the math once the new polls land.
 - **Ethics & Flagship Delivery probation review.** Both dims are on whole-letter probation per [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md). The May 14 cycle is a good moment to reassess whether the evidence base has thickened enough to move either dim off probation.
-- **Post-majority-government read.** The April 13 majority-government formation may materially change the execution-feasibility picture for several dims. Worth a specific review of Execution & Delivery, Fiscal Health, and Promise Delivery with that lens.
+- **Post-majority-government read.** The April 13 majority-government formation may materially change the execution-feasibility picture for several dims. Worth a specific review of Flagship Delivery, Fiscal Health, and Promise Delivery with that lens.
 - **Candidate inter-rater reliability pilot.** Per [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md), cycle 2 or cycle 3 is a reasonable moment for a first v1 rater test. Two-to-three-dim pilot, 2–3 hours of volunteer time.
 
 ---

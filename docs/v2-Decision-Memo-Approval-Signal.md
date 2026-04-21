@@ -18,7 +18,7 @@ But adding approval *into* the scoring model would contaminate the GPA with some
 ## Option 1: Add approval as a scored dimension
 
 ### What it would measure
-A rolling average of PM approval across CRIC-member pollsters.
+A rolling average of PM approval across the included pollster set.
 
 ### GPA integrity
 **Poor.** Approval is driven by communications, economic mood, and comparative dynamics with other leaders — none of which are what the 11-dimension rubric is scoring. Including it inflates the weight of popularity-driving events that happen to correlate with actual performance, and deflates genuine performance on files where public opinion has not caught up.
@@ -53,7 +53,7 @@ Rejected. The tracker slot is earned by being graded-quality evidence that got h
 A 60-day rolling average of direct PM / government approval polls from included pollsters publishing full methodology, both an approve and a disapprove percentage, and a disclosed sample size.
 
 ### Placement
-Top of the dashboard, above the three-card scorecard header, in a visually distinct dashed-border "signal" strip. Explicit text on the box: *"Approval Signal — Not part of the scorecard."*
+Top of the dashboard, as a fourth card in the scoreboard row beside Household Impact, Full Policy Audit, and Promises Delivered. The card text says it is not part of the grades, and the expandable drill-down explains that popularity does not feed the 11-dimension performance scores.
 
 ### GPA integrity
 **Preserved.** The signal is outside the scoring stack. It does not feed `calculateOverallGPA` or `calculatePocketbookGPA`. It is a reader-context object, not a grade input. The disclosed framing on the box (*"tracked as an ungraded signal so popularity does not contaminate the 11-dimension performance grades"*) makes the relationship explicit.
@@ -61,8 +61,8 @@ Top of the dashboard, above the three-card scorecard header, in a visually disti
 ### Why top and not bottom
 Readers ask "is the PM popular?" as a first-order question. Burying the answer at the bottom forces them to leave the page to find it elsewhere — and they lose the performance context on the way. Top placement, with clearly distinct styling, is the honest compromise: it is the first thing the reader sees, but it is also the first thing that is explicitly labelled as outside the graded stack.
 
-### Why dashed border and muted styling
-To break the visual pattern of the three white-card scorecard. Same top-of-page real estate, different design language, so a reader's pattern-matching does not group it with the grades.
+### Why a separate signal card
+Approval is placed in the same top-of-page row because readers ask about popularity early, but it is labelled as an ungraded signal rather than a score. The drill-down carries the stronger disclosure: sample-size-weighted polling context, not a performance input.
 
 ### Aggregation: sample-size weighted mean (v2)
 The v1 launch used a simple arithmetic mean across pollsters. v2 switched to a sample-size-weighted mean: a poll of n = 2,000 carries twice the weight of one at n = 1,000. This is a standard inverse-variance-approximating weighting when methodologies are broadly comparable, and is more defensible than a simple mean now that Abacus publishes polls with n ≈ 1,900 regularly while Ipsos's typical n ≈ 1,000. The change is methodological, not presentational — the v1-to-v2 shift in displayed numbers is <1 percentage point because sample sizes across the included firms sit in a narrow band (roughly 1,000 – 2,000). Explicit de-housing of systematic per-firm effects remains a v3 option if inter-pollster variance widens.
@@ -125,7 +125,7 @@ Neither the Full Policy Audit nor the Household Impact grade includes approval. 
 - **House-effect drift.** If one pollster's house average diverges materially from the others (as Spark currently does), even the sample-size-weighted mean can mislead. Current mitigation: diversified pollster set plus exclusion of extreme outliers.
 - **Construct drift.** If the PM-approval and government-approval answers drift apart in v2, the mixed aggregate stops being comparable across pollsters. v1 mitigation: this is disclosed in the memo. v2 action: split into two signals or pick one construct.
 - **Sample recency drops.** If the included pollster set slows publication cadence, the 60-day window can shrink to 1–2 polls and the signal becomes noisy. v1 mitigation: the component displays the actual poll count in the window so a reader can tell. v2 option: widen to 90 days if the count drops under 3.
-- **Politicization of the signal.** If the approval number is mistaken for a "pass/fail" on the government, the page has failed the Product Thesis. v1 mitigation: explicit "Not part of the scorecard" label, dashed border, muted styling, placement above the grades (not alongside them).
+- **Politicization of the signal.** If the approval number is mistaken for a "pass/fail" on the government, the page has failed the Product Thesis. v1 mitigation: explicit "Not part of the grades" card copy, an expandable methodology drill-down, and Methodology-tab disclosure that approval does not feed either headline score.
 
 ---
 
