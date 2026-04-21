@@ -120,7 +120,7 @@
   the scoring model are all reasoned in
   [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
   v1 source set: Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative
-  Research Group. 60-day rolling simple mean. Component computes the
+  Research Group. 60-day rolling sample-size-weighted mean. Component computes the
   aggregate from `src/data/approval-polls.json` at render time.
 - Approval / popularity placement explainer — Completed 2026-04-19
   The decision memo (above) explicitly walks through the three options

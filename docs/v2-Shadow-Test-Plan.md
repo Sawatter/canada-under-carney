@@ -2,6 +2,8 @@
 
 **Purpose:** One-cycle shadow validation of two approved v2 changes before promoting to live.
 
+**Status:** Superseded for Promise Delivery — the removal from the scores has already been promoted to the live dashboard. Keep this file as historical validation context unless the broader v2 shadow workflow reopens it.
+
 **Duration:** May 2026 monthly cycle (one cycle)
 **Decision date:** After May cycle results are reviewed
 
@@ -42,7 +44,7 @@ All of these must be true:
 
 1. **GPA divergence is small.** The 11-dimension GPA differs from the 12-dimension GPA by less than 0.15 points. (Expected: Promise Delivery at C+ = 2.3, close to the current 1.70 average, so removing it should lower the GPA slightly — maybe 0.05-0.10 points.)
 
-2. **No information is lost.** The Promise Tracker tab still displays all 44 commitments with statuses, evidence, and durability tags. A reader visiting the dashboard gets the same accountability picture.
+2. **No information is lost.** The Promise Tracker tab still displays all 43 commitments with statuses, evidence, and durability tags. A reader visiting the dashboard gets the same accountability picture.
 
 3. **No double-counting occurred.** During the May update, no grade movement in a home dimension (Housing, Climate, etc.) was also independently counted in Promise Delivery. If the deconfliction held, the derivative dimension added no unique information.
 

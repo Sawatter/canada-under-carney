@@ -25,7 +25,7 @@ Every policy area on this dashboard gets its own letter grade across 11 areas �
 
 These four areas count twice as much in Household Impact; the other seven still count, just not as heavily. Both grades use the same 11 areas, the same sources, the same rubric, and the same QA rules — only the weighting changes.
 
-**Promises Delivered** is a running tracker of specific commitments (kept, broken, stalled, delivered). It's separate and doesn't feed either grade.
+**Promises Delivered** is a running tracker of specific commitments (delivered, in progress, too early, stalled, abandoned). It's separate and doesn't feed either grade.
 
 **If the two grades don't match, that's the point.** A government can do well on defence or climate and still be failing on the cost of your life, or the other way around. Showing both means you can see that.
 
@@ -53,7 +53,7 @@ This is a source-type summary, not a full manifest and not a formal left/right s
 | **Policy institutes / watchdogs** | C.D. Howe, Fraser Institute, IRPP / Policy Options, Canadian Climate Institute, IISD, Democracy Watch |
 | **Issue-focused reporting** | The Narwhal, National Observer |
 | **Academic** | The Conversation Canada, Dalhousie, PROOF (U of T) |
-| **Polling** | Angus Reid |
+| **Polling / public opinion** | Angus Reid; Approval Signal pollsters tracked outside the grades: Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group; Nanos preferred-PM context |
 
 ## Want to Review or Contribute?
 

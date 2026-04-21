@@ -31,7 +31,11 @@ Grouped by institution type. See SCR for per-family detail and trust flags. As o
 - **Watchdog / advocacy:** Democracy Watch *(advocacy organization, not neutral research)*
 - **Issue-focused nonprofit journalism:** The Narwhal, Canada's National Observer
 - **Academic research:** Dalhousie Agri-Food Analytics Lab, PROOF (University of Toronto), The Conversation Canada
-- **Polling:** Angus Reid
+- **Polling (dimension stack):** Angus Reid
+
+### Approval Signal source stack (outside dimensions.json and outside the scores)
+
+The ungraded Approval Signal uses pollster data from `src/data/approval-polls.json`, not the graded dimension `sources` arrays. Current included approval pollsters: Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group. Nanos preferred-PM is shown as secondary context only and is not averaged into the approval mean. See [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md) and the Source Characterization Register's Approval Signal section for boundaries.
 
 ---
 
@@ -40,7 +44,7 @@ Grouped by institution type. See SCR for per-family detail and trust flags. As o
 Families that may be consulted when a file moves, but do not currently carry a live citation in a `sources` array. Introducing any of these into the live stack requires a reflection + review pass per the hard source-edit rule in [docs/Parking-Lot.md](Parking-Lot.md) (traceability fix = direct; new analytical source family = reflect + Claude review first).
 
 - **Mainstream reporting:** La Presse, Toronto Star, National Post
-- **Other polling firms:** Nanos, Leger, Abacus
+- **Other polling firms:** Pollara, Mainstreet, EKOS, Research Co. (approval signal watchlist); Nanos remains preferred-PM context only
 - **Bank economics:** RBC Economics, BMO Economics, TD Economics, Scotiabank Economics
 - **Policy and fiscal institutes:** IFSD (Institute of Fiscal Studies and Democracy — referenced narratively in Fiscal Health rationale but not currently in the live `sources` array)
 - **Left-oriented policy organizations:** CCPA, Broadbent Institute, Parkland Institute, The Tyee
@@ -87,7 +91,7 @@ Inclusion here is not an endorsement; it is a record of families that have been 
 |--------|--------|-----------|-------|
 | Fitch/Moody's/S&P ratings | Agency websites | Event-driven | Changes are rare |
 | Ethics Commissioner review | Office of Ethics Commissioner | Event-driven | ciec-ccie.parl.gc.ca |
-| Carney approval ratings | Angus Reid (live in dimensions.json); Leger, Nanos, Abacus (watchlist) | Monthly | No API |
+| Carney approval ratings | `src/data/approval-polls.json` (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group); Nanos preferred-PM context | Monthly | No API |
 | OBPS carbon price | ECCC legislated schedule | Annual | $95/t in 2025, +$15/year |
 | Food insecurity | PROOF (U of T) | Annual | proof.utoronto.ca |
 | Dalhousie food cost | Canada Food Price Report | Annual | dal.ca/agri-food |

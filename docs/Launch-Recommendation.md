@@ -12,7 +12,7 @@ These are launch-critical. The dashboard should not be promoted publicly until a
 
 ### 1.1 Remove Promise Delivery from the live GPA
 
-**What:** Promise Delivery (C+) becomes an ungraded standalone tracker. The Promise Tracker tab remains unchanged. The 14/44 count stays in the header. But Promise Delivery no longer contributes to the Full Policy Audit GPA.
+**What:** Promise Delivery (C+) becomes an ungraded standalone tracker. The Promise Tracker tab remains unchanged. The 14/43 count stays in the header. But Promise Delivery no longer contributes to the Full Policy Audit GPA.
 
 **Why:** The corrected March rehearsal confirms removing it changes the headline from C- to D+. Keeping a derivative dimension that inflates the headline by re-counting evidence already scored elsewhere is a known methodological distortion. Publishing with it intact — now that we know the effect — would be indefensible if challenged.
 

@@ -248,7 +248,7 @@
     ]
   },
   "excludedForNow": {
-    "nanos": "Nanos tracks a 'preferred PM' question rather than direct approval; different construct. Track in a separate v2 pass if preferred-PM is deemed additive.",
+    "nanos": "Nanos tracks a 'preferred PM' question rather than direct approval; different construct. Shown as secondary context only and excluded from the approval mean.",
     "sparkInsights": "Confirmed not a CRIC accredited agency (verified against CRIC member directory on 2026-04-19). House numbers (approve ~66-68%) are also systematically 6-10 points higher than the CRIC-accredited firms in the same weeks, suggesting either a materially different question wording or a house-effect worth isolating. Remains excluded until an independent methodology review.",
     "researchCo": "Research Co. publishes approve% but the disapprove% is often not reported in the public release; dropping for v1 to keep the aggregate math clean. Add back in v2 once a consistent approve/disapprove pair is available.",
     "pollara": "CRIC accredited. No direct Carney approval release surfaced in v1 research window. Revisit on next cycle.",

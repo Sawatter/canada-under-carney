@@ -25,6 +25,7 @@ dist-ssr
 
 # Script output (generated, not committed)
 scripts/output/
+test-results/
 
 # RSS feed is regenerated on every build by scripts/generate-feed.mjs
 public/feed.xml

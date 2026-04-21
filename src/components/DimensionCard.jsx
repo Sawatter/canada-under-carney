@@ -5,7 +5,8 @@ import TrendArrow from "./TrendArrow";
 
 export default function DimensionCard({ dim, isExpanded, onClick, trackerStat }) {
   const g = GRADES[dim.grade];
-  const modifierItems = dim.gradeBasis?.activeModifiers || [];
+  const isTracker = !!dim.excludeFromGPA;
+  const modifierItems = isTracker ? [] : (dim.gradeBasis?.activeModifiers || []);
   const [scopeOpen, setScopeOpen] = useState(false);
   const [inheritedOpen, setInheritedOpen] = useState(false);
   const [triggersOpen, setTriggersOpen] = useState(false);
@@ -33,18 +34,18 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
     <div
       onClick={onClick}
       style={{
-        background: dim.excludeFromGPA ? "#fcfcf7" : "#fff",
+        background: isTracker ? "#fcfcf7" : "#fff",
         border: `1px solid ${
           isExpanded
-            ? (dim.excludeFromGPA ? "#bfa86b" : g.color)
-            : (dim.excludeFromGPA ? "#d9d4b8" : "#e0e0e0")
+            ? (isTracker ? "#bfa86b" : g.color)
+            : (isTracker ? "#d9d4b8" : "#e0e0e0")
         }`,
         borderRadius: "8px",
         padding: "16px",
         cursor: "pointer",
         transition: "all 0.2s",
         boxShadow: isExpanded
-          ? (dim.excludeFromGPA ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`)
+          ? (isTracker ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`)
           : "0 1px 3px rgba(0,0,0,0.06)",
         // When expanded, take the full grid row so we don't leave adjacent
         // cards stranded in whitespace. Same pattern YouTube / Material use
@@ -89,7 +90,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               </span>
             )}
           </div>
-          {dim.excludeFromGPA && (
+          {isTracker && (
             <div
               style={{
                 display: "inline-flex",
@@ -140,7 +141,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           )}
         </div>
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-          {dim.excludeFromGPA && trackerStat ? (
+          {isTracker && trackerStat ? (
             <div
               style={{
                 fontFamily: "'DM Mono', monospace",
@@ -202,7 +203,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           }}
         >
           {/* Grade Rationale */}
-          {dim.gradeBasis ? (
+          {!isTracker && (dim.gradeBasis ? (
             <div style={{ marginBottom: "14px" }}>
               <div
                 style={{
@@ -278,7 +279,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               </div>
             </div>
             )
-          )}
+          ))}
 
           {/* Sub-Scores (Defence & Trade) */}
           {dim.subScores && (
@@ -404,7 +405,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           )}
 
           {/* ─── More details: collapsibles stacked below the main flow ─── */}
-          {(dim.gradeTriggers || dim.nextTrigger || dim.perspectives || dim.scope || dim.inherited) && (
+          {((!isTracker && (dim.gradeTriggers || dim.nextTrigger)) || dim.perspectives || dim.scope || dim.inherited) && (
             <div
               style={{
                 marginTop: "18px",
@@ -425,7 +426,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 More details
               </div>
 
-              {(dim.gradeTriggers || dim.nextTrigger) && (
+              {!isTracker && (dim.gradeTriggers || dim.nextTrigger) && (
                 <div style={{ marginBottom: "12px" }}>
                   <button
                     type="button"

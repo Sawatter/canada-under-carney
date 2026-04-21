@@ -226,10 +226,11 @@ export default function Methodology() {
           <strong>Approval Signal at the top of the dashboard:</strong> The
           public-opinion approval box above the grades is not part of the
           scoring model. It averages direct PM/government approval across
-          five CRIC-member pollsters (Léger, Abacus Data, Ipsos, Angus Reid
+          the included pollster set (Léger, Abacus Data, Ipsos, Angus Reid
           Institute, Innovative Research Group) over a rolling 60-day
-          window. It is placed visibly so readers do not mistake the grades
-          for popularity, but it does not feed either headline score. See
+          sample-size-weighted window. It is placed visibly so readers do not
+          mistake the grades for popularity, but it does not feed either
+          headline score. See
           the{" "}
           <a
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md"
