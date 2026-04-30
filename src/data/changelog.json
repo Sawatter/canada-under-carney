@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-04-30",
+    "summary": "Methodology hardening pass: all dimensions now surface scoring logic, threshold language tightened, and Economic Policy / Ethics source gaps narrowed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Scoring drawers expanded across the dashboard",
+        "body": "Every dimension now exposes its construct, threshold ladder, move triggers, and guardrails inside the card, instead of limiting that transparency to only three audited files."
+      },
+      {
+        "type": "method",
+        "headline": "Threshold language tightened across the rubric",
+        "body": "The rubric and canonical scoring sheets were rewritten to use more explicit counts, ranges, and decision rules, with less reliance on words like “credible,” “substantive,” or “material” standing alone."
+      },
+      {
+        "type": "method",
+        "headline": "Economic Policy now tracks non-spending levers explicitly",
+        "body": "The live file now surfaces business investment, tax competitiveness, internal-trade execution, regulatory-burden work, and permitting-adjacent checks alongside AI and critical-minerals funding."
+      },
+      {
+        "type": "method",
+        "headline": "Ethics challenge stack broadened",
+        "body": "Ethics & Transparency now includes the House ETHI report on the Conflict of Interest Act alongside Democracy Watch and official commissioner materials, reducing dependence on a single advocacy voice."
+      }
+    ]
+  },
+  {
     "date": "2026-04-19",
     "summary": "Majority government confirmed, climate grade moved down to D, new public-approval signal at the top, and a readability pass across the dashboard.",
     "items": [
@@ -26,7 +52,10 @@
         "type": "event",
         "headline": "Majority government confirmed",
         "body": "Carney's Liberals won 3 Toronto/Quebec byelections on April 13, 2026, reaching 174 seats and securing a majority in the House of Commons.",
-        "affects": ["Ethics & Transparency", "Flagship Delivery"],
+        "affects": [
+          "Ethics & Transparency",
+          "Flagship Delivery"
+        ],
         "link": {
           "label": "CBC News: byelection results",
           "href": "https://www.cbc.ca/news/politics/byelection-liberal-conservatives-carney-majority-government-9.7161054"
@@ -36,7 +65,11 @@
         "type": "event",
         "headline": "Federal gas tax suspension announced",
         "body": "Federal fuel excise suspended April 20 through September 7, 2026. Estimated $2.4B in foregone revenue over the window.",
-        "affects": ["Fiscal Health", "Climate & Environment", "Affordability Response"],
+        "affects": [
+          "Fiscal Health",
+          "Climate & Environment",
+          "Affordability Response"
+        ],
         "link": {
           "label": "Department of Finance announcement",
           "href": "https://www.canada.ca/en/department-finance/news/2026/04/temporarily-suspending-the-federal-fuel-excise-tax.html"

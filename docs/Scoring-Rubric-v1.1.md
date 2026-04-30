@@ -3,10 +3,12 @@
 ## Grading Methodology for Government Performance Assessment
 
 **Version 1.1 · April 2026**
+**Clarified:** April 30, 2026
 
 This rubric defines the criteria used to assign grades across the policy dimensions evaluated in the *Canada Under Carney* dashboard. It is designed to make grading decisions transparent, replicable, and defensible. Any reader applying these criteria to the same evidence base should reach a substantially similar grade.
 
 **v1.1 changes from v1.0:** Rubric modifiers operationalized with explicit grade adjustments. Dimension constructs clarified (Affordability Response, Economic Policy Response, Flagship Delivery, Carbon Pricing Policy). Sensitivity analysis framework added. Shadow test protocol for v2 structural changes.
+**April 30 clarification pass:** Cross-dashboard threshold wording tightened so grade bands rely less on stand-alone judgment words and more on explicit evidence conditions.
 
 ---
 
@@ -14,54 +16,54 @@ This rubric defines the criteria used to assign grades across the policy dimensi
 
 ### A Range (3.7–4.0): Target Met or Exceeded
 
-The government set a specific, measurable target. It was funded. Independent sources confirm delivery at or near the stated goal. The policy response matches the scale of the identified problem. Credit-claiming is supported by evidence.
+The government set a specific, measurable target. It was funded. Independent sources confirm delivery at or near the stated goal. The policy response matches the identified problem at the level the government itself said was necessary. Credit-claiming is supported by evidence.
 
 | Grade | Criteria |
 |-------|----------|
-| **A** | Target fully met. Delivery confirmed by independent sources. No material caveats on methodology or accounting. Credit-claiming is proportionate to actual contribution. |
-| **A-** | Core target met, but with minor execution gaps, partial reliance on accounting reclassification, or delivery that meets the letter but stretches the spirit of the commitment. |
+| **A** | Target fully met or exceeded. Delivery is independently confirmed, and any caveats do not change the result. Credit-claiming is proportionate to actual contribution. |
+| **A-** | Core target is met, but delivery relies on a narrow margin, a partial accounting treatment, or one meaningful caveat that keeps the file short of a clean A. |
 
 ---
 
-### B Range (2.7–3.3): Clear Progress, Credible Trajectory
+### B Range (2.7–3.3): Clear Progress With Measurable Execution
 
-The policy response is substantive and directionally correct. Measurable progress is occurring, though delivery has not yet matched stated targets. The gap between commitment and result is explainable by timing, jurisdiction, or genuine external constraint — not by inaction or overclaiming. Independent assessment is broadly positive.
+Measurable execution is underway, though delivery has not yet matched stated targets. The gap between commitment and result is explainable by timing, jurisdiction, or genuine external constraint rather than by simple inaction or overclaiming. Independent assessment is at least mixed-to-positive.
 
 | Grade | Criteria |
 |-------|----------|
-| **B+** | Strong progress toward target. Independent experts assess the trajectory as credible. Remaining gap is small or explained by factors outside federal control. |
-| **B** | Meaningful progress with a credible plan. Delivery is behind schedule but the direction is correct, funded, and institutionally supported. |
-| **B-** | Progress is real but pace is insufficient relative to the problem's scale. Trajectory is positive but will not reach stated targets without acceleration. |
+| **B+** | Progress is strong enough that one additional cycle on the same path would plausibly reach the target. The remaining gap is small or largely outside federal control. |
+| **B** | Measurable execution is underway, at least one core lever is live, and the remaining gap is real but explainable. |
+| **B-** | Execution is real but too slow or too small to reach the stated target on the current path. |
 
 ---
 
-### C Range (1.7–2.3): Response Exists but Falls Materially Short
+### C Range (1.7–2.3): Response Exists but Remains Incomplete
 
-A policy framework is in place, but delivery is significantly below stated targets or the scale of the identified problem. Credit-claiming exceeds measurable results. Direction may be correct, but pace, scale, or follow-through is inadequate. Some repackaging of pre-existing initiatives may be present.
+A policy framework is in place, but delivery still covers only part of the target or part of the identified problem. Credit-claiming may exceed measurable results. Pace, scale, or follow-through remains inadequate, and some repackaging of pre-existing initiatives may be present.
 
 | Grade | Criteria |
 |-------|----------|
-| **C+** | Genuine policy effort with partial delivery. The government is doing real work but results are significantly below what was promised or what the problem requires. |
-| **C** | Policy framework exists but the gap between announcements and outcomes is substantial. Repackaging of pre-existing momentum is evident. |
-| **C-** | Effort is itself questionable or largely performative. Response exists on paper but measurable impact is minimal. |
+| **C+** | A real response exists and some delivery is visible, but it covers only part of what was promised or only part of what the problem requires. |
+| **C** | A framework exists, but delivery is still partial, back-loaded, or mixed with repackaged or inherited momentum. |
+| **C-** | A nominal response exists, but live execution or measurable impact is still thin. |
 
 ---
 
-### D Range (0.7–1.3): Minimal or Inadequate Response
+### D Range (0.7–1.3): Minimal Response or Major Reversal
 
-The response is minimal relative to the problem's scale. The gap between announcements and outcomes is large. The structural trajectory has not meaningfully changed. Policy may address symptoms rather than root causes.
+The response is too small relative to the problem's scale, or a major reversal has occurred without an adequate substitute. The gap between announcements and outcomes is large, and the underlying trajectory is largely unchanged.
 
 | Grade | Criteria |
 |-------|----------|
-| **D+** | The government is attempting a response and the direction is partially defensible, but the scale is grossly inadequate, or a major policy reversal has occurred that the external context only partially justifies. |
-| **D** | Delivery is a small fraction of stated targets. Structural conditions have not improved. The policy response does not match what the government itself identified as the scale of the challenge. |
-| **D-** | Near-total failure on the file. Government relief covers a negligible share of the identified cost or shortfall. Structural drivers are unaddressed. |
+| **D+** | A response is active, but it is clearly undersized relative to the stated problem, or a major reversal is only partly offset by context. |
+| **D** | Fewer than the minimum conditions for a C are met. Execution remains thin and the underlying problem is largely unchanged. |
+| **D-** | The response covers only a negligible share of the identified need or shortfall. |
 
 ---
 
 ### F (0.0): No Response or Active Deterioration
 
-The government either took no action on an acknowledged problem or actively made the inherited condition worse through policy choices. Reserved for cases where inaction or harm is clear and not explained by genuine external constraint.
+The government either took no material action on an acknowledged problem or actively made the inherited condition worse through policy choices. Reserved for cases where inaction or harm is clear and not explained by genuine external constraint.
 
 ---
 
@@ -134,13 +136,13 @@ Each dimension grades a specific, defined construct:
 | Defence & Trade | Meeting stated defence targets and diversifying trade relationships | Mixed (action + outcome) |
 | Major Projects | Creating effective institutional machinery for infrastructure delivery | Implementation |
 | Fiscal Health | Fiscal trajectory sustainability and credibility of medium-term plan | Outcome |
-| Economic Policy Response | Adequacy of policy response to structural productivity challenges | Action (not outcome) |
+| Economic Policy Response | Federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers | Action (not outcome) |
 | Affordability Response | Adequacy of federal policy response to household cost pressure | Action (not price level) |
 | Carbon Pricing Policy | Quality of policy handling of carbon pricing instruments | Action |
 | Climate & Environment | Scale and coherence of environmental policy framework | Mixed (action + reversal) |
 | Immigration | Adequacy of immigration level correction and framework design | Action + outcome |
 | Housing | Scale and effectiveness of federal housing policy interventions | Mixed (action + outcome) |
-| Ethics & Transparency | Adequacy of financial disclosure and conflict management | Process |
+| Ethics & Transparency | Adequacy of disclosure, screening, and conflict management when the officeholder presents non-routine conflict risk | Process |
 | Flagship Delivery | Cross-cutting delivery capacity across 5 highest-profile files | Implementation |
 | Promise Delivery | Rate of fulfillment of specific stated commitments | Accountability |
 

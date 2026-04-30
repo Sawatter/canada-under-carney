@@ -221,7 +221,7 @@ Source: [src/data/dimensions.json](../src/data/dimensions.json:1252)
 
 **Construct**
 
-The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.  
+The adequacy of the federal ethics framework when the sitting PM has a financial and professional background that creates non-routine disclosure requirements.  
 Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:146)
 
 **Core grade-moving claims**
@@ -235,8 +235,8 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:146)
 3. No independent Ethics Commissioner review has been published.
    Source basis: minimum indicators + C threshold + current metric and promise status in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:155), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](../src/data/dimensions.json:1414), and [src/data/dimensions.json](../src/data/dimensions.json:1448)
 
-4. Democracy Watch-level critique is material to the grade and blocks movement toward B unless offset by stronger disclosure or an independent review.
-   Source basis: down-trigger + current `plusMinusRationale` and critics text in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:174), [src/data/dimensions.json](../src/data/dimensions.json:1382), and [src/data/dimensions.json](../src/data/dimensions.json:1463)
+4. Governance critique is material to the grade, but a D-band move tied to critique rather than an official finding now requires either 2 independent governance critiques or 1 official adverse finding.
+   Source basis: down-trigger + current `plusMinusRationale` and critics text in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:174), [src/data/dimensions.json](../src/data/dimensions.json:1610), and [src/data/dimensions.json](../src/data/dimensions.json:1758)
 
 **Required source roles**
 
@@ -269,18 +269,19 @@ These may shape interpretation but must not move the Ethics & Transparency grade
 **Current state delta**
 
 Current `dimensions.json` Ethics & Transparency source stack:
-Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement, PM Annex A public declaration of agreed measure  
+Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, House ETHI report — Review of the Conflict of Interest Act, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement, PM Annex A public declaration of agreed measure  
 Source: [src/data/dimensions.json](../src/data/dimensions.json:1397)
 
 - **Present and well-aligned**
   - `Office of the Ethics Commissioner — registry and reviews` fills the policy-truth / execution-truth role on framework adequacy and published review status.
   - `PM blind-trust summary statement` fills the policy-truth / execution-truth role on the disclosure filing and blind-trust arrangement itself.
   - `PM Annex A public declaration of agreed measure` fills the policy-truth / execution-truth role on the agreed measure filing and the public declaration of screen scope.
-  - `Democracy Watch critique` fills the independent-challenge role on framework adequacy.
+  - `Democracy Watch critique` fills the current independent-challenge role on framework adequacy.
+  - `House ETHI report — Review of the Conflict of Interest Act` now adds an official committee-review source documenting concerns with conflict-screen reporting and governance design.
   - `Globe and Mail — ethics filing` and `CBC — financial assets` provide context/reporting corroboration on disclosure background and public asset visibility.
 
 - **Gaps**
-  - None structural in the `sources` array. The earlier gaps (missing Ethics Commissioner and missing official disclosure / ethics-screen source) were closed on 2026-04-18.
+  - The file now has a published committee source in the live stack, but it still does not have a published PM-specific Ethics Commissioner review. That remains the cleanest path to hardening the file further.
 
 - **Role mismatches**
   - None in the current stack. With the three Tier 1 official sources now present, Globe and CBC are free to occupy their intended context/reporting roles rather than carrying policy/execution by proxy.
@@ -717,7 +718,7 @@ Source: [src/data/dimensions.json](../src/data/dimensions.json:370)
 
 **Construct**
 
-The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges.  
+The federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers.  
 Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:59)
 
 **Core grade-moving claims**
@@ -738,8 +739,8 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:59)
 
 | Role | Status | Why |
 |---|---|---|
-| Measurement truth | Required | The file depends on business investment, R&D, employment, and related productivity indicators. |
-| Policy truth | Required | The construct grades federal instruments such as AI compute, critical minerals, and red-tape review. |
+| Measurement truth | Required | The file depends on business investment, R&D, employment, tax-competitiveness, and related productivity indicators. |
+| Policy truth | Required | The construct grades federal instruments such as AI compute, critical minerals, productivity-tax measures, internal-trade execution, and red-tape review. |
 | Execution truth | Required | The file must distinguish announced from authorized from disbursed. |
 | Independent challenge truth | Required | Productivity adequacy and international comparison require outside scrutiny, not just government self-description. |
 | Context truth | Optional | Inherited GDP-per-capita weakness and broader competitiveness commentary help frame the file but must not move the grade by themselves. |
@@ -748,8 +749,8 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:59)
 
 | Role | Preferred primary | Acceptable corroborators |
 |---|---|---|
-| Measurement truth | StatsCan business-investment, GDP-per-capita, R&D, and labour-force data [QA T1] | OECD statistical releases [QA T1] |
-| Policy truth | ISED / Treasury Board / NRCan / official program documents for AI, minerals, and regulatory reform [QA T1/T4 depending document type] | Budget and departmental releases [QA T1/T4] |
+| Measurement truth | StatsCan business-investment, GDP-per-capita, R&D, and labour-force data [QA T1]; Finance Canada METR figures where the file cites tax competitiveness [QA T1/T4 depending claim] | OECD statistical releases [QA T1] |
+| Policy truth | ISED / Treasury Board / NRCan / Intergovernmental Affairs / official program documents for AI, minerals, internal trade, and regulatory reform [QA T1/T4 depending document type] | Budget and departmental releases [QA T1/T4] |
 | Execution truth | Treasury Board / PBO / official disbursement and authorization evidence [QA T1]; official program-status updates [QA T1/T4] | Departmental implementation reporting [QA T1/T4] |
 | Independent challenge truth | OECD [QA T1]; Fraser Institute / BCBC / other disclosed-methodology productivity analysis [QA T2/T3 depending claim use] | Additional institutional productivity analysis [QA T2/T3] |
 | Context truth | Inherited GDP-per-capita trend reporting and mainstream business coverage [QA T3] | Additional clearly attributed competitiveness commentary [QA T3] |
@@ -765,22 +766,22 @@ These may shape interpretation but must not move the Economic Policy Response gr
 **Current state delta**
 
 Current `dimensions.json` Economic Policy Response source stack:  
-Fraser Institute Ugly Growth, OECD Economic Surveys: Canada 2025, StatsCan GDP per capita, StatsCan LFS Feb 2026, NRCan critical minerals partnerships  
+Fraser Institute Ugly Growth, OECD Economic Surveys: Canada 2025, StatsCan GDP per capita, StatsCan GDP Q4 2025, StatsCan R&D intensity table, StatsCan LFS Feb 2026, ISED AI Compute Strategy, Budget 2025 productivity super-deduction, Treasury Board regulatory-management annual report, Internal Trade Action Plan status, Building Canada Act, NRCan critical minerals partnerships  
 Source: [src/data/dimensions.json](../src/data/dimensions.json:528)
 
 - **Present and well-aligned**
-  - `OECD Economic Surveys: Canada 2025`, `StatsCan GDP per capita`, and `StatsCan LFS Feb 2026` fill inherited-context plus measurement truth on structural weakness and labour conditions.
-  - `NRCan — critical minerals partnerships` fills policy/context truth on one of the government's stated productivity instruments.
+  - `StatsCan GDP, income and expenditure — Q4 2025`, `StatsCan R&D intensity table`, and `StatsCan LFS Feb 2026` now fill direct measurement truth on business investment, R&D, and labour conditions.
+  - `Budget 2025 — productivity super-deduction`, `Government of Canada — Internal Trade Action Plan status`, and `Treasury Board — 2024-25 regulatory management annual report` now make the non-spending policy stack visible rather than implied.
+  - `ISED — Canadian Sovereign AI Compute Strategy` and `NRCan — critical minerals partnerships` fill policy/context truth on two of the government's stated productivity instruments.
   - `Fraser Institute — Ugly Growth` fills independent-challenge/context framing on the depth of the inherited problem.
 
 - **Gaps**
-  - No direct business-investment source is present in the `sources` array, even though business investment is a minimum indicator and a central grade-moving claim.
-  - No direct R&D source is present in the `sources` array, even though R&D intensity is a listed metric.
-  - No direct AI compute / Treasury Board / PBO authorization source is present in the `sources` array, even though announcement-versus-execution is the file's core gating rule.
+  - The file still does not have Treasury Board or PBO authorization evidence for AI compute or critical minerals, even though announcement-versus-execution is the core gating rule.
+  - The permitting breadth check currently relies on the absence of national-interest-designation use rather than on a dedicated federal permitting-timeline series.
 
 - **Role mismatches**
   - `StatsCan GDP per capita` is best understood as inherited-context measurement rather than a direct grade-moving response metric, because the construct explicitly grades the response, not the inherited outcome.
-  - `NRCan — critical minerals partnerships` is better understood as policy/context corroboration unless paired with authorization or disbursement evidence, because the current rationale still qualifies it as "government states."
+  - `NRCan — critical minerals partnerships` remains better understood as policy/context corroboration unless paired with authorization or disbursement evidence, because the file still distinguishes mobilized capital from confirmed federal execution.
 
 - **Orphaned sources**
   - None in the current stack. Every listed source attaches to a metric, rationale line, or promise.

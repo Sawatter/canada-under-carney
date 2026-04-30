@@ -7,10 +7,33 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
   const g = GRADES[dim.grade];
   const isTracker = !!dim.excludeFromGPA;
   const modifierItems = isTracker ? [] : (dim.gradeBasis?.activeModifiers || []);
+  const surfaceTags = dim.surfaceTags || [];
+  const metrics = dim.metrics || [];
+  const scoring = dim.scoring || null;
+  const showLowerTriggers = !isTracker && !scoring && (dim.gradeTriggers || dim.nextTrigger);
   const [scopeOpen, setScopeOpen] = useState(false);
   const [inheritedOpen, setInheritedOpen] = useState(false);
   const [triggersOpen, setTriggersOpen] = useState(false);
   const [perspectivesOpen, setPerspectivesOpen] = useState(false);
+
+  const metricGroups = (() => {
+    if (!metrics.some((metric) => metric.group)) {
+      return [{ title: null, items: metrics }];
+    }
+
+    return metrics.reduce((groups, metric) => {
+      const title = metric.group || "Other";
+      const existingGroup = groups.find((group) => group.title === title);
+
+      if (existingGroup) {
+        existingGroup.items.push(metric);
+        return groups;
+      }
+
+      groups.push({ title, items: [metric] });
+      return groups;
+    }, []);
+  })();
 
   const renderScopeItem = (item) => {
     if (!item) return null;
@@ -29,6 +52,11 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
 
     return item.item;
   };
+
+  const scoringMetadata = [];
+  if (dim.tags?.confidence) scoringMetadata.push({ label: "Confidence", value: dim.tags.confidence });
+  if (dim.tags?.attribution) scoringMetadata.push({ label: "Attribution", value: dim.tags.attribution });
+  if (dim.tags?.lag) scoringMetadata.push({ label: "Lag", value: dim.tags.lag });
 
   return (
     <div
@@ -124,6 +152,38 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               {dim.whatThisGrades}
             </div>
           )}
+          {surfaceTags.length > 0 && (
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: "6px",
+                marginBottom: "8px",
+              }}
+            >
+              {surfaceTags.map((tag) => (
+                <span
+                  key={tag}
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    minHeight: "22px",
+                    padding: "2px 8px",
+                    borderRadius: "999px",
+                    fontSize: "11px",
+                    fontWeight: 700,
+                    color: "#5f6368",
+                    background: "#f1f3f4",
+                    border: "1px solid #d9dde1",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.3px",
+                  }}
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
           <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
             {dim.status}
           </div>
@@ -184,11 +244,9 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               fontSize: "14px",
               color: "#555",
               fontWeight: 600,
-              transition: "transform 0.2s",
-              transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)",
             }}
           >
-            {isExpanded ? "\u25B2" : "\u25BC detail"}
+            {isExpanded ? "\u25B2 close" : "\u25BC open"}
           </span>
         </div>
       </div>
@@ -202,6 +260,143 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             paddingTop: "12px",
           }}
         >
+          {!isTracker && (dim.construct || scoring || scoringMetadata.length > 0) && (
+            <div style={{ marginBottom: "14px" }}>
+              <div
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#1a1a1a",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "6px",
+                }}
+              >
+                <span style={{ fontSize: "11px" }}>{isExpanded ? "\u25BE" : "\u25B8"}</span>
+                How This File Is Scored
+              </div>
+              <div
+                id={`dim-${dim.id}-scoring`}
+                role="region"
+                style={{
+                  fontSize: "14px",
+                  color: "#333",
+                  lineHeight: 1.55,
+                  background: "#f7f8fa",
+                  padding: "12px 14px",
+                  borderRadius: "6px",
+                  borderLeft: "3px solid #607d8b",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "12px",
+                }}
+              >
+                {dim.construct && (
+                  <div>
+                    <strong>Construct:</strong> {dim.construct}
+                  </div>
+                )}
+                {scoringMetadata.length > 0 && (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                    {scoringMetadata.map((item) => (
+                      <span
+                        key={item.label}
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: "4px",
+                          padding: "3px 8px",
+                          borderRadius: "999px",
+                          background: "#fff",
+                          border: "1px solid #d9dde1",
+                          fontSize: "12px",
+                          color: "#5f6368",
+                        }}
+                      >
+                        <strong style={{ color: "#444" }}>{item.label}:</strong> {item.value}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                {scoring?.scopeNote && (
+                  <div>
+                    <strong>Scope note:</strong> {scoring.scopeNote}
+                  </div>
+                )}
+                {scoring?.modifierExpiry && (
+                  <div>
+                    <strong>Timing rule:</strong> {scoring.modifierExpiry}
+                  </div>
+                )}
+                {scoring?.thresholds?.length > 0 && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <strong>Threshold ladder</strong>
+                    {scoring.thresholds.map((threshold) => (
+                      <div
+                        key={threshold.grade}
+                        style={{
+                          display: "grid",
+                          gridTemplateColumns: "36px minmax(0, 1fr)",
+                          gap: "8px",
+                          alignItems: "start",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: "'DM Mono', monospace",
+                            fontWeight: 700,
+                            color: "#1a1a1a",
+                          }}
+                        >
+                          {threshold.grade}
+                        </span>
+                        <span>{threshold.criteria}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+                {dim.gradeTriggers && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <strong>What changes this grade</strong>
+                    <div>
+                      <strong>Up one step:</strong>
+                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                        {dim.gradeTriggers.up.map((trigger, i) => (
+                          <div key={`drawer-up-${i}`} style={{ color: "#444" }}>
+                            {trigger}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div>
+                      <strong>Down one step:</strong>
+                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                        {dim.gradeTriggers.down.map((trigger, i) => (
+                          <div key={`drawer-down-${i}`} style={{ color: "#444" }}>
+                            {trigger}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+                {scoring?.guardrails?.length > 0 && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <strong>Guardrails</strong>
+                    {scoring.guardrails.map((rule, i) => (
+                      <div key={i} style={{ color: "#444" }}>
+                        {rule}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {/* Grade Rationale */}
           {!isTracker && (dim.gradeBasis ? (
             <div style={{ marginBottom: "14px" }}>
@@ -315,17 +510,38 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 </span>
               )}
             </div>
-            {dim.metrics.map((m, i) => (
+            {metricGroups.map((group, groupIndex) => (
               <div
-                key={i}
-                style={{
-                  fontSize: "13px",
-                  color: "#444",
-                  padding: "2px 0",
-                  fontFamily: "'DM Mono', monospace",
-                }}
+                key={group.title || `group-${groupIndex}`}
+                style={{ marginTop: group.title ? "10px" : 0 }}
               >
-                {m.label}: {m.value}
+                {group.title && (
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      fontWeight: 700,
+                      color: "#666",
+                      textTransform: "uppercase",
+                      letterSpacing: "0.4px",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    {group.title}
+                  </div>
+                )}
+                {group.items.map((m, i) => (
+                  <div
+                    key={`${group.title || "metrics"}-${i}-${m.label}`}
+                    style={{
+                      fontSize: "13px",
+                      color: "#444",
+                      padding: "2px 0",
+                      fontFamily: "'DM Mono', monospace",
+                    }}
+                  >
+                    {m.label}: {m.value}
+                  </div>
+                ))}
               </div>
             ))}
           </div>
@@ -405,7 +621,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           )}
 
           {/* ─── More details: collapsibles stacked below the main flow ─── */}
-          {((!isTracker && (dim.gradeTriggers || dim.nextTrigger)) || dim.perspectives || dim.scope || dim.inherited) && (
+          {(showLowerTriggers || dim.perspectives || dim.scope || dim.inherited) && (
             <div
               style={{
                 marginTop: "18px",
@@ -426,7 +642,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 More details
               </div>
 
-              {!isTracker && (dim.gradeTriggers || dim.nextTrigger) && (
+              {showLowerTriggers && (
                 <div style={{ marginBottom: "12px" }}>
                   <button
                     type="button"

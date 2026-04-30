@@ -1,7 +1,7 @@
 # Canonical Scoring Sheets
 
 **All live dimensions in one standard format.**
-**Last updated:** April 2026
+**Last updated:** April 30, 2026
 
 ---
 
@@ -28,11 +28,11 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Federal relief covers >80% of cost increase. Mandatory competition reform enacted. |
-| B | Relief covers 40-80%. Competition reform introduced with enforcement. |
-| C | Relief covers 20-40%. Some policy instruments deployed. Voluntary measures. |
-| D | Relief covers <20%. Instruments deployed but grossly inadequate to scale. |
-| F | No federal affordability response. |
+| A | Federal relief covers >80% of the identified annual cost increase, and at least one mandatory competition or market-conduct reform is enacted. |
+| B | Federal relief covers 40-80% of the cost increase, and at least one enforceable competition or compliance measure is in force. |
+| C | Federal relief covers 20-40% of the cost increase, and targeted programs are live, but the competition response remains voluntary or partial. |
+| D | Federal relief covers <20% of the cost increase, voluntary or narrow measures dominate, and food insecurity remains elevated or rising. |
+| F | No material federal relief or competition response is in place. |
 
 **Modifier rules:**
 - External constraint (+0.3): Applies if tariff-driven costs demonstrably exceed what domestic policy can offset. Currently applicable — tariffs add $1,450-$2,000/yr.
@@ -56,7 +56,7 @@
 
 ## 2. Economic Policy Response (D)
 
-**Construct:** The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges.
+**Construct:** The federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers.
 
 **Type:** Action (grades the response, not the inherited outcome)
 
@@ -65,19 +65,25 @@
 **Primary evidence home:** Federal policy instruments for productivity (AI fund, minerals, interprovincial reform, R&D incentives)
 
 **Minimum indicators:**
-- Business investment quarterly trend (StatsCan)
+- Business investment annual/quarterly trend (StatsCan)
+- Productivity-tax competitiveness / METR on new business investment (Finance Canada)
 - AI/minerals fund disbursement status (ISED, Treasury Board)
+- Internal trade implementation status (Intergovernmental Affairs / Bill C-5)
+- Regulatory-burden / Red Tape Review execution (Treasury Board)
+- Permitting acceleration use (national-interest designation or equivalent)
 - R&D spending as % GDP (StatsCan 27-10-0273-01)
 - Monthly employment change (StatsCan LFS 14-10-0287-01)
 
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Major productivity reform enacted. Business investment rising. Independent assessment positive. |
-| B | Credible multi-year productivity strategy funded and in execution. Early indicators positive. |
-| C | Policy instruments announced and funded. Direction correct. No measurable impact yet. |
-| D | Instruments announced but not yet funded or executing. Business investment flat or declining. |
-| F | No productivity policy response. |
+| A | At least 2 core productivity levers enacted or Treasury Board-authorized, at least 1 in live execution/disbursement, business investment rising for 2+ consecutive quarters, and independent assessment positive. |
+| B | At least 2 core levers funded/authorized, at least 1 in live execution, and business investment no longer declining over 2 consecutive quarters. |
+| C | At least 1 core lever funded/authorized and others designed or announced, but business investment remains flat or only marginally positive and measurable productivity gains are not yet visible. |
+| D | Instruments are still mostly announced rather than authorized or executing, fewer than 2 core levers are clearly funded/authorized, and business investment remains near-flat without a durable two-quarter turn. |
+| F | No material federal productivity response through funding, tax, regulatory, or trade action. |
+
+**Current core-lever set:** AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness measures.
 
 **Modifier rules:**
 - Timing fairness: Applies. This is a long-lag file. Grade trajectory and adequacy of response, not GDP per capita level. Expires at 24 months (March 2027).
@@ -117,10 +123,10 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Both consumer and industrial instruments designed coherently. Independent assessment validates effectiveness. |
-| B | One instrument delivering measurable results. Other instrument credibly designed. Policy coherence evident. |
-| C | One instrument delivered (consumer elimination). Other instrument nominally preserved but effectiveness questioned. |
-| D | Instruments dismantled or non-functional. No coherent pricing signal to industry or consumers. |
+| A | Both consumer and industrial instruments are coherent, and the industrial effective price is above roughly $40/t or equivalent tightening is independently validated. |
+| B | One instrument is delivering clearly and the other maintains a credible effective price signal above roughly $40/t, or tightening is underway with implementation backing. |
+| C | One instrument is delivered (consumer elimination). The other remains in place, but its effective price sits roughly in the $15-$40/t range, preserving more form than full function. |
+| D | The industrial effective price falls below roughly $15/t, or the remaining signal is weakened so far that no coherent pricing distinction remains. |
 | F | All carbon pricing eliminated with no replacement. |
 
 **Modifier rules:**
@@ -143,7 +149,7 @@
 
 ## 4. Ethics & Transparency (C)
 
-**Construct:** The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.
+**Construct:** The adequacy of the federal ethics framework when the sitting PM has a financial and professional background that creates non-routine disclosure requirements.
 
 **Type:** Process
 
@@ -155,15 +161,15 @@
 - Ethics Commissioner review status (published/not published)
 - Disclosure completeness (categories disclosed / categories expected for PM with this background)
 - Conflict screening status (active/inactive, scope)
-- Independent governance review status
+- Independent governance or committee-review status
 
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Full public disclosure. Independent review completed and published. No unresolved perception issues. |
-| B | Substantial disclosure. Ethics Commissioner review published with findings of adequate screening. Minor gaps. |
-| C | Partial disclosure. Ethics screen in place but completeness questioned. Independent review not yet published. |
-| D | Minimal disclosure. No independent review. Screen described as inadequate by credible governance sources. |
+| A | Full public disclosure. Independent review completed and published. No unresolved framework gap remains. |
+| B | Substantial disclosure. Ethics Commissioner review published with findings of adequate screening. Only limited unresolved gaps remain. |
+| C | Baseline disclosure and an ethics screen exist, but important completeness questions remain and no independent review has been published. |
+| D | Important disclosure gaps remain, no independent review is published, and either an official concern or 2 independent governance critiques cite a screening or disclosure problem. |
 | F | Active concealment or evidence of self-dealing. |
 
 **Modifier rules:**
@@ -171,7 +177,7 @@
 
 **One-notch move triggers:**
 - Up: Ethics Commissioner publishes detailed review finding adequate disclosure, OR PM proactively publishes full Brookfield accounting
-- Down: New evidence of undisclosed interests, OR Ethics Commissioner finding of inadequate screening, OR new credible governance critique (Democracy Watch level)
+- Down: New evidence of undisclosed interests, OR Ethics Commissioner finding of inadequate screening, OR two independent governance critiques citing a material disclosure or screening gap
 
 **Biggest confounder:** Absence of evidence is not evidence of absence. No proven wrongdoing does NOT mean adequate disclosure. The grade assesses the framework, not whether misconduct occurred. Two raters could reasonably disagree by one full letter grade because the evidence is predominantly qualitative.
 
@@ -179,7 +185,7 @@
 
 **Deconfliction rule:** Brookfield conflict perception can be referenced in Carbon Pricing Policy as context for why the industrial OBPS preservation draws scrutiny, but Ethics owns the grade impact. No other dimension grades disclosure or conflict of interest.
 
-**Rater note:** This is the most politically valenced dimension. Grade the framework, not the person. The question is: "Has the PM built an ethics framework adequate to the novel requirements of his background?" NOT: "Is Carney corrupt?" The first is gradeable. The second is not this dashboard's job. Do not upgrade based on absence of scandal — upgrade based on positive disclosure actions.
+**Rater note:** This is the most politically valenced dimension. Grade the framework, not the person. The question is: "Has the PM built an ethics framework adequate to the non-routine disclosure demands created by the officeholder's background?" NOT: "Is Carney corrupt?" The first is gradeable. The second is not this dashboard's job. Do not upgrade based on absence of scandal — upgrade based on positive disclosure actions.
 
 ---
 
@@ -243,11 +249,11 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Balanced budget or surplus. Debt-to-GDP declining. PBO confidence >80%. |
-| B | Deficit <2% GDP. Credible medium-term anchor. PBO confidence >50%. |
-| C | Deficit 2-4% GDP. Some fiscal anchor but credibility questioned. PBO 25-50%. |
-| D | Deficit >4% GDP. No credible anchor. PBO <25%. Credit agency warning. |
-| F | Fiscal crisis. Actual downgrade from AAA-equivalent. Debt spiral. |
+| A | Balanced budget or surplus. Debt-to-GDP declining. PBO confidence >80%. No rating-pressure warning. |
+| B | Deficit <2% GDP. Published medium-term anchor. PBO confidence 50-80%. No active rating warning. |
+| C | Deficit 2-4% GDP. Anchor published, but PBO confidence only 25-50% or at least one rating agency flags a material caveat. |
+| D | Deficit >4% GDP. PBO confidence <25%. Anchor absent or repeatedly missed. Rating pressure active. |
+| F | Actual downgrade or clear fiscal-crisis dynamic. |
 
 **Modifier rules:**
 - External constraint (+0.3): Defence spending is strategically justified during trade war. Does not cover the gas tax suspension ($2.4B discretionary).
@@ -286,11 +292,11 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Starts exceed CMHC need (450K+). Federal programs delivering at scale. |
-| B | Starts 350-450K. Federal programs executing with measurable acceleration. |
-| C | Starts 280-350K. Federal programs launched but not yet at scale. |
-| D | Starts <280K. Federal programs cover <5% of shortfall. Spending declining. |
-| F | No federal housing program. Starts collapsing. |
+| A | Starts exceed CMHC need (450K+). Federal programs are in live construction/disbursement and cover >15% of the annual shortfall. |
+| B | Starts 350-450K. Federal programs are executing and cover roughly 10-15% of the shortfall. |
+| C | Starts 280-350K. Federal programs are live but not yet at scale and cover roughly 5-10% of the shortfall. |
+| D | Starts <280K. Federal programs cover <5% of the shortfall. Spending is flat or declining. |
+| F | No material federal housing program is live, or starts fall further while the federal role retreats. |
 
 **Modifier rules:**
 - Jurisdictional limits: Cap at C+ if >50% depends on non-federal actors without agreement. Currently non-binding (D is below C+). Ontario agreement exists; other provinces do not.
@@ -329,11 +335,11 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | MPO accelerating projects measurably. National interest designation used successfully. |
-| B | MPO operational with credible pipeline. Some projects advancing faster than pre-MPO baseline. |
-| C | MPO created but most projects are pre-existing. Signature power unused. Framework untested. |
-| D | MPO non-functional or bypassed. No acceleration demonstrated. |
-| F | No institutional reform. Regulatory environment worse than inherited. |
+| A | At least one project completes a full MPO cycle or a national interest designation is used with documented timeline acceleration. Approval times beat the pre-MPO baseline. |
+| B | MPO operational with a live pipeline, and at least one project shows documented acceleration relative to the pre-MPO baseline. |
+| C | MPO created but most projects are pre-existing. Signature power unused. Framework not yet fully tested. |
+| D | MPO non-functional or bypassed. No acceleration documented. |
+| F | No functioning institutional reform, and the federal approval environment worsens versus the inherited baseline. |
 
 **Modifier rules:**
 - Credit-claiming penalty (-0.3): Applied. Current C includes penalty (raw = C+). Most projects in pipeline were pre-existing.
@@ -372,11 +378,12 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Right-sized long-term model published and executing. Levels match absorption capacity. Service impacts managed. |
-| B | Correction delivered at scale. Framework design underway. Downside risks acknowledged and mitigated. |
-| C+ | Correction executed sharply. Scale is adequate. Framework not yet defined. Downside risks not fully addressed. |
-| C | Partial correction. Some levels reduced but structural reform absent. |
-| D | No meaningful correction. Or: overcorrection causing documented service failures. |
+| A | Right-sized long-term model published and executing. Levels match absorption capacity. Service impacts are managed. |
+| B | Correction delivered at scale. Temporary-resident stock is clearly falling. Downside safeguards for exposed sectors are published. |
+| C+ | Correction executed sharply and at real scale, but the long-term model is not yet defined and downside risks are not fully addressed. |
+| C | Partial correction. Some levels reduced, but structural reform or temporary-resident contraction is incomplete. |
+| D | No meaningful correction, or overcorrection causes documented service failures without mitigation. |
+| F | Intake management collapses: no coherent model is in place and serious service disruption or uncontrolled growth is evident. |
 
 **Modifier rules:**
 - None currently apply.
@@ -416,11 +423,11 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Comprehensive framework maintained or strengthened. On track for targets. Independent assessment positive. |
-| B | Framework partially maintained. Course correction underway. Replacement strategy funded. |
-| C | Major reversals but with a credible replacement strategy. Some instruments preserved. |
-| D | Major reversals without replacement strategy. Targets acknowledged as unachievable. Capacity declining. |
-| F | All climate policy eliminated. Active acceleration of emissions. |
+| A | Comprehensive framework maintained or strengthened. No major reversal is left unreplaced. Independent assessment says the pathway still covers most of the required 2030 reduction. |
+| B | Framework partially maintained. Funded replacement strategy published. Independent assessment says roughly half to three-quarters of the required 2030 reduction remains covered. |
+| C | Major reversals occur, but a funded replacement strategy exists and at least one major instrument or functional substitute remains intact. |
+| D | Major reversals occur without a funded replacement strategy. Independent assessment puts Canada below half of the required 2030 reduction or the government concedes the targets are out of reach. Capacity is declining. |
+| F | The major climate framework is effectively dismantled or policy choices actively accelerate emissions. |
 
 **Modifier rules:**
 - External constraint (+0.3): Partially applicable for trade-war-justified reversals (consumer carbon tax, emissions cap pause). Does NOT apply to reversals with limited trade connection (EV mandate repeal, tree planting cut, Greener Homes wind-down).
@@ -483,8 +490,8 @@
 | Grade | Threshold |
 |---|---|
 | A | >75% delivered. Abandonments <5%. Delivery pattern broad across files. |
-| B | 50-75% delivered. Abandonments <15%. Most flagship files showing delivery. |
-| C | 25-50% delivered. Mixed pattern. Some files delivering, others stalled or abandoned. |
+| B | 50-75% delivered. Abandonments <15%. Most flagship files show delivery. |
+| C | 25-50% delivered. Mixed pattern across files. Some commitments deliver while others stall or are abandoned. |
 | D | <25% delivered. High abandonment rate. Delivery concentrated in 1-2 files only. |
 | F | <10% delivered. Majority abandoned. |
 
@@ -530,9 +537,9 @@
 **Grade thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Defence target sustained 2+ quarters. Trade: non-US share up 5+ points. New agreements ratified. |
-| B | Defence target reached. Trade: non-US share up 1-5 points. Agreements in progress. |
-| C | Defence spending increasing but target not met. Trade: modest diversification. |
+| A | Defence target sustained 2+ quarters. Trade: non-US share up 5+ points and sustained. New agreements ratified or corridor execution is live. |
+| B | Defence target reached. Trade: non-US share up 1-5 points. Agreements or corridor investments are in progress. |
+| C | Defence spending increasing but target not met, or trade diversification is measurable but modest and not yet durable. |
 | D | Defence spending flat or declining. Trade: no diversification or regression. |
 | F | Defence cuts. Trade dependence increasing. |
 
@@ -586,5 +593,5 @@
 
 ---
 
-*Canonical Scoring Sheets v1.0 — April 2026*
+*Canonical Scoring Sheets v1.0 — April 2026, clarified April 30, 2026*
 *All 12 dimensions documented. This is the single reference for all grading decisions.*

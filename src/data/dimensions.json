@@ -7,6 +7,10 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "NATO 2.01% met. Trade diversification measurable: US share fell from 75.9% to 71.7%.",
+    "surfaceTags": [
+      "Sub-score file",
+      "Trade partly market-driven"
+    ],
     "construct": "The degree to which the federal government has met its stated defence spending commitments and diversified Canada's trade relationships away from single-market dependency.",
     "gradeBasis": {
       "band": "A",
@@ -20,6 +24,36 @@
         }
       ]
     },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "NATO spending is confirmed at or above 2.0% of GDP and the non-U.S. export share improves by roughly five points or more, with the diversification holding beyond one-month volatility."
+        },
+        {
+          "grade": "B",
+          "criteria": "NATO 2% is reached or a funded pathway is in place, and the non-U.S. export share improves by roughly one to five points with corridor, procurement, or agreement execution underway."
+        },
+        {
+          "grade": "C",
+          "criteria": "Defence spending is rising but still below target, or trade diversification is measurable but modest and not yet durable."
+        },
+        {
+          "grade": "D",
+          "criteria": "Defence spending is flat or below target and trade dependence on the U.S. is unchanged or worsening."
+        },
+        {
+          "grade": "F",
+          "criteria": "Defence spending is cut and trade dependence deepens."
+        }
+      ],
+      "scopeNote": "Blends two constructs: defence-target delivery and trade diversification. Read the defence and trade sub-scores with the headline because the two halves move at different speeds.",
+      "guardrails": [
+        "Confirm defence spending from NATO or equivalent official tables, not from domestic political claims alone.",
+        "Use annual trade-share movement rather than single-month export volatility when judging diversification.",
+        "The defence sub-score anchors the file; trade modifies the headline and should not hide a widening divergence between the two."
+      ]
+    },
     "gradeTriggers": {
       "up": [
         "3.5% defence target gets a funded pathway",
@@ -30,7 +64,7 @@
         "US export share reverses above 73%"
       ]
     },
-    "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline \u2014 NATO confirmed all allies met the 2% target for the first time in 2025 (Canada at 2.01% per NATO expenditure tables). Trade diversification produced measurable results: US export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s; non-US goods exports rose 17.2% to an all-time high (Global Affairs Canada). The A- rather than A reflects Canada meeting but not materially exceeding the 2% floor. Policy Options flags the 3.5% GDP defence target is unfunded long-term.",
+    "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline — NATO confirmed all allies met the 2% target for the first time in 2025 (Canada at 2.01% per NATO expenditure tables). Trade diversification produced measurable results: US export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s; non-US goods exports rose 17.2% to an all-time high (Global Affairs Canada). The A- rather than A reflects Canada meeting but not materially exceeding the 2% floor. Policy Options flags the 3.5% GDP defence target is unfunded long-term.",
     "sources": [
       {
         "label": "NATO Secretary General Annual Report 2025",
@@ -57,7 +91,7 @@
         "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12"
       }
     ],
-    "lastUpdated": "2026-04-18",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "NATO spending (2025e)",
@@ -125,7 +159,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
-        "statusSourceLabel": "Government of Canada \u2014 Internal Trade Action Plan status"
+        "statusSourceLabel": "Government of Canada — Internal Trade Action Plan status"
       },
       {
         "text": "$5B Trade Diversification Corridors Fund",
@@ -143,7 +177,7 @@
           }
         ],
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 \u2014 Annex 1 Policy Measures"
+        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
       },
       {
         "text": "Buy Canadian procurement strategy",
@@ -159,9 +193,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.2 \u2014 Buy Canadian Policy"
+        "statusSourceLabel": "Budget 2025 Ch.2 — Buy Canadian Policy"
       },
       {
         "text": "Full foreign policy review (first since 2005)",
@@ -177,7 +211,7 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
       }
     ],
     "perspectives": {
@@ -212,6 +246,10 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "MPO created with real powers. Credit-claiming exceeds contribution. National interest designation unused.",
+    "surfaceTags": [
+      "Credit-claiming penalty",
+      "Long-lag file"
+    ],
     "construct": "The effectiveness of federal institutional machinery for infrastructure project delivery.",
     "gradeBasis": {
       "band": "C",
@@ -229,6 +267,37 @@
           "reason": "Infrastructure is multi-year and the MPO is still young, but the machinery itself is already gradeable."
         }
       ]
+    },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "At least one project completes a full MPO cycle or a national-interest designation is used with documented timeline acceleration, and approval times beat the pre-MPO baseline."
+        },
+        {
+          "grade": "B",
+          "criteria": "The MPO is operational, at least one project shows documented acceleration versus the pre-MPO baseline, and the pipeline includes post-MPO entrants rather than only inherited files."
+        },
+        {
+          "grade": "C",
+          "criteria": "The MPO exists and is functioning, but most pipeline value remains pre-existing, the signature power is unused, and the framework is not yet fully tested."
+        },
+        {
+          "grade": "D",
+          "criteria": "The MPO is non-functional or bypassed, no acceleration is documented, or projects are being withdrawn from the process."
+        },
+        {
+          "grade": "F",
+          "criteria": "No functioning institutional reform is in place and the federal approval environment worsens versus the inherited baseline."
+        }
+      ],
+      "scopeNote": "Grades federal approval machinery and project acceleration, not whether a specific project is normatively good or bad.",
+      "guardrails": [
+        "Pre-existing pipeline value does not count as new federal delivery on its own.",
+        "A referred project is not the same as a completed MPO cycle or a verified timeline gain.",
+        "Use of the national-interest designation or a documented approval-time improvement is the clearest sign that the machinery is changing outcomes."
+      ],
+      "modifierExpiry": "Timing Fairness partly applies while the MPO is still inside its first full project cycle. Until then, institution-building counts more than completions, but announcements still do not count as delivery."
     },
     "gradeTriggers": {
       "up": [
@@ -251,15 +320,15 @@
         "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
       },
       {
-        "label": "Fraser Institute \u2014 MPO assessment",
+        "label": "Fraser Institute — MPO assessment",
         "url": "https://www.fraserinstitute.org/article/does-canadas-major-projects-office-actually-do-anything"
       },
       {
-        "label": "Angus Reid \u2014 major projects reaction",
+        "label": "Angus Reid — major projects reaction",
         "url": "https://angusreid.org/major-projects-reaction-canada/"
       }
     ],
-    "lastUpdated": "2026-04-17",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "MPO project tranches announced",
@@ -272,7 +341,7 @@
         "label": "Headline investment figure (government-announced)",
         "value": "$116B (mostly pre-existing)",
         "source": "pmo",
-        "sourceNote": "PMO nation-building project announcements (see dimension sources). $116B is the government's stated total across both tranches. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing investment decisions \u2014 qualifier 'mostly pre-existing' reflects their assessment.",
+        "sourceNote": "PMO nation-building project announcements (see dimension sources). $116B is the government's stated total across both tranches. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing investment decisions — qualifier 'mostly pre-existing' reflects their assessment.",
         "automatable": false
       },
       {
@@ -323,12 +392,12 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
-        "statusSourceLabel": "Bill C-5 \u2014 One Canadian Economy Act on LEGISinfo"
+        "statusSourceLabel": "Bill C-5 — One Canadian Economy Act on LEGISinfo"
       },
       {
-        "text": "High-speed rail Windsor\u2013Quebec City",
+        "text": "High-speed rail Windsor–Quebec City",
         "status": "Too Early",
         "since": "2026-04-14",
         "evidence": "Alto concept announced. No construction expected before 2029.",
@@ -341,9 +410,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://tc.canada.ca/en/corporate-services/transparency/corporate-management-reporting/strategic-environmental-economic-assessment/public-statement-strategic-environmental-economic-assessment-co-development-phase-alto-s-high-speed-rail-initiative",
-        "statusSourceLabel": "Transport Canada \u2014 Alto co-development phase"
+        "statusSourceLabel": "Transport Canada — Alto co-development phase"
       },
       {
         "text": "$10B Indigenous Loan Guarantee Program",
@@ -359,14 +428,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 \u2014 Annex 1 Policy Measures"
+        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
       }
     ],
     "perspectives": {
-      "critics": "Angus Reid and Fraser Institute: the $116B headline is mostly pre-existing investment rebranded. The national interest designation has never been used \u2014 the MPO's most powerful tool sits on the shelf. Environmental and Indigenous groups: fast-tracking without consent is not progress.",
-      "defenders": "The Building Canada Act is genuine institutional reform with bipartisan support. The $10B Indigenous Loan Guarantee is operational. The MPO is less than a year old \u2014 judging it on unused powers rather than institutional capacity is premature."
+      "critics": "Angus Reid and Fraser Institute: the $116B headline is mostly pre-existing investment rebranded. The national interest designation has never been used — the MPO's most powerful tool sits on the shelf. Environmental and Indigenous groups: fast-tracking without consent is not progress.",
+      "defenders": "The Building Canada Act is genuine institutional reform with bipartisan support. The $10B Indigenous Loan Guarantee is operational. The MPO is less than a year old — judging it on unused powers rather than institutional capacity is premature."
     },
     "tags": {
       "confidence": "Medium",
@@ -379,7 +448,7 @@
   {
     "id": "fiscal-health",
     "name": "Fiscal Health",
-    "whatThisGrades": "Federal fiscal trajectory \u2014 is the spending and deficit path sustainable and credible?",
+    "whatThisGrades": "Federal fiscal trajectory — is the spending and deficit path sustainable and credible?",
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
@@ -397,6 +466,36 @@
         }
       ]
     },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "Budget is balanced or in surplus, debt-to-GDP is declining, PBO confidence is above 80%, and no rating-pressure warning is active."
+        },
+        {
+          "grade": "B",
+          "criteria": "Deficit is below 2% of GDP, a medium-term anchor is published, PBO confidence is between 50% and 80%, and no active rating warning is live."
+        },
+        {
+          "grade": "C",
+          "criteria": "Deficit is 2% to 4% of GDP, an anchor is published but PBO confidence is only 25% to 50%, or at least one rating agency is flagging a material caveat."
+        },
+        {
+          "grade": "D",
+          "criteria": "Deficit is above 4% of GDP, PBO confidence is below 25%, the anchor is absent or repeatedly missed, and rating pressure is active."
+        },
+        {
+          "grade": "F",
+          "criteria": "An actual downgrade or clear fiscal-crisis dynamic emerges."
+        }
+      ],
+      "scopeNote": "Grades sustainability and credibility of the fiscal path, not whether any one spending item is morally worthwhile.",
+      "guardrails": [
+        "Separate debt level from debt trajectory; manageable current debt does not rescue an unsustainable path.",
+        "A strategic defence-spending case can explain part of the expansion but not the rest of the fiscal package.",
+        "Use PBO confidence and rating-agency language as the credibility check, not ministerial framing."
+      ]
+    },
     "gradeTriggers": {
       "up": [
         "PBO confidence rises above 25%",
@@ -407,7 +506,7 @@
         "Deficit exceeds $90B without new revenue"
       ]
     },
-    "rationale": "The projected deficit of $78.3B (FY 2025-26, Budget 2025 Annex 1) represents a substantial increase from the prior year. Fitch maintained its AA+ rating with a stable outlook after Budget 2025 but warned that persistent fiscal expansion could increase rating pressure over the medium term. The PBO gives only 7.5% probability the deficit-to-GDP ratio will decline as projected. Defence spending is strategically justified, but the broader fiscal package lacks a credible anchor. GST revenue ($54.4B) is now exceeded by debt servicing ($55.6B) \u2014 both figures verified from Budget 2025 Annex 1. IMF/IFSD note current debt levels are manageable, but the trajectory given defence + capital commitments is unsustainable without tax increases.",
+    "rationale": "The projected deficit of $78.3B (FY 2025-26, Budget 2025 Annex 1) represents a substantial increase from the prior year. Fitch maintained its AA+ rating with a stable outlook after Budget 2025 but warned that persistent fiscal expansion could increase rating pressure over the medium term. The PBO gives only 7.5% probability the deficit-to-GDP ratio will decline as projected. Defence spending is strategically justified, but the broader fiscal package lacks a credible anchor. GST revenue ($54.4B) is now exceeded by debt servicing ($55.6B) — both figures verified from Budget 2025 Annex 1. IMF/IFSD note current debt levels are manageable, but the trajectory given defence + capital commitments is unsustainable without tax increases.",
     "sources": [
       {
         "label": "Budget 2025",
@@ -430,7 +529,7 @@
         "url": "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340/"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Deficit (FY 2025-26, projected)",
@@ -450,7 +549,7 @@
         "label": "Fitch rating",
         "value": "AA+ (stable outlook, fiscal concerns noted)",
         "source": "manual",
-        "sourceNote": "Fitch maintained AA+/stable after Budget 2025 (Nov 2025). Fitch warned that persistent fiscal expansion and rising debt burden 'could increase rating pressure over the medium term' but did not change the outlook to negative. Sources: The Deep Dive (thedeepdive.ca/liberal-victory-triggers-fiscal-warning-from-fitch), Yahoo Finance Canada (ca.finance.yahoo.com/news/heres-only-credit-rating-agency-123856595.html). Event-driven \u2014 next check on any Fitch action or statement.",
+        "sourceNote": "Fitch maintained AA+/stable after Budget 2025 (Nov 2025). Fitch warned that persistent fiscal expansion and rising debt burden 'could increase rating pressure over the medium term' but did not change the outlook to negative. Sources: The Deep Dive (thedeepdive.ca/liberal-victory-triggers-fiscal-warning-from-fitch), Yahoo Finance Canada (ca.finance.yahoo.com/news/heres-only-credit-rating-agency-123856595.html). Event-driven — next check on any Fitch action or statement.",
         "automatable": false
       },
       {
@@ -475,9 +574,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 \u2014 Annex 1 Policy Measures"
+        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
       },
       {
         "text": "Reduce civil service by ~40,000",
@@ -493,9 +592,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.5 \u2014 Workforce Renewal"
+        "statusSourceLabel": "Budget 2025 Ch.5 — Workforce Renewal"
       },
       {
         "text": "Middle class income tax cut",
@@ -513,7 +612,7 @@
           }
         ],
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 \u2014 Annex 1 Policy Measures"
+        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
       },
       {
         "text": "Cancel capital gains tax increase",
@@ -531,11 +630,11 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/government-will-not-proceed-with-increase-to-capital-gains-inclusion-rate.html",
-        "statusSourceLabel": "Department of Finance \u2014 capital gains inclusion rate announcement"
+        "statusSourceLabel": "Department of Finance — capital gains inclusion rate announcement"
       }
     ],
     "perspectives": {
-      "critics": "C.D. Howe: every GST dollar now goes to debt servicing. PBO gives 7.5% probability of meeting deficit targets \u2014 in any other context that plan gets rejected. Fitch maintained AA+ but warned persistent deficits could increase rating pressure. La Presse: the gas tax suspension costs $2.4B the government cannot afford.",
+      "critics": "C.D. Howe: every GST dollar now goes to debt servicing. PBO gives 7.5% probability of meeting deficit targets — in any other context that plan gets rejected. Fitch maintained AA+ but warned persistent deficits could increase rating pressure. La Presse: the gas tax suspension costs $2.4B the government cannot afford.",
       "defenders": "IMF and IFSD note Canada's debt-to-GDP ratio remains manageable by international standards. Defence spending is strategically necessary during a trade war. The operating/capital budget split is a legitimate framework innovation. Kevin Page: \"There is no fiscal crisis.\""
     },
     "tags": {
@@ -549,16 +648,20 @@
   {
     "id": "economic-policy",
     "name": "Economic Policy Response",
-    "whatThisGrades": "Federal action on Canada's productivity and competitiveness \u2014 investment, innovation, jobs, wages.",
+    "whatThisGrades": "Federal action on Canada's productivity and competitiveness — investment, innovation, jobs, wages.",
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
-    "status": "Structural productivity crisis inherited. AI and minerals policies are directionally correct, but execution evidence remains thinner than the announcements and business investment is still flat. Grade reflects policy response and trajectory, not inherited conditions.",
-    "construct": "The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges.",
+    "status": "Structural productivity weakness is inherited. The file now tracks tax, trade, regulatory, and funding levers explicitly, but fewer than two core levers are at authorized-or-executing stage and business investment remains near-flat.",
+    "surfaceTags": [
+      "Mostly inherited baseline",
+      "Long-lag file"
+    ],
+    "construct": "The federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers.",
     "gradeBasis": {
       "band": "D",
-      "bandCriterion": "Productivity instruments are directionally correct but not yet executing strongly enough, while business investment remains flat or declining.",
-      "plusMinusRationale": "Current D reflects a real policy response that has not yet produced measurable traction: key funds are still more announced than executed, business investment remains flat, and major domestic barriers remain unresolved.",
+      "bandCriterion": "Instruments are still mostly announced rather than Treasury Board-authorized or in live execution, and business investment remains near-flat without a durable turn.",
+      "plusMinusRationale": "Current D reflects a real policy response that has not yet cleared the execution bar: key funds are still more announced than live, business investment remains near-flat, and major domestic barriers remain unresolved.",
       "activeModifiers": [
         {
           "name": "Timing Fairness",
@@ -572,6 +675,38 @@
         }
       ]
     },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "At least two core productivity levers are enacted or Treasury Board-authorized, at least one is in live execution or disbursement, business investment rises for two or more consecutive quarters, and independent assessment judges the trajectory improved."
+        },
+        {
+          "grade": "B",
+          "criteria": "At least two core levers are funded or authorized, at least one is in live execution, and business investment is no longer declining over two consecutive quarters."
+        },
+        {
+          "grade": "C",
+          "criteria": "At least one core lever is funded or authorized and others are designed or announced, but business investment remains flat or only marginally positive and measurable productivity gains are not yet visible."
+        },
+        {
+          "grade": "D",
+          "criteria": "Instruments are still mostly announced rather than authorized or executing, fewer than two core levers are clearly funded or authorized, and business investment is still near-flat without a durable two-quarter turn."
+        },
+        {
+          "grade": "F",
+          "criteria": "No material federal productivity response through funding, tax, regulatory, or trade action."
+        }
+      ],
+      "scopeNote": "Grades the federal response, not the inherited outcome level. The card now tracks tax, trade, regulatory, and permitting-adjacent breadth checks alongside funding instruments.",
+      "guardrails": [
+        "Announcements alone do not count. Require Treasury Board authorization, legislation, or confirmed disbursement before a new instrument can lift the grade.",
+        "Business investment is the main live outcome check. Two consecutive quarters are required before treating a turn as real.",
+        "For this file, core levers currently mean AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness measures.",
+        "Permitting, tax, electricity, and regulatory barriers remain part of the response question even when external conditions are poor."
+      ],
+      "modifierExpiry": "Timing Fairness is active on this long-lag file and expires March 14, 2027. After that date, outcome metrics weigh more directly in the band pick."
+    },
     "gradeTriggers": {
       "up": [
         "AI compute fund begins actual disbursement confirmed by Treasury Board or PBO",
@@ -582,10 +717,10 @@
         "Business investment decline accelerates"
       ]
     },
-    "rationale": "This dimension grades the government's policy response to Canada's structural productivity and competitiveness challenges \u2014 not the inherited GDP per capita level, which reflects a decade of underinvestment. The AI compute strategy ($2B), critical minerals push (still primarily government-stated rather than authorization/disbursement-backed in the live stack), and interprovincial reform are directionally correct. But business investment remains flat for a fourth year, specific barriers (permitting, tax rates, electricity costs) remain unresolved, and OECD long-term projections rank Canada last among 38 members for per-capita growth. The grade reflects whether the policy direction and scale are adequate to change the trajectory, recognizing that outcomes will take years to materialize.",
+    "rationale": "This dimension grades the government's productivity and competitiveness posture rather than the inherited GDP-per-capita level, which reflects a decade of underinvestment. The file now tracks non-spending levers explicitly: Budget 2025's productivity super-deduction lowers the marginal effective tax rate on new business investment, Bill C-5 is the live internal-trade instrument, and Treasury Board's Red Tape Review has identified hundreds of regulatory initiatives. But fewer than two core levers have clearly cleared the authorization-or-execution bar, no permitting-acceleration tool has yet been used, and business investment rose only 0.3% in 2025 after repeated weak quarters. The grade reflects whether the policy mix is becoming broad and executable enough to change the trajectory, recognizing that outcomes will take time to move.",
     "sources": [
       {
-        "label": "Fraser Institute \u2014 Ugly Growth",
+        "label": "Fraser Institute — Ugly Growth",
         "url": "https://www.fraserinstitute.org/studies/canadas-ugly-growth-experience-2020-2024-why-gdp-per-capita-declined-while-overall-economy-grew"
       },
       {
@@ -597,31 +732,70 @@
         "url": "https://www150.statcan.gc.ca/n1/pub/36-28-0001/2024004/article/00001-eng.htm"
       },
       {
+        "label": "StatsCan GDP, income and expenditure — Q4 2025",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1"
+      },
+      {
+        "label": "StatsCan R&D intensity table",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2710027301"
+      },
+      {
         "label": "StatsCan LFS Feb 2026",
         "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260313/dq260313a-eng.htm"
       },
       {
-        "label": "NRCan \u2014 critical minerals partnerships",
+        "label": "ISED — Canadian Sovereign AI Compute Strategy",
+        "url": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy"
+      },
+      {
+        "label": "Budget 2025 — productivity super-deduction",
+        "url": "https://budget.canada.ca/2025/report-rapport/intro-en.html"
+      },
+      {
+        "label": "Treasury Board — 2024-25 regulatory management annual report",
+        "url": "https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html"
+      },
+      {
+        "label": "Government of Canada — Internal Trade Action Plan status",
+        "url": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html"
+      },
+      {
+        "label": "Building Canada Act (Bill C-5)",
+        "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
+      },
+      {
+        "label": "NRCan — critical minerals partnerships",
         "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html"
       }
     ],
-    "lastUpdated": "2026-04-17",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
-        "label": "GDP per capita change (2020-24)",
+        "group": "Inherited baseline / context only",
+        "label": "GDP per capita change (2020-24 baseline)",
         "value": "-2.0%",
         "source": "statcan",
         "sourceId": "36-10-0104-01",
         "automatable": true
       },
       {
-        "label": "OECD per-capita growth rank (2020-2030 forecast)",
+        "group": "Inherited baseline / context only",
+        "label": "OECD per-capita growth rank (long-run context)",
         "value": "Last of 38",
         "source": "oecd",
         "sourceNote": "OECD long-term baseline projections remain the primary reference point; OECD Economic Surveys: Canada 2025 summarizes the weak per-capita outlook, while Fraser Institute and BCBC analyses map those baseline projections into the 'last or near-last' framing used here. Canada's real GDP per capita is forecast at roughly 0.7%/yr in 2020-2030 and 0.8%/yr in 2030-2060. Note: ranking is 'last or near-last' depending on projection vintage; tied with Italy in some versions.",
         "automatable": false
       },
       {
+        "group": "Response metrics",
+        "label": "Business investment (2025 annual)",
+        "value": "+0.3%",
+        "source": "statcan",
+        "sourceNote": "StatsCan GDP, income and expenditure release for Q4 2025 reports that business investment rose 0.3% over 2025 overall after a weak year, with machinery and equipment still down 3.5%. The file treats this as essentially flat rather than a decisive turn.",
+        "automatable": false
+      },
+      {
+        "group": "Response metrics",
         "label": "Feb 2026 jobs lost",
         "value": "84,000",
         "source": "statcan",
@@ -629,11 +803,44 @@
         "automatable": true
       },
       {
+        "group": "Response metrics",
         "label": "R&D spending (% GDP)",
         "value": "1.81%",
         "source": "statcan",
         "sourceId": "27-10-0273-01",
         "automatable": true
+      },
+      {
+        "group": "Policy breadth checks",
+        "label": "Tax competitiveness on new business investment",
+        "value": "13.2% METR with super-deduction",
+        "source": "finance-canada",
+        "sourceNote": "Budget 2025 states that with the productivity super-deduction, Canada's marginal effective tax rate on new business investment would fall from 15.6% to 13.2%, remaining the lowest in the G7.",
+        "automatable": false
+      },
+      {
+        "group": "Policy breadth checks",
+        "label": "Internal trade implementation",
+        "value": "Bill C-5 enacted",
+        "source": "government-of-canada",
+        "sourceNote": "The One Canadian Economy Act / Building Canada Act is the live interprovincial-trade lever in the file. The implementation question is now execution rather than legislative passage.",
+        "automatable": false
+      },
+      {
+        "group": "Policy breadth checks",
+        "label": "Red Tape Review initiatives identified",
+        "value": "~500",
+        "source": "treasury-board-secretariat",
+        "sourceNote": "Treasury Board's 2024-25 annual report says the Red Tape Review has published progress reports identifying nearly 500 recent and forward-looking initiatives to reduce duplication, streamline services, and lower costs.",
+        "automatable": false
+      },
+      {
+        "group": "Policy breadth checks",
+        "label": "Permitting acceleration tool uses",
+        "value": "0",
+        "source": "legisinfo",
+        "sourceNote": "The national-interest designation power under Bill C-5 has not yet been used. This is still a breadth check inside Economic Policy; primary grading of the approval machinery remains in Major Projects.",
+        "automatable": false
       }
     ],
     "promises": [
@@ -651,9 +858,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
-        "statusSourceLabel": "ISED \u2014 Canadian Sovereign AI Compute Strategy"
+        "statusSourceLabel": "ISED — Canadian Sovereign AI Compute Strategy"
       },
       {
         "text": "Critical minerals strategy",
@@ -661,7 +868,7 @@
         "since": "2026-04-14",
         "evidence": "NRCan states $18.5B mobilized across Canadian critical minerals projects (see dimension sources; March 2026 NRCan release consolidates the March and October rounds). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. This is policy/context evidence, not proof of federal disbursement. Canada produces 10 of 12 NATO defence-critical minerals.",
         "originalSourceUrl": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html",
-        "originalSourceLabel": "NRCan \u2014 critical minerals partnerships",
+        "originalSourceLabel": "NRCan — critical minerals partnerships",
         "durability": "Program",
         "history": [
           {
@@ -671,7 +878,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/campaign/critical-minerals-in-canada.html",
-        "statusSourceLabel": "Government of Canada \u2014 Critical Minerals Strategy"
+        "statusSourceLabel": "Government of Canada — Critical Minerals Strategy"
       },
       {
         "text": "Red tape review: 60-day department reports",
@@ -687,12 +894,12 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
       }
     ],
     "perspectives": {
-      "critics": "If Carney is the credibility candidate \u2014 the one markets trust \u2014 why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060 (Fraser Institute / BCBC analysis of OECD data).",
-      "defenders": "The AI compute strategy ($2B), critical minerals ($18.5B), and Microsoft's $19B commitment are directionally correct. Productivity is a decade-long structural problem \u2014 expecting a 13-month turnaround misunderstands the timeline required."
+      "critics": "If Carney is the credibility candidate — the one markets trust — why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060 (Fraser Institute / BCBC analysis of OECD data).",
+      "defenders": "Budget 2025 adds a productivity super-deduction, internal-trade legislation is enacted, and the Red Tape Review is now producing a government-wide regulatory pipeline. Productivity is a decade-long structural problem, so a 13-month score should focus on whether the response mix is broadening rather than expecting immediate GDP-per-capita reversal."
     },
     "tags": {
       "confidence": "High",
@@ -705,13 +912,12 @@
   {
     "id": "affordability-response",
     "name": "Affordability Response",
-    "whatThisGrades": "Federal response to household cost pressure \u2014 groceries, tariff-driven costs, targeted relief.",
+    "whatThisGrades": "Federal response to household cost pressure — groceries, tariff-driven costs, targeted relief.",
     "grade": "D-",
     "previousGrade": null,
     "trend": "down",
     "status": "Government affordability measures cover <20% of household cost increases. Grocery Code voluntary. Tariff costs add $1,450-$2,000/yr per household. Grade reflects federal policy response, not global price levels.",
     "construct": "Adequacy of the federal policy response to household cost pressure from groceries, tariffs, and targeted relief.",
-    "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure \u2014 not the price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
     "gradeBasis": {
       "band": "D",
       "bandCriterion": "Federal relief covers less than 20% of estimated annual cost increase.",
@@ -722,6 +928,36 @@
           "status": "applicable, not applied",
           "reason": "Tariffs add $1,450-$2,000/yr per household. Per rubric condition, the modifier applies only when the government's response is adequate given the constraint. Response judged inadequate, so the modifier was not applied."
         }
+      ]
+    },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "Federal relief offsets more than 80% of the identified annual household cost increase and at least one mandatory grocery-competition or market-conduct reform is enacted."
+        },
+        {
+          "grade": "B",
+          "criteria": "Federal relief offsets 40% to 80% of the cost increase and at least one enforceable competition or compliance measure is in force."
+        },
+        {
+          "grade": "C",
+          "criteria": "Federal relief offsets 20% to 40% of the cost increase and targeted programs are live, but the competition response remains voluntary or partial."
+        },
+        {
+          "grade": "D",
+          "criteria": "Federal relief offsets less than 20% of the cost increase, voluntary or narrow measures dominate, and food insecurity remains elevated or rising."
+        },
+        {
+          "grade": "F",
+          "criteria": "No material federal relief or competition response is in place."
+        }
+      ],
+      "scopeNote": "Grades the federal affordability response, not the food-price level itself. Rents, utilities, and transportation pressures live in other files or shared jurisdictions.",
+      "guardrails": [
+        "Relief coverage share is the central measurement test in this file.",
+        "Voluntary codes or retailer commitments do not count the same way as mandatory competition reform.",
+        "Tariff costs imposed by Ottawa count against the file; global commodity moves do not automatically do so."
       ]
     },
     "gradeTriggers": {
@@ -760,6 +996,7 @@
         }
       ]
     },
+    "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure — not the price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
     "sources": [
       {
         "label": "StatsCan CPI Feb 2026",
@@ -774,14 +1011,14 @@
         "url": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Food CPI (stores, YoY, Feb 2026)",
         "value": "4.1%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
-        "sourceNote": "StatsCan CPI daily release, March 16, 2026: 'Food purchased from stores rose 4.1% in February following a 4.8% increase in January.' Prior dashboard value of 5.4% was incorrect \u2014 corrected to match verified source.",
+        "sourceNote": "StatsCan CPI daily release, March 16, 2026: 'Food purchased from stores rose 4.1% in February following a 4.8% increase in January.' Prior dashboard value of 5.4% was incorrect — corrected to match verified source.",
         "automatable": true
       },
       {
@@ -818,9 +1055,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html",
-        "statusSourceLabel": "CRA \u2014 Canada Groceries and Essentials Benefit"
+        "statusSourceLabel": "CRA — Canada Groceries and Essentials Benefit"
       },
       {
         "text": "Grocery Code of Conduct",
@@ -836,9 +1073,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://canadacode.org/",
-        "statusSourceLabel": "Canada Grocery Code \u2014 official site"
+        "statusSourceLabel": "Canada Grocery Code — official site"
       },
       {
         "text": "Buy Canadian food labelling",
@@ -854,14 +1091,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.2 \u2014 Buy Canadian food standards"
+        "statusSourceLabel": "Budget 2025 Ch.2 — Buy Canadian food standards"
       }
     ],
     "perspectives": {
-      "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design \u2014 the government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies.",
-      "defenders": "Global food markets, exchange rates, and retaliatory tariffs drive most of the price increase \u2014 these are largely outside federal control. The benefit reaches the lowest-income households first."
+      "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design — the government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies.",
+      "defenders": "Global food markets, exchange rates, and retaliatory tariffs drive most of the price increase — these are largely outside federal control. The benefit reaches the lowest-income households first."
     },
     "tags": {
       "confidence": "High",
@@ -874,22 +1111,55 @@
   {
     "id": "carbon-pricing",
     "name": "Carbon Pricing Policy",
-    "whatThisGrades": "Federal carbon pricing policy \u2014 consumer charge changes and the industrial system.",
+    "whatThisGrades": "Federal carbon pricing policy — consumer charge changes and the industrial system.",
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Consumer carbon price eliminated (affordability win). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
+    "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
+    "surfaceTags": [
+      "Instrument-only file"
+    ],
     "construct": "The quality of the federal government's handling of carbon pricing as a policy instrument.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "One instrument was delivered, but the remaining industrial instrument is preserved more in form than in clearly effective function.",
-      "plusMinusRationale": "Current C reflects a genuine consumer-policy delivery win alongside an industrial OBPS whose effective price remains far below its headline design and therefore invites doubts about functional coherence.",
+      "bandCriterion": "One instrument was delivered, but the remaining industrial instrument is operating with an effective price in the roughly $15-$40/t range and is preserved more in form than in clearly effective function.",
+      "plusMinusRationale": "Current C reflects a delivered consumer-policy commitment alongside an industrial OBPS whose effective price remains far below its headline design and therefore invites doubts about functional coherence.",
       "activeModifiers": [
         {
           "name": "External Constraint",
           "status": "not applied",
           "reason": "A US border carbon adjustment could eventually justify tighter industrial pricing, but that proposal is still too early to apply as a modifier."
         }
+      ]
+    },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "Consumer and industrial instruments are both coherent, and the industrial effective price is above roughly $40/t or equivalent tightening is independently validated."
+        },
+        {
+          "grade": "B",
+          "criteria": "One instrument is delivering clearly and the other maintains a credible effective price signal above roughly $40/t, or tightening is underway with implementation backing."
+        },
+        {
+          "grade": "C",
+          "criteria": "One instrument is delivered. The other remains in place, but its effective price sits roughly in the $15-$40/t range, preserving more form than full function."
+        },
+        {
+          "grade": "D",
+          "criteria": "The effective industrial price falls below roughly $15/t, or the remaining signal is weakened so far that no coherent pricing distinction remains."
+        },
+        {
+          "grade": "F",
+          "criteria": "All carbon pricing is eliminated with no remaining industrial replacement signal."
+        }
+      ],
+      "scopeNote": "Grades the pricing instrument only. Emissions trajectory, target credibility, and replacement climate framework live under Climate & Environment.",
+      "guardrails": [
+        "Use the effective market price, not just the headline schedule, when judging industrial strength.",
+        "Do not double-count affordability effects from the consumer levy; those are graded under Affordability Response.",
+        "A preserved industrial system can still score poorly if credit oversupply collapses the live price signal."
       ]
     },
     "gradeTriggers": {
@@ -902,22 +1172,22 @@
         "Government announces intention to eliminate industrial pricing"
       ]
     },
-    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument \u2014 the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a genuine affordability win and Day 1 commitment delivered. The industrial system's preservation is defensible on competitiveness grounds. However, CCI and IISD both note that credit oversupply can pull the effective compliance price far below the $95 headline schedule, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
+    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument — the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a delivered Day 1 commitment with documented affordability effects that are graded separately under Affordability Response. Defenders argue the industrial system's preservation is justified on competitiveness grounds. CCI and IISD argue that credit oversupply can pull the effective compliance price far below the $95 headline schedule, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
     "sources": [
       {
-        "label": "Canada.ca \u2014 fuel charge removal",
+        "label": "Canada.ca — fuel charge removal",
         "url": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html"
       },
       {
-        "label": "ECCC \u2014 Output-Based Pricing System",
+        "label": "ECCC — Output-Based Pricing System",
         "url": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
       },
       {
-        "label": "CCI \u2014 industrial pricing",
+        "label": "CCI — industrial pricing",
         "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/"
       },
       {
-        "label": "IISD \u2014 Canadian Carbon Pricing Systems: 2025 Review",
+        "label": "IISD — Canadian Carbon Pricing Systems: 2025 Review",
         "url": "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review"
       },
       {
@@ -925,7 +1195,7 @@
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
       }
     ],
-    "lastUpdated": "2026-04-18",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Consumer carbon tax",
@@ -935,10 +1205,17 @@
         "automatable": false
       },
       {
-        "label": "Industrial OBPS (headline rate)",
+        "label": "Industrial OBPS (headline schedule)",
         "value": "$95/tonne",
         "source": "eccc",
-        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $95/tCO2e in 2025, increasing $15/yr to $170 by 2030. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures \u2014 dashboard shows the headline rate; rationale discusses the gap.",
+        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $95/tCO2e in 2025, increasing $15/yr to $170 by 2030. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures — dashboard shows the headline rate; rationale discusses the gap.",
+        "automatable": false
+      },
+      {
+        "label": "Industrial OBPS (effective market price)",
+        "value": "~$20/tonne",
+        "source": "cci",
+        "sourceNote": "CCI and IISD both note that credit oversupply can pull the effective compliance price to roughly $20/tonne, far below the $95/t headline schedule. Effective rate is the live price signal faced by industry; headline rate is the nominal design schedule.",
         "automatable": false
       },
       {
@@ -961,7 +1238,7 @@
         "since": "2025-04-01",
         "evidence": "Fuel charge rate set to zero effective April 1, 2025. Signed by PM on March 14, 2025.",
         "originalSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
-        "originalSourceLabel": "Canada.ca \u2014 fuel charge removal",
+        "originalSourceLabel": "Canada.ca — fuel charge removal",
         "durability": "Budget measure",
         "history": [
           {
@@ -971,7 +1248,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/prime-minister-carney-delivers-on-pledge-to-eliminate-consumer-fuel-charge.html",
-        "statusSourceLabel": "Department of Finance \u2014 consumer fuel charge eliminated announcement"
+        "statusSourceLabel": "Department of Finance — consumer fuel charge eliminated announcement"
       },
       {
         "text": "Preserve industrial carbon pricing",
@@ -979,7 +1256,7 @@
         "since": "2025-04-01",
         "evidence": "OBPS maintained and extended to 2035 under Made-in-Canada Competitiveness Strategy.",
         "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
-        "originalSourceLabel": "ECCC \u2014 Output-Based Pricing System",
+        "originalSourceLabel": "ECCC — Output-Based Pricing System",
         "durability": "Legislated",
         "history": [
           {
@@ -989,7 +1266,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
-        "statusSourceLabel": "ECCC \u2014 Output-Based Pricing System"
+        "statusSourceLabel": "ECCC — Output-Based Pricing System"
       },
       {
         "text": "Carbon border adjustment mechanism",
@@ -1005,11 +1282,11 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
       }
     ],
     "perspectives": {
-      "critics": "Canadian Climate Institute: industrial credits trade at ~$20/tonne despite a $95 headline price \u2014 the \"preserved\" system is largely performative. NDP: eliminating the consumer rebate hurt low-income households who received more in rebates than they paid in carbon costs.",
+      "critics": "Canadian Climate Institute: industrial credits trade at ~$20/tonne despite a $95 headline price — the \"preserved\" system is largely performative. NDP: eliminating the consumer rebate hurt low-income households who received more in rebates than they paid in carbon costs.",
       "defenders": "The consumer tax had become a political liability undermining public support for any climate action. Preserving the industrial system maintains the investment signal for large emitters while removing household burden. Politically and economically defensible."
     },
     "tags": {
@@ -1023,11 +1300,14 @@
   {
     "id": "climate-environment",
     "name": "Climate & Environment",
-    "whatThisGrades": "Federal climate and environmental policy \u2014 emissions path, conservation, and whether targets hold.",
+    "whatThisGrades": "Federal climate and environmental policy — emissions path, conservation, and whether targets hold.",
     "grade": "D",
     "previousGrade": "D+",
     "trend": "down",
     "status": "Major environmental policy reversals. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. See Carbon Pricing Policy for industrial pricing details.",
+    "surfaceTags": [
+      "Framework file"
+    ],
     "construct": "The scale and coherence of the federal environmental policy framework.",
     "gradeBasis": {
       "band": "D",
@@ -1041,6 +1321,36 @@
         }
       ]
     },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "The major climate framework is maintained or strengthened, no major reversal is left unreplaced, and independent assessment says the pathway is at least roughly three-quarters of the way to the 2030 target."
+        },
+        {
+          "grade": "B",
+          "criteria": "The framework is partially maintained, a funded replacement strategy is published, and independent assessment says roughly half to three-quarters of the required reduction remains covered."
+        },
+        {
+          "grade": "C",
+          "criteria": "Major reversals occur, but a funded replacement strategy exists and at least one major instrument or functional substitute remains intact."
+        },
+        {
+          "grade": "D",
+          "criteria": "Major reversals occur without a funded replacement strategy, Canada is tracking below half of the required 2030 reduction or the government concedes the targets are out of reach, and ECCC capacity is shrinking."
+        },
+        {
+          "grade": "F",
+          "criteria": "The major climate framework is effectively dismantled or policy choices actively accelerate emissions."
+        }
+      ],
+      "scopeNote": "Grades the climate-policy framework and replacement strategy, not the carbon-pricing instrument itself and not short-run emissions noise.",
+      "guardrails": [
+        "Use replacement strategy, budget capacity, and preserved instruments rather than rhetoric when judging the file.",
+        "Trade-war justification must be tested instrument by instrument; it does not excuse every rollback.",
+        "The industrial carbon-price gap is context here and is primary-homed in Carbon Pricing Policy."
+      ]
+    },
     "gradeTriggers": {
       "up": [
         "Replacement climate strategy published with funded measures",
@@ -1051,18 +1361,18 @@
         "Additional climate program eliminations"
       ]
     },
-    "rationale": "The Canadian Climate Institute\u2019s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
+    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
-        "label": "CCI \u2014 Canada off course",
+        "label": "CCI — Canada off course",
         "url": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/"
       },
       {
-        "label": "IISD \u2014 Canada's 2030 climate target",
+        "label": "IISD — Canada's 2030 climate target",
         "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
       },
       {
-        "label": "CCI \u2014 industrial pricing gaps",
+        "label": "CCI — industrial pricing gaps",
         "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/"
       },
       {
@@ -1074,7 +1384,7 @@
         "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
       },
       {
-        "label": "National Observer \u2014 fossil fuel course",
+        "label": "National Observer — fossil fuel course",
         "url": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy"
       },
       {
@@ -1082,11 +1392,11 @@
         "url": "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606"
       },
       {
-        "label": "CBC \u2014 ECCC job and budget cuts",
+        "label": "CBC — ECCC job and budget cuts",
         "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
       }
     ],
-    "lastUpdated": "2026-04-17",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Emissions cap",
@@ -1131,9 +1441,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap1-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.1 \u2014 electricity grid interties"
+        "statusSourceLabel": "Budget 2025 Ch.1 — electricity grid interties"
       },
       {
         "text": "Conserve biodiversity / freshwater",
@@ -1149,9 +1459,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/services/environment/nature/nature-strategy.html",
-        "statusSourceLabel": "Canada.ca \u2014 A Force of Nature strategy"
+        "statusSourceLabel": "Canada.ca — A Force of Nature strategy"
       },
       {
         "text": "Net-zero commitment",
@@ -1169,7 +1479,7 @@
         "originalSourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/",
         "originalSourceLabel": "Canadian Net-Zero Emissions Accountability Act",
         "statusSourceUrl": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
-        "statusSourceLabel": "CCI \u2014 Canada off course"
+        "statusSourceLabel": "CCI — Canada off course"
       },
       {
         "text": "2030/2035 climate targets",
@@ -1177,7 +1487,7 @@
         "since": "2025-11-27",
         "evidence": "PM publicly acknowledged to Radio-Canada that Canada will miss both targets. CCI projects roughly half of required reduction. Targets not formally withdrawn but acknowledged as unachievable under current policy.",
         "statusSourceUrl": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
-        "statusSourceLabel": "CCI \u2014 Canada off course",
+        "statusSourceLabel": "CCI — Canada off course",
         "durability": "Target",
         "history": [
           {
@@ -1192,7 +1502,7 @@
     ],
     "perspectives": {
       "critics": "Canadian Climate Institute: Canada is on track for half the required 2030 emissions reduction. PM himself acknowledged targets will be missed. ECCC losing 840+ positions. No replacement strategy exists. National Observer: \"the fight against climate crisis has disappeared from Ottawa's radar.\"",
-      "defenders": "The trade-war context is real \u2014 maintaining the full climate framework during tariff escalation would have compounded economic pressure. The 30x30 conservation commitment ($3.8B) is genuine. Industrial carbon pricing is preserved. 79% of electricity is already low-carbon."
+      "defenders": "The trade-war context is real — maintaining the full climate framework during tariff escalation would have compounded economic pressure. The 30x30 conservation commitment ($3.8B) is genuine. Industrial carbon pricing is preserved. 79% of electricity is already low-carbon."
     },
     "tags": {
       "confidence": "High",
@@ -1205,17 +1515,54 @@
   {
     "id": "immigration",
     "name": "Immigration",
-    "whatThisGrades": "Federal immigration policy \u2014 permanent resident levels, temporary residents, and student/worker streams.",
+    "whatThisGrades": "Federal immigration policy — permanent resident levels, temporary residents, and student/worker streams.",
     "grade": "C+",
     "previousGrade": null,
     "trend": "up",
     "status": "Sharp immigration contraction. Correction is substantial and necessary. Long-term model not yet defined (tracked as next grade trigger).",
+    "surfaceTags": [
+      "Correction file"
+    ],
     "construct": "The adequacy and coherence of the federal immigration level correction.",
     "gradeBasis": {
       "band": "C+",
       "bandCriterion": "The correction has been executed sharply and at real scale, but the long-term model is not yet defined and downside risks remain only partly addressed.",
       "plusMinusRationale": "Current C+ reflects a substantial correction that addresses a real overload problem while still leaving the long-term design unresolved and exposing service-sensitive sectors to downside risk.",
       "activeModifiers": []
+    },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "A published long-term model aligns levels with absorption capacity, temporary residents are on or below the 5% path, and major service impacts are contained."
+        },
+        {
+          "grade": "B",
+          "criteria": "The correction is delivered at scale, the temporary-resident stock is clearly falling, and downside safeguards for exposed sectors are published."
+        },
+        {
+          "grade": "C+",
+          "criteria": "The correction is sharp and operationally real, but the long-term model is not yet published and downside risks are only partly addressed."
+        },
+        {
+          "grade": "C",
+          "criteria": "A partial correction is underway: some levels are reduced, but structural reform or temporary-resident contraction is incomplete."
+        },
+        {
+          "grade": "D",
+          "criteria": "No material correction occurs, or the pullback causes documented service failure without mitigation."
+        },
+        {
+          "grade": "F",
+          "criteria": "Intake management collapses: no coherent model is in place and serious service disruption or uncontrolled growth is evident."
+        }
+      ],
+      "scopeNote": "Grades alignment and management of immigration levels, not whether high or low immigration is ideologically preferable.",
+      "guardrails": [
+        "Operational permit, admission, and population data matter more than speeches or intentions.",
+        "A successful correction still needs a long-term model; a sharp cut alone is not an A.",
+        "Service-failure claims must be directly attributable to the pullback to move the grade down."
+      ]
     },
     "gradeTriggers": {
       "up": [
@@ -1227,7 +1574,7 @@
         "Reversal of the contraction"
       ]
     },
-    "rationale": "The government executed a sharp immigration contraction \u2014 the largest reduction in temporary resident intake in recent decades (IRCC data: -53% in new arrivals, Jan-Sep 2025 vs 2024). This addresses a real absorption failure \u2014 housing, healthcare, and labour market capacity were overwhelmed. However, the correction creates downside risks (healthcare staffing, agriculture, higher ed). The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than a current grading input. The Toronto Star frames this as cautious stabilization rather than bold reform.",
+    "rationale": "The government executed a sharp immigration contraction — the largest reduction in temporary resident intake in recent decades (IRCC data: -53% in new arrivals, Jan-Sep 2025 vs 2024). This addresses a real absorption failure — housing, healthcare, and labour market capacity were overwhelmed. However, the correction creates downside risks (healthcare staffing, agriculture, higher ed). The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than a current grading input. The Toronto Star frames this as cautious stabilization rather than bold reform.",
     "sources": [
       {
         "label": "StatsCan population Q4 2025",
@@ -1238,24 +1585,32 @@
         "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html"
       },
       {
+        "label": "IRCC open data — work permits",
+        "url": "https://open.canada.ca/data/en/dataset/360024f2-17e9-4558-bfc1-3616485d65b9"
+      },
+      {
+        "label": "IRCC open data — study permits",
+        "url": "https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee"
+      },
+      {
         "label": "Bank of Canada wage study",
         "url": "https://www.bankofcanada.ca/2025/05/staff-discussion-paper-2025-8/"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "PR target (2026-2028)",
         "value": "380,000",
         "source": "ircc",
-        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review \u2014 all citing 380,000.",
+        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review — all citing 380,000.",
         "automatable": true
       },
       {
         "label": "Temp arrivals change (Jan-Sep 2025 vs 2024)",
         "value": "-53%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal: open.canada.ca/data/en/dataset/360024f2 (work permits) and /90115b00 (study permits). Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 \u2014 the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal: open.canada.ca/data/en/dataset/360024f2 (work permits) and /90115b00 (study permits). Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 — the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
         "automatable": true
       },
       {
@@ -1278,7 +1633,7 @@
         "text": "PR below 1% of population/year",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "380,000 PR target for 2026-2028 (per IRCC levels plan, November 2025). IRCC source page could not be directly verified in baseline pass \u2014 figure widely reported but primary URL returned 403.",
+        "evidence": "380,000 PR target for 2026-2028 (per IRCC levels plan, November 2025). IRCC source page could not be directly verified in baseline pass — figure widely reported but primary URL returned 403.",
         "originalSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
         "originalSourceLabel": "IRCC 2026-2028 levels plan",
         "durability": "Commitment",
@@ -1290,7 +1645,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/news/notices/supplementary-immigration-levels-2025-2027.html",
-        "statusSourceLabel": "IRCC 2025\u20132027 Immigration Levels Plan"
+        "statusSourceLabel": "IRCC 2025–2027 Immigration Levels Plan"
       },
       {
         "text": "Temp residents below 5% by end of 2027",
@@ -1308,7 +1663,7 @@
           }
         ],
         "originalSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/news/notices/supplementary-immigration-levels-2025-2027.html",
-        "originalSourceLabel": "IRCC 2025\u20132027 Immigration Levels Plan"
+        "originalSourceLabel": "IRCC 2025–2027 Immigration Levels Plan"
       },
       {
         "text": "Student/TFW/asylum stream reform",
@@ -1324,14 +1679,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html",
-        "statusSourceLabel": "IRCC \u2014 Temporary Resident Targets"
+        "statusSourceLabel": "IRCC — Temporary Resident Targets"
       }
     ],
     "perspectives": {
-      "critics": "Toronto Star and healthcare groups: the sharp pullback creates real staffing shortfalls in hospitals, long-term care, and agriculture. Higher education faces revenue collapse. NDP: temporary workers were exploited under the old system \u2014 the fix should protect workers, not just cut numbers.",
-      "defenders": "The Bank of Canada found the surge suppressed wages by 0.7% and widened the wage gap to -22.6%. Housing and healthcare were overwhelmed. Even the Fraser Institute acknowledges the correction was necessary. StatsCan reports population declined by 102,436 in 2025 (preliminary) \u2014 the pressure valve is working."
+      "critics": "Toronto Star and healthcare groups: the sharp pullback creates real staffing shortfalls in hospitals, long-term care, and agriculture. Higher education faces revenue collapse. NDP: temporary workers were exploited under the old system — the fix should protect workers, not just cut numbers.",
+      "defenders": "The Bank of Canada found the surge suppressed wages by 0.7% and widened the wage gap to -22.6%. Housing and healthcare were overwhelmed. Even the Fraser Institute acknowledges the correction was necessary. StatsCan reports population declined by 102,436 in 2025 (preliminary) — the pressure valve is working."
     },
     "tags": {
       "confidence": "High",
@@ -1349,6 +1704,10 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "4,000 BCH units announced, but construction is not yet underway. Ontario deal is real but scale insufficient.",
+    "surfaceTags": [
+      "Shared-jurisdiction file",
+      "Long-lag file"
+    ],
     "construct": "The scale and effectiveness of federal housing policy interventions relative to identified need.",
     "gradeBasis": {
       "band": "D",
@@ -1367,6 +1726,37 @@
         }
       ]
     },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "Housing starts exceed roughly 450,000 annualized, federal programs are in live construction or disbursement, and the federal contribution covers more than 15% of the measured annual shortfall."
+        },
+        {
+          "grade": "B",
+          "criteria": "Housing starts are roughly 350,000 to 450,000 annualized, Build Canada Homes or equivalent federal programs are executing, and the federal contribution covers about 10% to 15% of the shortfall."
+        },
+        {
+          "grade": "C",
+          "criteria": "Housing starts are roughly 280,000 to 350,000 annualized, federal programs are live but not yet at scale, and the federal contribution covers about 5% to 10% of the shortfall."
+        },
+        {
+          "grade": "D",
+          "criteria": "Housing starts are below roughly 280,000 annualized, federal programs cover less than 5% of the shortfall, and spending is flat or declining rather than scaling."
+        },
+        {
+          "grade": "F",
+          "criteria": "No material federal housing program is live or starts collapse further while the federal role retreats."
+        }
+      ],
+      "scopeNote": "Grades the federal share of the housing response, not every driver of housing starts across provinces and municipalities.",
+      "guardrails": [
+        "Announced units, started units, and completed units are different things and must not be collapsed together.",
+        "The federal coverage share of the shortfall matters as much as the headline unit count.",
+        "Jurisdictional limits cap upside when provinces are absent, but they do not prevent a downgrade when the federal contribution is weak."
+      ],
+      "modifierExpiry": "Timing Fairness partly applies while Build Canada Homes has not yet reached live construction at scale. Until then, direction of travel matters, but announcements still do not count as starts."
+    },
     "gradeTriggers": {
       "up": [
         "Build Canada Homes construction actually begins and starts exceed 300K annualized"
@@ -1376,10 +1766,10 @@
         "Federal spending declines further without offset"
       ]
     },
-    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units (construction not yet underway) against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. Federal housing spending declines 56% by 2028-29 \u2014 from $9.8B to $4.3B (PBO, December 2025). This is leaning toward a proved failure, not merely too early to judge. Policy Options notes supply alone won\u2019t solve the structural affordability problem.",
+    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. Federal housing spending declines 56% by 2028-29 — from $9.8B to $4.3B (PBO, December 2025). This now reads as a measurable scale gap rather than a pure too-early file. Policy Options notes supply alone will not solve the structural affordability problem.",
     "sources": [
       {
-        "label": "PBO \u2014 BCH 26,000 units",
+        "label": "PBO — BCH 26,000 units",
         "url": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb"
       },
       {
@@ -1391,11 +1781,11 @@
         "url": "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes"
       },
       {
-        "label": "Policy Options \u2014 real estate trap",
+        "label": "Policy Options — real estate trap",
         "url": "https://policyoptions.irpp.org/2026/01/canadian-real-estate-trap/"
       }
     ],
-    "lastUpdated": "2026-04-15",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Housing starts (2025)",
@@ -1443,7 +1833,7 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
       },
       {
         "text": "Build Canada Homes",
@@ -1451,9 +1841,9 @@
         "since": "2025-09-14",
         "evidence": "4,000 units announced across 6 sites. Construction not yet underway as of April 2026.",
         "originalSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
-        "originalSourceLabel": "Canada.ca \u2014 Build Canada Homes",
+        "originalSourceLabel": "Canada.ca — Build Canada Homes",
         "statusSourceUrl": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
-        "statusSourceLabel": "PBO \u2014 BCH 26,000 units",
+        "statusSourceLabel": "PBO — BCH 26,000 units",
         "durability": "Program",
         "history": [
           {
@@ -1479,7 +1869,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/03/canada-and-ontario-sign-historic-housing-deal.html",
-        "statusSourceLabel": "Government of Canada \u2014 Canada-Ontario Housing Partnership announcement"
+        "statusSourceLabel": "Government of Canada — Canada-Ontario Housing Partnership announcement"
       },
       {
         "text": "Apprenticeship training up to $8,000",
@@ -1495,14 +1885,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/employment-social-development/programs/apprentices.html",
-        "statusSourceLabel": "ESDC \u2014 Apprenticeship supports"
+        "statusSourceLabel": "ESDC — Apprenticeship supports"
       }
     ],
     "perspectives": {
-      "critics": "NDP: where is the public housing? PBO projects Build Canada Homes delivers about 26,000 units over five years \u2014 a 2.1% increase in completions. Federal spending declines 56% by 2028-29 (PBO). The Tyee: Vancouver increased housing stock 200% while prices soared \u2014 supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
-      "defenders": "The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Expert Mike Moffatt called it meaningful. Housing is a shared-jurisdiction problem \u2014 the federal government cannot unilaterally override municipal zoning or provincial building codes."
+      "critics": "NDP: where is the public housing? PBO projects Build Canada Homes delivers about 26,000 units over five years — a 2.1% increase in completions. Federal spending declines 56% by 2028-29 (PBO). The Tyee: Vancouver increased housing stock 200% while prices soared — supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
+      "defenders": "The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Expert Mike Moffatt called it meaningful. Housing is a shared-jurisdiction problem — the federal government cannot unilaterally override municipal zoning or provincial building codes."
     },
     "tags": {
       "confidence": "Medium",
@@ -1515,17 +1905,52 @@
   {
     "id": "ethics-transparency",
     "name": "Ethics & Transparency",
-    "whatThisGrades": "Whether the PM's ethics arrangements match the unusual scope of his business background.",
+    "whatThisGrades": "Whether the sitting PM's ethics arrangements match the scale of their financial and professional background.",
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "PM ethics framework incomplete relative to novel background. No proven wrongdoing. Disclosure gap unresolved.",
-    "construct": "The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background.",
+    "status": "Ethics framework incomplete relative to non-routine disclosure demands. No proven wrongdoing. Disclosure gap unresolved.",
+    "surfaceTags": [
+      "Whole-letter grade",
+      "Medium confidence"
+    ],
+    "construct": "The adequacy of the federal ethics framework when the sitting PM has a financial and professional background that creates non-routine disclosure requirements.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Disclosure is partial, an ethics screen exists, but completeness is questioned and no independent review has been published.",
-      "plusMinusRationale": "C sits at the lower edge of the C band \u2014 the framework exists and produces baseline disclosure (distinguishing it from D), but Democracy Watch-level critique and an unpublished Ethics Commissioner review prevent progression toward B.",
+      "bandCriterion": "Baseline disclosure and an ethics screen exist, but material completeness questions remain and no independent review has been published.",
+      "plusMinusRationale": "C sits at the lower edge of the C band — the framework exists and produces baseline disclosure (distinguishing it from D), but unresolved governance critique and an unpublished Ethics Commissioner review prevent progression toward B.",
       "activeModifiers": []
+    },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "Full public disclosure, a published independent review, and no unresolved material perception gap."
+        },
+        {
+          "grade": "B",
+          "criteria": "Substantial disclosure, a published Ethics Commissioner review finding screening adequate, and only minor unresolved gaps."
+        },
+        {
+          "grade": "C",
+          "criteria": "Baseline disclosure and an ethics screen exist, but material completeness questions remain and no independent review has been published."
+        },
+        {
+          "grade": "D",
+          "criteria": "Material disclosure gaps remain, no independent review is published, and either an official concern or two independent governance critiques cite a material screening or disclosure problem."
+        },
+        {
+          "grade": "F",
+          "criteria": "Active concealment or evidence of self-dealing."
+        }
+      ],
+      "scopeNote": "Grades the framework, not the person. The question is whether disclosure and screening are adequate to the officeholder's conflict profile.",
+      "guardrails": [
+        "Absence of scandal or proven wrongdoing does not move this grade up by itself.",
+        "This is a whole-letter, medium-confidence file because the evidence stack is qualitative and event-driven.",
+        "Brookfield-related conflict questions belong here as ethics-framework evidence, not as a carbon-policy grade move.",
+        "A critique-driven downgrade to D requires either an official adverse finding or two independent governance critiques."
+      ]
     },
     "gradeTriggers": {
       "up": [
@@ -1535,17 +1960,17 @@
       "down": [
         "New evidence of undisclosed interests",
         "Ethics Commissioner finds screening inadequate",
-        "New credible governance critique at the Democracy Watch level"
+        "Two independent governance critiques cite a material disclosure or screening gap"
       ]
     },
-    "rationale": "No public evidence demonstrates self-dealing. This dimension grades the adequacy of the PM\u2019s ethics framework relative to the novel disclosure requirements of his background. The framework is assessed as a single construct encompassing disclosure completeness, conflict screening, and independent review \u2014 not as separate items. Carney held ~$6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch describes the ethics screen as \u201cloophole-filled.\u201d The disclosure standard for a PM with this background should include full public accounting reviewed independently.",
+    "rationale": "No public evidence demonstrates self-dealing. This dimension grades the adequacy of the sitting PM's ethics framework when an officeholder's financial and professional background creates non-routine disclosure requirements. The framework is assessed as a single construct encompassing disclosure completeness, conflict screening, and independent review rather than as separate items. Carney held ~$6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch describes the ethics screen as “loophole-filled,” and the House of Commons ETHI committee's 2026 Conflict of Interest Act review recommended stronger public reporting and binding directions for conflict-of-interest screens. The disclosure standard for a PM with a background like this should include full public accounting reviewed independently.",
     "sources": [
       {
-        "label": "Globe and Mail \u2014 ethics filing",
+        "label": "Globe and Mail — ethics filing",
         "url": "https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/"
       },
       {
-        "label": "CBC \u2014 financial assets",
+        "label": "CBC — financial assets",
         "url": "https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443"
       },
       {
@@ -1553,7 +1978,11 @@
         "url": "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/"
       },
       {
-        "label": "Office of the Ethics Commissioner \u2014 registry and reviews",
+        "label": "House ETHI report — Review of the Conflict of Interest Act",
+        "url": "https://www.ourcommons.ca/content/Committee/451/ETHI/Reports/RP14024943/451_ETHI_Rpt5_PDF/451_ETHI_Rpt5-e.pdf"
+      },
+      {
+        "label": "Office of the Ethics Commissioner — registry and reviews",
         "url": "https://ciec-ccie.parl.gc.ca/en/"
       },
       {
@@ -1565,7 +1994,7 @@
         "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf"
       }
     ],
-    "lastUpdated": "2026-04-18",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Ethics Commissioner review",
@@ -1596,11 +2025,11 @@
         "sourceNote": "Annex A publicly lists the entities covered by the agreed measure and ethics screen."
       },
       {
-        "label": "Independent governance review",
-        "value": "Not published",
+        "label": "Committee / governance review",
+        "value": "ETHI report published; no Commissioner review",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "No non-Commissioner independent governance review is published in the current public materials cited for this dimension."
+        "sourceNote": "The House ETHI committee's 2026 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review."
       }
     ],
     "promises": [
@@ -1628,7 +2057,7 @@
         "since": "2026-04-14",
         "evidence": "No published independent review of the structural conflict between career path and policy decisions.",
         "statusSourceUrl": "https://ciec-ccie.parl.gc.ca/en/",
-        "statusSourceLabel": "Office of the Ethics Commissioner \u2014 registry",
+        "statusSourceLabel": "Office of the Ethics Commissioner — registry",
         "durability": "Framework",
         "history": [
           {
@@ -1638,11 +2067,11 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong \u2014 Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
       }
     ],
     "perspectives": {
-      "critics": "Democracy Watch: the ethics screen is \"loophole-filled.\" Carney held ~$6.8M in unexercised Brookfield options. The structural alignment between his career (TCFD, GFANZ, Brookfield) and preserving industrial carbon pricing is the definition of a perception conflict. Why has this not been resolved proactively?",
+      "critics": "Democracy Watch says the ethics screen is “loophole-filled.” Carney held ~$6.8M in unexercised Brookfield options. The House ETHI committee's 2026 review recommended stronger public reporting and binding directions for screens, reinforcing that the framework still depends on incomplete external visibility.",
       "defenders": "No public evidence demonstrates self-dealing. The frameworks Carney helped build (carbon pricing, ESG disclosure) are mainstream G7 consensus, not one individual's agenda. The industrial carbon system would likely exist under any PM. The Ethics Commissioner has not found wrongdoing."
     },
     "tags": {
@@ -1652,22 +2081,61 @@
     },
     "nextTrigger": "Ethics Commissioner publication of Brookfield review. Any new disclosure of retained financial interests. House Ethics Committee report.",
     "inherited": "No prior PM had Carney's specific background in carbon market architecture and transition finance. Novel disclosure challenge without clear precedent.",
-    "gpaValue": 2.0
+    "gpaValue": 2
   },
   {
     "id": "execution-delivery",
     "name": "Flagship Delivery",
-    "whatThisGrades": "How well the government is executing on its five flagship files \u2014 defence, housing, major projects, climate, immigration.",
+    "whatThisGrades": "How well the government is executing on its five flagship files — defence, housing, major projects, climate, immigration.",
     "grade": "C",
     "previousGrade": null,
     "trend": "down",
-    "status": "Strong on defence. Weak on housing and climate.",
+    "status": "Delivery is clear on defence and immigration, but housing, major projects, and climate remain stalled.",
+    "surfaceTags": [
+      "Probation file",
+      "Combination rule"
+    ],
     "construct": "The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.",
     "gradeBasis": {
       "band": "C",
       "bandCriterion": "Per the Combination Rule, the headline grade is determined mechanically by the delivery-status distribution across the flagship files.",
-      "plusMinusRationale": "C sits at the lower edge of the C band \u2014 the delivery machinery produces real execution on defence and partial execution on immigration (distinguishing it from D), but stalled housing, major projects, and climate files prevent progression toward B.",
+      "plusMinusRationale": "C sits at the lower edge of the C band — the delivery machinery produces real execution on defence and immigration (distinguishing it from D), but stalled housing, major projects, and climate files prevent progression toward B.",
       "activeModifiers": []
+    },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "B+ to A-",
+          "criteria": "Four or five of the five flagship files are delivering."
+        },
+        {
+          "grade": "B- to C+",
+          "criteria": "Three of the five flagship files are delivering, with the remainder partial or stalled."
+        },
+        {
+          "grade": "C",
+          "criteria": "Two of the five flagship files are delivering and the rest are partial or stalled."
+        },
+        {
+          "grade": "C-",
+          "criteria": "One or two flagship files are delivering while three or four are stalled."
+        },
+        {
+          "grade": "D+ to D-",
+          "criteria": "Zero or one flagship file is delivering and one or more files are failing."
+        },
+        {
+          "grade": "F",
+          "criteria": "Zero flagship files are delivering and three or more are failing."
+        }
+      ],
+      "scopeNote": "Uses the Combination Rule to grade delivery capacity only. Policy merit remains in the home dimensions.",
+      "guardrails": [
+        "Flagship statuses should be inherited from the home dimensions rather than re-argued from scratch in this file.",
+        "A grade move requires at least one flagship file to change status category.",
+        "This remains a probationary dimension through the May 2026 cycle because its value depends on adding something the home dimensions do not already show."
+      ],
+      "modifierExpiry": "Probation remains active through the May 2026 cycle. If the combination rule adds little beyond the home dimensions, this file can still be removed in v2."
     },
     "gradeTriggers": {
       "up": [
@@ -1677,30 +2145,30 @@
         "Per Combination Rule, at least one flagship file worsens by one status category"
       ]
     },
-    "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow \u2014 it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions, a concern reinforced by C.D. Howe's analysis of a worsening executive-to-rank-and-file ratio.",
+    "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile files: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow — it grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic files. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions, a concern reinforced by C.D. Howe's analysis of a worsening executive-to-rank-and-file ratio.",
     "sources": [
       {
-        "label": "Policy Options \u2014 federalism failure",
+        "label": "Policy Options — federalism failure",
         "url": "https://policyoptions.irpp.org/2026/02/competitive-federalism/"
       },
       {
-        "label": "Policy Options \u2014 DM shuffle",
+        "label": "Policy Options — DM shuffle",
         "url": "https://policyoptions.irpp.org/2026/03/carney-national-security-dms/"
       },
       {
-        "label": "PBO \u2014 $94B investment gap",
+        "label": "PBO — $94B investment gap",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires"
       },
       {
-        "label": "C.D. Howe \u2014 public service ratio",
+        "label": "C.D. Howe — public service ratio",
         "url": "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/"
       },
       {
-        "label": "The Hub \u2014 $94B gap",
+        "label": "The Hub — $94B gap",
         "url": "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/"
       }
     ],
-    "lastUpdated": "2026-04-18",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Flagship files delivering",
@@ -1737,7 +2205,7 @@
         "since": "2026-04-14",
         "evidence": "National interest designation unused. Most referred projects were already in motion. Federalism coordination gaps documented by Policy Options.",
         "statusSourceUrl": "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
-        "statusSourceLabel": "Policy Options \u2014 federalism failure",
+        "statusSourceLabel": "Policy Options — federalism failure",
         "durability": "Commitment",
         "history": [
           {
@@ -1747,12 +2215,12 @@
           }
         ],
         "originalSourceUrl": "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
-        "originalSourceLabel": "Bill C-5 \u2014 One Canadian Economy Act on LEGISinfo"
+        "originalSourceLabel": "Bill C-5 — One Canadian Economy Act on LEGISinfo"
       }
     ],
     "perspectives": {
-      "critics": "Policy Options: cooperative federalism is failing \u2014 BC's Premier was blindsided by a pipeline deal, Ontario got hours of notice. NDP and PSAC: you cannot cut 40,000 public service positions while pursuing the most ambitious delivery agenda in years; C.D. Howe notes Budget 2025 also worsens the public-service executive-to-rank-and-file ratio. The state literally cannot execute what the government announces.",
-      "defenders": "Defence and trade show genuine follow-through \u2014 NATO 2%, trade diversification, One Canadian Economy Act. The government has demonstrated it can execute when focused. 11 of 26 bills passed in 13 months under minority conditions. The majority secured April 13 should accelerate the domestic agenda."
+      "critics": "Policy Options: cooperative federalism is failing — BC's Premier was blindsided by a pipeline deal, Ontario got hours of notice. NDP and PSAC: you cannot cut 40,000 public service positions while pursuing the most ambitious delivery agenda in years; C.D. Howe notes Budget 2025 also worsens the public-service executive-to-rank-and-file ratio. The state literally cannot execute what the government announces.",
+      "defenders": "Defence and trade show genuine follow-through — NATO 2%, trade diversification, One Canadian Economy Act. The government has demonstrated it can execute when focused. 11 of 26 bills passed in 13 months under minority conditions. The majority secured April 13 should accelerate the domestic agenda."
     },
     "tags": {
       "confidence": "Medium",
@@ -1761,16 +2229,20 @@
     },
     "nextTrigger": "Post-majority legislative pace (bills passed per month). First Ministers Meeting outcomes. April 28 economic update implementation.",
     "inherited": "Federal delivery capacity had been declining. Procurement timelines among slowest in OECD. Multiple program delivery failures documented in prior government.",
-    "gpaValue": 2.0
+    "gpaValue": 2
   },
   {
     "id": "promise-delivery",
     "name": "Promise Delivery",
-    "whatThisGrades": "A running tracker of specific government commitments \u2014 delivered, in progress, stalled, or abandoned.",
+    "whatThisGrades": "A running tracker of specific government commitments — delivered, in progress, stalled, or abandoned.",
     "grade": "C+",
     "previousGrade": null,
     "trend": "stable",
     "status": "Standalone accountability tracker, kept separate from the 11 performance grades. Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short.",
+    "surfaceTags": [
+      "Derivative file",
+      "Tracker only"
+    ],
     "construct": "The cumulative rate of fulfillment of specific stated government commitments.",
     "gradeBasis": {
       "band": "C",
@@ -1784,6 +2256,36 @@
         }
       ]
     },
+    "scoring": {
+      "thresholds": [
+        {
+          "grade": "A",
+          "criteria": "More than 75% of tracked commitments are delivered, abandonments stay below 5%, and delivery is broad across files."
+        },
+        {
+          "grade": "B",
+          "criteria": "Roughly 50% to 75% of tracked commitments are delivered, abandonments stay below 15%, and most flagship files show visible movement."
+        },
+        {
+          "grade": "C",
+          "criteria": "Roughly 25% to 50% of commitments are delivered, with a mixed pattern across files."
+        },
+        {
+          "grade": "D",
+          "criteria": "Fewer than 25% of commitments are delivered, abandonment is high, and delivery is concentrated in only one or two files."
+        },
+        {
+          "grade": "F",
+          "criteria": "Fewer than 10% of commitments are delivered and most are abandoned."
+        }
+      ],
+      "scopeNote": "This is a derivative accountability tracker. It summarizes promise fulfillment but should not be treated as an independent policy-performance signal equal to the home dimensions.",
+      "guardrails": [
+        "Promise movements already captured in home dimensions should not be double-counted as separate substantive evidence here.",
+        "The Too Early bucket remains necessary while multi-year commitments are still inside their implementation window.",
+        "This file is under shadow review for removal from the GPA in v2 if it adds little beyond the tracker tab."
+      ]
+    },
     "gradeTriggers": {
       "up": [
         "Delivery count rises to 18 or more of 43 without new abandonments"
@@ -1793,22 +2295,22 @@
         "Housing and climate see no movement for another cycle"
       ]
     },
-    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform \u2014 and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative dimension. Grade movements that are already captured in their home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this grade. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
+    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative dimension. Grade movements that are already captured in their home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this grade. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
     "sources": [
       {
-        "label": "Fraser Institute \u2014 policy corrections",
+        "label": "Fraser Institute — policy corrections",
         "url": "https://www.fraserinstitute.org/article/carney-government-takes-some-steps-in-right-direction"
       },
       {
-        "label": "Angus Reid \u2014 Carney government report card",
+        "label": "Angus Reid — Carney government report card",
         "url": "https://angusreid.org/carney-government-report-card/"
       },
       {
-        "label": "The Narwhal \u2014 climate rollback analysis",
+        "label": "The Narwhal — climate rollback analysis",
         "url": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/"
       }
     ],
-    "lastUpdated": "2026-04-18",
+    "lastUpdated": "2026-04-30",
     "metrics": [
       {
         "label": "Key commitments delivered",
@@ -1846,7 +2348,7 @@
         "since": "2025-04-01",
         "evidence": "Day 1 commitment. Fuel charge set to zero April 1, 2025.",
         "originalSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
-        "originalSourceLabel": "Canada.ca \u2014 fuel charge removal",
+        "originalSourceLabel": "Canada.ca — fuel charge removal",
         "durability": "Budget measure",
         "history": [
           {
@@ -1856,7 +2358,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/prime-minister-carney-delivers-on-pledge-to-eliminate-consumer-fuel-charge.html",
-        "statusSourceLabel": "Department of Finance \u2014 consumer fuel charge eliminated announcement"
+        "statusSourceLabel": "Department of Finance — consumer fuel charge eliminated announcement"
       },
       {
         "text": "Capital gains reversal",
@@ -1874,7 +2376,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/government-will-not-proceed-with-increase-to-capital-gains-inclusion-rate.html",
-        "statusSourceLabel": "Department of Finance \u2014 capital gains inclusion rate announcement"
+        "statusSourceLabel": "Department of Finance — capital gains inclusion rate announcement"
       },
       {
         "text": "Immigration reduction",
@@ -1910,7 +2412,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
-        "statusSourceLabel": "Government of Canada \u2014 Internal Trade Action Plan status"
+        "statusSourceLabel": "Government of Canada — Internal Trade Action Plan status"
       },
       {
         "text": "Emissions cap",
@@ -1944,9 +2446,9 @@
           }
         ],
         "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/managing-pollution/energy-production/transportation/clean-vehicles.html",
-        "originalSourceLabel": "ECCC \u2014 Electric Vehicle Availability Standard",
+        "originalSourceLabel": "ECCC — Electric Vehicle Availability Standard",
         "statusSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/managing-pollution/energy-production/transportation/clean-vehicles.html",
-        "statusSourceLabel": "ECCC \u2014 Electric Vehicle Availability Standard"
+        "statusSourceLabel": "ECCC — Electric Vehicle Availability Standard"
       },
       {
         "text": "2 Billion Trees (halved)",
@@ -1962,9 +2464,9 @@
           }
         ],
         "originalSourceUrl": "https://www.canada.ca/en/campaign/2-billion-trees.html",
-        "originalSourceLabel": "NRCan \u2014 2 Billion Trees program page",
+        "originalSourceLabel": "NRCan — 2 Billion Trees program page",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.5 \u2014 2 Billion Trees wind-down"
+        "statusSourceLabel": "Budget 2025 Ch.5 — 2 Billion Trees wind-down"
       }
     ],
     "perspectives": {

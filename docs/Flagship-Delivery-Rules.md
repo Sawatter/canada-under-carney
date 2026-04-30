@@ -49,14 +49,14 @@ The Flagship Delivery grade is determined by the distribution of file statuses:
 
 | File | Status | Evidence |
 |---|---|---|
-| Defence | Delivering | NATO 2% met, shipbuilding contract signed |
+| Defence | Delivering | NATO 2% met, procurement milestones advancing |
 | Housing | Stalled | 4,000 units announced, not underway, spending declining |
 | Major Projects | Stalled | MPO created, national interest designation unused |
-| Climate | Stalled → Failing | 6 of 8 programs behind (simulated drill), no replacement strategy |
-| Immigration | Partially delivering | Levels cut executed, temp arrivals down, but processing backlogs growing |
+| Climate | Stalled | Major reversals, no funded replacement strategy |
+| Immigration | Delivering | Levels cut executed, temporary-resident contraction operational |
 
-**Distribution:** 1 delivering, 1 partial, 2 stalled, 1 stalled-to-failing
-**Grade:** C- (per combination table: "1-2 delivering, 3-4 stalled")
+**Distribution:** 2 delivering, 3 stalled
+**Grade:** C (per combination table: "2 delivering, 3 partial/stalled")
 
 ---
 
