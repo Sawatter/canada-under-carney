@@ -50,7 +50,7 @@ measures and thresholds":
    updated — project list and stage tracking now marked as grade-moving
    fields, new tranche / groundbreaking sources threaded in),
    src/components/DimensionCard.jsx (new ProjectCohortSection helper).
-   As of 2026-04-30, 4 of 16 (~25%) have advanced; file holds C with
+   As of 2026-04-30, 4 projects sit above designated status, but only 2 of 16 (~13%) show documented post-designation advancement; file holds C with
    credit-claiming penalty still applied.
 
 3. Confidence / Attribution / Lag glossary in the scoring drawer.

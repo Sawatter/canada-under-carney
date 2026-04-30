@@ -371,7 +371,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                             <strong>Attribution</strong> — what share of the outcome the federal government actually controls. <em>Direct</em> = ≥60% federal levers. <em>Mixed</em> = 30–60%. <em>Mostly inherited</em> = &lt;30%.
                           </div>
                           <div>
-                            <strong>Lag</strong> — how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1–2 year cycles. <em>Long</em> = 5+ year structural.
+                            <strong>Lag</strong> — how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1–2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = the file moves on discrete disclosures or rulings rather than a fixed cadence.
                           </div>
                         </div>
                       )}
@@ -1008,11 +1008,16 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
 
   const total = cohort.projects.length;
   const designatedIndex = stageOrder.designated ?? 0;
-  const advanced = cohort.projects.filter(
+  const aboveDesignated = cohort.projects.filter(
     (p) => (stageOrder[p.stage] ?? 0) > designatedIndex
   );
-  const advancedCount = advanced.length;
-  const advancedPct = total > 0 ? Math.round((advancedCount / total) * 100) : 0;
+  const documentedAdvanced = aboveDesignated.filter(
+    (p) => p.referredDate && p.stageDate && p.stageDate > p.referredDate
+  );
+  const aboveDesignatedCount = aboveDesignated.length;
+  const documentedAdvancedCount = documentedAdvanced.length;
+  const documentedAdvancedPct =
+    total > 0 ? Math.round((documentedAdvancedCount / total) * 100) : 0;
 
   // Stage-by-stage counts for the headline summary line.
   const stageCounts = stageGates
@@ -1091,8 +1096,9 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
       >
         <div style={{ marginBottom: "8px" }}>
           <strong>{total} projects in MPO cohort.</strong>{" "}
-          {advancedCount} of {total} ({advancedPct}%) have advanced ≥1 stage
-          from designated.
+          {aboveDesignatedCount} currently sit above designated status;{" "}
+          {documentedAdvancedCount} of {total} ({documentedAdvancedPct}%) have
+          documented post-designation advancement.
         </div>
         <div
           style={{

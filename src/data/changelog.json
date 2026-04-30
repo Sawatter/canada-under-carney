@@ -11,12 +11,12 @@
       {
         "type": "method",
         "headline": "Major Projects regraded on cohort progress, not first-event triggers",
-        "body": "The Major Projects rubric now defines the project universe (16 projects across 3 MPO tranches as of April 2026) and grades on the % of cohort that has advanced ≥1 stage from designated. The dimension card carries the full project list with each project's current stage and source link. As of 2026-04-30, 4 of 16 projects (~25%) have advanced — including Contrecœur Terminal, which broke ground April 9 — which keeps the file at C."
+        "body": "The Major Projects rubric now defines the project universe (16 projects across 3 MPO tranches as of April 2026) and grades on documented post-designation movement, not just promoted stage labels. The dimension card carries the full project list with each project's current stage and source link. As of 2026-04-30, 4 projects sit above designated status, but only 2 of 16 (~13%) show later-dated post-designation advancement in the recorded cohort data — which keeps the file at C."
       },
       {
         "type": "product",
         "headline": "Confidence / Attribution / Lag glossary inside the scoring drawer",
-        "body": "The three small pills at the top of every dimension's scoring drawer now sit above a one-click \"What do these mean?\" definition box: a one-sentence explanation each for confidence, attribution, and lag, with the level cutoffs spelled out (High / Medium / Low; Direct / Mixed / Mostly inherited; Short / Medium / Long)."
+        "body": "The three small pills at the top of every dimension's scoring drawer now sit above a one-click \"What do these mean?\" definition box: a one-sentence explanation each for confidence, attribution, and lag, with the level cutoffs spelled out (High / Medium / Low; Direct / Mixed / Mostly inherited; Short / Medium / Long / Event-driven)."
       }
     ]
   },

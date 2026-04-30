@@ -475,16 +475,16 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:315)
 **Core grade-moving claims**
 
 1. The MPO and Building Canada Act are real institutional reforms, so the file is above D/F territory.
-   Source basis: current rationale + current band criterion in [src/data/dimensions.json](../src/data/dimensions.json:194), [src/data/dimensions.json](../src/data/dimensions.json:219), and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:334)
+   Source basis: current rationale + current band criterion in the Major Projects entry of [src/data/dimensions.json](../src/data/dimensions.json) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:353)
 
 2. Most of the headline project pipeline is pre-existing, so the raw case for a stronger grade is weakened by overclaiming.
-   Source basis: biggest confounder + current `plusMinusRationale` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:346), [src/data/dimensions.json](../src/data/dimensions.json:195), and [src/data/dimensions.json](../src/data/dimensions.json:219)
+   Source basis: biggest confounder + current `plusMinusRationale` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:369) and the Major Projects entry of [src/data/dimensions.json](../src/data/dimensions.json)
 
 3. The signature power, national interest designation, remains unused, so the framework is still materially untested.
-   Source basis: C threshold + live metric in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:334), [src/data/dimensions.json](../src/data/dimensions.json:255), and [src/data/dimensions.json](../src/data/dimensions.json:219)
+   Source basis: C threshold + live metric in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:355) and the Major Projects entry of [src/data/dimensions.json](../src/data/dimensions.json)
 
 4. The current C includes an applied credit-claiming penalty: without documented overstatement of pre-existing projects, the machinery would sit at raw C+.
-   Source basis: modifier rule + live `plusMinusRationale` and active modifier in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:339), [src/data/dimensions.json](../src/data/dimensions.json:195), and [src/data/dimensions.json](../src/data/dimensions.json:198)
+   Source basis: modifier rule + live `plusMinusRationale` and active modifier in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:361) and the Major Projects entry of [src/data/dimensions.json](../src/data/dimensions.json)
 
 **Required source roles**
 
@@ -520,7 +520,7 @@ Current `dimensions.json` Major Projects source stack:
 PM first tranche announcement (Sept 2025), PM second tranche announcement (Nov 2025), PM third tranche / Northern strategy (Mar 2026), PM Contrecœur groundbreaking (Apr 2026), Building Canada Act, Fraser Institute MPO assessment, Angus Reid major projects reaction.  
 Source: [src/data/dimensions.json](../src/data/dimensions.json)
 
-The Major Projects entry now also carries a live `projectCohort` field with the full 16-project universe, per-project current stage against the published `stageGates` ladder (designated → reviewed → approved → permitted → under_construction → completed), per-project source URLs, and an `asOf` date. As of 2026-04-30 the live record shows 16 projects across 3 tranches with 4 of 16 (~25%) advanced ≥1 stage from designated. The cohort is now a grade-moving field, not just narrative — the `scoring.thresholds` ladder grades on % cohort advanced, not on first-event triggers.
+The Major Projects entry now also carries a live `projectCohort` field with the full 16-project universe, per-project current stage against the published `stageGates` ladder (designated → reviewed → approved → permitted → under_construction → completed), per-project source URLs, and an `asOf` date. As of 2026-04-30 the live record shows 16 projects across 3 tranches, with 4 projects currently above designated status but only 2 of 16 (~13%) showing documented post-designation advancement in the recorded cohort data. The cohort is now a grade-moving field, not just narrative — the `scoring.thresholds` ladder grades on documented movement, not on first-event triggers or same-day promoted-stage labels.
 
 - **Present and well-aligned**
   - `Building Canada Act` fills policy truth on the existence and formal powers of the machinery.
@@ -546,7 +546,7 @@ The Major Projects entry now also carries a live `projectCohort` field with the 
   Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:346)
 
 - Timing fairness only partially applies: infrastructure is slow-moving, but the machinery itself is already gradeable before outcome acceleration is visible.
-  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:340) and [src/data/dimensions.json](../src/data/dimensions.json:203)
+  Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:363) and the Major Projects entry of [src/data/dimensions.json](../src/data/dimensions.json)
 
 - Critical minerals pipeline is primary-homed in Economic Policy Response. Major Projects may reference it only if the question is whether the MPO is helping deliver it, not whether the minerals strategy is itself strong.
   Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:350) and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:27)

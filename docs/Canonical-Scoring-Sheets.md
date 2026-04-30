@@ -350,20 +350,20 @@ The MPO cohort uses an explicit six-stage ladder. Stages are stored per project 
 
 | Grade | Threshold |
 |---|---|
-| A | ≥50% of the MPO cohort has advanced ≥2 stages from designated, OR at least one project completes a full MPO cycle with documented timeline acceleration versus the pre-MPO baseline. |
-| B | ≥30% of the MPO cohort has advanced ≥1 stage from designated, with at least one project in approved / permitted / under-construction status. |
-| C | Pipeline exists with a defined cohort, but <30% of projects have advanced from designated status, and no project has completed a full MPO cycle. National-interest designation unused. |
-| D | Pipeline exists but no documented stage advancement, OR projects are being withdrawn from the MPO process, OR the framework is being bypassed. |
+| A | ≥50% of the MPO cohort shows documented advancement of ≥2 stages from designated, OR at least one project completes a full MPO cycle with documented timeline acceleration versus the pre-MPO baseline. |
+| B | ≥30% of the MPO cohort shows documented post-designation advancement, with at least one project in approved / permitted / under-construction status. |
+| C | Pipeline exists with a defined cohort, but <30% of projects show documented post-designation advancement, and no project has completed a full MPO cycle. National-interest designation unused. |
+| D | Pipeline exists but no documented post-designation stage advancement is visible, OR projects are being withdrawn from the MPO process, OR the framework is being bypassed. |
 | F | No functioning institutional reform is in place and the federal approval environment worsens versus the inherited baseline. |
 
-The cohort total is the universe of projects on the latest live `projectCohort.projects` array. Tranches are not weighted; every cohort project counts equally for the % calculations above.
+The cohort total is the universe of projects on the latest live `projectCohort.projects` array. Tranches are not weighted; every cohort project counts equally for the % calculations above. For the advancement thresholds, only later-dated movement after `referredDate` counts as documented post-designation advancement; same-day promoted-stage labels in tranche-announcement sources do not count until a later recorded transition is visible.
 
 **Modifier rules:**
 - Credit-claiming penalty (-0.3): Applied. Current C includes penalty (raw = C+). Most cohort projects are pre-existing private-sector initiatives being expedited rather than new federal projects.
 - Timing fairness: Partially applies. Infrastructure is multi-year. MPO is <1 year old. Cohort progress (rather than completed cycles) is the primary acceleration signal until at least one project completes a full MPO cycle.
 
 **One-notch move triggers:**
-- Up: ≥30% of cohort advances ≥1 stage from designated (currently 4 of 16 ≈ 25%), OR first project completes a full MPO cycle, OR first use of national interest designation.
+- Up: ≥30% of cohort shows documented post-designation advancement (currently 2 of 16 ≈ 13%), OR first project completes a full MPO cycle, OR first use of national interest designation.
 - Down: Any project withdrawn from MPO, OR cohort progress reverses (project moved back to designated from a higher stage), OR evidence the framework is being bypassed.
 
 **Biggest confounder:** Pre-existing momentum. The $126B headline is mostly investment decisions made before the MPO existed. A cohort project advancing is not automatically MPO-attributable; weight the credit-claiming penalty when the same project would have advanced without federal intervention.
