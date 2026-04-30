@@ -27,23 +27,57 @@ function dimGPA(d) {
   return d.gpaValue != null ? d.gpaValue : GRADES[d.grade].gpa;
 }
 
+// Build a per-dimension breakdown of how a weighted score is computed.
+// `weightFn(dim)` returns the integer weight for each dimension (1 or 2).
+// Returned object exposes the per-dim contributions, the weighted sum,
+// the total weight, and the resulting score + letter grade — enough for
+// a UI to render the full math behind a headline score.
+function buildDerivation(dimensions, weightFn) {
+  const graded = gradedOnly(dimensions);
+  const items = graded.map((d) => {
+    const gpa = dimGPA(d);
+    const weight = weightFn(d);
+    return {
+      name: d.name,
+      grade: d.grade,
+      gpa,
+      weight,
+      contribution: gpa * weight,
+    };
+  });
+  const weightedSum = items.reduce((a, b) => a + b.contribution, 0);
+  const totalWeight = items.reduce((a, b) => a + b.weight, 0);
+  const finalScore = weightedSum / totalWeight;
+  return {
+    dimensions: items,
+    weightedSum,
+    totalWeight,
+    finalScore,
+    finalGrade: gpaToGrade(finalScore),
+  };
+}
+
+// Per-dim breakdown for the unweighted Full Policy Audit score.
+export function getOverallDerivation(dimensions) {
+  return buildDerivation(dimensions, () => 1);
+}
+
+// Per-dim breakdown for the household-weighted Household Impact score.
+// Pocketbook dims double-count via POCKETBOOK_DIMS (constants.js).
+export function getPocketbookDerivation(dimensions) {
+  return buildDerivation(dimensions, (d) =>
+    POCKETBOOK_DIMS.includes(d.name) ? 2 : 1
+  );
+}
+
 // Calculate unweighted GPA across graded dimensions only
 export function calculateOverallGPA(dimensions) {
-  const graded = gradedOnly(dimensions);
-  const gpas = graded.map((d) => dimGPA(d));
-  return gpas.reduce((a, b) => a + b, 0) / gpas.length;
+  return getOverallDerivation(dimensions).finalScore;
 }
 
 // Calculate pocketbook-weighted GPA (double-weights household-impact dimensions)
 export function calculatePocketbookGPA(dimensions) {
-  const graded = gradedOnly(dimensions);
-  const weighted = graded.map((d) => ({
-    gpa: dimGPA(d),
-    weight: POCKETBOOK_DIMS.includes(d.name) ? 2 : 1,
-  }));
-  const totalWeightedGPA = weighted.reduce((a, b) => a + b.gpa * b.weight, 0);
-  const totalWeight = weighted.reduce((a, b) => a + b.weight, 0);
-  return totalWeightedGPA / totalWeight;
+  return getPocketbookDerivation(dimensions).finalScore;
 }
 
 // Count promises by status across all dimensions (including ungraded tracker)

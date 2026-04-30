@@ -45,6 +45,35 @@ const cardScoreCaption = {
   fontWeight: 600,
 };
 
+const derivationToggleBase = {
+  marginTop: "10px",
+  fontSize: "13px",
+  color: "#1a73e8",
+  fontWeight: 700,
+  background: "none",
+  border: "none",
+  padding: "4px 6px",
+  cursor: "pointer",
+  fontFamily: "inherit",
+  borderRadius: "4px",
+  alignSelf: "center",
+};
+
+function DerivationToggle({ variant, derivationOpen, onToggle }) {
+  const isOpen = derivationOpen === variant;
+  return (
+    <button
+      type="button"
+      onClick={() => onToggle(variant)}
+      aria-expanded={isOpen}
+      aria-controls={`score-derivation-${variant}`}
+      style={derivationToggleBase}
+    >
+      {isOpen ? "▾ Hide score math" : "▸ How is this score built?"}
+    </button>
+  );
+}
+
 export default function ScoreboardHeader({
   overallGrade,
   overallGPA,
@@ -54,6 +83,8 @@ export default function ScoreboardHeader({
   totalPromises,
   approvalExpanded,
   onToggleApproval,
+  derivationOpen,
+  onToggleDerivation,
 }) {
   const delivered = promiseCounts["Delivered"] || 0;
   const pct = totalPromises > 0 ? delivered / totalPromises : 0;
@@ -82,6 +113,13 @@ export default function ScoreboardHeader({
             <GradeChip grade={pocketbookGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {pocketbookGPA}</div>
           </div>
+          {onToggleDerivation && (
+            <DerivationToggle
+              variant="household"
+              derivationOpen={derivationOpen}
+              onToggle={onToggleDerivation}
+            />
+          )}
         </div>
 
         {/* Full Policy Audit */}
@@ -94,6 +132,13 @@ export default function ScoreboardHeader({
             <GradeChip grade={overallGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {overallGPA}</div>
           </div>
+          {onToggleDerivation && (
+            <DerivationToggle
+              variant="overall"
+              derivationOpen={derivationOpen}
+              onToggle={onToggleDerivation}
+            />
+          )}
         </div>
 
         {/* Promises Delivered */}

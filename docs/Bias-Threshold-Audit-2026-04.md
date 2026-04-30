@@ -90,3 +90,35 @@ After an external review of this memo and the shipped UI pass:
 2. Seek a published PM-specific Ethics Commissioner review or equivalent formal release.
 3. Run the 3-dimension inter-rater pilot described in `docs/Inter-Rater-Reliability-Protocol.md`, then expand to the wider dashboard.
 4. Keep tightening any remaining public-facing phrasing that still reads more like editorial verdict than method statement.
+
+## What shipped in the post-third-review build pass (May 1)
+
+After the third reviewer-feedback round, three concrete builds shipped before the May 14 monthly cycle. All three responded to remaining inspectability gaps the scoring drawer alone did not close.
+
+### 1. Headline scores now expose their derivation
+
+Both the Household Impact and Full Policy Audit cards now carry a "How is this score built?" toggle that opens a derivation panel below the scoreboard row. The panel shows: the per-dimension grade, the points (4.0 scale), the weight (×1 or ×2 for pocketbook dims), and the contribution; subtotals for the weighted and unweighted groups; the weighted sum, total weights, and the arithmetic that yields the displayed score and letter grade.
+
+`src/utils.js` was extended with `getOverallDerivation()` and `getPocketbookDerivation()` helpers that produce the per-dim breakdown structure; the existing `calculateOverallGPA` / `calculatePocketbookGPA` were refactored to call into the same builder so the math stays consistent. A new `src/components/ScoreDerivation.jsx` component renders the panel, mirroring the disclosure pattern used by `ApprovalDetail`.
+
+Why this matters: the prior cards showed a letter and a numeric score with no way for a reader to verify the score against the per-dimension grades. The reproducibility critique — same shape as the per-dimension threshold critique resolved earlier in the audit — is now closed at the aggregate level too.
+
+### 2. Major Projects regraded on cohort progress
+
+The Major Projects threshold ladder no longer grades on first-event triggers ("at least one project completes a full MPO cycle"). It now defines the project universe — currently 16 MPO-cohort projects across three tranches (Sept 2025, Nov 2025, Mar 2026) — and grades on % of the cohort that has advanced from `designated` against the new published `stageGates` ladder (designated → reviewed → approved → permitted → under_construction → completed).
+
+A new `projectCohort` field in `dimensions.json` carries the full project list with per-project current stage, stage date, and source URL. The dimension card surfaces a "Project pipeline" section with the headline cohort summary and a collapsible table showing every project sorted by stage. The Source Authority Map's Major Projects entry was updated to mark the project list and stage tracking as live grade-moving fields, with the Sept first tranche, Mar third tranche, and Apr Contrecœur groundbreaking URLs threaded into the live `sources` array.
+
+As of 2026-04-30, 4 of 16 projects (~25%) have advanced ≥1 stage from designated — Contrecœur Terminal under construction since Apr 9 2026; Darlington New Nuclear approved with $3B in committed equity; Mackenzie Valley Highway permitted with construction set for summer 2026; North Coast Transmission Line approved with $139.5M early-works financing. That sits below the 30% threshold required for B; the C grade therefore holds, with the credit-claiming penalty modifier still applied.
+
+Why this matters: the prior threshold ladder hung the entire grade on a single binary trigger and gave the reader no way to ask "how many projects, and what's the score based on?" The new ladder produces a deterministic % readout from a published cohort.
+
+### 3. Confidence / Attribution / Lag glossary in the scoring drawer
+
+The three pills at the top of every dimension's scoring drawer now sit above a "What do these mean?" expandable that reveals one-sentence definitions plus the level cutoffs: Confidence (High = direct measurement against numeric thresholds; Medium = qualitative judgment with mixed evidence; Low = sparse evidence), Attribution (Direct ≥60% federal levers; Mixed 30–60%; Mostly inherited <30%), Lag (Short = monthly/quarterly; Medium = 1–2 year cycles; Long = 5+ year structural).
+
+Why this matters: the pills were governance-internal labels that exposed real metadata to a general reader without any anchor to what the labels meant. The expandable closes the jargon-without-explanation gap without expanding card density by default.
+
+### Common thread
+
+All three builds attack the same underlying critique — that the dashboard's scoring logic was richer internally than what a reader could verify from the live UI. The earlier passes addressed it at the per-dimension threshold level (visible scoring drawer, tighter ladder language); this pass closes it at the headline-score level (derivation panel), at one specific dimension that needed a structural rewrite (Major Projects cohort), and at the metadata-pill level (confidence / attribution / lag glossary).

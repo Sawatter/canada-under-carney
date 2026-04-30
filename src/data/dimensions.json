@@ -245,7 +245,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "MPO created with real powers. Credit-claiming exceeds contribution. National interest designation unused.",
+    "status": "16-project MPO cohort across 3 tranches. 1 under construction, 3 advanced ≥1 stage; 12 still in initial review. National interest designation unused.",
     "surfaceTags": [
       "Credit-claiming penalty",
       "Long-lag file"
@@ -253,18 +253,18 @@
     "construct": "The effectiveness of federal institutional machinery for infrastructure project delivery.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "MPO created but most projects are pre-existing, the signature power is unused, and the framework remains untested.",
+      "bandCriterion": "Pipeline exists with 16 projects in the MPO cohort, but fewer than 30% have advanced from initial designation, and the signature national-interest power remains unused.",
       "plusMinusRationale": "Current C includes a credit-claiming penalty. Without that documented penalty for overstating ownership of pre-existing projects, the raw assessment would sit at C+.",
       "activeModifiers": [
         {
           "name": "Credit-claiming penalty",
           "status": "applied",
-          "reason": "Most projects in the pipeline were pre-existing, and documented overclaiming pulls the raw assessment down from C+ to C."
+          "reason": "Most projects in the cohort are pre-existing private-sector initiatives (LNG Canada Phase 2, Crawford Nickel, etc.) being expedited rather than new federal projects, and documented overclaiming pulls the raw assessment down from C+ to C."
         },
         {
           "name": "Timing Fairness",
           "status": "partially applicable",
-          "reason": "Infrastructure is multi-year and the MPO is still young, but the machinery itself is already gradeable."
+          "reason": "Infrastructure is multi-year and the MPO is still young, but the machinery itself is already gradeable on cohort progress."
         }
       ]
     },
@@ -272,48 +272,63 @@
       "thresholds": [
         {
           "grade": "A",
-          "criteria": "At least one project completes a full MPO cycle or a national-interest designation is used with documented timeline acceleration, and approval times beat the pre-MPO baseline."
+          "criteria": "≥50% of the MPO cohort has advanced ≥2 stages from designated, OR at least one project completes a full MPO cycle with documented timeline acceleration versus the pre-MPO baseline."
         },
         {
           "grade": "B",
-          "criteria": "The MPO is operational, at least one project shows documented acceleration versus the pre-MPO baseline, and the pipeline includes post-MPO entrants rather than only inherited files."
+          "criteria": "≥30% of the MPO cohort has advanced ≥1 stage from designated, with at least one project in approved / permitted / under construction status."
         },
         {
           "grade": "C",
-          "criteria": "The MPO exists and is functioning, but most pipeline value remains pre-existing, the signature power is unused, and the framework is not yet fully tested."
+          "criteria": "Pipeline exists with a defined cohort, but <30% of projects have advanced from designated status, and no project has completed a full MPO cycle. National-interest designation unused."
         },
         {
           "grade": "D",
-          "criteria": "The MPO is non-functional or bypassed, no acceleration is documented, or projects are being withdrawn from the process."
+          "criteria": "Pipeline exists but no documented stage advancement, OR projects are being withdrawn from the MPO process, OR the framework is being bypassed."
         },
         {
           "grade": "F",
           "criteria": "No functioning institutional reform is in place and the federal approval environment worsens versus the inherited baseline."
         }
       ],
-      "scopeNote": "Grades federal approval machinery and project acceleration, not whether a specific project is normatively good or bad.",
+      "scopeNote": "Grades federal approval machinery and cohort progress, not whether any specific project is normatively good or bad. Stage advancement is measured against the published stageGates ladder (designated → reviewed → approved → permitted → under_construction → completed).",
       "guardrails": [
         "Pre-existing pipeline value does not count as new federal delivery on its own.",
         "A referred project is not the same as a completed MPO cycle or a verified timeline gain.",
-        "Use of the national-interest designation or a documented approval-time improvement is the clearest sign that the machinery is changing outcomes."
+        "Use of the national-interest designation or a documented approval-time improvement is the clearest sign that the machinery is changing outcomes.",
+        "Once enough projects reach the permitted / under-construction stages, track median approval time against the MPO's two-year target as the primary acceleration metric."
       ],
-      "modifierExpiry": "Timing Fairness partly applies while the MPO is still inside its first full project cycle. Until then, institution-building counts more than completions, but announcements still do not count as delivery."
+      "modifierExpiry": "Timing Fairness partly applies while the MPO is still inside its first full project cycle. Until then, institution-building and cohort progress count more than completions, but announcements still do not count as delivery."
     },
     "gradeTriggers": {
       "up": [
-        "First use of national interest designation",
-        "First project completes a full MPO cycle"
+        "≥30% of the cohort advances ≥1 stage from designated (currently 4 of 16 ≈ 25%)",
+        "First project completes a full MPO cycle",
+        "First use of national interest designation"
       ],
       "down": [
-        "Project withdrawn from MPO",
-        "Evidence that the framework is being bypassed"
+        "Any project withdrawn from MPO",
+        "Cohort progress reverses (project moved back to designated from a higher stage)",
+        "Evidence the framework is being bypassed"
       ]
     },
-    "rationale": "The Major Projects Office is a real institutional innovation with potentially transformative powers (Building Canada Act, C-5). However, the $116B headline figure primarily represents pre-existing investment decisions. The national interest designation has never been used. The Fraser Institute and Angus Reid both found the government overstated its role. AI investment and northern strategy are too early to judge. Note: the credit-claiming penalty modifier (-0.3 GPA) is reflected in the current C grade. Without the penalty, the raw assessment would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
+    "rationale": "The Major Projects Office is a real institutional innovation with potentially transformative powers (Building Canada Act, C-5). The cohort has expanded across three tranches to 16 projects, and 4 of 16 (~25%) have advanced ≥1 stage from designated as of April 2026 — Contrecœur Terminal broke ground April 9, 2026; Darlington New Nuclear has $3B in committed equity (CGF + BOF); North Coast Transmission Line has $139.5M in early-works financing; Mackenzie Valley Highway construction is set for summer 2026 with $100M+ initial federal investment. The remaining 12 projects sit in initial designated status. The national interest designation has never been used. The $116B headline figure primarily represents pre-existing private-sector investment decisions. The Fraser Institute and Angus Reid both found the government overstated its role. Cohort progress sits below the 30% threshold for B; the C grade therefore holds. Note: the credit-claiming penalty modifier (-0.3 GPA) is reflected in the current C grade. Without the penalty, the raw assessment would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
     "sources": [
       {
-        "label": "PM second tranche announcement",
+        "label": "PM first tranche announcement (Sept 2025)",
+        "url": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new"
+      },
+      {
+        "label": "PM second tranche announcement (Nov 2025)",
         "url": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects"
+      },
+      {
+        "label": "PM third tranche / Northern strategy (Mar 2026)",
+        "url": "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and"
+      },
+      {
+        "label": "PM Contrecœur groundbreaking (Apr 2026)",
+        "url": "https://www.pm.gc.ca/en/news/news-releases/2026/04/09/prime-minister-carney-breaks-ground-contrecoeur-terminal-expansion"
       },
       {
         "label": "Building Canada Act",
@@ -331,24 +346,45 @@
     "lastUpdated": "2026-04-30",
     "metrics": [
       {
-        "label": "MPO project tranches announced",
-        "value": "2",
+        "label": "Projects in MPO cohort",
+        "value": "16 across 3 tranches",
         "source": "manual",
-        "sourceNote": "Two tranches of nation-building projects referred to the Major Projects Office. Source: PMO announcements (see dimension sources). Specific project lists are in the PMO releases.",
+        "sourceNote": "Three tranches of nation-building projects referred to the Major Projects Office: tranche 1 (Sept 11, 2025, 5 projects), tranche 2 (Nov 13, 2025, 7 projects), tranche 3 (March 12, 2026, 4 northern projects). Full list with stage tracking lives in projectCohort.projects. Source: PMO announcements (see dimension sources).",
+        "automatable": false
+      },
+      {
+        "label": "Cohort projects advanced ≥1 stage from designated",
+        "value": "4 of 16 (~25%)",
+        "source": "manual",
+        "sourceNote": "As of 2026-04-30: Contrecœur Terminal (under_construction, broke ground April 9, 2026), Darlington New Nuclear (approved with $3B CGF+BOF equity commitment), North Coast Transmission Line (approved with $139.5M early-works loan), Mackenzie Valley Highway (permitted, construction summer 2026, $100M+ federal investment). The remaining 12 projects are in initial designated status. Falls below the 30% threshold required for a B grade.",
+        "automatable": false
+      },
+      {
+        "label": "Projects under construction",
+        "value": "1 (Contrecœur Terminal)",
+        "source": "pmo",
+        "sourceNote": "Contrecœur Container Terminal Project broke ground April 9, 2026 — first MPO-cohort project to enter under_construction stage. Phase 1 in-water works began October 2025. Source: PMO groundbreaking announcement (see projectCohort entry).",
         "automatable": false
       },
       {
         "label": "Headline investment figure (government-announced)",
-        "value": "$116B (mostly pre-existing)",
+        "value": "$126B (mostly pre-existing)",
         "source": "pmo",
-        "sourceNote": "PMO nation-building project announcements (see dimension sources). $116B is the government's stated total across both tranches. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing investment decisions — qualifier 'mostly pre-existing' reflects their assessment.",
+        "sourceNote": "PMO nation-building project announcements across all three tranches. Government cites $126B in combined investment. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing private-sector investment decisions — qualifier 'mostly pre-existing' reflects their assessment.",
         "automatable": false
       },
       {
         "label": "National interest designation uses",
         "value": "0",
         "source": "legisinfo",
-        "sourceNote": "Building Canada Act grants the national interest designation power. As of March 2026, it has not been used. Source: no designation orders found in LEGISinfo or government announcements.",
+        "sourceNote": "Building Canada Act grants the national interest designation power. As of April 2026, it has not been used. Source: no designation orders found in LEGISinfo or government announcements.",
+        "automatable": false
+      },
+      {
+        "label": "First MPO cycle completed",
+        "value": "0 projects",
+        "source": "manual",
+        "sourceNote": "No project has yet completed a full MPO designate-to-permit-to-construction cycle within the 2-year MPO target. Contrecœur is closest (designated Sept 2025, broke ground April 2026 = ~7 months) but the full cycle gain vs. the pre-MPO baseline is not yet documented.",
         "automatable": false
       },
       {
@@ -359,6 +395,195 @@
         "automatable": false
       }
     ],
+    "projectCohort": {
+      "asOf": "2026-04-30",
+      "stageGates": [
+        { "key": "designated", "label": "Designated", "description": "Referred to the Major Projects Office; awaiting MPO review." },
+        { "key": "reviewed", "label": "Reviewed", "description": "MPO review complete; recommendation issued." },
+        { "key": "approved", "label": "Approved", "description": "Federal approval issued and/or major financing committed." },
+        { "key": "permitted", "label": "Permitted", "description": "Required regulatory permits in place; construction imminent or beginning." },
+        { "key": "under_construction", "label": "Under construction", "description": "Active construction underway." },
+        { "key": "completed", "label": "Completed", "description": "Project operational." }
+      ],
+      "projects": [
+        {
+          "name": "Contrecœur Terminal Container Project",
+          "sponsor": "Port of Montréal",
+          "location": "Contrecœur, Québec",
+          "tranche": 1,
+          "referredDate": "2025-09-11",
+          "stage": "under_construction",
+          "stageDate": "2026-04-09",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/04/09/prime-minister-carney-breaks-ground-contrecoeur-terminal-expansion",
+          "sourceLabel": "PMO groundbreaking announcement"
+        },
+        {
+          "name": "Darlington New Nuclear Phase 1",
+          "sponsor": "Ontario Power Generation",
+          "location": "Clarington, Ontario",
+          "tranche": 1,
+          "referredDate": "2025-09-11",
+          "stage": "approved",
+          "stageDate": "2025-12-01",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new",
+          "sourceLabel": "PMO first tranche announcement; CGF + BOF $3B equity commitment"
+        },
+        {
+          "name": "LNG Canada Phase 2 Expansion",
+          "sponsor": "LNG Canada (Shell-led consortium)",
+          "location": "Kitimat, British Columbia",
+          "tranche": 1,
+          "referredDate": "2025-09-11",
+          "stage": "designated",
+          "stageDate": "2025-09-11",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new",
+          "sourceLabel": "PMO first tranche announcement"
+        },
+        {
+          "name": "McIlvenna Bay Foran Copper Mine",
+          "sponsor": "Foran Mining (with Peter Ballantyne Cree Nation)",
+          "location": "East-Central Saskatchewan",
+          "tranche": 1,
+          "referredDate": "2025-09-11",
+          "stage": "designated",
+          "stageDate": "2025-09-11",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new",
+          "sourceLabel": "PMO first tranche announcement"
+        },
+        {
+          "name": "Red Chris Copper and Gold Mine",
+          "sponsor": "Newmont / Imperial Metals",
+          "location": "Northwestern British Columbia",
+          "tranche": 1,
+          "referredDate": "2025-09-11",
+          "stage": "designated",
+          "stageDate": "2025-09-11",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new",
+          "sourceLabel": "PMO first tranche announcement"
+        },
+        {
+          "name": "North Coast Transmission Line",
+          "sponsor": "BC Hydro",
+          "location": "Northwest British Columbia",
+          "tranche": 2,
+          "referredDate": "2025-11-13",
+          "stage": "approved",
+          "stageDate": "2025-11-13",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+          "sourceLabel": "PMO second tranche announcement; $139.5M early-works loan announced"
+        },
+        {
+          "name": "Northwest Critical Conservation Corridor",
+          "sponsor": "Federal-provincial-Indigenous partnership",
+          "location": "Northwest BC and Yukon",
+          "tranche": 2,
+          "referredDate": "2025-11-13",
+          "stage": "designated",
+          "stageDate": "2025-11-13",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+          "sourceLabel": "PMO second tranche announcement"
+        },
+        {
+          "name": "Ksi Lisims LNG",
+          "sponsor": "Nisga'a Nation / Rockies LNG / Western LNG",
+          "location": "Pearse Island, British Columbia",
+          "tranche": 2,
+          "referredDate": "2025-11-13",
+          "stage": "designated",
+          "stageDate": "2025-11-13",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+          "sourceLabel": "PMO second tranche announcement"
+        },
+        {
+          "name": "Crawford Nickel Project",
+          "sponsor": "Canada Nickel Company",
+          "location": "Timmins, Ontario",
+          "tranche": 2,
+          "referredDate": "2025-11-13",
+          "stage": "designated",
+          "stageDate": "2025-11-13",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+          "sourceLabel": "PMO second tranche announcement"
+        },
+        {
+          "name": "Matawinie Graphite Mine",
+          "sponsor": "Nouveau Monde Graphite",
+          "location": "Quebec",
+          "tranche": 2,
+          "referredDate": "2025-11-13",
+          "stage": "designated",
+          "stageDate": "2025-11-13",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+          "sourceLabel": "PMO second tranche announcement"
+        },
+        {
+          "name": "Sisson Tungsten Mine",
+          "sponsor": "Northcliff Resources",
+          "location": "New Brunswick",
+          "tranche": 2,
+          "referredDate": "2025-11-13",
+          "stage": "designated",
+          "stageDate": "2025-11-13",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+          "sourceLabel": "PMO second tranche announcement"
+        },
+        {
+          "name": "Iqaluit Nukkiksautiit Hydro Project",
+          "sponsor": "Inuit-owned (Nunavut)",
+          "location": "Iqaluit, Nunavut",
+          "tranche": 2,
+          "referredDate": "2025-11-13",
+          "stage": "designated",
+          "stageDate": "2025-11-13",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+          "sourceLabel": "PMO second tranche announcement"
+        },
+        {
+          "name": "Mackenzie Valley Highway",
+          "sponsor": "GNWT / federal partnership",
+          "location": "Wrigley to Inuvik, Northwest Territories",
+          "tranche": 3,
+          "referredDate": "2026-03-12",
+          "stage": "permitted",
+          "stageDate": "2026-03-12",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and",
+          "sourceLabel": "PMO third tranche / Northern strategy announcement; construction summer 2026, $100M+ initial federal investment"
+        },
+        {
+          "name": "Grays Bay Road and Port",
+          "sponsor": "Government of Nunavut / federal partnership",
+          "location": "Nunavut to Grays Bay, Arctic Ocean",
+          "tranche": 3,
+          "referredDate": "2026-03-12",
+          "stage": "designated",
+          "stageDate": "2026-03-12",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and",
+          "sourceLabel": "PMO third tranche / Northern strategy announcement"
+        },
+        {
+          "name": "Arctic Economic and Security Corridor",
+          "sponsor": "GNWT / federal partnership",
+          "location": "Slave Geological Province, NWT to Nunavut border",
+          "tranche": 3,
+          "referredDate": "2026-03-12",
+          "stage": "designated",
+          "stageDate": "2026-03-12",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and",
+          "sourceLabel": "PMO third tranche / Northern strategy announcement"
+        },
+        {
+          "name": "Taltson Hydro Expansion Project",
+          "sponsor": "GNWT / Indigenous partnership",
+          "location": "Northwest Territories",
+          "tranche": 3,
+          "referredDate": "2026-03-12",
+          "stage": "designated",
+          "stageDate": "2026-03-12",
+          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and",
+          "sourceLabel": "PMO third tranche / Northern strategy announcement"
+        }
+      ]
+    },
     "promises": [
       {
         "text": "Major Federal Project Office with 2-year decisions",

@@ -15,6 +15,9 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
   const [inheritedOpen, setInheritedOpen] = useState(false);
   const [triggersOpen, setTriggersOpen] = useState(false);
   const [perspectivesOpen, setPerspectivesOpen] = useState(false);
+  const [glossaryOpen, setGlossaryOpen] = useState(false);
+  const [cohortOpen, setCohortOpen] = useState(false);
+  const cohort = dim.projectCohort || null;
 
   const metricGroups = (() => {
     if (!metrics.some((metric) => metric.group)) {
@@ -300,25 +303,79 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                   </div>
                 )}
                 {scoringMetadata.length > 0 && (
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                    {scoringMetadata.map((item) => (
-                      <span
-                        key={item.label}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
+                      {scoringMetadata.map((item) => (
+                        <span
+                          key={item.label}
+                          style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            gap: "4px",
+                            padding: "3px 8px",
+                            borderRadius: "999px",
+                            background: "#fff",
+                            border: "1px solid #d9dde1",
+                            fontSize: "12px",
+                            color: "#5f6368",
+                          }}
+                        >
+                          <strong style={{ color: "#444" }}>{item.label}:</strong> {item.value}
+                        </span>
+                      ))}
+                    </div>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setGlossaryOpen((v) => !v);
+                        }}
+                        aria-expanded={glossaryOpen}
+                        aria-controls={`dim-${dim.id}-glossary`}
                         style={{
-                          display: "inline-flex",
-                          alignItems: "center",
-                          gap: "4px",
-                          padding: "3px 8px",
-                          borderRadius: "999px",
-                          background: "#fff",
-                          border: "1px solid #d9dde1",
-                          fontSize: "12px",
-                          color: "#5f6368",
+                          fontSize: "13px",
+                          color: "#1a73e8",
+                          background: "none",
+                          border: "none",
+                          padding: "2px 0",
+                          cursor: "pointer",
+                          fontFamily: "inherit",
+                          fontWeight: 600,
                         }}
                       >
-                        <strong style={{ color: "#444" }}>{item.label}:</strong> {item.value}
-                      </span>
-                    ))}
+                        {glossaryOpen ? "▾ Hide definitions" : "▸ What do these mean?"}
+                      </button>
+                      {glossaryOpen && (
+                        <div
+                          id={`dim-${dim.id}-glossary`}
+                          role="region"
+                          style={{
+                            marginTop: "4px",
+                            padding: "8px 10px",
+                            background: "#fff",
+                            border: "1px dashed #d9dde1",
+                            borderRadius: "6px",
+                            fontSize: "13px",
+                            color: "#444",
+                            lineHeight: 1.55,
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "6px",
+                          }}
+                        >
+                          <div>
+                            <strong>Confidence</strong> — how robust the editor thinks this grade is to new data. <em>High</em> = direct measurement against numeric thresholds. <em>Medium</em> = qualitative judgment with mixed evidence. <em>Low</em> = sparse evidence.
+                          </div>
+                          <div>
+                            <strong>Attribution</strong> — what share of the outcome the federal government actually controls. <em>Direct</em> = ≥60% federal levers. <em>Mixed</em> = 30–60%. <em>Mostly inherited</em> = &lt;30%.
+                          </div>
+                          <div>
+                            <strong>Lag</strong> — how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1–2 year cycles. <em>Long</em> = 5+ year structural.
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   </div>
                 )}
                 {scoring?.scopeNote && (
@@ -545,6 +602,19 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               </div>
             ))}
           </div>
+
+          {/* Project pipeline (cohort-based dimensions only — currently Major Projects) */}
+          {cohort && cohort.projects && cohort.projects.length > 0 && (
+            <ProjectCohortSection
+              cohort={cohort}
+              isOpen={cohortOpen}
+              onToggle={(e) => {
+                e.stopPropagation();
+                setCohortOpen((v) => !v);
+              }}
+              dimId={dim.id}
+            />
+          )}
 
           {/* Promise Tracker summary — per-item detail lives on the Promises tab */}
           {dim.promises && dim.promises.length > 0 && (
@@ -907,6 +977,223 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
 
         </div>
       )}
+    </div>
+  );
+}
+
+// Renders the MPO project cohort: a header with the count and stage breakdown,
+// and a collapsible table with every project's current stage and source link.
+// `cohort.stageGates` orders the stages from least-advanced (designated) to
+// most-advanced (completed); the table sorts in reverse so advanced projects
+// surface first.
+function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
+  const stageGates = cohort.stageGates || [];
+  const stageOrder = stageGates.reduce((acc, gate, i) => {
+    acc[gate.key] = i;
+    return acc;
+  }, {});
+  const stageLabels = stageGates.reduce((acc, gate) => {
+    acc[gate.key] = gate.label;
+    return acc;
+  }, {});
+
+  const STAGE_COLORS = {
+    designated: { bg: "#eceff1", color: "#37474f", border: "#cfd8dc" },
+    reviewed: { bg: "#e8eaf6", color: "#283593", border: "#c5cae9" },
+    approved: { bg: "#e3f2fd", color: "#0d47a1", border: "#bbdefb" },
+    permitted: { bg: "#fff3e0", color: "#e65100", border: "#ffe0b2" },
+    under_construction: { bg: "#e8f5e9", color: "#1b5e20", border: "#c8e6c9" },
+    completed: { bg: "#dcedc8", color: "#33691e", border: "#aed581" },
+  };
+
+  const total = cohort.projects.length;
+  const designatedIndex = stageOrder.designated ?? 0;
+  const advanced = cohort.projects.filter(
+    (p) => (stageOrder[p.stage] ?? 0) > designatedIndex
+  );
+  const advancedCount = advanced.length;
+  const advancedPct = total > 0 ? Math.round((advancedCount / total) * 100) : 0;
+
+  // Stage-by-stage counts for the headline summary line.
+  const stageCounts = stageGates
+    .map((gate) => ({
+      key: gate.key,
+      label: gate.label,
+      count: cohort.projects.filter((p) => p.stage === gate.key).length,
+    }))
+    .filter((s) => s.count > 0);
+
+  const sortedProjects = cohort.projects
+    .slice()
+    .sort((a, b) => {
+      const sa = stageOrder[a.stage] ?? 0;
+      const sb = stageOrder[b.stage] ?? 0;
+      if (sa !== sb) return sb - sa;
+      return a.name.localeCompare(b.name);
+    });
+
+  const stagePill = (stage) => {
+    const c = STAGE_COLORS[stage] || STAGE_COLORS.designated;
+    return (
+      <span
+        style={{
+          display: "inline-block",
+          padding: "2px 8px",
+          borderRadius: "999px",
+          background: c.bg,
+          color: c.color,
+          border: `1px solid ${c.border}`,
+          fontSize: "12px",
+          fontWeight: 700,
+          whiteSpace: "nowrap",
+        }}
+      >
+        {stageLabels[stage] || stage}
+      </span>
+    );
+  };
+
+  return (
+    <div style={{ marginBottom: "14px" }}>
+      <div
+        style={{
+          fontSize: "14px",
+          fontWeight: 700,
+          color: "#1a1a1a",
+          textTransform: "uppercase",
+          letterSpacing: "0.5px",
+          marginBottom: "6px",
+        }}
+      >
+        Project pipeline
+        <span
+          style={{
+            fontWeight: 400,
+            textTransform: "none",
+            letterSpacing: 0,
+            marginLeft: "8px",
+            color: "#bbb",
+          }}
+        >
+          As of {cohort.asOf}
+        </span>
+      </div>
+      <div
+        style={{
+          fontSize: "14px",
+          color: "#333",
+          lineHeight: 1.5,
+          background: "#fafafa",
+          padding: "10px 12px",
+          borderRadius: "6px",
+          borderLeft: "3px solid #607d8b",
+        }}
+      >
+        <div style={{ marginBottom: "8px" }}>
+          <strong>{total} projects in MPO cohort.</strong>{" "}
+          {advancedCount} of {total} ({advancedPct}%) have advanced ≥1 stage
+          from designated.
+        </div>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "6px",
+            marginBottom: "8px",
+          }}
+        >
+          {stageCounts.map((s) => (
+            <span key={s.key} style={{ display: "inline-flex", gap: "4px" }}>
+              {stagePill(s.key)}
+              <span style={{ fontSize: "13px", color: "#444", fontWeight: 600 }}>
+                ×{s.count}
+              </span>
+            </span>
+          ))}
+        </div>
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={isOpen}
+          aria-controls={`dim-${dimId}-cohort`}
+          style={{
+            fontSize: "13px",
+            color: "#1a73e8",
+            background: "none",
+            border: "none",
+            padding: "2px 0",
+            cursor: "pointer",
+            fontFamily: "inherit",
+            fontWeight: 700,
+          }}
+        >
+          {isOpen ? "▾ Hide full project list" : "▸ Show full project list"}
+        </button>
+        {isOpen && (
+          <div
+            id={`dim-${dimId}-cohort`}
+            role="region"
+            style={{ marginTop: "10px", overflowX: "auto" }}
+          >
+            <table
+              style={{
+                width: "100%",
+                borderCollapse: "collapse",
+                fontSize: "13px",
+              }}
+            >
+              <thead>
+                <tr style={{ color: "#777", textAlign: "left" }}>
+                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Project</th>
+                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Tranche</th>
+                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Stage</th>
+                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>
+                    Stage date
+                  </th>
+                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Source</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedProjects.map((p, i) => (
+                  <tr
+                    key={`${p.name}-${i}`}
+                    style={{ borderTop: "1px solid #eee", color: "#333" }}
+                  >
+                    <td style={{ padding: "4px 6px" }}>
+                      <div style={{ fontWeight: 600 }}>{p.name}</div>
+                      {p.location && (
+                        <div style={{ fontSize: "12px", color: "#777" }}>
+                          {p.location}
+                        </div>
+                      )}
+                    </td>
+                    <td style={{ padding: "4px 6px", color: "#777" }}>
+                      {p.tranche}
+                    </td>
+                    <td style={{ padding: "4px 6px" }}>{stagePill(p.stage)}</td>
+                    <td style={{ padding: "4px 6px", color: "#777" }}>
+                      {p.stageDate}
+                    </td>
+                    <td style={{ padding: "4px 6px" }}>
+                      {p.sourceUrl && (
+                        <a
+                          href={p.sourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          style={{ color: "#1a73e8", fontSize: "12px" }}
+                        >
+                          link →
+                        </a>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

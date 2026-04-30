@@ -517,23 +517,28 @@ These may shape interpretation but must not move the Major Projects grade withou
 **Current state delta**
 
 Current `dimensions.json` Major Projects source stack:  
-PM second tranche announcement, Building Canada Act, Fraser Institute MPO assessment, Angus Reid major projects reaction  
-Source: [src/data/dimensions.json](../src/data/dimensions.json:220)
+PM first tranche announcement (Sept 2025), PM second tranche announcement (Nov 2025), PM third tranche / Northern strategy (Mar 2026), PM Contrecœur groundbreaking (Apr 2026), Building Canada Act, Fraser Institute MPO assessment, Angus Reid major projects reaction.  
+Source: [src/data/dimensions.json](../src/data/dimensions.json)
+
+The Major Projects entry now also carries a live `projectCohort` field with the full 16-project universe, per-project current stage against the published `stageGates` ladder (designated → reviewed → approved → permitted → under_construction → completed), per-project source URLs, and an `asOf` date. As of 2026-04-30 the live record shows 16 projects across 3 tranches with 4 of 16 (~25%) advanced ≥1 stage from designated. The cohort is now a grade-moving field, not just narrative — the `scoring.thresholds` ladder grades on % cohort advanced, not on first-event triggers.
 
 - **Present and well-aligned**
   - `Building Canada Act` fills policy truth on the existence and formal powers of the machinery.
   - `Fraser Institute — MPO assessment` and `Angus Reid — major projects reaction` fill independent-challenge truth on overclaiming and pre-existing momentum.
-  - `PM second tranche announcement` fills policy/context truth for the government's stated $116B pipeline claim.
+  - `PM first / second / third tranche announcement` URLs collectively fill policy/context truth for the government's stated $126B pipeline claim and identify the canonical project list per tranche.
+  - `PM Contrecœur groundbreaking (Apr 2026)` fills execution truth for the first cohort project entering under_construction status.
+  - Per-project `sourceUrl` fields inside `projectCohort.projects` provide the link from each cohort row back to a primary or government-announced source documenting that project's stage.
 
 - **Gaps**
-  - No direct MPO operational-status source is present in the `sources` array beyond PM announcements, even though the file grades live machinery rather than announced intent alone.
-  - No direct source is present for mean approval-time movement or first completed MPO cycle, even though those are eventual core measurement/execution indicators.
+  - No independent monitor of MPO operational status (e.g., a Canada.ca-issued MPO progress dashboard) is yet threaded; per-project stage attribution still relies on PMO announcements and individual sponsor disclosures.
+  - No direct measurement source is present for mean approval-time movement or first completed MPO cycle; these will become the primary acceleration indicators once enough cohort projects reach permitted/under-construction.
+  - Independent-challenge sources cover the overclaiming question well but do not yet engage with cohort-stage acceleration as a distinct measurement series.
 
 - **Role mismatches**
-  - `PM second tranche announcement` is better understood as policy/context truth than as execution evidence, because it documents the government's claim about the pipeline, not acceleration actually achieved.
+  - PM tranche announcements remain primarily policy/context truth rather than independent execution evidence; the Contrecœur groundbreaking source is the first execution-truth anchor and should be supplemented over time as additional cohort projects advance.
 
 - **Orphaned sources**
-  - None in the current stack. Every listed source attaches to the rationale, metrics, or perspectives.
+  - None in the current stack. Every listed source attaches to the rationale, metrics, perspectives, or per-project cohort row.
 
 **Red-flag gaps**
 

@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-04-30",
+    "summary": "Inspectability pass: headline scores now show their math, Major Projects is graded on cohort progress, and the scoring drawer carries a confidence / attribution / lag glossary.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Headline scores now show how they're built",
+        "body": "Both the Household Impact and Full Policy Audit cards have a new \"How is this score built?\" toggle. Click it and the dashboard shows the per-dimension grade, the points, the weight, and the arithmetic that produces the headline letter — so any reader can verify the score against the cards."
+      },
+      {
+        "type": "method",
+        "headline": "Major Projects regraded on cohort progress, not first-event triggers",
+        "body": "The Major Projects rubric now defines the project universe (16 projects across 3 MPO tranches as of April 2026) and grades on the % of cohort that has advanced ≥1 stage from designated. The dimension card carries the full project list with each project's current stage and source link. As of 2026-04-30, 4 of 16 projects (~25%) have advanced — including Contrecœur Terminal, which broke ground April 9 — which keeps the file at C."
+      },
+      {
+        "type": "product",
+        "headline": "Confidence / Attribution / Lag glossary inside the scoring drawer",
+        "body": "The three small pills at the top of every dimension's scoring drawer now sit above a one-click \"What do these mean?\" definition box: a one-sentence explanation each for confidence, attribution, and lag, with the level cutoffs spelled out (High / Medium / Low; Direct / Mixed / Mostly inherited; Short / Medium / Long)."
+      }
+    ]
+  },
+  {
+    "date": "2026-04-28",
     "summary": "Methodology hardening pass: all dimensions now surface scoring logic, threshold language tightened, and Economic Policy / Ethics source gaps narrowed.",
     "items": [
       {

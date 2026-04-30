@@ -2,8 +2,16 @@ import { useState } from "react";
 import dimensions from "../data/dimensions.json";
 import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
-import { gpaToGrade, calculateOverallGPA, calculatePocketbookGPA, countPromises } from "../utils";
+import {
+  gpaToGrade,
+  calculateOverallGPA,
+  calculatePocketbookGPA,
+  countPromises,
+  getOverallDerivation,
+  getPocketbookDerivation,
+} from "../utils";
 import ScoreboardHeader from "./ScoreboardHeader";
+import ScoreDerivation from "./ScoreDerivation";
 import { ApprovalDetail } from "./ApprovalSignal";
 import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
@@ -17,13 +25,21 @@ export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
   const [view, setView] = useState("scorecard");
   const [approvalExpanded, setApprovalExpanded] = useState(false);
+  // Which headline-score derivation panel is open: "household", "overall", or null.
+  const [derivationOpen, setDerivationOpen] = useState(null);
   const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
 
   // Calculate grades and promises from the data
   const overallGPA = calculateOverallGPA(dimensions).toFixed(1);
   const pocketbookGPA = calculatePocketbookGPA(dimensions).toFixed(1);
+  const overallDerivation = getOverallDerivation(dimensions);
+  const pocketbookDerivation = getPocketbookDerivation(dimensions);
   const { all: allPromises, counts: promiseCounts, total: totalPromises } = countPromises(dimensions);
+
+  const handleToggleDerivation = (variant) => {
+    setDerivationOpen((curr) => (curr === variant ? null : variant));
+  };
 
   const tabs = [
     { key: "scorecard", label: "Scorecard" },
@@ -109,7 +125,26 @@ export default function Dashboard() {
         totalPromises={totalPromises}
         approvalExpanded={approvalExpanded}
         onToggleApproval={() => setApprovalExpanded((v) => !v)}
+        derivationOpen={derivationOpen}
+        onToggleDerivation={handleToggleDerivation}
       />
+
+      {/* Score derivation drill-downs — show the math behind whichever
+          headline-score card is currently toggled open. */}
+      {derivationOpen === "household" && (
+        <ScoreDerivation
+          variant="household"
+          derivation={pocketbookDerivation}
+          displayedScore={pocketbookGPA}
+        />
+      )}
+      {derivationOpen === "overall" && (
+        <ScoreDerivation
+          variant="overall"
+          derivation={overallDerivation}
+          displayedScore={overallGPA}
+        />
+      )}
 
       {/* Approval Signal drill-down: full polling detail, visible only when the
           card above is toggled open. Explicitly outside the GPA. */}
