@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import dimensions from "../data/dimensions.json";
 import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
@@ -37,8 +37,44 @@ export default function Dashboard() {
   const pocketbookDerivation = getPocketbookDerivation(dimensions);
   const { all: allPromises, counts: promiseCounts, total: totalPromises } = countPromises(dimensions);
 
+  const scheduleMobileScroll = (targetId) => {
+    if (typeof window === "undefined") return undefined;
+    if (!window.matchMedia("(max-width: 760px)").matches) return undefined;
+
+    let frameA = null;
+    let frameB = null;
+
+    frameA = window.requestAnimationFrame(() => {
+      frameB = window.requestAnimationFrame(() => {
+        document.getElementById(targetId)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    });
+
+    return () => {
+      if (frameA) window.cancelAnimationFrame(frameA);
+      if (frameB) window.cancelAnimationFrame(frameB);
+    };
+  };
+
+  useEffect(() => {
+    if (!derivationOpen) return undefined;
+    return scheduleMobileScroll(`score-derivation-${derivationOpen}`);
+  }, [derivationOpen]);
+
+  useEffect(() => {
+    if (!approvalExpanded) return undefined;
+    return scheduleMobileScroll("approval-signal-detail");
+  }, [approvalExpanded]);
+
   const handleToggleDerivation = (variant) => {
     setDerivationOpen((curr) => (curr === variant ? null : variant));
+  };
+
+  const handleToggleApproval = () => {
+    setApprovalExpanded((curr) => !curr);
   };
 
   const tabs = [
@@ -124,7 +160,7 @@ export default function Dashboard() {
         promiseCounts={promiseCounts}
         totalPromises={totalPromises}
         approvalExpanded={approvalExpanded}
-        onToggleApproval={() => setApprovalExpanded((v) => !v)}
+        onToggleApproval={handleToggleApproval}
         derivationOpen={derivationOpen}
         onToggleDerivation={handleToggleDerivation}
       />

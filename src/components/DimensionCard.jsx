@@ -3,11 +3,17 @@ import { GRADES } from "../constants";
 import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
 
+const MODIFIER_LABELS = {
+  "External Constraint": "External pressure",
+  "Timing Fairness": "Early-cycle adjustment",
+  "Jurisdictional limits": "Shared-control limit",
+  "Credit-claiming penalty": "Credit reduced for overclaiming",
+};
+
 export default function DimensionCard({ dim, isExpanded, onClick, trackerStat }) {
   const g = GRADES[dim.grade];
   const isTracker = !!dim.excludeFromGPA;
   const modifierItems = isTracker ? [] : (dim.gradeBasis?.activeModifiers || []);
-  const surfaceTags = dim.surfaceTags || [];
   const metrics = dim.metrics || [];
   const scoring = dim.scoring || null;
   const showLowerTriggers = !isTracker && !scoring && (dim.gradeTriggers || dim.nextTrigger);
@@ -153,38 +159,6 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
               }}
             >
               {dim.whatThisGrades}
-            </div>
-          )}
-          {surfaceTags.length > 0 && (
-            <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "6px",
-                marginBottom: "8px",
-              }}
-            >
-              {surfaceTags.map((tag) => (
-                <span
-                  key={tag}
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    minHeight: "22px",
-                    padding: "2px 8px",
-                    borderRadius: "999px",
-                    fontSize: "11px",
-                    fontWeight: 700,
-                    color: "#5f6368",
-                    background: "#f1f3f4",
-                    border: "1px solid #d9dde1",
-                    textTransform: "uppercase",
-                    letterSpacing: "0.3px",
-                  }}
-                >
-                  {tag}
-                </span>
-              ))}
             </div>
           )}
           <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
@@ -489,11 +463,11 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 </div>
                 {modifierItems.length > 0 && (
                   <div style={{ fontSize: "14px", color: "#444" }}>
-                    <strong>Adjustments:</strong>
+                    <strong>Scoring adjustments:</strong>
                     <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
                       {modifierItems.map((modifier, i) => (
                         <div key={i}>
-                          <strong>{modifier.name}</strong>: {modifier.status}. {modifier.reason}
+                          <strong>{MODIFIER_LABELS[modifier.name] || modifier.name}</strong>: {modifier.status}. {modifier.reason}
                         </div>
                       ))}
                     </div>

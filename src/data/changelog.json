@@ -1,5 +1,26 @@
 [
   {
+    "date": "2026-05-01",
+    "summary": "Mobile scoreboard drill-downs now scroll into view, and methodology shorthand was removed from the card surface.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Headline-score panels now come into view on mobile",
+        "body": "Tapping Household Impact, Full Policy Audit, or Approval Signal on a phone no longer leaves the opened detail panel far below the scoreboard strip. The dashboard now scrolls the panel into view automatically."
+      },
+      {
+        "type": "product",
+        "headline": "Internal shorthand pills removed from dimension cards",
+        "body": "Surface labels like \"Credit-claiming penalty,\" \"Sub-score file,\" and \"Long-lag file\" were removed from the card face. The underlying scoring logic still exists, but it now lives in the expanded explanation instead of reading like internal shorthand on the surface."
+      },
+      {
+        "type": "product",
+        "headline": "Scoring adjustments rewritten in plainer language",
+        "body": "Expanded card explanations now use reader-facing labels such as \"External pressure,\" \"Early-cycle adjustment,\" and \"Credit reduced for overclaiming\" instead of internal modifier names."
+      }
+    ]
+  },
+  {
     "date": "2026-04-30",
     "summary": "Inspectability pass: headline scores now show their math, Major Projects is graded on cohort progress, and the scoring drawer carries a confidence / attribution / lag glossary.",
     "items": [

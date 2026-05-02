@@ -53,6 +53,7 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
         padding: "14px 18px",
         marginTop: "-8px",
         marginBottom: "16px",
+        scrollMarginTop: "16px",
         fontSize: "13px",
         color: "#444",
       }}
