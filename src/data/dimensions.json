@@ -7,6 +7,8 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "NATO 2.01% met. Trade diversification measurable: US share fell from 75.9% to 71.7%.",
+    "judgmentCall": "High grade rests on defence delivery; trade gains are discounted because some improvement is market-driven.",
+    "judgmentDetail": "The A- is not a blanket endorsement of the whole file. Defence spending clears the published NATO 2% threshold, while trade diversification improves enough to help the grade. Judgment enters in discounting the trade-side gain because the U.S. trade shock helped produce some diversification, and in stopping short of A because the 3.5% defence pathway is not funded.",
     "surfaceTags": [
       "Sub-score file",
       "Trade partly market-driven"
@@ -246,6 +248,8 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "16-project MPO cohort across 3 tranches. 4 projects currently sit above designated status, but only 2 have documented post-designation movement. National interest designation unused.",
+    "judgmentCall": "Grade rests on documented post-designation movement, not announcement count or project desirability.",
+    "judgmentDetail": "This grade does not score whether each project is good policy. It scores the federal delivery machinery: the defined MPO cohort, later-dated movement after designation, and use of the national-interest power. Judgment enters in excluding same-day promoted-stage labels from the advancement count and in applying a credit-claiming penalty where the government overstates ownership of pre-existing project progress.",
     "surfaceTags": [
       "Credit-claiming penalty",
       "Long-lag file"
@@ -686,6 +690,8 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Deficit $78.3B projected. No credible medium-term anchor. PBO gives 7.5% chance of meeting targets.",
+    "judgmentCall": "Low grade rests on fiscal-path credibility, not whether individual programs are worthwhile.",
+    "judgmentDetail": "The D grade is driven by the deficit path, the absence of a credible medium-term anchor, and independent confidence in the stated targets. Judgment enters in weighing strategically justified defence spending against the overall sustainability problem: worthwhile spending can still worsen the fiscal grade if the plan does not show how it will be paid for.",
     "construct": "The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan.",
     "gradeBasis": {
       "band": "D",
@@ -886,6 +892,8 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Structural productivity weakness is inherited. The file now tracks tax, trade, regulatory, and funding levers explicitly, but fewer than two core levers are at authorized-or-executing stage and business investment remains near-flat.",
+    "judgmentCall": "Low grade reflects execution status across policy levers, with inherited productivity weakness treated as context.",
+    "judgmentDetail": "The grade is about the federal response, not Canada's inherited productivity level. Judgment enters in deciding which levers count as execution-ready: announced funds and frameworks are not treated the same as Treasury Board-authorized programs, live tax or regulatory changes, or measurable internal-trade and permitting movement.",
     "surfaceTags": [
       "Mostly inherited baseline",
       "Long-lag file"
@@ -1150,6 +1158,8 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Government affordability measures cover <20% of household cost increases. Grocery Code voluntary. Tariff costs add $1,450-$2,000/yr per household. Grade reflects federal policy response, not global price levels.",
+    "judgmentCall": "Low grade reflects federal relief versus measured household cost pressure, not a verdict on global prices.",
+    "judgmentDetail": "The D- grade scores the adequacy of federal action against documented cost pressure. Judgment enters in matching relief scale to the identified annual burden, treating voluntary grocery measures as weaker than enforceable ones, and separating federal policy response from global price shocks that Ottawa does not fully control.",
     "construct": "Adequacy of the federal policy response to household cost pressure from groceries, tariffs, and targeted relief.",
     "gradeBasis": {
       "band": "D",
@@ -1349,6 +1359,8 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
+    "judgmentCall": "Middle grade credits the consumer-price promise while discounting the weak effective industrial price.",
+    "judgmentDetail": "The C grade separates promise delivery from instrument strength. The consumer charge removal is credited as an executed campaign promise, but the industrial system is discounted because the effective price signal is far below the headline schedule. Judgment enters in treating the pricing instrument as partially intact but not clearly strong enough to merit a higher grade.",
     "surfaceTags": [
       "Instrument-only file"
     ],
@@ -1538,6 +1550,8 @@
     "previousGrade": "D+",
     "trend": "down",
     "status": "Major environmental policy reversals. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. See Carbon Pricing Policy for industrial pricing details.",
+    "judgmentCall": "Low grade reflects missing replacement strategy after reversals, not single-month emissions movement.",
+    "judgmentDetail": "The D grade is driven by the policy framework: major reversals, no funded replacement strategy, shrinking institutional capacity, and an acknowledged gap to 2030 targets. Judgment enters in deconflicting this file from Carbon Pricing Policy and in weighting framework credibility more heavily than short-run emissions noise.",
     "surfaceTags": [
       "Framework file"
     ],
@@ -1753,6 +1767,8 @@
     "previousGrade": null,
     "trend": "up",
     "status": "Sharp immigration contraction. Correction is substantial and necessary. Long-term model not yet defined (tracked as next grade trigger).",
+    "judgmentCall": "Plus grade credits a real levels correction but holds back because the long-term model is unresolved.",
+    "judgmentDetail": "The C+ grade gives credit for a substantial correction to an overloaded system while stopping short of B because the durable model is not defined. Judgment enters in treating the correction as necessary rather than punitive, and in weighing unresolved sector, service, and long-term planning risks against the clear execution of lower levels.",
     "surfaceTags": [
       "Correction file"
     ],
@@ -1937,6 +1953,8 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "4,000 BCH units announced, but construction is not yet underway. Ontario deal is real but scale insufficient.",
+    "judgmentCall": "Low grade reflects starts and scale, with announcements counted only after construction or binding delivery.",
+    "judgmentDetail": "The D grade scores the federal share of housing supply response against actual starts, program scale, and binding delivery. Judgment enters in giving limited timing credit to Build Canada Homes while refusing to count announced units as built homes, and in separating federal contribution from provincial, municipal, and market constraints.",
     "surfaceTags": [
       "Shared-jurisdiction file",
       "Long-lag file"
@@ -2143,6 +2161,8 @@
     "previousGrade": null,
     "trend": "stable",
     "status": "Ethics framework incomplete relative to non-routine disclosure demands. No proven wrongdoing. Disclosure gap unresolved.",
+    "judgmentCall": "Middle grade separates incomplete disclosure machinery from any claim of proven wrongdoing.",
+    "judgmentDetail": "The C grade is about governance adequacy, not personal guilt. Baseline disclosure and an ethics screen prevent a lower grade, but unresolved completeness questions and the absence of a published PM-specific commissioner review prevent a higher one. Judgment enters in requiring formal findings or multiple independent critiques before a downgrade.",
     "surfaceTags": [
       "Whole-letter grade",
       "Medium confidence"
@@ -2324,6 +2344,8 @@
     "previousGrade": null,
     "trend": "down",
     "status": "Delivery is clear on defence and immigration, but housing, major projects, and climate remain stalled.",
+    "judgmentCall": "Middle grade follows the flagship-file distribution, not a second opinion on each policy's merits.",
+    "judgmentDetail": "The C grade uses the published combination rule across five flagship files. Judgment enters in assigning each file to delivered, partial, stalled, or deteriorating status, then letting the distribution set the grade. The file is a delivery-capacity lens, not a duplicate merits grade for defence, housing, major projects, climate, or immigration.",
     "surfaceTags": [
       "Probation file",
       "Combination rule"

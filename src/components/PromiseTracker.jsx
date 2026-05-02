@@ -14,19 +14,29 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
       }}
     >
       {/* Summary bar */}
-      <div style={{ display: "flex", gap: "0", borderBottom: "1px solid #e0e0e0" }}>
+      <div
+        className="promise-summary-bar"
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "0",
+          borderBottom: "1px solid #e0e0e0",
+        }}
+      >
         {Object.entries(STATUS_COLORS).map(([status, style]) => {
           const count = promiseCounts[status] || 0;
           if (count === 0) return null;
           return (
             <div
               key={status}
+              className="promise-summary-item"
               style={{
-                flex: count,
+                flex: `${count} 1 112px`,
                 background: style.bg,
                 padding: "12px 8px",
                 textAlign: "center",
-                minWidth: "96px",
+                minWidth: "112px",
+                borderBottom: "1px solid rgba(255, 255, 255, 0.6)",
               }}
             >
               <div

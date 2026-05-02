@@ -127,10 +127,41 @@ export default function Dashboard() {
         >
           Canada Under Carney
         </h1>
-        <div className="header-subtitle" style={{ fontSize: "15px", color: "#555" }}>
-          {meta.coveragePeriod.start.slice(0, 7).replace("-", "/")} &ndash;{" "}
-          {meta.coveragePeriod.end.slice(0, 7).replace("-", "/")} &middot;
-          Updated {meta.lastUpdated} &middot; v{meta.version}
+        <div
+          className="header-subtitle"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "8px",
+            flexWrap: "wrap",
+            fontSize: "15px",
+            color: "#555",
+          }}
+        >
+          <span>
+            {meta.coveragePeriod.start.slice(0, 7).replace("-", "/")} &ndash;{" "}
+            {meta.coveragePeriod.end.slice(0, 7).replace("-", "/")}
+          </span>
+          <span
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "5px",
+              padding: "3px 8px",
+              borderRadius: "999px",
+              background: "#fff7e6",
+              border: "1px solid #f0d49a",
+              color: "#6b4a00",
+              fontWeight: 700,
+            }}
+          >
+            <span style={{ textTransform: "uppercase", fontSize: "12px", letterSpacing: "0.4px" }}>
+              Updated
+            </span>
+            {meta.lastUpdated}
+          </span>
+          <span>v{meta.version}</span>
         </div>
         {/* Print button */}
         <button
@@ -237,11 +268,31 @@ export default function Dashboard() {
           style={{
             textAlign: "center",
             marginBottom: "16px",
-            maxWidth: "720px",
+            maxWidth: "820px",
             marginLeft: "auto",
             marginRight: "auto",
           }}
         >
+          <div
+            className="scorecard-trust-frame"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+              gap: "10px",
+              textAlign: "left",
+              borderTop: "1px solid #e0e0e0",
+              borderBottom: "1px solid #e0e0e0",
+              padding: "12px 0",
+              marginBottom: "14px",
+            }}
+          >
+            <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+              <strong>What this is:</strong> a public scorecard grading federal performance against published thresholds, source links, and review dates.
+            </div>
+            <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+              <strong>What this isn&rsquo;t:</strong> a forecast, voting guide, popularity measure, or claim that only measurable files matter.
+            </div>
+          </div>
           <div
             style={{
               fontSize: "16px",

@@ -202,7 +202,7 @@ The shadow layer should NOT be promoted to public view until ALL of the followin
 4. **Workflow sustainable:** The additional time burden is manageable and documented as sustainable by the editor
 5. **Divergence understood:** Every dimension-level divergence between v1 and shadow composite has been documented and explained
 6. **No false precision:** Lens scores are not creating the appearance of more analytical precision than the evidence supports
-7. **Editorial judgment:** The editor (Chris) judges that the lens scores add genuine analytical value beyond what the v1 blended grade already communicates
+7. **Editorial judgment:** The editor judges that the lens scores add genuine analytical value beyond what the v1 blended grade already communicates
 
 **What promotion looks like (recommendation):**
 - Add lens scores as expandable detail within existing dimension cards

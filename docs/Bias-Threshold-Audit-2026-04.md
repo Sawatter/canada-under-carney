@@ -91,6 +91,20 @@ After an external review of this memo and the shipped UI pass:
 3. Run the 3-dimension inter-rater pilot described in `docs/Inter-Rater-Reliability-Protocol.md`, then expand to the wider dashboard.
 4. Keep tightening any remaining public-facing phrasing that still reads more like editorial verdict than method statement.
 
+## Reddit trust-feedback pass (May 2)
+
+After the initial beta critique, Reddit feedback sharpened the remaining product trust problem: readers need the source trail, freshness, and judgment points to be visible without turning the dashboard into a wall of caveats.
+
+The v5.11 response added:
+
+- A compact "What this is / What this isn't" note in the Scorecard view.
+- Stronger global `Updated` and per-dimension `Last reviewed` treatments.
+- A short `Judgment call` line on every graded dimension card.
+- A longer `Where judgment enters` explanation in every graded scoring drawer.
+- Follow-up mobile polish so the Scorecard framing remains visible and Promise summary labels are not clipped.
+
+The full feedback-to-change record now lives in `docs/Beta-Feedback-Log.md`.
+
 ## What shipped in the post-third-review build pass (May 1)
 
 After the third reviewer-feedback round, three concrete builds shipped before the May 14 monthly cycle. All three responded to remaining inspectability gaps the scoring drawer alone did not close.

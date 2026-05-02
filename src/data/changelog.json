@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-05-02",
+    "summary": "Trust-feedback pass: the scorecard now explains what it is and is not for, makes freshness harder to miss, and shows where judgment enters each grade.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Scorecard framing made explicit",
+        "body": "The Scorecard view now opens with a compact plain-language note: this is a public performance scorecard built from thresholds, source links, and review dates; it is not a forecast, voting guide, popularity measure, or claim that only measurable files matter."
+      },
+      {
+        "type": "product",
+        "headline": "Freshness is more visible",
+        "body": "The header now treats the global Updated date as a visible badge, and each dimension's Last reviewed date is styled as a stronger review marker instead of a quiet italic footer."
+      },
+      {
+        "type": "method",
+        "headline": "Judgment calls surfaced on every graded card",
+        "body": "Each graded dimension now has a short card-face Judgment call line and a longer Where judgment enters explanation in the scoring drawer, so readers can separate source evidence, thresholds, and editor judgment."
+      },
+      {
+        "type": "product",
+        "headline": "Mobile trust surfaces tightened",
+        "body": "On narrow screens, the Scorecard framing now renders as a compact visible panel, Last reviewed pills use stronger contrast, and the Promises tab summary wraps cleanly so statuses like Abandoned are not clipped."
+      }
+    ]
+  },
+  {
     "date": "2026-05-01",
     "summary": "Mobile scoreboard drill-downs now scroll into view, methodology shorthand was removed from the card surface, and the visitor counter is visible again with a same-origin fallback that no longer overlaps the mobile header.",
     "items": [

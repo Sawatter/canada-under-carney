@@ -4,7 +4,7 @@
 - **Status:** Living document — updated after each shadow cycle.
 - **Last updated:** 2026-04-15
 - **Depends on:** Core-Tri-Lens-Architecture.md, Dimension-Applicability-Matrix.md, Pilot-Templates.md, Shadow-Run-Workflow.md, V2-Scoring-Architecture-Brief.md
-- **Used by:** Editor (Chris) for design resolution during and after shadow cycles
+- **Used by:** Editor for design resolution during and after shadow cycles
 
 ---
 

@@ -166,6 +166,41 @@ a:hover { text-decoration: underline; }
   .header-subtitle {
     font-size: 15px !important;
   }
+
+  .scorecard-trust-frame {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 8px !important;
+    padding: 12px !important;
+    background: #fff !important;
+    border: 1px solid #d9e2ec !important;
+    border-radius: 8px !important;
+    margin-bottom: 14px !important;
+  }
+
+  .scorecard-trust-item {
+    font-size: 15px !important;
+    line-height: 1.45 !important;
+  }
+
+  .last-reviewed-pill {
+    width: fit-content !important;
+    background: #eaf2ff !important;
+    border-color: #9fbbe7 !important;
+    color: #173f6f !important;
+    box-shadow: 0 1px 0 rgba(23, 63, 111, 0.08) !important;
+  }
+
+  .promise-summary-bar {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .promise-summary-item {
+    min-width: 0 !important;
+    flex: unset !important;
+    padding: 10px 6px !important;
+  }
 }
 
 /* Print styles — preserved from the earlier pass. */

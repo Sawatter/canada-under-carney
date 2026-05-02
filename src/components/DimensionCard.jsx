@@ -164,16 +164,41 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
           <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
             {dim.status}
           </div>
-          {dim.lastUpdated && (
+          {!isTracker && dim.judgmentCall && (
             <div
               style={{
                 fontSize: "13px",
-                color: "#666",
-                marginTop: "6px",
-                fontStyle: "italic",
+                color: "#444",
+                lineHeight: 1.45,
+                marginTop: "8px",
               }}
             >
-              Last reviewed {dim.lastUpdated}
+              <strong style={{ color: "#6b4a00" }}>Judgment call:</strong>{" "}
+              {dim.judgmentCall}
+            </div>
+          )}
+          {dim.lastUpdated && (
+            <div
+              className="last-reviewed-pill"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "5px",
+                alignSelf: "flex-start",
+                fontSize: "12px",
+                color: "#3f4a55",
+                marginTop: "8px",
+                fontWeight: 700,
+                background: "#f4f7fb",
+                border: "1px solid #d9e2ec",
+                borderRadius: "999px",
+                padding: "3px 8px",
+              }}
+            >
+              <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
+                Last reviewed
+              </span>
+              {dim.lastUpdated}
             </div>
           )}
         </div>
@@ -355,6 +380,11 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                 {scoring?.scopeNote && (
                   <div>
                     <strong>Scope note:</strong> {scoring.scopeNote}
+                  </div>
+                )}
+                {!isTracker && dim.judgmentDetail && (
+                  <div>
+                    <strong>Where judgment enters:</strong> {dim.judgmentDetail}
                   </div>
                 )}
                 {scoring?.modifierExpiry && (

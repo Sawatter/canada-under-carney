@@ -4,7 +4,7 @@
 - **Status:** Active — governs all cycles from May 2026 onward.
 - **Last updated:** 2026-04-16
 - **Depends on:** Monthly-Operations-Mode.md, Source-Verification-Protocol.md, Carry-Forward-Rules.md, Exception-Queue-Definition.md
-- **Used by:** Editor (Chris) during each monthly cycle
+- **Used by:** Editor during each monthly cycle
 
 ---
 
