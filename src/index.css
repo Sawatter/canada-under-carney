@@ -114,6 +114,39 @@ button:focus-visible, [role="button"]:focus-visible {
 a { color: inherit; }
 a:hover { text-decoration: underline; }
 
+/* Scoreboard cards need shared internal slots as well as a shared outer box.
+   Without this, each card's subtitle and stat block drift vertically based on
+   copy length, which is what makes the first row feel visually sloppy. */
+.scoreboard-card-title {
+  min-height: 2.4em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-wrap: balance;
+}
+
+.scoreboard-card-subtitle {
+  min-height: 5.6em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  text-wrap: pretty;
+}
+
+.scoreboard-card-main {
+  flex: 1 0 auto;
+  min-height: 10.5rem;
+  justify-content: flex-start;
+}
+
+.scoreboard-card-footer {
+  margin-top: auto;
+  min-height: 44px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
 /* ---------------------------------------------------------------
    Narrow-screen overrides. The dashboard uses inline styles on most
    elements so these targeted class hooks catch the specific spots
@@ -160,6 +193,18 @@ a:hover { text-decoration: underline; }
   /* Approval Signal large stat numbers */
   .approval-stat-number {
     font-size: 24px !important;
+  }
+
+  .scoreboard-card-title {
+    min-height: auto;
+  }
+
+  .scoreboard-card-subtitle {
+    min-height: 4.8em;
+  }
+
+  .scoreboard-card-main {
+    min-height: 9.25rem;
   }
 
   /* Header subtitle (coverage period / updated / version) */

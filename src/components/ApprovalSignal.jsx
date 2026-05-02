@@ -104,6 +104,7 @@ export function ApprovalCard({
 
   return (
     <div
+      className="scoreboard-card"
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
@@ -116,11 +117,14 @@ export function ApprovalCard({
         userSelect: "none",
       }}
     >
-      <div style={titleStyle}>Approval Signal</div>
-      <div style={subtitleStyle}>
+      <div className="scoreboard-card-title" style={titleStyle}>Approval Signal</div>
+      <div className="scoreboard-card-subtitle" style={subtitleStyle}>
         Public approval of PM Carney. Not part of the grades.
       </div>
-      <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div
+        className="scoreboard-card-main"
+        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      >
         <div>
           <span
             className="approval-stat-number"

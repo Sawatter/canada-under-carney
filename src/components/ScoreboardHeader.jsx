@@ -34,7 +34,6 @@ const cardSubtitle = {
   fontStyle: "italic",
   lineHeight: 1.4,
   marginBottom: "12px",
-  minHeight: "36px",
 };
 
 const cardScoreCaption = {
@@ -46,7 +45,6 @@ const cardScoreCaption = {
 };
 
 const derivationToggleBase = {
-  marginTop: "10px",
   fontSize: "13px",
   color: "#1a73e8",
   fontWeight: 700,
@@ -104,50 +102,54 @@ export default function ScoreboardHeader({
         }}
       >
         {/* Household Impact */}
-        <div style={cardBase}>
-          <div style={cardTitle}>Household Impact</div>
-          <div style={cardSubtitle}>
+        <div className="scoreboard-card" style={cardBase}>
+          <div className="scoreboard-card-title" style={cardTitle}>Household Impact</div>
+          <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             How the government is performing on housing, cost of living, the economy, and spending.
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <GradeChip grade={pocketbookGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {pocketbookGPA}</div>
           </div>
           {onToggleDerivation && (
-            <DerivationToggle
-              variant="household"
-              derivationOpen={derivationOpen}
-              onToggle={onToggleDerivation}
-            />
+            <div className="scoreboard-card-footer">
+              <DerivationToggle
+                variant="household"
+                derivationOpen={derivationOpen}
+                onToggle={onToggleDerivation}
+              />
+            </div>
           )}
         </div>
 
         {/* Full Policy Audit */}
-        <div style={cardBase}>
-          <div style={cardTitle}>Full Policy Audit</div>
-          <div style={cardSubtitle}>
+        <div className="scoreboard-card" style={cardBase}>
+          <div className="scoreboard-card-title" style={cardTitle}>Full Policy Audit</div>
+          <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             How the Carney government is performing across all 11 policy areas.
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <GradeChip grade={overallGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {overallGPA}</div>
           </div>
           {onToggleDerivation && (
-            <DerivationToggle
-              variant="overall"
-              derivationOpen={derivationOpen}
-              onToggle={onToggleDerivation}
-            />
+            <div className="scoreboard-card-footer">
+              <DerivationToggle
+                variant="overall"
+                derivationOpen={derivationOpen}
+                onToggle={onToggleDerivation}
+              />
+            </div>
           )}
         </div>
 
         {/* Promises Delivered */}
-        <div style={cardBase}>
-          <div style={cardTitle}>Promises Delivered</div>
-          <div style={cardSubtitle}>
+        <div className="scoreboard-card" style={cardBase}>
+          <div className="scoreboard-card-title" style={cardTitle}>Promises Delivered</div>
+          <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             A running count of tracked government commitments across every dimension.
           </div>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
             <div
               style={{
                 fontFamily: "'DM Mono', monospace",
