@@ -72,7 +72,7 @@ export default function VisitorCount() {
       style={{
         position: "absolute",
         top: "12px",
-        left: "16px",
+        right: "16px",
         fontSize: "13px",
         color: "#888",
         background: "#fff",
@@ -81,7 +81,7 @@ export default function VisitorCount() {
         padding: "4px 10px",
         fontFamily: "'DM Mono', monospace",
         lineHeight: 1.2,
-        textAlign: "left",
+        textAlign: "right",
         zIndex: 10,
         maxWidth: "calc(100% - 32px)",
       }}
