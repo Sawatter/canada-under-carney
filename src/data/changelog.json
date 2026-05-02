@@ -1,8 +1,13 @@
 [
   {
     "date": "2026-05-01",
-    "summary": "Mobile scoreboard drill-downs now scroll into view, and methodology shorthand was removed from the card surface.",
+    "summary": "Mobile scoreboard drill-downs now scroll into view, methodology shorthand was removed from the card surface, and the visitor counter is visible again with a same-origin fallback.",
     "items": [
+      {
+        "type": "product",
+        "headline": "Visitor counter restored to the top-left of the dashboard",
+        "body": "The sitewide visitor count now sits in the top-left corner again. It still prefers the live GoatCounter total, but now falls back to a same-origin cached snapshot so browsers that block third-party analytics requests still show a real number instead of a missing badge."
+      },
       {
         "type": "product",
         "headline": "Headline-score panels now come into view on mobile",

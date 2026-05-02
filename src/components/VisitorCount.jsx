@@ -2,42 +2,69 @@ import { useEffect, useState } from "react";
 
 const COUNTER_URL =
   "https://carneydashboard.goatcounter.com/counter/TOTAL.json";
+const FALLBACK_URL = `${import.meta.env.BASE_URL}visitor-count.json`;
+
+function parseCount(data) {
+  const raw = data?.count_unique ?? data?.count ?? null;
+  if (raw == null) throw new Error("no count field");
+  const n = parseInt(String(raw).replace(/[^0-9]/g, ""), 10);
+  if (!Number.isFinite(n)) throw new Error("invalid count");
+  return n;
+}
 
 export default function VisitorCount() {
   const [count, setCount] = useState(null);
-  const [error, setError] = useState(false);
+  const [status, setStatus] = useState("loading");
+  const [updatedAt, setUpdatedAt] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
 
-    const loadCount = () => {
-      if (cancelled) return;
-      fetch(COUNTER_URL, { cache: "no-store" })
-        .then((r) => {
-          if (!r.ok) throw new Error(`HTTP ${r.status}`);
-          return r.json();
-        })
-        .then((data) => {
-          if (cancelled) return;
-          const raw = data?.count_unique ?? data?.count ?? null;
-          if (raw == null) throw new Error("no count field");
-          const n = parseInt(String(raw).replace(/[^0-9]/g, ""), 10);
-          setCount(Number.isFinite(n) ? n : null);
-        })
-        .catch(() => {
-          if (!cancelled) setError(true);
-        });
+    const readJson = async (url) => {
+      const response = await fetch(url, { cache: "no-store" });
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.json();
     };
 
-    const delay = setTimeout(loadCount, 1500);
+    const loadCount = async () => {
+      let fallbackLoaded = false;
+
+      try {
+        const cached = await readJson(FALLBACK_URL);
+        if (!cancelled) {
+          setCount(parseCount(cached));
+          setUpdatedAt(cached?.updatedAt ?? null);
+          setStatus("cached");
+          fallbackLoaded = true;
+        }
+      } catch {
+        // Ignore fallback errors; a live fetch may still succeed.
+      }
+
+      try {
+        const live = await readJson(COUNTER_URL);
+        if (cancelled) return;
+        setCount(parseCount(live));
+        setUpdatedAt(null);
+        setStatus("ready");
+      } catch {
+        if (!cancelled && !fallbackLoaded) {
+          setStatus("unavailable");
+        }
+      }
+    };
+
+    loadCount();
 
     return () => {
       cancelled = true;
-      clearTimeout(delay);
     };
   }, []);
 
-  if (error) return null;
+  const title =
+    status === "cached" && updatedAt
+      ? `Visitor count snapshot last synced ${updatedAt}. Live counter fetch may be blocked in this browser.`
+      : "Total visitors tracked by GoatCounter (cookieless, privacy-friendly).";
 
   return (
     <div
@@ -45,7 +72,7 @@ export default function VisitorCount() {
       style={{
         position: "absolute",
         top: "12px",
-        right: "16px",
+        left: "16px",
         fontSize: "13px",
         color: "#888",
         background: "#fff",
@@ -54,15 +81,18 @@ export default function VisitorCount() {
         padding: "4px 10px",
         fontFamily: "'DM Mono', monospace",
         lineHeight: 1.2,
-        textAlign: "right",
+        textAlign: "left",
         zIndex: 10,
+        maxWidth: "calc(100% - 32px)",
       }}
-      title="Total visitors tracked by GoatCounter (cookieless, privacy-friendly)."
+      title={title}
     >
       <span style={{ fontWeight: 700, color: "#1a1a1a" }}>
-        {count == null ? "…" : count.toLocaleString()}
+        {count != null ? count.toLocaleString() : "…"}
       </span>
-      <span style={{ marginLeft: "4px" }}>visits</span>
+      <span style={{ marginLeft: "4px" }}>
+        {status === "unavailable" ? "visits unavailable" : "visits"}
+      </span>
     </div>
   );
 }
