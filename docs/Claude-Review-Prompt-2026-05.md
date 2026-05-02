@@ -11,8 +11,8 @@ The prompt is self-contained — the reviewer Claude does not see this conversat
 ```text
 You are reviewing the post-third-review build pass on the Canada Under Carney
 dashboard. Live URL: https://sawatter.github.io/canada-under-carney/.
-Repo: https://github.com/Sawatter/canada-under-carney. Working at
-<repo root>.
+Repo: https://github.com/Sawatter/canada-under-carney. Working at the
+repository root.
 
 This is an independent stress-test pass. Do not implement fixes. Read the
 shipped work, look for problems, and return a punch list.
