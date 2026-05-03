@@ -79,7 +79,7 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] Set `nextUpdate` to the next scheduled cycle date.
 - [ ] Append any new entries to `milestones[]` for cycle-period events.
 
-### 7. Build + sanity checks
+### 7. Build + local sanity checks
 
 - [ ] `npm run build` — must pass without new warnings.
 - [ ] Eyeball the built dashboard: the Change Log tab should show the new changelog entry; the Approval Signal should show the updated rolling window; score cards should reflect the new grades.
@@ -94,7 +94,28 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] Push to `main`. The deploy workflow fires automatically.
 - [ ] Watch the Pages deploy — ~30 seconds. Live URL should reflect the update within a minute.
 
-### 9. Post-cycle
+### 9. Final live desktop/mobile sanity pass
+
+Run this after the live GitHub Pages deployment, not only against local preview. The goal is to catch the small UX mismatches that only show up when a real reader hits the public site.
+
+Check both desktop and mobile widths:
+
+- [ ] Header: trust frame is visible under the title; visitor counter does not overlap title or tabs.
+- [ ] Scoreboard: Household Impact, Full Policy Audit, Promises Delivered, and Approval Signal cards align cleanly.
+- [ ] Score drill-downs: opening and closing Household Impact / Full Policy Audit score math keeps the detail near the tapped card on mobile and returns the reader to the scoreboard on close.
+- [ ] Approval Signal: poll detail opens near the card on mobile, closes cleanly, and source links are visible.
+- [ ] Scorecard grid: open at least one high-density dimension (Major Projects) and one normal dimension; no card text clips or overlaps.
+- [ ] Major Projects pipeline: mobile view shows the scroll cue; scrolling right reveals stage date and source links.
+- [ ] Trigger evidence links: external sources, internal evidence jumps, and event-driven labels are visually consistent and understandable.
+- [ ] Promises tab: open at least one promise with both source links; source/status evidence wraps instead of clipping on mobile.
+- [ ] Tab rail: on narrow mobile, the right-edge fade indicates more tabs are available.
+- [ ] About / Methodology: scoring-boundary and model-limit language is readable on mobile.
+- [ ] Change Log: newest entry appears first and is legible on mobile.
+- [ ] No horizontal page-level scroll appears except inside intentional scroll containers like the project pipeline table.
+
+If any item fails, fix it before treating the cycle as shipped.
+
+### 10. Post-cycle
 
 - [ ] Update this playbook if any step felt wrong or a new step appeared.
 - [ ] Update the [Current-Roadmap.md](Current-Roadmap.md) Recently Completed section with the cycle's landing note.

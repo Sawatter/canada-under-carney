@@ -107,7 +107,10 @@ No immediate work pending. The product cleanup loop is caught up. Next items are
 
 These are on deck awaiting their triggers.
 
-1. Next-cycle readiness pass
+1. Inter-rater pilot launch
+   Use the prepared May 2026 packet. Optional first step is a Claude / AI packet-QA pass for leakage, completeness, and confusing wording; it must not count as the reliability test. The first real pilot result should come from a human rater using the redacted packet without opening the live dashboard.
+
+2. Next-cycle readiness pass
    Focus on operational discipline, not redesign:
    - Economic Policy Response: no movement on announcements alone
    - Affordability Response: scope boundary holds

@@ -60,9 +60,11 @@ Please do not check the live dashboard until after sending your answers.
 
 ---
 
-## Claude / AI Review Prompt
+## Claude / AI Packet-QA Prompt
 
-Use this only to review the packet itself, not to replace a human rater.
+Use this once before recruiting the human rater if you want a packet-quality check. It reviews the packet itself and does not replace a human rater.
+
+Do not include the live dashboard, current grades, changelog, Git history, or editor rationale. If Claude finds leakage or missing evidence, fix the packet first, then send the corrected packet to the human rater.
 
 ```text
 Please review this inter-rater pilot packet for leakage, completeness, and bias.

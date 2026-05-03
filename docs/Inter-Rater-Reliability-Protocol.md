@@ -2,7 +2,7 @@
 
 - **Purpose:** Turn the dashboard's disclosure that "external inter-rater reliability has not been tested" into something testable. Define the process for a second reader (the rater) to independently apply the published rubric to a subset of dimensions, and the criteria for comparing their grades against the editor's.
 - **Status:** Active protocol. First v1 packet prepared; first run pending a willing second reader.
-- **Last updated:** 2026-04-19
+- **Last updated:** 2026-05-02
 - **Depends on:** [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [Plus-Minus-Decision-Rules.md](Plus-Minus-Decision-Rules.md)
 - **Used by:** Product Thesis claims about editorial vs. statistical rigor. Methodology tab "Limits of this model" block.
 
@@ -13,6 +13,28 @@
 The dashboard grades 11 policy dimensions on a published rubric. The rubric defines bands and modifiers precisely enough that two careful readers starting from the same evidence and the same sheet should land on the same (or near-same) grade — that is the whole point of a rule-governed scorecard as distinct from an editorial opinion column.
 
 Until a second reader actually tries it, that claim is disclosed-but-untested. The Methodology tab discloses this limitation. This protocol operationalizes the test.
+
+---
+
+## AI packet QA vs. human pilot
+
+It is acceptable to run one Claude / AI pass before sending the packet to a human, but only as **packet QA**. The AI reviewer may look for leakage, missing evidence, confusing worksheet instructions, or wording that nudges the rater toward the editor's likely answer.
+
+The AI pass must not be treated as the inter-rater pilot. It does not count as an outside rater, does not establish inter-rater reliability, and should not be reported as a completed reliability test. The first real pilot result should come from a human reader who independently applies the rubric.
+
+Guardrails for the AI QA pass:
+
+- Give the AI only the redacted packet, results template, and this protocol.
+- Do not give it the live dashboard, current grades, changelog, Git history, or editor rationale.
+- Ask it to review leakage/completeness only; do not ask it to assign grades.
+- Use its feedback to fix the packet before sending it to the human rater.
+
+Recommended sequence:
+
+1. Run optional AI packet QA.
+2. Fix any leakage or packet-completeness issues.
+3. Send the corrected packet to a human rater.
+4. Compare the human worksheet against the published dashboard snapshot.
 
 ---
 
