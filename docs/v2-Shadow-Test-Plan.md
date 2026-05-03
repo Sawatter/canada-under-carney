@@ -9,52 +9,30 @@
 
 ---
 
-## Shadow Test 1: Promise Delivery Removed from GPA
+## Shadow Test 1: Promise Delivery Removed from GPA - Implemented
 
-### What changes in the data model
+### Outcome
 
-- `dimensions.json`: Add `"excludeFromGPA": true` field to the Promise Delivery dimension
-- `history.json`: May snapshot records both 12-dimension GPA (current) and 11-dimension GPA (shadow) side by side
-- No dimension is deleted. No data is removed. The Promise Tracker tab is untouched.
+The shadow test was promoted before the May 2026 cycle. Promise Delivery now carries `excludeFromGPA: true`, no live `grade` field, and an `informationalGrade` retained only for historical/accountability context. The Full Policy Audit and Household Impact calculations filter it out through the shared `gradedOnly()` path in `src/utils.js`.
 
-### What changes in the UI
+### What changed in the live product
 
-- **Nothing visible to the public.** The live dashboard continues showing 12 graded dimensions.
-- Internally, the May release log records both GPAs:
-  - "12-dimension Full Policy Audit GPA: [X]"
-  - "11-dimension shadow GPA (Promise Delivery excluded): [Y]"
-  - "Household Impact GPA: unchanged (Promise Delivery was never double-weighted)"
+- Promise Delivery is displayed as `Tracker · No letter grade`.
+- The header still shows delivered / total commitment count.
+- The Promises tab still displays all 43 commitments with status, evidence, and durability fields.
+- The aggregate scores now use 11 graded dimensions, not 12.
 
-### What changes in the scoring logic
+### Why promotion was accepted
 
-- `utils.js`: Add a `calculateShadowGPA()` function that filters out dimensions where `excludeFromGPA === true`
-- The shadow GPA is computed but not displayed on the dashboard
-- The Household Impact GPA is unaffected (Promise Delivery was never in the pocketbook-weighted set)
+- The tracker was derivative of the 11 home dimensions and created double-counting risk when treated as a peer score.
+- No accountability information was lost because the Promise Tracker remains visible and evidence-backed.
+- Removing the grade made the score model cleaner and the public framing easier to explain.
 
-### What changes in the monthly workflow
+### Remaining maintenance
 
-- After computing the standard 12-dimension GPA, also compute the 11-dimension shadow GPA
-- Record both in the release log
-- Note any divergence
-- Do NOT change any publicly visible grade or GPA
-
-### Evidence that would justify promoting to live
-
-All of these must be true:
-
-1. **GPA divergence is small.** The 11-dimension GPA differs from the 12-dimension GPA by less than 0.15 points. (Expected: Promise Delivery at C+ = 2.3, close to the current 1.70 average, so removing it should lower the GPA slightly — maybe 0.05-0.10 points.)
-
-2. **No information is lost.** The Promise Tracker tab still displays all 43 commitments with statuses, evidence, and durability tags. A reader visiting the dashboard gets the same accountability picture.
-
-3. **No double-counting occurred.** During the May update, no grade movement in a home dimension (Housing, Climate, etc.) was also independently counted in Promise Delivery. If the deconfliction held, the derivative dimension added no unique information.
-
-4. **The release was cleaner.** The monthly workflow was simpler without needing to separately grade Promise Delivery and cross-check it against every home dimension.
-
-### What blocks promotion
-
-- If removing Promise Delivery causes the headline grade to change by a full letter (extremely unlikely but must be checked)
-- If a reader or reviewer identifies a specific accountability gap that only the graded dimension captured
-- If the Promise Tracker tab proves insufficient as a replacement for the graded dimension (e.g., readers expect a grade chip next to promises)
+- Keep promise statuses and evidence links current during monthly cycles.
+- Keep Promise Delivery out of aggregate-score math.
+- Do not reintroduce A-F grade language on the tracker unless a new methodology decision explicitly reverses the current memo.
 
 ---
 

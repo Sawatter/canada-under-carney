@@ -129,15 +129,15 @@
 | **Before next cycle?** | Apply Combination Rule mechanically: yes. Structural change: no (evaluate after one cycle). |
 | **Affects** | Live model (probation) + shadow model (removal test) |
 
-### 12. Promise Delivery (C+)
+### 12. Promise Delivery (ungraded tracker)
 
 | Field | Value |
 |---|---|
-| **Status** | v2 Queue |
-| **Unresolved issue** | Derivative dimension. Every grade movement is already captured in a home dimension. Cannot identify independent grade-moving evidence. |
-| **What needs doing** | Shadow-remove from GPA for one cycle. Run 11-dimension GPA alongside 12-dimension. If difference is <0.1 GPA points, promote removal to live. Promise Tracker tab remains unchanged. |
-| **Before next cycle?** | Shadow calculation: yes. Live change: no. |
-| **Affects** | Shadow model only (live model unchanged until decision) |
+| **Status** | Decision landed |
+| **Unresolved issue** | No GPA issue remains. Promise Delivery is intentionally derivative and kept outside the aggregate scores. |
+| **What needs doing** | Maintain promise statuses, original-source links, and status-evidence links during the monthly cycle. Keep status changes deconflicted to their home dimensions. |
+| **Before next cycle?** | Review promise statuses and the three remaining status-evidence gaps; no shadow GPA run required. |
+| **Affects** | Accountability tracker only |
 
 ---
 
@@ -151,7 +151,7 @@ These items must be completed before the May 2026 cycle:
 - [x] **Ethics & Transparency:** Add one anchored indicator
 - [ ] **Defence & Trade:** Add sub-scores (Defence: A, Trade: B+) to expanded card display
 - [ ] **Flagship Delivery:** Apply Combination Rule mechanically to produce grade
-- [ ] **Promise Delivery:** Run shadow 11-dimension GPA alongside 12-dimension
+- [ ] **Promise Delivery:** Review tracker statuses and remaining status-evidence gaps
 - [ ] **Fiscal Health:** Incorporate April 28 economic update data
 - [ ] **Housing Supply:** Enforce announced ≠ started ≠ completed language
 - [ ] **Major Projects:** Confirm credit-claiming penalty documented in release log
@@ -165,7 +165,7 @@ Ideas that are valid but must NOT leak into the live cycle. These are queued for
 
 | Item | Source | Status |
 |---|---|---|
-| Promise Delivery → ungraded tracker | Decision memo, ChatGPT consensus | Shadow test first |
+| Promise Delivery → ungraded tracker | Decision memo, ChatGPT consensus | Implemented |
 | Defence & Trade → full split | Decision memo, methods panel | Only if sub-scores diverge >1.0 |
 | Carbon Pricing → merge into Climate | Methods panel shadow test A | Shadow only; merging buries a policy win |
 | Flagship Delivery → remove entirely | Methods panel shadow test B | Probation cycle first |

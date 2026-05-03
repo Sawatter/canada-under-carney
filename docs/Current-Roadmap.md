@@ -41,6 +41,7 @@
 
 ## Recently Completed
 
+- Promise Delivery tracker-doc reconciliation — stale methodology docs that still described Promise Delivery as `C+`, provisional, or awaiting a shadow GPA removal were reconciled to the live decision. Canonical Scoring Sheets now labels Promise Delivery as an ungraded tracker exception, Dimension Status Register no longer asks for a shadow-removal run, and the beta-feedback follow-up now treats tracker framing as resolved while still watching for stale grade language. No grade, score, source, promise status, methodology, or live dashboard change.
 - `gpaValue` override check — the override mechanism in [src/utils.js](../src/utils.js) was investigated and should not be retired. It is still live for Ethics & Transparency and Flagship Delivery, where both display as whole-letter `C` and need an explicit 2.0 score value under the whole-letter probation decisions. Retaining the override prevents future cleanup from accidentally changing aggregate-score math. No grade, score, source, promise status, methodology, or live dashboard change.
 - Inter-rater pilot packet — the first v1 external-rater packet is prepared for Fiscal Health, Affordability Response, and Ethics & Transparency. It gives a reviewer raw metrics, source lists, source-role guidance, thresholds, deconfliction rules, and one-notch triggers while redacting the published grade, editor rationale, judgment calls, perspectives, and active modifier selections. A matching results template and copy-ready reviewer invite are ready so the first completed worksheets can be recruited and scored consistently. No grade, score, source, promise status, methodology, or live dashboard change.
 - Cycle preflight tooling fix — the monthly data-fetch script now handles tracker-only dimensions correctly after Promise Delivery stopped carrying a live `grade` field. Pre-cycle source availability now runs end to end again: the current check confirms Statistics Canada tables, IRCC open-data CSVs, and the Bank of Canada API are reachable, and the generated report labels Promise Delivery as `Tracker: no letter grade (informational C+)` instead of crashing. Generated `scripts/output/` files remain ignored and uncommitted. No grade, score, source, promise status, methodology, or live dashboard change.
@@ -120,8 +121,7 @@ These are on deck awaiting their triggers.
 These are valid, but not active now.
 
 1. Decide whether Flagship Delivery stays on probation after one real cycle.
-2. Reassess whether Promise Delivery should remain purely an ungraded tracker.
-3. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
+2. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
 
 ---
 

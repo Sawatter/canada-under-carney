@@ -84,5 +84,5 @@ This pass does not change any live grade. It changes what a reader can verify:
 
 ### Remaining follow-ups
 
-1. Decide whether Promise Delivery should remain a graded-looking tracker or move further toward a pure accountability panel.
+1. Promise Delivery tracker framing is resolved in the live app; keep watching for stale docs or UI copy that revives grade language.
 2. Consider a later UI pass for inline metric-level source threading once the trigger-level traceability pattern proves useful.

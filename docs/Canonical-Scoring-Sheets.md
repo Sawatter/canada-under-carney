@@ -485,13 +485,13 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 ---
 
-## 11. Promise Delivery (C+) — PROVISIONAL
+## 11. Promise Delivery - Tracker Exception (ungraded)
 
-> **Current live dimension, but under shadow / v2 review. This sheet documents the current state only and may change if the shadow test is promoted. See v2-Decision-Memo-Promise-Delivery.md for the full case.**
+> **Decision landed.** Promise Delivery is no longer a graded peer dimension and does not contribute to Household Impact or Full Policy Audit. It remains visible as a standalone accountability tracker because commitment-keeping matters, but its evidence is derivative of the 11 graded home dimensions. See [v2-Decision-Memo-Promise-Delivery.md](v2-Decision-Memo-Promise-Delivery.md).
 
 **Construct:** The cumulative rate of fulfillment of specific stated government commitments.
 
-**Type:** Outcome (counts delivered vs. stalled vs. abandoned)
+**Type:** Accountability tracker (delivered / in progress / stalled / abandoned)
 
 **Attribution:** Federal 85% (these are the government's own promises) · Shared 10% (some promises require provincial cooperation) · External 5% (trade war affected some climate commitments)
 
@@ -503,20 +503,13 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 - Abandonment rate
 - Pattern analysis (which files deliver, which do not)
 
-**Grade thresholds:**
-| Grade | Threshold |
-|---|---|
-| A | >75% delivered. Abandonments <5%. Delivery pattern broad across files. |
-| B | 50-75% delivered. Abandonments <15%. Most flagship files show delivery. |
-| C | 25-50% delivered. Mixed pattern across files. Some commitments deliver while others stall or are abandoned. |
-| D | <25% delivered. High abandonment rate. Delivery concentrated in 1-2 files only. |
-| F | <10% delivered. Majority abandoned. |
+**Scoring status:** No A-F grade is assigned. The tracker is excluded from aggregate-score math. The public signal is the delivered / total count plus the status distribution on the Promises tab.
 
 **Modifier rules:**
-- Timing fairness: Applies. Many commitments have multi-year timelines. "Too Early" status exists for this reason.
-- Credit-claiming penalty: Not applicable (this dimension tracks stated commitments, not claimed achievements).
+- Timing fairness is handled through promise statuses such as "Too Early"; it is not a grade modifier because there is no grade.
+- Credit-claiming penalty is not applicable. The tracker records whether stated commitments moved, not whether the government deserves policy-performance credit.
 
-**One-notch move triggers:**
+**Tracker movement triggers:**
 - Up: Delivery count rises to 18+ of 43 without new abandonments
 - Down: Additional abandonments bring total above 15, OR housing/climate see no movement for another cycle
 
@@ -524,11 +517,11 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 **Confidence default:** Medium
 
-**Deconfliction rule:** WEAK. This dimension has the worst deconfliction in the framework. Every promise has a primary home elsewhere. Movements already captured in home dimensions should NOT independently drive this grade. This dimension is marked as derivative — it reflects the cumulative pattern, not independent information.
+**Deconfliction rule:** Every promise has a primary home elsewhere. Movements already captured in home dimensions must not feed back into the aggregate score through this tracker. Promise Delivery reflects the cumulative pattern of commitment fulfillment, not independent policy-performance information.
 
-**Rater note:** This dimension is likely leaving the GPA in v2. The Promise Tracker tab already provides the accountability function without contaminating the score. During the shadow test cycle, compute the GPA with and without this dimension. If the difference is <0.15, the removal is validated.
+**Rater note:** Do not grade this file in the inter-rater pilot. If promise statuses change, verify the status evidence and the home-dimension deconfliction path rather than assigning a separate A-F grade.
 
-**v2 status:** Shadow-remove from GPA in May 2026 cycle. Decision memo recommends conversion to ungraded Promise Tracker.
+**v2 status:** Implemented in April 2026. Promise Delivery is an ungraded tracker outside the score.
 
 ---
 
@@ -603,12 +596,12 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 10. Flagship Delivery — C
 
-## Provisional, under v2 review (2 dimensions)
+## Structural exceptions
 
-11. Promise Delivery — C+ *(likely leaving GPA)*
-12. Defence & Trade — A- *(likely gaining sub-scores)*
+- Promise Delivery — ungraded tracker, excluded from aggregate-score math
+- Defence & Trade — combined file with live sub-score / split-promotion tripwire
 
 ---
 
 *Canonical Scoring Sheets v1.0 — April 2026, clarified April 30, 2026*
-*All 12 dimensions documented. This is the single reference for all grading decisions.*
+*All 11 graded dimensions plus the Promise Delivery tracker exception documented. This is the single reference for grading and tracker-boundary decisions.*
