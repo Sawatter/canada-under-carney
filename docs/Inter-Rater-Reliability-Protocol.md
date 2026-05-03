@@ -1,7 +1,7 @@
 # Inter-Rater Reliability Protocol
 
 - **Purpose:** Turn the dashboard's disclosure that "external inter-rater reliability has not been tested" into something testable. Define the process for a second reader (the rater) to independently apply the published rubric to a subset of dimensions, and the criteria for comparing their grades against the editor's.
-- **Status:** Active protocol. First run pending a willing second reader.
+- **Status:** Active protocol. First v1 packet prepared; first run pending a willing second reader.
 - **Last updated:** 2026-04-19
 - **Depends on:** [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [Plus-Minus-Decision-Rules.md](Plus-Minus-Decision-Rules.md)
 - **Used by:** Product Thesis claims about editorial vs. statistical rigor. Methodology tab "Limits of this model" block.
@@ -148,3 +148,9 @@ Date: __________________________________
 - Second rater added (moves from N=1 to N=2 rater cohort) — enables Cohen's kappa.
 - Full-dashboard run across all 11 dimensions once v1 sanity check clears.
 - Public posting of the anonymized worksheets so readers can see the rubric in action.
+
+## Current v1 packet
+
+- [Inter-Rater-Pilot-Packet-2026-05.md](Inter-Rater-Pilot-Packet-2026-05.md)
+- [Inter-Rater-Pilot-Results-Template-2026-05.md](Inter-Rater-Pilot-Results-Template-2026-05.md)
+- [Inter-Rater-Pilot-Reviewer-Invite-2026-05.md](Inter-Rater-Pilot-Reviewer-Invite-2026-05.md)
