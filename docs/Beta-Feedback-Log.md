@@ -29,6 +29,7 @@ Thread signal by venue:
 - Added a longer `Where judgment enters` explanation inside each graded dimension's scoring drawer.
 - Tightened mobile rendering so the Scorecard framing remains visible, `Last reviewed` pills have stronger contrast, and the Promises summary no longer clips status labels.
 - Added a reader-facing changelog entry for the trust-feedback pass.
+- Follow-up in v5.17 made the measurable-vs-valuable boundary explicit on the About and Methodology pages: the dashboard scores sourceable federal action and observable evidence, not every politically valuable quality.
 
 ### Methodological interpretation
 
@@ -38,7 +39,7 @@ The dashboard cannot remove judgment from grading. The trust move is to make jud
 - Thresholds live in the scoring drawer.
 - Editor judgment now has an explicit surface on every graded file.
 - Freshness is visible globally and per dimension.
-- The Scorecard view now states that measurable dimensions are not the same thing as all valuable outcomes.
+- The global frame and About page now state that measurable dimensions are not the same thing as all valuable outcomes.
 
 ### Remaining follow-ups
 

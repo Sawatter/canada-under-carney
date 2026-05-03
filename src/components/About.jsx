@@ -28,6 +28,64 @@ export default function About() {
           perspectives. All grading decisions are made by the human editor
           using a published scoring rubric.
         </p>
+
+        <div
+          style={{
+            borderLeft: "3px solid #607d8b",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div
+            style={{ fontWeight: 700, fontSize: "14px", color: "#455a64" }}
+          >
+            What This Scores and What It Does Not
+          </div>
+          <p style={{ margin: "6px 0 10px", fontSize: "14px", color: "#444" }}>
+            The dashboard scores federal performance where there is a public
+            paper trail: announced commitments, funded or authorized programs,
+            official statistics, independent analysis, published thresholds,
+            and observable policy outcomes. It is designed to make those
+            claims inspectable, not to score every politically important
+            quality.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: "12px",
+              fontSize: "14px",
+              color: "#444",
+            }}
+          >
+            <div>
+              <strong>Scored:</strong>
+              <ul style={{ margin: "6px 0 0", paddingLeft: "18px" }}>
+                <li>federal actions with sourceable evidence</li>
+                <li>documented commitments and delivery status</li>
+                <li>published policy thresholds and grade triggers</li>
+                <li>outcomes where federal levers are visible enough to assess</li>
+              </ul>
+            </div>
+            <div>
+              <strong>Not scored:</strong>
+              <ul style={{ margin: "6px 0 0", paddingLeft: "18px" }}>
+                <li>leadership style, charisma, or political strategy</li>
+                <li>symbolic actions without durable policy artifacts</li>
+                <li>popularity, vote choice, or campaign forecasting</li>
+                <li>valuable outcomes that lack enough public evidence to grade</li>
+              </ul>
+            </div>
+          </div>
+          <p style={{ margin: "10px 0 0", fontSize: "14px", color: "#555" }}>
+            This means the dashboard can understate things that matter but are
+            not yet measurable, and it can over-focus attention on files where
+            evidence is easiest to observe. The counterweight is disclosure:
+            each card names what it grades, where judgment enters, and which
+            evidence would move the grade.
+          </p>
+        </div>
+
         <div style={{ marginBottom: "16px" }}>
           <p style={{ margin: "0 0 10px" }}>
             <strong>Why two grades?</strong> Every policy area on this

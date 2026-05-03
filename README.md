@@ -36,8 +36,7 @@ These four areas count twice as much in Household Impact; the other seven still 
 - **Commitment Traceability Map** — published join layer linking commitments to home dimensions, constructs, indicators, source roles, and derivative handling
 - **Rubric** — Transparent scoring rubric embedded in the dashboard
 - **Change Log** — Monthly change log with grade changes and evidence
-- **About** — Source balance, principles, and evaluation methodology
-- **Print/PDF** — Export-ready for meetings
+- **About** — What the dashboard scores, what it does not score, source balance, principles, and evaluation methodology
 - **Mobile** — Responsive design for phones and tablets
 
 ## Source Balance

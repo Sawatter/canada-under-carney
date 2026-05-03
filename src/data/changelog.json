@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-05-02",
+    "summary": "Scoring-boundary disclosure: the About and Methodology pages now state what the dashboard can and cannot score.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "About page now names the dashboard's scoring boundary",
+        "body": "A new section explains that the dashboard scores sourceable federal action, documented commitments, published thresholds, and observable outcomes, not leadership style, symbolic politics, popularity, forecasts, or valuable outcomes that lack enough public evidence to grade."
+      },
+      {
+        "type": "method",
+        "headline": "Methodology limits now address measurable-vs-valuable risk",
+        "body": "The rubric limits now say plainly that the model can only score what can be inspected through public evidence, rather than estimating weakly evidenced qualities by proxy."
+      },
+      {
+        "type": "docs",
+        "headline": "README feature list reconciled with the live app",
+        "body": "The removed Print / Export PDF feature is no longer advertised, and the About feature now mentions the new scoring-boundary disclosure."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
     "summary": "Mobile UX bug-fix bundle: trust frame is now global, evidence chips no longer clip on phones, drill-downs return readers to the scoreboard on close, and the project pipeline gives a clear scroll cue.",
     "items": [
       {

@@ -215,6 +215,12 @@ export default function Methodology() {
             internal discipline, not a substitute for independent
             replication.
           </li>
+          <li style={{ marginBottom: "6px" }}>
+            The model can only score what can be inspected through public
+            evidence. Leadership style, symbolic politics, unmeasured public
+            value, and other important but weakly evidenced qualities are
+            outside the score rather than estimated by proxy.
+          </li>
           <li>
             The two headline scores (Full Policy Audit and Household
             Impact) use the same 11 dimensions with different weights and
