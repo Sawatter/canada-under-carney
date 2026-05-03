@@ -148,6 +148,22 @@ def load_dimensions():
         return json.load(f)
 
 
+def get_dimension_label(dim):
+    """Return the public scoring label for graded dimensions and trackers."""
+    if dim.get("excludeFromGPA"):
+        label = "Tracker: no letter grade"
+        informational_grade = dim.get("informationalGrade")
+        if informational_grade:
+            label += f" (informational {informational_grade})"
+        return label
+
+    grade = dim.get("grade")
+    if grade:
+        return f"Grade: {grade}"
+
+    return "Grade: unavailable"
+
+
 def generate_fetch_report(dimensions, results):
     """Generate a human-readable fetch report."""
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -203,7 +219,7 @@ def generate_fetch_report(dimensions, results):
     lines.append("")
 
     for dim in dimensions:
-        lines.append(f"[{dim['id']}] {dim['name']} — Grade: {dim['grade']}")
+        lines.append(f"[{dim['id']}] {dim['name']} - {get_dimension_label(dim)}")
         for m in dim["metrics"]:
             auto = "AUTO" if m.get("automatable") else "MANUAL"
             source = m.get("source", "unknown")
