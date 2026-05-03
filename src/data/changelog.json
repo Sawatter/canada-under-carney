@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-02",
+    "summary": "Traceability polish: event-driven trigger sources now say so directly in the scoring drawer.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Non-clickable trigger sources now identify event-driven evidence",
+        "body": "Six grade-move triggers that depend on future events now label their source line as event-driven, so readers can distinguish evidence that already has a one-click source from evidence that would only exist if the trigger fires. No grades, scores, thresholds, source lists, or promise statuses changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
     "summary": "Scoring-boundary disclosure: the About and Methodology pages now state what the dashboard can and cannot score.",
     "items": [
       {

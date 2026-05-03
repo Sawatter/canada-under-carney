@@ -1050,7 +1050,7 @@
       "down": [
         {
           "text": "Additional major fund announced without Treasury Board authorization",
-          "sourceLabel": "Budget / Treasury Board records"
+          "sourceLabel": "Budget / Treasury Board records (event-driven)"
         },
         {
           "text": "Business investment decline accelerates",
@@ -1533,7 +1533,7 @@
         },
         {
           "text": "Formal carbon border adjustment mechanism announced with implementation plan",
-          "sourceLabel": "Government of Canada carbon border-adjustment announcement"
+          "sourceLabel": "Government of Canada carbon border-adjustment announcement (event-driven)"
         }
       ],
       "down": [
@@ -1734,7 +1734,7 @@
       "up": [
         {
           "text": "Replacement climate strategy published with funded measures",
-          "sourceLabel": "Government of Canada replacement climate strategy"
+          "sourceLabel": "Government of Canada replacement climate strategy (event-driven)"
         },
         {
           "text": "ECCC budget restored",
@@ -1745,7 +1745,7 @@
       "down": [
         {
           "text": "Formal withdrawal from Paris commitments",
-          "sourceLabel": "Paris Agreement commitment status"
+          "sourceLabel": "Paris Agreement commitment status (event-driven)"
         },
         {
           "text": "Additional climate program eliminations",
@@ -1975,7 +1975,7 @@
       "down": [
         {
           "text": "Evidence of critical service failure directly attributable to the pullback",
-          "sourceLabel": "IRCC service / permit data"
+          "sourceLabel": "IRCC service / permit data (event-driven)"
         },
         {
           "text": "Reversal of the contraction",
@@ -2421,7 +2421,7 @@
         },
         {
           "text": "Two or more listed governance sources publish a material disclosure or screening gap finding",
-          "sourceLabel": "Ethics source list / governance critiques"
+          "sourceLabel": "Ethics source list / governance critiques (event-driven)"
         }
       ]
     },
