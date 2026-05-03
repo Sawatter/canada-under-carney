@@ -525,9 +525,9 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 ---
 
-## 12. Defence & Trade (A-) — PROVISIONAL
+## 12. Defence & Trade (A-) - Combined File With Sub-Scores
 
-> **Current live dimension, but under shadow / v2 review. This sheet documents the current state only and may change if the shadow test is promoted. See v2-Decision-Memo-Defence-Trade.md for the full case.**
+> **Current live dimension.** Defence and trade remain in one combined file, but the live data carries sub-scores and a split-promotion tripwire so divergence cannot stay hidden. See [v2-Decision-Memo-Defence-Trade.md](v2-Decision-Memo-Defence-Trade.md) for the full case.
 
 **Construct:** The degree to which the federal government has met its stated defence spending commitments and diversified Canada's trade relationships away from single-market dependency.
 
@@ -553,7 +553,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 | D | Defence spending flat or declining. Trade: no diversification or regression. |
 | F | Defence cuts. Trade dependence increasing. |
 
-**Shadow sub-scores (to be tested in May 2026):**
+**Live sub-scores:**
 - Defence sub-score: A (NATO 2% met, $81.8B committed, procurement advancing)
 - Trade sub-score: B+ (US share down to 71.7%, non-US +17.2%, partially market-driven)
 - Headline A- = average of sub-scores: (4.0 + 3.3) / 2 = 3.65 → A-
@@ -572,9 +572,9 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 **Deconfliction rule:** Defence is clean — nothing else grades it. Trade diversification partially overlaps with Economic Policy Response (interprovincial trade, Buy Canadian). Trade metrics are primary-homed HERE. Economic Policy Response may reference trade context but cannot grade-credit export diversification.
 
-**Rater note:** Defence is the anchor. Trade is the modifier. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch for the decision gate: if sub-scores diverge by >1.0 GPA for 2 consecutive cycles, trigger the full split.
+**Rater note:** Defence is the anchor. Trade is the modifier. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch the live tripwire: if one sub-score rises while the other falls, or the gap between them widens by one full notch, for two consecutive monthly review cycles, promote the split shadow into live separate files.
 
-**v2 status:** Shadow sub-scoring in May 2026 cycle. Decision memo recommends keeping combined with explicit sub-scores. Full split only if divergence gate triggered.
+**v2 status:** Sub-scores are implemented. Keep combined unless the split-promotion tripwire fires.
 
 ---
 

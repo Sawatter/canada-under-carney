@@ -36,11 +36,15 @@ The shadow test was promoted before the May 2026 cycle. Promise Delivery now car
 
 ---
 
-## Shadow Test 2: Defence & Trade Sub-Scores
+## Shadow Test 2: Defence & Trade Sub-Scores - Implemented
+
+### Outcome
+
+The sub-score test was promoted before the May 2026 cycle. Defence & Trade remains one combined live file, but the expanded card now exposes separate defence and trade sub-scores, and the dimension data carries a split-promotion tripwire.
 
 ### What changes in the data model
 
-- `dimensions.json`: Add a `subScores` field to the Defence & Trade dimension:
+- `dimensions.json` carries a `subScores` field on the Defence & Trade dimension:
 
 ```json
 "subScores": {
@@ -59,44 +63,32 @@ The shadow test was promoted before the May 2026 cycle. Promise Delivery now car
 
 - The headline grade (A-) remains computed as the rounded average of the two sub-scores: (4.0 + 3.3) / 2 = 3.65, which rounds to A-
 
-### What changes in the UI
+### What changed in the UI
 
-- **Visible change:** The expanded Defence & Trade card shows a new "Sub-Scores" section between the rationale and the metrics:
+- The expanded Defence & Trade card shows a "Sub-Scores" section:
   - "Defence: A — NATO 2% met, procurement advancing"
   - "Trade Diversification: B+ — US share down, partially market-driven"
 - The headline grade chip (A-) remains unchanged
-- The "Why This Grade" rationale is updated to reference the sub-scores
+- The "Why This Grade" rationale references the sub-scores
 
-### What changes in the scoring logic
+### Current scoring logic
 
 - The headline grade is still the GPA entry for Defence & Trade
-- Sub-scores are informational — they explain the headline but do not independently contribute to the GPA
+- Sub-scores explain the headline but do not independently contribute to aggregate-score math
 - The combination rule: headline = average of sub-score GPAs, rounded to nearest standard grade
-- If sub-scores diverge by more than 1.0 GPA points, flag for full split review
+- If one sub-score rises while the other falls, or the gap between them widens by one full notch, for two consecutive monthly review cycles, promote the split shadow into live separate files
 
-### What changes in the monthly workflow
+### Current monthly workflow
 
 - Each update assesses both sub-scores independently
 - The release log records: "Defence sub-score: [X]. Trade sub-score: [Y]. Headline: [Z]. Divergence: [delta]."
-- If divergence exceeds 1.0 for two consecutive cycles, the full split is automatically queued
+- If the live split tripwire fires for two consecutive monthly review cycles, the full split is automatically queued
 
-### Evidence that would justify promoting to live
+### Why promotion was accepted
 
-All of these must be true:
-
-1. **Sub-scores are independently gradeable.** The analyst can assign a defence grade and a trade grade without ambiguity using the existing rubric and indicator set.
-
-2. **The combination rule produces a sensible headline.** The averaged sub-score matches or is within one notch of what an analyst would assign to the combined dimension without sub-scoring.
-
-3. **Readers find it useful.** The sub-scores add clarity without confusion. A reader who sees "A- (Defence: A, Trade: B+)" understands more than one who sees "A-" alone.
-
-4. **The divergence monitor works.** If trade data changes in the May cycle, the trade sub-score moves independently and the divergence is logged. The system can detect when the two constructs are pulling apart.
-
-### What blocks promotion
-
-- If the sub-scores create confusion (readers don't understand why A and B+ average to A-)
-- If the combination rule produces results that feel arbitrary (e.g., Defence A + Trade C = B-, which satisfies no one)
-- If the monthly workflow burden of grading two sub-scores is disproportionate to the clarity gained
+- Sub-scores are independently gradeable with the existing evidence.
+- The combined headline remains useful while sub-scores prevent defence from hiding trade movement.
+- The split tripwire defines when the combined file breaks.
 
 ---
 
@@ -106,23 +98,23 @@ All of these must be true:
 |---|---|
 | May 1 | Run fetch script, pull new data |
 | May 1-7 | Apply evidence to all dimensions using v1.1 rubric and QA rules |
-| May 7 | Compute 12-dimension GPA (live) AND 11-dimension GPA (shadow) |
-| May 7 | Assign Defence & Trade sub-scores (shadow) alongside headline |
+| May 7 | Compute the 11-dimension Full Policy Audit score |
+| May 7 | Reassess Defence & Trade sub-scores alongside headline |
 | May 7 | Run QA 3-lane process on any proposed grade changes |
-| May 8 | Record both shadow results in release log |
-| May 14 | Publish May update (live model only, no structural changes) |
-| May 15 | Review shadow results. Decision: promote, defer, or abandon each shadow test |
+| May 8 | Record any live split-tripwire or tracker-boundary observations in release log |
+| May 14 | Publish May update |
+| May 15 | Review whether any structural item needs reopening |
 
 ---
 
 ## Decision Criteria Summary
 
-| Shadow Test | Promote if | Defer if | Abandon if |
-|---|---|---|---|
-| Promise Delivery removal | GPA divergence <0.15, no info lost, workflow cleaner | Divergence 0.15-0.30 or ambiguous | Divergence >0.30 or clear accountability gap |
-| Defence & Trade sub-scores | Sub-scores gradeable, combination sensible, readers find useful | Sub-scores hard to assign or combination feels arbitrary | Creates more confusion than clarity |
+| Structural item | Current rule | Reopen if |
+|---|---|---|
+| Promise Delivery removal | Implemented as ungraded tracker outside score | A new methodology decision reverses the tracker-only memo |
+| Defence & Trade sub-scores | Implemented inside combined file | Split tripwire fires for two consecutive monthly cycles |
 
 ---
 
 *v2 Shadow Test Plan v1.0 — April 2026*
-*Execute during May 2026 cycle. Decision after results reviewed.*
+*Historical shadow plan. Promise Delivery removal and Defence & Trade sub-scores have been promoted; keep this file as validation context.*

@@ -1,8 +1,8 @@
 # Dimension Status Register
 
-**Purpose:** Single source of truth for the scoring status of every dimension. Prevents losing track of what needs fixing, what's stable, and what's queued for v2.
+**Purpose:** Register the structural status of every dimension. The active work queue lives in [Current-Roadmap.md](Current-Roadmap.md); this file prevents old structural concerns from being mistaken for current blockers.
 
-**Last updated:** April 2026
+**Last updated:** May 2026
 
 ---
 
@@ -23,11 +23,11 @@
 
 | Field | Value |
 |---|---|
-| **Status** | v2 Queue |
-| **Unresolved issue** | Dual construct: defence ≠ trade diversification. Defence can mask trade regression. |
-| **What needs doing** | Implement sub-scoring (Defence: A, Trade: B+) in expanded card. Decision gate: if sub-scores diverge >1.0 GPA for 2 cycles, trigger full split. |
-| **Before next cycle?** | Sub-scoring display: yes. Full split: no (shadow only). |
-| **Affects** | Live model (sub-score display) + shadow model (split test) |
+| **Status** | Stable with split tripwire |
+| **Unresolved issue** | Mixed construct remains, but sub-scores and a split-promotion tripwire now make the defence/trade tension visible. |
+| **What needs doing** | Monitor the live tripwire: if one sub-score rises while the other falls, or the gap widens by one full notch, for two consecutive monthly review cycles, promote the split shadow into live separate files. |
+| **Before next cycle?** | Monitor only. Full split: no unless the tripwire fires. |
+| **Affects** | Live model monitoring |
 
 ### 2. Major Projects (C)
 
@@ -53,30 +53,30 @@
 
 | Field | Value |
 |---|---|
-| **Status** | Tightening |
-| **Unresolved issue** | Announcement bias risk. This dimension was reframed to grade policy response, but the QA drill showed how easily a splashy announcement (AI fund, minerals deal) can be argued into a grade move without implementation evidence. |
-| **What needs doing** | Enforce QA Gatekeeping Rule 2: evidence must be at "Authorized" stage or higher. Announcements alone cannot move this grade. TB approval counts. Press releases do not. |
-| **Before next cycle?** | Enforce the rule: yes. Redefine construct: no. |
+| **Status** | Stable with announcement-bias guardrail |
+| **Unresolved issue** | Announcement bias remains the main risk, but the live guardrails now require authorization or execution evidence before announcements can lift the grade. |
+| **What needs doing** | Enforce QA Gatekeeping Rule 2 during each cycle: evidence must be at "Authorized" stage or higher. Announcements alone cannot move this grade. |
+| **Before next cycle?** | Cycle enforcement only. Redefine construct: no. |
 | **Affects** | Live model only |
 
 ### 5. Affordability Response (D-)
 
 | Field | Value |
 |---|---|
-| **Status** | Tightening |
-| **Unresolved issue** | Scope definition is still loose. What exactly is graded: grocery policy only? All food affordability? Broader household cost pressure (rents, insurance, utilities, transport)? The rename to "Affordability Response" implies breadth but the metrics are still grocery-heavy. |
-| **What needs doing** | Define the scope explicitly: this dimension grades the federal policy response to household cost pressure across groceries, tariff-driven costs, and targeted relief programs. It does NOT grade rents (Housing), utilities (shared jurisdiction), or insurance (provincial). Document this boundary. |
-| **Before next cycle?** | Scope definition: yes. Indicator expansion: no (keep grocery-focused for now, expand later with data). |
+| **Status** | Stable with scope boundary |
+| **Unresolved issue** | Scope boundary is now explicit, but the evidence stack remains grocery-heavy by design until broader federal household-cost instruments produce clean sourceable metrics. |
+| **What needs doing** | Keep rents, utilities, insurance, and transportation out of this dimension unless a future methodology decision expands the construct. |
+| **Before next cycle?** | Enforce scope boundary. Indicator expansion: no. |
 | **Affects** | Live model only |
 
 ### 6. Carbon Pricing Policy (C)
 
 | Field | Value |
 |---|---|
-| **Status** | Tightening |
-| **Unresolved issue** | Overlap with Climate & Environment on industrial carbon pricing metrics. The effective vs. headline price ($20 vs. $95) was moved to Carbon Pricing as primary home, but the boundary needs to hold under pressure. |
-| **What needs doing** | Enforce deconfliction: Carbon Pricing owns the pricing instrument. Climate owns the emissions framework. If OBPS tightening is announced, it scores in Carbon Pricing (instrument change). If emissions rise, it scores in Climate (outcome). Publish this rule in the release log. |
-| **Before next cycle?** | Enforce boundary: yes. Merge into Climate: no (shadow only per decision memo). |
+| **Status** | Stable with deconfliction guardrail |
+| **Unresolved issue** | Carbon Pricing / Climate overlap remains possible, but the live scoring guardrails now assign the pricing instrument to Carbon Pricing and the emissions framework to Climate. |
+| **What needs doing** | Enforce deconfliction during each cycle. If OBPS tightening is announced, score it in Carbon Pricing. If emissions or climate-framework credibility changes, score that in Climate. |
+| **Before next cycle?** | Enforce boundary. Merge into Climate: no. |
 | **Affects** | Live model + shadow model (merge test) |
 
 ### 7. Climate & Environment (D)
@@ -145,16 +145,16 @@
 
 These items must be completed before the May 2026 cycle:
 
-- [ ] **Affordability Response:** Define scope boundary (groceries + tariff costs + targeted relief; NOT rents, utilities, insurance)
-- [ ] **Economic Policy Response:** Enforce QA Rule 2 (no grade moves on announcements alone)
-- [ ] **Carbon Pricing / Climate deconfliction:** Confirm boundary holds in release log
+- [x] **Affordability Response:** Define scope boundary (groceries + tariff costs + targeted relief; NOT rents, utilities, insurance)
+- [x] **Economic Policy Response:** Enforce QA Rule 2 (no grade moves on announcements alone)
+- [x] **Carbon Pricing / Climate deconfliction:** Confirm boundary holds in release log
 - [x] **Ethics & Transparency:** Add one anchored indicator
-- [ ] **Defence & Trade:** Add sub-scores (Defence: A, Trade: B+) to expanded card display
-- [ ] **Flagship Delivery:** Apply Combination Rule mechanically to produce grade
+- [x] **Defence & Trade:** Add sub-scores (Defence: A, Trade: B+) to expanded card display
+- [x] **Flagship Delivery:** Apply Combination Rule mechanically to produce grade
 - [ ] **Promise Delivery:** Review tracker statuses and remaining status-evidence gaps
 - [ ] **Fiscal Health:** Incorporate April 28 economic update data
-- [ ] **Housing Supply:** Enforce announced ≠ started ≠ completed language
-- [ ] **Major Projects:** Confirm credit-claiming penalty documented in release log
+- [x] **Housing Supply:** Enforce announced ≠ started ≠ completed language
+- [x] **Major Projects:** Confirm credit-claiming penalty documented in release log
 - [ ] **All dimensions:** Run deconfliction check on every metric cited in release
 
 ---
@@ -166,7 +166,7 @@ Ideas that are valid but must NOT leak into the live cycle. These are queued for
 | Item | Source | Status |
 |---|---|---|
 | Promise Delivery → ungraded tracker | Decision memo, ChatGPT consensus | Implemented |
-| Defence & Trade → full split | Decision memo, methods panel | Only if sub-scores diverge >1.0 |
+| Defence & Trade → full split | Decision memo, methods panel | Only if live split tripwire fires |
 | Carbon Pricing → merge into Climate | Methods panel shadow test A | Shadow only; merging buries a policy win |
 | Flagship Delivery → remove entirely | Methods panel shadow test B | Probation cycle first |
 | Attribution-adjusted weighting → headline | Methods panel shadow test C | Shadow only; negligible GPA impact |
