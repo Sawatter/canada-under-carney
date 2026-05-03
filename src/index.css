@@ -147,6 +147,18 @@ a:hover { text-decoration: underline; }
   justify-content: center;
 }
 
+.scoreboard-card-household { order: 10; }
+.scoreboard-card-overall { order: 20; }
+.scoreboard-card-promises { order: 30; }
+.scoreboard-card-approval { order: 40; }
+
+.scoreboard-detail {
+  order: 50;
+  flex: 1 1 100%;
+  max-width: 1120px;
+  width: 100%;
+}
+
 /* ---------------------------------------------------------------
    Narrow-screen overrides. The dashboard uses inline styles on most
    elements so these targeted class hooks catch the specific spots
@@ -206,6 +218,10 @@ a:hover { text-decoration: underline; }
   .scoreboard-card-main {
     min-height: 9.25rem;
   }
+
+  .scoreboard-detail-household { order: 11; }
+  .scoreboard-detail-overall { order: 21; }
+  .scoreboard-detail-approval { order: 41; }
 
   /* Header subtitle (coverage period / updated / version) */
   .header-subtitle {

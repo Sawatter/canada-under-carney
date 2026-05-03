@@ -11,8 +11,6 @@ import {
   getPocketbookDerivation,
 } from "../utils";
 import ScoreboardHeader from "./ScoreboardHeader";
-import ScoreDerivation from "./ScoreDerivation";
-import { ApprovalDetail } from "./ApprovalSignal";
 import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
 import PromiseTracker from "./PromiseTracker";
@@ -222,28 +220,9 @@ export default function Dashboard() {
         onToggleApproval={handleToggleApproval}
         derivationOpen={derivationOpen}
         onToggleDerivation={handleToggleDerivation}
+        overallDerivation={overallDerivation}
+        pocketbookDerivation={pocketbookDerivation}
       />
-
-      {/* Score derivation drill-downs — show the math behind whichever
-          headline-score card is currently toggled open. */}
-      {derivationOpen === "household" && (
-        <ScoreDerivation
-          variant="household"
-          derivation={pocketbookDerivation}
-          displayedScore={pocketbookGPA}
-        />
-      )}
-      {derivationOpen === "overall" && (
-        <ScoreDerivation
-          variant="overall"
-          derivation={overallDerivation}
-          displayedScore={overallGPA}
-        />
-      )}
-
-      {/* Approval Signal drill-down: full polling detail, visible only when the
-          card above is toggled open. Explicitly outside the GPA. */}
-      {approvalExpanded && <ApprovalDetail />}
 
       {/* Tab Navigation — horizontally scrollable rail on narrow screens so
           longer labels like "Change Log" don't spill into their neighbours. */}

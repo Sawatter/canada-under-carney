@@ -1,5 +1,6 @@
 import GradeChip from "./GradeChip";
-import { ApprovalCard } from "./ApprovalSignal";
+import ScoreDerivation from "./ScoreDerivation";
+import { ApprovalCard, ApprovalDetail } from "./ApprovalSignal";
 
 // Shared card container style so the four scoreboard cards have identical
 // size, spacing, and alignment. justifyContent is flex-start so every card's
@@ -83,6 +84,8 @@ export default function ScoreboardHeader({
   onToggleApproval,
   derivationOpen,
   onToggleDerivation,
+  overallDerivation,
+  pocketbookDerivation,
 }) {
   const delivered = promiseCounts["Delivered"] || 0;
   const pct = totalPromises > 0 ? delivered / totalPromises : 0;
@@ -102,7 +105,7 @@ export default function ScoreboardHeader({
         }}
       >
         {/* Household Impact */}
-        <div className="scoreboard-card" style={cardBase}>
+        <div className="scoreboard-card scoreboard-card-household" style={cardBase}>
           <div className="scoreboard-card-title" style={cardTitle}>Household Impact</div>
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             How the government is performing on housing, cost of living, the economy, and spending.
@@ -121,9 +124,18 @@ export default function ScoreboardHeader({
             </div>
           )}
         </div>
+        {derivationOpen === "household" && pocketbookDerivation && (
+          <div className="scoreboard-detail scoreboard-detail-household">
+            <ScoreDerivation
+              variant="household"
+              derivation={pocketbookDerivation}
+              displayedScore={pocketbookGPA}
+            />
+          </div>
+        )}
 
         {/* Full Policy Audit */}
-        <div className="scoreboard-card" style={cardBase}>
+        <div className="scoreboard-card scoreboard-card-overall" style={cardBase}>
           <div className="scoreboard-card-title" style={cardTitle}>Full Policy Audit</div>
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             How the Carney government is performing across all 11 policy areas.
@@ -142,9 +154,18 @@ export default function ScoreboardHeader({
             </div>
           )}
         </div>
+        {derivationOpen === "overall" && overallDerivation && (
+          <div className="scoreboard-detail scoreboard-detail-overall">
+            <ScoreDerivation
+              variant="overall"
+              derivation={overallDerivation}
+              displayedScore={overallGPA}
+            />
+          </div>
+        )}
 
         {/* Promises Delivered */}
-        <div className="scoreboard-card" style={cardBase}>
+        <div className="scoreboard-card scoreboard-card-promises" style={cardBase}>
           <div className="scoreboard-card-title" style={cardTitle}>Promises Delivered</div>
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             A running count of tracked government commitments across every dimension.
@@ -173,11 +194,17 @@ export default function ScoreboardHeader({
         <ApprovalCard
           expanded={!!approvalExpanded}
           onToggle={onToggleApproval}
+          cardClassName="scoreboard-card-approval"
           cardStyle={cardBase}
           titleStyle={cardTitle}
           subtitleStyle={cardSubtitle}
           captionStyle={cardScoreCaption}
         />
+        {approvalExpanded && (
+          <div className="scoreboard-detail scoreboard-detail-approval">
+            <ApprovalDetail />
+          </div>
+        )}
       </div>
 
     </div>

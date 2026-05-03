@@ -85,6 +85,7 @@ const DETAIL_ID = "approval-signal-detail";
 export function ApprovalCard({
   expanded,
   onToggle,
+  cardClassName = "",
   cardStyle,
   titleStyle,
   subtitleStyle,
@@ -104,7 +105,7 @@ export function ApprovalCard({
 
   return (
     <div
-      className="scoreboard-card"
+      className={`scoreboard-card ${cardClassName}`.trim()}
       role="button"
       tabIndex={0}
       aria-expanded={expanded}

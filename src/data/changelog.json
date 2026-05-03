@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-02",
+    "summary": "Mobile disclosure placement fix: headline-score and approval drill-downs now open directly under the tapped card on phones.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Score math opens where mobile readers expect it",
+        "body": "On narrow screens, the Household Impact and Full Policy Audit derivation panels now render immediately below the card that opened them instead of after all four headline boxes."
+      },
+      {
+        "type": "product",
+        "headline": "Approval details follow the same mobile pattern",
+        "body": "The Approval Signal drill-down now uses the same responsive ordering, so tapping the card scrolls to the poll details directly under that card on phones."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
     "summary": "Internal traceability pass: triggers whose evidence lives inside the dashboard now jump to their evidence home instead of remaining grey labels.",
     "items": [
       {
