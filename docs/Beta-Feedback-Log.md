@@ -46,3 +46,42 @@ The dashboard cannot remove judgment from grading. The trust move is to make jud
 2. Keep tightening threshold language when monthly-cycle evidence exposes ambiguity.
 3. Watch whether the added judgment line increases trust without making the cards feel crowded.
 4. Consider a later source-trail pass only if readers still miss the existing source chips inside expanded cards.
+
+## 2026-05-02 Consistency and traceability follow-on
+
+### Signal received
+
+After the Reddit trust-feedback wave, the next outside-method read sharpened the problem:
+
+- the most important remaining issue is not generic "bias" language but **consistency**
+- the strongest reader standard is **traceability**: grade -> trigger -> evidence -> source
+- some dimensions behave like structural exceptions and should be named that way
+- the trigger system was still free-text only, which meant sources could sit nearby without actually being tied to the move condition
+
+### Product and data response shipped in v5.12
+
+- Converted `gradeTriggers` from plain strings into structured objects that can carry trigger text plus a source label and source URL.
+- Updated the dimension-card scoring drawer so each one-notch trigger now renders with its own supporting source directly underneath it.
+- Strengthened thin source stacks where the audit said traceability was weak:
+  - Affordability Response now includes PBO benefit-costing plus operational Grocery Benefit / Grocery Code sources.
+  - Housing Supply now includes direct Build Canada Homes, PBO housing-outlook, and CMHC housing-gap sources.
+  - Promise Delivery now uses a more representative mix of official/home-dimension sources instead of leaning as heavily on Fraser.
+- Rebalanced the one overloaded source stack:
+  - Economic Policy Response was thinned back to a tighter 8-source band so the public source trail no longer reads like a kitchen-sink exception.
+- Tightened exception-file framing:
+  - Defence & Trade scope note now explains why the mixed file still exists as one grade.
+  - Flagship Delivery now identifies itself more clearly as a derived rollup across home dimensions.
+- Added the consistency self-audit in `docs/Consistency-Self-Audit-2026-05.md`.
+
+### Methodological interpretation
+
+This pass does not change any live grade. It changes what a reader can verify:
+
+- triggers no longer read like unsupported editorial text
+- source proximity now has a specific object to attach to
+- derivative or mixed files are framed more honestly as exceptions
+
+### Remaining follow-ups
+
+1. Decide whether Promise Delivery should remain a graded-looking tracker or move further toward a pure accountability panel.
+2. Consider a later UI pass for inline metric-level source threading once the trigger-level traceability pattern proves useful.

@@ -10,6 +10,12 @@ const MODIFIER_LABELS = {
   "Credit-claiming penalty": "Credit reduced for overclaiming",
 };
 
+function normalizeTrigger(trigger) {
+  if (!trigger) return null;
+  if (typeof trigger === "string") return { text: trigger };
+  return trigger;
+}
+
 export default function DimensionCard({ dim, isExpanded, onClick, trackerStat }) {
   const g = GRADES[dim.grade];
   const isTracker = !!dim.excludeFromGPA;
@@ -66,6 +72,47 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
   if (dim.tags?.confidence) scoringMetadata.push({ label: "Confidence", value: dim.tags.confidence });
   if (dim.tags?.attribution) scoringMetadata.push({ label: "Attribution", value: dim.tags.attribution });
   if (dim.tags?.lag) scoringMetadata.push({ label: "Lag", value: dim.tags.lag });
+
+  const renderTriggerItem = (trigger, keyPrefix) => {
+    const item = normalizeTrigger(trigger);
+    if (!item) return null;
+
+    return (
+      <div
+        key={`${keyPrefix}-${item.text}`}
+        style={{ display: "flex", flexDirection: "column", gap: "2px" }}
+      >
+        <span>{item.text}</span>
+        {item.sourceLabel && (
+          item.sourceUrl ? (
+            <a
+              href={item.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                fontSize: "12px",
+                color: "#1a73e8",
+                textDecoration: "none",
+                alignSelf: "flex-start",
+              }}
+            >
+              Source: {item.sourceLabel} &rarr;
+            </a>
+          ) : (
+            <span
+              style={{
+                fontSize: "12px",
+                color: "#6b7280",
+              }}
+            >
+              Source: {item.sourceLabel}
+            </span>
+          )
+        )}
+      </div>
+    );
+  };
 
   return (
     <div
@@ -425,21 +472,17 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                     <div>
                       <strong>Up one step:</strong>
                       <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                        {dim.gradeTriggers.up.map((trigger, i) => (
-                          <div key={`drawer-up-${i}`} style={{ color: "#444" }}>
-                            {trigger}
-                          </div>
-                        ))}
+                        {dim.gradeTriggers.up.map((trigger, i) =>
+                          renderTriggerItem(trigger, `drawer-up-${i}`)
+                        )}
                       </div>
                     </div>
                     <div>
                       <strong>Down one step:</strong>
                       <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                        {dim.gradeTriggers.down.map((trigger, i) => (
-                          <div key={`drawer-down-${i}`} style={{ color: "#444" }}>
-                            {trigger}
-                          </div>
-                        ))}
+                        {dim.gradeTriggers.down.map((trigger, i) =>
+                          renderTriggerItem(trigger, `drawer-down-${i}`)
+                        )}
                       </div>
                     </div>
                   </div>
@@ -768,17 +811,17 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
                         <div>
                           <strong>Up one step:</strong>
                           <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                            {dim.gradeTriggers.up.map((trigger, i) => (
-                              <div key={i}>{trigger}</div>
-                            ))}
+                            {dim.gradeTriggers.up.map((trigger, i) =>
+                              renderTriggerItem(trigger, `lower-up-${i}`)
+                            )}
                           </div>
                         </div>
                         <div>
                           <strong>Down one step:</strong>
                           <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                            {dim.gradeTriggers.down.map((trigger, i) => (
-                              <div key={i}>{trigger}</div>
-                            ))}
+                            {dim.gradeTriggers.down.map((trigger, i) =>
+                              renderTriggerItem(trigger, `lower-down-${i}`)
+                            )}
                           </div>
                         </div>
                       </div>

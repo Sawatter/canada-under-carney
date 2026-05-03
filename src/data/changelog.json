@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-05-02",
+    "summary": "Traceability pass: grade-change triggers now carry their own source labels, exception files are framed more honestly, and source stacks are rebalanced into a tighter band.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "One-notch grade triggers now point at their own source homes",
+        "body": "Move-up and move-down conditions are no longer just free-floating editorial text. Each trigger now carries its own source label, and where a public document exists, a direct source link appears immediately underneath it in the scoring drawer."
+      },
+      {
+        "type": "product",
+        "headline": "Readers no longer have to infer which source backs which trigger",
+        "body": "Expanded dimension cards now render a small source line under every one-notch trigger. That means the chain from grade to move condition to supporting source is shorter and more explicit than before."
+      },
+      {
+        "type": "method",
+        "headline": "Thin and overloaded source stacks were rebalanced",
+        "body": "Affordability Response, Housing Supply, and Promise Delivery now carry stronger public source trails, while Economic Policy Response was thinned back from a kitchen-sink stack to the same tighter 5-8 source band used elsewhere on the dashboard."
+      },
+      {
+        "type": "method",
+        "headline": "Exception files are framed more honestly",
+        "body": "Defence & Trade now explains why it remains one mixed file, and Flagship Delivery now identifies itself more clearly as a derived rollup instead of reading like a normal home dimension."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
     "summary": "Trust-feedback pass: the scorecard now explains what it is and is not for, makes freshness harder to miss, and shows where judgment enters each grade.",
     "items": [
       {

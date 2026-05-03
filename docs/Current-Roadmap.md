@@ -16,7 +16,7 @@
 - Stale whole-letter scoring references have been cleaned up in current-state docs.
 - Cross-dimension drift audit of the 9 non-probationary graded dimensions passed with minor notes.
 - Source sufficiency audit across the 11 graded live dimensions is complete.
-- The weakest current source stacks are Climate & Environment, Flagship Delivery, and Economic Policy Response.
+- Source-band rebalance is complete: live dimension source arrays now sit inside the 5-8 target band.
 - Hard rule adopted for source edits: missing URL / source-chain fixes can be added directly, but any new analytical source family must go through a reflection pass and Claude review before it is treated as settled.
 - AI workflow efficiency protocol is now adopted to make reflection/review escalation explicit and reduce over-reflection on bounded tasks.
 - Source hardening pass for the weakest dimensions is complete.
@@ -35,11 +35,13 @@
 - The Major Projects / Flagship Delivery overlap on the MPO two-year-timeline commitment is resolved. Major Projects remains the sole home; Flagship now carries it only as derivative delivery evidence.
 - Dimension cards show grade, rationale, scope, metrics, perspectives, and sources on expansion; confidence / attribution / lag metadata lives in dimensions.json and docs but is no longer rendered as on-card pills (pills were removed 2026-04-19 as not self-explanatory to general readers).
 - Promise Tracker link coverage is now close to complete: all 43 tracked promises have original-source links, and 40 of 43 have status-evidence links. The three remaining status-link gaps are Foreign Policy Review, Red Tape Review, and Carbon Border Adjustment Mechanism, where no clean status document has surfaced yet.
+- Consistency self-audit is now active in [Consistency-Self-Audit-2026-05.md](Consistency-Self-Audit-2026-05.md); current outliers are tracked as structural exceptions rather than hidden drift.
 
 ---
 
 ## Recently Completed
 
+- Trigger traceability pass — v5.12 converts one-notch move triggers from free text into structured objects with per-trigger source labels and, where possible, direct source URLs. The scoring drawer now shows the supporting source directly under each trigger instead of leaving readers to infer which source in the chip list backs which move condition. Thin source stacks were strengthened in Affordability Response, Housing Supply, and Promise Delivery; the previously overloaded Economic Policy stack was thinned back to the same 5-8 source band as the rest of the board; Defence & Trade and Flagship Delivery now frame their exception status more explicitly. No grade, score, or weighting change.
 - Reddit trust-feedback pass — v5.11 makes the trust architecture more visible without changing any grades. The Scorecard view now states what the dashboard is and is not for, the header `Updated` date and each card's `Last reviewed` date are harder to miss, and every graded dimension now has both a short card-face `Judgment call` line and a longer scoring-drawer `Where judgment enters` explanation. Follow-up mobile polish keeps the Scorecard framing visible, strengthens `Last reviewed` contrast, and prevents Promise summary labels from clipping on narrow screens. Feedback provenance and remaining follow-ups are logged in [Beta-Feedback-Log.md](Beta-Feedback-Log.md). No grade, score, promise status, source array, rubric, or weighting change.
 - Post-third-review build pass — three concrete inspectability builds shipped before the May 14 cycle in response to remaining beta-tester critique. (1) Headline scores now expose their derivation: both Household Impact and Full Policy Audit cards carry a new "How is this score built?" toggle that opens a panel below the scoreboard row, showing the per-dimension grade, points, weight, contribution, subtotals, weighted sum, total weights, and the arithmetic that yields the displayed score and letter grade. New `getOverallDerivation` and `getPocketbookDerivation` helpers in [src/utils.js](../src/utils.js); the existing `calculateOverallGPA` / `calculatePocketbookGPA` now call into the same builder so the math stays consistent. New [src/components/ScoreDerivation.jsx](../src/components/ScoreDerivation.jsx) renders the panel, mirroring the `ApprovalDetail` disclosure pattern. (2) Major Projects regraded on cohort progress, not first-event triggers: the dimension now defines the project universe (16 MPO-cohort projects across 3 tranches) and grades on documented post-designation movement rather than same-day promoted-stage labels. New `projectCohort` field in [src/data/dimensions.json](../src/data/dimensions.json) with per-project current stage, stage date, and source URL; threshold ladder rewritten in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) (section 8) to grade on the published `stageGates` ladder (designated → reviewed → approved → permitted → under_construction → completed); a "Project pipeline" section on [src/components/DimensionCard.jsx](../src/components/DimensionCard.jsx) renders the cohort summary and a collapsible per-project table; Source Authority Map's Major Projects entry updated to mark the project list and stage tracking as live grade-moving fields. As of 2026-04-30, 4 projects sit above designated status, but only 2 of 16 (~13%) show later-dated post-designation advancement in the recorded cohort data — keeps the file at C, with the credit-claiming penalty still applied. (3) Confidence / Attribution / Lag glossary in the scoring drawer: each dimension card's drawer now has a "What do these mean?" expandable below the three pills, with one-sentence definitions plus the level cutoffs. Meta version bumped 5.6 → 5.7; new top changelog entry; [Bias-Threshold-Audit-2026-04.md](Bias-Threshold-Audit-2026-04.md) updated with a "post-third-review build pass" section.
 
@@ -111,8 +113,9 @@ These are valid, but not active now.
 
 1. Decide whether Flagship Delivery stays on probation after one real cycle.
 2. Reassess whether Promise Delivery should remain purely an ungraded tracker.
-3. Consider whether the `gpaValue` override mechanism in [src/utils.js](../src/utils.js) should be retired if it has no live use.
-4. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
+3. Add an explicit Defence & Trade split tripwire: if defence delivery and trade diversification point in opposite directions for two consecutive cycles, promote the shadow split.
+4. Consider whether the `gpaValue` override mechanism in [src/utils.js](../src/utils.js) should be retired if it has no live use.
+5. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
 
 ---
 
