@@ -162,16 +162,20 @@ export function ApprovalCard({
         <div style={{ fontSize: "13px", color: "#555", marginTop: "4px", fontWeight: 500 }}>
           {s.recent.length} polls &middot; {s.windowDays}-day avg
         </div>
-        <div
+      </div>
+      {/* Footer slot: matches the derivation toggles on the two grade cards
+          so all four scoreboard cards land their action affordance at the
+          same y-position. */}
+      <div className="scoreboard-card-footer">
+        <span
           style={{
             fontSize: "13px",
             color: "#1a73e8",
-            marginTop: "8px",
             fontWeight: 700,
           }}
         >
           {expanded ? "\u25BE Hide poll details" : "\u25B8 See polls & sources"}
-        </div>
+        </span>
       </div>
     </div>
   );

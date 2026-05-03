@@ -1,6 +1,72 @@
 [
   {
     "date": "2026-05-02",
+    "summary": "Mobile UX bug-fix bundle: trust frame is now global, evidence chips no longer clip on phones, drill-downs return readers to the scoreboard on close, and the project pipeline gives a clear scroll cue.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "What this is / what this isn't moved into the global header",
+        "body": "The scope frame previously lived inside the Scorecard tab only. It now sits between the dashboard title and the scoreboard, so a reader who lands on Promises, Change Log, or Rubric still sees what the dashboard is and is not for."
+      },
+      {
+        "type": "product",
+        "headline": "Print / Export PDF button removed",
+        "body": "The button printed a screen-style page that was not optimized for paper. Removed alongside its print stylesheet rather than left as an unfulfilled promise."
+      },
+      {
+        "type": "product",
+        "headline": "Promise tab evidence links no longer clip on mobile",
+        "body": "Source and Status evidence chips on expanded promise rows now wrap their text instead of forcing a single line, so long source labels stay fully visible on narrow screens."
+      },
+      {
+        "type": "product",
+        "headline": "Promise rows show a stronger details affordance",
+        "body": "The previous pale chevron next to each promise now reads as a darker '▸ Details' / '▾ Hide' label so it is obvious that rows expand for evidence."
+      },
+      {
+        "type": "product",
+        "headline": "Project pipeline now signals horizontal scroll",
+        "body": "The Major Projects pipeline table now carries a 'Scroll right for stage date and source links →' caption and a right-edge fade gradient on narrow screens, so readers do not miss the source column."
+      },
+      {
+        "type": "product",
+        "headline": "Tab rail signals overflow on narrow phones",
+        "body": "On phones where 'Scorecard / Promises / Change Log / Rubric / About' overflows the rail, a small fade gradient on the right edge cues that more tabs sit off-screen."
+      },
+      {
+        "type": "product",
+        "headline": "Closing a drill-down scrolls back to the scoreboard",
+        "body": "On phones, hiding the score-derivation panel or the approval-signal drill-down now scrolls the page back to the scoreboard so readers do not have to manually backtrack."
+      },
+      {
+        "type": "product",
+        "headline": "Evidence-link styling unified",
+        "body": "Trigger-level evidence links and the project pipeline source column are now consistently rendered as 12px bold blue links, while file-level source chips remain the larger filled-chip treatment. Two visual treatments instead of five."
+      },
+      {
+        "type": "product",
+        "headline": "Approval Signal card shares the same footer slot as the grade cards",
+        "body": "'See polls & sources' moved from the body of the Approval card into the footer slot, so all four scoreboard cards land their action affordance at the same vertical position."
+      },
+      {
+        "type": "product",
+        "headline": "Trend arrows are now accessible",
+        "body": "The improving / stable / declining arrows next to each dimension name now carry aria-labels and tooltips so the trend is announced to screen readers and visible on hover, not only via the legend."
+      },
+      {
+        "type": "product",
+        "headline": "Duplicate freshness marker removed",
+        "body": "Each dimension card showed both a 'Last reviewed' pill on the card face and an 'Updated YYYY-MM-DD' line above Key Metrics. The pill is now the single canonical freshness marker."
+      },
+      {
+        "type": "product",
+        "headline": "Grade-change marker is now within the readable font floor",
+        "body": "The '(was X)' previous-grade marker bumped from 11px to 12px so the mobile font-size floor catches it; the design tokens disallow body text below 12px."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
     "summary": "Mobile disclosure placement fix: headline-score and approval drill-downs now open directly under the tapped card on phones.",
     "items": [
       {

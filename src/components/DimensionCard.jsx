@@ -132,6 +132,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 color: "#1a73e8",
                 textDecoration: "none",
                 alignSelf: "flex-start",
+                fontWeight: 600,
               }}
             >
               Source: {item.sourceLabel} &rarr;
@@ -141,6 +142,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               style={{
                 fontSize: "12px",
                 color: "#6b7280",
+                fontWeight: 600,
               }}
             >
               Source: {item.sourceLabel}
@@ -200,7 +202,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
             {dim.previousGrade && (
               <span
                 style={{
-                  fontSize: "11px",
+                  fontSize: "12px",
                   color: "#c62828",
                   marginLeft: "4px",
                   fontWeight: 600,
@@ -646,11 +648,8 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               }}
             >
               Key Metrics
-              {dim.lastUpdated && (
-                <span style={{ fontWeight: 400, textTransform: "none", letterSpacing: 0, marginLeft: "8px", color: "#bbb" }}>
-                  Updated {dim.lastUpdated}
-                </span>
-              )}
+              {/* The "Last reviewed" pill on the card face is the canonical
+                  freshness marker — duplicating it here was redundant. */}
             </div>
             {metricGroups.map((group, groupIndex) => (
               <div
@@ -814,7 +813,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                       background: "#e8f0fe",
                       padding: "3px 8px",
                       borderRadius: "4px",
-                      whiteSpace: "nowrap",
+                      lineHeight: 1.4,
                     }}
                   >
                     {s.label} &rarr;
@@ -1270,14 +1269,31 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
           {isOpen ? "▾ Hide full project list" : "▸ Show full project list"}
         </button>
         {isOpen && (
-          <div
-            id={`dim-${dimId}-cohort-table`}
-            role="region"
-            style={{ marginTop: "10px", overflowX: "auto" }}
-          >
+          <>
+            {/* Mobile-only verbal cue: the table has more columns than fit
+                on a phone, including the Source column. The fade gradient
+                below carries the visual cue. */}
+            <div
+              className="cohort-scroll-hint"
+              style={{
+                fontSize: "12px",
+                color: "#666",
+                fontStyle: "italic",
+                marginTop: "8px",
+              }}
+            >
+              Scroll right for stage date and source links →
+            </div>
+            <div
+              id={`dim-${dimId}-cohort-table`}
+              role="region"
+              className="cohort-table-wrap"
+              style={{ marginTop: "6px", overflowX: "auto" }}
+            >
             <table
               style={{
                 width: "100%",
+                minWidth: "560px",
                 borderCollapse: "collapse",
                 fontSize: "13px",
               }}
@@ -1321,9 +1337,15 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          style={{ color: "#1a73e8", fontSize: "12px" }}
+                          style={{
+                            color: "#1a73e8",
+                            fontSize: "12px",
+                            fontWeight: 600,
+                            textDecoration: "none",
+                            whiteSpace: "nowrap",
+                          }}
                         >
-                          link →
+                          Source →
                         </a>
                       )}
                     </td>
@@ -1331,7 +1353,8 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
                 ))}
               </tbody>
             </table>
-          </div>
+            </div>
+          </>
         )}
       </div>
     </div>

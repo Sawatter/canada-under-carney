@@ -57,14 +57,35 @@ export default function Dashboard() {
     };
   };
 
+  // Track whether each panel was open last render so we can distinguish
+  // open-events (scroll the panel into view) from close-events (scroll
+  // back to the scoreboard so the reader doesn't have to manually
+  // backtrack on mobile).
+  const [lastDerivationOpen, setLastDerivationOpen] = useState(null);
+  const [lastApprovalOpen, setLastApprovalOpen] = useState(false);
+
   useEffect(() => {
-    if (!derivationOpen) return undefined;
-    return scheduleMobileScroll(`score-derivation-${derivationOpen}`);
+    let cleanup;
+    if (derivationOpen) {
+      cleanup = scheduleMobileScroll(`score-derivation-${derivationOpen}`);
+    } else if (lastDerivationOpen) {
+      cleanup = scheduleMobileScroll("scoreboard-row");
+    }
+    setLastDerivationOpen(derivationOpen);
+    return cleanup;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [derivationOpen]);
 
   useEffect(() => {
-    if (!approvalExpanded) return undefined;
-    return scheduleMobileScroll("approval-signal-detail");
+    let cleanup;
+    if (approvalExpanded) {
+      cleanup = scheduleMobileScroll("approval-signal-detail");
+    } else if (lastApprovalOpen) {
+      cleanup = scheduleMobileScroll("scoreboard-row");
+    }
+    setLastApprovalOpen(approvalExpanded);
+    return cleanup;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [approvalExpanded]);
 
   const handleToggleDerivation = (variant) => {
@@ -110,10 +131,6 @@ export default function Dashboard() {
     { key: "methodology", label: "Rubric" },
     { key: "about", label: "About" },
   ];
-
-  const handlePrint = () => {
-    window.print();
-  };
 
   return (
     <div
@@ -189,26 +206,41 @@ export default function Dashboard() {
           </span>
           <span>v{meta.version}</span>
         </div>
-        {/* Print button */}
-        <button
-          onClick={handlePrint}
+      </div>
+
+      {/* Trust frame — global, sits between the title and the scoreboard so
+          a reader sees what this dashboard is and is not for, regardless of
+          which tab they land on. Earlier it was scoped to the Scorecard tab
+          only; moving it up makes the framing tab-agnostic. */}
+      <div
+        style={{
+          maxWidth: "820px",
+          margin: "0 auto 20px",
+        }}
+      >
+        <div
+          className="scorecard-trust-frame"
           style={{
-            marginTop: "8px",
-            padding: "6px 16px",
-            fontSize: "14px",
-            color: "#888",
-            background: "transparent",
-            border: "1px solid #ddd",
-            borderRadius: "4px",
-            cursor: "pointer",
-            fontFamily: "'DM Sans', sans-serif",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+            gap: "10px",
+            textAlign: "left",
+            borderTop: "1px solid #e0e0e0",
+            borderBottom: "1px solid #e0e0e0",
+            padding: "12px 0",
           }}
         >
-          Print / Export PDF
-        </button>
+          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+            <strong>What this is:</strong> a public scorecard grading federal performance against published thresholds, source links, and review dates.
+          </div>
+          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+            <strong>What this isn&rsquo;t:</strong> a forecast, voting guide, popularity measure, or claim that only measurable files matter.
+          </div>
+        </div>
       </div>
 
       {/* Scoreboard header: overall grades + promise count + approval signal card */}
+      <div id="scoreboard-row">
       <ScoreboardHeader
         overallGrade={gpaToGrade(parseFloat(overallGPA))}
         overallGPA={overallGPA}
@@ -223,9 +255,13 @@ export default function Dashboard() {
         overallDerivation={overallDerivation}
         pocketbookDerivation={pocketbookDerivation}
       />
+      </div>
 
       {/* Tab Navigation — horizontally scrollable rail on narrow screens so
-          longer labels like "Change Log" don't spill into their neighbours. */}
+          longer labels like "Change Log" don't spill into their neighbours.
+          The wrapper carries the right-edge fade gradient so phones see a
+          visual cue that more tabs sit off-screen. */}
+      <div className="dashboard-tabs-wrap">
       <div
         className="dashboard-tabs"
         style={{
@@ -264,13 +300,15 @@ export default function Dashboard() {
           </button>
         ))}
       </div>
+      </div>
 
       {/* Scorecard View */}
       {view === "scorecard" && (
         <>
-        {/* Combined scorecard orientation block — intro line + legend sit as
-            one "how to read this" unit immediately above the grid, per NN/g's
-            principle that instruction text belongs adjacent to the action. */}
+        {/* Scorecard-local orientation: intro line + legend. The trust frame
+            ("what this is / what this isn't") moved up to the global header
+            so it shows on every tab. The legend below stays Scorecard-local
+            because it documents the visual language used only in this grid. */}
         <div
           style={{
             textAlign: "center",
@@ -280,26 +318,6 @@ export default function Dashboard() {
             marginRight: "auto",
           }}
         >
-          <div
-            className="scorecard-trust-frame"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-              gap: "10px",
-              textAlign: "left",
-              borderTop: "1px solid #e0e0e0",
-              borderBottom: "1px solid #e0e0e0",
-              padding: "12px 0",
-              marginBottom: "14px",
-            }}
-          >
-            <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
-              <strong>What this is:</strong> a public scorecard grading federal performance against published thresholds, source links, and review dates.
-            </div>
-            <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
-              <strong>What this isn&rsquo;t:</strong> a forecast, voting guide, popularity measure, or claim that only measurable files matter.
-            </div>
-          </div>
           <div
             style={{
               fontSize: "16px",

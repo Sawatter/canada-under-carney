@@ -144,8 +144,16 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                           </span>
                         )}
                         {hasExpandContent && (
-                          <span style={{ fontSize: "13px", color: "#bbb", marginLeft: "6px" }}>
-                            {isOpen ? "\u25BE" : "\u25B8"}
+                          <span
+                            aria-hidden="true"
+                            style={{
+                              fontSize: "13px",
+                              color: isOpen ? "#1a73e8" : "#666",
+                              marginLeft: "6px",
+                              fontWeight: 700,
+                            }}
+                          >
+                            {isOpen ? "\u25BE Hide" : "\u25B8 Details"}
                           </span>
                         )}
                       </span>
@@ -203,7 +211,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                                   background: "#e8f0fe",
                                   padding: "3px 8px",
                                   borderRadius: "4px",
-                                  whiteSpace: "nowrap",
+                                  lineHeight: 1.4,
                                 }}
                               >
                                 <strong>Source:</strong>{" "}
@@ -223,7 +231,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                                   background: "#fff3e0",
                                   padding: "3px 8px",
                                   borderRadius: "4px",
-                                  whiteSpace: "nowrap",
+                                  lineHeight: 1.4,
                                 }}
                               >
                                 <strong>Status evidence:</strong>{" "}
