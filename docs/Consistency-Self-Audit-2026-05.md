@@ -145,7 +145,7 @@ The remaining work is completion, not architecture:
 
 - some triggers are now fully linkable and carry direct URLs
 - some are intentionally label-only because they depend on future event-driven sources
-- some internal or derived triggers (for example cohort tables or combination-rule tallies) still point to an in-card evidence home rather than a public URL
+- internal or derived triggers (for example cohort tables, home-dimension distributions, and promise tallies) now point to dashboard evidence homes instead of pretending to have external source URLs
 
 ## Traceability read
 
@@ -160,9 +160,9 @@ Current strengths:
 
 Remaining traceability gaps:
 
-1. **Source-link completion is still uneven.** The model can now carry per-trigger URLs, but not every trigger that could be linked has been threaded yet.
+1. **Source-link completion is still uneven by design.** Remaining label-only triggers are mostly event-driven sources that do not exist until the event happens.
 2. **Outlier files need stronger explanation.** Defence & Trade, Flagship Delivery, and Promise Delivery behave differently enough that they should be explicitly framed as exceptions.
-3. **Internal evidence homes are still a special case.** Cohort-progress and derivative-tally triggers are traceable inside the card, but they still do not behave like simple public-document links.
+3. **Internal evidence homes remain a special case.** Cohort-progress and derivative-tally triggers are now clickable inside the dashboard, but they still do not behave like simple public-document links.
 
 ## Recommended next moves
 
@@ -174,7 +174,7 @@ Before another heavy UI pass, keep the consistency standard explicit:
 2. Treat `Defence & Trade` as the biggest **structural** mixed-construct exception and make the split-promotion tripwire explicit.
 3. Keep `Promise Delivery` clearly framed as a tracker exception rather than a hidden graded file.
 4. Keep Housing Supply on the standard 2-up / 2-down pattern and avoid drifting back into announcement-heavy trigger language.
-5. Finish the easy trigger-level source URLs before treating the traceability pass as fully complete.
+5. Add event-driven trigger URLs when those events actually occur rather than inventing placeholder links.
 
 ### Product next
 

@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-05-02",
+    "summary": "Internal traceability pass: triggers whose evidence lives inside the dashboard now jump to their evidence home instead of remaining grey labels.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Internal evidence homes are now clickable",
+        "body": "Major Projects triggers can jump to the project pipeline, Flagship Delivery triggers can jump back to the home-dimension grid, and Promise Delivery triggers can open the Promises tab."
+      },
+      {
+        "type": "method",
+        "headline": "Defence & Trade split tripwire tightened",
+        "body": "The split rule now covers both opposite movement and widening sub-score gaps, and it explicitly uses two consecutive monthly review cycles as the promotion test."
+      },
+      {
+        "type": "method",
+        "headline": "Ethics trigger language made more concrete",
+        "body": "The governance-critique down-trigger now names the threshold directly: two or more listed governance sources must publish a material disclosure or screening gap finding."
+      },
+      {
+        "type": "product",
+        "headline": "Promise Delivery stays visibly tracker-only",
+        "body": "The expanded tracker card now shows its own trigger traceability without using grade language, and stale copy about future GPA removal was replaced with current tracker-only wording."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
     "summary": "Traceability cleanup follow-on: the audit now matches the live model, Defence & Trade carries an explicit split tripwire, and several easy trigger links were filled in.",
     "items": [
       {

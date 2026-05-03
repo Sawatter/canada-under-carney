@@ -16,7 +16,7 @@ function normalizeTrigger(trigger) {
   return trigger;
 }
 
-export default function DimensionCard({ dim, isExpanded, onClick, trackerStat }) {
+export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, onInternalRef }) {
   const g = GRADES[dim.grade];
   const isTracker = !!dim.excludeFromGPA;
   const modifierItems = isTracker ? [] : (dim.gradeBasis?.activeModifiers || []);
@@ -77,6 +77,24 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
     const item = normalizeTrigger(trigger);
     if (!item) return null;
 
+    const handleInternalRefClick = (e) => {
+      e.stopPropagation();
+      if (!item.internalRef) return;
+
+      if (item.internalRef.type === "cohort") {
+        setCohortOpen(true);
+        window.requestAnimationFrame(() => {
+          document.getElementById(`dim-${dim.id}-cohort`)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
+        return;
+      }
+
+      onInternalRef?.(item.internalRef);
+    };
+
     return (
       <div
         key={`${keyPrefix}-${item.text}`}
@@ -84,7 +102,26 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
       >
         <span>{item.text}</span>
         {item.sourceLabel && (
-          item.sourceUrl ? (
+          item.internalRef ? (
+            <button
+              type="button"
+              onClick={handleInternalRefClick}
+              style={{
+                fontSize: "12px",
+                color: "#1a73e8",
+                textDecoration: "none",
+                alignSelf: "flex-start",
+                background: "none",
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                fontFamily: "inherit",
+                fontWeight: 600,
+              }}
+            >
+              Evidence: {item.sourceLabel} &rarr;
+            </button>
+          ) : item.sourceUrl ? (
             <a
               href={item.sourceUrl}
               target="_blank"
@@ -116,6 +153,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
 
   return (
     <div
+      id={`dim-${dim.id}`}
       onClick={onClick}
       style={{
         background: isTracker ? "#fcfcf7" : "#fff",
@@ -697,6 +735,55 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat })
             </div>
           )}
 
+          {/* Tracker trigger traceability — kept separate from grade language. */}
+          {isTracker && dim.gradeTriggers && (
+            <div style={{ marginBottom: "14px" }}>
+              <div
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#1a1a1a",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                }}
+              >
+                What Changes This Tracker
+              </div>
+              <div
+                style={{
+                  fontSize: "14px",
+                  color: "#555",
+                  lineHeight: 1.5,
+                  background: "#fffaf0",
+                  padding: "10px 12px",
+                  borderRadius: "6px",
+                  borderLeft: "3px solid #bfa86b",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "8px",
+                }}
+              >
+                <div>
+                  <strong>Upward trigger:</strong>
+                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                    {dim.gradeTriggers.up.map((trigger, i) =>
+                      renderTriggerItem(trigger, `tracker-up-${i}`)
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <strong>Downward triggers:</strong>
+                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                    {dim.gradeTriggers.down.map((trigger, i) =>
+                      renderTriggerItem(trigger, `tracker-down-${i}`)
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Source Links */}
           {dim.sources && dim.sources.length > 0 && (
             <div>
@@ -1106,7 +1193,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
   };
 
   return (
-    <div style={{ marginBottom: "14px" }}>
+    <div id={`dim-${dimId}-cohort`} style={{ marginBottom: "14px", scrollMarginTop: "16px" }}>
       <div
         style={{
           fontSize: "14px",
@@ -1168,7 +1255,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
           type="button"
           onClick={onToggle}
           aria-expanded={isOpen}
-          aria-controls={`dim-${dimId}-cohort`}
+          aria-controls={`dim-${dimId}-cohort-table`}
           style={{
             fontSize: "13px",
             color: "#1a73e8",
@@ -1184,7 +1271,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
         </button>
         {isOpen && (
           <div
-            id={`dim-${dimId}-cohort`}
+            id={`dim-${dimId}-cohort-table`}
             role="region"
             style={{ marginTop: "10px", overflowX: "auto" }}
           >

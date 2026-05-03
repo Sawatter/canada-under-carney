@@ -77,6 +77,34 @@ export default function Dashboard() {
     setApprovalExpanded((curr) => !curr);
   };
 
+  const handleInternalRef = (ref) => {
+    if (!ref) return;
+
+    const scrollTo = (targetId) => {
+      if (typeof window === "undefined") return;
+      window.requestAnimationFrame(() => {
+        window.requestAnimationFrame(() => {
+          document.getElementById(targetId)?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
+      });
+    };
+
+    if (ref.type === "view") {
+      setView(ref.target);
+      setExpanded(null);
+      scrollTo(`view-${ref.target}`);
+      return;
+    }
+
+    if (ref.type === "anchor") {
+      if (ref.view) setView(ref.view);
+      scrollTo(ref.target);
+    }
+  };
+
   const tabs = [
     { key: "scorecard", label: "Scorecard" },
     { key: "promises", label: "Promises" },
@@ -327,6 +355,7 @@ export default function Dashboard() {
           </div>
         </div>
         <div
+          id="scorecard-dimension-grid"
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
@@ -339,6 +368,7 @@ export default function Dashboard() {
               dim={d}
               isExpanded={expanded === d.id}
               onClick={() => setExpanded(expanded === d.id ? null : d.id)}
+              onInternalRef={handleInternalRef}
             />
           ))}
         </div>
@@ -384,6 +414,7 @@ export default function Dashboard() {
                   dim={d}
                   isExpanded={expanded === d.id}
                   onClick={() => setExpanded(expanded === d.id ? null : d.id)}
+                  onInternalRef={handleInternalRef}
                   trackerStat={{
                     delivered: promiseCounts["Delivered"] || 0,
                     total: totalPromises,
@@ -398,11 +429,13 @@ export default function Dashboard() {
 
       {/* Promise Tracker View */}
       {view === "promises" && (
-        <PromiseTracker
-          allPromises={allPromises}
-          promiseCounts={promiseCounts}
-          totalPromises={totalPromises}
-        />
+        <div id="view-promises" style={{ scrollMarginTop: "16px" }}>
+          <PromiseTracker
+            allPromises={allPromises}
+            promiseCounts={promiseCounts}
+            totalPromises={totalPromises}
+          />
+        </div>
       )}
 
       {/* Change Log View */}

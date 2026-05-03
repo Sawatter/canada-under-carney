@@ -54,7 +54,7 @@
         "Confirm defence spending from NATO or equivalent official tables, not from domestic political claims alone.",
         "Use annual trade-share movement rather than single-month export volatility when judging diversification.",
         "The defence sub-score anchors the file; trade modifies the headline and should not hide a widening divergence between the two.",
-        "If the defence and trade sub-scores move in opposite directions for two consecutive review cycles, promote the split shadow into live separate files."
+        "If one sub-score rises while the other falls, or the gap between them widens by one full notch, for two consecutive monthly review cycles, promote the split shadow into live separate files."
       ]
     },
     "gradeTriggers": {
@@ -326,11 +326,17 @@
       "up": [
         {
           "text": "≥30% of the cohort shows documented post-designation advancement (currently 2 of 16 ≈ 13%)",
-          "sourceLabel": "Project pipeline table below"
+          "sourceLabel": "Project pipeline table below",
+          "internalRef": {
+            "type": "cohort"
+          }
         },
         {
           "text": "First project completes a full MPO cycle",
-          "sourceLabel": "Project pipeline table below"
+          "sourceLabel": "Project pipeline table below",
+          "internalRef": {
+            "type": "cohort"
+          }
         },
         {
           "text": "First use of national interest designation",
@@ -341,11 +347,17 @@
       "down": [
         {
           "text": "Any project withdrawn from MPO",
-          "sourceLabel": "Project pipeline table below"
+          "sourceLabel": "Project pipeline table below",
+          "internalRef": {
+            "type": "cohort"
+          }
         },
         {
           "text": "Cohort progress reverses (project moved back to designated from a higher stage)",
-          "sourceLabel": "Project pipeline table below"
+          "sourceLabel": "Project pipeline table below",
+          "internalRef": {
+            "type": "cohort"
+          }
         },
         {
           "text": "Evidence the framework is being bypassed",
@@ -2408,8 +2420,8 @@
           "sourceUrl": "https://ciec-ccie.parl.gc.ca/"
         },
         {
-          "text": "Two independent governance critiques cite a material disclosure or screening gap",
-          "sourceLabel": "Two independent governance critiques (see source list)"
+          "text": "Two or more listed governance sources publish a material disclosure or screening gap finding",
+          "sourceLabel": "Ethics source list / governance critiques"
         }
       ]
     },
@@ -2593,13 +2605,23 @@
       "up": [
         {
           "text": "Per Combination Rule, at least one flagship file improves by one status category",
-          "sourceLabel": "Flagship status distribution (home dimensions)"
+          "sourceLabel": "Flagship status distribution (home dimensions)",
+          "internalRef": {
+            "type": "anchor",
+            "view": "scorecard",
+            "target": "scorecard-dimension-grid"
+          }
         }
       ],
       "down": [
         {
           "text": "Per Combination Rule, at least one flagship file worsens by one status category",
-          "sourceLabel": "Flagship status distribution (home dimensions)"
+          "sourceLabel": "Flagship status distribution (home dimensions)",
+          "internalRef": {
+            "type": "anchor",
+            "view": "scorecard",
+            "target": "scorecard-dimension-grid"
+          }
         }
       ]
     },
@@ -2740,28 +2762,40 @@
       "guardrails": [
         "Promise movements already captured in home dimensions should not be double-counted as separate substantive evidence here.",
         "The Too Early bucket remains necessary while multi-year commitments are still inside their implementation window.",
-        "This file is under shadow review for removal from the GPA in v2 if it adds little beyond the tracker tab."
+        "This file stays outside the headline scores to avoid double-counting; future methodology reviews should reassess only whether the separate tracker view still adds accountability value."
       ]
     },
     "gradeTriggers": {
       "up": [
         {
           "text": "Delivery count rises to 18 or more of 43 without new abandonments",
-          "sourceLabel": "Promise tracker tally (derived from home dimensions)"
+          "sourceLabel": "Promise tracker tally (derived from home dimensions)",
+          "internalRef": {
+            "type": "view",
+            "target": "promises"
+          }
         }
       ],
       "down": [
         {
           "text": "Additional abandonments bring the total above 15",
-          "sourceLabel": "Promise tracker tally (derived from home dimensions)"
+          "sourceLabel": "Promise tracker tally (derived from home dimensions)",
+          "internalRef": {
+            "type": "view",
+            "target": "promises"
+          }
         },
         {
           "text": "Housing and climate see no movement for another cycle",
-          "sourceLabel": "Promise tracker tally (derived from home dimensions)"
+          "sourceLabel": "Promise tracker tally (derived from home dimensions)",
+          "internalRef": {
+            "type": "view",
+            "target": "promises"
+          }
         }
       ]
     },
-    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The grade reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative dimension. Grade movements that are already captured in their home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this grade. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
+    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The tracker read reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative tracker. Movements that are already captured in home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this tracker. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
     "sources": [
       {
         "label": "Canada Strong — Liberal Party 2025 platform",
