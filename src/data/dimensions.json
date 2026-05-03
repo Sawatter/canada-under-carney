@@ -53,7 +53,8 @@
       "guardrails": [
         "Confirm defence spending from NATO or equivalent official tables, not from domestic political claims alone.",
         "Use annual trade-share movement rather than single-month export volatility when judging diversification.",
-        "The defence sub-score anchors the file; trade modifies the headline and should not hide a widening divergence between the two."
+        "The defence sub-score anchors the file; trade modifies the headline and should not hide a widening divergence between the two.",
+        "If the defence and trade sub-scores move in opposite directions for two consecutive review cycles, promote the split shadow into live separate files."
       ]
     },
     "gradeTriggers": {
@@ -1725,7 +1726,8 @@
         },
         {
           "text": "ECCC budget restored",
-          "sourceLabel": "ECCC departmental plan / budget documents"
+          "sourceLabel": "ECCC 2025-26 Departmental plan at a glance",
+          "sourceUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
         }
       ],
       "down": [
@@ -1735,7 +1737,8 @@
         },
         {
           "text": "Additional climate program eliminations",
-          "sourceLabel": "ECCC departmental plan / program announcements"
+          "sourceLabel": "ECCC 2025-26 Departmental plan at a glance",
+          "sourceUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
         }
       ]
     },
@@ -1953,7 +1956,8 @@
         },
         {
           "text": "Temporary residents reach the 5% target ahead of schedule",
-          "sourceLabel": "StatsCan population + IRCC permit data"
+          "sourceLabel": "StatsCan population Q4 2025",
+          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm"
         }
       ],
       "down": [
@@ -2157,11 +2161,13 @@
       "up": [
         {
           "text": "Build Canada Homes construction actually begins and starts exceed 300K annualized",
-          "sourceLabel": "CMHC starts + Build Canada Homes updates"
+          "sourceLabel": "Housing Infrastructure Canada — Build Canada Homes",
+          "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html"
         },
         {
           "text": "Federal housing contribution rises above roughly 5% of the shortfall with live disbursement or construction underway",
-          "sourceLabel": "PBO housing outlook + CMHC housing-need benchmark"
+          "sourceLabel": "PBO — housing program outlook",
+          "sourceUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025"
         }
       ],
       "down": [
@@ -2687,8 +2693,7 @@
     "id": "promise-delivery",
     "name": "Promise Delivery",
     "whatThisGrades": "A running tracker of specific government commitments — delivered, in progress, stalled, or abandoned.",
-    "grade": "C+",
-    "previousGrade": null,
+    "informationalGrade": "C+",
     "trend": "stable",
     "status": "Standalone accountability tracker, kept separate from the 11 performance grades. Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short.",
     "surfaceTags": [

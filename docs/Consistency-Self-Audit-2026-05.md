@@ -19,7 +19,7 @@ Working product rule after the Reddit pass:
 
 | Dimension | Grade | What moves it up | What moves it down | Trigger style | Consistency read |
 |---|---|---|---|---|---|
-| Defence & Trade | A- | Funded 3.5% defence path; non-US share falls below 68% | NATO spending falls below 2%; US share rises above 73% | Mixed milestone + outcome | **Outlier.** Two constructs with very different evidence shapes sit in one grade. |
+| Defence & Trade | A- | Funded 3.5% defence path; US export share drops below 68% | NATO spending falls below 2%; US share rises above 73% | Mixed milestone + outcome | **Outlier.** Two constructs with very different evidence shapes sit in one grade. |
 | Major Projects | C | >=30% of cohort shows documented post-designation advancement; first full MPO cycle; first use of designation power | Project withdrawal; cohort reverses; framework bypassed | Cohort-progress / implementation | Structurally coherent now, but uses a different cohort ladder than most files. |
 | Fiscal Health | D | PBO confidence rises above 25%; Fitch warning removed | Actual downgrade; deficit > $90B without revenue | Threshold + external validation | Consistent. Up/down logic is symmetric and evidence-based. |
 | Economic Policy Response | D | AI compute fund actually disburses; business investment turns positive for 2+ quarters | More major announcements without authorization; investment decline worsens | Execution + quarterly outcome | Mostly consistent. Execution threshold is clear, but permitting remains thinner than other lever checks. |
@@ -30,7 +30,7 @@ Working product rule after the Reddit pass:
 | Housing Supply | D | Build Canada Homes construction begins and starts exceed 300K annualized | Starts fall below 240K; federal spending declines without offset | Outcome + binding delivery | Consistent. The "announcements do not count as homes" rule matches broader dashboard discipline. |
 | Ethics & Transparency | C | Commissioner review finds disclosure adequate; proactive full accounting published | Undisclosed interests; inadequate screening finding; two independent critiques cite a material gap | Governance-process / formal review | Consistent inside its own process lane. This file is judgment-heavy but explicitly bounded. |
 | Flagship Delivery | C | At least one flagship file improves one status category under the Combination Rule | At least one flagship file worsens one status category | Combination-rule / derivative implementation | **Outlier.** This is a meta-file whose movement depends on status coding elsewhere. |
-| Promise Delivery | C+ | Delivered count reaches 18/43 without new abandonments | Abandonments rise above 15; housing and climate remain unmoved another cycle | Count-based derivative accountability | **Outlier.** Derivative, not independent. Also the only live graded file without a populated `judgmentCall`. |
+| Promise Delivery | Tracker | Delivered count reaches 18/43 without new abandonments | Abandonments rise above 15; housing and climate remain unmoved another cycle | Count-based derivative accountability | **Outlier.** Derivative accountability tracker, intentionally excluded from GPA. |
 
 ## What looks consistent
 
@@ -77,26 +77,28 @@ Its triggers are structurally consistent *with itself*, but not with the core da
 
 This does not make it invalid. It does make it a category exception.
 
-### 3. Promise Delivery is derivative and still under v2 review
+### 3. Promise Delivery is a tracker exception, not a graded-peer problem
 
-This file is the weakest consistency fit in the live GPA because:
+This file is structurally different by design:
 
 - every movement is inherited from promise coding elsewhere
-- it is not an independent policy-performance dimension
-- it still lacks a populated `judgmentCall`, unlike the other graded files
-- it carries only one up-trigger and two down-triggers
-- it also has one of the thinnest source sets in the live dashboard
+- it is intentionally excluded from GPA and rendered as a tracker
+- it carries one up-trigger and two down-triggers because it is a cumulative accountability tally, not a peer dimension
+- the consistency question here is presentation discipline, not whether it should still count as a live graded file
 
-The existing v2 shadow-removal logic is still well-founded.
+The core structural decision was already the right one: keep it separate from the 11 performance grades.
 
-### 4. Housing Supply has a quiet trigger asymmetry
+### 4. Housing Supply is no longer a trigger-asymmetry exception
 
-Housing is broadly coherent, but it is the one core home dimension with:
+Housing previously sat outside the dashboard's usual 2-up / 2-down pattern.
 
-- one up-trigger
-- two down-triggers
+That has now been corrected:
 
-That is not automatically wrong. Housing may genuinely have one binding outcome condition by design. But it is a deviation from the dashboard's more common 2-up / 2-down pattern and should either be justified explicitly or given a second up-trigger.
+- the file carries two up-triggers
+- the file carries two down-triggers
+- both up-triggers now point at live public source homes
+
+The dimension remains long-lag and shared-jurisdictional, but it is no longer a structural trigger-pattern outlier.
 
 ## Source-balance finding
 
@@ -125,35 +127,29 @@ Working rule for the next pass:
 - keep overloaded files from drifting back into kitchen-sink source lists
 - strengthen thin files where the evidence base is currently sparse
 
-## Data-model blocker
+## Traceability model status
 
-The current trigger system is still free-text only.
+The main architectural blocker is now fixed.
 
-Every `gradeTriggers.up[]` and `gradeTriggers.down[]` entry is a plain string. That means:
-
-- the UI can show the trigger text
-- the reader can see the nearest source list
-- but the trigger itself does not yet know which source establishes its threshold
-
-So the current chain is:
-
-`grade -> trigger text -> source list`
-
-but not yet:
-
-`grade -> trigger -> supporting source`
-
-That is the main blocker to full traceability. Before a heavy UI pass, the data model should carry structured trigger metadata such as:
+Every `gradeTriggers.up[]` and `gradeTriggers.down[]` entry now carries structured trigger metadata:
 
 - trigger text
-- source label or source reference
-- source URL
+- source label
+- optional source URL
 
-Without that, a source-proximity pass improves convenience but not true traceability.
+So the chain is now:
+
+`grade -> trigger -> source home`
+
+The remaining work is completion, not architecture:
+
+- some triggers are now fully linkable and carry direct URLs
+- some are intentionally label-only because they depend on future event-driven sources
+- some internal or derived triggers (for example cohort tables or combination-rule tallies) still point to an in-card evidence home rather than a public URL
 
 ## Traceability read
 
-The dashboard is in a better place than it was before the Reddit pass, but the traceability standard is not fully met yet.
+The dashboard is in a better place than it was before the Reddit pass, but the traceability standard is still only partly met.
 
 Current strengths:
 
@@ -164,9 +160,9 @@ Current strengths:
 
 Remaining traceability gaps:
 
-1. **Source proximity is still uneven.** A reader can inspect the rubric more easily than they can always trace a specific claim to its nearest source.
+1. **Source-link completion is still uneven.** The model can now carry per-trigger URLs, but not every trigger that could be linked has been threaded yet.
 2. **Outlier files need stronger explanation.** Defence & Trade, Flagship Delivery, and Promise Delivery behave differently enough that they should be explicitly framed as exceptions.
-3. **Derivative files still feel more confident than they are.** Promise Delivery especially risks looking like an independent score rather than a summary layer.
+3. **Internal evidence homes are still a special case.** Cohort-progress and derivative-tally triggers are traceable inside the card, but they still do not behave like simple public-document links.
 
 ## Recommended next moves
 
@@ -174,11 +170,11 @@ Remaining traceability gaps:
 
 Before another heavy UI pass, keep the consistency standard explicit:
 
-1. Treat `Promise Delivery` as the biggest **current** consistency risk because it is derivative, thinly sourced, and missing a `judgmentCall`.
-2. Keep `Flagship Delivery` marked as a delivery-capacity meta-file, not a peer to the core home dimensions.
-3. Treat `Defence & Trade` as the biggest **structural** mixed-construct exception unless the split shadow test is promoted.
-4. Either justify Housing Supply's 1-up / 2-down asymmetry or add a second explicit up-trigger.
-5. Add structured source references to trigger objects before relying on UI work to deliver traceability.
+1. Keep `Flagship Delivery` marked as a delivery-capacity meta-file, not a peer to the core home dimensions.
+2. Treat `Defence & Trade` as the biggest **structural** mixed-construct exception and make the split-promotion tripwire explicit.
+3. Keep `Promise Delivery` clearly framed as a tracker exception rather than a hidden graded file.
+4. Keep Housing Supply on the standard 2-up / 2-down pattern and avoid drifting back into announcement-heavy trigger language.
+5. Finish the easy trigger-level source URLs before treating the traceability pass as fully complete.
 
 ### Product next
 
@@ -196,6 +192,6 @@ The dashboard is no longer failing on raw threshold vagueness. The sharper issue
 - most files are reasonably consistent with one another
 - three files behave like exceptions, but they do not all damage trust in the same way
 - those exceptions need to be named and either justified or redesigned
-- full traceability is currently blocked as much by the trigger data model as by the UI
+- full traceability is no longer blocked by the trigger data model, but it is still limited by partial source-link completion and a few internal evidence homes
 
 That is a much healthier problem than the earlier "everything feels subjective" critique. It means the next trust gain is more likely to come from **making exceptions explicit and improving traceability** than from another generic wording pass.

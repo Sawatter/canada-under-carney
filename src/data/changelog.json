@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-05-02",
+    "summary": "Traceability cleanup follow-on: the audit now matches the live model, Defence & Trade carries an explicit split tripwire, and several easy trigger links were filled in.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Consistency audit corrected to match the live tracker / scoring split",
+        "body": "The new consistency self-audit no longer describes Promise Delivery as a live graded file. It now treats Promise Delivery as what the product already is: a derivative accountability tracker that sits outside the 11 performance grades."
+      },
+      {
+        "type": "method",
+        "headline": "Defence & Trade now carries a visible split-promotion rule",
+        "body": "The file still stays combined for now, but the methodology now says what breaks that structure: if the defence and trade sub-scores move in opposite directions for two consecutive review cycles, the split shadow promotes into live separate files."
+      },
+      {
+        "type": "product",
+        "headline": "Another batch of trigger links was threaded",
+        "body": "Climate, immigration, and housing now carry a few more direct trigger-source links where the public source home already existed, reducing the number of move conditions that still rely on label-only references."
+      },
+      {
+        "type": "method",
+        "headline": "Promise Delivery no longer carries a live-grade field in current data",
+        "body": "The tracker still keeps its internal accountability logic, but the live dimension data no longer exposes Promise Delivery as if it were a peer A–F score inside the current board."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-02",
     "summary": "Traceability pass: grade-change triggers now carry their own source labels, exception files are framed more honestly, and source stacks are rebalanced into a tighter band.",
     "items": [
       {
