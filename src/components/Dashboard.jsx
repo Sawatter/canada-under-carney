@@ -399,6 +399,7 @@ export default function Dashboard() {
               number beside the card is delivered / total.
             </div>
             <div
+              id="accountability-tracker-grid"
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",

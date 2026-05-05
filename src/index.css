@@ -275,6 +275,15 @@ a:hover { text-decoration: underline; }
   .scoreboard-detail-overall { order: 21; }
   .scoreboard-detail-approval { order: 41; }
 
+  /* Reddit mobile-feedback polish: the card grid was technically usable but
+     felt a little tight while thumb-scrolling. The inline grid gap is 12px;
+     mobile gets one extra spacing step so cards breathe without changing
+     desktop density. */
+  #scorecard-dimension-grid,
+  #accountability-tracker-grid {
+    gap: 16px !important;
+  }
+
   /* Header subtitle (coverage period / updated / version) */
   .header-subtitle {
     font-size: 15px !important;
@@ -315,4 +324,3 @@ a:hover { text-decoration: underline; }
     padding: 10px 6px !important;
   }
 }
-

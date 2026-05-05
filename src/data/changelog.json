@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-05-05",
+    "summary": "Mobile card-spacing polish: dimension cards now have a little more breathing room while scrolling on phones.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Scorecard cards breathe more on mobile",
+        "body": "The mobile scorecard and tracker grids now use a wider gap between cards, responding to Reddit feedback that the grade cards felt cramped while scrolling. No grades, scores, sources, promise statuses, or methodology changed."
+      }
+    ]
+  },
+  {
     "date": "2026-05-02",
     "summary": "Traceability polish: event-driven trigger sources now say so directly in the scoring drawer.",
     "items": [
