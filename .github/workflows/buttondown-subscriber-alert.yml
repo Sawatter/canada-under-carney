@@ -1,6 +1,6 @@
 name: Buttondown subscriber-count alert
 
-# Runs daily at 13:00 UTC. Polls the Buttondown API for the current subscriber
+# Runs daily at 13:37 UTC. Polls the Buttondown API for the current subscriber
 # count and fails the workflow run when the count crosses 95 — well below the
 # 100-subscriber free-tier limit so there is room to upgrade or trim before
 # Buttondown stops accepting new sign-ups. A failed scheduled run sends an
@@ -8,7 +8,9 @@ name: Buttondown subscriber-count alert
 
 on:
   schedule:
-    - cron: "0 13 * * *"
+    # Avoid minute 0 because GitHub scheduled workflows are more likely to be
+    # delayed or dropped at the top of the hour.
+    - cron: "37 13 * * *"
   workflow_dispatch: {}
 
 jobs:
