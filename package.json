@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "node scripts/generate-feed.mjs && node scripts/generate-visitor-count.mjs",
+    "prebuild": "node scripts/validate-dimensions.mjs && node scripts/generate-feed.mjs && node scripts/generate-visitor-count.mjs",
+    "test:data": "node scripts/validate-dimensions.mjs",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
