@@ -1115,7 +1115,9 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
 }
 
 // Renders the MPO project cohort: a header with the count and stage breakdown,
-// and a collapsible table with every project's current stage and source link.
+// plus a collapsible full project list. Desktop gets a compact table; mobile
+// gets stacked cards so stage dates and source links are visible without
+// sideways scrolling.
 // `cohort.stageGates` orders the stages from least-advanced (designated) to
 // most-advanced (completed); the table sorts in reverse so advanced projects
 // surface first.
@@ -1254,7 +1256,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
           type="button"
           onClick={onToggle}
           aria-expanded={isOpen}
-          aria-controls={`dim-${dimId}-cohort-table`}
+          aria-controls={`dim-${dimId}-cohort-list`}
           style={{
             fontSize: "13px",
             color: "#1a73e8",
@@ -1269,26 +1271,53 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
           {isOpen ? "▾ Hide full project list" : "▸ Show full project list"}
         </button>
         {isOpen && (
-          <>
-            {/* Mobile-only verbal cue: the table has more columns than fit
-                on a phone, including the Source column. The fade gradient
-                below carries the visual cue. */}
-            <div
-              className="cohort-scroll-hint"
-              style={{
-                fontSize: "12px",
-                color: "#666",
-                fontStyle: "italic",
-                marginTop: "8px",
-              }}
-            >
-              Scroll right for stage date and source links →
+          <div id={`dim-${dimId}-cohort-list`} style={{ marginTop: "8px" }}>
+            <div className="cohort-mobile-projects" aria-label="Full Major Projects cohort list">
+              {sortedProjects.map((p, i) => (
+                <article
+                  key={`${p.name}-card-${i}`}
+                  className="cohort-mobile-project-card"
+                >
+                  <div className="cohort-mobile-project-head">
+                    <div>
+                      <strong>{p.name}</strong>
+                      {p.location && <span>{p.location}</span>}
+                    </div>
+                    {stagePill(p.stage)}
+                  </div>
+                  <dl className="cohort-mobile-project-facts">
+                    <div>
+                      <dt>Tranche</dt>
+                      <dd>{p.tranche}</dd>
+                    </div>
+                    <div>
+                      <dt>Stage date</dt>
+                      <dd>{p.stageDate}</dd>
+                    </div>
+                    {p.sourceUrl && (
+                      <div>
+                        <dt>Source</dt>
+                        <dd>
+                          <a
+                            href={p.sourceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            Open source →
+                          </a>
+                        </dd>
+                      </div>
+                    )}
+                  </dl>
+                </article>
+              ))}
             </div>
             <div
               id={`dim-${dimId}-cohort-table`}
               role="region"
               className="cohort-table-wrap"
-              style={{ marginTop: "6px", overflowX: "auto" }}
+              style={{ overflowX: "auto" }}
             >
             <table
               style={{
@@ -1354,7 +1383,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
               </tbody>
             </table>
             </div>
-          </>
+          </div>
         )}
       </div>
     </div>

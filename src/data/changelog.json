@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-05-12",
+    "summary": "Mobile evidence polish: the Major Projects full project list now uses readable project cards on phones.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Major Projects list no longer needs sideways scrolling on mobile",
+        "body": "The full 16-project pipeline still uses the compact table on desktop, but phone-width screens now show stacked project cards with tranche, stage date, and source link visible in each card. No grades, scores, thresholds, source data, or methodology changed."
+      }
+    ]
+  },
+  {
     "date": "2026-05-05",
     "summary": "Mobile card-spacing polish: dimension cards now have a little more breathing room while scrolling on phones.",
     "items": [
