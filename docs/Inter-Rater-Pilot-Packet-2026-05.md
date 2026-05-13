@@ -126,9 +126,9 @@ The sustainability of the federal fiscal trajectory and the credibility of the m
 
 ### Modifier Guidance
 
-- External constraint may apply to strategically justified defence spending during trade-war conditions.
-- External constraint does not cover discretionary fiscal choices unrelated to that constraint.
-- Distinguish defensible strategic spending from unanchored fiscal expansion.
+- Apply the External Constraint rule if your reading of the evidence shows a genuine external pressure affected the fiscal trajectory.
+- If you apply it, identify which part of the fiscal picture the constraint explains and which part remains a discretionary federal choice.
+- Apply the other modifier rules only if the evidence meets their trigger conditions.
 
 ### Deconfliction
 
@@ -227,7 +227,7 @@ Out of scope:
 
 - External constraint may apply if tariff-driven costs demonstrably exceed what domestic policy can offset.
 - External constraint only helps the grade if the federal response is adequate given the constraint.
-- Jurisdictional limits do not cap this dimension because core federal relief instruments are within federal control.
+- Apply Jurisdictional Limits if your reading of the evidence shows more than 50% of delivery depends on non-federal actors and no intergovernmental agreement exists. The federal relief instruments are described in the metrics above; the rater's job is to decide whether the modifier threshold is met.
 
 ### Deconfliction
 
@@ -364,7 +364,7 @@ Down:
 
 ### Rater Warning
 
-Grade the framework, not the person. The question is whether the ethics framework is adequate to the non-routine disclosure demands created by the officeholder's background. Do not upgrade based only on absence of scandal; upgrade based on positive disclosure or independent review actions.
+Grade the framework, not the person. The question is whether the ethics framework is adequate to the non-routine disclosure demands created by the officeholder's background. Evidence for framework adequacy comes from disclosure, screening, and independent review actions rather than the absence of public concerns alone.
 
 ---
 
