@@ -135,6 +135,11 @@ function isAutomated(label, url) {
       urlText === "https://www.pbo-dpb.ca/en/feed.xml") {
     return true;
   }
+  // MPO national-projects landing page is scraped monthly by
+  // fetch-data.py and diffed against projectCohort.projects.
+  if (urlText === "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html") {
+    return true;
+  }
   return false;
 }
 

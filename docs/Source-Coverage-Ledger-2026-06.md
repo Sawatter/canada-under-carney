@@ -6,7 +6,7 @@
 **Generated:** 2026-05-13
 **Live dashboard version:** v5.24 (as of 2026-05-13)
 **Total source rows:** 330 (Monthly 32, Event-Driven 15, Quarterly 113, Twice-Yearly 170)
-**Automation split:** 16 automated by `scripts/fetch-data.py`, 314 manual
+**Automation split:** 19 automated by `scripts/fetch-data.py`, 311 manual
 **Coverage level achieved:** fill in after cycle closes
 
 ## How To Use

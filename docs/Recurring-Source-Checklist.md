@@ -40,7 +40,7 @@ Run these before the monthly changelog is drafted.
 | Approval poll scan | Abacus, Leger, Angus Reid Institute | Approval Signal | Manual | New direct Carney / federal-government approval poll | Add poll and recalculate 60-day average |
 | PBO publication scan | `https://www.pbo-dpb.ca/en/publications` (RSS at `/en/feed.xml`) | Fiscal, affordability, promises | Automated by `scripts/fetch-data.py` (RSS surface; editor still evaluates each release) | New fiscal, costing, or anchor analysis | New PBO release changes a cited metric or promise status |
 | Ethics Commissioner reports | `https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx` | Ethics & Transparency | Manual | New report, examination, or PM-relevant filing | Ethics review status changes |
-| Major Projects Office list | `https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html` | Major Projects | Manual | Denominator, project additions, stage changes | Cohort count or stage evidence changes |
+| Major Projects Office list | `https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html` | Major Projects | Automated by `scripts/fetch-data.py` (page scrape; flags additions / removals vs `projectCohort.projects`) | Denominator, project additions, stage changes | Cohort count or stage evidence changes |
 | Stalled / abandoned promise spot-check | `statusSourceUrl` on stalled and abandoned promises | Promise tracker | Manual | Link still works; no new public evidence changes the status | Evidence moves a promise out of stalled / abandoned, or source link breaks |
 | Touched-source link check | URLs touched in current edits | Any touched dimension | Manual | 200/working page, value still visible | Broken link or source mismatch |
 
@@ -91,7 +91,7 @@ Build these in this order when source-process work is active.
 1. ~~PBO RSS integration in `scripts/fetch-data.py`.~~ **Done.** The fetch script now reads `https://www.pbo-dpb.ca/en/feed.xml` each cycle and flags new publications as `[NEW]` vs `[CITED]` in the fetch report.
 2. StatCan value-diff checks, not just availability checks.
 3. LEGISinfo bill-status check for live bill commitments.
-4. Major Projects Office page diff against `projectCohort.projects`.
+4. ~~Major Projects Office page diff against `projectCohort.projects`.~~ **Done.** `scripts/fetch-data.py` now scrapes the MPO page each cycle, extracts project H2 headings, normalizes for ligatures and word-order variants, and prints additions / removals vs the live cohort. Genuine naming-convention differences are surfaced as one "potential addition" + one "potential removal" so the editor can reconcile.
 5. Approval-poll release-page scrapers for Abacus, Leger, and Angus Reid Institute.
 6. Ethics Commissioner investigation-report page diff.
 7. ~~Archive fallback check: if a cited URL fails, check the Internet Archive / Wayback Machine and record either an official replacement URL or an archived fallback in the cycle ledger.~~ **Done.** `python3 scripts/fetch-data.py --link-rot` walks every cited URL in `src/data/dimensions.json`, hits the Wayback Machine availability API when a URL is unreachable, and prints a per-URL line tagged `[BROKEN]`, `[BROKEN+ARC]`, `[BLOCKED]`, `[BLOCKED+ARC]`, or `[ERROR]` so the editor can see in one pass which links rotted and which have an archive fallback.

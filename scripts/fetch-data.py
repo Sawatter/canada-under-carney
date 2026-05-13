@@ -18,6 +18,7 @@ Outputs (in scripts/output/):
 import argparse
 import json
 import os
+import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, date
@@ -198,6 +199,164 @@ def fetch_pbo_feed(limit=20):
         }
     except Exception as e:
         return {"status": "error", "error": str(e)}
+
+
+# --- Major Projects Office page diff ---
+# The official MPO page is the source of truth for the project cohort
+# denominator. The May cycle hit a 16 -> 15 denominator correction
+# because the dashboard's projectCohort was out of sync with the MPO
+# list. Scraping the page each cycle and diffing against the live
+# projectCohort.projects catches drift before it shows up in a grade.
+MPO_PAGE_URL = "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html"
+
+# H2 headings that are page chrome, not projects.
+_MPO_BOILERPLATE_H2 = {
+    "language selection",
+    "search",
+    "you are here",
+    "projects",
+    "menu",
+    "subscribe",
+    "discover",
+    "stay connected",
+    "quick facts",
+    "latest updates",
+    "page details",
+    "about this site",
+    "about government",
+    "contact information",
+}
+
+
+def _mpo_token_set(name):
+    """Return a frozenset of normalized tokens for a project name.
+
+    Normalization:
+      - Unfold common ligatures (œ -> oe, æ -> ae) so "Contrecœur" and
+        "Contrecoeur" become the same token.
+      - NFKD-decompose to separate combining accents, drop them.
+      - Lowercase, strip non-alphanumeric, collapse whitespace.
+      - Drop generic stop words. Keep distinguishing tokens like
+        "phase", "1", "2", "expansion" so Phase 1 / Phase 2 don't
+        collide.
+    """
+    import unicodedata
+    ligature_unfold = name.replace("œ", "oe").replace("Œ", "oe").replace("æ", "ae").replace("Æ", "ae")
+    nfkd = unicodedata.normalize("NFKD", ligature_unfold)
+    stripped = "".join(c for c in nfkd if not unicodedata.combining(c))
+    cleaned = re.sub(r"[^a-z0-9]+", " ", stripped.lower()).strip()
+    drop_tokens = {"the", "of", "and", "a", "project"}
+    tokens = frozenset(t for t in cleaned.split() if t not in drop_tokens and len(t) > 1)
+    return tokens
+
+
+def _jaccard(a, b):
+    """Jaccard similarity between two token sets."""
+    if not a or not b:
+        return 0.0
+    return len(a & b) / len(a | b)
+
+
+def fetch_mpo_page_projects(timeout=20):
+    """Scrape the Major Projects Office national-projects page and
+    extract the project names. Returns dict with `status` and either
+    `projects` (list of names) or `error`.
+
+    Strategy: parse all <h2> elements, drop site-chrome headings,
+    de-duplicate by normalized name. The MPO page often repeats each
+    project H2 in multiple layout blocks; the dedupe collapses those.
+    """
+    try:
+        resp = requests.get(
+            MPO_PAGE_URL,
+            timeout=timeout,
+            headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
+        )
+        if resp.status_code != 200:
+            return {"status": "http_error", "code": resp.status_code}
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+    html = resp.text
+    raw_h2 = re.findall(r"<h2[^>]*>(.*?)</h2>", html, re.DOTALL | re.IGNORECASE)
+    seen_tokens = set()
+    projects = []
+    for raw in raw_h2:
+        text = re.sub(r"<[^>]+>", "", raw)
+        text = re.sub(r"\s+", " ", text).strip()
+        if not text:
+            continue
+        lower = text.lower()
+        if any(b in lower for b in _MPO_BOILERPLATE_H2):
+            continue
+        tokens = _mpo_token_set(text)
+        if not tokens or tokens in seen_tokens:
+            continue
+        seen_tokens.add(tokens)
+        projects.append({"display": text, "tokens": tokens})
+
+    return {"status": "success", "projects": projects, "count": len(projects)}
+
+
+def diff_mpo_against_cohort(dimensions, mpo_result):
+    """Compare the MPO page project list against the live
+    projectCohort.projects in dimensions.json. Returns dict with:
+      - matched: list of (mpo_display, cohort_name)
+      - mpo_only: projects on MPO page that don't match any cohort entry
+      - cohort_only: projects in cohort that don't match any MPO entry
+    Matching uses Jaccard similarity on token sets. >=0.5 counts as a
+    match. Each MPO project pairs with the cohort entry it overlaps
+    with most. Greedy assignment, each side matched at most once.
+    """
+    if mpo_result.get("status") != "success":
+        return {"status": mpo_result.get("status"), "error": mpo_result.get("error")}
+
+    mp_dim = next((d for d in dimensions if d.get("id") == "major-projects"), None)
+    cohort = (mp_dim or {}).get("projectCohort", {}).get("projects", [])
+    cohort_entries = [
+        {"name": p.get("name", "?"), "tokens": _mpo_token_set(p.get("name", ""))}
+        for p in cohort
+    ]
+
+    mpo_projects = mpo_result.get("projects", [])
+
+    # Score every (mpo, cohort) pair, then greedy-assign highest-scoring
+    # pairs first until each side is matched at most once.
+    pairs = []
+    for i, m in enumerate(mpo_projects):
+        for j, c in enumerate(cohort_entries):
+            score = _jaccard(m["tokens"], c["tokens"])
+            if score >= 0.5:
+                pairs.append((score, i, j))
+    pairs.sort(reverse=True)
+
+    used_mpo = set()
+    used_cohort = set()
+    matched = []
+    for score, i, j in pairs:
+        if i in used_mpo or j in used_cohort:
+            continue
+        used_mpo.add(i)
+        used_cohort.add(j)
+        matched.append((mpo_projects[i]["display"], cohort_entries[j]["name"]))
+
+    mpo_only = [
+        m["display"] for i, m in enumerate(mpo_projects)
+        if i not in used_mpo
+    ]
+    cohort_only = [
+        c["name"] for j, c in enumerate(cohort_entries)
+        if j not in used_cohort
+    ]
+
+    return {
+        "status": "success",
+        "matched": matched,
+        "mpo_only": mpo_only,
+        "cohort_only": cohort_only,
+        "mpo_count": mpo_result.get("count", 0),
+        "cohort_count": len(cohort_entries),
+    }
 
 
 def check_url_with_wayback(url, timeout=10):
@@ -458,6 +617,42 @@ def generate_fetch_report(dimensions, results):
             lines.append(f"  HTTP code: {pbo['code']}")
     lines.append("")
 
+    # Major Projects Office diff
+    lines.append("MAJOR PROJECTS OFFICE (page diff)")
+    lines.append("-" * 40)
+    mpo_page = results.get("mpo_page", {})
+    mpo_diff = results.get("mpo_diff", {})
+    if mpo_page.get("status") == "success" and mpo_diff.get("status") == "success":
+        lines.append(
+            f"  MPO page: {mpo_diff['mpo_count']} projects scraped from official list"
+        )
+        lines.append(
+            f"  Dashboard cohort: {mpo_diff['cohort_count']} projects in projectCohort.projects"
+        )
+        lines.append(f"  Matched: {len(mpo_diff['matched'])}")
+        if mpo_diff.get("mpo_only"):
+            lines.append("")
+            lines.append("  Projects on MPO page but NOT in dashboard cohort (potential additions):")
+            for name in mpo_diff["mpo_only"]:
+                lines.append(f"    + {name}")
+        if mpo_diff.get("cohort_only"):
+            lines.append("")
+            lines.append("  Projects in dashboard cohort but NOT on MPO page (potential removals):")
+            for name in mpo_diff["cohort_only"]:
+                lines.append(f"    - {name}")
+        if not mpo_diff.get("mpo_only") and not mpo_diff.get("cohort_only"):
+            lines.append("")
+            lines.append("  Cohort matches the MPO page exactly. No denominator drift.")
+    elif mpo_page.get("status") != "success":
+        lines.append(f"  MPO page fetch failed: {mpo_page.get('status', 'not checked')}")
+        if mpo_page.get("error"):
+            lines.append(f"  Error: {mpo_page['error']}")
+        elif mpo_page.get("code"):
+            lines.append(f"  HTTP code: {mpo_page['code']}")
+    else:
+        lines.append(f"  MPO diff failed: {mpo_diff.get('error', '?')}")
+    lines.append("")
+
     # Link-rot scan with Wayback fallback (only present when --link-rot was passed)
     if "link_rot" in results:
         lines.append("=" * 60)
@@ -642,7 +837,28 @@ def main():
 
     print()
 
-    # 5. Optional link-rot scan with Wayback fallback
+    # 5. Check Major Projects Office page denominator
+    print("Checking Major Projects Office project list...")
+    mpo_page = fetch_mpo_page_projects()
+    results["mpo_page"] = mpo_page
+    if mpo_page.get("status") == "success":
+        diff = diff_mpo_against_cohort(dimensions, mpo_page)
+        results["mpo_diff"] = diff
+        if diff.get("status") == "success":
+            print(
+                f"  MPO page: {diff['mpo_count']} projects scraped, "
+                f"{len(diff['matched'])} match cohort, "
+                f"{len(diff['mpo_only'])} only on MPO, "
+                f"{len(diff['cohort_only'])} only in cohort"
+            )
+        else:
+            print(f"  MPO page: scraped but diff failed ({diff.get('error', '?')})")
+    else:
+        print(f"  MPO page: FAILED ({mpo_page.get('status', 'unknown')})")
+
+    print()
+
+    # 6. Optional link-rot scan with Wayback fallback
     if args.link_rot:
         print("Running link-rot scan with Wayback fallback (this can take 30-60s)...")
         scan = link_rot_scan(dimensions)
