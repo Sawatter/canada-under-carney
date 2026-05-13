@@ -2,8 +2,10 @@
 """
 Canada Under Carney — Monthly Data Fetch Script
 
-Checks government data endpoints (Statistics Canada, IRCC, Bank of Canada)
-and generates draft files for human review.
+Checks government data endpoints (Statistics Canada, IRCC, Bank of Canada,
+Parliamentary Budget Officer RSS) and generates draft files for human
+review. The PBO RSS check surfaces recent publications and flags which
+are not yet cited in dimensions.json.
 
 Usage:
     python scripts/fetch-data.py
@@ -94,6 +96,15 @@ IRCC_DATASETS = {
 # --- Bank of Canada Valet API ---
 BOC_BASE = "https://www.bankofcanada.ca/valet/observations"
 
+# --- Parliamentary Budget Officer RSS feed ---
+# PBO publishes a public RSS feed of recent reports, costings, and
+# analyses. The dashboard cites PBO in 7 dimensions (Fiscal Health,
+# Affordability Response, Carbon Pricing Policy, Housing Supply,
+# Flagship Delivery, Promise Delivery, Economic Policy Response).
+# Surfacing the feed each month flags new releases the editor would
+# otherwise have to find by manual page-scan.
+PBO_FEED_URL = "https://www.pbo-dpb.ca/en/feed.xml"
+
 
 def fetch_statcan_table_info(pid):
     """Fetch metadata about a StatCan table to check last update date."""
@@ -140,6 +151,78 @@ def check_boc_series(series_id="FXCADUSD"):
         return {"status": "http_error", "code": resp.status_code}
     except Exception as e:
         return {"status": "error", "error": str(e)}
+
+
+def fetch_pbo_feed(limit=20):
+    """Fetch the PBO RSS feed and return recent publications.
+
+    PBO ships a standard RSS 2.0 feed. We parse <item> elements for
+    title, link, and pubDate. The fetch report later compares each link
+    against the live dimensions.json so new PBO releases (not already
+    cited) are surfaced to the editor for manual evaluation.
+    """
+    import xml.etree.ElementTree as ET
+
+    try:
+        resp = requests.get(
+            PBO_FEED_URL,
+            timeout=30,
+            headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
+        )
+        if resp.status_code != 200:
+            return {"status": "http_error", "code": resp.status_code}
+
+        root = ET.fromstring(resp.content)
+        items = root.findall(".//item")[:limit]
+        publications = []
+        for item in items:
+            title_el = item.find("title")
+            link_el = item.find("link")
+            pubdate_el = item.find("pubDate")
+            title = (title_el.text or "").strip() if title_el is not None else ""
+            link = (link_el.text or "").strip() if link_el is not None else ""
+            pubdate = (pubdate_el.text or "").strip() if pubdate_el is not None else ""
+            publications.append(
+                {
+                    "title": title or "(untitled)",
+                    "link": link,
+                    "pubDate": pubdate,
+                }
+            )
+        return {
+            "status": "success",
+            "count": len(publications),
+            "publications": publications,
+        }
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
+def collect_cited_pbo_urls(dimensions):
+    """Return lowercase set of PBO URLs currently cited in dimensions.json.
+
+    Walks dim sources, gradeTriggers (up + down), and promise source URLs.
+    Used by the fetch report to mark RSS items as [CITED] vs [NEW].
+    """
+    cited = set()
+
+    def add(url):
+        if url and "pbo-dpb.ca" in url.lower():
+            cited.add(url.lower().rstrip("/"))
+
+    for dim in dimensions:
+        for s in dim.get("sources") or []:
+            add(s.get("url"))
+        triggers = dim.get("gradeTriggers") or {}
+        for side in ("up", "down"):
+            for t in triggers.get(side) or []:
+                if isinstance(t, dict):
+                    add(t.get("sourceUrl"))
+        for p in dim.get("promises") or []:
+            add(p.get("originalSourceUrl"))
+            add(p.get("statusSourceUrl"))
+
+    return cited
 
 
 def load_dimensions():
@@ -210,6 +293,40 @@ def generate_fetch_report(dimensions, results):
     lines.append(f"    Status: {boc.get('status', 'not checked')}")
     if boc.get("latest"):
         lines.append(f"    Latest: {boc['latest']}")
+    lines.append("")
+
+    # PBO recent publications via RSS feed
+    lines.append("PARLIAMENTARY BUDGET OFFICER (RSS feed)")
+    lines.append("-" * 40)
+    pbo = results.get("pbo_feed", {})
+    if pbo.get("status") == "success":
+        cited_pbo = collect_cited_pbo_urls(dimensions)
+        new_count = sum(
+            1 for pub in pbo.get("publications", [])
+            if pub.get("link", "").lower().rstrip("/") not in cited_pbo
+        )
+        lines.append(
+            f"  Status: success ({pbo['count']} recent publications, {new_count} not yet cited)"
+        )
+        lines.append("")
+        lines.append("  Recent PBO publications (newest first):")
+        lines.append("")
+        for pub in pbo.get("publications", []):
+            normalized = pub.get("link", "").lower().rstrip("/")
+            marker = "[CITED]" if normalized in cited_pbo else "[NEW]  "
+            title = pub.get("title", "(untitled)")[:88]
+            lines.append(f"    {marker} {title}")
+            if pub.get("pubDate"):
+                lines.append(f"             Published: {pub['pubDate']}")
+            if pub.get("link"):
+                lines.append(f"             URL: {pub['link']}")
+            lines.append("")
+    else:
+        lines.append(f"  Status: {pbo.get('status', 'not checked')}")
+        if pbo.get("error"):
+            lines.append(f"  Error: {pbo['error']}")
+        elif pbo.get("code"):
+            lines.append(f"  HTTP code: {pbo['code']}")
     lines.append("")
 
     # Dimension-by-dimension metric status
@@ -322,6 +439,25 @@ def main():
     boc_result = check_boc_series()
     results["boc_fx"] = boc_result
     print(f"  Exchange rate: {boc_result['status']}")
+
+    print()
+
+    # 4. Check PBO RSS feed
+    print("Checking PBO RSS feed...")
+    pbo_result = fetch_pbo_feed(limit=20)
+    results["pbo_feed"] = pbo_result
+    if pbo_result["status"] == "success":
+        cited = collect_cited_pbo_urls(dimensions)
+        new_count = sum(
+            1 for pub in pbo_result.get("publications", [])
+            if pub.get("link", "").lower().rstrip("/") not in cited
+        )
+        print(
+            f"  PBO feed: OK ({pbo_result['count']} recent publications, "
+            f"{new_count} not yet cited)"
+        )
+    else:
+        print(f"  PBO feed: FAILED ({pbo_result.get('status', 'unknown')})")
 
     print()
 

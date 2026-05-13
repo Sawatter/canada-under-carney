@@ -38,7 +38,7 @@ Run these before the monthly changelog is drafted.
 | IRCC work and study permits | IRCC open-data CSVs | Immigration | Downloaded by script | Temporary-resident pressure | Permit trends change enough to affect status |
 | Bank of Canada FX | Valet `FXCADUSD` | Economic / immigration context | Automated | CAD/USD observation | Context only unless cited metric changes |
 | Approval poll scan | Abacus, Leger, Angus Reid Institute | Approval Signal | Manual | New direct Carney / federal-government approval poll | Add poll and recalculate 60-day average |
-| PBO publication scan | `https://www.pbo-dpb.ca/en/publications` | Fiscal, affordability, promises | Manual; automate via RSS next | New fiscal, costing, or anchor analysis | New PBO release changes a cited metric or promise status |
+| PBO publication scan | `https://www.pbo-dpb.ca/en/publications` (RSS at `/en/feed.xml`) | Fiscal, affordability, promises | Automated by `scripts/fetch-data.py` (RSS surface; editor still evaluates each release) | New fiscal, costing, or anchor analysis | New PBO release changes a cited metric or promise status |
 | Ethics Commissioner reports | `https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx` | Ethics & Transparency | Manual | New report, examination, or PM-relevant filing | Ethics review status changes |
 | Major Projects Office list | `https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html` | Major Projects | Manual | Denominator, project additions, stage changes | Cohort count or stage evidence changes |
 | Stalled / abandoned promise spot-check | `statusSourceUrl` on stalled and abandoned promises | Promise tracker | Manual | Link still works; no new public evidence changes the status | Evidence moves a promise out of stalled / abandoned, or source link breaks |
@@ -88,7 +88,7 @@ Run after the budget / fiscal update cycle and once mid-year.
 
 Build these in this order when source-process work is active.
 
-1. PBO RSS integration in `scripts/fetch-data.py`.
+1. ~~PBO RSS integration in `scripts/fetch-data.py`.~~ **Done.** The fetch script now reads `https://www.pbo-dpb.ca/en/feed.xml` each cycle and flags new publications as `[NEW]` vs `[CITED]` in the fetch report.
 2. StatCan value-diff checks, not just availability checks.
 3. LEGISinfo bill-status check for live bill commitments.
 4. Major Projects Office page diff against `projectCohort.projects`.

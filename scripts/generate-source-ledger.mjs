@@ -103,17 +103,36 @@ function publisherKey(label, url) {
 
 // Detects whether a row represents an automated check covered by
 // scripts/fetch-data.py. Used for the automated-vs-manual split in
-// the header. Detection is by source label / URL keyword.
+// the header.
+//
+// Detection logic:
+//   - Label-based for the explicit monthly rows the script knows about
+//     (Fetch script, StatCan tables, IRCC CSVs, Bank of Canada Valet).
+//   - Exact-URL match for the PBO landing page and RSS feed. The 16
+//     specific cited PBO publication URLs have longer paths and stay
+//     manual — the editor still needs to verify each cited value.
 function isAutomated(label, url) {
-  const text = `${label || ""} ${url || ""}`.toLowerCase();
-  if (text.includes("fetch-data.py") || text.includes("fetch script")) return true;
-  if (text.includes("ircc open-data csv")) return true;
-  if (text.includes("bank of canada valet") || text.includes("fxcadusd")) return true;
-  if (text.includes("statistics canada") && (text.includes("table") || text.includes("release"))) {
+  const labelText = (label || "").toLowerCase();
+  const urlText = (url || "").trim().toLowerCase().replace(/\/$/, "");
+  if (labelText.includes("fetch script") || urlText.includes("fetch-data.py")) return true;
+  if (labelText.includes("ircc") && urlText.includes("ircc")) return true;
+  if (labelText.includes("ircc") && (labelText.includes("pr admissions") ||
+      labelText.includes("imp") || labelText.includes("tfwp") || labelText.includes("study permits"))) {
     return true;
   }
-  if (text.includes("statcan") && (text.includes("food cpi") || text.includes("labour force") ||
-      text.includes("population") || text.includes("housing starts") || text.includes("merchandise trade"))) {
+  if (labelText.includes("bank of canada") || labelText.includes("fxcadusd") ||
+      urlText.includes("bankofcanada.ca/valet")) {
+    return true;
+  }
+  if (labelText.startsWith("statcan ") || labelText.includes("statistics canada cpi") ||
+      labelText.includes("statistics canada lfs")) {
+    return true;
+  }
+  // PBO publications landing page + RSS feed are surfaced monthly by
+  // fetch-data.py. Cited publication URLs are deeper paths and stay
+  // manual.
+  if (urlText === "https://www.pbo-dpb.ca/en/publications" ||
+      urlText === "https://www.pbo-dpb.ca/en/feed.xml") {
     return true;
   }
   return false;
