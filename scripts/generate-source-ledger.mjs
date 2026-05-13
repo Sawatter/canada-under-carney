@@ -28,6 +28,97 @@ const approvalPolls = JSON.parse(
   readFileSync(resolve(repoRoot, "src/data/approval-polls.json"), "utf8")
 );
 
+const meta = JSON.parse(
+  readFileSync(resolve(repoRoot, "src/data/meta.json"), "utf8")
+);
+
+// Publisher-grouping rules. Each rule is [regex, sort key]. Rows are
+// sorted within each section by sort key so all StatCan rows cluster
+// together, then all IRCC, then all PBO, and so on. Rows that don't
+// match any rule fall to "99-other" and sort alphabetically at the end.
+const PUBLISHER_RULES = [
+  [/python3 scripts\/fetch-data|fetch-data\.py/i, "00-fetch-script"],
+  [/statcan\.gc\.ca|Statistics Canada/i, "01-statcan"],
+  [/ircc\.canada\.ca|\bIRCC\b/i, "02-ircc"],
+  [/open\.canada\.ca/i, "02-ircc"],
+  [/bankofcanada\.ca|Bank of Canada/i, "03-boc"],
+  [/pbo-dpb\.ca|\bPBO\b/i, "04-pbo"],
+  [/budget\.canada\.ca|Finance Canada/i, "05-finance"],
+  [/cmhc-schl\.gc\.ca|\bCMHC\b/i, "06-cmhc"],
+  [/abacusdata\.ca|Abacus Data/i, "10-poll-abacus"],
+  [/leger360\.com|Léger/i, "10-poll-leger"],
+  [/angusreid\.org|Angus Reid/i, "10-poll-angus"],
+  [/ipsos\.com|\bIpsos\b/i, "10-poll-ipsos"],
+  [/innovativeresearch\.ca|Innovative Research/i, "10-poll-irg"],
+  [/nanos\.co|Nanos/i, "10-poll-nanos"],
+  [/pollara\.com|Pollara/i, "10-poll-pollara"],
+  [/mainstreetresearch\.ca|Mainstreet/i, "10-poll-mainstreet"],
+  [/ekospolitics\.com|Ekos/i, "10-poll-ekos"],
+  [/sparkinsights|Spark Insights/i, "10-poll-spark"],
+  [/researchco|Research Co\./i, "10-poll-researchco"],
+  [/ciec-ccie\.parl\.gc\.ca|Ethics Commissioner/i, "20-ethics-commissioner"],
+  [/prciec-rpccie\.parl\.gc\.ca|blind[- ]trust|Annex A|PM ethics/i, "21-pm-ethics"],
+  [/ourcommons\.ca|House ETHI/i, "22-house-ethi"],
+  [/democracywatch\.ca|Democracy Watch/i, "23-democracy-watch"],
+  [/pm\.gc\.ca|\bPMO\b/i, "30-pmo"],
+  [/major-projects-office|Major Projects Office/i, "31-mpo"],
+  [/parl\.ca|LEGISinfo/i, "32-parliament"],
+  [/laws-lois\.justice\.gc\.ca/i, "33-justice"],
+  [/international\.canada\.ca|Global Affairs/i, "34-gac"],
+  [/department-national-defence|\bNATO\b|nato\.int/i, "35-defence-nato"],
+  [/environment-climate-change|\bECCC\b/i, "36-eccc"],
+  [/nrcan|Natural Resources/i, "37-nrcan"],
+  [/ised-isde\.canada\.ca|Innovation, Science/i, "38-ised"],
+  [/tc\.canada\.ca|Transport Canada/i, "39-tc"],
+  [/treaties\.un\.org/i, "40-un-treaties"],
+  [/fitchratings\.com|Fitch/i, "41-fitch"],
+  [/moodys\.com/i, "41-moodys"],
+  [/spglobal\.com\/ratings|S&P/i, "41-sp"],
+  [/imf\.org|\bIMF\b/i, "42-imf"],
+  [/oecd\.org|\bOECD\b/i, "43-oecd"],
+  [/climateinstitute\.ca|Canadian Climate Institute|\bCCI\b/i, "50-cci"],
+  [/iisd\.org|\bIISD\b/i, "51-iisd"],
+  [/policyoptions\.irpp\.org|IRPP|Policy Options/i, "52-irpp"],
+  [/cdhowe\.org|C\.D\. Howe/i, "53-cdhowe"],
+  [/fraserinstitute\.org|Fraser Institute/i, "54-fraser"],
+  [/thehub\.ca|The Hub/i, "55-hub"],
+  [/cbc\.ca|\bCBC\b/i, "60-cbc"],
+  [/theglobeandmail\.com|Globe and Mail/i, "60-globe"],
+  [/thenarwhal\.ca|Narwhal/i, "61-narwhal"],
+  [/nationalobserver\.com|National Observer/i, "61-observer"],
+  [/theconversation\.com|Conversation Canada/i, "70-conversation"],
+  [/proof\.utoronto\.ca|\bPROOF\b/i, "71-proof"],
+  [/dal\.ca|Dalhousie/i, "72-dalhousie"],
+  [/canadacode\.org|Grocery Code/i, "73-grocery-code"],
+  [/en\.wikipedia\.org/i, "90-wikipedia"],
+];
+
+function publisherKey(label, url) {
+  const text = `${label || ""} ${url || ""}`;
+  for (const [pattern, key] of PUBLISHER_RULES) {
+    if (pattern.test(text)) return key;
+  }
+  return `99-other-${(label || "").toLowerCase()}`;
+}
+
+// Detects whether a row represents an automated check covered by
+// scripts/fetch-data.py. Used for the automated-vs-manual split in
+// the header. Detection is by source label / URL keyword.
+function isAutomated(label, url) {
+  const text = `${label || ""} ${url || ""}`.toLowerCase();
+  if (text.includes("fetch-data.py") || text.includes("fetch script")) return true;
+  if (text.includes("ircc open-data csv")) return true;
+  if (text.includes("bank of canada valet") || text.includes("fxcadusd")) return true;
+  if (text.includes("statistics canada") && (text.includes("table") || text.includes("release"))) {
+    return true;
+  }
+  if (text.includes("statcan") && (text.includes("food cpi") || text.includes("labour force") ||
+      text.includes("population") || text.includes("housing starts") || text.includes("merchandise trade"))) {
+    return true;
+  }
+  return false;
+}
+
 // Canonical homepage per pollster. Used when building monthly / quarterly
 // approval rows from approval-polls.json. New pollsters added to the data
 // file will appear as rows even without a URL entry here; the editor can
@@ -390,13 +481,41 @@ const twiceYearlyRows = [
   ["Source Characterization Register", "Governance docs", "docs/Source-Characterization-Register.md", "Twice-yearly", "", "", "", "Confirm tier, ownership, independence, and boundary characterization."],
 ];
 
+// Group rows by publisher within each section so an editor sees all
+// StatCan rows together, then all IRCC, then all PBO, etc. Preserves
+// existing within-publisher order via a stable sort fallback.
+function sortByPublisher(rows) {
+  return rows
+    .map((row, idx) => ({ row, idx, key: publisherKey(row[0], row[2]) }))
+    .sort((a, b) => a.key.localeCompare(b.key) || a.idx - b.idx)
+    .map((item) => item.row);
+}
+
+const monthlyRowsSorted = sortByPublisher(monthlyRows);
+const eventRowsSorted = sortByPublisher(eventRows);
+const quarterlyRowsSorted = sortByPublisher(quarterlyRows);
+const twiceYearlyRowsSorted = sortByPublisher(twiceYearlyRows);
+
+// Count automated rows for the header summary. Automation is detected by
+// matching against scripts/fetch-data.py endpoint patterns.
+const allRows = [
+  ...monthlyRowsSorted,
+  ...eventRowsSorted,
+  ...quarterlyRowsSorted,
+  ...twiceYearlyRowsSorted,
+];
+const automatedCount = allRows.filter((row) => isAutomated(row[0], row[2])).length;
+const manualCount = allRows.length - automatedCount;
+
 const output = `# Source Coverage Ledger - ${monthName}
 
 **Purpose:** Working checklist for the ${monthName} source cycle. This file is generated from \`docs/Recurring-Source-Checklist.md\` and live dashboard data so bundled source families become auditable source-level rows.
 
 **Cycle month:** ${monthArg}
 **Generated:** ${new Date().toISOString().slice(0, 10)}
-**Live version at generation:** fill in before cycle starts
+**Live dashboard version:** v${meta.version} (as of ${meta.lastUpdated})
+**Total source rows:** ${allRows.length} (Monthly ${monthlyRowsSorted.length}, Event-Driven ${eventRowsSorted.length}, Quarterly ${quarterlyRowsSorted.length}, Twice-Yearly ${twiceYearlyRowsSorted.length})
+**Automation split:** ${automatedCount} automated by \`scripts/fetch-data.py\`, ${manualCount} manual
 **Coverage level achieved:** fill in after cycle closes
 
 ## How To Use
@@ -408,25 +527,25 @@ const output = `# Source Coverage Ledger - ${monthName}
 
 ## Monthly Checks
 
-${table(monthlyRows)}
+${table(monthlyRowsSorted)}
 
 ## Event-Driven Watch
 
 Fill these when an event appears during the cycle. If you actively checked and found no event, use \`no event observed\`.
 
-${table(eventRows)}
+${table(eventRowsSorted)}
 
 ## Quarterly Checks
 
 Run when due, or sooner if a trigger appears. If not due this month, mark \`not due\` rather than leaving the row ambiguous.
 
-${table(quarterlyRows)}
+${table(quarterlyRowsSorted)}
 
 ## Twice-Yearly Checks
 
 Run after the budget / fiscal update cycle and once mid-year. If not due this month, mark \`not due\` rather than leaving the row ambiguous.
 
-${table(twiceYearlyRows)}
+${table(twiceYearlyRowsSorted)}
 
 ## Cycle Closeout
 
