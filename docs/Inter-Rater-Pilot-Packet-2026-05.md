@@ -3,13 +3,13 @@
 - **Purpose:** Give an outside rater enough evidence and rules to independently grade three dimensions without seeing the published grade, editor rationale, judgment call, perspectives, or active modifier selection.
 - **Status:** Ready for first v1 rater run.
 - **Snapshot:** Dashboard data reviewed through 2026-04-30.
-- **Depends on:** [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md), [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [Plus-Minus-Decision-Rules.md](Plus-Minus-Decision-Rules.md), [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), [Deconfliction-Matrix.md](Deconfliction-Matrix.md), [Source-Authority-Map.md](Source-Authority-Map.md).
+- **Rater materials:** This packet is self-contained. Use only this packet and the external source links inside it before submitting the worksheet.
 
 ---
 
 ## Instructions For The Rater
 
-Please grade each dimension using only this packet and the linked source documents. Do not look at the live dashboard, changelog, Git history, or current dimension cards until after submitting your worksheet.
+Please grade each dimension using only this packet and the external source links inside the Source List sections. Before submitting your worksheet, do not open the live dashboard, `src/data/dimensions.json`, the changelog, Git history, beta-feedback docs, canonical scoring docs, current dimension cards, or rationale fields.
 
 Your task is not to decide whether you personally agree with the government's policy direction. Your task is to apply the published scoring rules to the provided evidence and choose the grade that follows from those rules.
 
@@ -68,9 +68,11 @@ Start at the straight letter band.
 
 Plus requires all of:
 
-- the dimension meets its letter threshold
+- the dimension meets its letter threshold and sits above the floor of that band
 - at least one primary indicator shows measurable positive momentum toward the next band
 - no material caveat undermines the positive signal
+
+Example pattern: a file that barely clears a C threshold but has no measurable movement toward B stays flat C, not C+.
 
 Minus requires any of:
 
@@ -139,6 +141,8 @@ The sustainability of the federal fiscal trajectory and the credibility of the m
 | Metric | Value | Source | Notes |
 |---|---|---|---|
 | Deficit, FY 2025-26 projected | $78.3B | Finance Canada | Budget projection, not actual outturn. |
+| Working nominal GDP denominator | about $2.94T | computed | Approximate denominator included only so the rater can apply the deficit-as-percent-of-GDP threshold. |
+| Deficit as percent of GDP | about 2.7% | computed | Derived from $78.3B deficit / about $2.94T working denominator. |
 | Federal debt, 2024-25 | $1.27T | Finance Canada | Federal debt / accumulated deficit. Different from Budget 2025 net debt concept. |
 | Fitch rating | AA+ stable outlook, fiscal concerns noted | Manual rating check | Event-driven source; next update depends on rating-agency action or statement. |
 | PBO confidence in targets | 7.5% | PBO | Confidence in stated fiscal targets. |
@@ -279,7 +283,7 @@ Down:
 
 ### Construct
 
-The adequacy of the federal ethics framework when the sitting PM has a financial and professional background that creates non-routine disclosure requirements.
+The adequacy of the federal ethics framework when the officeholder presents non-routine conflict risk. The current officeholder's financial and professional background sets the specific disclosure demand the framework is being measured against.
 
 ### Type And Attribution
 
@@ -306,7 +310,7 @@ The adequacy of the federal ethics framework when the sitting PM has a financial
 
 ### Modifier Guidance
 
-- No timing, jurisdictional, external-constraint, or credit-claiming modifier is expected for this process file.
+- Apply each modifier rule independently against the evidence. If you conclude no modifier applies, mark each modifier as "does not apply" with the reason.
 - This is a whole-letter-only probation dimension. Do not assign plus/minus precision unless the protocol is changed.
 
 ### Deconfliction
@@ -409,4 +413,4 @@ Date:
 
 ## Submission
 
-Return the three completed worksheets without checking the live dashboard first. After submission, the editor compares the rater grades against the published snapshot using [Inter-Rater-Pilot-Results-Template-2026-05.md](Inter-Rater-Pilot-Results-Template-2026-05.md).
+Return the three completed worksheets before checking the live dashboard, local data files, governance docs, changelog, or Git history. After submission, the editor compares the rater grades against the published snapshot using [Inter-Rater-Pilot-Results-Template-2026-05.md](Inter-Rater-Pilot-Results-Template-2026-05.md).

@@ -13,9 +13,9 @@ I'm testing whether the Canada Under Carney dashboard's scoring rubric is reprod
 
 Would you be willing to do a blind pilot? It should take about 60-90 minutes. I will give you a redacted packet for three policy areas. The packet includes the raw metrics, sources, scoring thresholds, deconfliction rules, and grade-movement triggers, but it hides the current published grades and my rationale.
 
-The task is to independently assign a grade for each area using the published rules. I am not asking whether you agree politically with the dashboard. I am testing whether the rubric leads another careful reader to the same or similar grades.
+The task is to independently assign a grade for each area using the rules included in the packet. I am not asking whether you agree politically with the dashboard. I am testing whether the rubric leads another careful reader to the same or similar grades.
 
-Important: please do not open the live dashboard, changelog, Git history, or current dimension cards until after you send back the worksheets.
+Important: please use only the packet and the external source links inside it before you send back the worksheets. Please do not open the live dashboard, `src/data/dimensions.json`, the changelog, Git history, beta-feedback docs, canonical scoring docs, current dimension cards, or rationale fields until after you send back the worksheets.
 
 Packet: `docs/Inter-Rater-Pilot-Packet-2026-05.md`
 
@@ -56,7 +56,7 @@ What I need back is the worksheet at the bottom of the packet filled out once pe
 
 This is not a partisan test. The useful feedback is: "I could / could not re-derive the grade from the packet and here is where the method was unclear."
 
-Please do not check the live dashboard until after sending your answers.
+Please use only the packet and its external source links until after sending your answers.
 
 ---
 
