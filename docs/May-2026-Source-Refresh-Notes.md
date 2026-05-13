@@ -4,7 +4,7 @@
 **Scope:** Source refresh, then manual grade-review resolution. No threshold, formula, modifier rule, weighting, or dimension-count change.
 **Coverage tier:** Tier 1 availability check plus targeted Tier 2 refresh. Tier 3 source recertification was not run across the full dashboard. Tier 4 deep search was limited to the dimensions touched by this pass.
 
-See also: [Source-Coverage-Ledger-2026-05.md](Source-Coverage-Ledger-2026-05.md).
+See also: [Source-Coverage-Ledger-2026-05.md](Source-Coverage-Ledger-2026-05.md) for the expanded row-by-row ledger, and [Source-Coverage-Ledger-2026-05-summary.md](Source-Coverage-Ledger-2026-05-summary.md) for the original hand-written summary and packet spot-check table.
 
 ## What Ran
 
