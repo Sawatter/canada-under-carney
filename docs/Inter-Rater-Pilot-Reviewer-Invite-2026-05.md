@@ -17,6 +17,8 @@ The task is to independently assign a grade for each area using the rules includ
 
 Important: please use only the packet and the external source links inside it before you send back the worksheets. Please do not open the live dashboard, `src/data/dimensions.json`, the changelog, Git history, beta-feedback docs, canonical scoring docs, current dimension cards, or rationale fields until after you send back the worksheets.
 
+One note: the packet is a frozen 2026-04-30 snapshot. The live dashboard may have newer data by the time you look at it afterward. Your answers will be compared against the snapshot grade, not whatever is live that day.
+
 Packet: `docs/Inter-Rater-Pilot-Packet-2026-05.md`
 
 ---
@@ -57,6 +59,8 @@ What I need back is the worksheet at the bottom of the packet filled out once pe
 This is not a partisan test. The useful feedback is: "I could / could not re-derive the grade from the packet and here is where the method was unclear."
 
 Please use only the packet and its external source links until after sending your answers.
+
+One note: the packet uses a frozen 2026-04-30 snapshot. The live dashboard may have moved since then. If you check it after submitting and see a different grade or newer metric, that's the live data moving forward, not the comparison target for your worksheet.
 
 ---
 

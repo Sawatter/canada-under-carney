@@ -35,11 +35,11 @@ Rubric revision is triggered by any hard disagreement or aggregate score below 1
 
 ## Results Summary
 
-| Dimension | Published snapshot grade | Rater grade | Agreement score | Hard disagreement? | Modifier mismatch? | Rater confidence |
+| Dimension | Published snapshot grade (as of 2026-04-30) | Rater grade | Agreement score | Hard disagreement? | Modifier mismatch? | Rater confidence |
 |---|---|---|---:|---|---|---|
-| Fiscal Health |  |  |  |  |  |  |
-| Affordability Response |  |  |  |  |  |  |
-| Ethics & Transparency |  |  |  |  |  |  |
+| Fiscal Health | D |  |  |  |  |  |
+| Affordability Response | D- |  |  |  |  |  |
+| Ethics & Transparency | C |  |  |  |  |  |
 | **Aggregate** |  |  |  |  |  |  |
 
 ---
@@ -52,7 +52,7 @@ Rater band:
 
 Rater final grade:
 
-Published snapshot grade:
+Published snapshot grade: D
 
 Agreement score:
 
@@ -72,7 +72,7 @@ Rater band:
 
 Rater final grade:
 
-Published snapshot grade:
+Published snapshot grade: D-
 
 Agreement score:
 
@@ -92,7 +92,7 @@ Rater band:
 
 Rater final grade:
 
-Published snapshot grade:
+Published snapshot grade: C
 
 Agreement score:
 

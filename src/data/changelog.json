@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-05-13",
+    "summary": "Source-coverage hygiene: the May refresh is now documented as a targeted refresh, not a full recertification.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "May source coverage ledger added",
+        "body": "A new May source-coverage ledger records which source families were checked, which dimensions were refreshed, which pilot-packet links were spot-checked, and which gaps remain open. The May notes were also renamed from source-pull notes to source-refresh notes so the title matches the actual scope."
+      },
+      {
+        "type": "docs",
+        "headline": "Inter-rater packet snapshot clarified",
+        "body": "The pilot packet and reviewer invite now state that the rater is grading a frozen 2026-04-30 snapshot, not the current live dashboard. The results template now pre-fills the published snapshot grades to avoid comparing a rater against newer live data."
+      },
+      {
+        "type": "docs",
+        "headline": "Pilot source link spot-check completed",
+        "body": "The 18 inter-rater packet source links were checked before recruitment. One broken House ETHI PDF link was replaced with the working House DocumentViewer report page in both the pilot packet and the live Ethics source list."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-13",
     "summary": "May grade review: Fiscal Health moved up to C, Major Projects denominator was reconciled to the official MPO list, and Housing Supply kept D after the March starts check.",
     "items": [
       {
@@ -61,7 +82,7 @@
       {
         "type": "docs",
         "headline": "Manual review queue logged",
-        "body": "The source pull flagged two calls for the grade-review phase: reconciling the Major Projects public project list with the live cohort, and deciding how the Housing Supply starts trigger should treat March CMHC starts data."
+        "body": "The targeted source refresh flagged two calls for the grade-review phase: reconciling the Major Projects public project list with the live cohort, and deciding how the Housing Supply starts trigger should treat March CMHC starts data."
       }
     ]
   },
@@ -72,7 +93,7 @@
       {
         "type": "product",
         "headline": "Major Projects list no longer needs sideways scrolling on mobile",
-        "body": "The full 16-project pipeline still uses the compact table on desktop, but phone-width screens now show stacked project cards with tranche, stage date, and source link visible in each card. No grades, scores, thresholds, source data, or methodology changed."
+        "body": "The full project pipeline still uses the compact table on desktop, but phone-width screens now show stacked project cards with tranche, stage date, and source link visible in each card. No grades, scores, thresholds, source data, or methodology changed. The cohort denominator was later reconciled to 15 on 2026-05-13."
       }
     ]
   },

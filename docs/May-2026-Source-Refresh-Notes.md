@@ -1,15 +1,28 @@
-# May 2026 Source Pull Notes
+# May 2026 Source Refresh Notes
 
 **Date:** 2026-05-13
 **Scope:** Source refresh, then manual grade-review resolution. No threshold, formula, modifier rule, weighting, or dimension-count change.
+**Coverage tier:** Tier 1 availability check plus targeted Tier 2 refresh. Tier 3 source recertification was not run across the full dashboard. Tier 4 deep search was limited to the dimensions touched by this pass.
+
+See also: [Source-Coverage-Ledger-2026-05.md](Source-Coverage-Ledger-2026-05.md).
 
 ## What Ran
 
 - Ran `python3 scripts/fetch-data.py`.
-- Statistics Canada table checks completed for food CPI, labour force, population, housing starts, and trade.
-- IRCC open-data CSVs downloaded successfully for permanent residents, IMP work permits, TFWP work permits, and study permits.
+- Statistics Canada availability checks completed for the five configured tables: food CPI, labour force, population, housing starts, and trade.
+- IRCC availability checks downloaded the four configured open-data CSVs: permanent residents, IMP work permits, TFWP work permits, and study permits.
 - Bank of Canada FX API returned the latest CAD/USD observation.
 - Generated files landed under `scripts/output/` and remain ignored scratch output.
+
+## What This Pass Did Not Do
+
+- It did not recertify every URL cited across all 11 graded dimensions.
+- It did not recertify all 43 promise status sources.
+- It did not run one-by-one deep research on every Major Projects cohort project beyond reconciling the official MPO denominator and documented advancement logic.
+- It did not check rating-agency pages, Ethics Commissioner reports, think-tank publication feeds, or news sources for every untouched dimension.
+- It did not search every source family named on the About page for new publications.
+
+Those gaps are now tracked explicitly in the May source-coverage ledger so future cycles can distinguish a targeted refresh from a full source recertification.
 
 ## Clean Updates Applied
 

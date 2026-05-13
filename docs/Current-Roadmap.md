@@ -41,8 +41,9 @@
 
 ## Recently Completed
 
+- May source-coverage hygiene — v5.23 adds [Source-Coverage-Ledger-2026-05.md](Source-Coverage-Ledger-2026-05.md) so the May work is no longer carried by memory or broad source-refresh language. The ledger separates source availability checks, targeted source refreshes, source recertification, and deep research; records which areas were actually checked; and lists the open coverage gaps. The inter-rater packet now says clearly that it uses a frozen 2026-04-30 snapshot, the results template pre-fills the snapshot grades, and the broken House ETHI PDF link was replaced with the working House DocumentViewer report page in both the packet and the live Ethics source list. No grade, score, source value, promise status, threshold, modifier rule, or weighting change.
 - May 2026 grade-review resolution — Fiscal Health moved D → C after the Spring Economic Update / PBO anchor assessment showed the fiscal anchors currently on track, with caveats keeping the file out of B. The operational-budget-balance promise moved from Stalled to In Progress. Major Projects was reconciled to the official 15-project MPO list and holds C; Housing Supply reviewed the March CMHC starts dip and holds D because the six-month trend remains above the down-trigger floor. Thresholds, formulas, modifier rules, and weights did not change.
-- May 2026 source pull — source availability checks ran cleanly for Statistics Canada, IRCC open data, and Bank of Canada FX. Approval Signal polling, Fiscal Health fiscal metrics, Economic Policy labour-market context, and Affordability food-CPI context were refreshed in the live data. Manual grade-review flags and their resolution are logged in [May-2026-Source-Pull-Notes.md](May-2026-Source-Pull-Notes.md).
+- May 2026 targeted source refresh — source availability checks ran cleanly for the configured Statistics Canada, IRCC open data, and Bank of Canada endpoints. Approval Signal polling, Fiscal Health fiscal metrics, Economic Policy labour-market context, and Affordability food-CPI context were refreshed in the live data. Manual grade-review flags and their resolution are logged in [May-2026-Source-Refresh-Notes.md](May-2026-Source-Refresh-Notes.md).
 - Prototype app-shell parking note — the local `?prototype=app` experiment is documented in [Prototype-App-Shell-Parking-2026-05.md](Prototype-App-Shell-Parking-2026-05.md), including how to run it, what was built, what is unfinished, and the production cutover conditions. The live dashboard remains the public source of record.
 - Mobile card-spacing polish — v5.19 gives the scorecard dimension grid and accountability tracker grid more vertical breathing room on phones, closing the remaining part of the Reddit feedback that grade cards felt cramped while scrolling. No grade, score, source, promise status, threshold, or methodology change.
 - Trigger traceability label polish — v5.18 makes the last visible label-only move triggers explicitly say when their source is event-driven. The data invariant now passes with all 49 triggers resolving to an external URL, internal evidence navigation, or event-driven evidence label. No grade, score, source list, promise status, threshold, or methodology change.
@@ -103,7 +104,7 @@
 
 ## Now
 
-May source pull and manual grade-review resolution are complete. The next live-dashboard work is a final validation / live sanity pass, then either inter-rater pilot recruitment or the June cycle prep lane.
+May source refresh, manual grade-review resolution, and source-coverage hygiene are complete. The next live-dashboard work is inter-rater pilot recruitment, unless a fresh source trigger appears before the reviewer is found.
 
 ---
 

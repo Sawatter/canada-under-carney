@@ -3,6 +3,7 @@
 - **Purpose:** Give an outside rater enough evidence and rules to independently grade three dimensions without seeing the published grade, editor rationale, judgment call, perspectives, or active modifier selection.
 - **Status:** Ready for first v1 rater run.
 - **Snapshot:** Dashboard data reviewed through 2026-04-30.
+- **Important:** This is a frozen snapshot packet. The live dashboard may have moved past this evidence date. Your answers will be compared against the 2026-04-30 snapshot grade, not today's published grade.
 - **Rater materials:** This packet is self-contained. Use only this packet and the external source links inside it before submitting the worksheet.
 
 ---
@@ -334,7 +335,7 @@ The adequacy of the federal ethics framework when the officeholder presents non-
 - [Globe and Mail - ethics filing](https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/)
 - [CBC - financial assets](https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443)
 - [Democracy Watch critique](https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/)
-- [House ETHI report - Review of the Conflict of Interest Act](https://www.ourcommons.ca/content/Committee/451/ETHI/Reports/RP14024943/451_ETHI_Rpt5_PDF/451_ETHI_Rpt5-e.pdf)
+- [House ETHI report - Review of the Conflict of Interest Act](https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96)
 - [Office of the Ethics Commissioner - registry and reviews](https://ciec-ccie.parl.gc.ca/en/)
 - [PM blind-trust summary statement](https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf)
 - [PM Annex A public declaration of agreed measure](https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf)
@@ -414,3 +415,5 @@ Date:
 ## Submission
 
 Return the three completed worksheets before checking the live dashboard, local data files, governance docs, changelog, or Git history. After submission, the editor compares the rater grades against the published snapshot using [Inter-Rater-Pilot-Results-Template-2026-05.md](Inter-Rater-Pilot-Results-Template-2026-05.md).
+
+This packet is frozen to the 2026-04-30 dashboard snapshot. If you check the live dashboard after submitting and see a different grade or newer metric, that means the live dashboard moved forward after the snapshot. It does not change the comparison target for this pilot.
