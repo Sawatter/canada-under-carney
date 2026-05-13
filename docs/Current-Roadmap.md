@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-05-02
+**Last updated:** 2026-05-13
 
 ---
 
@@ -41,6 +41,7 @@
 
 ## Recently Completed
 
+- Prototype app-shell parking note — the local `?prototype=app` experiment is documented in [Prototype-App-Shell-Parking-2026-05.md](Prototype-App-Shell-Parking-2026-05.md), including how to run it, what was built, what is unfinished, and the production cutover conditions. The live dashboard remains the public source of record.
 - Mobile card-spacing polish — v5.19 gives the scorecard dimension grid and accountability tracker grid more vertical breathing room on phones, closing the remaining part of the Reddit feedback that grade cards felt cramped while scrolling. No grade, score, source, promise status, threshold, or methodology change.
 - Trigger traceability label polish — v5.18 makes the last visible label-only move triggers explicitly say when their source is event-driven. The data invariant now passes with all 49 triggers resolving to an external URL, internal evidence navigation, or event-driven evidence label. No grade, score, source list, promise status, threshold, or methodology change.
 - Promise Delivery tracker-doc reconciliation — stale methodology docs that still described Promise Delivery as `C+`, provisional, or awaiting a shadow GPA removal were reconciled to the live decision. Canonical Scoring Sheets now labels Promise Delivery as an ungraded tracker exception, Dimension Status Register no longer asks for a shadow-removal run, and the beta-feedback follow-up now treats tracker framing as resolved while still watching for stale grade language. No grade, score, source, promise status, methodology, or live dashboard change.
@@ -125,8 +126,9 @@ These are on deck awaiting their triggers.
 
 These are valid, but not active now.
 
-1. Decide whether Flagship Delivery stays on probation after one real cycle.
-2. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
+1. Continue the parked app-shell prototype only when live-dashboard work is calm. Start with the Promises tab redesign inside the prototype shell, not a production cutover.
+2. Decide whether Flagship Delivery stays on probation after one real cycle.
+3. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
 
 ---
 
