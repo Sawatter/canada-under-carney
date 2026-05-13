@@ -4,6 +4,14 @@
 
 **Scope rule:** A monthly cycle does not need to be a full source recertification. Say which tier was run.
 
+**Ledger rule:** This checklist may bundle source families for readability. The cycle ledger must not. Start each cycle with:
+
+```bash
+npm run source:ledger -- YYYY-MM
+```
+
+That generator expands bundled rows into source-level rows and pulls the current stalled / abandoned promises from `src/data/dimensions.json`. If a generated quarterly or twice-yearly row is not due that month, mark it `not due` rather than leaving it blank.
+
 ## Coverage Tiers
 
 | Tier | Name | What it proves |

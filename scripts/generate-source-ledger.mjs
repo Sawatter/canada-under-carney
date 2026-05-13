@@ -1,0 +1,361 @@
+#!/usr/bin/env node
+// Generates an expanded monthly source-coverage ledger skeleton.
+// The persistent checklist groups some source families for readability; this
+// script expands those bundles so the monthly ledger has one auditable row per
+// source, watch, promise, project, or URL.
+
+import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const repoRoot = resolve(__dirname, "..");
+
+const args = process.argv.slice(2);
+const force = args.includes("--force");
+const monthArg = args.find((arg) => /^\d{4}-\d{2}$/.test(arg));
+
+if (!monthArg) {
+  console.error("Usage: node scripts/generate-source-ledger.mjs YYYY-MM [--force]");
+  process.exit(1);
+}
+
+const dimensions = JSON.parse(
+  readFileSync(resolve(repoRoot, "src/data/dimensions.json"), "utf8")
+);
+
+const [year, month] = monthArg.split("-").map(Number);
+const monthDate = new Date(Date.UTC(year, month - 1, 1));
+const monthName = monthDate.toLocaleString("en-CA", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+const outPath = resolve(repoRoot, `docs/Source-Coverage-Ledger-${monthArg}.md`);
+
+if (existsSync(outPath) && !force) {
+  console.error(`${outPath} already exists. Re-run with --force to overwrite.`);
+  process.exit(1);
+}
+
+function clean(value) {
+  return String(value ?? "")
+    .replace(/\r?\n/g, " ")
+    .replace(/\|/g, "\\|")
+    .trim();
+}
+
+function row(cells) {
+  return `| ${cells.map(clean).join(" | ")} |`;
+}
+
+function table(rows) {
+  return [
+    row(["Source / item", "Dashboard area", "URL / home", "Cadence", "Date checked", "Result", "Action", "Notes"]),
+    row(["---", "---", "---", "---", "---", "---", "---", "---"]),
+    ...rows.map(row),
+  ].join("\n");
+}
+
+function titleFromPromise(promise) {
+  return promise.title || promise.promise || promise.text || promise.name || "Untitled promise";
+}
+
+function flattenPromises() {
+  return dimensions.flatMap((dim) =>
+    (dim.promises || []).map((promise) => ({
+      dimension: dim.name,
+      title: titleFromPromise(promise),
+      status: promise.status || "Unknown",
+      statusSourceUrl: promise.statusSourceUrl || "",
+      originalSourceUrl: promise.originalSourceUrl || "",
+    }))
+  );
+}
+
+function uniqueBy(rows, keyFn) {
+  const seen = new Set();
+  return rows.filter((item) => {
+    const key = keyFn(item);
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+}
+
+function sourceRows() {
+  const rows = [];
+  for (const dim of dimensions) {
+    for (const source of dim.sources || []) {
+      rows.push({
+        label: `${dim.name}: ${source.label}`,
+        area: dim.name,
+        url: source.url,
+      });
+    }
+  }
+  return uniqueBy(rows, (row) => `${row.area}|${row.url}|${row.label}`).sort((a, b) =>
+    a.area.localeCompare(b.area) || a.label.localeCompare(b.label)
+  );
+}
+
+function triggerSourceRows() {
+  const rows = [];
+  for (const dim of dimensions) {
+    for (const side of ["up", "down"]) {
+      for (const trigger of dim.gradeTriggers?.[side] || []) {
+        if (!trigger.sourceUrl) continue;
+        rows.push({
+          label: `${dim.name}: ${side} trigger - ${trigger.sourceLabel || trigger.text}`,
+          area: dim.name,
+          url: trigger.sourceUrl,
+        });
+      }
+    }
+  }
+  return uniqueBy(rows, (row) => `${row.area}|${row.url}|${row.label}`).sort((a, b) =>
+    a.area.localeCompare(b.area) || a.label.localeCompare(b.label)
+  );
+}
+
+function trackedBillRows() {
+  const candidates = [];
+  const add = (label, area, url) => {
+    if (url && /parl\.ca/i.test(url)) candidates.push({ label, area, url });
+  };
+
+  for (const dim of dimensions) {
+    for (const source of dim.sources || []) add(`${dim.name}: ${source.label}`, dim.name, source.url);
+    for (const side of ["up", "down"]) {
+      for (const trigger of dim.gradeTriggers?.[side] || []) {
+        add(`${dim.name}: ${side} trigger - ${trigger.sourceLabel || trigger.text}`, dim.name, trigger.sourceUrl);
+      }
+    }
+    for (const promise of dim.promises || []) {
+      add(`${dim.name}: ${titleFromPromise(promise)}`, dim.name, promise.statusSourceUrl || promise.originalSourceUrl);
+    }
+  }
+
+  return uniqueBy(candidates, (row) => row.url.toLowerCase()).sort((a, b) => a.label.localeCompare(b.label));
+}
+
+function majorProjectRows() {
+  const projectDim = dimensions.find((dim) => dim.id === "major-projects");
+  return (projectDim?.projectCohort?.projects || []).map((project) => ({
+    label: project.name,
+    area: "Major Projects",
+    url: project.sourceUrl || "",
+    notes: `${project.stage || "stage unknown"}; tranche ${project.tranche ?? "?"}; stage date ${project.stageDate || "unknown"}`,
+  }));
+}
+
+const promises = flattenPromises();
+const stalledOrAbandoned = promises
+  .filter((promise) => ["Stalled", "Abandoned"].includes(promise.status))
+  .sort((a, b) => a.status.localeCompare(b.status) || a.dimension.localeCompare(b.dimension) || a.title.localeCompare(b.title));
+
+const monthlyRows = [
+  ["Fetch script", "StatCan, IRCC, Bank of Canada", "`python3 scripts/fetch-data.py`", "Monthly", "", "", "", "Run before drafting the monthly changelog."],
+  ["StatCan food CPI", "Affordability Response", "Statistics Canada CPI release / table", "Monthly", "", "", "", "Compare latest food-store CPI to dashboard metric."],
+  ["StatCan Labour Force Survey", "Economic Policy Response", "Statistics Canada LFS release", "Monthly", "", "", "", "Check employment change and unemployment rate."],
+  ["StatCan population", "Immigration", "Table 17-10-0009-01", "Monthly / quarterly data", "", "", "", "Check temporary-resident share context when new data lands."],
+  ["StatCan housing starts", "Housing Supply", "Table 34-10-0158-01 plus CMHC release", "Monthly", "", "", "", "Check monthly SAAR and six-month trend."],
+  ["StatCan merchandise trade", "Defence & Trade", "Table 12-10-0176-01", "Monthly", "", "", "", "Check U.S. export share and non-U.S. share."],
+  ["IRCC PR admissions", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check PR admission pace."],
+  ["IRCC IMP work permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
+  ["IRCC TFWP work permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
+  ["IRCC study permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
+  ["Bank of Canada FXCADUSD", "Economic / immigration context", "Bank of Canada Valet API", "Monthly", "", "", "", "Context source unless cited metric changes."],
+  ["Abacus Data approval releases", "Approval Signal", "https://abacusdata.ca/", "Monthly", "", "", "", "Look for direct Carney / federal-government approval release."],
+  ["Leger approval releases", "Approval Signal", "https://leger360.com/", "Monthly", "", "", "", "Look for direct Carney / federal-government approval release."],
+  ["Angus Reid Institute approval releases", "Approval Signal", "https://angusreid.org/", "Monthly", "", "", "", "Look for direct Carney / federal-government approval release."],
+  ["PBO publications", "Fiscal, affordability, promises", "https://www.pbo-dpb.ca/en/publications", "Monthly", "", "", "", "Look for fiscal, costing, or anchor analysis."],
+  ["Ethics Commissioner reports", "Ethics & Transparency", "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx", "Monthly", "", "", "", "Look for PM-relevant report, examination, or filing."],
+  ["Major Projects Office list", "Major Projects", "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html", "Monthly", "", "", "", "Check denominator, additions, and stage changes."],
+  ...stalledOrAbandoned.map((promise) => [
+    `${promise.status}: ${promise.title}`,
+    promise.dimension,
+    promise.statusSourceUrl,
+    "Monthly spot-check",
+    "",
+    "",
+    "",
+    "Check link and obvious public evidence of status change.",
+  ]),
+  ["Touched source URL 1", "Any touched dimension", "", "Monthly, as needed", "", "", "", "Add each source touched during this cycle as its own row."],
+  ["Touched source URL 2", "Any touched dimension", "", "Monthly, as needed", "", "", "", "Add more rows as needed."],
+];
+
+const eventRows = [
+  ["Fitch Canada sovereign page", "Fiscal Health", "https://www.fitchratings.com/", "Event-driven", "", "", "", "Rating downgrade, outlook change, or rating-committee action."],
+  ["Moody's Canada sovereign page", "Fiscal Health", "https://www.moodys.com/", "Event-driven", "", "", "", "Rating downgrade, outlook change, or rating-committee action."],
+  ["S&P Canada sovereign page", "Fiscal Health", "https://www.spglobal.com/ratings/", "Event-driven", "", "", "", "Rating downgrade, outlook change, or rating-committee action."],
+  ["ECCC announcements", "Climate & Environment, Carbon Pricing Policy", "https://www.canada.ca/en/environment-climate-change/news.html", "Event-driven", "", "", "", "Plan, budget, climate-strategy, OBPS, or fuel-charge policy change."],
+  ["Federal climate plan pages", "Climate & Environment", "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan.html", "Event-driven", "", "", "", "Replacement climate strategy or plan revision."],
+  ["Paris Agreement status", "Climate & Environment", "https://treaties.un.org/", "Event-driven", "", "", "", "Paris withdrawal or formal commitment-status change."],
+  ["Carbon border adjustment announcements", "Carbon Pricing Policy", "Canada.ca / Finance / ECCC announcements", "Event-driven", "", "", "", "Carbon-border-adjustment announcement or cancellation."],
+  ["OBPS / fuel-charge policy pages", "Carbon Pricing Policy", "Canada.ca carbon-pricing pages", "Event-driven", "", "", "", "Industrial-pricing or consumer-charge policy change."],
+  ["NATO releases", "Defence & Trade", "https://www.nato.int/cps/en/natohq/news.htm", "Event-driven", "", "", "", "Defence-spending verification or NATO-commitment change."],
+  ["PMO defence announcements", "Defence & Trade", "https://www.pm.gc.ca/en/news", "Event-driven", "", "", "", "Funding path, procurement milestone, or defence-accounting change."],
+  ["National Defence releases", "Defence & Trade", "https://www.canada.ca/en/department-national-defence/news.html", "Event-driven", "", "", "", "Funding path, procurement milestone, or defence-accounting change."],
+  ["PMO major announcements", "Any affected dimension", "https://www.pm.gc.ca/en/news", "Event-driven", "", "", "", "Program launch, cancellation, project designation, or national-interest designation."],
+  ["Finance Canada announcements", "Fiscal, affordability, economic, promises", "https://www.canada.ca/en/department-finance/news.html", "Event-driven", "", "", "", "Fiscal table, tax measure, benefit, or program change."],
+  ["Department release pages", "Any affected dimension", "Relevant Canada.ca department page", "Event-driven", "", "", "", "Department-specific launch, cancellation, report, or source update."],
+  ...trackedBillRows().map((bill) => [
+    bill.label,
+    bill.area,
+    bill.url,
+    "Event-driven",
+    "",
+    "",
+    "",
+    "Bill introduced, passed, died, amended, or proclaimed.",
+  ]),
+];
+
+const quarterlyRows = [
+  ["Pollara approval releases", "Approval Signal", "https://www.pollara.com/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
+  ["Mainstreet Research approval releases", "Approval Signal", "https://www.mainstreetresearch.ca/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
+  ["Ekos approval releases", "Approval Signal", "https://www.ekospolitics.com/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
+  ["Ipsos Canada approval releases", "Approval Signal", "https://www.ipsos.com/en-ca/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
+  ["Innovative Research Group approval releases", "Approval Signal", "https://innovativeresearch.ca/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
+  ["Canadian Climate Institute", "Climate & Environment, Carbon Pricing Policy", "https://climateinstitute.ca/", "Quarterly", "", "", "", "New analysis, plan revision, or carbon-pricing evidence."],
+  ["IISD", "Climate & Environment, Carbon Pricing Policy", "https://www.iisd.org/", "Quarterly", "", "", "", "New analysis, plan revision, or carbon-pricing evidence."],
+  ["ECCC departmental pages", "Climate & Environment, Carbon Pricing Policy", "https://www.canada.ca/en/environment-climate-change.html", "Quarterly", "", "", "", "Plan, budget, or program update."],
+  ["Paris Agreement status", "Climate & Environment", "https://treaties.un.org/", "Quarterly", "", "", "", "Formal commitment-status movement."],
+  ["Democracy Watch", "Ethics & Transparency", "https://democracywatch.ca/", "Quarterly", "", "", "", "New independent critique, review, or disclosure finding."],
+  ["House ETHI", "Ethics & Transparency", "https://www.ourcommons.ca/Committees/en/ETHI", "Quarterly", "", "", "", "New committee report or hearing relevant to disclosure / screening."],
+  ["Major ethics reporting", "Ethics & Transparency", "CBC / Globe / other major reporting", "Quarterly", "", "", "", "New sourced reporting relevant to disclosure / screening."],
+  ["C.D. Howe", "Independent challenge / context", "https://www.cdhowe.org/", "Quarterly", "", "", "", "New analysis affecting source balance or cited context."],
+  ["Fraser Institute", "Independent challenge / context", "https://www.fraserinstitute.org/", "Quarterly", "", "", "", "New analysis affecting source balance or cited context."],
+  ["IRPP / Policy Options", "Independent challenge / context", "https://policyoptions.irpp.org/", "Quarterly", "", "", "", "New analysis affecting source balance or cited context."],
+  ["The Hub", "Independent challenge / context", "https://thehub.ca/", "Quarterly", "", "", "", "New analysis affecting source balance or cited context."],
+  ["Dalhousie Agri-Food Analytics Lab", "Affordability Response", "https://www.dal.ca/sites/agri-food.html", "Quarterly", "", "", "", "New food-price report or affordability evidence."],
+  ["PROOF", "Affordability Response", "https://proof.utoronto.ca/", "Quarterly", "", "", "", "New food-insecurity evidence."],
+  ["The Conversation Canada", "Independent challenge / context", "https://theconversation.com/ca", "Quarterly", "", "", "", "New academic commentary relevant to scored files."],
+  ["CBC News", "Independent challenge / reporting", "https://www.cbc.ca/news", "Quarterly", "", "", "", "New sourced reporting relevant to scored files."],
+  ["Globe and Mail", "Independent challenge / reporting", "https://www.theglobeandmail.com/", "Quarterly", "", "", "", "New sourced reporting relevant to scored files."],
+  ["The Narwhal", "Climate / environment reporting", "https://thenarwhal.ca/", "Quarterly", "", "", "", "New climate / environment reporting relevant to scored files."],
+  ["National Observer", "Climate / environment reporting", "https://www.nationalobserver.com/", "Quarterly", "", "", "", "New climate / environment reporting relevant to scored files."],
+  ...stalledOrAbandoned.map((promise) => [
+    `${promise.status}: ${promise.title}`,
+    promise.dimension,
+    promise.statusSourceUrl,
+    "Quarterly recertification",
+    "",
+    "",
+    "",
+    "Full status recertification beyond monthly spot-check.",
+  ]),
+  ...sourceRows().map((source) => [
+    source.label,
+    source.area,
+    source.url,
+    "Quarterly link-rot pass",
+    "",
+    "",
+    "",
+    "Check that cited source URL still resolves.",
+  ]),
+];
+
+const twiceYearlyRows = [
+  ...majorProjectRows().map((project) => [
+    project.label,
+    project.area,
+    project.url,
+    "Twice-yearly recertification",
+    "",
+    "",
+    "",
+    project.notes,
+  ]),
+  ...promises.map((promise) => [
+    `${promise.status}: ${promise.title}`,
+    promise.dimension,
+    promise.statusSourceUrl,
+    "Twice-yearly promise recertification",
+    "",
+    "",
+    "",
+    "Confirm status still holds against status source.",
+  ]),
+  ...sourceRows().map((source) => [
+    source.label,
+    source.area,
+    source.url,
+    "Twice-yearly source recertification",
+    "",
+    "",
+    "",
+    "Confirm cited value and source role, not only link availability.",
+  ]),
+  ...triggerSourceRows().map((source) => [
+    source.label,
+    source.area,
+    source.url,
+    "Twice-yearly trigger recertification",
+    "",
+    "",
+    "",
+    "Confirm trigger source still supports the move condition.",
+  ]),
+  ["About-page source family inventory", "About / trust surface", "src/components/About.jsx plus live cited domains", "Twice-yearly", "", "", "", "Every family listed is still cited or intentionally listed."],
+  ["Source Authority Map", "Governance docs", "docs/Source-Authority-Map.md", "Twice-yearly", "", "", "", "Confirm source roles still match cited use."],
+  ["Source Characterization Register", "Governance docs", "docs/Source-Characterization-Register.md", "Twice-yearly", "", "", "", "Confirm tier, ownership, independence, and boundary characterization."],
+];
+
+const output = `# Source Coverage Ledger - ${monthName}
+
+**Purpose:** Working checklist for the ${monthName} source cycle. This file is generated from \`docs/Recurring-Source-Checklist.md\` and live dashboard data so bundled source families become auditable source-level rows.
+
+**Cycle month:** ${monthArg}
+**Generated:** ${new Date().toISOString().slice(0, 10)}
+**Live version at generation:** fill in before cycle starts
+**Coverage level achieved:** fill in after cycle closes
+
+## How To Use
+
+- Fill the ledger as you check sources, not after the fact.
+- Use one row per opened source. Do not mark a bundled family as done unless every child row was checked.
+- Result values: \`OK\`, \`new release found\`, \`updated dashboard\`, \`link broken\`, \`blocked\`, \`no event observed\`, \`not due\`, or \`not checked\`.
+- If a URL breaks, check for an official replacement first, then Internet Archive / Wayback Machine, and record the action.
+
+## Monthly Checks
+
+${table(monthlyRows)}
+
+## Event-Driven Watch
+
+Fill these when an event appears during the cycle. If you actively checked and found no event, use \`no event observed\`.
+
+${table(eventRows)}
+
+## Quarterly Checks
+
+Run when due, or sooner if a trigger appears. If not due this month, mark \`not due\` rather than leaving the row ambiguous.
+
+${table(quarterlyRows)}
+
+## Twice-Yearly Checks
+
+Run after the budget / fiscal update cycle and once mid-year. If not due this month, mark \`not due\` rather than leaving the row ambiguous.
+
+${table(twiceYearlyRows)}
+
+## Cycle Closeout
+
+| Check | Result | Notes |
+|---|---|---|
+| \`npm run test:data\` |  |  |
+| \`npm run build\` |  |  |
+| Source changes summarized in changelog |  |  |
+| Open gaps copied to next cycle or roadmap |  |  |
+`;
+
+writeFileSync(outPath, output, "utf8");
+console.log(`Wrote ${outPath}`);
+console.log(`Monthly rows: ${monthlyRows.length}`);
+console.log(`Event-driven rows: ${eventRows.length}`);
+console.log(`Quarterly rows: ${quarterlyRows.length}`);
+console.log(`Twice-yearly rows: ${twiceYearlyRows.length}`);
