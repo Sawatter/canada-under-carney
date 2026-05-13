@@ -10,6 +10,11 @@
       },
       {
         "type": "docs",
+        "headline": "Recurring source checklist created",
+        "body": "A new recurring-source checklist defines the monthly, quarterly, and twice-yearly source checks for future cycles, plus the automation backlog for PBO RSS, StatCan value diffs, LEGISinfo, MPO diffs, polling pages, and Ethics Commissioner report changes."
+      },
+      {
+        "type": "docs",
         "headline": "Inter-rater packet snapshot clarified",
         "body": "The pilot packet and reviewer invite now state that the rater is grading a frozen 2026-04-30 snapshot, not the current live dashboard. The results template now pre-fills the published snapshot grades to avoid comparing a rater against newer live data."
       },

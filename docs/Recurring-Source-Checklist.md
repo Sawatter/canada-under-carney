@@ -1,0 +1,78 @@
+# Recurring Source Checklist
+
+**Purpose:** Keep the monthly dashboard update from depending on memory. This is the persistent checklist. Each cycle should copy the relevant rows into that month's `Source-Coverage-Ledger-YYYY-MM.md` and mark what was actually checked.
+
+**Scope rule:** A monthly cycle does not need to be a full source recertification. Say which tier was run.
+
+## Coverage Tiers
+
+| Tier | Name | What it proves |
+|---|---|---|
+| 1 | Availability check | The endpoint or page is reachable. |
+| 1.5 | Value-diff check | The latest machine-readable value is compared against the value in `dimensions.json`. |
+| 2 | Targeted refresh | A known new release or stale metric was reviewed and updated if needed. |
+| 3 | Source recertification | The cited value, link, and source role were manually checked against the current source. |
+| 4 | Deep research | Active search for new evidence not already in the dashboard. |
+
+## Every Monthly Cycle
+
+Run these before the monthly changelog is drafted.
+
+| Check | Source home | Dashboard area | Current status | What to look for | Update trigger |
+|---|---|---|---|---|---|
+| Fetch script | `python3 scripts/fetch-data.py` | StatCan, IRCC, Bank of Canada | Automated availability check | Endpoint failures, downloaded IRCC CSVs, Bank of Canada response | Any failure, or any fetched value that differs once value-diff is built |
+| StatCan food CPI | Table / Daily CPI release | Affordability Response | Availability check in script | Latest food-store CPI | Food CPI crosses trigger or changes current metric |
+| StatCan Labour Force Survey | Monthly LFS release | Economic Policy Response | Availability check in script | Employment change, unemployment rate | Labour-market metric changes materially |
+| StatCan population | Table 17-10-0009-01 | Immigration | Availability check in script | Temporary resident share context | TR-share threshold or context changes |
+| StatCan housing starts | Table 34-10-0158-01 plus CMHC release | Housing Supply | Availability check in script; CMHC release manual | Six-month trend and monthly SAAR | Starts trend crosses trigger floor |
+| StatCan merchandise trade | Table 12-10-0176-01 | Defence & Trade | Availability check in script | U.S. export share / non-U.S. share | Trade-share trigger movement |
+| IRCC PR admissions | IRCC open-data CSV | Immigration | Downloaded by script | PR admission pace | PR-target interpretation changes |
+| IRCC work and study permits | IRCC open-data CSVs | Immigration | Downloaded by script | Temporary-resident pressure | Permit trends change enough to affect status |
+| Bank of Canada FX | Valet `FXCADUSD` | Economic / immigration context | Automated | CAD/USD observation | Context only unless cited metric changes |
+| Approval poll scan | Abacus, Leger, Angus Reid Institute | Approval Signal | Manual | New direct Carney / federal-government approval poll | Add poll and recalculate 60-day average |
+| PBO publication scan | `https://www.pbo-dpb.ca/en/publications` | Fiscal, affordability, promises | Manual; automate via RSS next | New fiscal, costing, or anchor analysis | New PBO release changes a cited metric or promise status |
+| Ethics Commissioner reports | `https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx` | Ethics & Transparency | Manual | New report, examination, or PM-relevant filing | Ethics review status changes |
+| Major Projects Office list | `https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html` | Major Projects | Manual | Denominator, project additions, stage changes | Cohort count or stage evidence changes |
+| Touched-source link check | URLs touched in current edits | Any touched dimension | Manual | 200/working page, value still visible | Broken link or source mismatch |
+
+## Quarterly Checks
+
+Run these every three monthly cycles, or sooner if a trigger appears.
+
+| Check | Source home | Dashboard area | What to look for |
+|---|---|---|---|
+| Full `dimensions.json` source link-rot pass | All `sources[].url` | All dimensions | Broken, redirected, or stale URLs |
+| Approval excluded-pollster revisit | Pollara, Mainstreet, Ekos, Ipsos, Innovative Research Group | Approval Signal | Any direct Carney approval release missing from the rolling window |
+| Rating-agency scan | Fitch, Moody's, S&P | Fiscal Health | Canada sovereign rating action or outlook change |
+| NATO interim scan | NATO annual report and press releases | Defence & Trade | Defence-spending verification or communiqué affecting the grade |
+| Stalled / abandoned promises | `statusSourceUrl` on stalled and abandoned promises | Promise tracker | Evidence that status changed since last cycle |
+| Ethics / governance independent sources | Democracy Watch, House ETHI, major reporting | Ethics & Transparency | New independent critique, review, or disclosure finding |
+
+## Twice-Yearly Checks
+
+Run after the budget / fiscal update cycle and once mid-year.
+
+| Check | Source home | Dashboard area | What to verify |
+|---|---|---|---|
+| Full source recertification | Every cited source URL | All dimensions | Link works, cited value still matches, source role still valid |
+| Major Projects project-by-project recertification | MPO page plus each project source URL | Major Projects | All 15 projects, stages, stage dates, and advancement counts |
+| Promise recertification | All 43 promise status sources | Promise tracker | Delivered / in progress / stalled / abandoned status still holds |
+| About-page source-family inventory | About page vs live cited domains | About / trust surface | Every family listed is still cited or intentionally listed |
+| Deep source search | PBO, StatCan, department pages, watchdogs, policy institutes, major reporting | All dimensions | New evidence not already in the dashboard |
+
+## Automation Backlog
+
+Build these in this order when source-process work is active.
+
+1. PBO RSS integration in `scripts/fetch-data.py`.
+2. StatCan value-diff checks, not just availability checks.
+3. LEGISinfo bill-status check for live bill commitments.
+4. Major Projects Office page diff against `projectCohort.projects`.
+5. Approval-poll release-page scrapers for Abacus, Leger, and Angus Reid Institute.
+6. Ethics Commissioner investigation-report page diff.
+
+## Known Notes From May 2026
+
+- NRCan is still legitimately listed in the About source inventory. It is cited in Economic Policy Response as `NRCan — critical minerals partnerships`.
+- The IMF Article IV page may return 403 to plain `curl` but loads in a normal browser / web fetch.
+- The House ETHI PDF URL used in the first pilot packet draft returned 404. Use the House DocumentViewer report page instead.
