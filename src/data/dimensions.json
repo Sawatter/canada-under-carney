@@ -762,7 +762,7 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "down",
-    "status": "Deficit $78.3B projected. No credible medium-term anchor. PBO gives 7.5% chance of meeting targets.",
+    "status": "Deficit $66.9B projected in the Spring Economic Update. PBO says new measures offset most post-2025-26 fiscal room. PBO gives 7.5% chance of meeting the original Budget 2025 targets.",
     "judgmentCall": "Low grade rests on fiscal-path credibility, not whether individual programs are worthwhile.",
     "judgmentDetail": "The D grade is driven by the deficit path, the absence of a credible medium-term anchor, and independent confidence in the stated targets. Judgment enters in weighing strategically justified defence spending against the overall sustainability problem: worthwhile spending can still worsen the fiscal grade if the plan does not show how it will be paid for.",
     "construct": "The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan.",
@@ -832,15 +832,23 @@
         }
       ]
     },
-    "rationale": "The projected deficit of $78.3B (FY 2025-26, Budget 2025 Annex 1) represents a substantial increase from the prior year. Fitch maintained its AA+ rating with a stable outlook after Budget 2025 but warned that persistent fiscal expansion could increase rating pressure over the medium term. The PBO gives only 7.5% probability the deficit-to-GDP ratio will decline as projected. Defence spending is strategically justified, but the broader fiscal package lacks a credible anchor. GST revenue ($54.4B) is now exceeded by debt servicing ($55.6B) — both figures verified from Budget 2025 Annex 1. IMF/IFSD note current debt levels are manageable, but the trajectory given defence + capital commitments is unsustainable without tax increases.",
+    "rationale": "The Spring Economic Update lowers the projected FY 2025-26 deficit to $66.9B from Budget 2025's $78.3B, helped by stronger income-tax revenues and lower direct program expenses. But PBO's assessment says new policy measures offset almost all fiscal room after 2025-26, leaving the 2029-30 deficit effectively unchanged from Budget 2025. Fitch maintained its AA+ rating with a stable outlook after Budget 2025 but warned that persistent fiscal expansion could increase rating pressure over the medium term. The PBO gives only 7.5% probability the original deficit-to-GDP path will decline as projected. Defence spending is strategically justified, but the broader fiscal package still lacks a credible anchor.",
     "sources": [
       {
         "label": "Budget 2025",
         "url": "https://budget.canada.ca/2025/report-rapport/anx1-en.html"
       },
       {
+        "label": "Spring Economic Update 2026",
+        "url": "https://budget.canada.ca/update-miseajour/2026/report-rapport/anx1-en.html"
+      },
+      {
         "label": "PBO fiscal analysis",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires"
+      },
+      {
+        "label": "PBO — Spring Economic Update assessment",
+        "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere"
       },
       {
         "label": "C.D. Howe analysis",
@@ -855,20 +863,20 @@
         "url": "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340/"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-13",
     "metrics": [
       {
         "label": "Deficit (FY 2025-26, projected)",
-        "value": "$78.3B",
+        "value": "$66.9B",
         "source": "finance-canada",
-        "sourceNote": "Budget 2025 Annex 1, Table A1.7: budgetary balance -$78.3 billion. This is a budget projection, not an actual outturn.",
+        "sourceNote": "Spring Economic Update 2026 Annex 1, Table A1.7: projected FY 2025-26 budgetary balance -$66.9B, down from Budget 2025's -$78.3B projection. This is a projection, not an actual outturn.",
         "automatable": false
       },
       {
-        "label": "Federal debt (2024-25)",
-        "value": "$1.27T",
+        "label": "Federal debt (FY 2025-26 projected)",
+        "value": "$1.33T projected FY 2025-26",
         "source": "finance-canada",
-        "sourceNote": "Federal debt (accumulated deficit) $1,266.5B per Annual Financial Report FY 2024-25. Note: Budget 2025 'net debt' (different concept, includes non-financial assets) is $1,480.4B for FY 2025-26.",
+        "sourceNote": "Spring Economic Update 2026 Annex 1, Table A1.7 projects federal debt (accumulated deficit) at $1,333.9B for FY 2025-26. The FY 2024-25 actual remains $1,266.5B per the Annual Financial Report.",
         "automatable": false
       },
       {
@@ -1094,7 +1102,7 @@
         "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-13",
     "metrics": [
       {
         "group": "Inherited baseline / context only",
@@ -1122,10 +1130,11 @@
       },
       {
         "group": "Response metrics",
-        "label": "Feb 2026 jobs lost",
-        "value": "84,000",
+        "label": "Labour market change (Apr 2026)",
+        "value": "-18,000 jobs m/m; unemployment 6.9%",
         "source": "statcan",
         "sourceId": "14-10-0287-01",
+        "sourceNote": "StatsCan Labour Force Survey, April 2026: employment was little changed (-18,000; -0.1%), the unemployment rate rose 0.2 points to 6.9%, and employment was down a net 112,000 over the first four months of 2026 after the February decline.",
         "automatable": true
       },
       {
@@ -1304,8 +1313,8 @@
       "down": [
         {
           "text": "Food CPI exceeds 7%",
-          "sourceLabel": "StatsCan CPI Feb 2026",
-          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260316/dq260316a-eng.htm"
+          "sourceLabel": "StatsCan CPI Mar 2026",
+          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm"
         },
         {
           "text": "Grocery benefit expires without replacement",
@@ -1347,8 +1356,8 @@
     "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure — not the price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
     "sources": [
       {
-        "label": "StatsCan CPI Feb 2026",
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260316/dq260316a-eng.htm"
+        "label": "StatsCan CPI Mar 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm"
       },
       {
         "label": "Dalhousie Food Price Report",
@@ -1371,14 +1380,14 @@
         "url": "https://canadacode.org/"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-13",
     "metrics": [
       {
-        "label": "Food CPI (stores, YoY, Feb 2026)",
-        "value": "4.1%",
+        "label": "Food CPI (stores, YoY, Mar 2026)",
+        "value": "4.4%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
-        "sourceNote": "StatsCan CPI daily release, March 16, 2026: 'Food purchased from stores rose 4.1% in February following a 4.8% increase in January.' Prior dashboard value of 5.4% was incorrect — corrected to match verified source.",
+        "sourceNote": "StatsCan CPI daily release, April 20, 2026: food purchased from stores rose 4.4% year over year in March, after 4.1% in February. April CPI is scheduled for release on May 19.",
         "automatable": true
       },
       {

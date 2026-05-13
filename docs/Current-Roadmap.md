@@ -41,6 +41,7 @@
 
 ## Recently Completed
 
+- May 2026 source pull — source availability checks ran cleanly for Statistics Canada, IRCC open data, and Bank of Canada FX. Approval Signal polling, Fiscal Health fiscal metrics, Economic Policy labour-market context, and Affordability food-CPI context were refreshed in the live data. No grade, score, threshold, promise-status, or methodology change. Manual grade-review flags are logged in [May-2026-Source-Pull-Notes.md](May-2026-Source-Pull-Notes.md), mainly Major Projects cohort reconciliation and Housing Supply trigger interpretation.
 - Prototype app-shell parking note — the local `?prototype=app` experiment is documented in [Prototype-App-Shell-Parking-2026-05.md](Prototype-App-Shell-Parking-2026-05.md), including how to run it, what was built, what is unfinished, and the production cutover conditions. The live dashboard remains the public source of record.
 - Mobile card-spacing polish — v5.19 gives the scorecard dimension grid and accountability tracker grid more vertical breathing room on phones, closing the remaining part of the Reddit feedback that grade cards felt cramped while scrolling. No grade, score, source, promise status, threshold, or methodology change.
 - Trigger traceability label polish — v5.18 makes the last visible label-only move triggers explicitly say when their source is event-driven. The data invariant now passes with all 49 triggers resolving to an external URL, internal evidence navigation, or event-driven evidence label. No grade, score, source list, promise status, threshold, or methodology change.
@@ -101,7 +102,7 @@
 
 ## Now
 
-No immediate work pending. The product cleanup loop is caught up. Next items are triggered by the next monthly cycle or by a new explicit methodology decision.
+May source pull is complete at the data-refresh layer. The next live-dashboard work is the manual grade-review phase for the source-pull flags, especially Major Projects cohort reconciliation and Housing Supply trigger interpretation.
 
 ---
 

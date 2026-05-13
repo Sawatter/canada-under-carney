@@ -1,5 +1,31 @@
 [
   {
+    "date": "2026-05-13",
+    "summary": "May source refresh: approval polling and several source metrics updated without changing grades.",
+    "items": [
+      {
+        "type": "event",
+        "headline": "Approval Signal refreshed",
+        "body": "Four recent approval polls from Abacus Data, Leger, and Angus Reid Institute were added. The 60-day sample-size-weighted display still rounds to 57% approve and 31% disapprove, net +26."
+      },
+      {
+        "type": "event",
+        "headline": "Fiscal and labour metrics refreshed",
+        "body": "Fiscal Health now uses the Spring Economic Update's $66.9B FY 2025-26 deficit projection and PBO's assessment that new measures offset most later fiscal room. Economic Policy now references the April Labour Force Survey."
+      },
+      {
+        "type": "event",
+        "headline": "Affordability CPI refreshed",
+        "body": "Affordability Response now uses March 2026 food-store CPI at 4.4% year over year. April CPI is scheduled for release on May 19."
+      },
+      {
+        "type": "docs",
+        "headline": "Manual review queue logged",
+        "body": "The source pull flagged two calls for the grade-review phase: reconciling the Major Projects public project list with the live cohort, and deciding how the Housing Supply starts trigger should treat March CMHC starts data."
+      }
+    ]
+  },
+  {
     "date": "2026-05-12",
     "summary": "Mobile evidence polish: the Major Projects full project list now uses readable project cards on phones.",
     "items": [

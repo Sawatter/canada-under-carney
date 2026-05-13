@@ -1,10 +1,62 @@
 {
-  "asOf": "2026-04-19",
+  "asOf": "2026-05-13",
   "rollingWindowDays": 60,
   "construct": "PM / government job approval (approve vs. disapprove)",
   "inclusionRule": "Canadian polling firms publishing a direct PM or government approval question with both approve and disapprove percentages, disclosed sample size, and published methodology. CRIC accreditation (Canadian Research Insights Council) is preferred but not strictly required — public-interest institutes (Angus Reid Institute) and well-established firms with equivalent transparency (Innovative Research Group) are admissible. Preferred-PM, favourability, and vote-intention polls are tracked separately and not included here.",
   "aggregationRule": "Sample-size-weighted mean across all polls whose field end date falls in the rolling window. A poll with n=2,000 carries twice the weight of one with n=1,000. House effects across CRIC members are small enough that explicit de-housing is not yet required; multi-pollster coverage remains the primary house-effect control.",
   "polls": [
+    {
+      "pollster": "Abacus Data",
+      "fieldStart": "2026-04-30",
+      "fieldEnd": "2026-05-05",
+      "approve": 57,
+      "disapprove": 28,
+      "sampleSize": 2478,
+      "methodology": "Online panel via PureSpectrum partners, weighted to census",
+      "marginOfErrorNote": "Comparable probability sample ±2.0 pp",
+      "construct": "Federal government approval",
+      "sourceUrl": "https://abacusdata.ca/canadian-politics-carney-government-approval-hits-new-high-as-liberals-lead-conservatives-by-10/",
+      "sourceLabel": "Abacus Data: Government Approval May 2026"
+    },
+    {
+      "pollster": "Léger",
+      "fieldStart": "2026-04-24",
+      "fieldEnd": "2026-04-26",
+      "approve": 59,
+      "disapprove": 33,
+      "sampleSize": 1521,
+      "methodology": "Online (LEO panel), weighted to census",
+      "marginOfErrorNote": "±2.51 pp comparable probability sample",
+      "construct": "PM performance approval",
+      "sourceUrl": "https://leger360.com/in-the-news-federal-politics-liberals-hold-lead-april-2026/",
+      "sourceLabel": "Leger April 2026 Federal Politics Report"
+    },
+    {
+      "pollster": "Abacus Data",
+      "fieldStart": "2026-04-16",
+      "fieldEnd": "2026-04-21",
+      "approve": 54,
+      "disapprove": 29,
+      "sampleSize": 2000,
+      "methodology": "Online panel via PureSpectrum partners, weighted to census",
+      "marginOfErrorNote": "Comparable probability sample ±2.2 pp",
+      "construct": "Federal government approval",
+      "sourceUrl": "https://abacusdata.ca/canadian-politics-liberals-extend-lead-and-consolidate-support-following-majority-wins/",
+      "sourceLabel": "Abacus Data: Government Approval April 2026 W2"
+    },
+    {
+      "pollster": "Angus Reid Institute",
+      "fieldStart": "2026-04-15",
+      "fieldEnd": "2026-04-20",
+      "approve": 58,
+      "disapprove": 35,
+      "sampleSize": 2013,
+      "methodology": "Online (Angus Reid Forum), weighted to census",
+      "marginOfErrorNote": "±2.0 pp comparable probability sample",
+      "construct": "PM performance approval",
+      "sourceUrl": "https://angusreid.org/carney-one-year-approval-campaign-promises-liberals/",
+      "sourceLabel": "Angus Reid Institute: Election +365 Carney approval"
+    },
     {
       "pollster": "Léger",
       "fieldStart": "2026-03-27",
