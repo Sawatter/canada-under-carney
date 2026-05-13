@@ -24,6 +24,70 @@ const dimensions = JSON.parse(
   readFileSync(resolve(repoRoot, "src/data/dimensions.json"), "utf8")
 );
 
+const approvalPolls = JSON.parse(
+  readFileSync(resolve(repoRoot, "src/data/approval-polls.json"), "utf8")
+);
+
+// Canonical homepage per pollster. Used when building monthly / quarterly
+// approval rows from approval-polls.json. New pollsters added to the data
+// file will appear as rows even without a URL entry here; the editor can
+// fill the URL in the ledger.
+const POLLSTER_HOMES = {
+  "Abacus Data": "https://abacusdata.ca/",
+  "Léger": "https://leger360.com/",
+  "Angus Reid Institute": "https://angusreid.org/",
+  "Ipsos": "https://www.ipsos.com/en-ca/",
+  "Innovative Research Group": "https://innovativeresearch.ca/",
+  "Nanos Research": "https://nanos.co/",
+  "Pollara": "https://www.pollara.com/",
+  "Mainstreet Research": "https://www.mainstreetresearch.ca/",
+  "Ekos Research Associates": "https://www.ekospolitics.com/",
+  "Spark Insights": "",
+  "Research Co.": "",
+};
+
+// excludedForNow uses short keys in approval-polls.json. Map them to the
+// display names used elsewhere in the ledger.
+const EXCLUDED_DISPLAY_NAMES = {
+  nanos: "Nanos Research",
+  sparkInsights: "Spark Insights",
+  researchCo: "Research Co.",
+  pollara: "Pollara",
+  mainstreet: "Mainstreet Research",
+  ekos: "Ekos Research Associates",
+};
+
+function includedPollsters() {
+  const set = new Set();
+  for (const poll of approvalPolls.polls || []) {
+    if (poll.pollster) set.add(poll.pollster);
+  }
+  return [...set].sort();
+}
+
+function preferredPMPollsters() {
+  const set = new Set();
+  for (const poll of approvalPolls.preferredPM?.polls || []) {
+    if (poll.pollster) set.add(poll.pollster);
+  }
+  return [...set].sort();
+}
+
+function quarterlyRevisitPollsters() {
+  // nanos is tracked separately as preferredPM (different construct, not
+  // a revisit candidate). Every other excludedForNow key is a quarterly
+  // revisit row.
+  const obj = approvalPolls.excludedForNow || {};
+  return Object.keys(obj)
+    .filter((key) => key !== "nanos")
+    .map((key) => EXCLUDED_DISPLAY_NAMES[key] || key)
+    .sort();
+}
+
+function pollsterHomeUrl(name) {
+  return POLLSTER_HOMES[name] || "";
+}
+
 const [year, month] = monthArg.split("-").map(Number);
 const monthDate = new Date(Date.UTC(year, month - 1, 1));
 const monthName = monthDate.toLocaleString("en-CA", {
@@ -166,9 +230,26 @@ const monthlyRows = [
   ["IRCC TFWP work permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
   ["IRCC study permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
   ["Bank of Canada FXCADUSD", "Economic / immigration context", "Bank of Canada Valet API", "Monthly", "", "", "", "Context source unless cited metric changes."],
-  ["Abacus Data approval releases", "Approval Signal", "https://abacusdata.ca/", "Monthly", "", "", "", "Look for direct Carney / federal-government approval release."],
-  ["Leger approval releases", "Approval Signal", "https://leger360.com/", "Monthly", "", "", "", "Look for direct Carney / federal-government approval release."],
-  ["Angus Reid Institute approval releases", "Approval Signal", "https://angusreid.org/", "Monthly", "", "", "", "Look for direct Carney / federal-government approval release."],
+  ...includedPollsters().map((name) => [
+    `${name} approval releases`,
+    "Approval Signal",
+    pollsterHomeUrl(name),
+    "Monthly",
+    "",
+    "",
+    "",
+    "Look for direct Carney / federal-government approval release. Pollster sourced from approval-polls.json included set.",
+  ]),
+  ...preferredPMPollsters().map((name) => [
+    `${name} preferred-PM tracking`,
+    "Approval Signal (preferred-PM context)",
+    pollsterHomeUrl(name),
+    "Monthly",
+    "",
+    "",
+    "",
+    "Check preferred-PM release used as secondary context, not part of the approval mean.",
+  ]),
   ["PBO publications", "Fiscal, affordability, promises", "https://www.pbo-dpb.ca/en/publications", "Monthly", "", "", "", "Look for fiscal, costing, or anchor analysis."],
   ["Ethics Commissioner reports", "Ethics & Transparency", "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx", "Monthly", "", "", "", "Look for PM-relevant report, examination, or filing."],
   ["Major Projects Office list", "Major Projects", "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html", "Monthly", "", "", "", "Check denominator, additions, and stage changes."],
@@ -182,8 +263,7 @@ const monthlyRows = [
     "",
     "Check link and obvious public evidence of status change.",
   ]),
-  ["Touched source URL 1", "Any touched dimension", "", "Monthly, as needed", "", "", "", "Add each source touched during this cycle as its own row."],
-  ["Touched source URL 2", "Any touched dimension", "", "Monthly, as needed", "", "", "", "Add more rows as needed."],
+  ["Other sources touched this cycle", "Any touched dimension", "", "Monthly, as needed", "", "", "", "Add one row per source URL touched during this cycle's editorial work. Use one row per opened URL; do not bundle."],
 ];
 
 const eventRows = [
@@ -214,11 +294,16 @@ const eventRows = [
 ];
 
 const quarterlyRows = [
-  ["Pollara approval releases", "Approval Signal", "https://www.pollara.com/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
-  ["Mainstreet Research approval releases", "Approval Signal", "https://www.mainstreetresearch.ca/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
-  ["Ekos approval releases", "Approval Signal", "https://www.ekospolitics.com/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
-  ["Ipsos Canada approval releases", "Approval Signal", "https://www.ipsos.com/en-ca/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
-  ["Innovative Research Group approval releases", "Approval Signal", "https://innovativeresearch.ca/", "Quarterly", "", "", "", "Look for direct Carney approval release missing from rolling window."],
+  ...quarterlyRevisitPollsters().map((name) => [
+    `${name} approval revisit`,
+    "Approval Signal",
+    pollsterHomeUrl(name),
+    "Quarterly",
+    "",
+    "",
+    "",
+    "Look for direct Carney approval release or methodology / inclusion update. Pollster sourced from approval-polls.json excludedForNow set.",
+  ]),
   ["Canadian Climate Institute", "Climate & Environment, Carbon Pricing Policy", "https://climateinstitute.ca/", "Quarterly", "", "", "", "New analysis, plan revision, or carbon-pricing evidence."],
   ["IISD", "Climate & Environment, Carbon Pricing Policy", "https://www.iisd.org/", "Quarterly", "", "", "", "New analysis, plan revision, or carbon-pricing evidence."],
   ["ECCC departmental pages", "Climate & Environment, Carbon Pricing Policy", "https://www.canada.ca/en/environment-climate-change.html", "Quarterly", "", "", "", "Plan, budget, or program update."],

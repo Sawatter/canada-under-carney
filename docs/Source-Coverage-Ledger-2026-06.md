@@ -29,9 +29,12 @@
 | IRCC TFWP work permits | Immigration | IRCC open-data CSV | Monthly |  |  |  | Check temporary-resident pressure. |
 | IRCC study permits | Immigration | IRCC open-data CSV | Monthly |  |  |  | Check temporary-resident pressure. |
 | Bank of Canada FXCADUSD | Economic / immigration context | Bank of Canada Valet API | Monthly |  |  |  | Context source unless cited metric changes. |
-| Abacus Data approval releases | Approval Signal | https://abacusdata.ca/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. |
-| Leger approval releases | Approval Signal | https://leger360.com/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. |
-| Angus Reid Institute approval releases | Approval Signal | https://angusreid.org/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. |
+| Abacus Data approval releases | Approval Signal | https://abacusdata.ca/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. Pollster sourced from approval-polls.json included set. |
+| Angus Reid Institute approval releases | Approval Signal | https://angusreid.org/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. Pollster sourced from approval-polls.json included set. |
+| Innovative Research Group approval releases | Approval Signal | https://innovativeresearch.ca/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. Pollster sourced from approval-polls.json included set. |
+| Ipsos approval releases | Approval Signal | https://www.ipsos.com/en-ca/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. Pollster sourced from approval-polls.json included set. |
+| Léger approval releases | Approval Signal | https://leger360.com/ | Monthly |  |  |  | Look for direct Carney / federal-government approval release. Pollster sourced from approval-polls.json included set. |
+| Nanos Research preferred-PM tracking | Approval Signal (preferred-PM context) | https://nanos.co/ | Monthly |  |  |  | Check preferred-PM release used as secondary context, not part of the approval mean. |
 | PBO publications | Fiscal, affordability, promises | https://www.pbo-dpb.ca/en/publications | Monthly |  |  |  | Look for fiscal, costing, or anchor analysis. |
 | Ethics Commissioner reports | Ethics & Transparency | https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx | Monthly |  |  |  | Look for PM-relevant report, examination, or filing. |
 | Major Projects Office list | Major Projects | https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html | Monthly |  |  |  | Check denominator, additions, and stage changes. |
@@ -46,8 +49,7 @@
 | Stalled: Get big projects built quickly | Flagship Delivery | https://policyoptions.irpp.org/2026/02/competitive-federalism/ | Monthly spot-check |  |  |  | Check link and obvious public evidence of status change. |
 | Stalled: 500,000 homes/year over next decade | Housing Supply | https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025 | Monthly spot-check |  |  |  | Check link and obvious public evidence of status change. |
 | Stalled: One Project, One Review within 6 months | Major Projects | https://www.parl.ca/LegisInfo/en/bill/45-1/c-5 | Monthly spot-check |  |  |  | Check link and obvious public evidence of status change. |
-| Touched source URL 1 | Any touched dimension |  | Monthly, as needed |  |  |  | Add each source touched during this cycle as its own row. |
-| Touched source URL 2 | Any touched dimension |  | Monthly, as needed |  |  |  | Add more rows as needed. |
+| Other sources touched this cycle | Any touched dimension |  | Monthly, as needed |  |  |  | Add one row per source URL touched during this cycle's editorial work. Use one row per opened URL; do not bundle. |
 
 ## Event-Driven Watch
 
@@ -77,11 +79,11 @@ Run when due, or sooner if a trigger appears. If not due this month, mark `not d
 
 | Source / item | Dashboard area | URL / home | Cadence | Date checked | Result | Action | Notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Pollara approval releases | Approval Signal | https://www.pollara.com/ | Quarterly |  |  |  | Look for direct Carney approval release missing from rolling window. |
-| Mainstreet Research approval releases | Approval Signal | https://www.mainstreetresearch.ca/ | Quarterly |  |  |  | Look for direct Carney approval release missing from rolling window. |
-| Ekos approval releases | Approval Signal | https://www.ekospolitics.com/ | Quarterly |  |  |  | Look for direct Carney approval release missing from rolling window. |
-| Ipsos Canada approval releases | Approval Signal | https://www.ipsos.com/en-ca/ | Quarterly |  |  |  | Look for direct Carney approval release missing from rolling window. |
-| Innovative Research Group approval releases | Approval Signal | https://innovativeresearch.ca/ | Quarterly |  |  |  | Look for direct Carney approval release missing from rolling window. |
+| Ekos Research Associates approval revisit | Approval Signal | https://www.ekospolitics.com/ | Quarterly |  |  |  | Look for direct Carney approval release or methodology / inclusion update. Pollster sourced from approval-polls.json excludedForNow set. |
+| Mainstreet Research approval revisit | Approval Signal | https://www.mainstreetresearch.ca/ | Quarterly |  |  |  | Look for direct Carney approval release or methodology / inclusion update. Pollster sourced from approval-polls.json excludedForNow set. |
+| Pollara approval revisit | Approval Signal | https://www.pollara.com/ | Quarterly |  |  |  | Look for direct Carney approval release or methodology / inclusion update. Pollster sourced from approval-polls.json excludedForNow set. |
+| Research Co. approval revisit | Approval Signal |  | Quarterly |  |  |  | Look for direct Carney approval release or methodology / inclusion update. Pollster sourced from approval-polls.json excludedForNow set. |
+| Spark Insights approval revisit | Approval Signal |  | Quarterly |  |  |  | Look for direct Carney approval release or methodology / inclusion update. Pollster sourced from approval-polls.json excludedForNow set. |
 | Canadian Climate Institute | Climate & Environment, Carbon Pricing Policy | https://climateinstitute.ca/ | Quarterly |  |  |  | New analysis, plan revision, or carbon-pricing evidence. |
 | IISD | Climate & Environment, Carbon Pricing Policy | https://www.iisd.org/ | Quarterly |  |  |  | New analysis, plan revision, or carbon-pricing evidence. |
 | ECCC departmental pages | Climate & Environment, Carbon Pricing Policy | https://www.canada.ca/en/environment-climate-change.html | Quarterly |  |  |  | Plan, budget, or program update. |
