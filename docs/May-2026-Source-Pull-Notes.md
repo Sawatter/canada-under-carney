@@ -1,7 +1,7 @@
 # May 2026 Source Pull Notes
 
 **Date:** 2026-05-13
-**Scope:** Source refresh and metric updates only. No grade, threshold, formula, modifier, weighting, promise-status, or dimension-count change.
+**Scope:** Source refresh, then manual grade-review resolution. No threshold, formula, modifier rule, weighting, or dimension-count change.
 
 ## What Ran
 
@@ -14,17 +14,17 @@
 ## Clean Updates Applied
 
 - **Approval Signal:** Added four recent approval polls from Abacus Data, Leger, and Angus Reid Institute. The 60-day sample-size-weighted display still rounds to 57% approve, 31% disapprove, net +26.
-- **Fiscal Health:** Updated the FY 2025-26 projected deficit to $66.9B from the Spring Economic Update and added PBO's Spring Economic Update assessment as a source. The source update notes that PBO still sees most later fiscal room offset by new measures.
+- **Fiscal Health:** Updated the FY 2025-26 projected deficit to $66.9B from the Spring Economic Update and added PBO's Spring Economic Update assessments as sources. The fiscal material is mixed: the fiscal room is partly spent on new measures, but PBO also says the two fiscal anchors are currently on track.
 - **Economic Policy Response:** Updated the labour-market metric to the April 2026 Labour Force Survey: employment little changed month over month, unemployment at 6.9%, and employment down a net 112,000 over the first four months of 2026.
 - **Affordability Response:** Updated food-store CPI to March 2026 at 4.4% year over year. April CPI is scheduled for release on 2026-05-19.
 
 ## Manual Grade-Review Queue
 
-These are not automatic grade changes. They need explicit review against the rubric before any movement.
+These were not automatic grade changes. They needed explicit review against the rubric before any movement.
 
-1. **Major Projects:** The Major Projects Office public page now describes 15 projects and 6 transformative strategies. The live dashboard currently tracks a 16-project cohort. Reconcile the public map/list with the live cohort before changing cohort counts, project stages, or the grade.
-2. **Housing Supply:** CMHC March 2026 housing starts need a trigger-basis check. The monthly SAAR appears below 240K while the six-month trend remains above 240K. Decide whether the trigger reads actual annual starts, monthly SAAR, or trend before using it.
-3. **Fiscal Health:** The near-term deficit projection improved from Budget 2025, but PBO says later fiscal room is mostly offset. Review the band call, but do not treat the headline deficit improvement alone as a grade move.
+1. **Major Projects:** Resolved 2026-05-13. The official MPO list carries 15 referred projects and separates transformative strategies from the project denominator. The live cohort now counts 15 projects, with documented advancement still 2 of 15 (~13%). Grade holds at C.
+2. **Housing Supply:** Resolved 2026-05-13. CMHC March 2026 monthly SAAR was below 240K, but the six-month trend was 248,378. Because CMHC says the trend measure smooths volatile monthly SAAR readings, the dashboard does not treat the single-month dip as firing the down trigger while the trend remains above 240K. Grade holds at D.
+3. **Fiscal Health:** Resolved 2026-05-13. PBO's fiscal-anchor assessment moved the file out of D: the Spring Economic Update deficit-to-GDP path is projected to decline from 2.1% to 1.4%, and the operating-balance anchor is projected to be met by 2028-29. The file stops at C because the deficit is still above the B threshold and PBO flags capital-budgeting, interest-burden, and defence-cost caveats.
 4. **Affordability Response:** April CPI is not available until 2026-05-19, so this pass intentionally uses March CPI.
 
 ## Source Links

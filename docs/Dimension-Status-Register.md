@@ -39,13 +39,13 @@
 | **Before next cycle?** | Tighten language in release log: yes. Structural change: no. |
 | **Affects** | Live model only |
 
-### 3. Fiscal Health (D)
+### 3. Fiscal Health (C)
 
 | Field | Value |
 |---|---|
-| **Status** | Stable |
-| **Unresolved issue** | Level vs. trajectory must be clear. Current debt level is manageable (IMF, IFSD). Trajectory is unsustainable (PBO 7.5%). Grade reflects trajectory, not level. |
-| **What needs doing** | Monthly release language must always specify whether data cited is level or trajectory. Watch for April 28 economic update (Finance Minister Champagne). |
+| **Status** | Improved after Spring Economic Update / PBO anchor assessment |
+| **Unresolved issue** | Level vs. trajectory must be clear. Current debt level is manageable and PBO says the anchors are on track, but interest burden, capital-budgeting definitions, and omitted anticipated defence costs remain live caveats. |
+| **What needs doing** | Monthly release language must always specify whether data cited is level, trajectory, anchor credibility, or caveat. Watch for any PBO fiscal-anchor update or rating-agency action. |
 | **Before next cycle?** | Language tightening: yes. Structural change: no. |
 | **Affects** | Live model only |
 

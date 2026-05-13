@@ -229,7 +229,7 @@
 
 ---
 
-## 6. Fiscal Health (D)
+## 6. Fiscal Health (C)
 
 **Construct:** The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan.
 
@@ -237,12 +237,12 @@
 
 **Attribution:** Federal 80% (spending decisions, revenue policy, fiscal anchor) · Shared 10% (provincial fiscal pressures, transfers) · External 10% (interest rates, global economy, trade war)
 
-**Primary evidence home:** Deficit, debt, PBO confidence, credit ratings, debt servicing costs
+**Primary evidence home:** Deficit, debt, PBO fiscal-anchor assessment, credit ratings, debt servicing costs
 
 **Minimum indicators:**
 - Deficit (absolute and as % GDP)
 - Net debt trajectory
-- PBO confidence in medium-term targets
+- PBO assessment of medium-term anchors
 - Sovereign credit rating and outlook (Fitch/Moody's/S&P)
 - Debt service costs vs. GST revenue
 
@@ -259,10 +259,10 @@
 - External constraint (+0.3): Defence spending is strategically justified during trade war. Does not cover the gas tax suspension ($2.4B discretionary).
 
 **One-notch move triggers:**
-- Up: PBO confidence rises above 25%, OR Fitch removes warning
-- Down: Actual downgrade, OR deficit exceeds $90B without new revenue
+- Up: Deficit falls below 2% of GDP while PBO still sees the anchors as on track, OR rating-agency / fiscal-risk caveats are removed
+- Down: PBO no longer sees the deficit-to-GDP or operating-balance anchors as on track, OR actual downgrade / deficit exceeds $90B without new revenue
 
-**Biggest confounder:** Level vs. trajectory. Current debt levels are manageable (IMF, IFSD). Trajectory is unsustainable (PBO 7.5%). Always specify which is being cited.
+**Biggest confounder:** Level vs. trajectory. Current debt levels remain manageable and the Spring Economic Update has a PBO-assessed anchor path, but interest burden, capital-budgeting definitions, and omitted anticipated defence costs still matter. Always specify which anchor or caveat is being cited.
 
 **Confidence default:** High
 
@@ -363,7 +363,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 - Timing fairness: Partially applies. Infrastructure is multi-year. MPO is <1 year old. Cohort progress (rather than completed cycles) is the primary acceleration signal until at least one project completes a full MPO cycle.
 
 **One-notch move triggers:**
-- Up: ≥30% of cohort shows documented post-designation advancement (currently 2 of 16 ≈ 13%), OR first project completes a full MPO cycle, OR first use of national interest designation.
+- Up: ≥30% of cohort shows documented post-designation advancement (currently 2 of 15 ≈ 13%), OR first project completes a full MPO cycle, OR first use of national interest designation.
 - Down: Any project withdrawn from MPO, OR cohort progress reverses (project moved back to designated from a higher stage), OR evidence the framework is being bypassed.
 
 **Biggest confounder:** Pre-existing momentum. The $126B headline is mostly investment decisions made before the MPO existed. A cohort project advancing is not automatically MPO-attributable; weight the credit-claiming penalty when the same project would have advanced without federal intervention.
@@ -582,7 +582,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 ## Stable live (9 dimensions)
 
-1. Fiscal Health — D
+1. Fiscal Health — C
 2. Housing Supply — D
 3. Major Projects — C
 4. Immigration — C+

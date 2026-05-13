@@ -114,7 +114,7 @@ This is weaker than a second scorer but defensible if disclosed clearly. It does
 |---|---|---|---|
 | 1 | Defence & Trade | A- (sub-scores: Defence A, Trade B+) | Plus/minus |
 | 2 | Major Projects | C | Plus/minus |
-| 3 | Fiscal Health | D | Plus/minus |
+| 3 | Fiscal Health | C | Plus/minus |
 | 4 | Economic Policy Response | D | Plus/minus |
 | 5 | Affordability Response | D- | Plus/minus |
 | 6 | Carbon Pricing Policy | C | Plus/minus |

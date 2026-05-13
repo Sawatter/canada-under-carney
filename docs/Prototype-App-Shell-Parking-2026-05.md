@@ -83,7 +83,7 @@ The prototype currently exercises five files:
 Those were chosen because they stress different product problems:
 
 - Carbon Pricing is the clean file.
-- Major Projects is the complex evidence file with the 16-project cohort.
+- Major Projects is the complex evidence file with the 15-project cohort.
 - Defence & Trade is a mixed-construct exception.
 - Flagship Delivery is a rollup exception.
 - Promise Delivery is a tracker, not a graded peer.
@@ -131,7 +131,7 @@ This is the most developed detail file.
   - documented advancement count
   - stage distribution
   - explanation that documented later-dated movement is the grade threshold
-  - expandable full list of all 16 projects
+  - expandable full list of all 15 projects
 - Mobile project list uses stacked cards.
 - Desktop project list uses a table.
 - Move triggers with internal `cohort` refs open the Project Pipeline section.

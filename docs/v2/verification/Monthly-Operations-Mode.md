@@ -74,7 +74,7 @@ A claim is grade-moving if changing its value or status could plausibly cause a 
 
 **Examples:**
 - Housing starts crossing the 280K D/C threshold
-- PBO fiscal confidence changing from 7.5% to >25%
+- PBO fiscal-anchor assessment changing materially, including anchors no longer assessed as on track
 - NATO spending falling below 2%
 - US export share reversing above 75%
 

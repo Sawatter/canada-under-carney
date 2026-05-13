@@ -264,7 +264,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "16-project MPO cohort across 3 tranches. 4 projects currently sit above designated status, but only 2 have documented post-designation movement. National interest designation unused.",
+    "status": "15-project MPO cohort across 3 tranches. 4 projects currently sit above designated status, but only 2 have documented post-designation movement. National interest designation unused.",
     "judgmentCall": "Grade rests on documented post-designation movement, not announcement count or project desirability.",
     "judgmentDetail": "This grade does not score whether each project is good policy. It scores the federal delivery machinery: the defined MPO cohort, later-dated movement after designation, and use of the national-interest power. Judgment enters in excluding same-day promoted-stage labels from the advancement count and in applying a credit-claiming penalty where the government overstates ownership of pre-existing project progress.",
     "surfaceTags": [
@@ -274,7 +274,7 @@
     "construct": "The effectiveness of federal institutional machinery for infrastructure project delivery.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Pipeline exists with 16 projects in the MPO cohort, but fewer than 30% show documented post-designation advancement, and the signature national-interest power remains unused.",
+      "bandCriterion": "Pipeline exists with 15 projects in the MPO cohort, but fewer than 30% show documented post-designation advancement, and the signature national-interest power remains unused.",
       "plusMinusRationale": "Current C includes a credit-claiming penalty. Without that documented penalty for overstating ownership of pre-existing projects, the raw assessment would sit at C+.",
       "activeModifiers": [
         {
@@ -325,7 +325,7 @@
     "gradeTriggers": {
       "up": [
         {
-          "text": "≥30% of the cohort shows documented post-designation advancement (currently 2 of 16 ≈ 13%)",
+          "text": "≥30% of the cohort shows documented post-designation advancement (currently 2 of 15 ≈ 13%)",
           "sourceLabel": "Project pipeline table below",
           "internalRef": {
             "type": "cohort"
@@ -366,8 +366,12 @@
         }
       ]
     },
-    "rationale": "The Major Projects Office is a real institutional innovation with potentially transformative powers (Building Canada Act, C-5). The cohort has expanded across three tranches to 16 projects, and 4 of 16 projects currently sit above designated status as of April 2026. But only 2 of 16 (~13%) show documented post-designation advancement in the recorded cohort data: Contrecœur Terminal broke ground April 9, 2026, and Darlington New Nuclear carries a later-dated approval / financing milestone. North Coast Transmission Line and Mackenzie Valley Highway have promoted stage labels in tranche-announcement sources, but not a later recorded transition after cohort entry, so they are not yet counted toward the B threshold. The remaining 12 projects sit in initial designated status. The national interest designation has never been used. The $126B headline figure primarily represents pre-existing private-sector investment decisions. The Fraser Institute and Angus Reid both found the government overstated its role. Documented cohort progress therefore sits well below the 30% threshold for B, so the C grade holds. Note: the credit-claiming penalty modifier (-0.3 GPA) is reflected in the current C grade. Without the penalty, the raw assessment would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
+    "rationale": "The Major Projects Office is a real institutional innovation with potentially transformative powers (Building Canada Act, C-5). The official MPO project page now lists 15 referred projects, separate from transformative strategies that are not counted in the project denominator. Of those 15 projects, 4 currently sit above designated status as of May 2026. But only 2 of 15 (~13%) show documented post-designation advancement in the recorded cohort data: Contrecœur Terminal broke ground April 9, 2026, and Darlington New Nuclear carries a later-dated approval / financing milestone. North Coast Transmission Line and Mackenzie Valley Highway have promoted stage labels in tranche-announcement sources, but not a later recorded transition after cohort entry, so they are not yet counted toward the B threshold. The remaining 11 projects sit in initial designated status. The national interest designation has never been used. The $126B headline figure primarily represents pre-existing private-sector investment decisions. The Fraser Institute and Angus Reid both found the government overstated its role. Documented cohort progress therefore sits well below the 30% threshold for B, so the C grade holds. Note: the credit-claiming penalty modifier (-0.3 GPA) is reflected in the current C grade. Without the penalty, the raw assessment would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
     "sources": [
+      {
+        "label": "MPO official referred projects list",
+        "url": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html"
+      },
       {
         "label": "PM first tranche announcement (Sept 2025)",
         "url": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new"
@@ -397,27 +401,27 @@
         "url": "https://angusreid.org/major-projects-reaction-canada/"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-13",
     "metrics": [
       {
         "label": "Projects in MPO cohort",
-        "value": "16 across 3 tranches",
+        "value": "15 across 3 tranches",
         "source": "manual",
-        "sourceNote": "Three tranches of nation-building projects referred to the Major Projects Office: tranche 1 (Sept 11, 2025, 5 projects), tranche 2 (Nov 13, 2025, 7 projects), tranche 3 (March 12, 2026, 4 northern projects). Full list with stage tracking lives in projectCohort.projects. Source: PMO announcements (see dimension sources).",
+        "sourceNote": "The official Major Projects Office project page, date modified 2026-05-08, lists 15 referred projects. The dashboard counts projects in that official list and does not count the separately listed transformative strategies in the project denominator. Full list with stage tracking lives in projectCohort.projects.",
         "automatable": false
       },
       {
         "label": "Projects currently above designated status",
-        "value": "4 of 16 (25%)",
+        "value": "4 of 15 (~27%)",
         "source": "manual",
-        "sourceNote": "As of 2026-04-30, 4 projects carry a stage above designated in the live cohort: Contrecœur Terminal (under_construction), Darlington New Nuclear (approved), North Coast Transmission Line (approved), and Mackenzie Valley Highway (permitted). This is the stage distribution, not the threshold metric for advancement.",
+        "sourceNote": "As of 2026-05-13, 4 projects carry a stage above designated in the live cohort: Contrecœur Terminal (under_construction), Darlington New Nuclear (approved), North Coast Transmission Line (approved), and Mackenzie Valley Highway (permitted). This is the stage distribution, not the threshold metric for advancement.",
         "automatable": false
       },
       {
         "label": "Projects with documented post-designation advancement",
-        "value": "2 of 16 (~13%)",
+        "value": "2 of 15 (~13%)",
         "source": "manual",
-        "sourceNote": "Only projects with a later-dated stage record after referral count toward the cohort-advancement threshold. As of 2026-04-30 that includes Contrecœur Terminal (referred Sept 11, 2025; under_construction Apr 9, 2026) and Darlington New Nuclear (referred Sept 11, 2025; approved Dec 1, 2025). North Coast Transmission Line and Mackenzie Valley Highway carry promoted-stage labels in same-day tranche-announcement sources, but not a later recorded transition, so they are not counted yet. This falls well below the 30% threshold required for a B grade.",
+        "sourceNote": "Only projects with a later-dated stage record after referral count toward the cohort-advancement threshold. As of 2026-05-13 that includes Contrecœur Terminal (referred Sept 11, 2025; under_construction Apr 9, 2026) and Darlington New Nuclear (referred Sept 11, 2025; approved Dec 1, 2025). North Coast Transmission Line and Mackenzie Valley Highway carry promoted-stage labels in same-day tranche-announcement sources, but not a later recorded transition, so they are not counted yet. This falls well below the 30% threshold required for a B grade.",
         "automatable": false
       },
       {
@@ -457,7 +461,7 @@
       }
     ],
     "projectCohort": {
-      "asOf": "2026-04-30",
+      "asOf": "2026-05-13",
       "stageGates": [
         {
           "key": "designated",
@@ -556,17 +560,6 @@
           "stageDate": "2025-11-13",
           "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
           "sourceLabel": "PMO second tranche announcement; $139.5M early-works loan announced"
-        },
-        {
-          "name": "Northwest Critical Conservation Corridor",
-          "sponsor": "Federal-provincial-Indigenous partnership",
-          "location": "Northwest BC and Yukon",
-          "tranche": 2,
-          "referredDate": "2025-11-13",
-          "stage": "designated",
-          "stageDate": "2025-11-13",
-          "sourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
-          "sourceLabel": "PMO second tranche announcement"
         },
         {
           "name": "Ksi Lisims LNG",
@@ -759,17 +752,17 @@
     "id": "fiscal-health",
     "name": "Fiscal Health",
     "whatThisGrades": "Federal fiscal trajectory — is the spending and deficit path sustainable and credible?",
-    "grade": "D",
-    "previousGrade": null,
-    "trend": "down",
-    "status": "Deficit $66.9B projected in the Spring Economic Update. PBO says new measures offset most post-2025-26 fiscal room. PBO gives 7.5% chance of meeting the original Budget 2025 targets.",
-    "judgmentCall": "Low grade rests on fiscal-path credibility, not whether individual programs are worthwhile.",
-    "judgmentDetail": "The D grade is driven by the deficit path, the absence of a credible medium-term anchor, and independent confidence in the stated targets. Judgment enters in weighing strategically justified defence spending against the overall sustainability problem: worthwhile spending can still worsen the fiscal grade if the plan does not show how it will be paid for.",
+    "grade": "C",
+    "previousGrade": "D",
+    "trend": "up",
+    "status": "Spring Economic Update projects a $66.9B FY 2025-26 deficit and PBO says both fiscal anchors are on track. Interest-burden, capital-budgeting, and defence-cost caveats keep the file in C range.",
+    "judgmentCall": "C grade rests on improved anchor credibility, with caveats for interest burden, capital classification, and omitted defence costs.",
+    "judgmentDetail": "The Spring Economic Update and PBO materially improve the fiscal-path read: the deficit-to-GDP anchor is projected to decline and the operating-balance anchor is on track. Judgment still enters in how much weight to give unresolved caveats: PBO says the capital-budgeting definitions remain imprecise, interest burden keeps rising, and not all anticipated defence spending appears to be reflected.",
     "construct": "The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan.",
     "gradeBasis": {
-      "band": "D",
-      "bandCriterion": "Deficit remains above a sustainable range, the medium-term anchor is not credible, and independent confidence in the fiscal path is low.",
-      "plusMinusRationale": "Current D reflects a large projected deficit, only 7.5% PBO confidence in the stated path, and rating pressure warnings despite strategically justified defence spending.",
+      "band": "C",
+      "bandCriterion": "Deficit is in the 2% to 4% of GDP range and the medium-term anchors are published and currently assessed by PBO as on track, but material caveats remain on interest burden, capital classification, and defence-cost completeness.",
+      "plusMinusRationale": "Straight C: the Spring Economic Update and PBO anchor assessment move the file out of D, but the deficit remains above the B threshold and PBO still flags classification, interest-burden, and defence-cost risks.",
       "activeModifiers": [
         {
           "name": "External Constraint",
@@ -805,34 +798,34 @@
       "guardrails": [
         "Separate debt level from debt trajectory; manageable current debt does not rescue an unsustainable path.",
         "A strategic defence-spending case can explain part of the expansion but not the rest of the fiscal package.",
-        "Use PBO confidence and rating-agency language as the credibility check, not ministerial framing."
+        "Use PBO fiscal-anchor assessments and rating-agency language as the credibility check, not ministerial framing."
       ]
     },
     "gradeTriggers": {
       "up": [
         {
-          "text": "PBO confidence rises above 25%",
-          "sourceLabel": "PBO fiscal analysis",
-          "sourceUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires"
+          "text": "Deficit falls below 2% of GDP while PBO still sees the fiscal anchors as on track",
+          "sourceLabel": "PBO — SEU fiscal anchors assessment",
+          "sourceUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
         },
         {
-          "text": "Fitch removes its warning",
-          "sourceLabel": "Fitch rating (event-driven manual source)"
+          "text": "Rating-agency or fiscal-risk caveats are removed",
+          "sourceLabel": "Fitch / Moody's / S&P event-driven rating source"
         }
       ],
       "down": [
         {
-          "text": "Actual downgrade",
-          "sourceLabel": "Fitch / Moody's / S&P event-driven rating source"
+          "text": "PBO no longer sees the deficit-to-GDP or operating-balance anchors as on track",
+          "sourceLabel": "PBO — SEU fiscal anchors assessment",
+          "sourceUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
         },
         {
-          "text": "Deficit exceeds $90B without new revenue",
-          "sourceLabel": "Budget 2025",
-          "sourceUrl": "https://budget.canada.ca/2025/report-rapport/intro-en.html"
+          "text": "Actual downgrade or deficit exceeds $90B without new revenue",
+          "sourceLabel": "Fitch / Moody's / S&P event-driven rating source"
         }
       ]
     },
-    "rationale": "The Spring Economic Update lowers the projected FY 2025-26 deficit to $66.9B from Budget 2025's $78.3B, helped by stronger income-tax revenues and lower direct program expenses. But PBO's assessment says new policy measures offset almost all fiscal room after 2025-26, leaving the 2029-30 deficit effectively unchanged from Budget 2025. Fitch maintained its AA+ rating with a stable outlook after Budget 2025 but warned that persistent fiscal expansion could increase rating pressure over the medium term. The PBO gives only 7.5% probability the original deficit-to-GDP path will decline as projected. Defence spending is strategically justified, but the broader fiscal package still lacks a credible anchor.",
+    "rationale": "The Spring Economic Update lowers the projected FY 2025-26 deficit to $66.9B from Budget 2025's $78.3B, with PBO attributing the improvement mostly to stronger revenues and lower spending. PBO's fiscal-anchor note says the government is on track to respect both anchors: the deficit-to-GDP ratio is projected to decline from 2.1% in 2025-26 to 1.4% by 2030-31, and the operating-balance anchor is projected to be met by 2028-29. That moves the file out of D. It does not move to B because the deficit remains above the <2% GDP threshold, PBO says the capital-budgeting framework still lacks precision, interest burden rises from 10.6% to 13.2% of revenues by 2030-31, and the projections do not include all anticipated defence spending. Fitch maintained AA+/stable but previously warned that persistent fiscal expansion could raise medium-term rating pressure.",
     "sources": [
       {
         "label": "Budget 2025",
@@ -843,12 +836,12 @@
         "url": "https://budget.canada.ca/update-miseajour/2026/report-rapport/anx1-en.html"
       },
       {
-        "label": "PBO fiscal analysis",
-        "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires"
+        "label": "PBO — SEU economic and fiscal track",
+        "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere"
       },
       {
-        "label": "PBO — Spring Economic Update assessment",
-        "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere"
+        "label": "PBO — SEU fiscal anchors and sustainability",
+        "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
       },
       {
         "label": "C.D. Howe analysis",
@@ -869,48 +862,61 @@
         "label": "Deficit (FY 2025-26, projected)",
         "value": "$66.9B",
         "source": "finance-canada",
-        "sourceNote": "Spring Economic Update 2026 Annex 1, Table A1.7: projected FY 2025-26 budgetary balance -$66.9B, down from Budget 2025's -$78.3B projection. This is a projection, not an actual outturn.",
+        "sourceNote": "Spring Economic Update 2026 Annex 1: projected FY 2025-26 budgetary balance -$66.9B, down from Budget 2025's -$78.3B projection. This is a projection, not an actual outturn.",
+        "automatable": false
+      },
+      {
+        "label": "Deficit-to-GDP path",
+        "value": "2.1% -> 1.4%",
+        "source": "pbo",
+        "sourceNote": "PBO Fiscal Anchors and Fiscal Sustainability note: deficit-to-GDP ratio projected to decline from 2.1% in 2025-26 to 1.4% by 2030-31. This places the file in the C band rather than D, but still above the B threshold of <2% GDP in the current year.",
         "automatable": false
       },
       {
         "label": "Federal debt (FY 2025-26 projected)",
         "value": "$1.33T projected FY 2025-26",
         "source": "finance-canada",
-        "sourceNote": "Spring Economic Update 2026 Annex 1, Table A1.7 projects federal debt (accumulated deficit) at $1,333.9B for FY 2025-26. The FY 2024-25 actual remains $1,266.5B per the Annual Financial Report.",
+        "sourceNote": "Spring Economic Update 2026 Annex 1 projects federal debt (accumulated deficit) at $1,333.9B for FY 2025-26. PBO says the debt-to-GDP ratio remains broadly stable over the medium term, while interest burden rises.",
+        "automatable": false
+      },
+      {
+        "label": "PBO fiscal-anchor assessment",
+        "value": "On track, with caveats",
+        "source": "pbo",
+        "sourceNote": "PBO says SEU projections indicate the government is on track to respect both fiscal anchors, but flags imprecise capital-budgeting definitions, rising interest burden, and omitted anticipated defence spending.",
         "automatable": false
       },
       {
         "label": "Fitch rating",
         "value": "AA+ (stable outlook, fiscal concerns noted)",
         "source": "manual",
-        "sourceNote": "Fitch maintained AA+/stable after Budget 2025 (Nov 2025). Fitch warned that persistent fiscal expansion and rising debt burden 'could increase rating pressure over the medium term' but did not change the outlook to negative. Sources: The Deep Dive (thedeepdive.ca/liberal-victory-triggers-fiscal-warning-from-fitch), Yahoo Finance Canada (ca.finance.yahoo.com/news/heres-only-credit-rating-agency-123856595.html). Event-driven — next check on any Fitch action or statement.",
-        "automatable": false
-      },
-      {
-        "label": "PBO confidence in targets",
-        "value": "7.5%",
-        "source": "pbo",
+        "sourceNote": "Fitch maintained AA+/stable after Budget 2025 (Nov 2025). Fitch warned that persistent fiscal expansion and rising debt burden could increase rating pressure over the medium term but did not change the outlook to negative. Event-driven — next check on any Fitch action or statement.",
         "automatable": false
       }
     ],
     "promises": [
       {
         "text": "Balance operational budget in 3 years",
-        "status": "Stalled",
-        "since": "2026-04-14",
-        "evidence": "No credible path identified. PBO projects 7.5% probability of meeting deficit targets.",
+        "status": "In Progress",
+        "since": "2026-05-13",
+        "evidence": "Spring Economic Update projects operating balance by 2028-29, and PBO says the SEU is on track for both fiscal anchors. Caveat: PBO says the capital/operating classification still lacks enough detail for a full assessment.",
         "durability": "Commitment",
         "history": [
           {
             "date": "2026-04-14",
             "status": "Stalled",
             "note": "Initial assessment"
+          },
+          {
+            "date": "2026-05-13",
+            "status": "In Progress",
+            "note": "SEU/PBO anchor assessment moved the operational-balance promise from stalled to in progress, with classification caveats."
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
-        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
+        "statusSourceUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
+        "statusSourceLabel": "PBO — SEU fiscal anchors and sustainability"
       },
       {
         "text": "Reduce civil service by ~40,000",
@@ -968,15 +974,15 @@
       }
     ],
     "perspectives": {
-      "critics": "C.D. Howe: every GST dollar now goes to debt servicing. PBO gives 7.5% probability of meeting deficit targets — in any other context that plan gets rejected. Fitch maintained AA+ but warned persistent deficits could increase rating pressure. La Presse: the gas tax suspension costs $2.4B the government cannot afford.",
-      "defenders": "IMF and IFSD note Canada's debt-to-GDP ratio remains manageable by international standards. Defence spending is strategically necessary during a trade war. The operating/capital budget split is a legitimate framework innovation. Kevin Page: \"There is no fiscal crisis.\""
+      "critics": "C.D. Howe and fiscal critics still warn that debt-service costs are crowding out fiscal room. PBO says new measures offset most of the extra fiscal space after 2025-26, capital-budgeting definitions remain imprecise, interest burden rises to 13.2% of revenues by 2030-31, and not all anticipated defence spending appears included.",
+      "defenders": "PBO now says the Spring Economic Update is on track for both fiscal anchors, with the deficit-to-GDP ratio declining and the operating-balance target projected to be met. IMF and IFSD note Canada's debt-to-GDP ratio remains manageable by international standards, and defence spending is strategically necessary during a trade war."
     },
     "tags": {
       "confidence": "High",
       "attribution": "Direct",
       "lag": "Short"
     },
-    "nextTrigger": "April 28, 2026 economic update from Finance Minister Champagne. PBO spring fiscal outlook. Fitch/Moody's review.",
+    "nextTrigger": "Next Finance fiscal monitor, any PBO fiscal-anchor update, and Fitch/Moody's/S&P rating actions.",
     "inherited": "Elevated post-pandemic deficits. Rising debt-servicing costs. Fiscal anchor of reducing debt-to-GDP already abandoned by prior government."
   },
   {
@@ -2122,7 +2128,7 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "stable",
-    "status": "4,000 BCH units announced, but construction is not yet underway. Ontario deal is real but scale insufficient.",
+    "status": "4,000 BCH units announced, but construction is not yet underway. CMHC March starts trend is 248K, below the C band but above the 240K down-trigger floor; monthly SAAR was 236K.",
     "judgmentCall": "Low grade reflects starts and scale, with announcements counted only after construction or binding delivery.",
     "judgmentDetail": "The D grade scores the federal share of housing supply response against actual starts, program scale, and binding delivery. Judgment enters in giving limited timing credit to Build Canada Homes while refusing to count announced units as built homes, and in separating federal contribution from provincial, municipal, and market constraints.",
     "surfaceTags": [
@@ -2133,7 +2139,7 @@
     "gradeBasis": {
       "band": "D",
       "bandCriterion": "Starts remain below the needed level, federal programs cover only a tiny share of the shortfall, and spending is declining rather than scaling.",
-      "plusMinusRationale": "Current D reflects the gap between announced scale and actual starts, the absence of live Build Canada Homes construction, and a federal spending path that is shrinking rather than accelerating.",
+      "plusMinusRationale": "Current D reflects the gap between announced scale and actual starts, the absence of live Build Canada Homes construction, and a federal spending path that is shrinking rather than accelerating. March 2026 monthly SAAR fell below 240K, but CMHC's six-month trend remains above that trigger floor, so the grade holds rather than moving down.",
       "activeModifiers": [
         {
           "name": "Jurisdictional limits",
@@ -2194,8 +2200,8 @@
       "down": [
         {
           "text": "Starts fall below 240K",
-          "sourceLabel": "CMHC 2025 starts",
-          "sourceUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025"
+          "sourceLabel": "CMHC March 2026 starts",
+          "sourceUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026"
         },
         {
           "text": "Federal spending declines further without offset",
@@ -2204,7 +2210,7 @@
         }
       ]
     },
-    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. Federal housing spending declines 56% by 2028-29 — from $9.8B to $4.3B (PBO, December 2025). This now reads as a measurable scale gap rather than a pure too-early file. Policy Options notes supply alone will not solve the structural affordability problem.",
+    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. CMHC's March 2026 release shows the six-month starts trend at 248,378 and the monthly SAAR at 235,852. Because CMHC uses the trend measure to smooth volatile monthly SAAR readings, the monthly dip below 240K is not treated as a standalone down-trigger while the trend remains above 240K. Federal housing spending still declines 56% by 2028-29, and Policy Options notes supply alone will not solve the structural affordability problem.",
     "sources": [
       {
         "label": "PBO — BCH 26,000 units",
@@ -2213,6 +2219,10 @@
       {
         "label": "CMHC 2025 starts",
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025"
+      },
+      {
+        "label": "CMHC March 2026 starts",
+        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026"
       },
       {
         "label": "Canada-Ontario Partnership",
@@ -2235,7 +2245,7 @@
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-13",
     "metrics": [
       {
         "label": "Housing starts (2025)",
@@ -2243,6 +2253,13 @@
         "source": "cmhc",
         "sourceId": "34-10-0158-01",
         "automatable": true
+      },
+      {
+        "label": "Housing starts (Mar 2026 trend / SAAR)",
+        "value": "248,378 trend; 235,852 monthly SAAR",
+        "source": "cmhc",
+        "sourceNote": "CMHC March 2026 release: six-month trend was 248,378, while standalone monthly SAAR was 235,852. CMHC says the trend measure complements monthly SAAR because monthly estimates can swing sharply, especially in multi-unit markets. The dashboard therefore treats the down trigger as not fired unless the trend also falls below 240K or a sustained monthly pattern emerges.",
+        "automatable": false
       },
       {
         "label": "CMHC annual need",
@@ -2726,7 +2743,7 @@
     "whatThisGrades": "A running tracker of specific government commitments — delivered, in progress, stalled, or abandoned.",
     "informationalGrade": "C+",
     "trend": "stable",
-    "status": "Standalone accountability tracker, kept separate from the 11 performance grades. Carney government has delivered on defence, trade, and key reversals. Housing and climate commitments fall short.",
+    "status": "Standalone accountability tracker, kept separate from the 11 performance grades. Fiscal-anchor delivery moved back into progress, while housing and climate commitments still fall short.",
     "surfaceTags": [
       "Derivative file",
       "Tracker only"
@@ -2804,7 +2821,7 @@
         }
       ]
     },
-    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, and interprovincial reform — and delivered on all of them. These are genuine achievements. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files is consistent: ambitious announcements followed by results that fall short. The tracker read reflects real delivery on priority files alongside persistent underdelivery on household-impact files. Note: Promise Delivery is a derivative tracker. Movements that are already captured in home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this tracker. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
+    "rationale": "The Carney government made specific commitments on defence (NATO 2%), trade diversification, carbon tax elimination, immigration reduction, interprovincial reform, and fiscal-anchor discipline. Several are delivered or now back in progress after the Spring Economic Update/PBO anchor assessment. However, housing targets have been scaled back, climate commitments were largely reversed rather than delivered, and the pattern across domestic files remains mixed. Note: Promise Delivery is a derivative tracker. Movements that are already captured in home dimensions (e.g., housing delivery moving Housing Supply) should not independently move this tracker. This dimension tracks the cumulative pattern of commitment fulfillment as a political accountability measure, not as an independent policy performance indicator.",
     "sources": [
       {
         "label": "Canada Strong — Liberal Party 2025 platform",
@@ -2825,9 +2842,13 @@
       {
         "label": "The Narwhal — climate rollback analysis",
         "url": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/"
+      },
+      {
+        "label": "PBO — SEU fiscal anchors and sustainability",
+        "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-13",
     "metrics": [
       {
         "label": "Key commitments delivered",
@@ -2838,7 +2859,7 @@
       },
       {
         "label": "Commitments stalled or abandoned",
-        "value": "12 of 43",
+        "value": "11 of 43",
         "source": "editorial",
         "sourceNote": "Editorial tally. See individual promise entries for evidence basis.",
         "automatable": false

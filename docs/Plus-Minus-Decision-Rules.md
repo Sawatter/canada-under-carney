@@ -35,7 +35,7 @@ Every dimension starts at the straight letter grade. Plus or minus is added only
 |---|---|---|
 | Defence & Trade | A- | Minus: accounting caveats, bottom-third placement |
 | Major Projects | C | Straight: neither momentum nor undermining caveat |
-| Fiscal Health | D | Straight: trajectory unambiguously poor |
+| Fiscal Health | C | Straight: anchors improved enough for C, but caveats keep it out of B |
 | Economic Policy Response | D | Straight: response inadequate, no positive momentum yet |
 | Affordability Response | D- | Minus: relief covers negligible share (<20%) of cost increase |
 | Carbon Pricing Policy | C | Straight: consumer elimination was clean, industrial system questionable |

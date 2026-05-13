@@ -1,6 +1,46 @@
 [
   {
     "date": "2026-05-13",
+    "summary": "May grade review: Fiscal Health moved up to C, Major Projects denominator was reconciled to the official MPO list, and Housing Supply kept D after the March starts check.",
+    "items": [
+      {
+        "type": "grade",
+        "dimensionId": "fiscal-health",
+        "dimensionName": "Fiscal Health",
+        "from": "D",
+        "to": "C",
+        "deltaLabel": "+1 letter",
+        "headline": "Fiscal Health moved D → C",
+        "body": "The Spring Economic Update lowered the projected FY 2025-26 deficit to $66.9B, and PBO now says both fiscal anchors are on track. The file stops at C because the deficit remains above the B threshold and PBO still flags capital-budgeting, interest-burden, and defence-cost caveats.",
+        "drivers": [
+          "PBO says the deficit-to-GDP anchor is on track, declining from 2.1% in 2025-26 to 1.4% by 2030-31",
+          "PBO says the operating-balance anchor is projected to be met by 2028-29",
+          "Caveats remain on capital-budgeting definitions, rising interest burden, and omitted anticipated defence spending"
+        ],
+        "link": {
+          "label": "PBO fiscal anchors assessment",
+          "href": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
+        }
+      },
+      {
+        "type": "event",
+        "headline": "Fiscal-anchor promise moved back into progress",
+        "body": "The operational-budget-balance promise now reads In Progress rather than Stalled. The evidence is still caveated: PBO says the anchors are on track, but also says the capital/operating classification needs more detail."
+      },
+      {
+        "type": "method",
+        "headline": "Major Projects cohort denominator corrected to 15 projects",
+        "body": "The official MPO page lists 15 referred projects and separates out transformative strategies. The dashboard now counts only the 15 projects in the cohort denominator; documented post-designation advancement remains 2 of 15, so the grade holds at C."
+      },
+      {
+        "type": "method",
+        "headline": "Housing starts trigger reviewed and held",
+        "body": "CMHC March 2026 starts showed a 235,852 monthly SAAR but a 248,378 six-month trend. Because CMHC says the trend measure smooths volatile monthly readings, the dashboard does not treat the one-month dip as firing the <240K down trigger while the trend remains above 240K."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-13",
     "summary": "May source refresh: approval polling and several source metrics updated without changing grades.",
     "items": [
       {

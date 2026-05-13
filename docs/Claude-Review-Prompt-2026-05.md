@@ -38,19 +38,19 @@ measures and thresholds":
    src/components/ScoreboardHeader.jsx, src/components/Dashboard.jsx.
 
 2. Major Projects regraded on cohort progress, not first-event triggers.
-   The dimension now defines the project universe (16 MPO-cohort projects
-   across 3 tranches as of April 2026) and grades on % of cohort that
+   The dimension now defines the project universe (15 MPO-cohort projects
+   across 3 tranches as of May 2026) and grades on % of cohort that
    has advanced ≥1 stage from designated. The dimension card renders a
    "Project pipeline" section with the cohort summary and a collapsible
    per-project table sorted by stage.
    Files: src/data/dimensions.json (new projectCohort field with
-   stageGates + 16 projects), docs/Canonical-Scoring-Sheets.md (section
+   stageGates + 15 projects), docs/Canonical-Scoring-Sheets.md (section
    8 rewritten — new threshold ladder, new stage table, new triggers),
    docs/Source-Authority-Map.md (Major Projects Current State Delta
    updated — project list and stage tracking now marked as grade-moving
    fields, new tranche / groundbreaking sources threaded in),
    src/components/DimensionCard.jsx (new ProjectCohortSection helper).
-   As of 2026-04-30, 4 projects sit above designated status, but only 2 of 16 (~13%) show documented post-designation advancement; file holds C with
+   As of 2026-05-13, 4 projects sit above designated status, but only 2 of 15 (~13%) show documented post-designation advancement; file holds C with
    credit-claiming penalty still applied.
 
 3. Confidence / Attribution / Lag glossary in the scoring drawer.

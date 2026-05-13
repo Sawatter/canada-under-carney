@@ -257,18 +257,18 @@ The CTM must **not**:
 - **source_document:** **Residual:** original campaign platform URL not in the live Fiscal Health `sources` array; flag for next-cycle source-hardening.
 - **durability:** Commitment *(live tag in [dimensions.json](../src/data/dimensions.json))*. **Note:** PCR "Target" tier (stated goal without a legislated mechanism) arguably fits better; re-tag flagged as residual.
 - **home_dimension:** Fiscal Health
-- **promise_tracker_entry:** Fiscal Health `promises[0]` in [dimensions.json](../src/data/dimensions.json); status Stalled.
+- **promise_tracker_entry:** Fiscal Health `promises[0]` in [dimensions.json](../src/data/dimensions.json); status In Progress as of 2026-05-13.
 - **construct_tested:** "The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan" *(verbatim from [Canonical-Scoring-Sheets.md:228](Canonical-Scoring-Sheets.md))*. Specifically the **credibility-of-medium-term-anchor** component.
-- **primary_indicators:** PBO confidence in medium-term targets; deficit (absolute and as % GDP) *(per [Canonical-Scoring-Sheets.md:236](Canonical-Scoring-Sheets.md))*.
+- **primary_indicators:** PBO fiscal-anchor assessment; deficit (absolute and as % GDP) *(per [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
   - **Measurement (required):** Finance Canada deficit figures [QA T1]; PBO fiscal outlook [QA T1]
-  - **Independent challenge (required):** PBO confidence [QA T1]; IMF Article IV [QA T1]; rating agencies (event-driven) [QA T1]; C.D. Howe / IFSD [QA T2]
+  - **Independent challenge (required):** PBO fiscal-anchor assessment [QA T1]; IMF Article IV [QA T1]; rating agencies (event-driven) [QA T1]; C.D. Howe / IFSD [QA T2]
   - **Policy (not load-bearing for this commitment):** target-only, no specific delivery mechanism
   - **Execution (not load-bearing):** same reasoning; execution bears on underlying spending/revenue measures (FISCAL-002, FISCAL-003, FISCAL-004) separately
   - **Context (optional):** fiscal-politics commentary
-- **deconfliction_notes:** Deficit → primary home Fiscal Health; blocked from Economic Policy Response. PBO fiscal confidence → primary home Fiscal Health. *(per [Deconfliction-Matrix.md](Deconfliction-Matrix.md))*
+- **deconfliction_notes:** Deficit → primary home Fiscal Health; blocked from Economic Policy Response. PBO fiscal-anchor assessment → primary home Fiscal Health. *(per [Deconfliction-Matrix.md](Deconfliction-Matrix.md))*
 - **derivative_handling:** Flagship Delivery does not include Fiscal Health as one of its five flagship files; this commitment does not feed Flagship's delivery assessment. Aggregated in Promise Delivery (ungraded tracker; not in GPA), per [v2-Decision-Memo-Promise-Delivery.md](v2-Decision-Memo-Promise-Delivery.md).
-- **update_trigger:** PBO confidence rises above 25%; credible medium-term anchor announced; formal abandonment of 3-year balance timeline.
+- **update_trigger:** PBO no longer sees the anchors as on track; deficit falls below 2% of GDP while anchors hold; formal abandonment of 3-year balance timeline.
 - **measurement_rules_notes:** [Measure-Selection-Rules.md §Fiscal Health](Measure-Selection-Rules.md) — federal deficit fiscal year (PBO or Finance Canada); PBO projections older than 6 months must be qualified with publication date; general government ≠ federal.
 
 ---
