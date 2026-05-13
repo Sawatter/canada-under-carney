@@ -62,7 +62,7 @@ Run these every three monthly cycles, or sooner if a trigger appears.
 
 | Check | Source home | Dashboard area | What to look for |
 |---|---|---|---|
-| Full `dimensions.json` source link-rot pass | All `sources[].url` | All dimensions | Broken, redirected, or stale URLs |
+| Full `dimensions.json` source link-rot pass | All `sources[].url` | All dimensions | Broken, redirected, or stale URLs. Run via `python3 scripts/fetch-data.py --link-rot` (~30-60s; surfaces broken / blocked URLs and any Wayback snapshot available). |
 | Approval excluded-pollster revisit | Pollara, Mainstreet, Ekos, Ipsos, Innovative Research Group | Approval Signal | Any direct Carney approval release missing from the rolling window |
 | Rating-agency scan | Fitch, Moody's, S&P | Fiscal Health | Canada sovereign rating action or outlook change |
 | NATO interim scan | NATO annual report and press releases | Defence & Trade | Defence-spending verification or communiqué affecting the grade |
@@ -94,7 +94,7 @@ Build these in this order when source-process work is active.
 4. Major Projects Office page diff against `projectCohort.projects`.
 5. Approval-poll release-page scrapers for Abacus, Leger, and Angus Reid Institute.
 6. Ethics Commissioner investigation-report page diff.
-7. Archive fallback check: if a cited URL fails, check the Internet Archive / Wayback Machine and record either an official replacement URL or an archived fallback in the cycle ledger.
+7. ~~Archive fallback check: if a cited URL fails, check the Internet Archive / Wayback Machine and record either an official replacement URL or an archived fallback in the cycle ledger.~~ **Done.** `python3 scripts/fetch-data.py --link-rot` walks every cited URL in `src/data/dimensions.json`, hits the Wayback Machine availability API when a URL is unreachable, and prints a per-URL line tagged `[BROKEN]`, `[BROKEN+ARC]`, `[BLOCKED]`, `[BLOCKED+ARC]`, or `[ERROR]` so the editor can see in one pass which links rotted and which have an archive fallback.
 
 ## Link-Check Notes
 

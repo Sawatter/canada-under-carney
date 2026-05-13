@@ -15,9 +15,11 @@ Outputs (in scripts/output/):
     fetch-report.txt        — human-readable source-availability report
 """
 
+import argparse
 import json
 import os
 import sys
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, date
 from pathlib import Path
 
@@ -198,6 +200,133 @@ def fetch_pbo_feed(limit=20):
         return {"status": "error", "error": str(e)}
 
 
+def check_url_with_wayback(url, timeout=10):
+    """Test if URL is reachable. If not, fall back to the Wayback Machine
+    and return the closest archived snapshot if one exists.
+
+    Returns dict with `status` one of:
+      - "live": URL returned 2xx or 3xx
+      - "broken_with_archive": URL unreachable, Wayback snapshot found
+      - "broken_no_archive": URL unreachable, no Wayback snapshot
+      - "error": Request failed for a reason other than HTTP status
+    Optional fields: `http_code`, `wayback_url`, `wayback_timestamp`,
+    `error`.
+    """
+    headers = {"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"}
+    is_live = False
+    http_code = None
+    try:
+        # Some sites 405 on HEAD, so use GET but with a short timeout and
+        # we don't actually consume the body for size reasons.
+        resp = requests.get(url, timeout=timeout, headers=headers, stream=True, allow_redirects=True)
+        http_code = resp.status_code
+        resp.close()
+        if 200 <= resp.status_code < 400:
+            is_live = True
+    except Exception:
+        pass
+
+    if is_live:
+        return {"status": "live", "http_code": http_code}
+
+    # Distinguish 403 (likely bot-blocked but page exists) from 404 (gone).
+    # 403 is logged as "blocked" so an editor knows the page may still
+    # load in a real browser.
+    bot_blocked = http_code == 403
+
+    # URL appears broken or blocked — try Wayback availability API
+    try:
+        wb = requests.get(
+            "http://archive.org/wayback/available",
+            params={"url": url},
+            timeout=15,
+            headers=headers,
+        )
+        if wb.status_code == 200:
+            data = wb.json()
+            closest = (data.get("archived_snapshots") or {}).get("closest") or {}
+            if closest.get("available"):
+                return {
+                    "status": "blocked_with_archive" if bot_blocked else "broken_with_archive",
+                    "http_code": http_code,
+                    "wayback_url": closest.get("url"),
+                    "wayback_timestamp": closest.get("timestamp"),
+                }
+        return {
+            "status": "blocked_no_archive" if bot_blocked else "broken_no_archive",
+            "http_code": http_code,
+        }
+    except Exception as e:
+        return {"status": "error", "http_code": http_code, "error": str(e)}
+
+
+def collect_all_cited_urls(dimensions):
+    """Walk every cited URL across dim sources, gradeTriggers, promise
+    sources, and projectCohort projects. Returns a de-duplicated list
+    of {label, url, context} dicts."""
+    entries = []
+
+    def add(label, url, context):
+        if url and isinstance(url, str) and url.startswith("http"):
+            entries.append({"label": label, "url": url, "context": context})
+
+    for dim in dimensions:
+        name = dim.get("name", "?")
+        for s in dim.get("sources") or []:
+            add(f"{name}: {s.get('label','?')}", s.get("url"), "dim-source")
+        triggers = dim.get("gradeTriggers") or {}
+        for side in ("up", "down"):
+            for t in triggers.get(side) or []:
+                if isinstance(t, dict):
+                    add(
+                        f"{name}: {side} trigger - {t.get('sourceLabel','?')}",
+                        t.get("sourceUrl"),
+                        f"trigger-{side}",
+                    )
+        for p in dim.get("promises") or []:
+            add(
+                f"{name}: promise originalSource ({(p.get('text') or '?')[:40]})",
+                p.get("originalSourceUrl"),
+                "originalSourceUrl",
+            )
+            add(
+                f"{name}: promise statusSource ({(p.get('text') or '?')[:40]})",
+                p.get("statusSourceUrl"),
+                "statusSourceUrl",
+            )
+        cohort = dim.get("projectCohort") or {}
+        for proj in cohort.get("projects") or []:
+            add(f"{name}: project {proj.get('name','?')}", proj.get("sourceUrl"), "cohort-project")
+
+    seen = set()
+    deduped = []
+    for entry in entries:
+        if entry["url"] in seen:
+            continue
+        seen.add(entry["url"])
+        deduped.append(entry)
+    return deduped
+
+
+def link_rot_scan(dimensions, workers=8):
+    """Run link-rot scan with Wayback fallback against every cited URL.
+    Uses a small thread pool to keep total wall-clock under 30 seconds
+    for ~150 URLs. Returns the results list with each entry annotated
+    by check_url_with_wayback."""
+    cited = collect_all_cited_urls(dimensions)
+    results = []
+    with ThreadPoolExecutor(max_workers=workers) as pool:
+        future_to_entry = {pool.submit(check_url_with_wayback, e["url"]): e for e in cited}
+        for fut in as_completed(future_to_entry):
+            entry = future_to_entry[fut]
+            try:
+                check = fut.result()
+            except Exception as e:
+                check = {"status": "error", "error": str(e)}
+            results.append({**entry, **check})
+    return results
+
+
 def collect_cited_pbo_urls(dimensions):
     """Return lowercase set of PBO URLs currently cited in dimensions.json.
 
@@ -329,6 +458,50 @@ def generate_fetch_report(dimensions, results):
             lines.append(f"  HTTP code: {pbo['code']}")
     lines.append("")
 
+    # Link-rot scan with Wayback fallback (only present when --link-rot was passed)
+    if "link_rot" in results:
+        lines.append("=" * 60)
+        lines.append("  LINK-ROT SCAN (Wayback fallback active)")
+        lines.append("=" * 60)
+        lines.append("")
+        scan = results["link_rot"]
+        live = sum(1 for r in scan if r["status"] == "live")
+        broken_archive = sum(1 for r in scan if r["status"] == "broken_with_archive")
+        broken_no = sum(1 for r in scan if r["status"] == "broken_no_archive")
+        blocked_archive = sum(1 for r in scan if r["status"] == "blocked_with_archive")
+        blocked_no = sum(1 for r in scan if r["status"] == "blocked_no_archive")
+        errors = sum(1 for r in scan if r["status"] == "error")
+        lines.append(f"  URLs scanned: {len(scan)}")
+        lines.append(f"  Live: {live}")
+        lines.append(f"  Broken (404 / 5xx): {broken_archive + broken_no}  ({broken_archive} with Wayback snapshot)")
+        lines.append(f"  Blocked (403 — may still load in browser): {blocked_archive + blocked_no}  ({blocked_archive} with Wayback snapshot)")
+        lines.append(f"  Errors: {errors}")
+        lines.append("")
+        non_live = [r for r in scan if r["status"] != "live"]
+        if non_live:
+            lines.append("  Issues found (review and fix in next cycle):")
+            lines.append("")
+            for r in sorted(non_live, key=lambda x: (x["status"], x["label"])):
+                tag = {
+                    "broken_with_archive": "[BROKEN+ARC]",
+                    "broken_no_archive":   "[BROKEN]    ",
+                    "blocked_with_archive": "[BLOCKED+ARC]",
+                    "blocked_no_archive":  "[BLOCKED]   ",
+                    "error":                "[ERROR]     ",
+                }.get(r["status"], "[?]         ")
+                lines.append(f"  {tag} {r['label'][:88]}")
+                lines.append(f"           Original URL: {r['url']}")
+                if r.get("http_code"):
+                    lines.append(f"           HTTP code: {r['http_code']}")
+                if r.get("wayback_url"):
+                    lines.append(f"           Wayback snapshot ({r.get('wayback_timestamp','?')}): {r['wayback_url']}")
+                if r.get("error"):
+                    lines.append(f"           Error: {r['error']}")
+                lines.append("")
+        else:
+            lines.append("  All cited URLs returned a live response.")
+            lines.append("")
+
     # Dimension-by-dimension metric status
     lines.append("=" * 60)
     lines.append("  METRIC STATUS BY DIMENSION")
@@ -391,6 +564,14 @@ def generate_fetch_report(dimensions, results):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Monthly data fetch for Canada Under Carney")
+    parser.add_argument(
+        "--link-rot",
+        action="store_true",
+        help="Run full link-rot scan across every cited URL with Wayback Machine fallback. Adds 30-60s to the run time.",
+    )
+    args = parser.parse_args()
+
     print("Canada Under Carney — Monthly Data Fetch")
     print("=" * 45)
     print()
@@ -460,6 +641,24 @@ def main():
         print(f"  PBO feed: FAILED ({pbo_result.get('status', 'unknown')})")
 
     print()
+
+    # 5. Optional link-rot scan with Wayback fallback
+    if args.link_rot:
+        print("Running link-rot scan with Wayback fallback (this can take 30-60s)...")
+        scan = link_rot_scan(dimensions)
+        results["link_rot"] = scan
+        live = sum(1 for r in scan if r["status"] == "live")
+        broken_archive = sum(1 for r in scan if r["status"] == "broken_with_archive")
+        broken_no = sum(1 for r in scan if r["status"] == "broken_no_archive")
+        blocked_archive = sum(1 for r in scan if r["status"] == "blocked_with_archive")
+        blocked_no = sum(1 for r in scan if r["status"] == "blocked_no_archive")
+        errors = sum(1 for r in scan if r["status"] == "error")
+        print(f"  Scanned {len(scan)} cited URLs.")
+        print(f"  Live: {live}")
+        print(f"  Broken (404 / 5xx): {broken_archive + broken_no} ({broken_archive} have Wayback snapshot)")
+        print(f"  Blocked (403 — may still load in browser): {blocked_archive + blocked_no} ({blocked_archive} have Wayback snapshot)")
+        print(f"  Errors: {errors}")
+        print()
 
     # Generate outputs
     # 1. Draft dimensions (copy of current — user edits this)
