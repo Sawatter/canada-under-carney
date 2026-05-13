@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-05-13",
+    "summary": "Recurring source checks now name event-driven watches, climate scans, promise spot-checks, and source-role review.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Event-driven source watch list added",
+        "body": "The recurring source checklist now calls out rating agencies, climate and carbon policy events, defence and NATO releases, major federal announcements, and bill-status movement as checks that should run when events appear instead of waiting for a fixed quarterly cadence."
+      },
+      {
+        "type": "docs",
+        "headline": "Long-tail source coverage made explicit",
+        "body": "Climate and carbon sources, policy institutes, academic sources, journalism sources, stalled and abandoned promise links, source-role consistency, and archive fallback checks now have named rows in the recurring checklist rather than being hidden inside broad deep-search language."
+      },
+      {
+        "type": "minor",
+        "headline": "Public location wording removed",
+        "body": "The About page now describes the project as independent without listing a project location."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-13",
     "summary": "Source-coverage hygiene: the May refresh is now documented as a targeted refresh, not a full recertification.",
     "items": [
       {

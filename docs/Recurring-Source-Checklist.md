@@ -33,7 +33,20 @@ Run these before the monthly changelog is drafted.
 | PBO publication scan | `https://www.pbo-dpb.ca/en/publications` | Fiscal, affordability, promises | Manual; automate via RSS next | New fiscal, costing, or anchor analysis | New PBO release changes a cited metric or promise status |
 | Ethics Commissioner reports | `https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx` | Ethics & Transparency | Manual | New report, examination, or PM-relevant filing | Ethics review status changes |
 | Major Projects Office list | `https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html` | Major Projects | Manual | Denominator, project additions, stage changes | Cohort count or stage evidence changes |
+| Stalled / abandoned promise spot-check | `statusSourceUrl` on stalled and abandoned promises | Promise tracker | Manual | Link still works; no new public evidence changes the status | Evidence moves a promise out of stalled / abandoned, or source link breaks |
 | Touched-source link check | URLs touched in current edits | Any touched dimension | Manual | 200/working page, value still visible | Broken link or source mismatch |
+
+## Event-Driven Watch
+
+Do not wait for the next quarterly cycle if one of these events appears. Log the check in the current cycle ledger.
+
+| Watch | Source home | Dashboard area | Event trigger |
+|---|---|---|---|
+| Sovereign rating actions | Fitch, Moody's, S&P Canada sovereign pages | Fiscal Health | Canada rating downgrade, outlook change, or rating-committee action |
+| Climate / carbon policy events | ECCC announcements, federal climate plan pages, Paris Agreement status, carbon-border-adjustment announcements | Climate & Environment, Carbon Pricing Policy | Paris withdrawal, replacement climate strategy, ECCC budget change, carbon border adjustment announcement, or OBPS / fuel-charge policy change |
+| Defence / NATO events | NATO releases, PMO defence announcements, National Defence releases | Defence & Trade | Spending-path confirmation, NATO-commitment change, major procurement milestone, or defence-accounting reclassification |
+| Major federal announcements | PMO, Finance Canada, department release pages | Any affected dimension | New program launch, funding table, project designation, national-interest designation, or explicit cancellation |
+| Bill-status movement | LEGISinfo / Parliament bill pages | Promises, Major Projects, Defence & Trade, Carbon Pricing Policy | Bill introduced, passed, died, amended, or proclaimed where a commitment depends on legislation |
 
 ## Quarterly Checks
 
@@ -45,8 +58,10 @@ Run these every three monthly cycles, or sooner if a trigger appears.
 | Approval excluded-pollster revisit | Pollara, Mainstreet, Ekos, Ipsos, Innovative Research Group | Approval Signal | Any direct Carney approval release missing from the rolling window |
 | Rating-agency scan | Fitch, Moody's, S&P | Fiscal Health | Canada sovereign rating action or outlook change |
 | NATO interim scan | NATO annual report and press releases | Defence & Trade | Defence-spending verification or communiqué affecting the grade |
-| Stalled / abandoned promises | `statusSourceUrl` on stalled and abandoned promises | Promise tracker | Evidence that status changed since last cycle |
+| Climate / carbon source scan | Canadian Climate Institute, IISD, ECCC departmental pages, Paris Agreement status | Climate & Environment, Carbon Pricing Policy | New analysis, plan revision, budget change, Paris-status movement, or carbon-pricing implementation change |
+| Stalled / abandoned promises | `statusSourceUrl` on stalled and abandoned promises | Promise tracker | Full status recertification, beyond the monthly link / evidence spot-check |
 | Ethics / governance independent sources | Democracy Watch, House ETHI, major reporting | Ethics & Transparency | New independent critique, review, or disclosure finding |
+| Policy / academic / journalism scan | C.D. Howe, Fraser Institute, IRPP / Policy Options, The Hub, Dalhousie, PROOF, The Conversation Canada, CBC, Globe and Mail, The Narwhal, National Observer | Independent challenge and context across dimensions | New analysis that affects source balance, challenge evidence, or cited context |
 
 ## Twice-Yearly Checks
 
@@ -58,6 +73,7 @@ Run after the budget / fiscal update cycle and once mid-year.
 | Major Projects project-by-project recertification | MPO page plus each project source URL | Major Projects | All 15 projects, stages, stage dates, and advancement counts |
 | Promise recertification | All 43 promise status sources | Promise tracker | Delivered / in progress / stalled / abandoned status still holds |
 | About-page source-family inventory | About page vs live cited domains | About / trust surface | Every family listed is still cited or intentionally listed |
+| Source-role consistency audit | Source Authority Map and Source Characterization Register | Governance docs | Each cited source still has the right role, tier, boundary, and independence characterization |
 | Deep source search | PBO, StatCan, department pages, watchdogs, policy institutes, major reporting | All dimensions | New evidence not already in the dashboard |
 
 ## Automation Backlog
@@ -70,9 +86,10 @@ Build these in this order when source-process work is active.
 4. Major Projects Office page diff against `projectCohort.projects`.
 5. Approval-poll release-page scrapers for Abacus, Leger, and Angus Reid Institute.
 6. Ethics Commissioner investigation-report page diff.
+7. Archive fallback check: if a cited URL fails, check the Internet Archive / Wayback Machine and record either an official replacement URL or an archived fallback in the cycle ledger.
 
-## Known Notes From May 2026
+## Link-Check Notes
 
-- NRCan is still legitimately listed in the About source inventory. It is cited in Economic Policy Response as `NRCan — critical minerals partnerships`.
-- The IMF Article IV page may return 403 to plain `curl` but loads in a normal browser / web fetch.
-- The House ETHI PDF URL used in the first pilot packet draft returned 404. Use the House DocumentViewer report page instead.
+- Source-inventory claims should be checked against live citations before being removed. For example, NRCan is legitimately listed because it is cited in Economic Policy Response as `NRCan — critical minerals partnerships`.
+- Some official pages may block plain `curl` while still loading in a normal browser / web fetch. For example, the IMF Article IV page may return 403 to command-line checks.
+- When a PDF link breaks but an official HTML viewer exists, prefer the official viewer and log the replacement in that cycle's ledger.

@@ -302,7 +302,7 @@ export default function About() {
             Built By
           </div>
           <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
-            Independent project &middot; Calgary, Canada
+            Independent project
             <br />
             Built with AI assistance (Claude Code + ChatGPT) under human
             editorial direction. The rubric, evidence sources, and per-grade
