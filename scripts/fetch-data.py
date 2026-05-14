@@ -214,6 +214,17 @@ POLLSTER_FEEDS = [
     {"name": "Angus Reid Institute", "url": "https://angusreid.org/feed/", "domain": "angusreid.org"},
 ]
 
+# Excluded pollsters — not currently cited in approval-polls.json, but
+# the recurring checklist requires a quarterly scan in case they
+# publish federal-approval content worth pulling into the dashboard.
+# Mainstreet Research and EKOS Politics do not publish a public RSS
+# feed and remain manual surfaces.
+EXCLUDED_POLLSTER_FEEDS = [
+    {"name": "Pollara Strategic Insights", "url": "https://www.pollara.com/feed/", "domain": "pollara.com"},
+    {"name": "Ipsos Canada", "url": "https://www.ipsos.com/en-ca/rss.xml", "domain": "ipsos.com"},
+    {"name": "Innovative Research Group", "url": "https://innovativeresearch.ca/feed/", "domain": "innovativeresearch.ca"},
+]
+
 
 def _is_approval_relevant(title):
     """Heuristic filter: does this post title look like a federal
@@ -339,6 +350,21 @@ def check_pollster_feeds():
             new_count = sum(1 for i in rec.get("items", []) if not i["is_cited"])
             rec["new_count"] = new_count
             rec["cited_count"] = rec.get("relevant_count", 0) - new_count
+        results.append({"pollster": pollster["name"], "url": pollster["url"], **rec})
+    return results
+
+
+def check_excluded_pollster_feeds():
+    """Walk EXCLUDED_POLLSTER_FEEDS, fetch each feed, surface any
+    federal-approval-relevant posts. These pollsters are not currently
+    cited in approval-polls.json — the editor decides each cycle
+    whether a release crosses the bar for inclusion. The quarterly
+    recurring-source-checklist row makes this an editor responsibility
+    every three cycles; running it every monthly cycle is cheap and
+    just surfaces more signal."""
+    results = []
+    for pollster in EXCLUDED_POLLSTER_FEEDS:
+        rec = fetch_pollster_feed(pollster)
         results.append({"pollster": pollster["name"], "url": pollster["url"], **rec})
     return results
 
@@ -881,6 +907,44 @@ def generate_fetch_report(dimensions, results):
                 lines.append("")
     lines.append("")
 
+    # Excluded-pollster quarterly revisit — Pollara, Ipsos, Innovative
+    lines.append("EXCLUDED POLLSTER RSS FEEDS (quarterly revisit)")
+    lines.append("-" * 40)
+    excluded_data = results.get("excluded_pollster_feeds") or []
+    if not excluded_data:
+        lines.append("  No excluded pollster feeds checked.")
+    else:
+        lines.append(
+            "  Surfaces federal-approval-relevant posts from pollsters NOT"
+        )
+        lines.append(
+            "  currently cited. Editor decides each cycle whether to add."
+        )
+        lines.append(
+            "  Mainstreet Research and EKOS Politics: no public RSS — manual."
+        )
+        lines.append("")
+        for entry in excluded_data:
+            lines.append(f"  {entry['pollster']} ({entry['url']})")
+            if entry.get("status") != "success":
+                lines.append(f"    Status: {entry.get('status','?')}")
+                if entry.get("error"):
+                    lines.append(f"    Error: {entry['error']}")
+                lines.append("")
+                continue
+            lines.append(
+                f"    Status: success ({entry.get('all_count', 0)} recent posts, "
+                f"{entry.get('relevant_count', 0)} approval-relevant)"
+            )
+            for item in entry.get("items", []):
+                lines.append(f"    [REVIEW] {item.get('title','(untitled)')[:80]}")
+                if item.get("pubDate"):
+                    lines.append(f"             Published: {item['pubDate']}")
+                if item.get("link"):
+                    lines.append(f"             URL: {item['link']}")
+                lines.append("")
+    lines.append("")
+
     # LEGISinfo bill status for tracked parl.ca bills
     lines.append("LEGISINFO (Parliament bill status)")
     lines.append("-" * 40)
@@ -1149,6 +1213,21 @@ def main():
                 f"  {entry['pollster']}: {entry.get('all_count', 0)} recent posts, "
                 f"{entry.get('relevant_count', 0)} approval-relevant, "
                 f"{entry.get('new_count', 0)} not yet cited"
+            )
+        else:
+            print(f"  {entry['pollster']}: FAILED ({entry.get('status','?')})")
+
+    print()
+
+    # 5b. Check excluded pollsters (quarterly revisit, run each cycle)
+    print("Checking excluded pollster RSS feeds (Pollara, Ipsos, Innovative Research)...")
+    excluded_results = check_excluded_pollster_feeds()
+    results["excluded_pollster_feeds"] = excluded_results
+    for entry in excluded_results:
+        if entry.get("status") == "success":
+            print(
+                f"  {entry['pollster']}: {entry.get('all_count', 0)} recent posts, "
+                f"{entry.get('relevant_count', 0)} approval-relevant"
             )
         else:
             print(f"  {entry['pollster']}: FAILED ({entry.get('status','?')})")
