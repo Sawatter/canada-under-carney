@@ -146,6 +146,21 @@ function isAutomated(label, url) {
   if (/^https:\/\/www\.parl\.ca\/legisinfo/i.test(urlText)) {
     return true;
   }
+  // Approval pollster homepages — fetch-data.py reads each firm's RSS
+  // feed and flags new posts. The monthly approval-pollster rows count
+  // as automated. The individual cited poll URLs (e.g. specific Abacus
+  // post URLs) stay in the manual column because the editor still
+  // evaluates each release before adding it to the aggregate.
+  if (
+    urlText === "https://abacusdata.ca" ||
+    urlText === "https://leger360.com" ||
+    urlText === "https://angusreid.org" ||
+    urlText === "https://www.ipsos.com/en-ca" ||
+    urlText === "https://innovativeresearch.ca" ||
+    urlText === "https://nanos.co"
+  ) {
+    return true;
+  }
   return false;
 }
 

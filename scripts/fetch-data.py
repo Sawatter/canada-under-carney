@@ -201,6 +201,148 @@ def fetch_pbo_feed(limit=20):
         return {"status": "error", "error": str(e)}
 
 
+# --- Pollster RSS surfaces ---
+# The dashboard's Approval Signal aggregates polls from Abacus Data,
+# Léger, and Angus Reid Institute. The pollster homepages 403 against
+# bot-style requests, but each firm publishes a public RSS feed that
+# does return 200. Surface recent posts from each feed, filter for
+# federal-approval-relevant titles, and flag any that aren't yet
+# cited in src/data/approval-polls.json.
+POLLSTER_FEEDS = [
+    {"name": "Abacus Data", "url": "https://abacusdata.ca/feed/", "domain": "abacusdata.ca"},
+    {"name": "Léger", "url": "https://leger360.com/en/feed/", "domain": "leger360.com"},
+    {"name": "Angus Reid Institute", "url": "https://angusreid.org/feed/", "domain": "angusreid.org"},
+]
+
+
+def _is_approval_relevant(title):
+    """Heuristic filter: does this post title look like a federal
+    approval / Carney post rather than provincial, marketing-research,
+    or unrelated content? Cast wider with the keyword match, then
+    actively exclude clearly-provincial posts."""
+    t = (title or "").lower().strip()
+    if not t:
+        return False
+    federal_keywords = [
+        "carney",
+        "federal",
+        "liberal",
+        "conservative",
+        "government approval",
+        "pm ",
+        "trudeau",
+        "poilievre",
+        "house majority",
+        "house of commons",
+        "ottawa",
+        "national",
+    ]
+    if not any(k in t for k in federal_keywords):
+        return False
+    # Strong federal signal — keep regardless of provincial keywords.
+    federal_anchor = any(
+        k in t for k in ["carney", "federal", "ottawa", "house of commons",
+                         "house majority", "trudeau", "poilievre"]
+    )
+    if federal_anchor:
+        return True
+    # Otherwise look for provincial markers and exclude if any apply.
+    provincial_markers = [
+        # Province-specific party / leader names
+        "bc conservatives", "bc ndp", "bc liberal", "bc green",
+        "british columbia",
+        "ontario pcs", "ontario liberal", "ontario ndp", "ontario green",
+        "ford government",
+        "quebec liberal", "caq", "quebec premier", "parti québécois",
+        "alberta ucp", "alberta ndp", "danielle smith",
+        "saskatchewan party",
+        "manitoba ndp", "manitoba pcs",
+        # Province-leading title prefixes
+    ]
+    if any(p in t for p in provincial_markers):
+        return False
+    if t.startswith(("bc ", "ontario ", "quebec ", "alberta ",
+                     "saskatchewan ", "manitoba ", "nova scotia ",
+                     "new brunswick ", "newfoundland ", "pei ", "nwt ")):
+        return False
+    return True
+
+
+def fetch_pollster_feed(pollster, limit=15):
+    """Fetch one pollster's RSS feed. Returns recent items filtered
+    for federal-approval-relevant titles."""
+    import xml.etree.ElementTree as ET
+    try:
+        resp = requests.get(
+            pollster["url"],
+            timeout=30,
+            headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
+        )
+        if resp.status_code != 200:
+            return {"status": "http_error", "code": resp.status_code}
+        root = ET.fromstring(resp.content)
+        items = root.findall(".//item")[:limit]
+        all_items = []
+        for item in items:
+            title_el = item.find("title")
+            link_el = item.find("link")
+            pubdate_el = item.find("pubDate")
+            title = (title_el.text or "").strip() if title_el is not None else ""
+            link = (link_el.text or "").strip() if link_el is not None else ""
+            pubdate = (pubdate_el.text or "").strip() if pubdate_el is not None else ""
+            all_items.append({"title": title, "link": link, "pubDate": pubdate})
+        relevant = [i for i in all_items if _is_approval_relevant(i["title"])]
+        return {
+            "status": "success",
+            "all_count": len(all_items),
+            "relevant_count": len(relevant),
+            "items": relevant,
+        }
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
+def collect_cited_pollster_urls(approval_polls, domain):
+    """Return lowercase set of poll URLs for one pollster domain that
+    are already cited in approval-polls.json."""
+    cited = set()
+    for p in approval_polls.get("polls", []):
+        url = (p.get("sourceUrl") or "").lower().rstrip("/")
+        if domain in url:
+            cited.add(url)
+    for p in (approval_polls.get("preferredPM") or {}).get("polls", []):
+        url = (p.get("sourceUrl") or "").lower().rstrip("/")
+        if domain in url:
+            cited.add(url)
+    return cited
+
+
+def check_pollster_feeds():
+    """Walk POLLSTER_FEEDS, fetch each feed, return list of
+    {pollster, url, status, items, citation_marks}.
+
+    Loads approval-polls.json for the cited-URL comparison."""
+    polls_file = DATA_DIR / "approval-polls.json"
+    try:
+        approval_polls = json.loads(polls_file.read_text())
+    except Exception:
+        approval_polls = {"polls": [], "preferredPM": {"polls": []}}
+
+    results = []
+    for pollster in POLLSTER_FEEDS:
+        rec = fetch_pollster_feed(pollster)
+        cited = collect_cited_pollster_urls(approval_polls, pollster["domain"])
+        if rec.get("status") == "success":
+            for item in rec.get("items", []):
+                normalized = item.get("link", "").lower().rstrip("/")
+                item["is_cited"] = normalized in cited
+            new_count = sum(1 for i in rec.get("items", []) if not i["is_cited"])
+            rec["new_count"] = new_count
+            rec["cited_count"] = rec.get("relevant_count", 0) - new_count
+        results.append({"pollster": pollster["name"], "url": pollster["url"], **rec})
+    return results
+
+
 # --- LEGISinfo bill-status check ---
 # Public JSON endpoint per bill at parl.ca. The dashboard cites
 # bills as parl.ca URLs in sources / triggers / promises (currently
@@ -709,6 +851,36 @@ def generate_fetch_report(dimensions, results):
             lines.append(f"  HTTP code: {pbo['code']}")
     lines.append("")
 
+    # Pollster RSS surfaces
+    lines.append("POLLSTER RSS FEEDS")
+    lines.append("-" * 40)
+    pollster_data = results.get("pollster_feeds") or []
+    if not pollster_data:
+        lines.append("  No pollster feeds checked.")
+    else:
+        for entry in pollster_data:
+            lines.append(f"  {entry['pollster']} ({entry['url']})")
+            if entry.get("status") != "success":
+                lines.append(f"    Status: {entry.get('status','?')}")
+                if entry.get("error"):
+                    lines.append(f"    Error: {entry['error']}")
+                lines.append("")
+                continue
+            lines.append(
+                f"    Status: success ({entry.get('all_count', 0)} recent posts, "
+                f"{entry.get('relevant_count', 0)} approval-relevant, "
+                f"{entry.get('new_count', 0)} not yet cited in approval-polls.json)"
+            )
+            for item in entry.get("items", []):
+                marker = "[CITED]" if item.get("is_cited") else "[NEW]  "
+                lines.append(f"    {marker} {item.get('title','(untitled)')[:84]}")
+                if item.get("pubDate"):
+                    lines.append(f"             Published: {item['pubDate']}")
+                if item.get("link"):
+                    lines.append(f"             URL: {item['link']}")
+                lines.append("")
+    lines.append("")
+
     # LEGISinfo bill status for tracked parl.ca bills
     lines.append("LEGISINFO (Parliament bill status)")
     lines.append("-" * 40)
@@ -967,7 +1139,23 @@ def main():
 
     print()
 
-    # 5. Check LEGISinfo bill status for any parl.ca bills cited
+    # 5. Check pollster RSS feeds for new approval-relevant posts
+    print("Checking pollster RSS feeds (Abacus, Léger, Angus Reid Institute)...")
+    pollster_results = check_pollster_feeds()
+    results["pollster_feeds"] = pollster_results
+    for entry in pollster_results:
+        if entry.get("status") == "success":
+            print(
+                f"  {entry['pollster']}: {entry.get('all_count', 0)} recent posts, "
+                f"{entry.get('relevant_count', 0)} approval-relevant, "
+                f"{entry.get('new_count', 0)} not yet cited"
+            )
+        else:
+            print(f"  {entry['pollster']}: FAILED ({entry.get('status','?')})")
+
+    print()
+
+    # 6. Check LEGISinfo bill status for any parl.ca bills cited
     print("Checking LEGISinfo for cited bills...")
     legisinfo_results = check_legisinfo_bills(dimensions)
     results["legisinfo"] = legisinfo_results
@@ -990,7 +1178,7 @@ def main():
 
     print()
 
-    # 6. Check Major Projects Office page denominator
+    # 7. Check Major Projects Office page denominator
     print("Checking Major Projects Office project list...")
     mpo_page = fetch_mpo_page_projects()
     results["mpo_page"] = mpo_page
@@ -1011,7 +1199,7 @@ def main():
 
     print()
 
-    # 7. Optional link-rot scan with Wayback fallback
+    # 8. Optional link-rot scan with Wayback fallback
     if args.link_rot:
         print("Running link-rot scan with Wayback fallback (this can take 30-60s)...")
         scan = link_rot_scan(dimensions)
