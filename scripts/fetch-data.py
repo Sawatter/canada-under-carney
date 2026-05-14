@@ -369,6 +369,118 @@ def check_excluded_pollster_feeds():
     return results
 
 
+# --- Policy / academic / journalism RSS surfaces ---
+# The recurring checklist has a quarterly "policy / academic / journalism
+# scan" row covering 11 publishers. Six have working, well-structured
+# RSS feeds. The other 5 are blocked (Cloudflare HTML challenge instead
+# of feed for CCI, empty channel for IISD, atom-format for Conversation
+# Canada needing a different parser, paywalled / firehose for Globe and
+# CBC). Run all six each cycle; tag dashboard-topic-relevant items.
+POLICY_RSS_FEEDS = [
+    {"name": "C.D. Howe Institute", "url": "https://www.cdhowe.org/feed/"},
+    {"name": "Fraser Institute", "url": "https://www.fraserinstitute.org/rss.xml"},
+    {"name": "The Hub", "url": "https://thehub.ca/feed/"},
+    {"name": "Democracy Watch", "url": "https://democracywatch.ca/feed/"},
+    {"name": "PROOF (Food Insecurity)", "url": "https://proof.utoronto.ca/feed/"},
+    {"name": "The Narwhal", "url": "https://thenarwhal.ca/feed/"},
+]
+
+
+def _is_dashboard_topic_relevant(title):
+    """Heuristic filter: does this title look like content the
+    dashboard could cite? Federal politics, fiscal policy, climate,
+    housing, immigration, defence, trade — the 11 graded dimensions
+    plus the promise tracker.
+
+    Used as a tag (`[TOPIC]` vs `[OTHER]`), not a hard exclude —
+    every item is surfaced so the editor can see what each org
+    is publishing, with topic-matching items called out."""
+    t = (title or "").lower().strip()
+    if not t:
+        return False
+    keywords = [
+        # Federal / political
+        "federal", "ottawa", "carney", "trudeau", "poilievre",
+        "house of commons", "minister",
+        # Fiscal / economic
+        "fiscal", "deficit", "debt", "budget", "tax", "spending",
+        "pbo", "imf",
+        # Housing
+        "housing", "rental", "homeless", "mortgage", "cmhc",
+        # Immigration
+        "immigration", "ircc", "permanent resident", "temporary resident",
+        "asylum", "newcomer",
+        # Defence / trade / tariffs
+        "defence", "defense", "nato", "tariff", "trade", "export",
+        "merchandise trade", "ust",
+        # Climate / carbon
+        "climate", "carbon", "emissions", "paris agreement", "net zero",
+        "obps", "fuel charge",
+        # Affordability / food
+        "affordability", "food insecurity", "grocery", "cost of living",
+        # Ethics / governance
+        "ethics commissioner", "conflict of interest", "transparency",
+        "lobbying", "ciec",
+        # Major projects / energy
+        "lng", "pipeline", "critical minerals", "major projects",
+        "smr", "small modular reactor",
+    ]
+    return any(k in t for k in keywords)
+
+
+def fetch_policy_feed(feed, limit=8):
+    """Fetch one policy / journalism RSS feed. Returns recent items
+    with a topic-relevance tag applied."""
+    import xml.etree.ElementTree as ET
+    try:
+        resp = requests.get(
+            feed["url"],
+            timeout=30,
+            headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
+        )
+        if resp.status_code != 200:
+            return {"status": "http_error", "code": resp.status_code}
+        # Some endpoints return HTML when challenged — verify XML.
+        if not resp.content.lstrip().startswith(b"<?xml") and b"<rss" not in resp.content[:300]:
+            return {"status": "not_xml"}
+        root = ET.fromstring(resp.content)
+        items = root.findall(".//item")[:limit]
+        out = []
+        for item in items:
+            title_el = item.find("title")
+            link_el = item.find("link")
+            pubdate_el = item.find("pubDate")
+            title = (title_el.text or "").strip() if title_el is not None else ""
+            link = (link_el.text or "").strip() if link_el is not None else ""
+            pubdate = (pubdate_el.text or "").strip() if pubdate_el is not None else ""
+            out.append({
+                "title": title,
+                "link": link,
+                "pubDate": pubdate,
+                "topic_match": _is_dashboard_topic_relevant(title),
+            })
+        topic_count = sum(1 for i in out if i["topic_match"])
+        return {
+            "status": "success",
+            "count": len(out),
+            "topic_count": topic_count,
+            "items": out,
+        }
+    except Exception as e:
+        return {"status": "error", "error": str(e)}
+
+
+def check_policy_feeds():
+    """Walk POLICY_RSS_FEEDS, surface recent items with dashboard-topic
+    relevance tags. Editor uses this to spot independent analysis
+    relevant to dimension grades."""
+    results = []
+    for feed in POLICY_RSS_FEEDS:
+        rec = fetch_policy_feed(feed)
+        results.append({"publisher": feed["name"], "url": feed["url"], **rec})
+    return results
+
+
 # --- LEGISinfo bill-status check ---
 # Public JSON endpoint per bill at parl.ca. The dashboard cites
 # bills as parl.ca URLs in sources / triggers / promises (currently
@@ -945,6 +1057,51 @@ def generate_fetch_report(dimensions, results):
                 lines.append("")
     lines.append("")
 
+    # Policy / academic / journalism RSS feeds
+    lines.append("POLICY / ACADEMIC / JOURNALISM RSS FEEDS")
+    lines.append("-" * 40)
+    policy_data = results.get("policy_feeds") or []
+    if not policy_data:
+        lines.append("  No policy feeds checked.")
+    else:
+        lines.append(
+            "  Surfaces recent items from independent policy / academic /"
+        )
+        lines.append(
+            "  journalism publishers. [TOPIC] flags dashboard-relevant"
+        )
+        lines.append(
+            "  themes; [OTHER] is surfaced for completeness. CCI, IISD,"
+        )
+        lines.append(
+            "  Conversation Canada, CBC, Globe and Mail, National Observer:"
+        )
+        lines.append(
+            "  not yet automated (HTML challenge / atom / paywall / firehose)."
+        )
+        lines.append("")
+        for entry in policy_data:
+            lines.append(f"  {entry['publisher']} ({entry['url']})")
+            if entry.get("status") != "success":
+                lines.append(f"    Status: {entry.get('status','?')}")
+                if entry.get("error"):
+                    lines.append(f"    Error: {entry['error']}")
+                lines.append("")
+                continue
+            lines.append(
+                f"    Status: success ({entry.get('count', 0)} recent items, "
+                f"{entry.get('topic_count', 0)} topic-relevant)"
+            )
+            for item in entry.get("items", []):
+                marker = "[TOPIC]" if item.get("topic_match") else "[OTHER]"
+                lines.append(f"    {marker} {item.get('title','(untitled)')[:78]}")
+                if item.get("pubDate"):
+                    lines.append(f"            Published: {item['pubDate']}")
+                if item.get("link"):
+                    lines.append(f"            URL: {item['link']}")
+                lines.append("")
+    lines.append("")
+
     # LEGISinfo bill status for tracked parl.ca bills
     lines.append("LEGISINFO (Parliament bill status)")
     lines.append("-" * 40)
@@ -1231,6 +1388,21 @@ def main():
             )
         else:
             print(f"  {entry['pollster']}: FAILED ({entry.get('status','?')})")
+
+    print()
+
+    # 5c. Check policy / academic / journalism RSS feeds
+    print("Checking policy / academic / journalism RSS feeds...")
+    policy_results = check_policy_feeds()
+    results["policy_feeds"] = policy_results
+    for entry in policy_results:
+        if entry.get("status") == "success":
+            print(
+                f"  {entry['publisher']}: {entry.get('count', 0)} recent posts, "
+                f"{entry.get('topic_count', 0)} topic-relevant"
+            )
+        else:
+            print(f"  {entry['publisher']}: FAILED ({entry.get('status','?')})")
 
     print()
 

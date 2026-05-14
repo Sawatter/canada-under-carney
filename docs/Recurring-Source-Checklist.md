@@ -69,7 +69,7 @@ Run these every three monthly cycles, or sooner if a trigger appears.
 | Climate / carbon source scan | Canadian Climate Institute, IISD, ECCC departmental pages, Paris Agreement status | Climate & Environment, Carbon Pricing Policy | New analysis, plan revision, budget change, Paris-status movement, or carbon-pricing implementation change |
 | Stalled / abandoned promises | `statusSourceUrl` on stalled and abandoned promises | Promise tracker | Full status recertification, beyond the monthly link / evidence spot-check |
 | Ethics / governance independent sources | Democracy Watch, House ETHI, major reporting | Ethics & Transparency | New independent critique, review, or disclosure finding |
-| Policy / academic / journalism scan | C.D. Howe, Fraser Institute, IRPP / Policy Options, The Hub, Dalhousie, PROOF, The Conversation Canada, CBC, Globe and Mail, The Narwhal, National Observer | Independent challenge and context across dimensions | New analysis that affects source balance, challenge evidence, or cited context |
+| Policy / academic / journalism scan | C.D. Howe, Fraser Institute, IRPP / Policy Options, The Hub, Dalhousie, PROOF, The Conversation Canada, CBC, Globe and Mail, The Narwhal, National Observer | Independent challenge and context across dimensions | New analysis that affects source balance, challenge evidence, or cited context. Automated by `scripts/fetch-data.py` for 6 publishers with usable RSS — C.D. Howe `/feed/`, Fraser `/rss.xml`, The Hub `/feed/`, Democracy Watch `/feed/`, PROOF `/feed/`, The Narwhal `/feed/`. Items tagged `[TOPIC]` (dashboard-relevant theme) vs `[OTHER]`. CCI, IISD, Conversation Canada (atom), Globe and Mail (paywall), CBC (firehose), National Observer: remain manual. |
 
 ## Twice-Yearly Checks
 
