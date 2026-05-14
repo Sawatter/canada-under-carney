@@ -201,6 +201,98 @@ def fetch_pbo_feed(limit=20):
         return {"status": "error", "error": str(e)}
 
 
+# --- LEGISinfo bill-status check ---
+# Public JSON endpoint per bill at parl.ca. The dashboard cites
+# bills as parl.ca URLs in sources / triggers / promises (currently
+# only Bill C-5 / Building Canada Act). Each cycle, we walk those
+# citations, pull current status from LEGISinfo, and surface any
+# stage / status fields in the fetch report. Stage movement on
+# tracked bills can fire Defence & Trade or Major Projects triggers.
+LEGISINFO_BILL_URL = "https://www.parl.ca/legisinfo/en/bill/{parl}/{bill}/json"
+
+
+def collect_cited_bills(dimensions):
+    """Walk all cited parl.ca URLs in dimensions.json and return a
+    de-duplicated list of {bill, parl, citations} where bill is the
+    LEGISinfo bill identifier (e.g. "c-5") and parl is the parliament
+    session (e.g. "45-1")."""
+    bills = {}
+    bill_re = re.compile(r"bill/(\d+-\d+)/([cs]-\d+)", re.IGNORECASE)
+
+    def add(label, url, dim_name):
+        if not url or "parl.ca" not in url.lower():
+            return
+        m = bill_re.search(url)
+        if not m:
+            return
+        parl = m.group(1)
+        bill = m.group(2).lower()
+        key = f"{parl}/{bill}"
+        if key not in bills:
+            bills[key] = {"bill": bill, "parl": parl, "citations": []}
+        bills[key]["citations"].append({"dim": dim_name, "label": label or "(no label)"})
+
+    for dim in dimensions:
+        name = dim.get("name", "?")
+        for s in dim.get("sources") or []:
+            add(s.get("label"), s.get("url"), name)
+        for side in ("up", "down"):
+            for t in (dim.get("gradeTriggers") or {}).get(side) or []:
+                if isinstance(t, dict):
+                    add(t.get("sourceLabel"), t.get("sourceUrl"), name)
+        for p in dim.get("promises") or []:
+            add(p.get("originalSourceLabel"), p.get("originalSourceUrl"), name)
+            add(p.get("statusSourceLabel"), p.get("statusSourceUrl"), name)
+
+    return list(bills.values())
+
+
+def fetch_legisinfo_status(bill, parl, timeout=15):
+    """Fetch one bill's current status from LEGISinfo JSON. Returns
+    dict with the fields the fetch report surfaces."""
+    url = LEGISINFO_BILL_URL.format(parl=parl, bill=bill)
+    try:
+        resp = requests.get(
+            url,
+            timeout=timeout,
+            headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
+        )
+        if resp.status_code != 200:
+            return {"status": "http_error", "code": resp.status_code, "url": url}
+        data = resp.json()
+        # LEGISinfo returns a list with one bill entry
+        if isinstance(data, list) and data:
+            item = data[0]
+            return {
+                "status": "success",
+                "url": url,
+                "number_code": item.get("NumberCode"),
+                "short_title": item.get("ShortTitle") or item.get("ShortTitleEn"),
+                "long_title": item.get("LongTitle") or item.get("LongTitleEn"),
+                "current_status": item.get("StatusName") or item.get("StatusNameEn"),
+                "latest_stage": item.get("LatestCompletedMajorStageName")
+                    or item.get("LatestCompletedMajorStageNameEn"),
+                "ongoing_stage": item.get("OngoingStageName")
+                    or item.get("OngoingStageNameEn"),
+                "first_reading": (item.get("PassedHouseFirstReadingDateTime") or "")[:10],
+                "royal_assent": (item.get("ReceivedRoyalAssentDateTime") or "")[:10],
+            }
+        return {"status": "empty", "url": url}
+    except Exception as e:
+        return {"status": "error", "error": str(e), "url": url}
+
+
+def check_legisinfo_bills(dimensions):
+    """Walk cited bills, call LEGISinfo per bill, return list of
+    {bill, parl, citations, status_record}."""
+    cited = collect_cited_bills(dimensions)
+    results = []
+    for entry in cited:
+        rec = fetch_legisinfo_status(entry["bill"], entry["parl"])
+        results.append({**entry, "record": rec})
+    return results
+
+
 # --- Major Projects Office page diff ---
 # The official MPO page is the source of truth for the project cohort
 # denominator. The May cycle hit a 16 -> 15 denominator correction
@@ -617,6 +709,44 @@ def generate_fetch_report(dimensions, results):
             lines.append(f"  HTTP code: {pbo['code']}")
     lines.append("")
 
+    # LEGISinfo bill status for tracked parl.ca bills
+    lines.append("LEGISINFO (Parliament bill status)")
+    lines.append("-" * 40)
+    legisinfo = results.get("legisinfo") or []
+    if not legisinfo:
+        lines.append("  No parl.ca bills currently cited in dimensions.json.")
+    else:
+        lines.append(f"  Bills tracked: {len(legisinfo)}")
+        lines.append("")
+        for entry in legisinfo:
+            rec = entry.get("record", {})
+            if rec.get("status") != "success":
+                lines.append(
+                    f"  [{entry['bill'].upper()}, Parl {entry['parl']}]  fetch failed: "
+                    f"{rec.get('status','?')}"
+                )
+                continue
+            lines.append(
+                f"  [{rec.get('number_code', entry['bill'].upper())}, Parl {entry['parl']}]  "
+                f"{rec.get('short_title','(no short title)')[:80]}"
+            )
+            if rec.get("current_status"):
+                lines.append(f"    Current status: {rec['current_status']}")
+            if rec.get("latest_stage"):
+                lines.append(f"    Latest completed stage: {rec['latest_stage']}")
+            if rec.get("ongoing_stage"):
+                lines.append(f"    Ongoing stage: {rec['ongoing_stage']}")
+            if rec.get("first_reading"):
+                lines.append(f"    First reading: {rec['first_reading']}")
+            if rec.get("royal_assent"):
+                lines.append(f"    Royal assent: {rec['royal_assent']}")
+            cite_dims = sorted({c["dim"] for c in entry["citations"]})
+            lines.append(
+                f"    Cited in: {', '.join(cite_dims)} ({len(entry['citations'])} place(s))"
+            )
+            lines.append("")
+    lines.append("")
+
     # Major Projects Office diff
     lines.append("MAJOR PROJECTS OFFICE (page diff)")
     lines.append("-" * 40)
@@ -837,7 +967,30 @@ def main():
 
     print()
 
-    # 5. Check Major Projects Office page denominator
+    # 5. Check LEGISinfo bill status for any parl.ca bills cited
+    print("Checking LEGISinfo for cited bills...")
+    legisinfo_results = check_legisinfo_bills(dimensions)
+    results["legisinfo"] = legisinfo_results
+    if legisinfo_results:
+        for entry in legisinfo_results:
+            rec = entry.get("record", {})
+            if rec.get("status") == "success":
+                print(
+                    f"  {rec.get('number_code','?')} (Parl {entry['parl']}): "
+                    f"{rec.get('current_status','?')} "
+                    f"(cited {len(entry['citations'])}x)"
+                )
+            else:
+                print(
+                    f"  {entry['bill'].upper()} (Parl {entry['parl']}): "
+                    f"FAILED ({rec.get('status','?')})"
+                )
+    else:
+        print("  No parl.ca bills cited in dimensions.json.")
+
+    print()
+
+    # 6. Check Major Projects Office page denominator
     print("Checking Major Projects Office project list...")
     mpo_page = fetch_mpo_page_projects()
     results["mpo_page"] = mpo_page
@@ -858,7 +1011,7 @@ def main():
 
     print()
 
-    # 6. Optional link-rot scan with Wayback fallback
+    # 7. Optional link-rot scan with Wayback fallback
     if args.link_rot:
         print("Running link-rot scan with Wayback fallback (this can take 30-60s)...")
         scan = link_rot_scan(dimensions)

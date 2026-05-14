@@ -54,7 +54,7 @@ Do not wait for the next quarterly cycle if one of these events appears. Log the
 | Climate / carbon policy events | ECCC announcements, federal climate plan pages, Paris Agreement status, carbon-border-adjustment announcements | Climate & Environment, Carbon Pricing Policy | Paris withdrawal, replacement climate strategy, ECCC budget change, carbon border adjustment announcement, or OBPS / fuel-charge policy change |
 | Defence / NATO events | NATO releases, PMO defence announcements, National Defence releases | Defence & Trade | Spending-path confirmation, NATO-commitment change, major procurement milestone, or defence-accounting reclassification |
 | Major federal announcements | PMO, Finance Canada, department release pages | Any affected dimension | New program launch, funding table, project designation, national-interest designation, or explicit cancellation |
-| Bill-status movement | LEGISinfo / Parliament bill pages | Promises, Major Projects, Defence & Trade, Carbon Pricing Policy | Bill introduced, passed, died, amended, or proclaimed where a commitment depends on legislation |
+| Bill-status movement | LEGISinfo / Parliament bill pages | Promises, Major Projects, Defence & Trade, Carbon Pricing Policy | Bill introduced, passed, died, amended, or proclaimed where a commitment depends on legislation. Automated by `scripts/fetch-data.py` — each cycle calls LEGISinfo JSON for every cited parl.ca bill and reports current status, latest stage, and royal-assent date. |
 
 ## Quarterly Checks
 
@@ -90,7 +90,7 @@ Build these in this order when source-process work is active.
 
 1. ~~PBO RSS integration in `scripts/fetch-data.py`.~~ **Done.** The fetch script now reads `https://www.pbo-dpb.ca/en/feed.xml` each cycle and flags new publications as `[NEW]` vs `[CITED]` in the fetch report.
 2. StatCan value-diff checks, not just availability checks.
-3. LEGISinfo bill-status check for live bill commitments.
+3. ~~LEGISinfo bill-status check for live bill commitments.~~ **Done.** `scripts/fetch-data.py` walks every cited `parl.ca/legisinfo/.../bill/...` URL each cycle, calls the LEGISinfo JSON endpoint per bill, and surfaces current status (e.g. "Royal assent received"), latest completed stage, first-reading date, royal-assent date, and which dashboard dimensions cite the bill. Currently 1 bill tracked (Bill C-5 / One Canadian Economy Act).
 4. ~~Major Projects Office page diff against `projectCohort.projects`.~~ **Done.** `scripts/fetch-data.py` now scrapes the MPO page each cycle, extracts project H2 headings, normalizes for ligatures and word-order variants, and prints additions / removals vs the live cohort. Genuine naming-convention differences are surfaced as one "potential addition" + one "potential removal" so the editor can reconcile.
 5. Approval-poll release-page scrapers for Abacus, Leger, and Angus Reid Institute.
 6. Ethics Commissioner investigation-report page diff.

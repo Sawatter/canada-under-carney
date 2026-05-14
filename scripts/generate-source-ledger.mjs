@@ -140,6 +140,12 @@ function isAutomated(label, url) {
   if (urlText === "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html") {
     return true;
   }
+  // LEGISinfo bill pages are automatically queried each cycle for any
+  // cited parl.ca bill URL. The Bill-status movement event-driven row
+  // counts as automated.
+  if (/^https:\/\/www\.parl\.ca\/legisinfo/i.test(urlText)) {
+    return true;
+  }
   return false;
 }
 

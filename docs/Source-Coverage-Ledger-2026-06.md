@@ -3,10 +3,10 @@
 **Purpose:** Working checklist for the June 2026 source cycle. This file is generated from `docs/Recurring-Source-Checklist.md` and live dashboard data so bundled source families become auditable source-level rows.
 
 **Cycle month:** 2026-06
-**Generated:** 2026-05-13
+**Generated:** 2026-05-14
 **Live dashboard version:** v5.24 (as of 2026-05-13)
 **Total source rows:** 330 (Monthly 32, Event-Driven 15, Quarterly 113, Twice-Yearly 170)
-**Automation split:** 19 automated by `scripts/fetch-data.py`, 311 manual
+**Automation split:** 31 automated by `scripts/fetch-data.py`, 299 manual
 **Coverage level achieved:** fill in after cycle closes
 
 ## How To Use
