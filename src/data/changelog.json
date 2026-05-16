@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Bias-resistance audit Fix 3: defenders perspectives now cite named institutional sources, closing the critics-attributed / defenders-anonymous asymmetry on five dimensions.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Defenders perspectives now name their authoritative sources",
+        "body": "The audit found that five dimension defenders blocks cited zero or few named sources while critics blocks cited 2-6. Affordability Response, Carbon Pricing Policy, Climate & Environment, Housing Supply, and Economic Policy Response now bring named institutional sources into their defenders prose (PBO, OECD, CCI, CER, Department of Finance, Treasury Board Secretariat, CMHC, Smart Prosperity Institute) where authoritative defensive reasoning already supported the position. No grades, thresholds, or substantive claims changed; attribution surfaced."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Bias-resistance audit Fix 1b + 1c: PBO independent challenge sources added to Immigration and Defence & Trade grade-moving chains.",
     "items": [
       {
