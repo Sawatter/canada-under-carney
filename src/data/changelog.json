@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Methodology FAQ now lives in the Rubric tab, preempting eight common bias accusations with published trigger-language answers.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Methodology FAQ added to the Rubric tab",
+        "body": "Eight common questions are now answered inline in the Rubric tab: why grades vary across dimensions, why announcements do not always count as delivery, what would change a grade, why Approval Signal is excluded from the GPA, what the dashboard refuses to score, whether the rubric was adjusted after seeing results, how source diversity affects confidence, and whether the rubric itself could be biased. Each answer points to the published rule or the relevant doc rather than to editor judgment. Closes Tier 2.6 of the bias-resistance plan."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Tier 1 challenge-enabling hygiene shipped: Corrections Policy, Right of Reply, and Cite As section all live and linked from About.",
     "items": [
       {

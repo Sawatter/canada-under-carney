@@ -248,6 +248,221 @@ export default function Methodology() {
           </a>{" "}
           for the full rule set.
         </p>
+
+        <h2
+          style={{
+            fontSize: "22px",
+            fontWeight: 700,
+            marginTop: "32px",
+            marginBottom: "16px",
+            color: "#222",
+          }}
+        >
+          Methodology FAQ
+        </h2>
+        <p style={{ fontSize: "14px", color: "#444", marginBottom: "16px" }}>
+          Preempts the questions a skeptical reader most often raises. Each
+          answer points at the published rule, not at editor judgment. If an
+          answer feels like editor judgment, that is itself documented in
+          the relevant{" "}
+          <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+            judgmentDetail
+          </code>{" "}
+          field.
+        </p>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            Why can one dimension be A-range while another is D-range?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            Because the triggers were written in advance and they are different
+            per dimension. Each dimension has its own{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+              gradeBasis.bandCriterion
+            </code>{" "}
+            and its own{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+              gradeTriggers.up[]
+            </code>{" "}
+            /{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+              gradeTriggers.down[]
+            </code>
+            . A grade reflects performance against the rule for that
+            dimension, not against an absolute scale. Defence &amp; Trade is
+            A- because NATO 2.01% met the published 2% threshold and trade
+            diversification crossed published triggers. Affordability Response
+            is D- because federal relief measures cover less than 20% of
+            household cost pressure relative to its published criterion.
+            Different rules, different grades.
+          </p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            Why don&apos;t announcements always count as delivery?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            Because the rubric distinguishes them. An announced program
+            without a Treasury Board-authorized disbursement, passed
+            regulation, or completed transaction sits at C range
+            (&quot;Response Exists, Falls Materially Short&quot;) at best.
+            Delivered status requires actual implementation: regulation
+            passed, program live, money disbursed, transaction complete.
+            Build Canada Homes announced 4,000 units but construction is
+            not yet underway, so the dimension grades at D not C+. The
+            capital gains tax cancellation grades as Delivered because the
+            regulation passed.
+          </p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            What would change a grade?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            Crossing a documented{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+              gradeTrigger
+            </code>{" "}
+            for that dimension. Every dimension has both up-triggers and
+            down-triggers in{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+              src/data/dimensions.json
+            </code>{" "}
+            with the specific evidence required. Triggers were committed in
+            advance of scoring and can be inspected per dimension. The
+            scorecard panel for each dimension shows them under &quot;What
+            would move this grade.&quot;
+          </p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            Why is the Approval Signal excluded from the GPA?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            Because the dashboard does not grade popularity. The methodology
+            only grades sourceable federal actions. Approval polling is a
+            context surface, not a performance grade. The Approval Signal
+            panel shows polling for transparency about public perception,
+            but it does not feed the headline grade math. The decision memo
+            linked above documents the rule.
+          </p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            What does the dashboard refuse to score?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            Leadership style, vision, symbolic politics, popularity,
+            character, intentions, and forecasts. The dashboard requires
+            public paper-trail evidence. Where there is no paper trail, the
+            dimension does not grade. This is intentional: the credibility
+            argument rests on inspectable evidence, not editor inference.
+          </p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            Was the rubric adjusted after seeing results?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            No. The current rubric is v1.1, published before scoring began.
+            Methodology changes get logged in the changelog as{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+              type: &quot;method&quot;
+            </code>{" "}
+            entries with the version bump. The version history is in the
+            scoring rubric doc on{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Scoring-Rubric-v1.1.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              GitHub
+            </a>
+            .
+          </p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            How does source diversity affect confidence in a grade?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            A grade whose grade-moving claim rests on a single source family
+            (e.g., 100% government press releases) is less defensible than
+            one whose grade-moving claim is corroborated by independent
+            challenge sources (PBO, Auditor General, policy institutes,
+            journalism). The May 2026 bias-resistance audit (
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Audit-2026-05.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              docs/Bias-Resistance-Audit-2026-05.md
+            </a>
+            ) flagged the dimensions where the chain was thin and the editor
+            threaded existing challenge sources or added new ones where
+            prior published views existed. The audit script (
+            <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
+              scripts/audit-bias-resistance.mjs
+            </code>
+            ) re-runs each cycle.
+          </p>
+        </div>
+
+        <div style={{ marginBottom: "16px" }}>
+          <div style={{ fontWeight: 700, fontSize: "15px", color: "#222" }}>
+            Could the rubric itself be biased?
+          </div>
+          <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
+            That is the question the bias-resistance audit and the
+            forthcoming Phase 2 foundational audit are designed to test. The
+            Phase 1 audit (operational) tests whether the methodology is
+            applied consistently across dimensions. The Phase 2 audit
+            (annual cadence) will examine whether the dimension set,
+            household-impact weighting, and promise-selection rules
+            themselves encode preferences. Findings produce fixes that ship
+            as commits with named approval per the{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Protocol.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              Bias-Resistance Protocol
+            </a>
+            .
+          </p>
+        </div>
+
+        <p style={{ fontSize: "13px", color: "#666", marginTop: "16px" }}>
+          More on how to challenge specific grades: see the{" "}
+          <a
+            href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#1a73e8" }}
+          >
+            corrections policy
+          </a>{" "}
+          and the{" "}
+          <a
+            href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#1a73e8" }}
+          >
+            right-of-reply process
+          </a>
+          .
+        </p>
       </div>
     </div>
   );
