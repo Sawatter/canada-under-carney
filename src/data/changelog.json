@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Phase 2 foundational-methodology audit framework scaffolded. Annual-cadence doc frames three foundational questions (dimension choice, POCKETBOOK weighting, promise selection) for the first scheduled audit pass.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Foundational methodology audit framework scaffolded",
+        "body": "docs/Foundational-Methodology-Audit-2026.md frames the three foundational-bias questions that Phase 2 must answer when it runs (annually, or on rubric major version bump): why these 11 graded dimensions and not others, why these 4 in POCKETBOOK_DIMS and not others, how the 43 tracked promises were selected. The doc documents the audit's process (editor reflection, no script support, second-pair-of-eyes review), the three possible per-question outcomes (confirmed / documented / surface-bias finding), and the explicit constraint that foundational findings inform the NEXT rubric major version rather than changing the current rubric mid-cycle. Editor reflection deferred to first scheduled audit pass (2026 Q4 or 2027 Q1)."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Accessibility audit pass completed by code inspection. Seven findings (1 high, 5 medium, 1 informational); no fixes shipped this commit per Tier 1.4 scope.",
     "items": [
       {
