@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Accessibility audit pass completed by code inspection. Seven findings (1 high, 5 medium, 1 informational); no fixes shipped this commit per Tier 1.4 scope.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Accessibility audit doc published",
+        "body": "docs/Accessibility-Audit-2026-05.md documents seven WCAG 2.1 AA findings from a code-inspection pass against src/components/*.jsx and src/constants.js. The high-severity finding: DimensionCard's outer wrapper is clickable but not keyboard-operable (missing role, tabIndex, onKeyDown). Five medium-severity findings cover grade-chip contrast verification, TrendArrow Unicode glyphs without aria-label, drawer focus management, inline button-styled divs in collapsible toggles, and missing skip-to-content link. One informational finding: color-as-primary-indicator is partially mitigated by letter grades and text labels. Closes Tier 1.4 of the bias-resistance plan. Full WCAG-AA conformance + accessibility statement remain Tier 3 work; this commit is the audit pass only."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Perceived-bias survey methodology drafted and linked from About and the Methodology FAQ. Survey tests whether readers from different political priors can describe how a grade was reached, not whether they agree with it.",
     "items": [
       {
