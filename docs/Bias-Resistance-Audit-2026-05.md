@@ -4,11 +4,33 @@
 
 **Generated:** 2026-05-16 (revised after second-Claude critique flagged definition gaps; updated after approved Fix 1a)
 
-**Raw data source:** `scripts/output/bias-audit-raw-2026-05.txt` (produced by `scripts/audit-bias-resistance.mjs`)
+**Raw data source:** `scripts/output/bias-audit-raw-2026-05.txt` is regenerable via `node scripts/audit-bias-resistance.mjs`. The output path is gitignored by design: the script is the authoritative artifact, and the raw text snapshot regenerates from current `dimensions.json` and `changelog.json` on demand.
 
 **Dimensions audited:** 12 (11 graded + 1 tracker)
 
-**Audit history:** First-pass audit flagged 10 of 12 dimensions. Second-Claude critique surfaced six definition gaps in the script. Script refactored and re-run. Revised findings below.
+**Audit history:** First-pass audit flagged 10 of 12 dimensions. Second-Claude critique surfaced six definition gaps in the script. Script refactored and re-run. ChatGPT review surfaced two more reframes (thread existing challenge sources before adding new; grade-softening risk in Immigration modifier review). All four resulting fixes shipped across v5.28-v5.30.
+
+## Closure summary (v5.30)
+
+All four recommended fixes shipped. Commit references:
+
+| Fix | What landed | Version | Commit |
+|---|---|---|---|
+| 1b | PBO Demographic Implications threaded into Immigration grade-moving chain; PBO Major Capital Priorities threaded into Defence & Trade grade-moving chain | v5.28 | `7b4136a` |
+| 2 | Defenders perspectives on 5 dimensions now name institutional sources (PBO, OECD, CCI, CER, Department of Finance, Treasury Board Secretariat, CMHC, Smart Prosperity Institute) | v5.29 | `b746abb` |
+| 3 | Event-driven trigger convention documented in `docs/Scoring-Rubric-v1.1.md` as a deliberate sourcing pattern | v5.30 | `b06e9de` |
+| 4 | Immigration `judgmentDetail` explicitly documents why no External Constraint modifier is applied (intentional absence per grade-softening principle) | v5.30 | `b06e9de` |
+
+**Post-fix audit state:** 5 of 12 dimensions audit-clean. 7 dimensions carry residual flags, all categorized below as documented conventions, data-hygiene gaps in the script's domain rules, or methodology-appropriate patterns the mechanical rule can't read. No actionable Phase 1 fixes remain.
+
+**Not in this cycle, deferred to follow-on work:**
+- `docs/Bias-Resistance-Protocol.md` (Tier 2.5 — codifies the audit + fix discipline into a per-cycle gate).
+- Public Methodology FAQ (Tier 2.6 — the reader-facing trust surface, drafted from this cycle's findings).
+- Tier 1 challenge-enabling hygiene (Corrections-Policy, Right-Of-Reply, Citation format).
+- Full 12-dimension language audit (this cycle did a 4-dimension representative pass).
+- Skeptic-path UI threading.
+- Perceived-bias survey mechanism.
+- Phase 2 foundational audit (dimension choice, POCKETBOOK weighting, promise selection).
 
 ## Definition limitations (read first)
 
@@ -28,18 +50,18 @@ The Phase 1 script tests mechanical, per-dimension patterns. It does NOT replace
 
 These limitations mean script flags are signals, not verdicts. The recommended fixes list at the end requires manual confirmation per dimension before action.
 
-## Executive summary (revised)
+## Executive summary (closure)
 
 The methodology is mostly consistent. No grade math problems. No trigger language tilted in either direction. No critics-or-defenders block missing entirely. The "Judgment enters in X" framing is a strong consistency anchor across dimensions.
 
-Above the floor, four active findings remain after the traceability repair and approved Fix 1a applied during this pass:
+Above the floor, four findings were identified and all four have shipped fixes:
 
-| # | Finding | Type | Confidence |
-|---|---|---|---|
-| 1 | Grade-moving claims on 2 dimensions still rely on government + procedural sources with no independent challenge | Real methodology risk | High after refactor |
-| 2 | Defenders cite fewer named sources than critics on 5 dimensions | Real perceived-bias surface | High |
-| 3 | Three dimensions have "event-driven" unsourced triggers | Real but minor | Medium |
-| 4 | Immigration has no active modifiers despite plausible External Constraint case | Real but contained | Medium |
+| # | Finding | Type | Confidence | Status |
+|---|---|---|---|---|
+| 1 | Grade-moving claims on 2 dimensions relied on government + procedural sources with no independent challenge | Real methodology risk | High after refactor | **Shipped v5.28** |
+| 2 | Defenders cite fewer named sources than critics on 5 dimensions | Real perceived-bias surface | High | **Shipped v5.29** |
+| 3 | Three dimensions have "event-driven" unsourced triggers | Real but minor | Medium | **Shipped v5.30** (convention documented) |
+| 4 | Immigration has no active modifiers despite plausible External Constraint case | Real but contained | Medium | **Shipped v5.30** (intentional absence documented) |
 
 **Resolved during this pass:** the Ethics & Transparency up-trigger for "PM proactively publishes full Brookfield accounting" previously pointed to a dead `pm.gc.ca` backgrounder. The trigger now points to the working Ethics Commissioner Annex A PDF already used in the dimension's source list. The raw audit output was regenerated after the repair.
 
@@ -223,11 +245,11 @@ Two real grade movements ever in the changelog: fiscal-health D → C (2026-05-1
 
 Scattered across surfaces. A reader following the Skeptic Test has to click 4+ places to assemble the answer. Worth a follow-up session.
 
-## Recommended fixes (revised, ranked by impact)
+## Fixes shipped (ranked by impact, with commit references)
 
-Each fix requires explicit user approval per fix.
+All fixes below required and received explicit per-fix user approval. Each commit captures the approval in its message.
 
-### Fix 1b — Thread or add independent challenge into remaining grade-moving chains on two dimensions
+### Fix 1b — Thread independent challenge into Defence & Trade and Immigration grade-moving chains ✓ Shipped v5.28 (`7b4136a`)
 
 **Dimensions:** Defence & Trade, Immigration.
 
@@ -246,7 +268,7 @@ Each fix requires explicit user approval per fix.
 
 **Constraint:** Source-array changes touch frozen-surface rules. Requires explicit user approval per dimension fix.
 
-### Fix 2 — Close defenders/critics source-specificity asymmetry on five dimensions
+### Fix 2 — Close defenders/critics source-specificity asymmetry on five dimensions ✓ Shipped v5.29 (`b746abb`)
 
 **Dimensions:** Affordability Response, Carbon Pricing Policy, Climate & Environment, Housing Supply, Economic Policy Response.
 
@@ -256,7 +278,7 @@ Each fix requires explicit user approval per fix.
 
 **Effort:** ~15-20 min per dimension. 5 dimensions = ~1.5 hours.
 
-### Fix 3 — Surface event-driven trigger convention to readers
+### Fix 3 — Surface event-driven trigger convention to readers ✓ Shipped v5.30 (`b06e9de`)
 
 **Problem:** Carbon Pricing, Immigration, Ethics & Transparency each have triggers labeled "event-driven" without sourceUrl. Honest convention but reads asymmetric when paired against URL-bearing triggers.
 
@@ -266,7 +288,7 @@ Each fix requires explicit user approval per fix.
 
 **NOT recommended:** Converting event-driven labels to structured placeholder URLs (e.g., NATO press-releases page) would hide the convention rather than name it. The honest version is to surface the convention.
 
-### Fix 4 — Document the Immigration modifier decision
+### Fix 4 — Document the Immigration modifier decision ✓ Shipped v5.30 (`b06e9de`)
 
 **Problem:** Immigration has no active modifiers despite a plausible External Constraint case (absorption strain inherited from prior levels + global migration shifts).
 
@@ -307,18 +329,24 @@ Phase 2 doc: `docs/Foundational-Methodology-Audit-2026.md` (not yet written).
 
 Excluded-evidence log becomes recurring practice in monthly source-coverage ledgers (not an audit artifact).
 
-## Next steps
+## Next steps (post-closure)
 
-1. Decide whether to approve Fix 1b for Defence & Trade and Immigration.
-2. Decide whether to approve Fix 2, Fix 3, and Fix 4 this cycle or defer.
-3. Each shipped fix requires explicit user approval per fix, captured in commit message.
-4. After fixes ship, draft `docs/Bias-Resistance-Protocol.md` reflecting actual findings.
-5. After protocol, draft public methodology FAQ.
+All four Phase 1 fixes have shipped (v5.28-v5.30). The recurring follow-on work:
+
+1. **Draft `docs/Bias-Resistance-Protocol.md`** (Tier 2.5 of plan). Codifies the audit + fix discipline into a per-cycle gate, reflecting the actual findings of this cycle.
+2. **Build public Methodology FAQ** (Tier 2.6). Reader-facing trust surface derived from protocol + audit findings.
+3. **Tier 1 challenge-enabling hygiene** (parallel track per the planning doc's guardrail): Corrections-Policy, Right-Of-Reply, Citation format.
+4. **Complete the language audit** on the 8 unaudited dimensions (current pass was a 4-dimension representative sample).
+5. **Thread the Skeptic Path UI** so a reader can follow grade → rule → trigger → source → critics / defenders in one threaded surface rather than across multiple drawer sections.
+6. **Build a perceived-bias survey mechanism** to test cross-party reader comprehension of grade derivation.
+7. **Phase 2 foundational audit** (annual cadence): dimension choice, POCKETBOOK weighting, promise-selection rationale.
 
 ## Process notes
 
 - Audit script is `scripts/audit-bias-resistance.mjs`. Reusable for subsequent cycles.
-- Raw output: `scripts/output/bias-audit-raw-2026-05.txt`.
+- Raw output is regenerable via `node scripts/audit-bias-resistance.mjs`; the path `scripts/output/bias-audit-raw-2026-05.txt` is gitignored by design — the script is authoritative, the raw text is a working artifact.
 - Script taxonomy refined 2026-05-16 to split procedural parliamentary records from critique, and to count metric-attached sources as grade-moving.
 - Section 4 (language) and Section 7 (UI inventory) are partial human passes; full coverage requires a separate session.
-- The "must have prior substantive view" discipline from Fix 1a / Fix 1b belongs in the eventual Bias-Resistance Protocol doc as a recurring rule.
+- The "must have prior substantive view" discipline from Fix 1a / Fix 1b belongs in `docs/Bias-Resistance-Protocol.md` as a recurring rule when that doc is drafted.
+- The "modifiers explain what does not COUNT against the grade, not what should not HURT the grade" principle from Fix 4 also belongs in the protocol doc.
+- The "thread existing challenge sources before adding new" rule from Fix 1a / Fix 1b is the third candidate for the protocol.

@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Bias-resistance audit doc closed out as a true closure memo; raw audit output untracked to match its gitignore status.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Bias-resistance audit doc now reads as closure memo",
+        "body": "docs/Bias-Resistance-Audit-2026-05.md was written before the Phase 1 fixes shipped, so it read as forward-looking. The doc now opens with a Closure summary mapping all four shipped fixes to their version + commit references (v5.28 7b4136a, v5.29 b746abb, v5.30 b06e9de), each Fix section header carries a Shipped status, and Next steps now lists the actual follow-on work (Bias-Resistance-Protocol, Methodology FAQ, Tier 1 hygiene, full language audit, Skeptic Path UI, perceived-bias survey, Phase 2 foundational audit). No findings changed."
+      },
+      {
+        "type": "minor",
+        "headline": "Raw audit output untracked from git",
+        "body": "scripts/output/ is gitignored by design. The raw audit output (scripts/output/bias-audit-raw-2026-05.txt) was tracked before the gitignore entry took effect; this commit untracks it to match the policy. The output remains regenerable via node scripts/audit-bias-resistance.mjs."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Bias-resistance audit Fix 4 + Fix 5: event-driven trigger convention surfaced in methodology doc; Immigration modifier-absence documented as intentional.",
     "items": [
       {
