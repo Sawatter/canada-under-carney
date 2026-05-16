@@ -128,6 +128,10 @@ function isAutomated(label, url) {
       labelText.includes("statistics canada lfs")) {
     return true;
   }
+  if (labelText.includes("ethics commissioner reports") ||
+      urlText === "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/pages/allinstrepact-tousrapenqloi.aspx") {
+    return true;
+  }
   // PBO publications landing page + RSS feed are surfaced monthly by
   // fetch-data.py. Cited publication URLs are deeper paths and stay
   // manual.
@@ -356,11 +360,11 @@ const stalledOrAbandoned = promises
 
 const monthlyRows = [
   ["Fetch script", "StatCan, IRCC, Bank of Canada", "`python3 scripts/fetch-data.py`", "Monthly", "", "", "", "Run before drafting the monthly changelog."],
-  ["StatCan food CPI", "Affordability Response", "Statistics Canada CPI release / table", "Monthly", "", "", "", "Compare latest food-store CPI to dashboard metric."],
-  ["StatCan Labour Force Survey", "Economic Policy Response", "Statistics Canada LFS release", "Monthly", "", "", "", "Check employment change and unemployment rate."],
-  ["StatCan population", "Immigration", "Table 17-10-0009-01", "Monthly / quarterly data", "", "", "", "Check temporary-resident share context when new data lands."],
-  ["StatCan housing starts", "Housing Supply", "Table 34-10-0158-01 plus CMHC release", "Monthly", "", "", "", "Check monthly SAAR and six-month trend."],
-  ["StatCan merchandise trade", "Defence & Trade", "Table 12-10-0176-01", "Monthly", "", "", "", "Check U.S. export share and non-U.S. share."],
+  ["StatCan food CPI", "Affordability Response", "Statistics Canada CPI release / table", "Monthly", "", "", "", "Compare latest food-store CPI to dashboard metric; fetch script flags newer WDS cubeEndDate."],
+  ["StatCan Labour Force Survey", "Economic Policy Response", "Statistics Canada LFS release", "Monthly", "", "", "", "Check employment change and unemployment rate; fetch script flags newer WDS cubeEndDate."],
+  ["StatCan population", "Immigration", "Table 17-10-0009-01", "Monthly / quarterly data", "", "", "", "Check temporary-resident share context when new data lands; fetch script flags newer WDS cubeEndDate."],
+  ["StatCan housing starts", "Housing Supply", "Table 34-10-0158-01 plus CMHC release", "Monthly", "", "", "", "Check monthly SAAR and six-month trend; fetch script flags newer WDS cubeEndDate."],
+  ["StatCan merchandise trade", "Defence & Trade", "Table 12-10-0176-01", "Monthly", "", "", "", "Check U.S. export share and non-U.S. share; fetch script flags newer WDS cubeEndDate."],
   ["IRCC PR admissions", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check PR admission pace."],
   ["IRCC IMP work permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
   ["IRCC TFWP work permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
@@ -387,7 +391,7 @@ const monthlyRows = [
     "Check preferred-PM release used as secondary context, not part of the approval mean.",
   ]),
   ["PBO publications", "Fiscal, affordability, promises", "https://www.pbo-dpb.ca/en/publications", "Monthly", "", "", "", "Look for fiscal, costing, or anchor analysis."],
-  ["Ethics Commissioner reports", "Ethics & Transparency", "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx", "Monthly", "", "", "", "Look for PM-relevant report, examination, or filing."],
+  ["Ethics Commissioner reports", "Ethics & Transparency", "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx", "Monthly", "", "", "", "Fetch script diffs report-list additions/removals against tmp/ethics-reports.json; review any PM-relevant report, examination, or filing."],
   ["Major Projects Office list", "Major Projects", "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html", "Monthly", "", "", "", "Check denominator, additions, and stage changes."],
   ...stalledOrAbandoned.map((promise) => [
     `${promise.status}: ${promise.title}`,

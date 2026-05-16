@@ -1,12 +1,28 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Ethics trigger traceability repaired and the first bias-resistance audit artifacts drafted.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Ethics Annex A trigger now points to the working filing",
+        "body": "The Ethics & Transparency up-trigger for the PM's Brookfield accounting now links to the Ethics Commissioner Annex A PDF already used in the dimension's source list, replacing the dead PMO backgrounder link."
+      },
+      {
+        "type": "docs",
+        "headline": "Bias-resistance audit artifacts drafted",
+        "body": "A planning doc, reusable audit script, raw audit output, and first May bias-resistance audit now separate real methodology risks from script artifacts. The audit frames future fixes around threading existing challenge sources into grade-moving claims before adding new sources."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "May source-link sweep: nine broken citation URLs replaced with current canonical pages.",
     "items": [
       {
         "type": "minor",
         "headline": "Broken source links repaired across nine citations",
-        "body": "The May link-rot scan flagged nine cited URLs returning 404. Replacements pulled from canonical equivalents on pm.gc.ca, canada.ca, climateinstitute.ca, fraserinstitute.org, and angusreid.org. Affected dimensions: Carbon Pricing Policy (consumer carbon price, industrial pricing), Fiscal Health (capital gains cancellation), Housing Supply (Canada-Ontario Partnership, apprenticeship), Immigration (2026-2028 levels plan), Major Projects (Fraser MPO commentary), and Promise Delivery (Angus Reid one-year review). One open item, the pm.gc.ca PM Annex A backgrounder, was not replaced and stays for editor review."
+        "body": "The May link-rot scan flagged nine cited URLs returning 404. Replacements pulled from canonical equivalents on pm.gc.ca, canada.ca, climateinstitute.ca, fraserinstitute.org, and angusreid.org. Affected dimensions: Carbon Pricing Policy (consumer carbon price, industrial pricing), Fiscal Health (capital gains cancellation), Housing Supply (Canada-Ontario Partnership, apprenticeship), Immigration (2026-2028 levels plan), Major Projects (Fraser MPO commentary), and Promise Delivery (Angus Reid one-year review). The remaining PM Annex A trigger link was handled in the follow-up traceability repair."
       }
     ]
   },

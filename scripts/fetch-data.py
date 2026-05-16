@@ -22,7 +22,9 @@ import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, date
+from html import unescape
 from pathlib import Path
+from urllib.parse import urljoin
 
 try:
     import requests
@@ -40,6 +42,7 @@ DIMENSIONS_FILE = DATA_DIR / "dimensions.json"
 
 # --- Statistics Canada WDS API ---
 STATCAN_BASE = "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action"
+STATCAN_WDS_CUBE_METADATA_URL = "https://www150.statcan.gc.ca/t1/wds/rest/getCubeMetadata"
 
 # Vector IDs for specific data points
 # These are the most stable way to pull individual series from StatCan
@@ -120,6 +123,163 @@ def fetch_statcan_table_info(pid):
     except Exception as e:
         return {"status": "error", "error": str(e)}
     return {"status": "http_error", "code": resp.status_code}
+
+
+def statcan_wds_product_id(pid):
+    """Convert a table id like 18-10-0004-01 to the WDS product id.
+
+    The public table URL uses the simple-view suffix (1810000401), while
+    getCubeMetadata expects the base product id (18100004).
+    """
+    digits = re.sub(r"\D", "", pid or "")
+    if len(digits) == 10 and digits.endswith("01"):
+        digits = digits[:-2]
+    return int(digits)
+
+
+def fetch_statcan_cube_metadata(pid, timeout=20):
+    """Fetch StatCan WDS cube metadata for one dashboard table.
+
+    This is a table-level freshness check, not per-coordinate extraction.
+    It surfaces cubeEndDate / releaseTime so the editor can see when a
+    table has newer data than the dashboard's cited reference period.
+    """
+    product_id = statcan_wds_product_id(pid)
+    try:
+        resp = requests.post(
+            STATCAN_WDS_CUBE_METADATA_URL,
+            json=[{"productId": product_id}],
+            timeout=timeout,
+            headers={
+                "Content-Type": "application/json",
+                "User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)",
+            },
+        )
+        if resp.status_code != 200:
+            return {"status": "http_error", "code": resp.status_code, "productId": product_id}
+        payload = resp.json()
+        item = payload[0] if isinstance(payload, list) and payload else payload
+        if not isinstance(item, dict):
+            return {"status": "unexpected_response", "productId": product_id}
+        if item.get("status") and item.get("status") != "SUCCESS":
+            return {
+                "status": "api_error",
+                "productId": product_id,
+                "apiStatus": item.get("status"),
+                "message": item.get("message"),
+            }
+        obj = item.get("object") if isinstance(item.get("object"), dict) else item
+        return {
+            "status": "success",
+            "productId": product_id,
+            "cubeTitleEn": obj.get("cubeTitleEn") or obj.get("productTitle") or obj.get("title"),
+            "cubeEndDate": obj.get("cubeEndDate"),
+            "releaseTime": obj.get("releaseTime"),
+            "frequencyCode": obj.get("frequencyCode"),
+        }
+    except Exception as e:
+        return {"status": "error", "error": str(e), "productId": product_id}
+
+
+_MONTHS = {
+    "jan": 1, "january": 1,
+    "feb": 2, "february": 2,
+    "mar": 3, "march": 3,
+    "apr": 4, "april": 4,
+    "may": 5,
+    "jun": 6, "june": 6,
+    "jul": 7, "july": 7,
+    "aug": 8, "august": 8,
+    "sep": 9, "sept": 9, "september": 9,
+    "oct": 10, "october": 10,
+    "nov": 11, "november": 11,
+    "dec": 12, "december": 12,
+}
+
+
+def extract_reference_period(text):
+    """Best-effort reference-period extraction from dashboard metric copy.
+
+    This deliberately stays conservative: it returns the first clear date
+    signal in the metric label/source note so table-level WDS freshness can
+    flag "newer data exists" without pretending to compare exact series
+    values.
+    """
+    hay = text or ""
+    iso = re.search(r"\b(20\d{2})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])\b", hay)
+    if iso:
+        return {"raw": iso.group(0), "date": date(int(iso.group(1)), int(iso.group(2)), int(iso.group(3)))}
+
+    month_names = "|".join(sorted(_MONTHS.keys(), key=len, reverse=True))
+    month_match = re.search(rf"\b({month_names})\.?\s+(20\d{{2}})\b", hay, re.IGNORECASE)
+    if month_match:
+        month = _MONTHS[month_match.group(1).lower().rstrip(".")]
+        year = int(month_match.group(2))
+        return {"raw": month_match.group(0), "date": date(year, month, 1)}
+
+    quarter_match = re.search(r"\bQ([1-4])\s+(20\d{2})\b", hay, re.IGNORECASE)
+    if quarter_match:
+        quarter = int(quarter_match.group(1))
+        year = int(quarter_match.group(2))
+        return {"raw": quarter_match.group(0), "date": date(year, 1 + (quarter - 1) * 3, 1)}
+
+    year_match = re.search(r"\b(20\d{2})\b", hay)
+    if year_match:
+        year = int(year_match.group(1))
+        return {"raw": year_match.group(1), "date": date(year, 1, 1)}
+
+    return {"raw": "", "date": None}
+
+
+def collect_statcan_dashboard_references(dimensions, pid):
+    """Find dashboard metric references tied to one StatCan sourceId."""
+    refs = []
+    for dim in dimensions:
+        for metric in dim.get("metrics") or []:
+            if metric.get("sourceId") != pid:
+                continue
+            text = " ".join(
+                str(metric.get(k) or "")
+                for k in ("label", "value", "sourceNote")
+            )
+            period = extract_reference_period(text)
+            refs.append({
+                "dimension": dim.get("name", "?"),
+                "label": metric.get("label", "?"),
+                "value": metric.get("value", ""),
+                "periodRaw": period["raw"],
+                "periodDate": period["date"].isoformat() if period["date"] else "",
+            })
+    return refs
+
+
+def statcan_metadata_refresh_flag(metadata, references):
+    """Return freshness flag comparing WDS cubeEndDate to dashboard refs."""
+    if metadata.get("status") != "success" or not metadata.get("cubeEndDate"):
+        return {"status": "metadata_unavailable"}
+    try:
+        cube_end = datetime.strptime(metadata["cubeEndDate"][:10], "%Y-%m-%d").date()
+    except ValueError:
+        return {"status": "bad_cube_end_date", "cubeEndDate": metadata.get("cubeEndDate")}
+
+    parsed_refs = []
+    for ref in references:
+        if not ref.get("periodDate"):
+            continue
+        try:
+            parsed_refs.append(datetime.strptime(ref["periodDate"], "%Y-%m-%d").date())
+        except ValueError:
+            continue
+
+    if not parsed_refs:
+        return {"status": "no_dashboard_reference_period", "cubeEndDate": cube_end.isoformat()}
+
+    latest_ref = max(parsed_refs)
+    return {
+        "status": "newer_data_available" if cube_end > latest_ref else "current_or_equal",
+        "cubeEndDate": cube_end.isoformat(),
+        "latestDashboardReference": latest_ref.isoformat(),
+    }
 
 
 def fetch_ircc_csv(dataset_key):
@@ -731,6 +891,136 @@ def diff_mpo_against_cohort(dimensions, mpo_result):
     }
 
 
+# --- Ethics Commissioner investigation-report page diff ---
+# The Ethics & Transparency file has a hard trigger around a published
+# Ethics Commissioner review. The office does not provide an RSS feed, so
+# the monthly check scrapes the investigation-report listing page and diffs
+# it against a tiny local cache. Some networks block the host at the TCP
+# layer; failures are reported but do not stop the monthly fetch.
+ETHICS_REPORTS_URL = (
+    "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/"
+    "AllInvestRepAct-TousRapEnqLoi.aspx"
+)
+ETHICS_REPORTS_CACHE = PROJECT_DIR / "tmp" / "ethics-reports.json"
+
+
+def _clean_html_text(raw):
+    """Strip tags and collapse whitespace in a small HTML fragment."""
+    text = re.sub(r"<script\b.*?</script>", " ", raw or "", flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<style\b.*?</style>", " ", text, flags=re.IGNORECASE | re.DOTALL)
+    text = re.sub(r"<[^>]+>", " ", text)
+    text = unescape(text)
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def _ethics_report_key(report):
+    """Stable comparison key for one parsed ethics report link."""
+    url_path = re.sub(r"https?://[^/]+", "", report.get("url", "").lower()).rstrip("/")
+    if url_path:
+        return url_path
+    return re.sub(r"[^a-z0-9]+", "-", report.get("title", "").lower()).strip("-")
+
+
+def extract_ethics_report_links(html):
+    """Extract likely investigation-report links from the listing page.
+
+    The official page is ordinary HTML, not a data API. Keep this parser
+    intentionally permissive: include links under investigations-enquetes
+    and report-like anchor text, then de-duplicate by normalized URL.
+    """
+    reports = []
+    seen = set()
+    for href, body in re.findall(
+        r"<a\b[^>]*href=[\"']([^\"']+)[\"'][^>]*>(.*?)</a>",
+        html or "",
+        flags=re.IGNORECASE | re.DOTALL,
+    ):
+        title = _clean_html_text(body)
+        if not href or href.startswith("#") or not title:
+            continue
+        href_l = href.lower()
+        title_l = title.lower()
+        looks_like_report = (
+            "investigations-enquetes" in href_l
+            or "report" in title_l
+            or "rapport" in title_l
+            or "examination" in title_l
+            or "enquiry" in title_l
+            or "inquiry" in title_l
+        )
+        if not looks_like_report:
+            continue
+        if "allinstrepact" in href_l or title_l in {"english", "français", "home"}:
+            continue
+        url = urljoin(ETHICS_REPORTS_URL, href)
+        report = {"title": title, "url": url}
+        key = _ethics_report_key(report)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        reports.append(report)
+    return sorted(reports, key=lambda r: r["title"].lower())
+
+
+def fetch_ethics_reports_page(timeout=20):
+    """Fetch and parse the Ethics Commissioner reports listing page."""
+    try:
+        resp = requests.get(
+            ETHICS_REPORTS_URL,
+            timeout=timeout,
+            headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
+        )
+        if resp.status_code != 200:
+            return {"status": "http_error", "code": resp.status_code, "url": ETHICS_REPORTS_URL}
+        reports = extract_ethics_report_links(resp.text)
+        return {
+            "status": "success",
+            "url": ETHICS_REPORTS_URL,
+            "count": len(reports),
+            "reports": reports,
+        }
+    except Exception as e:
+        return {"status": "error", "error": str(e), "url": ETHICS_REPORTS_URL}
+
+
+def diff_ethics_reports_against_cache(fetch_result, cache_path=ETHICS_REPORTS_CACHE):
+    """Diff current ethics-report links against the previous local cache."""
+    if fetch_result.get("status") != "success":
+        return {"status": fetch_result.get("status", "not_checked"), "cachePath": str(cache_path)}
+
+    current = fetch_result.get("reports") or []
+    prior = []
+    prior_exists = cache_path.exists()
+    if prior_exists:
+        try:
+            cache = json.loads(cache_path.read_text())
+            prior = cache.get("reports") or []
+        except Exception:
+            prior = []
+
+    current_by_key = {_ethics_report_key(r): r for r in current}
+    prior_by_key = {_ethics_report_key(r): r for r in prior}
+    additions = [current_by_key[k] for k in sorted(current_by_key.keys() - prior_by_key.keys())]
+    removals = [prior_by_key[k] for k in sorted(prior_by_key.keys() - current_by_key.keys())]
+
+    cache_path.parent.mkdir(parents=True, exist_ok=True)
+    cache_path.write_text(json.dumps({
+        "updatedAt": datetime.now().isoformat(timespec="seconds"),
+        "sourceUrl": ETHICS_REPORTS_URL,
+        "reports": current,
+    }, indent=2, ensure_ascii=False))
+
+    return {
+        "status": "success",
+        "priorCacheFound": prior_exists,
+        "priorCount": len(prior),
+        "currentCount": len(current),
+        "additions": additions if prior_exists else [],
+        "removals": removals if prior_exists else [],
+        "cachePath": str(cache_path),
+    }
+
+
 def check_url_with_wayback(url, timeout=10):
     """Test if URL is reachable. If not, fall back to the Wayback Machine
     and return the closest archived snapshot if one exists.
@@ -930,6 +1220,46 @@ def generate_fetch_report(dimensions, results):
         lines.append(f"    Table: {info['pid']}")
         lines.append(f"    Status: {status}")
         lines.append(f"    URL: {info['url']}")
+        metadata = result.get("metadata") or {}
+        if metadata:
+            lines.append(f"    WDS metadata: {metadata.get('status', 'not checked')}")
+            if metadata.get("cubeEndDate"):
+                lines.append(f"    WDS cubeEndDate: {metadata['cubeEndDate']}")
+            if metadata.get("releaseTime"):
+                lines.append(f"    WDS releaseTime: {metadata['releaseTime']}")
+            if metadata.get("frequencyCode") is not None:
+                lines.append(f"    WDS frequencyCode: {metadata['frequencyCode']}")
+            if metadata.get("cubeTitleEn"):
+                lines.append(f"    WDS title: {metadata['cubeTitleEn'][:120]}")
+            if metadata.get("error"):
+                lines.append(f"    WDS error: {metadata['error']}")
+            elif metadata.get("code"):
+                lines.append(f"    WDS HTTP code: {metadata['code']}")
+        refs = result.get("dashboard_references") or []
+        if refs:
+            lines.append("    Dashboard reference periods:")
+            for ref in refs:
+                period = ref.get("periodRaw") or "not parsed"
+                lines.append(
+                    f"      - {ref['dimension']}: {ref['label']} = {ref.get('value','')} "
+                    f"(reference: {period})"
+                )
+        freshness = result.get("freshness") or {}
+        if freshness:
+            if freshness.get("status") == "newer_data_available":
+                lines.append(
+                    "    Refresh flag: NEWER STATCAN TABLE DATA EXISTS "
+                    f"(cubeEndDate {freshness['cubeEndDate']} > dashboard ref "
+                    f"{freshness['latestDashboardReference']})"
+                )
+            elif freshness.get("status") == "current_or_equal":
+                lines.append(
+                    "    Refresh flag: current/equal "
+                    f"(cubeEndDate {freshness['cubeEndDate']} <= dashboard ref "
+                    f"{freshness['latestDashboardReference']})"
+                )
+            else:
+                lines.append(f"    Refresh flag: {freshness.get('status')}")
         lines.append("")
 
     # IRCC data
@@ -1176,6 +1506,42 @@ def generate_fetch_report(dimensions, results):
         lines.append(f"  MPO diff failed: {mpo_diff.get('error', '?')}")
     lines.append("")
 
+    # Ethics Commissioner investigation-report page diff
+    lines.append("ETHICS COMMISSIONER REPORTS (page diff)")
+    lines.append("-" * 40)
+    ethics_page = results.get("ethics_reports_page", {})
+    ethics_diff = results.get("ethics_reports_diff", {})
+    if ethics_page.get("status") == "success" and ethics_diff.get("status") == "success":
+        lines.append(f"  Reports parsed: {ethics_diff.get('currentCount', 0)}")
+        if ethics_diff.get("priorCacheFound"):
+            lines.append(f"  Previous cache count: {ethics_diff.get('priorCount', 0)}")
+            lines.append(f"  Additions: {len(ethics_diff.get('additions') or [])}")
+            lines.append(f"  Removals: {len(ethics_diff.get('removals') or [])}")
+            if ethics_diff.get("additions"):
+                lines.append("")
+                lines.append("  New report links since previous cache:")
+                for report in ethics_diff["additions"]:
+                    lines.append(f"    + {report['title'][:100]}")
+                    lines.append(f"      {report['url']}")
+            if ethics_diff.get("removals"):
+                lines.append("")
+                lines.append("  Report links removed since previous cache:")
+                for report in ethics_diff["removals"]:
+                    lines.append(f"    - {report['title'][:100]}")
+                    lines.append(f"      {report['url']}")
+            if not ethics_diff.get("additions") and not ethics_diff.get("removals"):
+                lines.append("  No additions or removals since previous cache.")
+        else:
+            lines.append("  No previous cache found; wrote initial cache for future diffs.")
+        lines.append(f"  Cache: {ethics_diff.get('cachePath')}")
+    else:
+        lines.append(f"  Ethics reports fetch failed: {ethics_page.get('status', 'not checked')}")
+        if ethics_page.get("error"):
+            lines.append(f"  Error: {ethics_page['error']}")
+        elif ethics_page.get("code"):
+            lines.append(f"  HTTP code: {ethics_page['code']}")
+    lines.append("")
+
     # Link-rot scan with Wayback fallback (only present when --link-rot was passed)
     if "link_rot" in results:
         lines.append("=" * 60)
@@ -1314,8 +1680,25 @@ def main():
     for key, info in STATCAN_VECTORS.items():
         print(f"  Checking {key} ({info['pid']})...", end=" ")
         result = fetch_statcan_table_info(info["pid"])
+        references = collect_statcan_dashboard_references(dimensions, info["pid"])
+        result["dashboard_references"] = references
+        if result.get("status") == "accessible":
+            metadata = fetch_statcan_cube_metadata(info["pid"])
+        else:
+            metadata = {
+                "status": "skipped",
+                "reason": "table page not accessible from this network",
+            }
+        result["metadata"] = metadata
+        result["freshness"] = statcan_metadata_refresh_flag(metadata, references)
         results[f"statcan_{key}"] = result
-        print(result["status"])
+        freshness = result["freshness"].get("status")
+        if freshness == "newer_data_available":
+            print(f"{result['status']} — NEWER DATA")
+        elif metadata.get("status") == "success":
+            print(f"{result['status']} — metadata OK")
+        else:
+            print(result["status"])
 
     print()
 
@@ -1447,6 +1830,33 @@ def main():
             print(f"  MPO page: scraped but diff failed ({diff.get('error', '?')})")
     else:
         print(f"  MPO page: FAILED ({mpo_page.get('status', 'unknown')})")
+
+    print()
+
+    # 7b. Check Ethics Commissioner investigation-report page
+    print("Checking Ethics Commissioner investigation reports...")
+    ethics_page = fetch_ethics_reports_page()
+    results["ethics_reports_page"] = ethics_page
+    if ethics_page.get("status") == "success":
+        ethics_diff = diff_ethics_reports_against_cache(ethics_page)
+        results["ethics_reports_diff"] = ethics_diff
+        if ethics_diff.get("status") == "success":
+            if ethics_diff.get("priorCacheFound"):
+                print(
+                    f"  Ethics reports: {ethics_diff['currentCount']} parsed, "
+                    f"{len(ethics_diff.get('additions') or [])} additions, "
+                    f"{len(ethics_diff.get('removals') or [])} removals"
+                )
+            else:
+                print(
+                    f"  Ethics reports: {ethics_diff['currentCount']} parsed, "
+                    "initial cache written"
+                )
+        else:
+            print(f"  Ethics reports: diff failed ({ethics_diff.get('status','?')})")
+    else:
+        results["ethics_reports_diff"] = {"status": ethics_page.get("status", "failed")}
+        print(f"  Ethics reports: FAILED ({ethics_page.get('status', 'unknown')})")
 
     print()
 
