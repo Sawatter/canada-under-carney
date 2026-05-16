@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Bias-Resistance-Protocol drafted: codifies eleven principles, three emergent disciplines, and pre/post-cycle review templates into a recurring methodology gate.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Bias-Resistance Protocol v1.0 drafted",
+        "body": "docs/Bias-Resistance-Protocol.md codifies what the May 2026 audit cycle learned. Eleven principles with built/partial/new status. Three new disciplines that emerged from this cycle's fixes: must-have-prior-substantive-view before adding a source, thread-existing-challenge-before-adding-new, and modifiers-explain-what-does-not-COUNT-not-what-should-not-HURT. Pre-cycle checklist, post-cycle review template, per-grade-move party-symmetry line, public-surface backlog, and audit re-run cadence. Reflects actual findings rather than preempted speculation per the planning doc's sequencing rule."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Bias-resistance audit doc closed out as a true closure memo; raw audit output untracked to match its gitignore status.",
     "items": [
       {
