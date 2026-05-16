@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-05-16",
+    "summary": "May source-link sweep: nine broken citation URLs replaced with current canonical pages.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Broken source links repaired across nine citations",
+        "body": "The May link-rot scan flagged nine cited URLs returning 404. Replacements pulled from canonical equivalents on pm.gc.ca, canada.ca, climateinstitute.ca, fraserinstitute.org, and angusreid.org. Affected dimensions: Carbon Pricing Policy (consumer carbon price, industrial pricing), Fiscal Health (capital gains cancellation), Housing Supply (Canada-Ontario Partnership, apprenticeship), Immigration (2026-2028 levels plan), Major Projects (Fraser MPO commentary), and Promise Delivery (Angus Reid one-year review). One open item, the pm.gc.ca PM Annex A backgrounder, was not replaced and stays for editor review."
+      }
+    ]
+  },
+  {
     "date": "2026-05-13",
     "summary": "Recurring source checks now name event-driven watches, climate scans, promise spot-checks, and source-role review.",
     "items": [

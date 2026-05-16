@@ -394,7 +394,7 @@
       },
       {
         "label": "Fraser Institute — MPO assessment",
-        "url": "https://www.fraserinstitute.org/article/does-canadas-major-projects-office-actually-do-anything"
+        "url": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration"
       },
       {
         "label": "Angus Reid — major projects reaction",
@@ -969,8 +969,8 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/government-will-not-proceed-with-increase-to-capital-gains-inclusion-rate.html",
-        "statusSourceLabel": "Department of Finance — capital gains inclusion rate announcement"
+        "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/03/21/prime-minister-mark-carney-cancels-proposed-capital-gains-tax-increase",
+        "statusSourceLabel": "Prime Minister of Canada — capital gains tax cancellation"
       }
     ],
     "perspectives": {
@@ -1544,7 +1544,7 @@
         {
           "text": "OBPS tightened with effective price rising above $40/t",
           "sourceLabel": "CCI — industrial pricing",
-          "sourceUrl": "https://climateinstitute.ca/publications/industrial-carbon-pricing-in-canada/"
+          "sourceUrl": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
         },
         {
           "text": "Formal carbon border adjustment mechanism announced with implementation plan",
@@ -1555,7 +1555,7 @@
         {
           "text": "OBPS further weakened with effective price below $15/t",
           "sourceLabel": "CCI — industrial pricing",
-          "sourceUrl": "https://climateinstitute.ca/publications/industrial-carbon-pricing-in-canada/"
+          "sourceUrl": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
         },
         {
           "text": "Government announces intention to eliminate industrial pricing",
@@ -1639,7 +1639,7 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/prime-minister-carney-delivers-on-pledge-to-eliminate-consumer-fuel-charge.html",
+        "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
         "statusSourceLabel": "Department of Finance — consumer fuel charge eliminated announcement"
       },
       {
@@ -1979,7 +1979,7 @@
         {
           "text": "Government publishes a right-sized long-term model",
           "sourceLabel": "IRCC 2026-2028 levels plan",
-          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/news/2026/02/immigration-levels-plan-2026-2028.html"
+          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html"
         },
         {
           "text": "Temporary residents reach the 5% target ahead of schedule",
@@ -1995,7 +1995,7 @@
         {
           "text": "Reversal of the contraction",
           "sourceLabel": "IRCC 2026-2028 levels plan",
-          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/news/2026/02/immigration-levels-plan-2026-2028.html"
+          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html"
         }
       ]
     },
@@ -2335,7 +2335,7 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/03/canada-and-ontario-sign-historic-housing-deal.html",
+        "statusSourceUrl": "https://www.pm.gc.ca/en/news/speeches/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes-housing",
         "statusSourceLabel": "Government of Canada — Canada-Ontario Housing Partnership announcement"
       },
       {
@@ -2353,7 +2353,7 @@
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
-        "statusSourceUrl": "https://www.canada.ca/en/employment-social-development/programs/apprentices.html",
+        "statusSourceUrl": "https://www.canada.ca/en/services/jobs/training/support-skilled-trades-apprentices/grants.html",
         "statusSourceLabel": "ESDC — Apprenticeship supports"
       }
     ],
@@ -2837,7 +2837,7 @@
       },
       {
         "label": "Angus Reid — Carney government report card",
-        "url": "https://angusreid.org/carney-government-report-card/"
+        "url": "https://angusreid.org/carney-one-year-approval-campaign-promises-liberals/"
       },
       {
         "label": "The Narwhal — climate rollback analysis",
@@ -2895,7 +2895,7 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/prime-minister-carney-delivers-on-pledge-to-eliminate-consumer-fuel-charge.html",
+        "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
         "statusSourceLabel": "Department of Finance — consumer fuel charge eliminated announcement"
       },
       {
@@ -2913,8 +2913,8 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/government-will-not-proceed-with-increase-to-capital-gains-inclusion-rate.html",
-        "statusSourceLabel": "Department of Finance — capital gains inclusion rate announcement"
+        "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/03/21/prime-minister-mark-carney-cancels-proposed-capital-gains-tax-increase",
+        "statusSourceLabel": "Prime Minister of Canada — capital gains tax cancellation"
       },
       {
         "text": "Immigration reduction",
