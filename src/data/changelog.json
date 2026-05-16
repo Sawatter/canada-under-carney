@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Tier 1 challenge-enabling hygiene shipped: Corrections Policy, Right of Reply, and Cite As section all live and linked from About.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Corrections Policy published",
+        "body": "docs/Corrections-Policy.md documents what gets corrected vs re-graded, how to report a correction, the changelog 'type: correction' schema, the response timeline, and what corrections do not do. Linked from About. Closes the Tier 1 corrections-policy item per the bias-resistance plan."
+      },
+      {
+        "type": "docs",
+        "headline": "Right of Reply channel published",
+        "body": "docs/Right-Of-Reply.md provides a documented channel for federal ministries, agencies, watchdogs, and named third-party analysts cited in any dimension's evidence chain to submit critiques. Documents who it's for, what it is not, the review process, what gets reflected, and the limits and scope. Linked from About. Closes the Tier 1 right-of-reply item."
+      },
+      {
+        "type": "minor",
+        "headline": "Cite As section added to About",
+        "body": "About now includes a Cite As section providing a citation format for journalists, researchers, and other dashboards. Includes the dashboard URL, rubric version, and pointer to the open-source dimensions.json for per-dimension citations. Closes the Tier 1 citation-format item."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Bias-Resistance-Protocol drafted: codifies eleven principles, three emergent disciplines, and pre/post-cycle review templates into a recurring methodology gate.",
     "items": [
       {

@@ -322,10 +322,92 @@ export default function About() {
           </div>
         </div>
 
+        <div
+          style={{
+            borderLeft: "3px solid #999",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div style={{ fontWeight: 700, fontSize: "14px", color: "#666" }}>
+            Cite As
+          </div>
+          <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
+            Canada Under Carney Dashboard, Scoring Rubric v1.1,{" "}
+            <a
+              href="https://sawatter.github.io/canada-under-carney/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              sawatter.github.io/canada-under-carney
+            </a>
+            , accessed [date].
+            <br />
+            For citing a specific dimension grade at a specific point in time,
+            include the dashboard version (from{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "12px" }}>
+              meta.json
+            </code>
+            ) and the dimension name. Source data lives in{" "}
+            <code style={{ fontFamily: "monospace", fontSize: "12px" }}>
+              src/data/dimensions.json
+            </code>{" "}
+            in the open-source repository.
+          </div>
+        </div>
+
+        <div
+          style={{
+            borderLeft: "3px solid #999",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div style={{ fontWeight: 700, fontSize: "14px", color: "#666" }}>
+            Corrections and Right of Reply
+          </div>
+          <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
+            Factual errors can be reported via{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              GitHub Issues
+            </a>
+            . The{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              corrections policy
+            </a>{" "}
+            documents what gets corrected, how, and on what timeline.
+            <br />
+            Federal ministries, agencies, watchdogs, and named third-party
+            analysts cited in any dimension's evidence chain can submit
+            critiques via the{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              right-of-reply process
+            </a>
+            . Disagreements with editor judgment are reviewed and reflected
+            transparently; grades do not move because a party disagrees.
+          </div>
+        </div>
+
         <p style={{ fontSize: "14px", color: "#aaa", marginTop: "16px" }}>
           This dashboard is an independent analytical product. It is not
           affiliated with any political party, government agency, or advocacy
-          organization. Feedback and corrections are welcome via GitHub Issues.
+          organization.
         </p>
       </div>
     </div>
