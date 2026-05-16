@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Full 12-dimension language audit completed: the 'Judgment enters in X' framing and the 'grade is about Y, not Z' scope-disclaimer pattern hold uniformly across all graded dimensions.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Section 4 of the bias-resistance audit extended to all 12 dimensions",
+        "body": "The May 2026 bias-resistance audit's language section originally sampled 4 of 12 dimensions. The full pass on the remaining 8 (Major Projects, Fiscal Health, Affordability Response, Carbon Pricing Policy, Housing Supply, Ethics & Transparency, Flagship Delivery, Promise Delivery) confirms the framing language is consistent across all graded dimensions. No asymmetric tells, no one-sided hedging, no 'critics say'/'defenders argue' patterns. The 'Judgment enters in X' anchor and the 'The grade is about Y, not Z' scope-disclaimer pattern are party-symmetric devices applied uniformly. Section 4 closes as a green pass with no language-level fixes recommended this cycle."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Methodology FAQ now lives in the Rubric tab, preempting eight common bias accusations with published trigger-language answers.",
     "items": [
       {

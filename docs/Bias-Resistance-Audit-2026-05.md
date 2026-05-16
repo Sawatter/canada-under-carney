@@ -27,7 +27,7 @@ All four recommended fixes shipped. Commit references:
 - `docs/Bias-Resistance-Protocol.md` (Tier 2.5 — codifies the audit + fix discipline into a per-cycle gate).
 - Public Methodology FAQ (Tier 2.6 — the reader-facing trust surface, drafted from this cycle's findings).
 - Tier 1 challenge-enabling hygiene (Corrections-Policy, Right-Of-Reply, Citation format).
-- Full 12-dimension language audit (this cycle did a 4-dimension representative pass).
+- Full 12-dimension language audit (now complete — see Section 4 below).
 - Skeptic-path UI threading.
 - Perceived-bias survey mechanism.
 - Phase 2 foundational audit (dimension choice, POCKETBOOK weighting, promise selection).
@@ -188,17 +188,48 @@ In four of these five (all except Housing Supply), defenders cite zero named sou
 
 The script's current flag rule required both sides >50 words AND a 2+ vs 0 source split. Relaxing the threshold to "any 2+ vs 0 named-source split regardless of length" would have flagged all 5.
 
-## Section 4 — Language audit (representative pass)
+## Section 4 — Language audit (full 12-dimension pass)
 
 ### Findings
 
-Read `judgmentCall` and `judgmentDetail` on Defence & Trade, Economic Policy Response, Climate & Environment, Immigration. All four use the same template structure: judgmentCall = single-sentence what-this-grades. judgmentDetail = "The [grade] is about [scope]. Judgment enters in [explicit judgment call]."
+Read `judgmentCall` and `judgmentDetail` on all 12 dimensions. Initial pass covered the 4 dimensions flagged in Section 1 (Defence & Trade, Economic Policy Response, Climate & Environment, Immigration). Follow-up pass extended coverage to the remaining 8: Major Projects, Fiscal Health, Affordability Response, Carbon Pricing Policy, Housing Supply, Ethics & Transparency, Flagship Delivery, Promise Delivery.
 
-**Consistency is strong.** Active voice for measurable facts, passive voice for editorial qualifications. No "critics say" / "defenders argue" asymmetric framing in judgmentDetail. Hedging adjectives appear symmetrically.
+**Consistency holds across all 12 dimensions.** Each graded dimension uses the same template:
+- `judgmentCall` = single sentence naming the grade and what it reflects vs what it excludes
+- `judgmentDetail` = paragraph following the pattern "The [grade] is about [scope]. Judgment enters in [explicit judgment call]."
 
-**The "Judgment enters in X" framing is the dashboard's strongest party-symmetric framing device.** It admits judgment explicitly rather than hiding it behind neutral-seeming prose.
+**The "Judgment enters in X" framing appears in every graded dimension.** It is the dashboard's strongest party-symmetric framing device — judgment is admitted explicitly rather than hidden behind neutral-seeming prose. No dimension deviates from this pattern.
 
-**Recommendation:** Extend this audit to the remaining 7 dimensions as a separate human pass. Phase 1 sampled 4 of 12.
+**The "The grade is about Y, not Z" scope-disclaimer pattern** appears in most dimensions:
+- Affordability Response: "scores the adequacy of federal action... not a verdict on global prices"
+- Major Projects: "scores the federal delivery machinery... not whether each project is good policy"
+- Ethics & Transparency: "about governance adequacy, not personal guilt"
+- Flagship Delivery: "a delivery-capacity lens, not a duplicate merits grade"
+- Economic Policy Response: "about the federal response, not Canada's inherited productivity level"
+- Climate & Environment: "deconflicting this file from Carbon Pricing Policy"
+
+This is a strong consistency anchor: each dimension explicitly names what it is NOT grading, which reduces the chance of misinterpretation about scope.
+
+**Active vs passive voice check:** Active voice for measurable facts ("Defence spending clears the published NATO 2% threshold", "PBO and OECD analyses identify"). Passive or conditional voice for editorial qualifications ("trade gains are discounted because", "the D grade is driven by"). The pattern is consistent across all 12 dimensions.
+
+**"Critics say" / "defenders argue" check:** Neither phrase appears in any dimension's judgmentCall or judgmentDetail. Perspectives go in `perspectives.critics` and `perspectives.defenders` (structurally separated), not in the judgment text. Clean separation across all 12.
+
+**Hedging adjective check:** "Modest," "substantial," "real," "meaningful," "materially," "partially," "limited" appear across dimensions. Applied symmetrically — both for things the government did and didn't do, both for credit and discount. No one-sided pattern.
+
+**Tracker note:** Promise Delivery's `judgmentCall` and `judgmentDetail` fields are empty by design. The dimension is a tracker with `excludeFromGPA: true`, and the renderer suppresses judgmentCall for tracker dimensions per the validate-dimensions schema rule. Not a finding.
+
+**Specific judgment markers — named rules within judgmentDetail:**
+- Ethics & Transparency: "Judgment enters in requiring formal findings or multiple independent critiques before a downgrade." Names the evidentiary threshold for movement.
+- Major Projects: "excluding same-day promoted-stage labels from the advancement count" + "applying a credit-claiming penalty where the government overstates ownership." Specific exclusion rules.
+- Housing Supply: "refusing to count announced units as built homes." Specific evidence rule.
+
+These named rules are themselves bias-resistance work — they make the judgment surface inspectable.
+
+### Section 4 verdict
+
+**Full 12-dimension language audit: clean.** The methodology's framing language is consistent across all graded dimensions. No asymmetric tells, no one-sided hedging, no "critics say" / "defenders argue" framing. The "Judgment enters in X" anchor and the "The grade is about Y, not Z" scope-disclaimer pattern are both party-symmetric devices applied uniformly.
+
+No language-level fixes recommended this cycle. The audit closes Section 4 as a green pass.
 
 ## Section 5 — Modifier inventory
 
@@ -346,7 +377,7 @@ All four Phase 1 fixes have shipped (v5.28-v5.30). The recurring follow-on work:
 - Audit script is `scripts/audit-bias-resistance.mjs`. Reusable for subsequent cycles.
 - Raw output is regenerable via `node scripts/audit-bias-resistance.mjs`; the path `scripts/output/bias-audit-raw-2026-05.txt` is gitignored by design — the script is authoritative, the raw text is a working artifact.
 - Script taxonomy refined 2026-05-16 to split procedural parliamentary records from critique, and to count metric-attached sources as grade-moving.
-- Section 4 (language) and Section 7 (UI inventory) are partial human passes; full coverage requires a separate session.
+- Section 4 (language) extended to full 12-dimension coverage in v5.35; verdict is clean. Section 7 (UI inventory) remains a partial pass; full coverage requires a separate session.
 - The "must have prior substantive view" discipline from Fix 1a / Fix 1b belongs in `docs/Bias-Resistance-Protocol.md` as a recurring rule when that doc is drafted.
 - The "modifiers explain what does not COUNT against the grade, not what should not HURT the grade" principle from Fix 4 also belongs in the protocol doc.
 - The "thread existing challenge sources before adding new" rule from Fix 1a / Fix 1b is the third candidate for the protocol.
