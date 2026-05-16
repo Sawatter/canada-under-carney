@@ -349,6 +349,31 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
             paddingTop: "12px",
           }}
         >
+          {!isTracker && (
+            <div
+              style={{
+                marginBottom: "14px",
+                fontSize: "12px",
+                color: "#555",
+                background: "#fafafa",
+                padding: "8px 12px",
+                borderRadius: "6px",
+                borderLeft: "3px solid #1a73e8",
+                lineHeight: 1.5,
+              }}
+            >
+              <strong style={{ color: "#1a73e8" }}>Skeptic path:</strong> to
+              challenge this grade, walk these five ingredients in order
+              below: (1) the rule the grade is scored against ("How This
+              File Is Scored" and "Where judgment enters"), (2) what would
+              move the grade ("Up triggers" / "Down triggers"), (3) the
+              evidence under each metric ("Key Metrics"), (4) the cited
+              sources (chips on the card and link-throughs under each
+              trigger or metric), (5) named critic and defender views
+              ("Critics" and "Defenders"). The grade in the header is the
+              result; this drawer is the derivation.
+            </div>
+          )}
           {!isTracker && (dim.construct || scoring || scoringMetadata.length > 0) && (
             <div style={{ marginBottom: "14px" }}>
               <div

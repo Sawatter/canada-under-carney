@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Skeptic Path orientation now sits at the top of every graded dimension drawer, naming the five ingredients a reader walks to challenge a grade.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Skeptic Path orientation added to dimension drawers",
+        "body": "Every graded dimension drawer now opens with a small Skeptic Path callout naming the five ingredients a reader walks to challenge a grade: (1) the rule, (2) what would move the grade, (3) the evidence under each metric, (4) the cited sources, (5) named critic and defender views. Tracker dimensions (Promise Delivery) do not display the callout. The drawer's existing sections already render in roughly this order; the callout names the path so a skeptical reader knows what they're looking at. Partial fix for the Section 7 Skeptic Path UI finding — fuller UI threading remains future work."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Full 12-dimension language audit completed: the 'Judgment enters in X' framing and the 'grade is about Y, not Z' scope-disclaimer pattern hold uniformly across all graded dimensions.",
     "items": [
       {
