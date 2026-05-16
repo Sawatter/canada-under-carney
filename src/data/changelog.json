@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Bias-resistance audit Fix 4 + Fix 5: event-driven trigger convention surfaced in methodology doc; Immigration modifier-absence documented as intentional.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Trigger sourcing conventions documented in the scoring rubric",
+        "body": "The methodology doc now explains the three trigger sourcing patterns (sourceUrl, internalRef, event-driven) so readers can interpret trigger panels correctly. Event-driven triggers are deliberate placeholders for source-families whose specific URLs become knowable only when the event occurs. Closes audit Fix 4: surface the convention rather than hide it."
+      },
+      {
+        "type": "method",
+        "headline": "Immigration modifier absence documented as intentional",
+        "body": "The Immigration dimension's judgmentDetail now explicitly states why no External Constraint modifier is applied: the absorption strain that prompted the correction was inherited from prior policy decisions, but the current government's response to those conditions is what this dimension grades. Prior conditions do not soften the assessment of current action. Closes audit Fix 5 in the conservative direction (document intent) rather than expansive direction (add a softening modifier)."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Bias-resistance audit Fix 3: defenders perspectives now cite named institutional sources, closing the critics-attributed / defenders-anonymous asymmetry on five dimensions.",
     "items": [
       {

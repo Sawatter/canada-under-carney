@@ -127,6 +127,24 @@ The following modifiers have explicit, defined impacts on grade assignment. Each
 
 ---
 
+## Trigger Sourcing Conventions
+
+Each dimension's `gradeTriggers.up[]` and `gradeTriggers.down[]` arrays specify the events or measurements that would move the grade. Each trigger carries one of three sourcing patterns:
+
+1. **`sourceUrl`** — a specific URL pointing to the source that would carry the evidence (e.g., a PBO assessment page, a StatCan table, a CCI report). Most triggers use this pattern.
+
+2. **`internalRef`** — an in-app navigation reference (e.g., to the project cohort view, to another dimension's scorecard). Used when the trigger evidence lives elsewhere in the dashboard rather than at an external URL.
+
+3. **Event-driven (no `sourceUrl`, no `internalRef`)** — the trigger carries only a `sourceLabel` ending with `(event-driven)`. This is a deliberate convention for triggers whose source-family is known but whose specific URL varies by event. Examples: "Government of Canada carbon border-adjustment announcement (event-driven)", "Ethics source list / governance critiques (event-driven)", "IRCC service / permit data (event-driven)".
+
+**Why the event-driven pattern exists:** for some triggers, the specific URL only becomes knowable when the event happens. A carbon border-adjustment announcement, when it lands, will live at whichever Department of Finance or PMO URL the government uses. A new Ethics Commissioner screening-inadequacy finding will live at whichever specific report page the Commissioner publishes. Listing a placeholder URL today would either (a) imply a specific source the dashboard cannot pre-commit to, or (b) require updating to a real URL at the moment the event occurs — which is editorial work the dashboard already does in the next cycle's update.
+
+**Why this looks asymmetric in mechanical audits:** because some triggers carry sourceUrl and others carry only sourceLabel ending in `(event-driven)`, a mechanical comparison between a dimension's up-triggers and down-triggers may flag asymmetric sourcing. This is not asymmetric scoring — it is honest labeling of which trigger directions are URL-anchored vs event-driven. The current pattern, surfaced by the May bias-resistance audit, is documented here so readers can interpret the trigger panel correctly.
+
+The audit may, in future cycles, recommend tightening some event-driven triggers to anchored URLs as evidence accumulates. The convention itself is intended to remain.
+
+---
+
 ## Dimension Construct Definitions (v1.1)
 
 Each dimension grades a specific, defined construct:
