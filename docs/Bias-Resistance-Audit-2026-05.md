@@ -2,7 +2,7 @@
 
 **Scope:** Phase 1 operational audit per `docs/Trust-And-Bias-Resistance-Plan-2026-05.md`. Tests whether the methodology is applied consistently across dimensions. Does not address foundational questions (dimension choice, weighting, promise selection) — those move to a separate Phase 2 audit on annual cadence.
 
-**Generated:** 2026-05-16 (revised after second-Claude critique flagged definition gaps)
+**Generated:** 2026-05-16 (revised after second-Claude critique flagged definition gaps; updated after approved Fix 1a)
 
 **Raw data source:** `scripts/output/bias-audit-raw-2026-05.txt` (produced by `scripts/audit-bias-resistance.mjs`)
 
@@ -14,7 +14,7 @@
 
 The Phase 1 script tests mechanical, per-dimension patterns. It does NOT replace editorial judgment. Several limitations affect how findings should be interpreted:
 
-1. **"Grade-moving source" definition** is now the union of (a) trigger-attached URLs in `gradeTriggers.up[].sourceUrl` / `gradeTriggers.down[].sourceUrl` and (b) metric-attached sources via the `source` field in `metrics[]`. Rationale-text source mentions are NOT counted — those need manual review.
+1. **"Grade-moving source" definition** is now the union of (a) trigger-attached URLs in `gradeTriggers.up[].sourceUrl` / `gradeTriggers.down[].sourceUrl` and (b) metric-attached sources via the `source` field or visible `sourceRefs` links in `metrics[]`. Rationale-text source mentions are NOT counted unless also surfaced through a metric source link.
 
 2. **"Independent challenge"** = families 4 (watchdog), 6 (parliamentary critique), 7 (policy institute), 8 (journalism), 9 (academic / research), and 10 (international benchmark) EXCEPT when family 10 is the threshold-defining body (currently only NATO for Defence & Trade). Family 5 (procedural parliamentary records like LEGISinfo bill status) is explicitly NOT independent challenge.
 
@@ -32,16 +32,18 @@ These limitations mean script flags are signals, not verdicts. The recommended f
 
 The methodology is mostly consistent. No grade math problems. No trigger language tilted in either direction. No critics-or-defenders block missing entirely. The "Judgment enters in X" framing is a strong consistency anchor across dimensions.
 
-Above the floor, four active findings remain after the traceability repair applied during this pass:
+Above the floor, four active findings remain after the traceability repair and approved Fix 1a applied during this pass:
 
 | # | Finding | Type | Confidence |
 |---|---|---|---|
-| 1 | Grade-moving claims on 4 dimensions rely on government + procedural sources with no independent challenge | Real methodology risk | High after refactor |
+| 1 | Grade-moving claims on 2 dimensions still rely on government + procedural sources with no independent challenge | Real methodology risk | High after refactor |
 | 2 | Defenders cite fewer named sources than critics on 5 dimensions | Real perceived-bias surface | High |
 | 3 | Three dimensions have "event-driven" unsourced triggers | Real but minor | Medium |
 | 4 | Immigration has no active modifiers despite plausible External Constraint case | Real but contained | Medium |
 
 **Resolved during this pass:** the Ethics & Transparency up-trigger for "PM proactively publishes full Brookfield accounting" previously pointed to a dead `pm.gc.ca` backgrounder. The trigger now points to the working Ethics Commissioner Annex A PDF already used in the dimension's source list. The raw audit output was regenerated after the repair.
+
+**Resolved after ChatGPT review / Fix 1a:** Major Projects and Climate & Environment now thread already-cited independent challenge sources into the visible metric source chain. Major Projects attaches Fraser Institute and Angus Reid to the overclaiming / pre-existing-investment metric. Climate attaches CCI / IISD to the 2030 pathway metric and CBC / The Conversation to ECCC capacity cuts. No grade, threshold, formula, or source pool changed.
 
 **Withdrawn from prior version of this doc:** "Modifier absence on Ethics & Transparency" was withdrawn after editor critique. The External Constraint modifier is conceptually wrong for Ethics & Transparency because the dimension grades the PM's own disclosure machinery — there's no available "external constraint" defense when the actor being graded IS the PM. Absence is intentional.
 
@@ -51,7 +53,7 @@ Above the floor, four active findings remain after the traceability repair appli
 
 ### Method (revised)
 
-Each cited source classified into one of 10 families. Two views computed per dimension: all-sources distribution and grade-moving distribution. Grade-moving sources now include both trigger-attached URLs and metric-attached source labels. Independent-challenge logic refined per the definition above.
+Each cited source classified into one of 10 families. Two views computed per dimension: all-sources distribution and grade-moving distribution. Grade-moving sources now include trigger-attached URLs, metric-attached source labels, and visible metric `sourceRefs`. Independent-challenge logic refined per the definition above.
 
 ### Findings by dimension
 
@@ -59,9 +61,9 @@ Each cited source classified into one of 10 families. Two views computed per dim
 
 **Flag: no independent challenge source in grade-moving chain.** NATO acts as threshold-defining body for the 2% target trigger (so doesn't count as independent). The remaining grade-moving sources are StatCan trade data + Finance Canada / Global Affairs Canada / PMO messaging. No PBO, no Senate Defence Committee, no CGAI/CDA Institute, no journalism analysis.
 
-**Major Projects (C)** — 10 all-sources, 6 grade-moving. All-sources mix is 40% PMO, 30% procedural parliamentary, 10% department, 10% policy institute, 10% academic. Grade-moving distribution: 33% PMO, 67% procedural parliamentary records.
+**Major Projects (C)** — 10 all-sources, 8 grade-moving. All-sources mix is 40% PMO, 30% procedural parliamentary, 10% department, 10% policy institute, 10% academic. Grade-moving distribution after Fix 1a: 25% PMO, 50% procedural parliamentary records, 13% policy institute, 13% academic / public-opinion research.
 
-**Flag (surfaced by refactor): no independent challenge source in grade-moving chain.** Previous audit pass classified parl.ca/legisinfo as parliamentary critique. Refactored script correctly treats it as procedural. The grade-moving chain is 2× PMO messaging + 4× LEGISinfo bill status pages. No critic, no policy institute, no journalism in the chain. The Fraser Institute MPO commentary and Angus Reid major-projects reaction are cited in `sources[]` but not attached to triggers or metrics, so they don't count as grade-moving.
+**Resolved by Fix 1a.** Previous audit pass classified parl.ca/legisinfo as parliamentary critique. Refactored script correctly treats it as procedural, which surfaced that Fraser Institute and Angus Reid were cited but not threaded into the grade-moving chain. Those already-cited sources are now visible under the headline-investment / credit-claiming metric.
 
 **Fiscal Health (C)** — 9 all-sources, 7 grade-moving. All-sources mix is 44% independent watchdog (PBO), 22% operational data, 11% department, 11% policy institute, 11% international benchmark. Grade-moving: 71% PBO, 14% operational data, 14% international benchmark.
 
@@ -79,9 +81,9 @@ Each cited source classified into one of 10 families. Two views computed per dim
 
 **Clean on family distribution.** Trigger asymmetry flag in Section 2.
 
-**Climate & Environment (D)** — 10 all-sources, 6 grade-moving. All-sources: 40% department, 30% policy institute, 30% journalism. Grade-moving narrower: 83% department press release + 17% operational data. Policy-institute and journalism sources are present in the overall source stack, but not attached to trigger or metric sources under the script's current grade-moving definition.
+**Climate & Environment (D)** — 10 all-sources, 10 grade-moving. All-sources: 40% department, 30% policy institute, 30% journalism. Grade-moving distribution after Fix 1a: 50% department press release, 10% operational data, 20% policy institute, 20% journalism.
 
-**Flag: no independent challenge in grade-moving chain.** Even after metric-attached counting, the grade-moving sources for this dimension are ECCC department messaging + CER operational data. CCI is in `sources[]` for context but not attached to triggers or metrics. Real challenge gap.
+**Resolved by Fix 1a.** CCI / IISD were already cited in the source stack and rationale, and CBC / The Conversation already supported the ECCC-capacity discussion. Those sources are now threaded into the visible metric source chain.
 
 **Immigration (C+)** — 8 all-sources, 6 grade-moving. All-sources: 63% department, 38% operational data, 0% else. Grade-moving: similarly concentrated.
 
@@ -108,19 +110,19 @@ Each cited source classified into one of 10 families. Two views computed per dim
 | Dimension | All sources | Grade-moving | Flag |
 |---|---|---|---|
 | defence-trade | 10 | 8 | No independent challenge (NATO is threshold, not critique) |
-| major-projects | 10 | 6 | No independent challenge (grade-movers are PMO + procedural records) |
+| major-projects | 10 | 8 | Clean after Fix 1a (Fraser / Angus Reid now threaded into grade-moving metric) |
 | fiscal-health | 9 | 7 | Clean (model dimension) |
 | economic-policy | 10 | 8 | Clean (metric-attached PBO/OECD resolves prior flag) |
 | affordability-response | 11 | 9 | Clean on family; data hygiene only |
 | carbon-pricing | 8 | 7 | Clean |
-| climate-environment | 10 | 6 | No independent challenge in grade-moving |
+| climate-environment | 10 | 10 | Clean after Fix 1a (CCI / IISD / journalism now threaded into grade-moving metrics) |
 | immigration | 8 | 6 | >60% concentration + no independent challenge |
 | housing-supply | 12 | 9 | 1 grade-mover is press release |
 | ethics-transparency | 11 | 4 | Watchdog concentration acceptable for process file |
 | execution-delivery | 5 | 0 (internalRef only) | 80% policy institute (partial artifact) |
 | promise-delivery | 6 | 0 (tracker) | Clean |
 
-**Four dimensions have real "no independent challenge" findings:** defence-trade, major-projects, climate-environment, immigration.
+**Two dimensions still have real "no independent challenge" findings:** defence-trade and immigration.
 
 ## Section 2 — Trigger symmetry
 
@@ -225,24 +227,22 @@ Scattered across surfaces. A reader following the Skeptic Test has to click 4+ p
 
 Each fix requires explicit user approval per fix.
 
-### Fix 1 — Thread independent challenge into grade-moving chains on four dimensions
+### Fix 1b — Thread or add independent challenge into remaining grade-moving chains on two dimensions
 
-**Dimensions:** Defence & Trade, Major Projects, Climate & Environment, Immigration.
+**Dimensions:** Defence & Trade, Immigration.
 
-(Economic Policy Response was previously listed; removed after script refactor resolved the finding via metric-attached PBO + OECD.)
+(Economic Policy Response was removed after the script refactor resolved the finding via metric-attached PBO + OECD. Major Projects and Climate & Environment were resolved by approved Fix 1a.)
 
-**Problem:** Each has grade-moving sources that are concentrated in government messaging + procedural records. No PBO, OAG, opposition critique, policy institute, journalism, or academic source in the grade-moving chain.
+**Problem:** The remaining two dimensions have grade-moving sources concentrated in government data / messaging or threshold bodies. No PBO, OAG, opposition critique, policy institute, journalism, or academic source is attached to the grade-moving chain.
 
 **Discipline (must apply before any source addition):** Thread existing cited challenge sources into grade-moving claims first. Add a new source only if no already-cited source has a published analytical view on the specific dimension's substance. If a proposed source has no prior substantive view on the topic, adding it is token balancing rather than evidentiary improvement.
 
 **Per-dimension proposed actions (each requires manual confirmation against metrics, rationale, and Source-Authority-Map before action):**
 
 - **Defence & Trade:** Senate Defence Committee reports + CGAI / CDA Institute analyses on Canadian defence procurement and posture. Both have substantive published positions. Family 6 + family 7 challenge.
-- **Major Projects:** Thread existing Fraser Institute MPO commentary and/or Angus Reid major-projects reaction into the relevant cohort or overclaiming claim if the source directly supports that claim. Do not add another source unless those already-cited sources are insufficient.
-- **Climate & Environment:** Thread existing CCI / IISD climate-framework analysis into the relevant grade-moving trigger or metric if it directly supports the down-trigger rationale. Do not add a new climate source before using the already-cited challenge stack.
 - **Immigration:** PBO Demographic Implications of the 2026-2028 Levels Plan report (Feb 26, 2026, surfaced in May fetch) appears genuinely missing from the dimension. If manual review confirms it directly supports the long-term-model or population-correction claim, add it and attach it to the relevant trigger or metric.
 
-**Effort:** ~30-45 min per dimension. 4 dimensions = ~2-3 hours.
+**Effort:** ~30-45 min per dimension. 2 dimensions = ~1-1.5 hours.
 
 **Constraint:** Source-array changes touch frozen-surface rules. Requires explicit user approval per dimension fix.
 
@@ -281,8 +281,8 @@ Each fix requires explicit user approval per fix.
 | Finding | Type |
 |---|---|
 | Defence & Trade no indep challenge | **Real methodology risk** (NATO excluded as threshold body) |
-| Major Projects no indep challenge | **Real methodology risk** (surfaced by family 5/6 split) |
-| Climate & Environment no indep challenge | **Real methodology risk** |
+| Major Projects no indep challenge | **Resolved by Fix 1a** — existing Fraser / Angus Reid challenge now attached to visible metric sourceRefs |
+| Climate & Environment no indep challenge | **Resolved by Fix 1a** — existing CCI / IISD / journalism challenge now attached to visible metric sourceRefs |
 | Immigration >60% concentration + no indep challenge | **Real methodology risk** (worst source-mix on dashboard) |
 | Ethics & Transparency broken pm.gc.ca URL | **Resolved during this pass** — trigger now points to the working Ethics Commissioner Annex A PDF |
 | Defenders cite fewer named sources (5 dimensions) | **Real perceived-bias surface** (script's threshold rule made it miss; manual read confirms) |
@@ -309,8 +309,8 @@ Excluded-evidence log becomes recurring practice in monthly source-coverage ledg
 
 ## Next steps
 
-1. Review revised findings with ChatGPT for independent second read on the recommended fix list.
-2. Decide which fixes to ship this cycle vs defer.
+1. Decide whether to approve Fix 1b for Defence & Trade and Immigration.
+2. Decide whether to approve Fix 2, Fix 3, and Fix 4 this cycle or defer.
 3. Each shipped fix requires explicit user approval per fix, captured in commit message.
 4. After fixes ship, draft `docs/Bias-Resistance-Protocol.md` reflecting actual findings.
 5. After protocol, draft public methodology FAQ.
@@ -321,4 +321,4 @@ Excluded-evidence log becomes recurring practice in monthly source-coverage ledg
 - Raw output: `scripts/output/bias-audit-raw-2026-05.txt`.
 - Script taxonomy refined 2026-05-16 to split procedural parliamentary records from critique, and to count metric-attached sources as grade-moving.
 - Section 4 (language) and Section 7 (UI inventory) are partial human passes; full coverage requires a separate session.
-- The "must have prior substantive view" discipline in Fix 1 belongs in the eventual Bias-Resistance Protocol doc as a recurring rule.
+- The "must have prior substantive view" discipline from Fix 1a / Fix 1b belongs in the eventual Bias-Resistance Protocol doc as a recurring rule.

@@ -677,10 +677,43 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                       fontSize: "13px",
                       color: "#444",
                       padding: "2px 0",
-                      fontFamily: "'DM Mono', monospace",
+                      display: "flex",
+                      flexDirection: "column",
+                      gap: "2px",
                     }}
                   >
-                    {m.label}: {m.value}
+                    <div style={{ fontFamily: "'DM Mono', monospace" }}>
+                      {m.label}: {m.value}
+                    </div>
+                    {m.sourceRefs && m.sourceRefs.length > 0 && (
+                      <div
+                        style={{
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "4px 8px",
+                          fontFamily: "'DM Sans', sans-serif",
+                          fontSize: "12px",
+                          lineHeight: 1.35,
+                        }}
+                      >
+                        {m.sourceRefs.map((sourceRef) => (
+                          <a
+                            key={`${m.label}-${sourceRef.url}`}
+                            href={sourceRef.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            style={{
+                              color: "#1a73e8",
+                              textDecoration: "none",
+                              fontWeight: 600,
+                            }}
+                          >
+                            Source: {sourceRef.label} &rarr;
+                          </a>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>

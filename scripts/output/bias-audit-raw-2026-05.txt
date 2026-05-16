@@ -1,7 +1,7 @@
 ================================================================
 BIAS-RESISTANCE AUDIT — RAW DATA (Phase 1, operational)
 ================================================================
-Generated: 2026-05-16 19:13
+Generated: 2026-05-16 22:58
 Source: scripts/audit-bias-resistance.mjs
 Dimensions audited: 12
 
@@ -14,7 +14,7 @@ SECTION 1 — Source-family distribution per dimension
 
 ## Defence & Trade (defence-trade)
 Total cited sources: 10
-Grade-moving sources (trigger-attached): 8
+Grade-moving sources: 8
 
 All-sources family distribution:
   1. PMO / Carney messaging                  1 (10%)
@@ -33,7 +33,7 @@ FLAGS:
 
 ## Major Projects (major-projects)
 Total cited sources: 10
-Grade-moving sources (trigger-attached): 6
+Grade-moving sources: 8
 
 All-sources family distribution:
   1. PMO / Carney messaging                  4 (40%)
@@ -43,15 +43,16 @@ All-sources family distribution:
   9. Academic / research / pollsters         1 (10%)
 
 Grade-moving family distribution:
-  1. PMO / Carney messaging                  2 (33%)
-  5. Procedural parliamentary records        4 (67%)
+  1. PMO / Carney messaging                  2 (25%)
+  5. Procedural parliamentary records        4 (50%)
+  7. Policy institute                        1 (13%)
+  9. Academic / research / pollsters         1 (13%)
 
-FLAGS:
-  - No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
+FLAGS: none
 
 ## Fiscal Health (fiscal-health)
 Total cited sources: 9
-Grade-moving sources (trigger-attached): 6
+Grade-moving sources: 6
 
 All-sources family distribution:
   2. Department / press release              1 (11%)
@@ -68,7 +69,7 @@ FLAGS: none
 
 ## Economic Policy Response (economic-policy)
 Total cited sources: 10
-Grade-moving sources (trigger-attached): 11
+Grade-moving sources: 11
 
 All-sources family distribution:
   2. Department / press release              4 (40%)
@@ -86,7 +87,7 @@ FLAGS: none
 
 ## Affordability Response (affordability-response)
 Total cited sources: 11
-Grade-moving sources (trigger-attached): 9
+Grade-moving sources: 9
 
 All-sources family distribution:
   0. Unclassified                            2 (18%)
@@ -107,7 +108,7 @@ FLAGS:
 
 ## Carbon Pricing Policy (carbon-pricing)
 Total cited sources: 8
-Grade-moving sources (trigger-attached): 8
+Grade-moving sources: 8
 
 All-sources family distribution:
   2. Department / press release              3 (38%)
@@ -123,7 +124,7 @@ FLAGS: none
 
 ## Climate & Environment (climate-environment)
 Total cited sources: 10
-Grade-moving sources (trigger-attached): 6
+Grade-moving sources: 10
 
 All-sources family distribution:
   2. Department / press release              4 (40%)
@@ -131,15 +132,16 @@ All-sources family distribution:
   8. Journalism                              3 (30%)
 
 Grade-moving family distribution:
-  2. Department / press release              5 (83%)
-  3. Operational govt data                   1 (17%)
+  2. Department / press release              5 (50%)
+  3. Operational govt data                   1 (10%)
+  7. Policy institute                        2 (20%)
+  8. Journalism                              2 (20%)
 
-FLAGS:
-  - No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
+FLAGS: none
 
 ## Immigration (immigration)
 Total cited sources: 8
-Grade-moving sources (trigger-attached): 7
+Grade-moving sources: 7
 
 All-sources family distribution:
   2. Department / press release              5 (63%)
@@ -155,7 +157,7 @@ FLAGS:
 
 ## Housing Supply (housing-supply)
 Total cited sources: 12
-Grade-moving sources (trigger-attached): 9
+Grade-moving sources: 9
 
 All-sources family distribution:
   1. PMO / Carney messaging                  1 (8%)
@@ -174,7 +176,7 @@ FLAGS:
 
 ## Ethics & Transparency (ethics-transparency)
 Total cited sources: 11
-Grade-moving sources (trigger-attached): 4
+Grade-moving sources: 4
 
 All-sources family distribution:
   4. Independent watchdog                    7 (64%)
@@ -190,7 +192,7 @@ FLAGS:
 
 ## Flagship Delivery (execution-delivery)
 Total cited sources: 5
-Grade-moving sources (trigger-attached): 2
+Grade-moving sources: 2
 
 All-sources family distribution:
   4. Independent watchdog                    1 (20%)
@@ -205,7 +207,7 @@ FLAGS:
 
 ## Promise Delivery (promise-delivery)
 Total cited sources: 6
-Grade-moving sources (trigger-attached): 0
+Grade-moving sources: 0
 
 All-sources family distribution:
   1. PMO / Carney messaging                  1 (17%)
@@ -539,17 +541,11 @@ SUMMARY — Flagged dimensions across all sections
 ## defence-trade
   - [S1] No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
 
-## major-projects
-  - [S1] No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
-
 ## affordability-response
   - [S1] 2 URL(s) could not be classified: https://canadacode.org/, https://canadacode.org/
 
 ## carbon-pricing
   - [S2] Asymmetric sourcing: 1 of 2 up triggers unsourced (no URL, no internalRef); all down triggers sourced
-
-## climate-environment
-  - [S1] No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
 
 ## immigration
   - [S1] >60% concentration: 63% of all sources in 2. Department / press release
@@ -571,5 +567,5 @@ SUMMARY — Flagged dimensions across all sections
 ## promise-delivery
   - [S2] Numeric-threshold asymmetry: 1/1 up triggers contain a number vs 1/2 down
 
-Dimensions with no flags: 2 / 12
-Dimensions with at least one flag: 10
+Dimensions with no flags: 4 / 12
+Dimensions with at least one flag: 8

@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Independent challenge sources now sit directly under key Major Projects and Climate metrics.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Major Projects and Climate evidence chain tightened",
+        "body": "Already-cited independent sources now appear under the specific Key Metrics they qualify. Major Projects threads Fraser Institute and Angus Reid into the headline-investment / credit-claiming metric; Climate & Environment threads CCI, IISD, CBC, and The Conversation into the emissions-pathway and ECCC-capacity metrics. No grades, thresholds, formulas, or source pool changed."
+      },
+      {
+        "type": "docs",
+        "headline": "Bias-resistance audit updated after Fix 1a",
+        "body": "The audit raw output and findings doc now treat visible metric source links as grade-moving evidence. Major Projects and Climate & Environment no longer carry the no-independent-challenge flag; Defence & Trade and Immigration remain open for separate review."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Ethics trigger traceability repaired and the first bias-resistance audit artifacts drafted.",
     "items": [
       {

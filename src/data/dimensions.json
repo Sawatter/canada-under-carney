@@ -435,6 +435,16 @@
         "label": "Headline investment figure (government-announced)",
         "value": "$126B (mostly pre-existing)",
         "source": "pmo",
+        "sourceRefs": [
+          {
+            "label": "Fraser Institute - MPO assessment",
+            "url": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration"
+          },
+          {
+            "label": "Angus Reid - major projects reaction",
+            "url": "https://angusreid.org/major-projects-reaction-canada/"
+          }
+        ],
         "sourceNote": "PMO nation-building project announcements across all three tranches. Government cites $126B in combined investment. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing private-sector investment decisions — qualifier 'mostly pre-existing' reflects their assessment.",
         "automatable": false
       },
@@ -1796,7 +1806,7 @@
         "url": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy"
       },
       {
-        "label": "ECCC Arctic science cuts",
+        "label": "The Conversation - ECCC Arctic science cuts",
         "url": "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606"
       },
       {
@@ -1810,6 +1820,16 @@
         "label": "Emissions cap",
         "value": "Suspended",
         "source": "eccc",
+        "sourceRefs": [
+          {
+            "label": "CCI - Canada off course",
+            "url": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/"
+          },
+          {
+            "label": "IISD - Canada's 2030 climate target",
+            "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
+          }
+        ],
         "sourceNote": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, and IISD's analysis that stronger policy is still required to meet the 2030 target. Source URLs in the dimension sources array.",
         "automatable": false
       },
@@ -1824,6 +1844,16 @@
         "label": "ECCC budget cuts (to 2030)",
         "value": "$1.3B cumulative",
         "source": "eccc",
+        "sourceRefs": [
+          {
+            "label": "CBC - ECCC job and budget cuts",
+            "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
+          },
+          {
+            "label": "The Conversation - ECCC Arctic science cuts",
+            "url": "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606"
+          }
+        ],
         "sourceNote": "ECCC departmental plan pages document refocusing reductions of $43M (2024-25), $63M (2025-26), and $91M annually from 2026-27 onward, implying roughly $1.3B in cumulative reductions by 2030. The staffing pressure is documented through departmental plan staffing tables and contemporaneous media reporting on the associated cuts. See the ECCC departmental-plan links in the dimension sources, plus CBC Radio and The Conversation for operational impact reporting.",
         "automatable": false
       },

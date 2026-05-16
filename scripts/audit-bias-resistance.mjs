@@ -258,8 +258,8 @@ function collectGradeMovingSources(dim) {
   // Operational rule revised 2026-05-16: a source counts as grade-moving if
   // (a) its URL appears in gradeTriggers.up[].sourceUrl or
   // gradeTriggers.down[].sourceUrl, OR (b) it's attached to a metric in
-  // the dimension's metrics[] array (since metric values determine which
-  // scoring.threshold band applies).
+  // the dimension's metrics[] array via source or sourceRefs (since metric
+  // values determine which scoring.threshold band applies).
   const out = [];
   for (const t of dim.gradeTriggers?.up || []) {
     if (t.sourceUrl) out.push({ url: t.sourceUrl, label: t.sourceLabel || "(no label)", origin: "trigger.up", kind: "url" });
@@ -270,6 +270,16 @@ function collectGradeMovingSources(dim) {
   for (const m of dim.metrics || []) {
     if (m.source && m.source !== "manual" && m.source !== "editorial") {
       out.push({ url: null, label: m.source, origin: `metric: ${m.label}`, kind: "metric-label" });
+    }
+    for (const sourceRef of m.sourceRefs || []) {
+      if (sourceRef.url) {
+        out.push({
+          url: sourceRef.url,
+          label: sourceRef.label || "(no label)",
+          origin: `metric source: ${m.label}`,
+          kind: "metric-source-ref",
+        });
+      }
     }
   }
   return out;
@@ -560,7 +570,7 @@ function formatSection1(dim, audit) {
   const lines = [];
   lines.push(`## ${dim.name} (${dim.id})`);
   lines.push(`Total cited sources: ${audit.all.length}`);
-  lines.push(`Grade-moving sources (trigger-attached): ${audit.gradeMoving.length}`);
+  lines.push(`Grade-moving sources: ${audit.gradeMoving.length}`);
   lines.push("");
   lines.push("All-sources family distribution:");
   const allFams = Object.keys(audit.allCounts).map(Number).sort((a, b) => a - b);
