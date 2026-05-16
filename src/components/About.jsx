@@ -401,6 +401,20 @@ export default function About() {
             </a>
             . Disagreements with editor judgment are reviewed and reflected
             transparently; grades do not move because a party disagrees.
+            <br />
+            Readers who want to test whether the derivation surface is
+            legible across political priors can participate in the{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Perceived-Bias-Survey.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1a73e8" }}
+            >
+              perceived-bias survey
+            </a>
+            . The survey tests whether readers from any major party can
+            describe how a grade was reached, not whether they agree with
+            it.
           </div>
         </div>
 

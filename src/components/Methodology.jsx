@@ -451,8 +451,8 @@ export default function Methodology() {
             style={{ color: "#1a73e8" }}
           >
             corrections policy
-          </a>{" "}
-          and the{" "}
+          </a>
+          , the{" "}
           <a
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
             target="_blank"
@@ -460,6 +460,15 @@ export default function Methodology() {
             style={{ color: "#1a73e8" }}
           >
             right-of-reply process
+          </a>
+          , and the{" "}
+          <a
+            href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Perceived-Bias-Survey.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#1a73e8" }}
+          >
+            perceived-bias survey
           </a>
           .
         </p>

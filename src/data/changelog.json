@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Perceived-bias survey methodology drafted and linked from About and the Methodology FAQ. Survey tests whether readers from different political priors can describe how a grade was reached, not whether they agree with it.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Perceived-bias survey doc published",
+        "body": "docs/Perceived-Bias-Survey.md documents the two-question survey format (comprehension test + party self-ID), pass/fail criteria adapted from the LaunchSims simulation analog (<25% bias-label from any major party = pass), the mechanism (GitHub Discussions preferred for openness, Buttondown fallback for privacy), how results will be published, and the explicit limits (voluntary participation, results are signal not statistically representative). Linked from About and the Methodology FAQ. Closes the perceived-bias-survey item in the Bias-Resistance Protocol's public-surface backlog. The actual survey activation (GitHub Discussions enable + first cycle's responses) is editor follow-on work."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Skeptic Path orientation now sits at the top of every graded dimension drawer, naming the five ingredients a reader walks to challenge a grade.",
     "items": [
       {
