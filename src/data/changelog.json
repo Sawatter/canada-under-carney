@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Bias-resistance audit Fix 1b + 1c: PBO independent challenge sources added to Immigration and Defence & Trade grade-moving chains.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Immigration cites PBO Demographic Implications report",
+        "body": "Added the PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S) to the Immigration dimension's sources list and attached it as a sourceRef on the PR target (2026-2028) metric. Closes the audit finding that Immigration's grade-moving chain lacked an independent challenge source. No grade, threshold, formula, or modifier rule changed."
+      },
+      {
+        "type": "minor",
+        "headline": "Defence & Trade cites PBO Major Capital Priorities assessment",
+        "body": "Added the PBO Spring Economic Update Major Capital Priorities assessment (NT-2627-003-S) to the Defence & Trade dimension's sources list and attached it as a sourceRef on the NATO spending (2025e) metric. PBO directly assesses Canadian defence funding adequacy including the NATO commitment. Closes the audit finding that Defence & Trade's grade-moving chain lacked an independent challenge source. No grade, threshold, formula, or modifier rule changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Independent challenge sources now sit directly under key Major Projects and Climate metrics.",
     "items": [
       {

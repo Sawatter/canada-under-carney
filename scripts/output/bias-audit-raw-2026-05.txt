@@ -1,7 +1,7 @@
 ================================================================
 BIAS-RESISTANCE AUDIT — RAW DATA (Phase 1, operational)
 ================================================================
-Generated: 2026-05-16 22:58
+Generated: 2026-05-16 23:16
 Source: scripts/audit-bias-resistance.mjs
 Dimensions audited: 12
 
@@ -13,23 +13,24 @@ SECTION 1 — Source-family distribution per dimension
 ================================================================
 
 ## Defence & Trade (defence-trade)
-Total cited sources: 10
-Grade-moving sources: 8
+Total cited sources: 11
+Grade-moving sources: 9
 
 All-sources family distribution:
-  1. PMO / Carney messaging                  1 (10%)
-  2. Department / press release              1 (10%)
-  3. Operational govt data                   5 (50%)
-  5. Procedural parliamentary records        1 (10%)
-  10. International benchmark / rating       2 (20%)
+  1. PMO / Carney messaging                  1 (9%)
+  2. Department / press release              1 (9%)
+  3. Operational govt data                   5 (45%)
+  4. Independent watchdog                    1 (9%)
+  5. Procedural parliamentary records        1 (9%)
+  10. International benchmark / rating       2 (18%)
 
 Grade-moving family distribution:
-  2. Department / press release              3 (38%)
-  3. Operational govt data                   3 (38%)
-  10. International benchmark / rating       2 (25%)
+  2. Department / press release              3 (33%)
+  3. Operational govt data                   3 (33%)
+  4. Independent watchdog                    1 (11%)
+  10. International benchmark / rating       2 (22%)
 
-FLAGS:
-  - No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
+FLAGS: none
 
 ## Major Projects (major-projects)
 Total cited sources: 10
@@ -140,20 +141,20 @@ Grade-moving family distribution:
 FLAGS: none
 
 ## Immigration (immigration)
-Total cited sources: 8
-Grade-moving sources: 7
+Total cited sources: 9
+Grade-moving sources: 8
 
 All-sources family distribution:
-  2. Department / press release              5 (63%)
-  3. Operational govt data                   3 (38%)
+  2. Department / press release              5 (56%)
+  3. Operational govt data                   3 (33%)
+  4. Independent watchdog                    1 (11%)
 
 Grade-moving family distribution:
-  2. Department / press release              2 (29%)
-  3. Operational govt data                   5 (71%)
+  2. Department / press release              2 (25%)
+  3. Operational govt data                   5 (63%)
+  4. Independent watchdog                    1 (13%)
 
-FLAGS:
-  - >60% concentration: 63% of all sources in 2. Department / press release
-  - No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
+FLAGS: none
 
 ## Housing Supply (housing-supply)
 Total cited sources: 12
@@ -538,9 +539,6 @@ FLAGS: none
 SUMMARY — Flagged dimensions across all sections
 ================================================================
 
-## defence-trade
-  - [S1] No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
-
 ## affordability-response
   - [S1] 2 URL(s) could not be classified: https://canadacode.org/, https://canadacode.org/
 
@@ -548,8 +546,6 @@ SUMMARY — Flagged dimensions across all sections
   - [S2] Asymmetric sourcing: 1 of 2 up triggers unsourced (no URL, no internalRef); all down triggers sourced
 
 ## immigration
-  - [S1] >60% concentration: 63% of all sources in 2. Department / press release
-  - [S1] No independent challenge source attached to grade-moving claims (no source from families 4, 6, 7, 8, 9, or 10-not-threshold)
   - [S2] Asymmetric sourcing: 1 of 2 down triggers unsourced; all up triggers sourced
   - [S2] Numeric-threshold asymmetry: 1/2 up triggers contain a number vs 0/2 down
 
@@ -567,5 +563,5 @@ SUMMARY — Flagged dimensions across all sections
 ## promise-delivery
   - [S2] Numeric-threshold asymmetry: 1/1 up triggers contain a number vs 1/2 down
 
-Dimensions with no flags: 4 / 12
-Dimensions with at least one flag: 8
+Dimensions with no flags: 5 / 12
+Dimensions with at least one flag: 7
