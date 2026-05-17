@@ -125,6 +125,7 @@ export default function Methodology() {
         </p>
 
         <div
+          id="methodology-safeguards"
           style={{
             marginBottom: "20px",
             padding: "14px",

@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "Header trust-frame alignment fixed and the safeguards link now jumps directly to the Methodology & Safeguards panel.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Trust-frame link layout fixed",
+        "body": "The new 'read the safeguards' control in the header trust frame used a normal button minimum target, which made it render like a large boxed control and broke the desktop column alignment. It is now a text-link button with compact sizing, the three desktop columns use fixed equal tracks, and the click scrolls directly to the Methodology & Safeguards panel instead of only switching tabs. Desktop and phone-width smoke checks confirmed the frame aligns, stacks cleanly, and has no horizontal overflow."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "Skeptic Path anchor links now jump reliably inside expanded dimension drawers on desktop and mobile.",
     "items": [
       {

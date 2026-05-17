@@ -96,6 +96,19 @@ export default function Dashboard() {
     setApprovalExpanded((curr) => !curr);
   };
 
+  const handleShowSafeguards = () => {
+    setView("methodology");
+    if (typeof window === "undefined") return;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        document.getElementById("methodology-safeguards")?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    });
+  };
+
   const handleInternalRef = (ref) => {
     if (!ref) return;
 
@@ -257,40 +270,51 @@ export default function Dashboard() {
           className="scorecard-trust-frame"
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-            gap: "10px",
+            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+            columnGap: "28px",
+            rowGap: "10px",
             textAlign: "left",
             borderTop: "1px solid #e0e0e0",
             borderBottom: "1px solid #e0e0e0",
-            padding: "12px 0",
+            padding: "16px 0",
+            alignItems: "start",
           }}
         >
-          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
             <strong>What this is:</strong> a public scorecard grading federal performance against published thresholds, source links, and review dates.
           </div>
-          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
             <strong>What this isn&rsquo;t:</strong> a forecast, voting guide, popularity measure, or claim that only measurable files matter.
           </div>
-          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
-            <strong>How to check it:</strong>{" "}
+          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
+            <div style={{ fontWeight: 700, color: "#333", marginBottom: "4px" }}>
+              How to check it
+            </div>
             <button
               type="button"
-              onClick={() => setView("methodology")}
+              onClick={handleShowSafeguards}
+              className="text-link-button"
               style={{
                 background: "none",
                 border: "none",
                 padding: 0,
                 color: "#1565c0",
                 cursor: "pointer",
-                font: "inherit",
+                fontFamily: "inherit",
+                fontSize: "14px",
+                lineHeight: 1.5,
                 fontWeight: 700,
                 textDecoration: "underline",
+                textAlign: "left",
+                minWidth: 0,
+                minHeight: 0,
               }}
             >
               read the safeguards
-            </button>{" "}
-            or open any card to walk the rule, evidence, sources, and critic /
+            </button>
+            <span> or open any card to walk the rule, evidence, sources, and critic /
             defender views.
+            </span>
           </div>
         </div>
       </div>

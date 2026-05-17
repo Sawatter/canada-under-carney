@@ -92,6 +92,11 @@ button, [role="button"], a.button {
   min-width: 44px;
 }
 
+button.text-link-button {
+  min-height: 0;
+  min-width: 0;
+}
+
 /* Hide the horizontal scrollbar on the tab rail (Chrome/Safari) — the rail
    still scrolls, it just doesn't show a persistent scrollbar on macOS. */
 .dashboard-tabs::-webkit-scrollbar { display: none; }
