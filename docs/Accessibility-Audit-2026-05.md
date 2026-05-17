@@ -10,19 +10,19 @@
 
 | # | Issue | Severity | WCAG criterion | Source location |
 |---|---|---|---|---|
-| 1 | DimensionCard wrapper is clickable but not keyboard-operable | High | 2.1.1 Keyboard | `DimensionCard.jsx:159` |
+| 1 | DimensionCard wrapper was clickable but not keyboard-operable | Resolved in v5.40 | 2.1.1 Keyboard | `DimensionCard.jsx:159` |
 | 2 | Grade chip color contrast unverified for C+/C-/D+ orange ranges | Medium | 1.4.3 Contrast (Minimum) | `constants.js` GRADES |
-| 3 | TrendArrow uses Unicode glyphs without aria-label for screen readers | Medium | 1.1.1 Non-text content | `TrendArrow.jsx` |
+| 3 | TrendArrow Unicode glyphs need aria-labels | Resolved before v5.38 | 1.1.1 Non-text content | `TrendArrow.jsx` |
 | 4 | Focus management on dimension drawer not explicitly handled | Medium | 2.4.3 Focus order | `DimensionCard.jsx` drawer |
-| 5 | Several inline buttons styled as divs with onClick (not focusable) | Medium | 2.1.1 Keyboard, 4.1.2 Name/Role/Value | `DimensionCard.jsx` collapsible toggles |
+| 5 | Several inline disclosure controls styled as divs with onClick | Resolved before v5.38 | 2.1.1 Keyboard, 4.1.2 Name/Role/Value | `DimensionCard.jsx` collapsible toggles |
 | 6 | No skip-to-content link | Low | 2.4.1 Bypass blocks | `Dashboard.jsx` |
-| 7 | Color is the primary indicator for grade and status (no shape/text fallback for color-blind users) | Medium | 1.4.1 Use of color | `GradeChip.jsx`, status badges |
+| 7 | Color is the primary indicator for grade and status (with text fallback present) | Informational | 1.4.1 Use of color | `GradeChip.jsx`, status badges |
 
-**Total: 7 findings.** 1 high-severity, 5 medium, 1 low. No critical violations (no missing alt text, no form labels missing, no inaccessible iframe content).
+**Current open findings after v5.40:** 3 actionable items remain (grade-chip contrast verification, drawer focus management, skip-to-content link), plus 1 informational color-use note. No high-severity keyboard blocker remains. No critical violations (no missing alt text, no form labels missing, no inaccessible iframe content).
 
 ## Detail per finding
 
-### 1. DimensionCard wrapper not keyboard-operable (High)
+### 1. DimensionCard wrapper not keyboard-operable (Resolved in v5.40)
 
 `src/components/DimensionCard.jsx:159` shows `onClick={onClick}` on the card's outer wrapper `<div>`. The whole card is clickable to expand/collapse the drawer, but the wrapper lacks:
 - `tabIndex={0}` to make it focusable via keyboard
@@ -33,7 +33,7 @@ PromiseTracker.jsx and ApprovalSignal.jsx both implement this pattern correctly 
 
 **Impact:** Keyboard-only users cannot expand dimension drawers. This is a primary interaction on the dashboard.
 
-**Fix scope (not this commit):** Add `role="button"`, `tabIndex={0}`, `onKeyDown` handler for Enter/Space, and `aria-expanded={isExpanded}` to the wrapper div. Approximately 5-line change in `DimensionCard.jsx`.
+**Resolution:** v5.40 added `role="button"`, `tabIndex={0}`, `aria-expanded`, an explicit accessible label, and an Enter / Space keyboard handler on the wrapper. The handler only fires when focus is on the wrapper itself, so nested drawer buttons keep their own keyboard behavior.
 
 ### 2. Grade chip color contrast (Medium)
 
@@ -51,11 +51,11 @@ Material Design's color picker suggests these combinations meet AA at 18pt+ but 
 
 **Fix scope (not this commit):** Run axe-core against the deployed site. If C+/C/C- chip contrast fails at the chip's actual rendered size, darken the foreground (e.g., C+ from #c67c00 to #b06800) or enlarge the chip text.
 
-### 3. TrendArrow Unicode glyphs (Medium)
+### 3. TrendArrow Unicode glyphs (Resolved before v5.38)
 
-`TrendArrow.jsx` likely uses `▲` (U+25B2), `▬` (U+25AC), `▼` (U+25BC) per the constants in `constants.js` TREND export. Screen readers may announce these as "black up-pointing triangle" or similar, not as "improving / stable / declining."
+`TrendArrow.jsx` uses `▲` (U+25B2), `▬` (U+25AC), `▼` (U+25BC) per the constants in `constants.js` TREND export. Screen readers may announce these as "black up-pointing triangle" or similar, not as "improving / stable / declining."
 
-**Fix scope (not this commit):** Add `aria-label` to the TrendArrow component matching the trend direction text. The TrendArrow component already exists; this is a single-prop addition.
+**Resolution:** code inspection after the audit found this was already fixed. `TrendArrow.jsx` renders `role="img"`, `aria-label={\`Trend: ${label}\`}`, and a matching `title`. This finding remains in the audit history as a stale-code-inspection catch, not an open issue.
 
 ### 4. Focus management on dimension drawer (Medium)
 
@@ -65,13 +65,13 @@ When a user clicks to expand a dimension drawer, focus does not move into the dr
 
 **Fix scope (not this commit):** Add focus handling on isExpanded change. Approximately 10-line change with useRef + useEffect in `DimensionCard.jsx`.
 
-### 5. Inline button-styled divs (Medium)
+### 5. Inline button-styled divs (Resolved before v5.38)
 
-Several drawer toggles in `DimensionCard.jsx` use `<div onClick={...}>` patterns at lines 441, 910, 989, 1059 etc. for sub-section toggles (glossary, triggers, perspectives, scope). These are styled to look clickable but lack the keyboard/screen-reader semantics of a real `<button>`.
+The initial code-inspection note flagged several drawer toggles in `DimensionCard.jsx` as possible `<div onClick={...}>` patterns. A follow-up read found the relevant glossary, trigger, perspectives, scope, inherited, and cohort-list toggles are now real `<button>` elements.
 
 The drawer sub-sections HAVE `aria-expanded` and `aria-controls` (good), but the trigger element should be a `<button>` not a `<div>` to inherit native keyboard behavior.
 
-**Fix scope (not this commit):** Replace `<div onClick={...}>` toggles with `<button>` elements, or add `role="button" + tabIndex + onKeyDown` to the divs. The PromiseTracker pattern is the model.
+**Resolution:** no additional fix is needed for these drawer sub-section toggles. Keep this pattern in future components: use `<button>` for disclosure controls rather than `div` + `onClick`.
 
 ### 6. No skip-to-content link (Low)
 
@@ -106,7 +106,7 @@ Status badges (`STATUS_COLORS` in constants.js) include text labels with each co
 
 **Phase 1 (this commit):** Audit complete. Doc published.
 
-**Phase 2 (separate commit, requires explicit approval):** Ship fixes for findings 1, 3, 4, 5 in DimensionCard.jsx. Single commit, scoped to keyboard / screen-reader semantics. Estimated 30-60 min of work.
+**Phase 2 (partly complete):** v5.40 shipped finding 1, the high-severity keyboard blocker. Findings 3 and 5 were already resolved by current code. Finding 4 (focus management) remains a candidate follow-up if keyboard / screen-reader testing shows focus recovery is confusing.
 
 **Phase 3 (deferred to Tier 3):** Full WCAG-AA conformance pass:
 - Run axe-core or Lighthouse against the deployed site to quantify contrast violations (finding 2).
@@ -128,3 +128,4 @@ This audit applies to the React SPA at `src/components/*.jsx` as of commit befor
 ## Version history
 
 - **v1.0 (2026-05-16):** Initial code-inspection audit. 7 findings (1 high, 5 medium, 1 informational). No fixes shipped; this is the audit pass only.
+- **v1.1 (2026-05-16):** Reconciled after v5.40. DimensionCard keyboard blocker fixed; TrendArrow and drawer-toggle findings reclassified as already resolved by current code. Remaining actionable items: contrast verification, drawer focus management, skip-to-content link.

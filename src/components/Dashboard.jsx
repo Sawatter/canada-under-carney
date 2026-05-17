@@ -160,6 +160,7 @@ export default function Dashboard() {
           Performance Dashboard
         </div>
         <h1
+          className="dashboard-title"
           style={{
             fontFamily: "'DM Serif Display', serif",
             fontSize: "clamp(1.75rem, 1.25rem + 2vw, 2.25rem)",

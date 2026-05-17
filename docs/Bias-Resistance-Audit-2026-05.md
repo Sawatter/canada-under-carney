@@ -2,15 +2,15 @@
 
 **Scope:** Phase 1 operational audit per `docs/Trust-And-Bias-Resistance-Plan-2026-05.md`. Tests whether the methodology is applied consistently across dimensions. Does not address foundational questions (dimension choice, weighting, promise selection) — those move to a separate Phase 2 audit on annual cadence.
 
-**Generated:** 2026-05-16 (revised after second-Claude critique flagged definition gaps; updated after approved Fix 1a)
+**Generated:** 2026-05-16 (revised after second-Claude critique flagged definition gaps; closed through v5.39; reconciled in v5.40)
 
 **Raw data source:** `scripts/output/bias-audit-raw-2026-05.txt` is regenerable via `node scripts/audit-bias-resistance.mjs`. The output path is gitignored by design: the script is the authoritative artifact, and the raw text snapshot regenerates from current `dimensions.json` and `changelog.json` on demand.
 
 **Dimensions audited:** 12 (11 graded + 1 tracker)
 
-**Audit history:** First-pass audit flagged 10 of 12 dimensions. Second-Claude critique surfaced six definition gaps in the script. Script refactored and re-run. ChatGPT review surfaced two more reframes (thread existing challenge sources before adding new; grade-softening risk in Immigration modifier review). All four resulting fixes shipped across v5.28-v5.30.
+**Audit history:** First-pass audit flagged 10 of 12 dimensions. Second-Claude critique surfaced six definition gaps in the script. Script refactored and re-run. ChatGPT review surfaced two more reframes (thread existing challenge sources before adding new; grade-softening risk in Immigration modifier review). All four resulting fixes shipped across v5.28-v5.30. The follow-on trust artifacts shipped across v5.31-v5.39.
 
-## Closure summary (v5.30)
+## Closure summary (v5.39)
 
 All four recommended fixes shipped. Commit references:
 
@@ -21,16 +21,11 @@ All four recommended fixes shipped. Commit references:
 | 3 | Event-driven trigger convention documented in `docs/Scoring-Rubric-v1.1.md` as a deliberate sourcing pattern | v5.30 | `b06e9de` |
 | 4 | Immigration `judgmentDetail` explicitly documents why no External Constraint modifier is applied (intentional absence per grade-softening principle) | v5.30 | `b06e9de` |
 
-**Post-fix audit state:** 5 of 12 dimensions audit-clean. 7 dimensions carry residual flags, all categorized below as documented conventions, data-hygiene gaps in the script's domain rules, or methodology-appropriate patterns the mechanical rule can't read. No actionable Phase 1 fixes remain.
+**Post-fix audit state:** 5 of 12 dimensions audit-clean. 7 dimensions carry residual flags, all categorized below as documented conventions, data-hygiene gaps in the script's domain rules, or methodology-appropriate patterns the mechanical rule can't read. No actionable Phase 1 methodology fixes remain.
 
-**Not in this cycle, deferred to follow-on work:**
-- `docs/Bias-Resistance-Protocol.md` (Tier 2.5 — codifies the audit + fix discipline into a per-cycle gate).
-- Public Methodology FAQ (Tier 2.6 — the reader-facing trust surface, drafted from this cycle's findings).
-- Tier 1 challenge-enabling hygiene (Corrections-Policy, Right-Of-Reply, Citation format).
-- Full 12-dimension language audit (now complete — see Section 4 below).
-- Skeptic-path UI threading.
-- Perceived-bias survey mechanism.
-- Phase 2 foundational audit (dimension choice, POCKETBOOK weighting, promise selection).
+**Follow-on artifacts now complete:** `docs/Bias-Resistance-Protocol.md`, public Methodology FAQ in the Rubric tab, Tier 1 challenge-enabling hygiene (`docs/Corrections-Policy.md`, `docs/Right-Of-Reply.md`, citation format), full 12-dimension language audit, Skeptic Path orientation, perceived-bias survey methodology, accessibility audit, and Phase 2 foundational audit scaffold.
+
+**Still open after v5.39:** perceived-bias survey activation, full Skeptic Path UI restructuring beyond the orientation callout, accessibility fixes from `docs/Accessibility-Audit-2026-05.md`, axe/Lighthouse verification, and the first annual Phase 2 foundational audit pass.
 
 ## Definition limitations (read first)
 
@@ -79,9 +74,9 @@ Each cited source classified into one of 10 families. Two views computed per dim
 
 ### Findings by dimension
 
-**Defence & Trade (A-)** — 10 all-sources, 8 grade-moving. All-sources mix is 50% operational data, 20% international benchmark (NATO), 10% PMO, 10% department, 10% procedural parliamentary. Grade-moving distribution: 38% operational data, 38% department, 25% international benchmark.
+**Defence & Trade (A-)** — 11 all-sources, 9 grade-moving. All-sources mix is 45% operational data, 18% international benchmark (NATO), 9% PMO, 9% department, 9% procedural parliamentary, 9% independent watchdog. Grade-moving distribution after v5.28: 33% department / press-release, 33% operational data, 22% international benchmark, 11% independent watchdog.
 
-**Flag: no independent challenge source in grade-moving chain.** NATO acts as threshold-defining body for the 2% target trigger (so doesn't count as independent). The remaining grade-moving sources are StatCan trade data + Finance Canada / Global Affairs Canada / PMO messaging. No PBO, no Senate Defence Committee, no CGAI/CDA Institute, no journalism analysis.
+**Resolved by Fix 1b.** NATO still acts as the threshold-defining body for the 2% target trigger, so it does not count as independent challenge. The gap is now closed by PBO Major Capital Priorities, threaded into the grade-moving defence-capital pathway.
 
 **Major Projects (C)** — 10 all-sources, 8 grade-moving. All-sources mix is 40% PMO, 30% procedural parliamentary, 10% department, 10% policy institute, 10% academic. Grade-moving distribution after Fix 1a: 25% PMO, 50% procedural parliamentary records, 13% policy institute, 13% academic / public-opinion research.
 
@@ -107,9 +102,9 @@ Each cited source classified into one of 10 families. Two views computed per dim
 
 **Resolved by Fix 1a.** CCI / IISD were already cited in the source stack and rationale, and CBC / The Conversation already supported the ECCC-capacity discussion. Those sources are now threaded into the visible metric source chain.
 
-**Immigration (C+)** — 8 all-sources, 6 grade-moving. All-sources: 63% department, 38% operational data, 0% else. Grade-moving: similarly concentrated.
+**Immigration (C+)** — 9 all-sources, 8 grade-moving. All-sources: 56% department, 33% operational data, 11% independent watchdog. Grade-moving distribution after v5.28: 25% department / press-release, 63% operational data, 13% independent watchdog.
 
-**Flags (multiple): >60% department concentration; no independent challenge in grade-moving chain.** This is the worst source-mix profile on the dashboard. PBO has a Demographic Implications of the 2026-2028 Levels Plan report (Feb 26, 2026) cited in the May fetch report but NOT in this dimension's sources. Adding it would resolve both flags.
+**Resolved by Fix 1b.** PBO Demographic Implications of the 2026-2028 Levels Plan was added to the source stack and threaded into the grade-moving long-term-model metric. The mechanical audit no longer flags source-family concentration or missing independent challenge.
 
 **Housing Supply (D)** — 12 all-sources, 9 grade-moving (after refactor). Source mix is balanced. Grade-moving distribution includes operational (CMHC, StatCan), independent watchdog (PBO), department, PMO.
 
@@ -131,20 +126,20 @@ Each cited source classified into one of 10 families. Two views computed per dim
 
 | Dimension | All sources | Grade-moving | Flag |
 |---|---|---|---|
-| defence-trade | 10 | 8 | No independent challenge (NATO is threshold, not critique) |
+| defence-trade | 11 | 9 | Clean after Fix 1b (PBO now threaded into the grade-moving defence-capital pathway) |
 | major-projects | 10 | 8 | Clean after Fix 1a (Fraser / Angus Reid now threaded into grade-moving metric) |
 | fiscal-health | 9 | 7 | Clean (model dimension) |
 | economic-policy | 10 | 8 | Clean (metric-attached PBO/OECD resolves prior flag) |
 | affordability-response | 11 | 9 | Clean on family; data hygiene only |
 | carbon-pricing | 8 | 7 | Clean |
 | climate-environment | 10 | 10 | Clean after Fix 1a (CCI / IISD / journalism now threaded into grade-moving metrics) |
-| immigration | 8 | 6 | >60% concentration + no independent challenge |
+| immigration | 9 | 8 | Clean after Fix 1b (PBO now threaded into the long-term-model metric) |
 | housing-supply | 12 | 9 | 1 grade-mover is press release |
 | ethics-transparency | 11 | 4 | Watchdog concentration acceptable for process file |
 | execution-delivery | 5 | 0 (internalRef only) | 80% policy institute (partial artifact) |
 | promise-delivery | 6 | 0 (tracker) | Clean |
 
-**Two dimensions still have real "no independent challenge" findings:** defence-trade and immigration.
+**No dimensions still have real "no independent challenge" findings after v5.28.** Remaining Section 1 flags are residuals: Affordability's canadacode.org classifier gap, Housing's defensible press-release state-of-play trigger, Ethics' watchdog concentration, and Flagship Delivery's meta-rollup concentration.
 
 ## Section 2 — Trigger symmetry
 
@@ -170,23 +165,21 @@ Event-driven unsourced triggers appear on three dimensions (Carbon Pricing, Immi
 
 ### Findings
 
-**No length-imbalance flags from the script** (no dimension exceeds 2x ratio). Lengths cluster in 37-58 words per side.
+**No length-imbalance flags from the script** (no dimension exceeds 2x ratio). Lengths cluster in 37-63 words per side.
 
 **No URLs in critics or defenders blocks.** Both fields are pure prose. The script's URL-count check is uninformative.
 
-**Source-specificity asymmetry not caught by the script's word-count rule:**
+**Source-specificity asymmetry was fixed in v5.29.** Defenders perspectives on the five flagged dimensions now name institutional sources rather than defending anonymously.
 
 | Dimension | Critics named sources | Defenders named sources |
 |---|---|---|
-| Affordability Response | 2 | 0 |
-| Carbon Pricing Policy | 2 | 0 |
-| Climate & Environment | 4 | 0 |
-| Housing Supply | 5 | 2 |
-| Economic Policy Response | 6 | 2 |
+| Affordability Response | 2 | 5 |
+| Carbon Pricing Policy | 2 | 2 |
+| Climate & Environment | 4 | 4 |
+| Housing Supply | 5 | 4 |
+| Economic Policy Response | 6 | 5 |
 
-In four of these five (all except Housing Supply), defenders cite zero named sources. Real perceived-bias surface: critics get attributed pushback, defenders defend anonymously.
-
-The script's current flag rule required both sides >50 words AND a 2+ vs 0 source split. Relaxing the threshold to "any 2+ vs 0 named-source split regardless of length" would have flagged all 5.
+**Verdict:** clean after v5.29. The original script missed the problem because its flag rule required both sides >50 words AND a 2+ vs 0 source split. The manual read caught the real perceived-bias surface, and v5.29 closed it.
 
 ## Section 4 — Language audit (full 12-dimension pass)
 
@@ -242,7 +235,7 @@ No language-level fixes recommended this cycle. The audit closes Section 4 as a 
 | affordability-response | 1 | External Constraint (applicable, not applied) |
 | carbon-pricing | 1 | External Constraint (not applied) |
 | climate-environment | 1 | External Constraint (partly applicable) |
-| **immigration** | **0** | **None — flagged for review** |
+| immigration | 0 | None — reviewed and documented as intentional in v5.30 |
 | housing-supply | 2 | Jurisdictional limits (non-binding); Timing Fairness (partially applicable) |
 | ethics-transparency | 0 | None — withdrawn from review (External Constraint conceptually wrong) |
 | execution-delivery | 0 | None — meta-rollup, may be intentional |
@@ -250,7 +243,7 @@ No language-level fixes recommended this cycle. The audit closes Section 4 as a 
 
 **Modifier vocabulary is consistent.** External Constraint, Timing Fairness, Jurisdictional limits, Credit-claiming penalty are recurring named modifiers. No one-off modifiers invented per dimension.
 
-**Immigration is the only flagged dimension for modifier review.** The External Constraint case is real (absorption strain inherited from prior immigration levels + global migration pattern shifts). Worth one cycle's editor review.
+**Immigration modifier absence was reviewed in v5.30.** No External Constraint modifier is applied. The absorption strain that prompted the correction was inherited from prior policy decisions, but the current government's response to those conditions is what this dimension grades. Prior conditions do not soften the assessment of current action.
 
 **Ethics & Transparency** is NOT flagged. The dimension grades the PM's own disclosure machinery. There's no available "external constraint" defense when the actor being graded IS the PM whose disclosures are being assessed. Modifier absence appears intentional and conceptually correct.
 
@@ -266,7 +259,7 @@ Two real grade movements ever in the changelog: fiscal-health D → C (2026-05-1
 
 ## Section 7 — Skeptic-path UI inventory
 
-**Status: deferred.** Requires UI inspection per dimension. Notes from code reading:
+**Status: orientation shipped in v5.36.** Each graded dimension drawer now opens with a Skeptic Path callout naming the five ingredients a reader should walk through to challenge a grade.
 
 - Rule chain: dimension drawer
 - Sources: chips on card
@@ -274,7 +267,7 @@ Two real grade movements ever in the changelog: fiscal-health D → C (2026-05-1
 - Critics/defenders: drawer perspectives section
 - Last-updated: dimension header
 
-Scattered across surfaces. A reader following the Skeptic Test has to click 4+ places to assemble the answer. Worth a follow-up session.
+**Residual UI finding:** the callout orients the reader, but it does not yet restructure the drawer into a single threaded grade → rule → trigger → metric → source → critics/defenders path. Fuller threading remains a Phase 2 UI backlog item.
 
 ## Fixes shipped (ranked by impact, with commit references)
 
@@ -333,16 +326,16 @@ All fixes below required and received explicit per-fix user approval. Each commi
 
 | Finding | Type |
 |---|---|
-| Defence & Trade no indep challenge | **Real methodology risk** (NATO excluded as threshold body) |
+| Defence & Trade no indep challenge | **Resolved by Fix 1b** — PBO Major Capital Priorities now attached to grade-moving defence-capital pathway |
 | Major Projects no indep challenge | **Resolved by Fix 1a** — existing Fraser / Angus Reid challenge now attached to visible metric sourceRefs |
 | Climate & Environment no indep challenge | **Resolved by Fix 1a** — existing CCI / IISD / journalism challenge now attached to visible metric sourceRefs |
-| Immigration >60% concentration + no indep challenge | **Real methodology risk** (worst source-mix on dashboard) |
+| Immigration >60% concentration + no indep challenge | **Resolved by Fix 1b** — PBO Demographic Implications now attached to grade-moving long-term-model metric |
 | Ethics & Transparency broken pm.gc.ca URL | **Resolved during this pass** — trigger now points to the working Ethics Commissioner Annex A PDF |
-| Defenders cite fewer named sources (5 dimensions) | **Real perceived-bias surface** (script's threshold rule made it miss; manual read confirms) |
-| Event-driven unsourced triggers (3 dimensions) | **Real but minor** — honest convention reads asymmetric |
+| Defenders cite fewer named sources (5 dimensions) | **Resolved by Fix 2** — defenders now name institutional sources |
+| Event-driven unsourced triggers (3 dimensions) | **Documented by Fix 3** — honest convention now explained in Scoring-Rubric-v1.1 |
 | Housing Supply 1 press release grade-mover | **Real but mixed** — defensible as state-of-play evidence |
 | Numeric-threshold asymmetry (Housing, Promise) | **Real but minor** |
-| Immigration modifier absence | **Real but contained** |
+| Immigration modifier absence | **Resolved by Fix 4** — absence reviewed and documented as intentional |
 | Ethics & Transparency modifier absence | **Withdrawn** (External Constraint conceptually wrong) |
 | Economic Policy Response no indep challenge | **Script artifact (resolved)** — metric-attached PBO/OECD count |
 | Affordability Response unclassified canadacode.org | **Data hygiene, not bias** — script's domain rules need updating |
@@ -356,28 +349,25 @@ Three foundational-bias questions move to Phase 2 (annual cadence):
 - Why these 4 in POCKETBOOK_DIMS?
 - How were 43 promises selected?
 
-Phase 2 doc: `docs/Foundational-Methodology-Audit-2026.md` (not yet written).
+Phase 2 framework doc: `docs/Foundational-Methodology-Audit-2026.md` (scaffolded in v5.39; first substantive pass remains annual-cadence work).
 
 Excluded-evidence log becomes recurring practice in monthly source-coverage ledgers (not an audit artifact).
 
-## Next steps (post-closure)
+## Next steps (post-v5.40)
 
-All four Phase 1 fixes have shipped (v5.28-v5.30). The recurring follow-on work:
+The May bias-resistance cycle now has the protocol, FAQ, challenge-enabling hygiene, full language audit, Skeptic Path orientation, survey methodology, accessibility audit, and Phase 2 scaffold in place. Remaining work is operational follow-through, not another methodology layer:
 
-1. **Draft `docs/Bias-Resistance-Protocol.md`** (Tier 2.5 of plan). Codifies the audit + fix discipline into a per-cycle gate, reflecting the actual findings of this cycle.
-2. **Build public Methodology FAQ** (Tier 2.6). Reader-facing trust surface derived from protocol + audit findings.
-3. **Tier 1 challenge-enabling hygiene** (parallel track per the planning doc's guardrail): Corrections-Policy, Right-Of-Reply, Citation format.
-4. **Complete the language audit** on the 8 unaudited dimensions (current pass was a 4-dimension representative sample).
-5. **Thread the Skeptic Path UI** so a reader can follow grade → rule → trigger → source → critics / defenders in one threaded surface rather than across multiple drawer sections.
-6. **Build a perceived-bias survey mechanism** to test cross-party reader comprehension of grade derivation.
-7. **Phase 2 foundational audit** (annual cadence): dimension choice, POCKETBOOK weighting, promise-selection rationale.
+1. **Activate the perceived-bias survey** (GitHub Discussions, Buttondown form, or other selected mechanism).
+2. **Run axe-core or Lighthouse** against the deployed site to quantify contrast and focus findings.
+3. **Continue accessibility fixes** from `docs/Accessibility-Audit-2026-05.md`: contrast verification, drawer focus management if testing shows confusion, and skip-to-content.
+4. **Run the first substantive Phase 2 foundational audit** on annual cadence, or if the rubric moves to a major new version.
+5. **Consider fuller Skeptic Path UI restructuring** only if user testing shows the orientation callout is not enough.
 
 ## Process notes
 
 - Audit script is `scripts/audit-bias-resistance.mjs`. Reusable for subsequent cycles.
 - Raw output is regenerable via `node scripts/audit-bias-resistance.mjs`; the path `scripts/output/bias-audit-raw-2026-05.txt` is gitignored by design — the script is authoritative, the raw text is a working artifact.
 - Script taxonomy refined 2026-05-16 to split procedural parliamentary records from critique, and to count metric-attached sources as grade-moving.
-- Section 4 (language) extended to full 12-dimension coverage in v5.35; verdict is clean. Section 7 (UI inventory) remains a partial pass; full coverage requires a separate session.
-- The "must have prior substantive view" discipline from Fix 1a / Fix 1b belongs in `docs/Bias-Resistance-Protocol.md` as a recurring rule when that doc is drafted.
-- The "modifiers explain what does not COUNT against the grade, not what should not HURT the grade" principle from Fix 4 also belongs in the protocol doc.
-- The "thread existing challenge sources before adding new" rule from Fix 1a / Fix 1b is the third candidate for the protocol.
+- Section 4 (language) extended to full 12-dimension coverage in v5.35; verdict is clean.
+- Section 7 orientation shipped in v5.36; fuller UI restructuring remains a user-testing-driven backlog item.
+- The "must have prior substantive view," "thread existing challenge sources before adding new," and "modifiers explain what does not COUNT" principles are now codified in `docs/Bias-Resistance-Protocol.md`.

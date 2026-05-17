@@ -335,6 +335,13 @@ a:hover { text-decoration: underline; }
   }
 
   /* Header subtitle (coverage period / updated / version) */
+  .dashboard-title {
+    font-size: 26px !important;
+    line-height: 1.15 !important;
+    max-width: 100% !important;
+    overflow-wrap: normal;
+  }
+
   .header-subtitle {
     font-size: 15px !important;
   }
@@ -343,6 +350,7 @@ a:hover { text-decoration: underline; }
     display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 8px !important;
+    min-width: 0 !important;
     padding: 12px !important;
     background: #fff !important;
     border: 1px solid #d9e2ec !important;
@@ -353,6 +361,21 @@ a:hover { text-decoration: underline; }
   .scorecard-trust-item {
     font-size: 15px !important;
     line-height: 1.45 !important;
+    min-width: 0 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .scoreboard-card-title,
+  .scoreboard-card-subtitle {
+    display: block !important;
+    min-width: 0 !important;
+    overflow-wrap: break-word !important;
+  }
+
+  .scoreboard-card {
+    flex: 1 1 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
   }
 
   .last-reviewed-pill {

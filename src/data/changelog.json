@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Bias-resistance docs reconciled to the v5.39 state, dimension cards now open by keyboard, and the mobile scoreboard no longer overflows narrow screens.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Dimension cards keyboard access fixed",
+        "body": "Dimension cards now expose button semantics, focusability, aria-expanded state, and Enter / Space keyboard activation on the card wrapper. This closes the high-severity accessibility finding that keyboard-only readers could not expand dimension drawers."
+      },
+      {
+        "type": "minor",
+        "headline": "Mobile scoreboard overflow tightened",
+        "body": "The mobile header title now gets a fixed small-screen size, and the four headline cards stack to full width on phone-sized screens. This removes the horizontal overflow caught during the v5.40 viewport check."
+      },
+      {
+        "type": "docs",
+        "headline": "Bias-resistance closure docs reconciled",
+        "body": "The May bias-resistance audit, Bias-Resistance Protocol, and accessibility audit now match the v5.39 reality: methodology FAQ, challenge-enabling hygiene, Skeptic Path orientation, perceived-bias survey methodology, full language audit, accessibility audit, and Phase 2 scaffold exist; survey activation, fuller Skeptic Path UI restructuring, remaining accessibility follow-ups, and the first substantive Phase 2 audit remain future work."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Phase 2 foundational-methodology audit framework scaffolded. Annual-cadence doc frames three foundational questions (dimension choice, POCKETBOOK weighting, promise selection) for the first scheduled audit pass.",
     "items": [
       {

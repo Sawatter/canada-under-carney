@@ -153,10 +153,23 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     );
   };
 
+  const handleCardKeyDown = (e) => {
+    if (e.target !== e.currentTarget) return;
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      onClick?.(e);
+    }
+  };
+
   return (
     <div
       id={`dim-${dim.id}`}
       onClick={onClick}
+      onKeyDown={handleCardKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-expanded={isExpanded}
+      aria-label={`${isExpanded ? "Collapse" : "Expand"} ${dim.name} details`}
       style={{
         background: isTracker ? "#fcfcf7" : "#fff",
         border: `1px solid ${

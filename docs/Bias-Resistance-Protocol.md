@@ -2,7 +2,7 @@
 
 **Purpose:** Codify the bias-resistance discipline learned in the May 2026 audit cycle into a recurring per-cycle gate. This is the operating doc, not a manifesto. Drafted after audit findings landed (per the original plan rule that the protocol reflects actual findings, not preempted speculation).
 
-**Provenance:** This protocol distills three rounds of review (initial Phase 1 audit, second-Claude critique, ChatGPT review) and the four shipped fixes (v5.28 / v5.29 / v5.30). Source docs: `docs/Trust-And-Bias-Resistance-Plan-2026-05.md`, `docs/Bias-Resistance-Audit-2026-05.md`.
+**Provenance:** This protocol distills three rounds of review (initial Phase 1 audit, second-Claude critique, ChatGPT review), the four shipped Phase 1 fixes (v5.28 / v5.29 / v5.30), and the follow-on public trust artifacts (v5.31-v5.39). Source docs: `docs/Trust-And-Bias-Resistance-Plan-2026-05.md`, `docs/Bias-Resistance-Audit-2026-05.md`.
 
 ## The decision rule
 
@@ -18,18 +18,18 @@ That is the operational success criterion. Fixes that improve a skeptical reader
 
 ## Principles
 
-Eleven principles. Status reflects what's built vs partial vs new as of v5.31 (post-Phase-1-fixes).
+Eleven principles. Status reflects what's built vs partial vs still pending as of v5.40.
 
 | # | Principle | Status |
 |---|---|---|
 | 1 | Rule before result: every grade shows metric → threshold → judgment call → modifier → final. | **Built.** `gradeBasis`, `scoring.thresholds`, `judgmentCall`, `judgmentDetail`, `gradeTriggers` all exist in `dimensions.json`. |
 | 2 | Party-symmetry test: every grade move documents "would the same evidence produce the same grade under a different governing party?" | **New.** Adopted in this cycle as a recurring rule (see "Per-grade-move checklist line" below). |
-| 3 | Evidence split: each card surfaces grade-moving evidence, context evidence, critics, defenders, and what would move the grade. | **Built (partial).** Schema supports it; UI scattered. Skeptic Path UI threading still pending. |
+| 3 | Evidence split: each card surfaces grade-moving evidence, context evidence, critics, defenders, and what would move the grade. | **Built (partial).** Schema supports it; v5.36 added a Skeptic Path orientation callout. Fuller one-thread UI restructuring remains backlog. |
 | 4 | Source coverage ledger: every cycle records what was checked, what was not, what changed, what was blocked. | **Built.** `docs/Source-Coverage-Ledger-YYYY-MM.md` per cycle. |
-| 5 | Bias boundary in the UI: the dashboard plainly says what it does not grade. | **Partial.** Methodology docs name the exclusions. About page surfaces some; not all. |
-| 6 | Perceived-bias testing: real cross-party reader survey measures whether different priors can see how grades were reached. | **Not built.** Tier 1 follow-on. |
+| 5 | Bias boundary in the UI: the dashboard plainly says what it does not grade. | **Built.** About and the Methodology FAQ name what the dashboard refuses to score and why. |
+| 6 | Perceived-bias testing: real cross-party reader survey measures whether different priors can see how grades were reached. | **Methodology built, activation pending.** v5.37 added `docs/Perceived-Bias-Survey.md` and entry-point links; responses are not being collected yet. |
 | 7 | Audience targeting: build for journalists, policy researchers, teachers, serious civic readers first. Advocacy groups second. | **Adopted by editorial convention.** Not a code artifact. |
-| 8 | Skeptic Path: for each dimension, a reader can attack the grade with sources, rubric, triggers, last-updated, alternative interpretation, and what would change the grade. | **Built (partial).** Ingredients exist; threading scattered across drawer sections. |
+| 8 | Skeptic Path: for each dimension, a reader can attack the grade with sources, rubric, triggers, last-updated, alternative interpretation, and what would change the grade. | **Orientation built, full thread pending.** v5.36 added the callout; a single unified derivation surface remains Phase 2 UI work if user testing shows the callout is not enough. |
 | 9 | Source-family diversity per dimension: no dimension should have grade-moving evidence concentrated in a single family without independent challenge. | **Audited.** Phase 1 audit produced per-dimension findings; fixes shipped where flagged. |
 | 10 | Source attribution discipline: defenders perspectives name their authoritative sources, not just critics. | **Audited and fixed.** v5.29 closed the five-dimension asymmetry. |
 | 11 | Symmetric specificity: up-triggers and down-triggers carry parallel sourcing and threshold precision. Event-driven exceptions are documented as conventions, not hidden behind placeholder URLs. | **Audited and documented.** v5.30 added the event-driven convention to `Scoring-Rubric-v1.1.md`. |
@@ -76,22 +76,22 @@ Every cycle that changes a `grade` value on any dimension must include this line
 
 If the answer is anything other than an unqualified "Yes," the grade move requires extra documentation in `judgmentDetail` explaining why the evidence is being read the way it is and whether a hypothetical alternative-party reading would arrive at the same band.
 
-## Public-surface backlog
+## Public-surface status
 
-These are the reader-facing trust artifacts that follow this protocol. Each is its own work item:
+These are the reader-facing trust artifacts that follow this protocol. Status is current as of v5.40:
 
-1. **Methodology FAQ** (Tier 2.6). Public page that preempts the most common bias accusations with the published trigger-language answer. Source: this protocol + audit findings.
-2. **Skeptic Path UI threading.** A reader can follow grade → rule → trigger → source → critics/defenders in one threaded surface per dimension rather than across multiple drawer sections.
-3. **Corrections policy.** Documented criteria for when a grade or fact gets corrected vs re-graded. `type: "correction"` added to `changelog.json` schema.
-4. **Right-of-reply / feedback channel.** Published contact route + review process for graded subjects.
-5. **Citation format.** Standard format journalists and other dashboards can use to cite this dashboard at a specific version.
-6. **Accessibility audit pass.** WCAG AA conformance check. A reader who cannot perceive a grade cannot challenge it.
-7. **Perceived-bias survey mechanism.** Real cross-party reader test of methodology comprehension.
+1. **Methodology FAQ** (Tier 2.6): built in v5.34 inside the Rubric tab.
+2. **Skeptic Path UI threading:** orientation built in v5.36; fuller one-thread UI remains backlog.
+3. **Corrections policy:** built in v5.33 at `docs/Corrections-Policy.md`.
+4. **Right-of-reply / feedback channel:** built in v5.33 at `docs/Right-Of-Reply.md`.
+5. **Citation format:** built in v5.33 in the About surface.
+6. **Accessibility audit pass:** built in v5.38 at `docs/Accessibility-Audit-2026-05.md`; first keyboard-access fix shipped in v5.40.
+7. **Perceived-bias survey mechanism:** methodology and links built in v5.37; activation pending.
 
 ## Audit re-run cadence
 
 - **Phase 1 operational audit** (this protocol's scope): per major dashboard update (typically monthly cycles). The script is fast (~1 second). Findings interpretation takes a human pass.
-- **Phase 2 foundational audit** (`docs/Foundational-Methodology-Audit-2026.md`, not yet written): annually, or when the scoring rubric major version changes (current: v1.1).
+- **Phase 2 foundational audit** (`docs/Foundational-Methodology-Audit-2026.md`, scaffolded in v5.39): annually, or when the scoring rubric major version changes (current: v1.1).
 - **Script refinement** (taxonomy updates, threshold tuning, new patterns): when audit findings reveal script-definition artifacts. The May 2026 cycle refined the script three times (family 5/6 split, family 10 threshold exception, metric-attached source extraction).
 
 ## What this protocol does NOT do
@@ -104,3 +104,4 @@ These are the reader-facing trust artifacts that follow this protocol. Each is i
 ## Version history
 
 - **v1.0 (2026-05-16):** Initial protocol drafted from May 2026 audit findings and three shipped fix cycles (v5.28 / v5.29 / v5.30). Codifies eleven principles, three emergent disciplines, pre/post-cycle checklists, and the public-surface backlog.
+- **v1.1 (2026-05-16):** Reconciled after v5.34-v5.40 public trust work. Marks Methodology FAQ, challenge-enabling hygiene, accessibility audit, survey methodology, Skeptic Path orientation, and Phase 2 scaffold as built, with activation / fuller UI / remaining accessibility fixes carried forward.
