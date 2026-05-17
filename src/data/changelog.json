@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "Closure memo version history catches up to v5.50, including two newly surfaced axe-core findings that appear only when dimension drawers are expanded.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Closure memo v1.2 — version history catch-up",
+        "body": "docs/Bias-Resistance-Cycle-2026-05-Closure.md version history now references v5.47, v5.48, and v5.49 as companion commits that landed after the original closure memo at v5.46. Records that none change the bias-resistance arc's scope, and adds explicit documentation of two new axe-core findings that surface only when dimension drawers are expanded: Event badge contrast (#e65100 on #fff3e0 = 3.45:1, introduced by v5.48's Event badges) and a nested-interactive flag on the DimensionCard wrapper (technically present since v5.40 but only visible to axe when inner buttons are rendered). Both flagged for the June cycle. The earlier saved axe snapshot (docs/accessibility/axe-v5.46.json) used the closed-drawer state which is still clean."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "Link-rot scanner gains retry-with-fallback for User-Agent anti-bot mismatches. ChatGPT-flagged CBC false positives now correctly resolve as live.",
     "items": [
       {
