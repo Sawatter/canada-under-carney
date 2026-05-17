@@ -57,6 +57,7 @@ Run before the monthly cycle ledger is drafted. Each item is a yes/no question.
 - [ ] Has any cited grade-moving URL gone to 404 since last cycle? (Captured in link-rot scan.)
 - [ ] Is the excluded-evidence log started? (New section in the cycle ledger.)
 - [ ] If running a language, accessibility, or source audit: verify each finding against current code state, not against historical drift. (Added v5.41 after the v5.40 audit-doc reconciliation found that two accessibility findings had already been fixed in code before the audit doc was written. Code-inspection passes need to cross-check current state, not assume prior state from grep output.)
+- [ ] If the cycle includes any UI-touching commit: run a viewport-pass smoke check at both desktop (≥1024px) and phone-sized (≤414px) widths before declaring the commit complete. (Added v5.42 after v5.40's keyboard-fix commit caught a mobile scoreboard overflow that the desktop check alone missed. UI changes need explicit narrow-viewport verification.)
 
 ## Post-cycle review template
 

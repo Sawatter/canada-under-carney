@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Bias-Resistance Protocol pre-cycle checklist gains viewport-check rule for UI-touching commits.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Viewport-check discipline codified in the protocol",
+        "body": "The pre-cycle checklist now includes: 'If the cycle includes any UI-touching commit: run a viewport-pass smoke check at both desktop (≥1024px) and phone-sized (≤414px) widths before declaring the commit complete.' Added after v5.40's keyboard-fix commit caught a mobile scoreboard overflow that desktop-only verification had missed. UI changes need explicit narrow-viewport verification before they ship."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Accessibility audit Phase 2: grade chip contrast darkened to meet WCAG AA, skip-to-content link added, drawer focus management clarified per WAI-ARIA disclosure pattern.",
     "items": [
       {
