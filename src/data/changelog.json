@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "Link-rot scanner gains retry-with-fallback for User-Agent anti-bot mismatches. ChatGPT-flagged CBC false positives now correctly resolve as live.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Link-rot scanner now retries blocked URLs with browser User-Agent",
+        "body": "ChatGPT's dry-run cross-check (recorded in 4171b7f) confirmed that two CBC URLs flagged as broken by the link-rot scan actually load 200 in a normal browser. Root cause: CBC anti-bots the scanner's descriptive UA ('Canada Under Carney monthly fetch'). check_url_with_wayback now tries the descriptive UA first (works for most sources including .gc.ca and most RSS), then retries with a real-browser Safari UA if the primary probe fails. URLs that respond live on the browser-UA retry are marked live with a 'primary UA blocked; live on browser-UA retry' note. Tested: CBC URLs now correctly resolve as live; the descriptive-UA-friendly sources (.gc.ca, RSS feeds) keep their existing behavior. Closes the scanner-identity-rot false positive class without introducing regressions for descriptive-UA-friendly hosts."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "Trust-surface pass: the live dashboard now points readers to safeguards sooner, labels event-driven triggers, summarizes key context inside each drawer, and adds a grade-challenge guide.",
     "items": [
       {

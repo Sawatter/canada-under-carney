@@ -1033,27 +1033,62 @@ def check_url_with_wayback(url, timeout=10):
     Optional fields: `http_code`, `wayback_url`, `wayback_timestamp`,
     `error`.
     """
-    headers = {"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"}
-    is_live = False
-    http_code = None
-    try:
-        # Some sites 405 on HEAD, so use GET but with a short timeout and
-        # we don't actually consume the body for size reasons.
-        resp = requests.get(url, timeout=timeout, headers=headers, stream=True, allow_redirects=True)
-        http_code = resp.status_code
-        resp.close()
-        if 200 <= resp.status_code < 400:
-            is_live = True
-    except Exception:
-        pass
+    # Retry-with-fallback for User-Agent anti-bot mismatches.
+    # Different sites prefer different User-Agent strings:
+    # - Most .gc.ca and RSS endpoints work cleanly with our descriptive UA.
+    # - Some sites (e.g., CBC) anti-bot custom UAs and return 404 or refuse
+    #   connection, producing scanner false positives.
+    # Try descriptive UA first (works for most), then fall back to a real
+    # browser UA for any URL that fails. If the fallback succeeds, the URL
+    # is live for a normal reader and the scan should not flag it as broken.
+    # Verified May 17 2026: this pattern fixes CBC false positives without
+    # introducing the .gc.ca regressions seen when browser UA was used as
+    # the only probe.
+    PRIMARY_UA = "Mozilla/5.0 (Canada Under Carney monthly fetch)"
+    FALLBACK_UA = (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15"
+    )
 
-    if is_live:
-        return {"status": "live", "http_code": http_code}
+    def _probe(ua):
+        try:
+            resp = requests.get(
+                url,
+                timeout=timeout,
+                headers={"User-Agent": ua},
+                stream=True,
+                allow_redirects=True,
+            )
+            code = resp.status_code
+            resp.close()
+            return {"live": 200 <= code < 400, "http_code": code}
+        except Exception:
+            return {"live": False, "http_code": None}
+
+    primary = _probe(PRIMARY_UA)
+    if primary["live"]:
+        return {"status": "live", "http_code": primary["http_code"]}
+
+    # Primary probe failed — retry with browser UA to distinguish scanner
+    # anti-bot false positives from real link rot.
+    fallback = _probe(FALLBACK_UA)
+    if fallback["live"]:
+        return {
+            "status": "live",
+            "http_code": fallback["http_code"],
+            "note": "primary UA blocked; live on browser-UA retry",
+        }
+
+    # Both probes failed. Use the most informative HTTP code we got for
+    # the bot-blocked-vs-broken classification.
+    http_code = primary["http_code"] or fallback["http_code"]
 
     # Distinguish 403 (likely bot-blocked but page exists) from 404 (gone).
     # 403 is logged as "blocked" so an editor knows the page may still
     # load in a real browser.
     bot_blocked = http_code == 403
+
+    headers = {"User-Agent": FALLBACK_UA}
 
     # URL appears broken or blocked — try Wayback availability API
     try:
