@@ -106,6 +106,21 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     keyContextItems.push({ label: "Inherited context", text: dim.inherited });
   }
 
+  const jumpToSection = (e, targetId, beforeScroll) => {
+    e.preventDefault();
+    e.stopPropagation();
+    beforeScroll?.();
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        document.getElementById(targetId)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
+    });
+  };
+
   const renderTriggerItem = (trigger, keyPrefix) => {
     const item = normalizeTrigger(trigger);
     if (!item) return null;
@@ -439,14 +454,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               challenge this grade, walk these five ingredients in order:{" "}
               <a
                 href={`#dim-${dim.id}-scoring`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const el = document.getElementById(`dim-${dim.id}-scoring`);
-                  if (el) {
-                    e.preventDefault();
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }
-                }}
+                onClick={(e) => jumpToSection(e, `dim-${dim.id}-scoring`)}
                 style={{ color: "#1565c0", textDecoration: "underline" }}
               >
                 (1) the rule
@@ -455,13 +463,9 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               <a
                 href={`#dim-${dim.id}-triggers-section`}
                 onClick={(e) => {
-                  e.stopPropagation();
-                  const el = document.getElementById(`dim-${dim.id}-triggers-section`)
-                    || document.getElementById(`dim-${dim.id}-triggers`);
-                  if (el) {
-                    e.preventDefault();
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }
+                  jumpToSection(e, `dim-${dim.id}-triggers-section`, () => {
+                    if (showLowerTriggers) setTriggersOpen(true);
+                  });
                 }}
                 style={{ color: "#1565c0", textDecoration: "underline" }}
               >
@@ -470,14 +474,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               ,{" "}
               <a
                 href={`#dim-${dim.id}-metrics`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const el = document.getElementById(`dim-${dim.id}-metrics`);
-                  if (el) {
-                    e.preventDefault();
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }
-                }}
+                onClick={(e) => jumpToSection(e, `dim-${dim.id}-metrics`)}
                 style={{ color: "#1565c0", textDecoration: "underline" }}
               >
                 (3) the evidence under each metric
@@ -485,14 +482,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               ,{" "}
               <a
                 href={`#dim-${dim.id}-sources`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  const el = document.getElementById(`dim-${dim.id}-sources`);
-                  if (el) {
-                    e.preventDefault();
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }
-                }}
+                onClick={(e) => jumpToSection(e, `dim-${dim.id}-sources`)}
                 style={{ color: "#1565c0", textDecoration: "underline" }}
               >
                 (4) the cited sources
@@ -501,12 +491,9 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               <a
                 href={`#dim-${dim.id}-perspectives-section`}
                 onClick={(e) => {
-                  e.stopPropagation();
-                  const el = document.getElementById(`dim-${dim.id}-perspectives-section`);
-                  if (el) {
-                    e.preventDefault();
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }
+                  jumpToSection(e, `dim-${dim.id}-perspectives-section`, () => {
+                    setPerspectivesOpen(true);
+                  });
                 }}
                 style={{ color: "#1565c0", textDecoration: "underline" }}
               >
@@ -709,7 +696,10 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                   </div>
                 )}
                 {dim.gradeTriggers && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <div
+                    id={`dim-${dim.id}-triggers-section`}
+                    style={{ display: "flex", flexDirection: "column", gap: "6px", scrollMarginTop: "16px" }}
+                  >
                     <strong>What changes this grade</strong>
                     <div>
                       <strong>Up one step:</strong>

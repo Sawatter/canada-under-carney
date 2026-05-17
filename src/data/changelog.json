@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "Skeptic Path anchor links now jump reliably inside expanded dimension drawers on desktop and mobile.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Skeptic Path links fixed",
+        "body": "The Skeptic Path links at the top of each dimension drawer now use one shared jump handler that prevents the card wrapper from swallowing the click, waits for React state updates, and scrolls to the target section. The 'what would move the grade' target now exists inside the main scoring panel, and the critic / defender link opens its collapsed section before scrolling. Desktop and phone-width smoke checks confirmed all five links land on their intended sections."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "Closure memo version history catches up to v5.50, including two newly surfaced axe-core findings that appear only when dimension drawers are expanded.",
     "items": [
       {
