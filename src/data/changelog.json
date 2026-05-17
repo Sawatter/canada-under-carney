@@ -1,5 +1,21 @@
 [
   {
+    "date": "2026-05-17",
+    "summary": "Closure memo verification-layer cleanup after ChatGPT review: git log range fixed to be inclusive, live-version check corrected for SPA bundle, axe-core result now backed by saved JSON artifact, and three narrative inconsistencies tightened.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Closure memo verification layer fixed (six findings addressed)",
+        "body": "ChatGPT's review of the v5.46 closure memo identified six issues with the verification layer. All fixed in v5.47: (1) git log range used 'A..B' syntax which excludes A; corrected to 'A^..B' for the inclusive 20-commit arc. (2) Removed broken 'v5.* tag' references since the repo does not use git tags. (3) Live-version curl was greping static HTML, but the SPA version is in the JS bundle; replaced with a two-step bundle-extract approach. (4) Saved an axe-core JSON snapshot (docs/accessibility/axe-v5.46.json) with reproduction instructions, so the '0 violations' claim is now backed by a reproducible artifact rather than oral assertion. (5) TL;DR said 'two passes' of accessibility work; corrected to 'five iterative passes' to match the detailed track description. (6) 'WCAG AA aligned across dashboard' softened to 'automated axe-core checks clean; manual assistive-tech testing pending' since real screen-reader and assistive-tech testing has not been performed. Plus 'All 4 Phase 1 fixes' clarified as 'five named fixes across four approval groups' to remove cold-reader confusion."
+      },
+      {
+        "type": "docs",
+        "headline": "Axe-core snapshot artifact added",
+        "body": "docs/accessibility/axe-v5.46.json saves the axe-core 4.10.2 run against live v5.46. Contains the full counts (0 violations, 1 incomplete, 24 passes, 37 inapplicable), the incomplete category detail (15 TrendArrow glyph spans with correct aria semantics), reproduction instructions, and a note that this supersedes the earlier oral claim."
+      }
+    ]
+  },
+  {
     "date": "2026-05-16",
     "summary": "Closure memo published: docs/Bias-Resistance-Cycle-2026-05-Closure.md consolidates the 20-commit May 2026 arc into one authoritative reference for future reviewers.",
     "items": [

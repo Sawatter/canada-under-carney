@@ -1,0 +1,26 @@
+{
+  "runAt": "2026-05-17T03:55:40.288Z",
+  "deploy": "v5.46",
+  "axeVersion": "4.10.2",
+  "url": "https://sawatter.github.io/canada-under-carney/",
+  "tagsChecked": ["wcag2a", "wcag2aa", "wcag21aa"],
+  "counts": {
+    "violations": 0,
+    "incomplete": 1,
+    "passes": 24,
+    "inapplicable": 37
+  },
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodes": 15,
+      "sampleSummary": "Element content contains only non-text characters",
+      "note": "All 15 incomplete nodes are TrendArrow glyph-only spans (▲, ▬, ▼). The elements carry aria-label=\"Trend: <direction>\", role=\"img\", and title attributes per WAI-ARIA, which is the correct accessibility pattern for icon-only content. axe-core flags as 'needs human review' because it cannot auto-compute contrast for pure-glyph content without surrounding text. This is an axe limitation, not a real violation."
+    }
+  ],
+  "howToReproduce": "1. Open https://sawatter.github.io/canada-under-carney/ in Chrome. 2. Open DevTools console. 3. Paste: const s = document.createElement('script'); s.src = 'https://cdnjs.cloudflare.com/ajax/libs/axe-core/4.10.2/axe.min.js'; document.head.appendChild(s); 4. After it loads, paste: await axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa'] } }); 5. Inspect the result object.",
+  "claimedBy": "docs/Bias-Resistance-Cycle-2026-05-Closure.md",
+  "supersedes": "Earlier oral claim of '0 violations, 24 passes, 1 incomplete' is now backed by this saved JSON snapshot."
+}

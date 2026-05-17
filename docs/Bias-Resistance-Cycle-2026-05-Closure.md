@@ -2,39 +2,59 @@
 
 **Purpose:** Single authoritative reference for what shipped in the May 2026 bias-resistance + accessibility cycle. Self-contained so any future reviewer (human, Claude, ChatGPT) can read this one file and get the full state without chasing conversation history.
 
-**Scope:** Commits `c35dec6` → `e8be26b` (v5.26 → v5.45), May 16, 2026.
+**Scope:** Commits `c35dec6` → `e8be26b` (v5.26 → v5.45), May 16, 2026. The bias-resistance work arc itself ends at v5.45. v5.46 is the meta-commit publishing this memo. v5.47 is the verification-layer cleanup applied after ChatGPT's review of v5.46 found six issues with the original verification commands.
 
-**Generated:** 2026-05-16. This doc supersedes scattered references in earlier audit / protocol docs where they may not yet reflect the full arc.
+**Generated:** 2026-05-16, revised 2026-05-17 (v5.47) after verification-layer findings. Read the verification commands below as referring to current repo HEAD, not to the v5.45 arc endpoint specifically.
 
 ---
 
 ## TL;DR
 
-The dashboard's May 2026 cycle built a per-cycle bias-resistance audit script and methodology, shipped all the editorial fixes the audit surfaced, completed the Tier 1 challenge-enabling hygiene (corrections, right-of-reply, citation), added a public Methodology FAQ, completed a full 12-dimension language audit, added Skeptic Path UI orientation with anchor navigation, scaffolded a perceived-bias survey methodology, scaffolded the annual Phase 2 foundational audit framework, and ran two passes of accessibility work culminating in zero axe-core violations on the live deploy. 20 commits, version bumps v5.26 → v5.45.
+The dashboard's May 2026 cycle built a per-cycle bias-resistance audit script and methodology, shipped all the editorial fixes the audit surfaced, completed the Tier 1 challenge-enabling hygiene (corrections, right-of-reply, citation), added a public Methodology FAQ, completed a full 12-dimension language audit, added Skeptic Path UI orientation with anchor navigation, scaffolded a perceived-bias survey methodology, scaffolded the annual Phase 2 foundational audit framework, and ran five iterative passes of accessibility work culminating in zero axe-core violations on the live deploy (automated checks only; manual assistive-tech testing still pending and tracked as future work). 20 commits in the bias-resistance arc, version bumps v5.26 → v5.45, plus v5.46 closure memo and v5.47 verification-layer cleanup.
 
 ---
 
 ## Quick verification (paste these to confirm)
 
+The dashboard does not use git tags; refer to commits by hash. The version field in `meta.json` reflects current HEAD, which may be later than v5.45 if subsequent commits landed (e.g., this memo's own publication at v5.46 and the verification-fix at v5.47).
+
 ```bash
-# Repo state
+# Repo state — the 20-commit bias-resistance arc
 cd /Users/chrissawatsky/Downloads/canada-under-carney
-git log --oneline v5.26..v5.45                    # see all commits in arc (if tags exist)
-git log --oneline c35dec6..e8be26b                # same, by hash
-git show e8be26b --stat                           # see final commit's file impact
-ls docs/Bias-Resistance*.md docs/Trust-And-*.md   # confirm closure artifacts exist
+git log --oneline c35dec6^..e8be26b               # inclusive 20-commit arc (c35dec6 IS included)
+git log --oneline c35dec6^..e8be26b | wc -l       # expect 20
+git show e8be26b --stat                           # see final arc commit's file impact
+git show cfe675d --stat                           # see closure-memo commit's file impact
+
+# Closure artifacts exist
+ls docs/Bias-Resistance-Cycle-2026-05-Closure.md
+ls docs/Bias-Resistance-Audit-2026-05.md docs/Bias-Resistance-Protocol.md
+ls docs/Trust-And-Bias-Resistance-Plan-2026-05.md
 ls docs/Corrections-Policy.md docs/Right-Of-Reply.md docs/Perceived-Bias-Survey.md
-ls docs/Accessibility-Audit-2026-05.md docs/Foundational-Methodology-Audit-2026.md
-cat src/data/meta.json | grep version             # expect "5.45"
+ls docs/Accessibility-Audit-2026-05.md docs/accessibility/axe-v5.46.json
+ls docs/Foundational-Methodology-Audit-2026.md
+
+# Repo version (will reflect HEAD; expect 5.46 or later)
+node -e "console.log(require('./src/data/meta.json').version)"
 
 # Build verification
 npm run test:data                                 # dimension schema invariants
 npm run build                                     # production build
 node scripts/audit-bias-resistance.mjs            # re-run audit; expect 7 of 12 flagged with documented residuals
 
-# Live verification
-curl -s https://sawatter.github.io/canada-under-carney/ | grep -o 'v5\.\d\+'  # expect "v5.45"
-# Browser axe-core run on live: 0 violations, 24 passes, 1 incomplete (TrendArrow glyph false-positive)
+# Live deploy version verification
+# The dashboard is a React SPA; the version is in the JS bundle, not the static HTML.
+# Easiest: open https://sawatter.github.io/canada-under-carney/ in a browser and look
+# near the top of the page header. Or run the JS bundle URL extraction:
+HOMEPAGE=$(curl -s https://sawatter.github.io/canada-under-carney/)
+BUNDLE_PATH=$(echo "$HOMEPAGE" | grep -oE 'assets/index-[^"]*\.js' | head -1)
+curl -s "https://sawatter.github.io/canada-under-carney/$BUNDLE_PATH" | grep -oE '"version":"5\.[0-9]+"' | head -1
+# expect "version":"5.46" (or whatever is currently deployed)
+
+# Live accessibility verification
+# Saved snapshot: docs/accessibility/axe-v5.46.json (0 violations, 24 passes, 1 incomplete)
+# To reproduce live, follow howToReproduce in that JSON file.
+cat docs/accessibility/axe-v5.46.json | head -20
 ```
 
 ---
@@ -74,12 +94,11 @@ curl -s https://sawatter.github.io/canada-under-carney/ | grep -o 'v5\.\d\+'  # 
 
 - `scripts/audit-bias-resistance.mjs` (new in v5.26, refactored across cycle). Mechanical Phase 1 audit covering source-family distribution, trigger symmetry, critics/defenders symmetry, modifier inventory, attention-bias. 10-bucket source-family taxonomy with family-10 threshold-source exception. Counts metric-attached sources as grade-moving (not just trigger-attached).
 - `docs/Bias-Resistance-Audit-2026-05.md` (new in v5.26, reconciled in v5.31, v5.40). Per-cycle audit doc. Currently a closure memo with all 4 Phase 1 fixes shipped + per-finding tagging real-risk vs script-artifact + next-steps reframed to follow-on work.
-- 4 Phase 1 fixes shipped (Fix 1a, 1b/1c, 3, 4 in the audit's renumbering):
+- Five named fixes across four approval groups shipped (the audit doc's renumbering grouped Fix 1b + 1c as related source additions, and Fix 4 + 5 shipped together in v5.30):
   - **Fix 1a** (v5.27): threaded existing Fraser/Angus Reid challenge into Major Projects metrics; CCI/IISD/CBC/Conversation into Climate & Environment metrics.
-  - **Fix 1b/1c** (v5.28): added PBO Demographic Implications to Immigration grade-moving chain; added PBO Major Capital Priorities to Defence & Trade grade-moving chain.
+  - **Fix 1b + 1c** (v5.28, one commit): added PBO Demographic Implications to Immigration grade-moving chain; added PBO Major Capital Priorities to Defence & Trade grade-moving chain.
   - **Fix 3** (v5.29): attributed defender perspectives to named institutional sources on 5 dimensions (PBO, OECD, CCI, CER, Department of Finance, Treasury Board Secretariat, CMHC, Smart Prosperity Institute).
-  - **Fix 4** (v5.30): documented event-driven trigger convention in Scoring-Rubric-v1.1.md.
-  - **Fix 5** (v5.30, conservative direction): documented Immigration's modifier absence as intentional per the grade-softening principle.
+  - **Fix 4 + 5** (v5.30, one commit): documented event-driven trigger convention in Scoring-Rubric-v1.1.md (Fix 4); documented Immigration's modifier absence as intentional per the grade-softening principle (Fix 5, conservative direction).
 
 ### Track 2 — Methodology infrastructure
 
@@ -117,7 +136,9 @@ Iterative tightening across 5 commits as each pass found things the previous mis
 - v5.43: live axe-core 4.10 run against deployed v5.41 surfaced 8 additional contrast violations in inline-styled components. Aligned inline text colors to documented --text-muted token (#666). Updated link blue #1a73e8 → #1565c0. Caught the OLD C-range #e68a00 in two hardcoded uses (ScoreboardHeader Promises conditional + About Evaluation Period header).
 - v5.45: post-v5.44 axe-core run on deployed v5.44 found one remaining #888 violation in ApprovalSignal.jsx (the '/ X%' disapproval span). Fixed plus three more #999/#aaa instances surfaced during the follow-up grep.
 
-**Live v5.45 axe-core result:** 0 violations, 24 passes, 1 incomplete. The incomplete is 15 TrendArrow glyph spans correctly carrying aria-label / role="img" / title (axe limitation for pure-glyph content, not a real violation).
+**Live axe-core result on v5.46 (reproducible artifact):** 0 violations, 24 passes, 1 incomplete, 37 inapplicable. The incomplete category contains 15 TrendArrow glyph spans correctly carrying aria-label / role="img" / title (axe limitation for pure-glyph content, not a real violation). Full snapshot saved at [`docs/accessibility/axe-v5.46.json`](accessibility/axe-v5.46.json) including reproduction instructions. v5.45 produced the same numerical result; this saved artifact uses v5.46 because that was the deploy state when the snapshot was captured.
+
+**Important caveat:** the axe-core result reflects automated accessibility checks only. Manual assistive-tech testing (screen readers — NVDA, JAWS, VoiceOver — and real keyboard-only navigation by a user with motor disabilities) has not been done. Closing axe-core does not equal closing the accessibility track. Real assistive-tech testing remains future work and is tracked in `docs/Accessibility-Audit-2026-05.md` recommendations.
 
 ### Track 6 — Source automation (predecessor work, May 13)
 
@@ -132,14 +153,14 @@ Shipped before the bias-resistance arc began but tied to the same cycle. Five co
 | Bias-resistance audit script | DONE | `scripts/audit-bias-resistance.mjs`, re-runnable |
 | Audit doc + closure memo | DONE | `docs/Bias-Resistance-Audit-2026-05.md` |
 | Bias-Resistance Protocol v1.0 | DONE | `docs/Bias-Resistance-Protocol.md` |
-| All 4 Phase 1 audit fixes | DONE | v5.27–v5.30 |
+| All 5 named Phase 1 audit fixes across 4 approval groups | DONE | v5.27–v5.30 |
 | Corrections Policy | DONE | `docs/Corrections-Policy.md` |
 | Right-of-Reply | DONE | `docs/Right-Of-Reply.md` |
 | Citation format | DONE | About.jsx Cite As block |
 | Methodology FAQ | DONE | Inline in Methodology.jsx Rubric tab |
 | Full 12-dimension language audit | DONE | Section 4 of audit doc, clean pass |
 | Skeptic Path orientation | DONE | Drawer callout + smooth-scroll anchor jumps |
-| Accessibility audit | DONE | 0 axe-core violations on live deploy |
+| Accessibility audit | DONE (automated) | 0 axe-core violations on live deploy; manual assistive-tech testing pending |
 | Perceived-bias survey methodology | DONE | `docs/Perceived-Bias-Survey.md` + About / FAQ entry points |
 | Phase 2 foundational audit | SCAFFOLDED | `docs/Foundational-Methodology-Audit-2026.md`, annual cadence |
 | Perceived-bias survey activation | OPEN (editor-only) | Requires GitHub Discussions enable OR Buttondown form setup |
@@ -169,8 +190,8 @@ Shipped before the bias-resistance arc began but tied to the same cycle. Five co
 | Skeptic Path callout + anchor jumps | View same URL, click any dimension card to expand, see blue-bordered callout at top of drawer with 5 underlined links |
 | Skip-to-content link | Tab once on the live page from a cold load, see "Skip to main content" link appear top-left |
 | Grade chip contrast | Inspect any grade chip; computed colors documented inline in `src/constants.js` with ratios |
-| Live deploy version | `curl -s https://sawatter.github.io/canada-under-carney/ \| grep -o 'v5\.\d\+'` returns `v5.45` |
-| Accessibility status | Browser axe-core run on live: 0 violations |
+| Live deploy version | Open the live URL in a browser and look at the header; OR extract the JS bundle hash from the HTML and grep its version field (see Quick verification block above). The static HTML does NOT contain the version string. |
+| Accessibility status | Saved snapshot at `docs/accessibility/axe-v5.46.json`; reproduction instructions inside that file. Last automated run: 0 violations, 24 passes, 1 incomplete (TrendArrow glyph false-positive). |
 | All 4 Phase 1 audit fixes landed | Per-commit messages name the fix; `git show 7b4136a b746abb b06e9de` |
 
 ## What ChatGPT cannot verify directly without tools
@@ -223,4 +244,5 @@ Constraint: critique the closure. Do not write new artifacts. After your review,
 
 ## Version history
 
-- **v1.0 (2026-05-16, v5.46):** Initial closure memo for the May 2026 bias-resistance + accessibility cycle. Covers commits c35dec6 → e8be26b (v5.26 → v5.45). 20 commits, 6 new docs, 1 new script, 5 component patterns, WCAG AA aligned across dashboard.
+- **v1.0 (2026-05-16, v5.46):** Initial closure memo for the May 2026 bias-resistance + accessibility cycle. Covers commits c35dec6 → e8be26b (v5.26 → v5.45). 20 commits, 6 new docs, 1 new script, 5 component patterns. Automated axe-core checks clean on live; manual assistive-tech testing remains future work.
+- **v1.1 (2026-05-17, v5.47):** Verification-layer cleanup after ChatGPT review of v1.0 found six issues. Fixed: inclusive git log range syntax (`c35dec6^..e8be26b` not `c35dec6..e8be26b`); removed broken v5.* tag references (no git tags exist); corrected live-version verification (SPA version is in JS bundle, not static HTML — switched to a bundle-grep approach); saved axe-core JSON snapshot to `docs/accessibility/axe-v5.46.json` so the accessibility claim is now reproducible from the repo; fixed TL;DR "two passes" → "five iterative passes" of accessibility work; clarified "4 Phase 1 fixes" → "five named fixes across four approval groups"; softened "WCAG AA aligned across dashboard" to "automated axe-core checks clean; manual assistive-tech testing pending."
