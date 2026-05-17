@@ -376,15 +376,84 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               }}
             >
               <strong style={{ color: "#1565c0" }}>Skeptic path:</strong> to
-              challenge this grade, walk these five ingredients in order
-              below: (1) the rule the grade is scored against ("How This
-              File Is Scored" and "Where judgment enters"), (2) what would
-              move the grade ("Up triggers" / "Down triggers"), (3) the
-              evidence under each metric ("Key Metrics"), (4) the cited
-              sources (chips on the card and link-throughs under each
-              trigger or metric), (5) named critic and defender views
-              ("Critics" and "Defenders"). The grade in the header is the
-              result; this drawer is the derivation.
+              challenge this grade, walk these five ingredients in order:{" "}
+              <a
+                href={`#dim-${dim.id}-scoring`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const el = document.getElementById(`dim-${dim.id}-scoring`);
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                style={{ color: "#1565c0", textDecoration: "underline" }}
+              >
+                (1) the rule
+              </a>
+              ,{" "}
+              <a
+                href={`#dim-${dim.id}-triggers-section`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const el = document.getElementById(`dim-${dim.id}-triggers-section`)
+                    || document.getElementById(`dim-${dim.id}-triggers`);
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                style={{ color: "#1565c0", textDecoration: "underline" }}
+              >
+                (2) what would move the grade
+              </a>
+              ,{" "}
+              <a
+                href={`#dim-${dim.id}-metrics`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const el = document.getElementById(`dim-${dim.id}-metrics`);
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                style={{ color: "#1565c0", textDecoration: "underline" }}
+              >
+                (3) the evidence under each metric
+              </a>
+              ,{" "}
+              <a
+                href={`#dim-${dim.id}-sources`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const el = document.getElementById(`dim-${dim.id}-sources`);
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                style={{ color: "#1565c0", textDecoration: "underline" }}
+              >
+                (4) the cited sources
+              </a>
+              , and{" "}
+              <a
+                href={`#dim-${dim.id}-perspectives-section`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  const el = document.getElementById(`dim-${dim.id}-perspectives-section`);
+                  if (el) {
+                    e.preventDefault();
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                style={{ color: "#1565c0", textDecoration: "underline" }}
+              >
+                (5) named critic and defender views
+              </a>
+              . The grade in the header is the result; this drawer is the
+              derivation. Click an ingredient to jump to its section.
             </div>
           )}
           {!isTracker && (dim.construct || scoring || scoringMetadata.length > 0) && (
@@ -674,7 +743,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
           )}
 
           {/* Key Metrics */}
-          <div style={{ marginBottom: "14px" }}>
+          <div id={`dim-${dim.id}-metrics`} style={{ marginBottom: "14px" }}>
             <div
               style={{
                 fontSize: "14px",
@@ -856,7 +925,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
 
           {/* Source Links */}
           {dim.sources && dim.sources.length > 0 && (
-            <div>
+            <div id={`dim-${dim.id}-sources`}>
               <div
                 style={{
                   fontSize: "14px",
@@ -917,7 +986,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               </div>
 
               {showLowerTriggers && (
-                <div style={{ marginBottom: "12px" }}>
+                <div id={`dim-${dim.id}-triggers-section`} style={{ marginBottom: "12px" }}>
                   <button
                     type="button"
                     onClick={(e) => {
@@ -996,7 +1065,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               )}
 
               {dim.perspectives && (
-                <div style={{ marginBottom: "12px" }}>
+                <div id={`dim-${dim.id}-perspectives-section`} style={{ marginBottom: "12px" }}>
                   <button
                     type="button"
                     onClick={(e) => {

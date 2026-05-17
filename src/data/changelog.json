@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Skeptic Path orientation upgraded to threaded navigation: each of the five ingredients in the callout is now a clickable anchor jumping to its drawer section.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Skeptic Path orientation gains anchor-jump navigation",
+        "body": "The Skeptic Path callout at the top of every graded dimension drawer (added in v5.36) was prose-only orientation pointing readers at section names. v5.44 turns each of the five ingredients into a clickable anchor link with smooth-scroll behavior. A reader can now click '(1) the rule', '(2) what would move the grade', '(3) the evidence under each metric', '(4) the cited sources', or '(5) named critic and defender views' to jump directly to the relevant drawer section. Required adding stable id anchors to the Key Metrics, Source Links, the triggers section wrapper, and the perspectives section wrapper (the scoring section already had id=dim-${dim.id}-scoring). Closes the fuller Skeptic Path UI threading item from the bias-resistance audit's Section 7. Fuller restructure (e.g., a single-pane Skeptic Path view) remains future work."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Axe-core run on live v5.41 surfaced 8 contrast violations outside the grade-chip palette. Inline-style text colors aligned to the documented contrast-tested token set.",
     "items": [
       {
