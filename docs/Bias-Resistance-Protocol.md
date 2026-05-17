@@ -18,7 +18,7 @@ That is the operational success criterion. Fixes that improve a skeptical reader
 
 ## Principles
 
-Eleven principles. Status reflects what's built vs partial vs still pending as of v5.40.
+Eleven principles. Status reflects what's built vs partial vs still pending as of v5.55.
 
 | # | Principle | Status |
 |---|---|---|
@@ -80,15 +80,16 @@ If the answer is anything other than an unqualified "Yes," the grade move requir
 
 ## Public-surface status
 
-These are the reader-facing trust artifacts that follow this protocol. Status is current as of v5.40:
+These are the reader-facing trust artifacts that follow this protocol. Status is current as of v5.55:
 
 1. **Methodology FAQ** (Tier 2.6): built in v5.34 inside the Rubric tab.
-2. **Skeptic Path UI threading:** orientation built in v5.36; fuller one-thread UI remains backlog.
+2. **Skeptic Path UI threading:** orientation built in v5.36; anchor jumps fixed in v5.51; fuller one-thread UI remains backlog.
 3. **Corrections policy:** built in v5.33 at `docs/Corrections-Policy.md`.
 4. **Right-of-reply / feedback channel:** built in v5.33 at `docs/Right-Of-Reply.md`.
 5. **Citation format:** built in v5.33 in the About surface.
-6. **Accessibility audit pass:** built in v5.38 at `docs/Accessibility-Audit-2026-05.md`; first keyboard-access fix shipped in v5.40.
+6. **Accessibility audit pass:** built in v5.38 at `docs/Accessibility-Audit-2026-05.md`; first keyboard-access fix landed in v5.40; saved axe artifact at `docs/accessibility/axe-v5.46.json`; two expanded-drawer findings carry forward to June 2026.
 7. **Perceived-bias survey mechanism:** methodology and links built in v5.37; activation pending. Companion outreach templates for the audience-validation half live in `docs/Validation-Sprint-Templates.md` (v5.54). The two are paired: the survey collects reader signal; the templates recruit the readers.
+8. **AI verification methodology:** built in v5.55 at `docs/AI-Verification-Methodology.md`. Codifies a three-model persona panel with a verbatim-quote anti-confabulation rule and convergence-based signal cuts. Pairs with the perceived-bias survey (AI side / human side). Suggested cadence at least once per quarter and after major UI or rubric changes; not a per-cycle requirement.
 
 ## Audit re-run cadence
 
@@ -107,3 +108,4 @@ These are the reader-facing trust artifacts that follow this protocol. Status is
 
 - **v1.0 (2026-05-16):** Initial protocol drafted from May 2026 audit findings and three shipped fix cycles (v5.28 / v5.29 / v5.30). Codifies eleven principles, three emergent disciplines, pre/post-cycle checklists, and the public-surface backlog.
 - **v1.1 (2026-05-16):** Reconciled after v5.34-v5.40 public trust work. Marks Methodology FAQ, challenge-enabling hygiene, accessibility audit, survey methodology, Skeptic Path orientation, and Phase 2 scaffold as built, with activation / fuller UI / remaining accessibility fixes carried forward.
+- **v1.2 (2026-05-17):** Reconciled after v5.41-v5.55. Adds the AI verification methodology as public-surface item 8, marks Skeptic Path anchor-link fix (v5.51) and the saved axe-core artifact (v5.46) in the status list, and notes the two expanded-drawer accessibility findings carrying forward to June 2026. No principles changes.

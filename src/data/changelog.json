@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "AI verification methodology added as a standing trust artifact, codifying a three-model persona panel with a verbatim-quote anti-confabulation rule.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "AI verification methodology published",
+        "body": "docs/AI-Verification-Methodology.md captures a standing three-model persona panel approach (ChatGPT with browsing, Claude with web tools, Gemini) crossed against four reader personas (federal political journalist, nonprofit policy analyst, civic teacher, skeptical voter). The prompt template requires verbatim quotes with location so AI confabulation can be caught when models present paraphrase as quotation. Convergence rules cut signal from noise: 3-of-3 model agreement is a real signal worth carrying forward, 2-of-3 is a candidate, 1-of-3 is a single-model artifact noted but not acted on. The first single-model probe (Grok, 2026-05-17) surfaced two real findings for the June 2026 cycle (editor disclosure surface, version archive visibility) plus one methodology gap (the confabulation pattern that drove the verbatim-quote rule). Pairs with docs/Perceived-Bias-Survey.md (human responses) and docs/Validation-Sprint-Templates.md (human outreach). Suggested cadence is once per quarter plus after major UI or rubric changes; not a per-cycle requirement."
+      },
+      {
+        "type": "docs",
+        "headline": "Bias-resistance protocol reconciled to v1.2",
+        "body": "docs/Bias-Resistance-Protocol.md public-surface list now includes the AI verification methodology as item 8 and updates the status markers for the v5.41 to v5.55 work: the Skeptic Path anchor-link fix in v5.51, the saved axe-core artifact at docs/accessibility/axe-v5.46.json, and the two expanded-drawer accessibility findings carrying forward to June 2026. No principles changes."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "Validation sprint outreach templates adapted from the LaunchSims feedback report and adjusted to the dashboard's voice rules.",
     "items": [
       {
