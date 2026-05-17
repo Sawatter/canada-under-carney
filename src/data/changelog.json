@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Closure memo published: docs/Bias-Resistance-Cycle-2026-05-Closure.md consolidates the 20-commit May 2026 arc into one authoritative reference for future reviewers.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "May 2026 bias-resistance cycle closure memo published",
+        "body": "docs/Bias-Resistance-Cycle-2026-05-Closure.md is the single authoritative reference for the May 2026 bias-resistance + accessibility cycle. Covers all 20 commits (c35dec6 → e8be26b, v5.26 → v5.45) with hashes, dates, scope, per-track summary, current state matrix, what requires editor action vs what's done, quick verification commands, and a ready-to-paste ChatGPT closure-review prompt. Self-contained so future reviewers (human or AI) can read this one file and get the full picture without chasing conversation history. Live axe-core on v5.45: zero violations confirmed. Next cycle's closure memo should reference this one as prior baseline."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Post-v5.44 axe-core re-run caught one remaining #888 contrast violation on the Approval Signal disapproval percentage; fixed plus three more #999/#aaa instances surfaced during the sweep.",
     "items": [
       {
