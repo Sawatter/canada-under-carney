@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "Source-to-trigger audit for the May 2026 cycle published, with 1 grade move documented and 6 trigger-source gaps carried forward to the June cycle.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Source-to-trigger audit identifies 6 evidence gaps",
+        "body": "docs/Source-To-Trigger-Audit-2026-05.md cross-references each of the 11 graded dimensions' pre-committed up and down triggers against what the May 2026 cycle actually checked. Headline: 1 grade move (Fiscal Health D to C, PBO Spring Economic Update assessment), 4 holds with explicit trigger evaluation (Major Projects, Housing down-direction, Ethics, Flagship combination rule), 6 holds with at least one trigger source that was not evaluated in the cycle record. The 6 gaps are specific: Defence 3.5% pathway after the 2026-03-26 NATO 2% confirmation, Affordability gas-tax-suspension up-trigger ($500/household threshold), Housing up-direction vs. the 2026-03-30 Canada-Ontario Housing Partnership, Climate event-driven sources untouched after the 2026-04-19 D+ to D move, Carbon Pricing CCI/ECCC sources untouched, Immigration temporary-resident share against the 5% target. None of these are claims that a grade is wrong; they are claims that the cycle record does not show the trigger was evaluated. June 2026 cycle carries each as a one-line check."
+      },
+      {
+        "type": "method",
+        "headline": "Per-cycle source-to-trigger pass added to pre-cycle checklist",
+        "body": "docs/Bias-Resistance-Protocol.md pre-cycle checklist now asks for one line per graded dimension stating whether the trigger fired, was considered and not fired, or was not checked, with rationale. The May audit found this discipline was missing across most dimensions. Protocol bumped to v1.3."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "AI verification methodology added as a standing trust artifact, codifying a three-model persona panel with a verbatim-quote anti-confabulation rule.",
     "items": [
       {
