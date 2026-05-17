@@ -108,7 +108,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               onClick={handleInternalRefClick}
               style={{
                 fontSize: "12px",
-                color: "#1a73e8",
+                color: "#1565c0",
                 textDecoration: "none",
                 alignSelf: "flex-start",
                 background: "none",
@@ -129,7 +129,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               onClick={(e) => e.stopPropagation()}
               style={{
                 fontSize: "12px",
-                color: "#1a73e8",
+                color: "#1565c0",
                 textDecoration: "none",
                 alignSelf: "flex-start",
                 fontWeight: 600,
@@ -320,14 +320,14 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 }}
               >
                 {trackerStat.delivered}
-                <span style={{ fontSize: "16px", color: "#bbb", fontWeight: 600 }}>
+                <span style={{ fontSize: "16px", color: "#666", fontWeight: 600 }}>
                   /{trackerStat.total}
                 </span>
               </div>
               <div
                 style={{
                   fontSize: "13px",
-                  color: "#888",
+                  color: "#666",
                   marginTop: "3px",
                   letterSpacing: "0.4px",
                   textTransform: "uppercase",
@@ -375,7 +375,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 lineHeight: 1.5,
               }}
             >
-              <strong style={{ color: "#1a73e8" }}>Skeptic path:</strong> to
+              <strong style={{ color: "#1565c0" }}>Skeptic path:</strong> to
               challenge this grade, walk these five ingredients in order
               below: (1) the rule the grade is scored against ("How This
               File Is Scored" and "Where judgment enters"), (2) what would
@@ -459,7 +459,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                         aria-controls={`dim-${dim.id}-glossary`}
                         style={{
                           fontSize: "13px",
-                          color: "#1a73e8",
+                          color: "#1565c0",
                           background: "none",
                           border: "none",
                           padding: "2px 0",
@@ -742,7 +742,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
                             style={{
-                              color: "#1a73e8",
+                              color: "#1565c0",
                               textDecoration: "none",
                               fontWeight: 600,
                             }}
@@ -879,7 +879,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                     onClick={(e) => e.stopPropagation()}
                     style={{
                       fontSize: "14px",
-                      color: "#1a73e8",
+                      color: "#1565c0",
                       textDecoration: "none",
                       background: "#e8f0fe",
                       padding: "3px 8px",
@@ -1283,7 +1283,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
             textTransform: "none",
             letterSpacing: 0,
             marginLeft: "8px",
-            color: "#bbb",
+            color: "#666",
           }}
         >
           As of {cohort.asOf}
@@ -1330,7 +1330,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
           aria-controls={`dim-${dimId}-cohort-list`}
           style={{
             fontSize: "13px",
-            color: "#1a73e8",
+            color: "#1565c0",
             background: "none",
             border: "none",
             padding: "2px 0",
@@ -1438,7 +1438,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
                           style={{
-                            color: "#1a73e8",
+                            color: "#1565c0",
                             fontSize: "12px",
                             fontWeight: 600,
                             textDecoration: "none",

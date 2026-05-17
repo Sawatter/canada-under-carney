@@ -18,7 +18,7 @@ export default function Methodology() {
       range: "C Range (1.7\u20132.3)",
       title: "Response Exists, Falls Materially Short",
       desc: "Policy framework in place but delivery significantly below targets. Credit-claiming exceeds results. Some repackaging.",
-      color: "#e68a00",
+      color: "#8d5a00",
     },
     {
       range: "D Range (0.7\u20131.3)",
@@ -134,7 +134,7 @@ export default function Methodology() {
             <div
               style={{
                 fontSize: "14px",
-                color: "#888",
+                color: "#666",
                 marginTop: "2px",
                 fontStyle: "italic",
               }}
@@ -165,7 +165,7 @@ export default function Methodology() {
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Commitment-Traceability-Map.md"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#1a73e8" }}
+            style={{ color: "#1565c0" }}
           >
             Commitment Traceability Map
           </a>
@@ -242,7 +242,7 @@ export default function Methodology() {
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#1a73e8" }}
+            style={{ color: "#1565c0" }}
           >
             Approval Signal decision memo
           </a>{" "}
@@ -381,7 +381,7 @@ export default function Methodology() {
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Scoring-Rubric-v1.1.md"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               GitHub
             </a>
@@ -403,7 +403,7 @@ export default function Methodology() {
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Audit-2026-05.md"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               docs/Bias-Resistance-Audit-2026-05.md
             </a>
@@ -434,7 +434,7 @@ export default function Methodology() {
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Protocol.md"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               Bias-Resistance Protocol
             </a>
@@ -448,7 +448,7 @@ export default function Methodology() {
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#1a73e8" }}
+            style={{ color: "#1565c0" }}
           >
             corrections policy
           </a>
@@ -457,7 +457,7 @@ export default function Methodology() {
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#1a73e8" }}
+            style={{ color: "#1565c0" }}
           >
             right-of-reply process
           </a>
@@ -466,7 +466,7 @@ export default function Methodology() {
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Perceived-Bias-Survey.md"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#1a73e8" }}
+            style={{ color: "#1565c0" }}
           >
             perceived-bias survey
           </a>

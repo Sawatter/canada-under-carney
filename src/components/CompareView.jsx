@@ -51,7 +51,7 @@ function DimColumn({ dim }) {
 
       {/* Metrics */}
       <div style={{ marginBottom: "14px" }}>
-        <div style={{ fontSize: "14px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+        <div style={{ fontSize: "14px", fontWeight: 700, color: "#666", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
           Metrics
         </div>
         {dim.metrics.map((m, i) => (
@@ -63,7 +63,7 @@ function DimColumn({ dim }) {
 
       {/* Promises */}
       <div>
-        <div style={{ fontSize: "14px", fontWeight: 700, color: "#999", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
+        <div style={{ fontSize: "14px", fontWeight: 700, color: "#666", textTransform: "uppercase", letterSpacing: "0.5px", marginBottom: "6px" }}>
           Promises ({dim.promises.length})
         </div>
         {dim.promises.map((p, i) => (
@@ -104,7 +104,7 @@ export default function CompareView() {
       <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "22px", margin: "0 0 16px", color: "#1a1a1a" }}>
         Compare Dimensions
       </h2>
-      <p style={{ fontSize: "13px", color: "#888", marginBottom: "16px" }}>
+      <p style={{ fontSize: "13px", color: "#666", marginBottom: "16px" }}>
         Select two graded policy dimensions to compare side by side.
       </p>
 
@@ -115,7 +115,7 @@ export default function CompareView() {
             <option key={d.id} value={d.id}>{d.name} ({d.grade})</option>
           ))}
         </select>
-        <span style={{ fontSize: "15px", color: "#999", alignSelf: "center", fontWeight: 700 }}>vs</span>
+        <span style={{ fontSize: "15px", color: "#666", alignSelf: "center", fontWeight: 700 }}>vs</span>
         <select value={rightId} onChange={(e) => setRightId(e.target.value)} style={selectStyle}>
           {comparableDimensions.map((d) => (
             <option key={d.id} value={d.id}>{d.name} ({d.grade})</option>

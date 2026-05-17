@@ -503,7 +503,7 @@ export default function Dashboard() {
         <div style={{ fontSize: "14px", color: "#555", marginTop: "8px" }}>
           <a
             href="feed.xml"
-            style={{ color: "#1a73e8", textDecoration: "none" }}
+            style={{ color: "#1565c0", textDecoration: "none" }}
           >
             Subscribe via RSS &rarr;
           </a>

@@ -47,7 +47,7 @@ const cardScoreCaption = {
 
 const derivationToggleBase = {
   fontSize: "13px",
-  color: "#1a73e8",
+  color: "#1565c0",
   fontWeight: 700,
   background: "none",
   border: "none",
@@ -90,7 +90,7 @@ export default function ScoreboardHeader({
   const delivered = promiseCounts["Delivered"] || 0;
   const pct = totalPromises > 0 ? delivered / totalPromises : 0;
   const promiseNumColor =
-    pct >= 0.6 ? "#1a7a3a" : pct >= 0.3 ? "#e68a00" : "#c62828";
+    pct >= 0.6 ? "#1a7a3a" : pct >= 0.3 ? "#8d5a00" : "#c62828";
 
   return (
     <div style={{ marginBottom: "24px" }}>
@@ -181,7 +181,7 @@ export default function ScoreboardHeader({
               }}
             >
               {delivered}
-              <span style={{ fontSize: "20px", color: "#999" }}>/{totalPromises}</span>
+              <span style={{ fontSize: "20px", color: "#666" }}>/{totalPromises}</span>
             </div>
             <div style={{ ...cardScoreCaption, color: "#555" }}>
               {promiseCounts["Abandoned"] || 0} abandoned &middot;{" "}

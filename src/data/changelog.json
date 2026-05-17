@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Axe-core run on live v5.41 surfaced 8 contrast violations outside the grade-chip palette. Inline-style text colors aligned to the documented contrast-tested token set.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Inline text colors aligned to WCAG AA tokens",
+        "body": "Live axe-core run against v5.41 confirmed the v5.41 grade-chip contrast fix landed clean but surfaced 8 additional contrast violations in inline-styled components: visitor-count pill (#888), scoreboard Promises card headline (old C-range #e68a00), various scoreboard captions and tracker text (#999), email-signup helper (#999), promise tracker timestamp (#aaa), and the #1a73e8 link blue on the #fafafa page background. The repository's index.css has documented contrast-tested tokens (--text-muted: #666 at 5.7:1 on white) and a warning that #888/#999 fail AA, but inline styles in components were drifting from this. This commit replaces inline #888, #999, #aaa, and #bbb (where used as text color) with #666 across DimensionCard, ScoreboardHeader, EmailSignup, PromiseTracker, CompareView, Methodology, About, and VisitorCount. The #1a73e8 link blue is replaced with #1565c0 (passes 4.5:1 on both #fff and #fafafa). The old C-range #e68a00 surfaced in the scoreboard Promises conditional-color path; replaced with #8d5a00 (the v5.41 chip C color)."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Bias-Resistance Protocol pre-cycle checklist gains viewport-check rule for UI-touching commits.",
     "items": [
       {

@@ -135,7 +135,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                           <span
                             style={{
                               fontSize: "13px",
-                              color: "#999",
+                              color: "#666",
                               marginLeft: "6px",
                               fontStyle: "italic",
                             }}
@@ -161,7 +161,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                         <span
                           style={{
                             fontSize: "14px",
-                            color: "#999",
+                            color: "#666",
                             whiteSpace: "nowrap",
                             fontStyle: "italic",
                           }}
@@ -185,7 +185,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                       >
                         {p.evidence && <div>{p.evidence}</div>}
                         {p.since && (
-                          <div style={{ fontSize: "13px", color: "#aaa", marginTop: "4px" }}>
+                          <div style={{ fontSize: "13px", color: "#666", marginTop: "4px" }}>
                             Status since: {p.since}
                           </div>
                         )}
@@ -206,7 +206,7 @@ export default function PromiseTracker({ allPromises, promiseCounts }) {
                                 onClick={(e) => e.stopPropagation()}
                                 style={{
                                   fontSize: "14px",
-                                  color: "#1a73e8",
+                                  color: "#1565c0",
                                   textDecoration: "none",
                                   background: "#e8f0fe",
                                   padding: "3px 8px",

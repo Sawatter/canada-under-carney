@@ -130,9 +130,9 @@ export default function EmailSignup() {
           </div>
         )}
 
-        <div style={{ fontSize: "13px", color: "#999", marginTop: "4px" }}>
+        <div style={{ fontSize: "13px", color: "#666", marginTop: "4px" }}>
           Powered by Buttondown. Prefer RSS?{" "}
-          <a href="feed.xml" style={{ color: "#1a73e8" }}>
+          <a href="feed.xml" style={{ color: "#1565c0" }}>
             Subscribe via RSS instead &rarr;
           </a>
         </div>

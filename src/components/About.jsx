@@ -147,7 +147,7 @@ export default function About() {
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Commitment-Traceability-Map.md"
             target="_blank"
             rel="noopener noreferrer"
-            style={{ color: "#1a73e8" }}
+            style={{ color: "#1565c0" }}
           >
             Commitment Traceability Map
           </a>{" "}
@@ -232,7 +232,7 @@ export default function About() {
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Source-Characterization-Register.md"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               Source Characterization Register
             </a>.
@@ -277,7 +277,7 @@ export default function About() {
           }}
         >
           <div
-            style={{ fontWeight: 700, fontSize: "14px", color: "#e68a00" }}
+            style={{ fontWeight: 700, fontSize: "14px", color: "#8d5a00" }}
           >
             Evaluation Period
           </div>
@@ -315,7 +315,7 @@ export default function About() {
               href="https://github.com/Sawatter/canada-under-carney"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               GitHub
             </a>
@@ -338,7 +338,7 @@ export default function About() {
               href="https://sawatter.github.io/canada-under-carney/"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               sawatter.github.io/canada-under-carney
             </a>
@@ -373,7 +373,7 @@ export default function About() {
               href="https://github.com/Sawatter/canada-under-carney/issues"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               GitHub Issues
             </a>
@@ -382,7 +382,7 @@ export default function About() {
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               corrections policy
             </a>{" "}
@@ -395,7 +395,7 @@ export default function About() {
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               right-of-reply process
             </a>
@@ -408,7 +408,7 @@ export default function About() {
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Perceived-Bias-Survey.md"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: "#1a73e8" }}
+              style={{ color: "#1565c0" }}
             >
               perceived-bias survey
             </a>
