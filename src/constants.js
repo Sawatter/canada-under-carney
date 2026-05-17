@@ -1,17 +1,21 @@
-// Grade definitions: color, background, and GPA value
+// Grade definitions: color, background, and GPA value.
+// Foreground colors were darkened in v5.41 to meet WCAG 2.1 AA
+// normal-text contrast (4.5:1) against their respective backgrounds.
+// GPA values are unchanged (grade math is a frozen surface). All ratios
+// verified at 4.5:1 minimum; lowest is A- at 4.56:1.
 export const GRADES = {
-  "A":  { color: "#1a7a3a", bg: "#e8f5e9", gpa: 4.0 },
-  "A-": { color: "#2e7d32", bg: "#e8f5e9", gpa: 3.7 },
-  "B+": { color: "#558b2f", bg: "#f1f8e9", gpa: 3.3 },
-  "B":  { color: "#689f38", bg: "#f1f8e9", gpa: 3.0 },
-  "B-": { color: "#7cb342", bg: "#f1f8e9", gpa: 2.7 },
-  "C+": { color: "#c67c00", bg: "#fff8e1", gpa: 2.3 },
-  "C":  { color: "#e68a00", bg: "#fff8e1", gpa: 2.0 },
-  "C-": { color: "#ef6c00", bg: "#fff3e0", gpa: 1.7 },
-  "D+": { color: "#d84315", bg: "#fbe9e7", gpa: 1.3 },
-  "D":  { color: "#c62828", bg: "#ffebee", gpa: 1.0 },
-  "D-": { color: "#b71c1c", bg: "#ffebee", gpa: 0.7 },
-  "F":  { color: "#880e0e", bg: "#ffcdd2", gpa: 0.0 },
+  "A":  { color: "#1a7a3a", bg: "#e8f5e9", gpa: 4.0 }, // 4.80:1
+  "A-": { color: "#2e7d32", bg: "#e8f5e9", gpa: 3.7 }, // 4.56:1
+  "B+": { color: "#3f6e24", bg: "#f1f8e9", gpa: 3.3 }, // 5.58:1
+  "B":  { color: "#3a6822", bg: "#f1f8e9", gpa: 3.0 }, // 6.08:1
+  "B-": { color: "#33621e", bg: "#f1f8e9", gpa: 2.7 }, // 6.66:1
+  "C+": { color: "#9a6300", bg: "#fff8e1", gpa: 2.3 }, // 4.75:1
+  "C":  { color: "#8d5a00", bg: "#fff8e1", gpa: 2.0 }, // 5.50:1
+  "C-": { color: "#9a4d00", bg: "#fff3e0", gpa: 1.7 }, // 5.57:1
+  "D+": { color: "#a52c0c", bg: "#fbe9e7", gpa: 1.3 }, // 6.04:1
+  "D":  { color: "#c62828", bg: "#ffebee", gpa: 1.0 }, // 4.92:1
+  "D-": { color: "#b71c1c", bg: "#ffebee", gpa: 0.7 }, // 5.75:1
+  "F":  { color: "#880e0e", bg: "#ffcdd2", gpa: 0.0 }, // 7.05:1
 };
 
 // Trend arrow symbols and colors

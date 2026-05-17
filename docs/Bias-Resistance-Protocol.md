@@ -56,6 +56,7 @@ Run before the monthly cycle ledger is drafted. Each item is a yes/no question.
 - [ ] If yes: do the new flags reflect real methodology risks or script-definition artifacts? (Apply the per-finding tagging from the May audit's "real risks vs script artifacts" section as a model.)
 - [ ] Has any cited grade-moving URL gone to 404 since last cycle? (Captured in link-rot scan.)
 - [ ] Is the excluded-evidence log started? (New section in the cycle ledger.)
+- [ ] If running a language, accessibility, or source audit: verify each finding against current code state, not against historical drift. (Added v5.41 after the v5.40 audit-doc reconciliation found that two accessibility findings had already been fixed in code before the audit doc was written. Code-inspection passes need to cross-check current state, not assume prior state from grep output.)
 
 ## Post-cycle review template
 

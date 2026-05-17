@@ -144,6 +144,40 @@ export default function Dashboard() {
         position: "relative",
       }}
     >
+      {/* Skip-to-content link (WCAG 2.4.1 Bypass Blocks). Visually
+          hidden until focused via keyboard. */}
+      <a
+        href="#main-content"
+        style={{
+          position: "absolute",
+          left: "-9999px",
+          top: "auto",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          background: "#1a73e8",
+          color: "#fff",
+          padding: "8px 16px",
+          zIndex: 1000,
+          textDecoration: "none",
+          borderRadius: "4px",
+          fontWeight: 600,
+        }}
+        onFocus={(e) => {
+          e.currentTarget.style.left = "16px";
+          e.currentTarget.style.top = "16px";
+          e.currentTarget.style.width = "auto";
+          e.currentTarget.style.height = "auto";
+        }}
+        onBlur={(e) => {
+          e.currentTarget.style.left = "-9999px";
+          e.currentTarget.style.top = "auto";
+          e.currentTarget.style.width = "1px";
+          e.currentTarget.style.height = "1px";
+        }}
+      >
+        Skip to main content
+      </a>
       <VisitorCount />
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
@@ -241,6 +275,7 @@ export default function Dashboard() {
       </div>
 
       {/* Scoreboard header: overall grades + promise count + approval signal card */}
+      <div id="main-content" tabIndex={-1} />
       <div id="scoreboard-row">
       <ScoreboardHeader
         overallGrade={gpaToGrade(parseFloat(overallGPA))}

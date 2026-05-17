@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Accessibility audit Phase 2: grade chip contrast darkened to meet WCAG AA, skip-to-content link added, drawer focus management clarified per WAI-ARIA disclosure pattern.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Grade chip colors darkened to meet WCAG AA contrast (4.5:1)",
+        "body": "Seven of twelve grade chips failed WCAG 2.1 AA normal-text contrast: B+ (3.78), B (2.93), B- (2.31), C+ (3.15), C (2.47), C- (2.81), D+ (3.78). Foreground colors in src/constants.js GRADES were darkened to all-pass: B+ #3f6e24 (5.58), B #3a6822 (6.08), B- #33621e (6.66), C+ #9a6300 (4.75), C #8d5a00 (5.50), C- #9a4d00 (5.57), D+ #a52c0c (6.04). A, A-, D, D-, F were already passing and unchanged. Color hierarchy (green→yellow-green→orange→red) preserved. GPA values unchanged (grade math is a frozen surface; color is visual styling). Computation script reproducible: WCAG relative-luminance formula applied to sRGB-converted hex values."
+      },
+      {
+        "type": "minor",
+        "headline": "Skip-to-content link added to Dashboard",
+        "body": "Dashboard.jsx now includes a 'Skip to main content' link at the top of the page, targeting #main-content (a tabIndex={-1} anchor before the scoreboard row). Visually hidden by default, visible on focus with a blue background at top-left. Satisfies WCAG 2.4.1 Bypass Blocks: keyboard users can bypass the header and tab navigation on first tab."
+      },
+      {
+        "type": "docs",
+        "headline": "Drawer focus management clarified per WAI-ARIA disclosure pattern",
+        "body": "The accessibility audit's Finding 4 assumed focus should move into the drawer on expand. On closer reading of the WAI-ARIA Authoring Practices Disclosure pattern, that assumption is incorrect for this widget type: focus correctly stays on the trigger when toggling. Current DimensionCard behavior (after v5.40's keyboard fix) matches the spec exactly. Finding 4 closed as a clarification, not a code change. Audit doc updated."
+      },
+      {
+        "type": "docs",
+        "headline": "Bias-Resistance Protocol pre-cycle checklist gains drift-check rule",
+        "body": "The pre-cycle checklist now includes: 'If running a language, accessibility, or source audit: verify each finding against current code state, not against historical drift.' Added after the v5.40 audit-doc reconciliation found that two accessibility findings had already been fixed in code before the audit doc was written. Code-inspection passes need to cross-check current state."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Bias-resistance docs reconciled to the v5.39 state, dimension cards now open by keyboard, and the mobile scoreboard no longer overflows narrow screens.",
     "items": [
       {
