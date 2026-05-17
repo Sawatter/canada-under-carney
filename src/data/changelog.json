@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "May 16 source recertification added as a separate retrospective source-health artifact.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "May 16 source recertification",
+        "body": "A retrospective Tier 3 source recertification now checks the May 16 dashboard snapshot pinned to dimensions.json at 60a2e6e. The pass logged 114 unique URLs, saved the link-check artifact, found no grade-chain blocker, and carried three Promise Delivery 404s forward as June link-repair candidates without changing May grades, sources, thresholds, or the May ledger."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "Header trust-frame alignment fixed and the safeguards link now jumps directly to the Methodology & Safeguards panel.",
     "items": [
       {

@@ -1,0 +1,3300 @@
+[
+  {
+    "url": "https://abacusdata.ca/canadian-politics-carney-government-approval-hits-new-high-as-liberals-lead-conservatives-by-10/",
+    "refs": [
+      {
+        "label": "Abacus Data 2026-05-05 - Abacus Data: Government Approval May 2026",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "57/28 n=2478"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://abacusdata.ca/canadian-politics-carney-government-approval-hits-new-high-as-liberals-lead-conservatives-by-10/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://abacusdata.ca/canadian-politics-liberals-extend-lead-and-consolidate-support-following-majority-wins/",
+    "refs": [
+      {
+        "label": "Abacus Data 2026-04-21 - Abacus Data: Government Approval April 2026 W2",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "54/29 n=2000"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://abacusdata.ca/canadian-politics-liberals-extend-lead-and-consolidate-support-following-majority-wins/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://abacusdata.ca/prime-minister-carney-approval-liberals-strengthen-ahead-conservative-convention/",
+    "refs": [
+      {
+        "label": "Abacus Data 2026-01-27 - Abacus: PM Carney's Standing Improves as Liberals Strengthen",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "54/31 n=1500"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://abacusdata.ca/prime-minister-carney-approval-liberals-strengthen-ahead-conservative-convention/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://angusreid.org/carney-one-year-approval-campaign-promises-liberals/",
+    "refs": [
+      {
+        "label": "Angus Reid — Carney government report card",
+        "area": "Promise Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Angus Reid Institute 2026-04-20 - Angus Reid Institute: Election +365 Carney approval",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "58/35 n=2013"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://angusreid.org/carney-one-year-approval-campaign-promises-liberals/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://angusreid.org/federal-politics-carney-receives-post-davos-bump-in-approval/",
+    "refs": [
+      {
+        "label": "Angus Reid Institute 2026-01-26 - Angus Reid Institute: Post-Davos bump in Carney approval",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "60/34 n=1420"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://angusreid.org/federal-politics-carney-receives-post-davos-bump-in-approval/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://angusreid.org/major-projects-reaction-canada/",
+    "refs": [
+      {
+        "label": "Angus Reid — major projects reaction",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Headline investment figure (government-announced) - Angus Reid - major projects reaction",
+        "area": "Major Projects",
+        "surface": "metric sourceRef",
+        "claim": "PMO nation-building project announcements across all three tranches. Government cites $126B in combined investment. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing private-sector investment decisions — qualifier 'mostly pre-existing' reflects their assessment."
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://angusreid.org/major-projects-reaction-canada/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
+    "refs": [
+      {
+        "label": "$5B Trade Diversification Corridors Fund - status",
+        "area": "Defence & Trade",
+        "surface": "promise status",
+        "claim": "In Progress"
+      },
+      {
+        "label": "$10B Indigenous Loan Guarantee Program - status",
+        "area": "Major Projects",
+        "surface": "promise status",
+        "claim": "Delivered"
+      },
+      {
+        "label": "Budget 2025",
+        "area": "Fiscal Health",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Middle class income tax cut - original",
+        "area": "Fiscal Health",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Middle class income tax cut - status",
+        "area": "Fiscal Health",
+        "surface": "promise status",
+        "claim": "Delivered"
+      },
+      {
+        "label": "Cancel capital gains tax increase - original",
+        "area": "Fiscal Health",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Capital gains reversal - original",
+        "area": "Promise Delivery",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://budget.canada.ca/2025/report-rapport/chap1-en.html",
+    "refs": [
+      {
+        "label": "East-west electricity grid - status",
+        "area": "Climate & Environment",
+        "surface": "promise status",
+        "claim": "Too Early"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://budget.canada.ca/2025/report-rapport/chap1-en.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
+    "refs": [
+      {
+        "label": "Buy Canadian procurement strategy - status",
+        "area": "Defence & Trade",
+        "surface": "promise status",
+        "claim": "In Progress"
+      },
+      {
+        "label": "Buy Canadian food labelling - status",
+        "area": "Affordability Response",
+        "surface": "promise status",
+        "claim": "In Progress"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://budget.canada.ca/2025/report-rapport/chap4-en.html",
+    "refs": [
+      {
+        "label": "Budget 2025 Ch.4",
+        "area": "Defence & Trade",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - Budget 2025 Ch.4",
+        "area": "Defence & Trade",
+        "surface": "grade trigger",
+        "claim": "3.5% defence target gets a funded pathway"
+      },
+      {
+        "label": "Exceed NATO 2% before 2030 - original",
+        "area": "Defence & Trade",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "$5B Trade Diversification Corridors Fund - original",
+        "area": "Defence & Trade",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://budget.canada.ca/2025/report-rapport/chap4-en.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
+    "refs": [
+      {
+        "label": "Reduce civil service by ~40,000 - status",
+        "area": "Fiscal Health",
+        "surface": "promise status",
+        "claim": "In Progress"
+      },
+      {
+        "label": "2 Billion Trees (halved) - status",
+        "area": "Promise Delivery",
+        "surface": "promise status",
+        "claim": "Abandoned"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://budget.canada.ca/2025/report-rapport/chap5-en.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://budget.canada.ca/2025/report-rapport/intro-en.html",
+    "refs": [
+      {
+        "label": "Budget 2025 — productivity super-deduction",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://budget.canada.ca/2025/report-rapport/intro-en.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://budget.canada.ca/update-miseajour/2026/report-rapport/anx1-en.html",
+    "refs": [
+      {
+        "label": "Spring Economic Update 2026",
+        "area": "Fiscal Health",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://budget.canada.ca/update-miseajour/2026/report-rapport/anx1-en.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://canadacode.org/",
+    "refs": [
+      {
+        "label": "Canada Grocery Code — official site",
+        "area": "Affordability Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - Canada Grocery Code — official site",
+        "area": "Affordability Response",
+        "surface": "grade trigger",
+        "claim": "Mandatory grocery competition measure enacted"
+      },
+      {
+        "label": "Grocery Code of Conduct - status",
+        "area": "Affordability Response",
+        "surface": "promise status",
+        "claim": "Delivered"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://canadacode.org/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/",
+    "refs": [
+      {
+        "label": "C.D. Howe — public service ratio",
+        "area": "Flagship Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://cdhowe.org/publication/fiscal-fantasies-four-incredible-projections-in-the-november-2025-federal-budget/",
+    "refs": [
+      {
+        "label": "C.D. Howe analysis",
+        "area": "Fiscal Health",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://cdhowe.org/publication/fiscal-fantasies-four-incredible-projections-in-the-november-2025-federal-budget/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://ciec-ccie.parl.gc.ca/",
+    "refs": [
+      {
+        "label": "up trigger - Office of the Ethics Commissioner — registry and reviews",
+        "area": "Ethics & Transparency",
+        "surface": "grade trigger",
+        "claim": "Ethics Commissioner publishes a detailed review finding adequate disclosure"
+      },
+      {
+        "label": "down trigger - Office of the Ethics Commissioner — registry and reviews",
+        "area": "Ethics & Transparency",
+        "surface": "grade trigger",
+        "claim": "New evidence of undisclosed interests"
+      },
+      {
+        "label": "down trigger - Office of the Ethics Commissioner — registry and reviews",
+        "area": "Ethics & Transparency",
+        "surface": "grade trigger",
+        "claim": "Ethics Commissioner finds screening inadequate"
+      }
+    ],
+    "status": "timeout-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://ciec-ccie.parl.gc.ca/",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://ciec-ccie.parl.gc.ca/",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://ciec-ccie.parl.gc.ca/en/",
+    "refs": [
+      {
+        "label": "Office of the Ethics Commissioner — registry and reviews",
+        "area": "Ethics & Transparency",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Independent Ethics Commissioner review - status",
+        "area": "Ethics & Transparency",
+        "surface": "promise status",
+        "claim": "Stalled"
+      }
+    ],
+    "status": "timeout-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://ciec-ccie.parl.gc.ca/en/",
+      "error": "curl: (28) Connection timed out after 8002 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://ciec-ccie.parl.gc.ca/en/",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
+    "refs": [
+      {
+        "label": "CCI — Canada off course",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Emissions cap - CCI - Canada off course",
+        "area": "Climate & Environment",
+        "surface": "metric sourceRef",
+        "claim": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, and IISD's analysis that stronger policy is still required to meet the 2030 target. Source URLs in the dimension sources array."
+      },
+      {
+        "label": "Net-zero commitment - status",
+        "area": "Climate & Environment",
+        "surface": "promise status",
+        "claim": "Stalled"
+      },
+      {
+        "label": "2030/2035 climate targets - status",
+        "area": "Climate & Environment",
+        "surface": "promise status",
+        "claim": "Stalled"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/",
+    "refs": [
+      {
+        "label": "CCI — industrial pricing",
+        "area": "Carbon Pricing Policy",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "CCI — industrial pricing gaps",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/",
+    "refs": [
+      {
+        "label": "up trigger - CCI — industrial pricing",
+        "area": "Carbon Pricing Policy",
+        "surface": "grade trigger",
+        "claim": "OBPS tightened with effective price rising above $40/t"
+      },
+      {
+        "label": "down trigger - CCI — industrial pricing",
+        "area": "Carbon Pricing Policy",
+        "surface": "grade trigger",
+        "claim": "OBPS further weakened with effective price below $15/t"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/",
+    "refs": [
+      {
+        "label": "Democracy Watch critique",
+        "area": "Ethics & Transparency",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Full financial disclosure - status",
+        "area": "Ethics & Transparency",
+        "surface": "promise status",
+        "claim": "Stalled"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://en.wikipedia.org/wiki/Opinion_polling_for_the_46th_Canadian_federal_election",
+    "refs": [
+      {
+        "label": "Abacus Data 2026-03-24 - Wikipedia 46th election approval table (Abacus entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "54/30 n=1515"
+      },
+      {
+        "label": "Abacus Data 2026-03-11 - Wikipedia 46th election approval table (Abacus entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "56/28 n=1931"
+      },
+      {
+        "label": "Innovative Research Group 2026-02-17 - Wikipedia 46th election approval table (Innovative entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "55/41 n=1000"
+      },
+      {
+        "label": "Abacus Data 2026-02-10 - Wikipedia 46th election approval table (Abacus entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "51/29 n=1915"
+      },
+      {
+        "label": "Abacus Data 2026-01-14 - Wikipedia 46th election approval table (Abacus entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "47/34 n=1500"
+      },
+      {
+        "label": "Léger 2025-10-05 - Wikipedia 46th election approval table (Leger entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "46/42 n=1562"
+      },
+      {
+        "label": "Abacus Data 2025-10-01 - Wikipedia 46th election approval table (Abacus entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "46/31 n=1504"
+      },
+      {
+        "label": "Abacus Data 2025-09-17 - Wikipedia 46th election approval table (Abacus entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "50/30 n=2230"
+      },
+      {
+        "label": "Ipsos 2025-09-08 - Wikipedia 46th election approval table (Ipsos entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "58/42 n=1001"
+      },
+      {
+        "label": "Léger 2025-09-07 - Wikipedia 46th election approval table (Leger entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "51/38 n=1592"
+      },
+      {
+        "label": "Abacus Data 2025-09-02 - Wikipedia 46th election approval table (Abacus entry)",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "48/30 n=1500"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://en.wikipedia.org/wiki/Opinion_polling_for_the_46th_Canadian_federal_election"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Audit-2026-05.md",
+    "refs": [
+      {
+        "label": "Bias-Resistance-Audit-2026-05.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Audit-2026-05.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Protocol.md",
+    "refs": [
+      {
+        "label": "Bias-Resistance-Protocol.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Protocol.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Commitment-Traceability-Map.md",
+    "refs": [
+      {
+        "label": "Commitment-Traceability-Map.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/About.jsx)",
+        "claim": ""
+      },
+      {
+        "label": "Commitment-Traceability-Map.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Commitment-Traceability-Map.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md",
+    "refs": [
+      {
+        "label": "Corrections-Policy.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/About.jsx)",
+        "claim": ""
+      },
+      {
+        "label": "Corrections-Policy.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Perceived-Bias-Survey.md",
+    "refs": [
+      {
+        "label": "Perceived-Bias-Survey.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/About.jsx)",
+        "claim": ""
+      },
+      {
+        "label": "Perceived-Bias-Survey.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Perceived-Bias-Survey.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md",
+    "refs": [
+      {
+        "label": "Right-Of-Reply.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/About.jsx)",
+        "claim": ""
+      },
+      {
+        "label": "Right-Of-Reply.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Scoring-Rubric-v1.1.md",
+    "refs": [
+      {
+        "label": "Scoring-Rubric-v1.1.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Scoring-Rubric-v1.1.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Source-Characterization-Register.md",
+    "refs": [
+      {
+        "label": "Source-Characterization-Register.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/About.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Source-Characterization-Register.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md",
+    "refs": [
+      {
+        "label": "v2-Decision-Memo-Approval-Signal.md",
+        "area": "Public docs surface",
+        "surface": "public docs link (src/components/Methodology.jsx)",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12",
+    "refs": [
+      {
+        "label": "Global Affairs Canada Monthly Trade Report (December 2025)",
+        "area": "Defence & Trade",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "timeout-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12",
+      "error": "curl: (28) Connection timed out after 8010 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12",
+      "error": "curl: (28) Connection timed out after 8007 milliseconds"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
+    "refs": [
+      {
+        "label": "ISED — Canadian Sovereign AI Compute Strategy",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "$2B sovereign AI compute strategy - status",
+        "area": "Economic Policy Response",
+        "surface": "promise status",
+        "claim": "In Progress"
+      }
+    ],
+    "status": "timeout-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
+      "error": "curl: (28) Connection timed out after 8008 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
+      "error": "curl: (28) Connection timed out after 8010 milliseconds"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20260505220207/https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
+      "timestamp": "20260505220207",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/",
+    "refs": [
+      {
+        "label": "Net-zero commitment - original",
+        "area": "Climate & Environment",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "2030/2035 climate targets - original",
+        "area": "Climate & Environment",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "timeout-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/",
+      "error": "curl: (28) Connection timed out after 8005 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/",
+      "error": "curl: (28) Connection timed out after 8008 milliseconds"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20260313051449/https://laws-lois.justice.gc.ca/eng/acts/C-19.3/",
+      "timestamp": "20260313051449",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://leger360.com/in-the-news-canada-politics-carney-approval-stays-strong-ndp-faces-reset-avi-lewis-win-leger-march-2026/",
+    "refs": [
+      {
+        "label": "Léger 2026-03-30 - Leger March 2026 Federal Politics Report",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "58/33 n=1618"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://leger360.com/in-the-news-canada-politics-carney-approval-stays-strong-ndp-faces-reset-avi-lewis-win-leger-march-2026/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://leger360.com/in-the-news-federal-politics-liberals-hold-lead-april-2026/",
+    "refs": [
+      {
+        "label": "Léger 2026-04-26 - Leger April 2026 Federal Politics Report",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "59/33 n=1521"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://leger360.com/in-the-news-federal-politics-liberals-hold-lead-april-2026/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://leger360.com/wp-content/uploads/2026/03/Leger_FedPol_EN_March2026.pdf",
+    "refs": [
+      {
+        "label": "Léger 2026-03-02 - Leger Federal Politics Report March 2026",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "59/33 n=1627"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://leger360.com/wp-content/uploads/2026/03/Leger_FedPol_EN_March2026.pdf"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
+    "refs": [
+      {
+        "label": "Buy Canadian procurement strategy - original",
+        "area": "Defence & Trade",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Full foreign policy review (first since 2005) - original",
+        "area": "Defence & Trade",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "One Project, One Review within 6 months - original",
+        "area": "Major Projects",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "High-speed rail Windsor–Quebec City - original",
+        "area": "Major Projects",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "$10B Indigenous Loan Guarantee Program - original",
+        "area": "Major Projects",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Balance operational budget in 3 years - original",
+        "area": "Fiscal Health",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Reduce civil service by ~40,000 - original",
+        "area": "Fiscal Health",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "$2B sovereign AI compute strategy - original",
+        "area": "Economic Policy Response",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Red tape review: 60-day department reports - original",
+        "area": "Economic Policy Response",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Canada Groceries and Essentials Benefit - original",
+        "area": "Affordability Response",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Grocery Code of Conduct - original",
+        "area": "Affordability Response",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Buy Canadian food labelling - original",
+        "area": "Affordability Response",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Carbon border adjustment mechanism - original",
+        "area": "Carbon Pricing Policy",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "East-west electricity grid - original",
+        "area": "Climate & Environment",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Conserve biodiversity / freshwater - original",
+        "area": "Climate & Environment",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Student/TFW/asylum stream reform - original",
+        "area": "Immigration",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "500,000 homes/year over next decade - original",
+        "area": "Housing Supply",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Apprenticeship training up to $8,000 - original",
+        "area": "Housing Supply",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Independent Ethics Commissioner review - original",
+        "area": "Ethics & Transparency",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Canada Strong — Liberal Party 2025 platform",
+        "area": "Promise Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://nanos.co/wp-content/uploads/2026/03/Political-Package-2026q7283x-03-06-FOR-RELEASE.pdf",
+    "refs": [
+      {
+        "label": "preferredPM - Nanos Political Package 2026-03-06",
+        "area": "Approval Signal",
+        "surface": "preferredPM",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://nanos.co/wp-content/uploads/2026/03/Political-Package-2026q7283x-03-06-FOR-RELEASE.pdf"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://nanos.co/wp-content/uploads/2026/04/Political-Package-2026-04-10C4prRx3658-FOR-RELEASE.pdf",
+    "refs": [
+      {
+        "label": "preferredPM - Nanos Political Package 2026-04-10",
+        "area": "Approval Signal",
+        "surface": "preferredPM",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://nanos.co/wp-content/uploads/2026/04/Political-Package-2026-04-10C4prRx3658-FOR-RELEASE.pdf"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://nanos.co/wp-content/uploads/2026/04/Political-Package-mjwf5-2026-04-03-FOR-RELEASE.pdf",
+    "refs": [
+      {
+        "label": "preferredPM - Nanos Political Package 2026-04-03",
+        "area": "Approval Signal",
+        "surface": "preferredPM",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://nanos.co/wp-content/uploads/2026/04/Political-Package-mjwf5-2026-04-03-FOR-RELEASE.pdf"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://open.canada.ca/data/en/dataset/360024f2-17e9-4558-bfc1-3616485d65b9",
+    "refs": [
+      {
+        "label": "IRCC open data — work permits",
+        "area": "Immigration",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://open.canada.ca/data/en/dataset/360024f2-17e9-4558-bfc1-3616485d65b9"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee",
+    "refs": [
+      {
+        "label": "IRCC open data — study permits",
+        "area": "Immigration",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://policyoptions.irpp.org/2026/01/canadian-real-estate-trap/",
+    "refs": [
+      {
+        "label": "Policy Options — real estate trap",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://policyoptions.irpp.org/2026/01/canadian-real-estate-trap/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
+    "refs": [
+      {
+        "label": "Policy Options — federalism failure",
+        "area": "Flagship Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Get big projects built quickly - status",
+        "area": "Flagship Delivery",
+        "surface": "promise status",
+        "claim": "Stalled"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://policyoptions.irpp.org/2026/02/competitive-federalism/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://policyoptions.irpp.org/2026/03/carney-national-security-dms/",
+    "refs": [
+      {
+        "label": "Policy Options — DM shuffle",
+        "area": "Flagship Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://policyoptions.irpp.org/2026/03/carney-national-security-dms/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
+    "refs": [
+      {
+        "label": "PM Annex A public declaration of agreed measure",
+        "area": "Ethics & Transparency",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - PM Annex A public declaration of agreed measure",
+        "area": "Ethics & Transparency",
+        "surface": "grade trigger",
+        "claim": "PM proactively publishes full Brookfield accounting"
+      }
+    ],
+    "status": "timeout-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
+      "error": "curl: (28) Connection timed out after 8009 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
+      "error": "curl: (28) Connection timed out after 8012 milliseconds"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20260416085433/https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
+      "timestamp": "20260416085433",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
+    "refs": [
+      {
+        "label": "PM blind-trust summary statement",
+        "area": "Ethics & Transparency",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Full financial disclosure - original",
+        "area": "Ethics & Transparency",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "timeout-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
+      "error": "curl: (28) Connection timed out after 8007 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20260416085433/https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
+      "timestamp": "20260416085433",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/",
+    "refs": [
+      {
+        "label": "PROOF food insecurity 2024",
+        "area": "Affordability Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "down trigger - PROOF food insecurity 2024",
+        "area": "Affordability Response",
+        "surface": "grade trigger",
+        "claim": "Food insecurity exceeds 12M"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://tc.canada.ca/en/corporate-services/transparency/corporate-management-reporting/strategic-environmental-economic-assessment/public-statement-strategic-environmental-economic-assessment-co-development-phase-alto-s-high-speed-rail-initiative",
+    "refs": [
+      {
+        "label": "High-speed rail Windsor–Quebec City - status",
+        "area": "Major Projects",
+        "surface": "promise status",
+        "claim": "Too Early"
+      }
+    ],
+    "status": "timeout-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://tc.canada.ca/en/corporate-services/transparency/corporate-management-reporting/strategic-environmental-economic-assessment/public-statement-strategic-environmental-economic-assessment-co-development-phase-alto-s-high-speed-rail-initiative",
+      "error": "curl: (28) Connection timed out after 8009 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://tc.canada.ca/en/corporate-services/transparency/corporate-management-reporting/strategic-environmental-economic-assessment/public-statement-strategic-environmental-economic-assessment-co-development-phase-alto-s-high-speed-rail-initiative",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606",
+    "refs": [
+      {
+        "label": "The Conversation - ECCC Arctic science cuts",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "ECCC budget cuts (to 2030) - The Conversation - ECCC Arctic science cuts",
+        "area": "Climate & Environment",
+        "surface": "metric sourceRef",
+        "claim": "ECCC departmental plan pages document refocusing reductions of $43M (2024-25), $63M (2025-26), and $91M annually from 2026-27 onward, implying roughly $1.3B in cumulative reductions by 2030. The staffing pressure is documented through departmental plan staffing tables and contemporaneous media reporting on the associated cuts. See the ECCC departmental-plan links in the dimension sources, plus CBC Radio and The Conversation for operational impact reporting."
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/",
+    "refs": [
+      {
+        "label": "The Hub — $94B gap",
+        "area": "Flagship Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/",
+    "refs": [
+      {
+        "label": "The Narwhal — climate rollback analysis",
+        "area": "Promise Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "broken-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 404,
+      "effectiveUrl": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 404,
+      "effectiveUrl": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://www.bankofcanada.ca/2025/05/staff-discussion-paper-2025-8/",
+    "refs": [
+      {
+        "label": "Bank of Canada wage study",
+        "area": "Immigration",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.bankofcanada.ca/2025/05/staff-discussion-paper-2025-8/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/campaign/2-billion-trees.html",
+    "refs": [
+      {
+        "label": "2 Billion Trees (halved) - original",
+        "area": "Promise Delivery",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://natural-resources.canada.ca/forests-forestry/2-billion-trees-program"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/campaign/critical-minerals-in-canada.html",
+    "refs": [
+      {
+        "label": "Critical minerals strategy - status",
+        "area": "Economic Policy Response",
+        "surface": "promise status",
+        "claim": "In Progress"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/campaign/critical-minerals-in-canada.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
+    "refs": [
+      {
+        "label": "Canada.ca — fuel charge removal",
+        "area": "Carbon Pricing Policy",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Eliminate consumer carbon tax - original",
+        "area": "Carbon Pricing Policy",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Eliminate consumer carbon tax - status",
+        "area": "Carbon Pricing Policy",
+        "surface": "promise status",
+        "claim": "Delivered"
+      },
+      {
+        "label": "Consumer carbon tax elimination - original",
+        "area": "Promise Delivery",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Consumer carbon tax elimination - status",
+        "area": "Promise Delivery",
+        "surface": "promise status",
+        "claim": "Delivered"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/department-finance/services/publications/annual-financial-report/2025.html",
+    "refs": [
+      {
+        "label": "Annual Financial Report FY 2024-25",
+        "area": "Fiscal Health",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/department-finance/services/publications/annual-financial-report/2025.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2024-2025/dp-at-glance.html",
+    "refs": [
+      {
+        "label": "ECCC 2024-25 Departmental plan at a glance",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2024-2025/dp-at-glance.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html",
+    "refs": [
+      {
+        "label": "ECCC 2025-26 Departmental plan at a glance",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - ECCC 2025-26 Departmental plan at a glance",
+        "area": "Climate & Environment",
+        "surface": "grade trigger",
+        "claim": "ECCC budget restored"
+      },
+      {
+        "label": "down trigger - ECCC 2025-26 Departmental plan at a glance",
+        "area": "Climate & Environment",
+        "surface": "grade trigger",
+        "claim": "Additional climate program eliminations"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/environment-climate-change/news/2024/11/federal-government-releases-proposed-framework-regulations-to-reduce-greenhouse-gas-emissions-in-the-canadian-oil-and-gas-sector.html",
+    "refs": [
+      {
+        "label": "Emissions cap - original",
+        "area": "Promise Delivery",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Emissions cap - status",
+        "area": "Promise Delivery",
+        "surface": "promise status",
+        "claim": "Abandoned"
+      }
+    ],
+    "status": "broken-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 404,
+      "effectiveUrl": "https://www.canada.ca/en/environment-climate-change/news/2024/11/federal-government-releases-proposed-framework-regulations-to-reduce-greenhouse-gas-emissions-in-the-canadian-oil-and-gas-sector.html"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 404,
+      "effectiveUrl": "https://www.canada.ca/en/environment-climate-change/news/2024/11/federal-government-releases-proposed-framework-regulations-to-reduce-greenhouse-gas-emissions-in-the-canadian-oil-and-gas-sector.html"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
+    "refs": [
+      {
+        "label": "ECCC — Output-Based Pricing System",
+        "area": "Carbon Pricing Policy",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "down trigger - ECCC — Output-Based Pricing System",
+        "area": "Carbon Pricing Policy",
+        "surface": "grade trigger",
+        "claim": "Government announces intention to eliminate industrial pricing"
+      },
+      {
+        "label": "Preserve industrial carbon pricing - original",
+        "area": "Carbon Pricing Policy",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Preserve industrial carbon pricing - status",
+        "area": "Carbon Pricing Policy",
+        "surface": "promise status",
+        "claim": "Delivered"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/environment-climate-change/services/managing-pollution/energy-production/transportation/clean-vehicles.html",
+    "refs": [
+      {
+        "label": "EV mandate - original",
+        "area": "Promise Delivery",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "EV mandate - status",
+        "area": "Promise Delivery",
+        "surface": "promise status",
+        "claim": "Abandoned"
+      }
+    ],
+    "status": "broken-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 404,
+      "effectiveUrl": "https://www.canada.ca/en/environment-climate-change/services/managing-pollution/energy-production/transportation/clean-vehicles.html"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 404,
+      "effectiveUrl": "https://www.canada.ca/en/environment-climate-change/services/managing-pollution/energy-production/transportation/clean-vehicles.html"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
+    "refs": [
+      {
+        "label": "Housing Infrastructure Canada — Build Canada Homes",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - Housing Infrastructure Canada — Build Canada Homes",
+        "area": "Housing Supply",
+        "surface": "grade trigger",
+        "claim": "Build Canada Homes construction actually begins and starts exceed 300K annualized"
+      },
+      {
+        "label": "Build Canada Homes - original",
+        "area": "Housing Supply",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
+    "refs": [
+      {
+        "label": "IRCC 2026-2028 levels plan",
+        "area": "Immigration",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - IRCC 2026-2028 levels plan",
+        "area": "Immigration",
+        "surface": "grade trigger",
+        "claim": "Government publishes a right-sized long-term model"
+      },
+      {
+        "label": "down trigger - IRCC 2026-2028 levels plan",
+        "area": "Immigration",
+        "surface": "grade trigger",
+        "claim": "Reversal of the contraction"
+      },
+      {
+        "label": "PR below 1% of population/year - original",
+        "area": "Immigration",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Immigration reduction - original",
+        "area": "Promise Delivery",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html",
+    "refs": [
+      {
+        "label": "Student/TFW/asylum stream reform - status",
+        "area": "Immigration",
+        "surface": "promise status",
+        "claim": "In Progress"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/immigration-refugees-citizenship/news/notices/supplementary-immigration-levels-2025-2027.html",
+    "refs": [
+      {
+        "label": "PR below 1% of population/year - status",
+        "area": "Immigration",
+        "surface": "promise status",
+        "claim": "Delivered"
+      },
+      {
+        "label": "Temp residents below 5% by end of 2027 - original",
+        "area": "Immigration",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/news/notices/supplementary-immigration-levels-2025-2027.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
+    "refs": [
+      {
+        "label": "Remove interprovincial trade barriers - status",
+        "area": "Defence & Trade",
+        "surface": "promise status",
+        "claim": "Delivered"
+      },
+      {
+        "label": "Government of Canada — Internal Trade Action Plan status",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Interprovincial barrier removal - status",
+        "area": "Promise Delivery",
+        "surface": "promise status",
+        "claim": "Delivered"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html",
+    "refs": [
+      {
+        "label": "NRCan — critical minerals partnerships",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Critical minerals strategy - original",
+        "area": "Economic Policy Response",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html",
+    "refs": [
+      {
+        "label": "MPO official referred projects list",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html",
+    "refs": [
+      {
+        "label": "CRA — Canada Groceries and Essentials Benefit",
+        "area": "Affordability Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "down trigger - CRA — Canada Groceries and Essentials Benefit",
+        "area": "Affordability Response",
+        "surface": "grade trigger",
+        "claim": "Grocery benefit expires without replacement"
+      },
+      {
+        "label": "Canada Groceries and Essentials Benefit - status",
+        "area": "Affordability Response",
+        "surface": "promise status",
+        "claim": "Delivered"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/services/environment/nature/nature-strategy.html",
+    "refs": [
+      {
+        "label": "Conserve biodiversity / freshwater - status",
+        "area": "Climate & Environment",
+        "surface": "promise status",
+        "claim": "Stalled"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/services/environment/nature/nature-strategy.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/services/jobs/training/support-skilled-trades-apprentices/grants.html",
+    "refs": [
+      {
+        "label": "Apprenticeship training up to $8,000 - status",
+        "area": "Housing Supply",
+        "surface": "promise status",
+        "claim": "In Progress"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/services/jobs/training/support-skilled-trades-apprentices/grants.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html",
+    "refs": [
+      {
+        "label": "Treasury Board — 2024-25 regulatory management annual report",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443",
+    "refs": [
+      {
+        "label": "CBC — financial assets",
+        "area": "Ethics & Transparency",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "primary UA failed; browser UA succeeded",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443",
+      "error": "curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)"
+    },
+    "fallback": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443"
+    },
+    "wayback": null
+  },
+  {
+    "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623",
+    "refs": [
+      {
+        "label": "CBC — ECCC job and budget cuts",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "ECCC budget cuts (to 2030) - CBC - ECCC job and budget cuts",
+        "area": "Climate & Environment",
+        "surface": "metric sourceRef",
+        "claim": "ECCC departmental plan pages document refocusing reductions of $43M (2024-25), $63M (2025-26), and $91M annually from 2026-27 onward, implying roughly $1.3B in cumulative reductions by 2030. The staffing pressure is documented through departmental plan staffing tables and contemporaneous media reporting on the associated cuts. See the ECCC departmental-plan links in the dimension sources, plus CBC Radio and The Conversation for operational impact reporting."
+      }
+    ],
+    "status": "live",
+    "note": "primary UA failed; browser UA succeeded",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623",
+      "error": "curl: (92) HTTP/2 stream 1 was not closed cleanly: INTERNAL_ERROR (err 2)"
+    },
+    "fallback": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
+    },
+    "wayback": null
+  },
+  {
+    "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report",
+    "refs": [
+      {
+        "label": "CMHC — housing supply gaps 2025",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
+    "refs": [
+      {
+        "label": "CMHC 2025 starts",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "500,000 homes/year over next decade - status",
+        "area": "Housing Supply",
+        "surface": "promise status",
+        "claim": "Stalled"
+      },
+      {
+        "label": "CMHC 2025 starts",
+        "area": "Promise Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026",
+    "refs": [
+      {
+        "label": "CMHC March 2026 starts",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "down trigger - CMHC March 2026 starts",
+        "area": "Housing Supply",
+        "surface": "grade trigger",
+        "claim": "Starts fall below 240K"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.dal.ca/sites/agri-food/research/canada-s-food-price-report-2026.html",
+    "refs": [
+      {
+        "label": "Dalhousie Food Price Report",
+        "area": "Affordability Response",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.dal.ca/sites/agri-food/research/canada-s-food-price-report-2026.html"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration",
+    "refs": [
+      {
+        "label": "Fraser Institute — MPO assessment",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Headline investment figure (government-announced) - Fraser Institute - MPO assessment",
+        "area": "Major Projects",
+        "surface": "metric sourceRef",
+        "claim": "PMO nation-building project announcements across all three tranches. Government cites $126B in combined investment. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing private-sector investment decisions — qualifier 'mostly pre-existing' reflects their assessment."
+      }
+    ],
+    "status": "blocked-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20250916083458/https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration",
+      "timestamp": "20250916083458",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target",
+    "refs": [
+      {
+        "label": "IISD — Canada's 2030 climate target",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Emissions cap - IISD - Canada's 2030 climate target",
+        "area": "Climate & Environment",
+        "surface": "metric sourceRef",
+        "claim": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, and IISD's analysis that stronger policy is still required to meet the 2030 target. Source URLs in the dimension sources array."
+      }
+    ],
+    "status": "blocked-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20251025214257/https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target",
+      "timestamp": "20251025214257",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review",
+    "refs": [
+      {
+        "label": "IISD — Canadian Carbon Pricing Systems: 2025 Review",
+        "area": "Carbon Pricing Policy",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "blocked-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review"
+    },
+    "wayback": {
+      "available": false
+    }
+  },
+  {
+    "url": "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340/",
+    "refs": [
+      {
+        "label": "IMF Article IV (Jan 2026)",
+        "area": "Fiscal Health",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.ipsos.com/en-ca/carney-approval-climbs-after-one-year-outpacing-poilievre-support-momentum",
+    "refs": [
+      {
+        "label": "Ipsos 2026-02-26 - Ipsos: Carney Approval Climbs After One Year",
+        "area": "Approval Signal",
+        "surface": "approval poll",
+        "claim": "58/33 n=1001"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.ipsos.com/en-ca/carney-approval-climbs-after-one-year-outpacing-poilievre-support-momentum"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy",
+    "refs": [
+      {
+        "label": "National Observer — fossil fuel course",
+        "area": "Climate & Environment",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada",
+    "refs": [
+      {
+        "label": "NATO Secretary General Annual Report 2025",
+        "area": "Defence & Trade",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "down trigger - NATO Secretary General Annual Report 2025",
+        "area": "Defence & Trade",
+        "surface": "grade trigger",
+        "claim": "NATO spending falls below 2.0%"
+      },
+      {
+        "label": "Exceed NATO 2% before 2030 - status",
+        "area": "Defence & Trade",
+        "surface": "promise status",
+        "claim": "Delivered"
+      },
+      {
+        "label": "NATO Secretary General Annual Report 2025",
+        "area": "Promise Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html",
+    "refs": [
+      {
+        "label": "OECD Economic Surveys: Canada 2025",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "blocked-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 403,
+      "effectiveUrl": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20251126143147/https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html",
+      "timestamp": "20251126143147",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96",
+    "refs": [
+      {
+        "label": "House ETHI report — Review of the Conflict of Interest Act",
+        "area": "Ethics & Transparency",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
+    "refs": [
+      {
+        "label": "Building Canada Act (Bill C-5)",
+        "area": "Defence & Trade",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Remove interprovincial trade barriers - original",
+        "area": "Defence & Trade",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Building Canada Act",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - Building Canada Act (Bill C-5)",
+        "area": "Major Projects",
+        "surface": "grade trigger",
+        "claim": "First use of national interest designation"
+      },
+      {
+        "label": "down trigger - Building Canada Act (Bill C-5)",
+        "area": "Major Projects",
+        "surface": "grade trigger",
+        "claim": "Evidence the framework is being bypassed"
+      },
+      {
+        "label": "Major Federal Project Office with 2-year decisions - original",
+        "area": "Major Projects",
+        "surface": "promise original",
+        "claim": ""
+      },
+      {
+        "label": "Building Canada Act (Bill C-5)",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Interprovincial barrier removal - original",
+        "area": "Promise Delivery",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
+    "refs": [
+      {
+        "label": "One Project, One Review within 6 months - status",
+        "area": "Major Projects",
+        "surface": "promise status",
+        "claim": "Stalled"
+      },
+      {
+        "label": "Get big projects built quickly - original",
+        "area": "Flagship Delivery",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
+    "refs": [
+      {
+        "label": "PBO — BCH 26,000 units",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Build Canada Homes - status",
+        "area": "Housing Supply",
+        "surface": "promise status",
+        "claim": "In Progress"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone",
+    "refs": [
+      {
+        "label": "PBO carbon GST revenue",
+        "area": "Carbon Pricing Policy",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels",
+    "refs": [
+      {
+        "label": "PBO — Canada Groceries and Essentials Benefit",
+        "area": "Affordability Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - PBO — Canada Groceries and Essentials Benefit",
+        "area": "Affordability Response",
+        "surface": "grade trigger",
+        "claim": "New federal benefit >$500/household announced and funded"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere",
+    "refs": [
+      {
+        "label": "PBO — SEU economic and fiscal track",
+        "area": "Fiscal Health",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
+    "refs": [
+      {
+        "label": "PBO — SEU fiscal anchors and sustainability",
+        "area": "Fiscal Health",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - PBO — SEU fiscal anchors assessment",
+        "area": "Fiscal Health",
+        "surface": "grade trigger",
+        "claim": "Deficit falls below 2% of GDP while PBO still sees the fiscal anchors as on track"
+      },
+      {
+        "label": "down trigger - PBO — SEU fiscal anchors assessment",
+        "area": "Fiscal Health",
+        "surface": "grade trigger",
+        "claim": "PBO no longer sees the deficit-to-GDP or operating-balance anchors as on track"
+      },
+      {
+        "label": "Balance operational budget in 3 years - status",
+        "area": "Fiscal Health",
+        "surface": "promise status",
+        "claim": "In Progress"
+      },
+      {
+        "label": "PBO — SEU fiscal anchors and sustainability",
+        "area": "Promise Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans",
+    "refs": [
+      {
+        "label": "PBO — Spring Economic Update Major Capital Priorities",
+        "area": "Defence & Trade",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "NATO spending (2025e) - PBO — Spring Economic Update Major Capital Priorities",
+        "area": "Defence & Trade",
+        "surface": "metric sourceRef",
+        "claim": "NATO Defence Expenditures of NATO Countries (2014-2025), Table 3 (p.8) and Table 4 (p.9): Canada 2025e = 2.01% of GDP. Verified from Tier 1 PDF: nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires",
+    "refs": [
+      {
+        "label": "PBO — $94B investment gap",
+        "area": "Flagship Delivery",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025",
+    "refs": [
+      {
+        "label": "PBO — housing program outlook",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - PBO — housing program outlook",
+        "area": "Housing Supply",
+        "surface": "grade trigger",
+        "claim": "Federal housing contribution rises above roughly 5% of the shortfall with live disbursement or construction underway"
+      },
+      {
+        "label": "down trigger - PBO — housing program outlook",
+        "area": "Housing Supply",
+        "surface": "grade trigger",
+        "claim": "Federal spending declines further without offset"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028",
+    "refs": [
+      {
+        "label": "PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
+        "area": "Immigration",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "PR target (2026-2028) - PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
+        "area": "Immigration",
+        "surface": "metric sourceRef",
+        "claim": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review — all citing 380,000."
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/news-releases/2025/03/21/prime-minister-mark-carney-cancels-proposed-capital-gains-tax-increase",
+    "refs": [
+      {
+        "label": "Cancel capital gains tax increase - status",
+        "area": "Fiscal Health",
+        "surface": "promise status",
+        "claim": "Delivered"
+      },
+      {
+        "label": "Capital gains reversal - status",
+        "area": "Promise Delivery",
+        "surface": "promise status",
+        "claim": "Delivered"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/03/21/prime-minister-mark-carney-cancels-proposed-capital-gains-tax-increase"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new",
+    "refs": [
+      {
+        "label": "PM first tranche announcement (Sept 2025)",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Darlington New Nuclear Phase 1 project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "approved"
+      },
+      {
+        "label": "LNG Canada Phase 2 Expansion project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "McIlvenna Bay Foran Copper Mine project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "Red Chris Copper and Gold Mine project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+    "refs": [
+      {
+        "label": "PM second tranche announcement (Nov 2025)",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Major Federal Project Office with 2-year decisions - status",
+        "area": "Major Projects",
+        "surface": "promise status",
+        "claim": "In Progress"
+      },
+      {
+        "label": "North Coast Transmission Line project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "approved"
+      },
+      {
+        "label": "Ksi Lisims LNG project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "Crawford Nickel Project project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "Matawinie Graphite Mine project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "Sisson Tungsten Mine project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "Iqaluit Nukkiksautiit Hydro Project project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and",
+    "refs": [
+      {
+        "label": "PM third tranche / Northern strategy (Mar 2026)",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Mackenzie Valley Highway project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "permitted"
+      },
+      {
+        "label": "Grays Bay Road and Port project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "Arctic Economic and Security Corridor project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      },
+      {
+        "label": "Taltson Hydro Expansion Project project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "designated"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/news-releases/2026/03/26/prime-minister-carney-announces-canada-has-achieved-nato-2-defence",
+    "refs": [
+      {
+        "label": "PMO NATO 2% announcement",
+        "area": "Defence & Trade",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/26/prime-minister-carney-announces-canada-has-achieved-nato-2-defence"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes",
+    "refs": [
+      {
+        "label": "Canada-Ontario Partnership",
+        "area": "Housing Supply",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Canada-Ontario Partnership ($8.8B) - original",
+        "area": "Housing Supply",
+        "surface": "promise original",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/news-releases/2026/04/09/prime-minister-carney-breaks-ground-contrecoeur-terminal-expansion",
+    "refs": [
+      {
+        "label": "PM Contrecœur groundbreaking (Apr 2026)",
+        "area": "Major Projects",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "Contrecœur Terminal Container Project project source",
+        "area": "Major Projects",
+        "surface": "major project source",
+        "claim": "under_construction"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/04/09/prime-minister-carney-breaks-ground-contrecoeur-terminal-expansion"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.pm.gc.ca/en/news/speeches/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes-housing",
+    "refs": [
+      {
+        "label": "Canada-Ontario Partnership ($8.8B) - status",
+        "area": "Housing Supply",
+        "surface": "promise status",
+        "claim": "In Progress"
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.pm.gc.ca/en/news/speeches/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes-housing"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/",
+    "refs": [
+      {
+        "label": "Globe and Mail — ethics filing",
+        "area": "Ethics & Transparency",
+        "surface": "dimension sources",
+        "claim": ""
+      }
+    ],
+    "status": "live",
+    "note": "",
+    "primary": {
+      "ok": true,
+      "code": 200,
+      "effectiveUrl": "https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/"
+    },
+    "fallback": null,
+    "wayback": null
+  },
+  {
+    "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+    "refs": [
+      {
+        "label": "StatsCan GDP, income and expenditure — Q4 2025",
+        "area": "Economic Policy Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - StatsCan GDP, income and expenditure — Q4 2025",
+        "area": "Economic Policy Response",
+        "surface": "grade trigger",
+        "claim": "Business investment turns positive for two or more consecutive quarters"
+      },
+      {
+        "label": "down trigger - StatsCan GDP, income and expenditure — Q4 2025",
+        "area": "Economic Policy Response",
+        "surface": "grade trigger",
+        "claim": "Business investment decline accelerates"
+      }
+    ],
+    "status": "timeout-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20260317052724/https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+      "timestamp": "20260317052724",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
+    "refs": [
+      {
+        "label": "StatsCan population Q4 2025",
+        "area": "Immigration",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - StatsCan population Q4 2025",
+        "area": "Immigration",
+        "surface": "grade trigger",
+        "claim": "Temporary residents reach the 5% target ahead of schedule"
+      },
+      {
+        "label": "Temp residents below 5% by end of 2027 - status",
+        "area": "Immigration",
+        "surface": "promise status",
+        "claim": "In Progress"
+      },
+      {
+        "label": "Immigration reduction - status",
+        "area": "Promise Delivery",
+        "surface": "promise status",
+        "claim": "Delivered"
+      }
+    ],
+    "status": "timeout-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
+      "error": "curl: (28) Connection timed out after 8009 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20260511201657/https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
+      "timestamp": "20260511201657",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
+    "refs": [
+      {
+        "label": "StatsCan CPI Mar 2026",
+        "area": "Affordability Response",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "down trigger - StatsCan CPI Mar 2026",
+        "area": "Affordability Response",
+        "surface": "grade trigger",
+        "claim": "Food CPI exceeds 7%"
+      }
+    ],
+    "status": "timeout-with-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
+      "error": "curl: (28) Connection timed out after 8006 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": true,
+      "url": "http://web.archive.org/web/20260505165209/https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
+      "timestamp": "20260505165209",
+      "status": "200"
+    }
+  },
+  {
+    "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601",
+    "refs": [
+      {
+        "label": "StatsCan trade data",
+        "area": "Defence & Trade",
+        "surface": "dimension sources",
+        "claim": ""
+      },
+      {
+        "label": "up trigger - StatsCan trade data",
+        "area": "Defence & Trade",
+        "surface": "grade trigger",
+        "claim": "US export share drops below 68%"
+      },
+      {
+        "label": "down trigger - StatsCan trade data",
+        "area": "Defence & Trade",
+        "surface": "grade trigger",
+        "claim": "US export share reverses above 73%"
+      }
+    ],
+    "status": "timeout-no-wayback",
+    "note": "",
+    "primary": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601",
+      "error": "curl: (28) Connection timed out after 8007 milliseconds"
+    },
+    "fallback": {
+      "ok": false,
+      "code": 0,
+      "effectiveUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601",
+      "error": "curl: (28) Connection timed out after 8011 milliseconds"
+    },
+    "wayback": {
+      "available": false
+    }
+  }
+]
