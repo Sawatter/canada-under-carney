@@ -418,7 +418,7 @@ export default function About() {
           </div>
         </div>
 
-        <p style={{ fontSize: "14px", color: "#aaa", marginTop: "16px" }}>
+        <p style={{ fontSize: "14px", color: "#666", marginTop: "16px" }}>
           This dashboard is an independent analytical product. It is not
           affiliated with any political party, government agency, or advocacy
           organization.

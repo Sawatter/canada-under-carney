@@ -144,7 +144,7 @@ export function ApprovalCard({
               fontFamily: "'DM Mono', monospace",
               fontSize: "18px",
               fontWeight: 700,
-              color: "#888",
+              color: "#666",
               marginLeft: "6px",
             }}
           >
@@ -225,7 +225,7 @@ export function ApprovalDetail() {
         >
           Approval Signal &mdash; drill-down
         </div>
-        <div style={{ fontSize: "13px", color: "#999" }}>
+        <div style={{ fontSize: "13px", color: "#666" }}>
           {s.windowDays}-day rolling avg &middot; as of {s.asOf}
         </div>
       </div>
@@ -255,7 +255,7 @@ export function ApprovalDetail() {
             approve
           </span>
           {s.approveDelta && (
-            <span style={{ marginLeft: "6px", fontSize: "14px", color: "#999" }}>
+            <span style={{ marginLeft: "6px", fontSize: "14px", color: "#666" }}>
               ({s.approveDelta} vs prior {s.windowDays}d)
             </span>
           )}
@@ -276,7 +276,7 @@ export function ApprovalDetail() {
             disapprove
           </span>
           {s.disapproveDelta && (
-            <span style={{ marginLeft: "6px", fontSize: "14px", color: "#999" }}>
+            <span style={{ marginLeft: "6px", fontSize: "14px", color: "#666" }}>
               ({s.disapproveDelta} vs prior {s.windowDays}d)
             </span>
           )}
@@ -334,7 +334,7 @@ export function ApprovalDetail() {
             Carney {latest.carney}% &middot; Poilievre {latest.poilievre}%
             &middot; week ending {latest.fieldEnd}
             {prev && (
-              <span style={{ color: "#999" }}>
+              <span style={{ color: "#666" }}>
                 {" "}
                 (prior week: {prev.carney}% / {prev.poilievre}%)
               </span>

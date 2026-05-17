@@ -79,7 +79,7 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
         >
           {title}
         </div>
-        <div style={{ fontSize: "13px", color: "#999" }}>
+        <div style={{ fontSize: "13px", color: "#666" }}>
           Reproducible from per-dim grades
         </div>
       </div>
@@ -166,7 +166,7 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
           <strong>{finalGrade}</strong>
         </div>
         {displayedScore && fmt(exactScore, 1) !== displayedScore && (
-          <div style={{ color: "#999", fontSize: "13px", marginTop: "4px" }}>
+          <div style={{ color: "#666", fontSize: "13px", marginTop: "4px" }}>
             (Card shows {displayedScore} after one-decimal rounding.)
           </div>
         )}

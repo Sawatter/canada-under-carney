@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-16",
+    "summary": "Post-v5.44 axe-core re-run caught one remaining #888 contrast violation on the Approval Signal disapproval percentage; fixed plus three more #999/#aaa instances surfaced during the sweep.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Final contrast cleanup after v5.44 deploy verification",
+        "body": "Live axe-core 4.10 run against deployed v5.44 surfaced one remaining color-contrast violation: the Approval Signal '/ X%' disapproval percentage at #888 on white (3.54:1). That style block was in ApprovalSignal.jsx which the v5.43 sweep missed. Fixed plus three additional instances (two more #999 in ApprovalSignal.jsx, one #999 in ScoreDerivation.jsx, one #aaa in About.jsx) found in the follow-up grep. All replaced with #666 (5.7:1 on white) matching the documented --text-muted token in index.css."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-16",
     "summary": "Skeptic Path orientation upgraded to threaded navigation: each of the five ingredients in the callout is now a clickable anchor jumping to its drawer section.",
     "items": [
       {
