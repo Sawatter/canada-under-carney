@@ -271,6 +271,27 @@ export default function Dashboard() {
           <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
             <strong>What this isn&rsquo;t:</strong> a forecast, voting guide, popularity measure, or claim that only measurable files matter.
           </div>
+          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5 }}>
+            <strong>How to check it:</strong>{" "}
+            <button
+              type="button"
+              onClick={() => setView("methodology")}
+              style={{
+                background: "none",
+                border: "none",
+                padding: 0,
+                color: "#1565c0",
+                cursor: "pointer",
+                font: "inherit",
+                fontWeight: 700,
+                textDecoration: "underline",
+              }}
+            >
+              read the safeguards
+            </button>{" "}
+            or open any card to walk the rule, evidence, sources, and critic /
+            defender views.
+          </div>
         </div>
       </div>
 

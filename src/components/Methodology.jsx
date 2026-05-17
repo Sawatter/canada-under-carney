@@ -1,6 +1,39 @@
 import meta from "../data/meta.json";
 
 export default function Methodology() {
+  const docLinks = [
+    {
+      label: "Scoring rubric",
+      desc: "Letter-grade bands, modifiers, trigger-source convention, and limits.",
+      href: "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Scoring-Rubric-v1.1.md",
+    },
+    {
+      label: "Source register",
+      desc: "Institution type, independence notes, tier, and best-use boundary for cited families.",
+      href: "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Source-Characterization-Register.md",
+    },
+    {
+      label: "Source authority map",
+      desc: "Which sources can carry measurement, policy, execution, challenge, or context claims.",
+      href: "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Source-Authority-Map.md",
+    },
+    {
+      label: "Bias-resistance protocol",
+      desc: "Per-cycle checks for source mix, party symmetry, wording, and grade-move discipline.",
+      href: "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Protocol.md",
+    },
+    {
+      label: "Sensitivity analysis",
+      desc: "How headline scores react to weighting choices and boundary cases.",
+      href: "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Sensitivity-Analysis.md",
+    },
+    {
+      label: "Challenge a grade",
+      desc: "Plain-language steps for checking or contesting a specific grade.",
+      href: "https://github.com/Sawatter/canada-under-carney/blob/main/docs/How-To-Challenge-A-Grade.md",
+    },
+  ];
+
   const ranges = [
     {
       range: "A Range (3.7\u20134.0)",
@@ -90,6 +123,59 @@ export default function Methodology() {
           the problem? (2) Is measurable progress occurring? (3) Is the direction
           likely to close the gap?
         </p>
+
+        <div
+          style={{
+            marginBottom: "20px",
+            padding: "14px",
+            background: "#f7f8fa",
+            border: "1px solid #dde3ea",
+            borderLeft: "4px solid #1565c0",
+            borderRadius: "8px",
+          }}
+        >
+          <div style={{ fontSize: "15px", fontWeight: 800, color: "#1a1a1a", marginBottom: "6px" }}>
+            Methodology &amp; safeguards
+          </div>
+          <p style={{ margin: "0 0 12px", fontSize: "14px", color: "#444" }}>
+            The short version: each grade should be traceable from published
+            rule, to trigger, to metric, to source, with the judgment layer
+            named rather than hidden. These are the main documents behind that
+            check.
+          </p>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+              gap: "10px",
+            }}
+          >
+            {docLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{
+                  display: "block",
+                  padding: "10px",
+                  border: "1px solid #e0e0e0",
+                  borderRadius: "6px",
+                  background: "#fff",
+                  color: "#1565c0",
+                  textDecoration: "none",
+                }}
+              >
+                <span style={{ display: "block", fontWeight: 800, fontSize: "14px" }}>
+                  {link.label} &rarr;
+                </span>
+                <span style={{ display: "block", marginTop: "3px", color: "#555", fontSize: "13px", lineHeight: 1.4 }}>
+                  {link.desc}
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
 
         {ranges.map((g, i) => (
           <div
@@ -443,7 +529,16 @@ export default function Methodology() {
         </div>
 
         <p style={{ fontSize: "13px", color: "#666", marginTop: "16px" }}>
-          More on how to challenge specific grades: see the{" "}
+          More on how to challenge specific grades: start with{" "}
+          <a
+            href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/How-To-Challenge-A-Grade.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "#1565c0" }}
+          >
+            How To Challenge A Grade
+          </a>
+          , then use the{" "}
           <a
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md"
             target="_blank"

@@ -16,6 +16,13 @@ function normalizeTrigger(trigger) {
   return trigger;
 }
 
+function isEventDrivenTrigger(trigger) {
+  const label = (trigger?.sourceLabel || "").toLowerCase();
+  return !trigger?.sourceUrl
+    && !trigger?.internalRef
+    && (label.includes("event-driven") || label.includes("(see source list)"));
+}
+
 export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, onInternalRef }) {
   const g = GRADES[dim.grade];
   const isTracker = !!dim.excludeFromGPA;
@@ -73,9 +80,36 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
   if (dim.tags?.attribution) scoringMetadata.push({ label: "Attribution", value: dim.tags.attribution });
   if (dim.tags?.lag) scoringMetadata.push({ label: "Lag", value: dim.tags.lag });
 
+  const keyContextItems = [];
+  if (scoring?.scopeNote) {
+    keyContextItems.push({ label: "Scope", text: scoring.scopeNote });
+  }
+  if (dim.tags?.attribution) {
+    keyContextItems.push({
+      label: "Attribution",
+      text: `Federal control is classified as ${dim.tags.attribution}.`,
+    });
+  }
+  if (dim.tags?.lag) {
+    keyContextItems.push({
+      label: "Lag",
+      text: `Evidence moves on a ${dim.tags.lag.toLowerCase()} timeline.`,
+    });
+  }
+  if (modifierItems.length > 0) {
+    keyContextItems.push({
+      label: "Active adjustments",
+      text: modifierItems.join(", "),
+    });
+  }
+  if (dim.inherited) {
+    keyContextItems.push({ label: "Inherited context", text: dim.inherited });
+  }
+
   const renderTriggerItem = (trigger, keyPrefix) => {
     const item = normalizeTrigger(trigger);
     if (!item) return null;
+    const eventDriven = isEventDrivenTrigger(item);
 
     const handleInternalRefClick = (e) => {
       e.stopPropagation();
@@ -143,9 +177,35 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 fontSize: "12px",
                 color: "#6b7280",
                 fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                flexWrap: "wrap",
               }}
             >
               Source: {item.sourceLabel}
+              {eventDriven && (
+                <span
+                  title="Event-driven trigger: the source family is known now; the specific URL is added if the event happens."
+                  aria-label="Event-driven trigger. The source family is known now; the specific URL is added if the event happens."
+                  style={{
+                    display: "inline-flex",
+                    alignItems: "center",
+                    minHeight: "18px",
+                    padding: "1px 6px",
+                    borderRadius: "999px",
+                    border: "1px solid #b8c7d9",
+                    background: "#eef4fb",
+                    color: "#315170",
+                    fontSize: "11px",
+                    fontWeight: 800,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.3px",
+                  }}
+                >
+                  Event
+                </span>
+              )}
             </span>
           )
         )}
@@ -454,6 +514,41 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               </a>
               . The grade in the header is the result; this drawer is the
               derivation. Click an ingredient to jump to its section.
+            </div>
+          )}
+          {keyContextItems.length > 0 && (
+            <div
+              id={`dim-${dim.id}-context`}
+              style={{
+                marginBottom: "14px",
+                fontSize: "14px",
+                color: "#333",
+                lineHeight: 1.5,
+                background: "#f7fbf8",
+                padding: "10px 12px",
+                borderRadius: "6px",
+                borderLeft: "3px solid #558b2f",
+              }}
+            >
+              <div
+                style={{
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  color: "#1a1a1a",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.5px",
+                  marginBottom: "6px",
+                }}
+              >
+                Key trade-offs &amp; confounders
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                {keyContextItems.map((item) => (
+                  <div key={item.label}>
+                    <strong>{item.label}:</strong> {item.text}
+                  </div>
+                ))}
+              </div>
             </div>
           )}
           {!isTracker && (dim.construct || scoring || scoringMetadata.length > 0) && (

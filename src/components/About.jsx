@@ -368,6 +368,18 @@ export default function About() {
             Corrections and Right of Reply
           </div>
           <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
+            To contest a specific grade, start with{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/How-To-Challenge-A-Grade.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1565c0" }}
+            >
+              How To Challenge A Grade
+            </a>
+            . It walks through the rule, trigger, metric, source, and
+            critic / defender checks.
+            <br />
             Factual errors can be reported via{" "}
             <a
               href="https://github.com/Sawatter/canada-under-carney/issues"

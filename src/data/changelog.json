@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "Trust-surface pass: the live dashboard now points readers to safeguards sooner, labels event-driven triggers, summarizes key context inside each drawer, and adds a grade-challenge guide.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Methodology safeguards surfaced earlier",
+        "body": "The header trust frame now tells readers how to check the dashboard and jumps directly to the Rubric tab. The Rubric tab now opens with a Methodology & Safeguards link panel pointing to the scoring rubric, source register, source authority map, bias-resistance protocol, sensitivity analysis, and the new grade-challenge guide."
+      },
+      {
+        "type": "product",
+        "headline": "Dimension drawers add context and event labels",
+        "body": "Expanded dimension cards now include a Key trade-offs & confounders section built from existing scope, attribution, lag, active adjustment, and inherited-context fields. Event-driven grade triggers now display an Event badge with a short explanation that the source family is known now and the specific URL gets added if the event happens."
+      },
+      {
+        "type": "docs",
+        "headline": "How To Challenge A Grade guide added",
+        "body": "docs/How-To-Challenge-A-Grade.md gives readers a plain route for checking or contesting a grade: walk the rule, trigger, metric, source, and critic / defender views, then choose correction, trigger disagreement, missing evidence, or judgment disagreement. Linked from the Rubric tab and About page."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "Closure memo verification-layer cleanup after ChatGPT review: git log range fixed to be inclusive, live-version check corrected for SPA bundle, axe-core result now backed by saved JSON artifact, and three narrative inconsistencies tightened.",
     "items": [
       {
