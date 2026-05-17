@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-17",
+    "summary": "Validation sprint outreach templates adapted from the LaunchSims feedback report and adjusted to the dashboard's voice rules.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Validation sprint templates published",
+        "body": "docs/Validation-Sprint-Templates.md adapts the outreach templates from the LaunchSims DeepSim report (launchsims.com/en/share/deepsim/ds_YT_PTw_RLUo2) for the audience-validation sprint LaunchSims recommended. The original templates contained fabricated performance claims ('zero partisan bias complaints from all major party groups,' '72% of early nonprofit analyst users say...') and a non-existent 'institutional access pass' offer. Both were stripped. The rewrite drops press-release register for individual-asking-for-feedback voice and replaces invented social proof with named methodology artifacts recipients can actually verify. Two templates: one for federal political beat journalists, one for nonprofit advocacy policy analysts. Includes outreach mechanics (target list, batching, response classification, pass/fail decision criteria) and explicit limits. Cross-referenced from docs/Bias-Resistance-Protocol.md (public-surface backlog item 7) and docs/Perceived-Bias-Survey.md (new recruiting respondents section). Pairs with the perceived-bias survey methodology so the editor now has both the recruit-readers side and the collect-responses side of audience validation."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-17",
     "summary": "May 16 source recertification added as a separate retrospective source-health artifact.",
     "items": [
       {

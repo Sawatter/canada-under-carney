@@ -88,7 +88,7 @@ These are the reader-facing trust artifacts that follow this protocol. Status is
 4. **Right-of-reply / feedback channel:** built in v5.33 at `docs/Right-Of-Reply.md`.
 5. **Citation format:** built in v5.33 in the About surface.
 6. **Accessibility audit pass:** built in v5.38 at `docs/Accessibility-Audit-2026-05.md`; first keyboard-access fix shipped in v5.40.
-7. **Perceived-bias survey mechanism:** methodology and links built in v5.37; activation pending.
+7. **Perceived-bias survey mechanism:** methodology and links built in v5.37; activation pending. Companion outreach templates for the audience-validation half live in `docs/Validation-Sprint-Templates.md` (v5.54). The two are paired: the survey collects reader signal; the templates recruit the readers.
 
 ## Audit re-run cadence
 

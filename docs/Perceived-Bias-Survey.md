@@ -71,6 +71,10 @@ Individual responses are not published unless the respondent consents.
 
 The survey methodology itself is versioned. Changes to questions, scoring, or pass-criteria get a `type: "method"` changelog entry. The schema may evolve as we see what data the first cycle produces.
 
+## Recruiting respondents
+
+The survey covers the response side — what readers say after they engage with the dashboard. The recruitment side — getting readers in front of the dashboard in the first place — lives in `docs/Validation-Sprint-Templates.md`. That doc adapts the LaunchSims validation-sprint framework with two outreach templates (federal political journalists, nonprofit advocacy policy analysts) that the editor can use to drive targeted personal outreach. The two docs are intended to run together: templates recruit, survey collects, results flow back into the cycle ledger.
+
 ## Authority and scope
 
 This survey methodology applies to the Canada Under Carney dashboard at `https://sawatter.github.io/canada-under-carney/`. It is offered as a journalism / civic-data best practice, not as a legal obligation. The dashboard reserves the right to decline submissions that contain personal attacks, threats, or off-topic content.
