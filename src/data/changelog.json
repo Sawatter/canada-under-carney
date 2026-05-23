@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-05-23",
+    "summary": "Comet (Perplexity) third independent AI review captured. Confirms two prior gaps and surfaces specific methodology, source-diversity, and code-quality findings for the June 2026 cycle.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Comet review logged with 2-of-2 convergence on prior findings",
+        "body": "docs/Comet-Review-2026-05.md captures Comet's bundle-attached review of the dashboard at v5.56, run 2026-05-23. The review confirms the editor disclosure surface gap (2-of-2 convergence with the 2026-05-17 Grok probe) and refines the version archive finding (Change Log exists for changes; reader-facing full-state snapshot archive does not). New methodology-rigor findings worth acting on in June: enumerate Economic Policy 'core levers', publish Ethics disclosure-machinery checklist, publish Flagship Delivery derivation arithmetic. New coverage findings: Indigenous reconciliation needs either a 12th dimension or an explicit boundary statement; foreign policy beyond NATO needs a one-line scope caveat on Defence & Trade; wage policy needs a one-line About note. New source-diversity findings: Climate & Environment grade-moving chain has no right-leaning or energy-sector source; Affordability Response has no industry analysis; Immigration has no independent challenge from pro-immigration or restrictionist sources. New UX/code findings: anchor link #4 (sources) overshoots scroll target; DimensionCard timing-based scroll is fragile; no automated test for POCKETBOOK_DIMS / excludeFromGPA consistency; no test guarding the utils.js GPA frozen surface. Comet's session cut off mid-section 10 before completing the closing paragraph; the captured text is otherwise substantively complete. Bundle approach (tmp/perplexity-bundle.md v2 with React components) worked as designed; no fabricated citations detected."
+      }
+    ]
+  },
+  {
     "date": "2026-05-17",
     "summary": "Source-to-trigger audit for the May 2026 cycle published, with 1 grade move documented and 6 trigger-source gaps carried forward to the June cycle.",
     "items": [
