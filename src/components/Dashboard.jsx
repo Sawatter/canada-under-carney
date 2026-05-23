@@ -25,6 +25,7 @@ export default function Dashboard() {
   const [approvalExpanded, setApprovalExpanded] = useState(false);
   // Which headline-score derivation panel is open: "household", "overall", or null.
   const [derivationOpen, setDerivationOpen] = useState(null);
+  const [pendingScrollTarget, setPendingScrollTarget] = useState(null);
   const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
 
@@ -88,6 +89,28 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [approvalExpanded]);
 
+  useEffect(() => {
+    if (!pendingScrollTarget) return undefined;
+
+    let frameA = null;
+    let frameB = null;
+
+    frameA = window.requestAnimationFrame(() => {
+      frameB = window.requestAnimationFrame(() => {
+        document.getElementById(pendingScrollTarget)?.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+        });
+        setPendingScrollTarget(null);
+      });
+    });
+
+    return () => {
+      if (frameA) window.cancelAnimationFrame(frameA);
+      if (frameB) window.cancelAnimationFrame(frameB);
+    };
+  }, [pendingScrollTarget, view]);
+
   const handleToggleDerivation = (variant) => {
     setDerivationOpen((curr) => (curr === variant ? null : variant));
   };
@@ -98,15 +121,7 @@ export default function Dashboard() {
 
   const handleShowSafeguards = () => {
     setView("methodology");
-    if (typeof window === "undefined") return;
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        document.getElementById("methodology-safeguards")?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      });
-    });
+    setPendingScrollTarget("methodology-safeguards");
   };
 
   const handleInternalRef = (ref) => {

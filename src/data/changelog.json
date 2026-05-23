@@ -1,6 +1,17 @@
 [
   {
     "date": "2026-05-23",
+    "summary": "Skeptic Path and safeguards jumps now move directly to their target sections on desktop and phone-width layouts.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "In-page trust jumps fixed",
+        "body": "The Skeptic Path controls now use native in-page anchors with compact link hit boxes, so they land on the rule, triggers, metrics, sources, or critic / defender section on desktop and phone-width layouts. The header's read-the-safeguards control now waits for the Rubric view to render before jumping to the Methodology & Safeguards panel."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-23",
     "summary": "Close the four remaining open items from the May AI-review panel: editor disclosure, scope-exclusion rationale, past-versions visibility, and right-of-centre source additions to Climate and Affordability.",
     "items": [
       {

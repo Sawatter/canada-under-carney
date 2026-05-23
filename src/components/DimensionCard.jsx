@@ -106,33 +106,17 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     keyContextItems.push({ label: "Inherited context", text: dim.inherited });
   }
 
-  const jumpToSection = (e, targetId, beforeScroll) => {
-    e.preventDefault();
+  const handleSkepticAnchorClick = (e, beforeJump) => {
     e.stopPropagation();
-    beforeScroll?.();
-
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        document.getElementById(targetId)?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      });
-    });
+    beforeJump?.();
   };
 
-  const handleSkepticJump = (e) => {
-    const eventTarget = e.target.nodeType === Node.TEXT_NODE ? e.target.parentElement : e.target;
-    const jumpTarget = eventTarget?.closest?.("[data-jump-target]");
-    if (!jumpTarget) return;
-    jumpToSection(e, jumpTarget.dataset.jumpTarget, () => {
-      if (jumpTarget.dataset.jumpOpen === "triggers" && showLowerTriggers) {
-        setTriggersOpen(true);
-      }
-      if (jumpTarget.dataset.jumpOpen === "perspectives") {
-        setPerspectivesOpen(true);
-      }
-    });
+  const skepticPathLinkStyle = {
+    color: "#1565c0",
+    textDecoration: "underline",
+    display: "inline-block",
+    whiteSpace: "nowrap",
+    lineHeight: 1.4,
   };
 
   const renderTriggerItem = (trigger, keyPrefix) => {
@@ -471,61 +455,50 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 borderLeft: "3px solid #1a73e8",
                 lineHeight: 1.5,
               }}
-              onClick={handleSkepticJump}
             >
               <strong style={{ color: "#1565c0" }}>Skeptic path:</strong> to
               challenge this grade, walk these five ingredients in order:{" "}
-              <button
-                type="button"
-                data-jump-target={`dim-${dim.id}-scoring`}
-                onMouseDown={handleSkepticJump}
-                onClick={handleSkepticJump}
-                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
+              <a
+                href={`#dim-${dim.id}-scoring`}
+                onClick={(e) => handleSkepticAnchorClick(e)}
+                style={skepticPathLinkStyle}
               >
                 (1) the rule
-              </button>
+              </a>
               ,{" "}
-              <button
-                type="button"
-                data-jump-target={`dim-${dim.id}-triggers-section`}
-                data-jump-open="triggers"
-                onMouseDown={handleSkepticJump}
-                onClick={handleSkepticJump}
-                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
+              <a
+                href={`#dim-${dim.id}-triggers-section`}
+                onClick={(e) => handleSkepticAnchorClick(e, () => {
+                  if (showLowerTriggers) setTriggersOpen(true);
+                })}
+                style={skepticPathLinkStyle}
               >
                 (2) what would move the grade
-              </button>
+              </a>
               ,{" "}
-              <button
-                type="button"
-                data-jump-target={`dim-${dim.id}-metrics`}
-                onMouseDown={handleSkepticJump}
-                onClick={handleSkepticJump}
-                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
+              <a
+                href={`#dim-${dim.id}-metrics`}
+                onClick={(e) => handleSkepticAnchorClick(e)}
+                style={skepticPathLinkStyle}
               >
                 (3) the evidence under each metric
-              </button>
+              </a>
               ,{" "}
-              <button
-                type="button"
-                data-jump-target={`dim-${dim.id}-sources`}
-                onMouseDown={handleSkepticJump}
-                onClick={handleSkepticJump}
-                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
+              <a
+                href={`#dim-${dim.id}-sources`}
+                onClick={(e) => handleSkepticAnchorClick(e)}
+                style={skepticPathLinkStyle}
               >
                 (4) the cited sources
-              </button>
+              </a>
               , and{" "}
-              <button
-                type="button"
-                data-jump-target={`dim-${dim.id}-perspectives-section`}
-                data-jump-open="perspectives"
-                onMouseDown={handleSkepticJump}
-                onClick={handleSkepticJump}
-                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
+              <a
+                href={`#dim-${dim.id}-perspectives-section`}
+                onClick={(e) => handleSkepticAnchorClick(e, () => setPerspectivesOpen(true))}
+                style={skepticPathLinkStyle}
               >
                 (5) named critic and defender views
-              </button>
+              </a>
               . The grade in the header is the result; this drawer is the
               derivation. Click an ingredient to jump to its section.
             </div>
