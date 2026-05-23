@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-05-23",
+    "summary": "Close the four remaining open items from the May AI-review panel: editor disclosure, scope-exclusion rationale, past-versions visibility, and right-of-centre source additions to Climate and Affordability.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Editor and Disclosures section added to About",
+        "body": "The About tab now opens with a named editor disclosure: editor identity (Chris Sawatsky, a Calgary-based enterprise-software consultant), political affiliation (none — no party membership, no campaign donations on file in the coverage period), professional conflicts (no paid consulting with graded entities, no current federal contract), funding (unfunded; Buttondown and GoatCounter paid out of pocket), AI assistance (named tools used for drafting and audits; grading decisions made by the human editor against the published rubric), and corrections process (GitHub issues route to the editor per the published Corrections and Right of Reply policies). Closes the editor-disclosure gap flagged in two-of-two convergence by the Grok (2026-05-17) and Comet (2026-05-23) AI reviews."
+      },
+      {
+        "type": "method",
+        "headline": "Excluded coverage areas now carry a published rationale",
+        "body": "The About 'What This Scores and What It Does Not' section now explains why each excluded area (Indigenous reconciliation, healthcare federal-provincial transfers, public-sector bargaining, pre-designation pipeline announcements, foreign policy beyond defence and trade) is not currently a standalone grade. Reasons name source-coordination constraints, federal-scope boundaries, and the maturity of monthly-cadence indicators. Closes Comet's Section 3 finding that the boundary statement named the exclusions without giving a rationale a reader could evaluate."
+      },
+      {
+        "type": "product",
+        "headline": "Past Versions and Snapshots surfaced on About",
+        "body": "A new Past Versions section on the About tab points readers to the Change Log tab, the GitHub commit history with per-file diffs, the data folder at any specific commit (so a reader can load the dashboard state at any past cycle), and the per-cycle closure memos in docs/. Closes the version-archive gap flagged in two-of-two convergence by the Grok and Comet reviews."
+      },
+      {
+        "type": "method",
+        "headline": "Right-of-centre and industry sources added to Climate and Affordability",
+        "body": "Climate & Environment sources[] now includes Fraser Institute (environment publications) and Macdonald-Laurier Institute (energy and natural resources) as right-of-centre and energy-sector independent challenge sources. Affordability Response sources[] now includes CFIB (research and economic analysis) and Retail Council of Canada (grocery and food) as industry and business-group challenge sources. These additions surface the source pool to readers immediately; threading them into specific grade-moving up/down triggers happens in the June 2026 cycle under bias-resistance Discipline B (thread existing challenge sources before adding new). Closes the source-diversity gap flagged by Comet in Section 4."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-23",
     "summary": "Comet review follow-up tightened scope copy, Skeptic Path anchors, and three methodology explanations without changing grades.",
     "items": [
       {

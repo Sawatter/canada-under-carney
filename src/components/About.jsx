@@ -31,6 +31,107 @@ export default function About() {
 
         <div
           style={{
+            borderLeft: "3px solid #1a3c5e",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+            background: "#f6f9fc",
+            padding: "12px 14px",
+          }}
+        >
+          <div
+            style={{ fontWeight: 700, fontSize: "14px", color: "#1a3c5e" }}
+          >
+            Editor and Disclosures
+          </div>
+          <ul
+            style={{
+              margin: "8px 0 0",
+              paddingLeft: "18px",
+              fontSize: "14px",
+              color: "#333",
+              lineHeight: 1.55,
+            }}
+          >
+            <li>
+              <strong>Editor:</strong> Chris Sawatsky, a Calgary-based
+              consultant working on enterprise software implementations and
+              software testing. The dashboard is a personal civic project,
+              not a commercial product.
+            </li>
+            <li>
+              <strong>Political affiliation:</strong> no current or past
+              financial relationship with any federal political party,
+              party-aligned organization, or candidate. No registered party
+              membership. No campaign donations on file in the dashboard's
+              coverage period.
+            </li>
+            <li>
+              <strong>Professional conflicts:</strong> no paid consulting
+              relationship with any company or organization whose policy
+              position is graded by the dashboard, and no current contract
+              with a federal department. If that changes, this disclosure
+              changes.
+            </li>
+            <li>
+              <strong>Funding:</strong> the dashboard is unfunded. No paid
+              sponsorships, no advertising, no in-kind support tied to
+              editorial direction. Buttondown email distribution and
+              GoatCounter analytics are paid out of pocket by the editor.
+            </li>
+            <li>
+              <strong>AI assistance:</strong> Claude, Codex, ChatGPT, and
+              Perplexity-class tools are used for drafting, code changes,
+              source research, and methodology audits. Grading decisions
+              are made by the human editor against the published rubric,
+              not by any AI. The AI verification methodology at{" "}
+              <a
+                href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/AI-Verification-Methodology.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#1565c0" }}
+              >
+                docs/AI-Verification-Methodology.md
+              </a>{" "}
+              documents how AI panel reviews are integrated.
+            </li>
+            <li>
+              <strong>Corrections and right of reply:</strong> reviewed by
+              the editor per{" "}
+              <a
+                href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Corrections-Policy.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#1565c0" }}
+              >
+                Corrections Policy
+              </a>{" "}
+              and{" "}
+              <a
+                href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#1565c0" }}
+              >
+                Right of Reply
+              </a>
+              . The editor does not solicit pre-publication input from
+              graded parties. Submit a correction or right-of-reply request
+              by opening a{" "}
+              <a
+                href="https://github.com/Sawatter/canada-under-carney/issues"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#1565c0" }}
+              >
+                GitHub issue
+              </a>
+              .
+            </li>
+          </ul>
+        </div>
+
+        <div
+          style={{
             borderLeft: "3px solid #607d8b",
             paddingLeft: "12px",
             marginBottom: "16px",
@@ -97,6 +198,35 @@ export default function About() {
             appears inside Major Projects and Promise Delivery, and foreign
             policy review commitments appear inside Defence &amp; Trade. They
             are not separate headline grades in this version.
+          </p>
+          <p style={{ margin: "8px 0 0", fontSize: "14px", color: "#555" }}>
+            <strong>Why these are not standalone grades yet:</strong>{" "}
+            Indigenous reconciliation requires source coordination across
+            multiple federal departments and nation-to-nation agreements
+            whose measurement frameworks have not yet matured to a
+            monthly-update cadence. Healthcare federal-provincial transfers
+            sit inside the Fiscal Health envelope as a fiscal line item
+            because the provincial side of the equation is outside the
+            dashboard's federal scope. Public-sector bargaining feeds into
+            Fiscal Health through the workforce-reduction commitment but
+            does not have its own grade because Treasury Board agreement
+            timing is intermittent. Pre-designation pipeline announcements
+            are intentionally excluded by the Major Projects scope rule
+            that grades documented post-designation advancement rather
+            than announcement count. Foreign policy beyond defence and
+            trade is excluded because the indicators that would distinguish
+            performance from posture are not yet operational for a
+            monthly rubric. A reader who wants any of these graded directly
+            can{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/issues"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1565c0" }}
+            >
+              open a GitHub issue
+            </a>{" "}
+            making the case for the indicators that would work.
           </p>
         </div>
 
@@ -359,15 +489,67 @@ export default function About() {
             , accessed [date].
             <br />
             For citing a specific dimension grade at a specific point in time,
-            include the dashboard version (from{" "}
-            <code style={{ fontFamily: "monospace", fontSize: "12px" }}>
-              meta.json
-            </code>
-            ) and the dimension name. Source data lives in{" "}
+            include the dashboard version shown in the header (e.g., v5.59)
+            and the dimension name. Source data lives in{" "}
             <code style={{ fontFamily: "monospace", fontSize: "12px" }}>
               src/data/dimensions.json
             </code>{" "}
             in the open-source repository.
+          </div>
+        </div>
+
+        <div
+          style={{
+            borderLeft: "3px solid #999",
+            paddingLeft: "12px",
+            marginBottom: "16px",
+          }}
+        >
+          <div style={{ fontWeight: 700, fontSize: "14px", color: "#666" }}>
+            Past Versions and Snapshots
+          </div>
+          <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
+            Every monthly cycle is tagged in the public repo so a reader can
+            load the dashboard as it stood at a specific past version. The{" "}
+            <a
+              href="https://sawatter.github.io/canada-under-carney/?tab=changelog"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1565c0" }}
+            >
+              Change Log
+            </a>{" "}
+            tab lists every grade move and methodology change with date.
+            The full commit history with per-file diffs lives in the{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/commits/main"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1565c0" }}
+            >
+              GitHub commit history
+            </a>
+            , and any cycle's full dashboard state is browseable through the{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/tree/main/src/data"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1565c0" }}
+            >
+              data folder at a specific commit
+            </a>
+            . For a one-paragraph cycle summary, the per-cycle closure memos
+            in{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/tree/main/docs"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1565c0" }}
+            >
+              docs/
+            </a>{" "}
+            (e.g., <code style={{ fontFamily: "monospace", fontSize: "12px" }}>Bias-Resistance-Cycle-2026-05-Closure.md</code>) capture the
+            arc of what changed.
           </div>
         </div>
 

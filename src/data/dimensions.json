@@ -1404,9 +1404,17 @@
       {
         "label": "Canada Grocery Code — official site",
         "url": "https://canadacode.org/"
+      },
+      {
+        "label": "CFIB — research and economic analysis",
+        "url": "https://www.cfib-fcei.ca/en/research-economic-analysis"
+      },
+      {
+        "label": "Retail Council of Canada — grocery and food",
+        "url": "https://www.retailcouncil.org/community/grocery/"
       }
     ],
-    "lastUpdated": "2026-05-13",
+    "lastUpdated": "2026-05-23",
     "metrics": [
       {
         "label": "Food CPI (stores, YoY, Mar 2026)",
@@ -1822,9 +1830,17 @@
       {
         "label": "CBC — ECCC job and budget cuts",
         "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
+      },
+      {
+        "label": "Fraser Institute — environment publications",
+        "url": "https://www.fraserinstitute.org/categories/environment"
+      },
+      {
+        "label": "Macdonald-Laurier Institute — energy and natural resources",
+        "url": "https://macdonaldlaurier.ca/research/energy-natural-resources/"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-23",
     "metrics": [
       {
         "label": "Emissions cap",
