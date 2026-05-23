@@ -121,6 +121,20 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     });
   };
 
+  const handleSkepticJump = (e) => {
+    const eventTarget = e.target.nodeType === Node.TEXT_NODE ? e.target.parentElement : e.target;
+    const jumpTarget = eventTarget?.closest?.("[data-jump-target]");
+    if (!jumpTarget) return;
+    jumpToSection(e, jumpTarget.dataset.jumpTarget, () => {
+      if (jumpTarget.dataset.jumpOpen === "triggers" && showLowerTriggers) {
+        setTriggersOpen(true);
+      }
+      if (jumpTarget.dataset.jumpOpen === "perspectives") {
+        setPerspectivesOpen(true);
+      }
+    });
+  };
+
   const renderTriggerItem = (trigger, keyPrefix) => {
     const item = normalizeTrigger(trigger);
     if (!item) return null;
@@ -236,10 +250,17 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     }
   };
 
+  const handleCardClick = (e) => {
+    if (e.target !== e.currentTarget && e.target.closest("a, button, input, select, textarea")) {
+      return;
+    }
+    onClick?.(e);
+  };
+
   return (
     <div
       id={`dim-${dim.id}`}
-      onClick={onClick}
+      onClick={handleCardClick}
       onKeyDown={handleCardKeyDown}
       role="button"
       tabIndex={0}
@@ -431,6 +452,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
       {/* Expanded details */}
       {isExpanded && (
         <div
+          onClick={(e) => e.stopPropagation()}
           style={{
             marginTop: "16px",
             borderTop: "1px solid #eee",
@@ -449,56 +471,61 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 borderLeft: "3px solid #1a73e8",
                 lineHeight: 1.5,
               }}
+              onClick={handleSkepticJump}
             >
               <strong style={{ color: "#1565c0" }}>Skeptic path:</strong> to
               challenge this grade, walk these five ingredients in order:{" "}
-              <a
-                href={`#dim-${dim.id}-scoring`}
-                onClick={(e) => jumpToSection(e, `dim-${dim.id}-scoring`)}
-                style={{ color: "#1565c0", textDecoration: "underline" }}
+              <button
+                type="button"
+                data-jump-target={`dim-${dim.id}-scoring`}
+                onMouseDown={handleSkepticJump}
+                onClick={handleSkepticJump}
+                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
               >
                 (1) the rule
-              </a>
+              </button>
               ,{" "}
-              <a
-                href={`#dim-${dim.id}-triggers-section`}
-                onClick={(e) => {
-                  jumpToSection(e, `dim-${dim.id}-triggers-section`, () => {
-                    if (showLowerTriggers) setTriggersOpen(true);
-                  });
-                }}
-                style={{ color: "#1565c0", textDecoration: "underline" }}
+              <button
+                type="button"
+                data-jump-target={`dim-${dim.id}-triggers-section`}
+                data-jump-open="triggers"
+                onMouseDown={handleSkepticJump}
+                onClick={handleSkepticJump}
+                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
               >
                 (2) what would move the grade
-              </a>
+              </button>
               ,{" "}
-              <a
-                href={`#dim-${dim.id}-metrics`}
-                onClick={(e) => jumpToSection(e, `dim-${dim.id}-metrics`)}
-                style={{ color: "#1565c0", textDecoration: "underline" }}
+              <button
+                type="button"
+                data-jump-target={`dim-${dim.id}-metrics`}
+                onMouseDown={handleSkepticJump}
+                onClick={handleSkepticJump}
+                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
               >
                 (3) the evidence under each metric
-              </a>
+              </button>
               ,{" "}
-              <a
-                href={`#dim-${dim.id}-sources`}
-                onClick={(e) => jumpToSection(e, `dim-${dim.id}-sources`)}
-                style={{ color: "#1565c0", textDecoration: "underline" }}
+              <button
+                type="button"
+                data-jump-target={`dim-${dim.id}-sources`}
+                onMouseDown={handleSkepticJump}
+                onClick={handleSkepticJump}
+                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
               >
                 (4) the cited sources
-              </a>
+              </button>
               , and{" "}
-              <a
-                href={`#dim-${dim.id}-perspectives-section`}
-                onClick={(e) => {
-                  jumpToSection(e, `dim-${dim.id}-perspectives-section`, () => {
-                    setPerspectivesOpen(true);
-                  });
-                }}
-                style={{ color: "#1565c0", textDecoration: "underline" }}
+              <button
+                type="button"
+                data-jump-target={`dim-${dim.id}-perspectives-section`}
+                data-jump-open="perspectives"
+                onMouseDown={handleSkepticJump}
+                onClick={handleSkepticJump}
+                style={{ color: "#1565c0", textDecoration: "underline", background: "none", border: "none", padding: 0, font: "inherit", cursor: "pointer" }}
               >
                 (5) named critic and defender views
-              </a>
+              </button>
               . The grade in the header is the result; this drawer is the
               derivation. Click an ingredient to jump to its section.
             </div>
@@ -560,6 +587,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 id={`dim-${dim.id}-scoring`}
                 role="region"
                 style={{
+                  scrollMarginTop: "16px",
                   fontSize: "14px",
                   color: "#333",
                   lineHeight: 1.55,
@@ -828,7 +856,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
           )}
 
           {/* Key Metrics */}
-          <div id={`dim-${dim.id}-metrics`} style={{ marginBottom: "14px" }}>
+          <div id={`dim-${dim.id}-metrics`} style={{ marginBottom: "14px", scrollMarginTop: "16px" }}>
             <div
               style={{
                 fontSize: "14px",
@@ -1010,7 +1038,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
 
           {/* Source Links */}
           {dim.sources && dim.sources.length > 0 && (
-            <div id={`dim-${dim.id}-sources`}>
+            <div id={`dim-${dim.id}-sources`} style={{ scrollMarginTop: "16px" }}>
               <div
                 style={{
                   fontSize: "14px",
@@ -1150,7 +1178,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               )}
 
               {dim.perspectives && (
-                <div id={`dim-${dim.id}-perspectives-section`} style={{ marginBottom: "12px" }}>
+                <div id={`dim-${dim.id}-perspectives-section`} style={{ marginBottom: "12px", scrollMarginTop: "16px" }}>
                   <button
                     type="button"
                     onClick={(e) => {

@@ -1,6 +1,22 @@
 [
   {
     "date": "2026-05-23",
+    "summary": "Comet review follow-up tightened scope copy, Skeptic Path anchors, and three methodology explanations without changing grades.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Comet review follow-up",
+        "body": "The safe follow-up from Comet's third independent review is now reflected in the live data and UI. Affordability Response leads with the scope caveat before the tariff burden, Defence & Trade now says it does not grade broader foreign policy posture, Economic Policy enumerates the five core levers inside the scoring criteria, Ethics & Transparency defines the five disclosure-machinery components, and Flagship Delivery clarifies that its Combination Rule is status-count based rather than an arithmetic average. The About boundary now names several important files that are not standalone grades in this version, including Indigenous reconciliation, healthcare transfers, public-sector bargaining, pre-designation pipeline announcements, and broader foreign policy."
+      },
+      {
+        "type": "minor",
+        "headline": "Skeptic Path source jump tightened",
+        "body": "The cited-sources, metrics, scoring, and critics / defenders targets now carry scroll margins so the Skeptic Path links land with the section heading visible instead of overshooting on desktop."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-23",
     "summary": "Comet (Perplexity) third independent AI review captured. Confirms two prior gaps and surfaces specific methodology, source-diversity, and code-quality findings for the June 2026 cycle.",
     "items": [
       {

@@ -186,7 +186,22 @@ Two small carry-forwards. Adjust the scroll target ID for the sources anchor so 
 
 2. **"No reader-facing version archive"** — **Partially confirmed, partially refuted.** The Change Log tab is live and contains versioned entries with dates, grade changes, and rationale. What doesn't exist is a **browseable snapshot archive** — a reader can see what changed and when, but can't load the dashboard as it looked on, say, 2026-03-01. The Change Log satisfies "what changed" but not "show me the full dashboard state at cycle X." **Both prior reviews were right that a snapshot archive doesn't exist; they were wrong to call the Change Log itself absent.**
 
-3. **"Indigenous reconciliation not graded"** — **Confirmed.** [Section cut off here — Comet's session hit its tool-call limit before completing this finding and producing the closing Confidence and Limits paragraph.]
+3. **"Indigenous reconciliation not graded"** — **Confirmed real gap.** Now partially addressed by the new About boundary statement in v5.58 (added 2026-05-23): the "what this does not grade" list explicitly names "standalone grades for Indigenous reconciliation, healthcare transfers, public-sector bargaining, pre-designation pipeline announcements, or foreign policy beyond the defence / trade construct." The boundary statement closes the methodology-visibility gap; whether reconciliation should become a 12th dimension remains an editorial decision for a future cycle.
+
+4. **"Healthcare federal-provincial transfers not graded"** — **Confirmed.** Now addressed in the v5.58 About boundary statement (same list as item 3). A follow-up paragraph in About also notes that excluded files can still appear as evidence inside home dimensions when they have a direct paper trail (healthcare staffing pressure inside Immigration, Indigenous loan guarantee inside Major Projects and Promise Delivery, foreign policy review commitments inside Defence & Trade).
+
+5. **"Foreign policy / diplomacy beyond NATO not graded"** — **Confirmed and addressed.** v5.58 expands the Defence & Trade `scopeNote` in `src/data/dimensions.json` to read in part: "This file does not grade the government's broader foreign policy posture, diplomacy, or alliance strategy beyond the published defence and trade-diversification tests." Boundary now lives next to the rule.
+
+6. **"Source mix tilts away from right-leaning think tanks"** — **Confirmed as real; not addressed in v5.58.** Fraser and C.D. Howe are present in the source pool but not in the grade-moving chains for Climate & Environment or Affordability Response. Remains the most actionable open source-diversity item for the June cycle.
+
+### Items still open from prior reviews
+
+- **Editor disclosure surface** (Grok 2026-05-17 and Comet 2026-05-23 both flagged). Not addressed in v5.58. Highest-leverage item for journalism citability per Comet's Section 9, and requires only a paragraph in `src/components/About.jsx` with a name + COI statement.
+- **Reader-facing version archive (full snapshot, not just Change Log).** Not addressed in v5.58. June carry-forward.
+
+### Closure note
+
+Section 10's close above was reconstructed from a separate AI session (Perplexity reading the bundle after Comet's tool-call limit ended its run). Attribution: items 3-6 above are the Perplexity-side completion of the Comet thread, not Comet's own continuation. The verbatim-quote discipline applies to all items: the v5.58 changes referenced are directly from the unstaged diffs visible in the working tree at commit time and are verifiable against `src/components/About.jsx`, `src/data/dimensions.json`, and `src/data/meta.json` in the v5.58 commit.
 
 ---
 

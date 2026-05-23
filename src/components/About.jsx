@@ -74,6 +74,12 @@ export default function About() {
                 <li>symbolic actions without durable policy artifacts</li>
                 <li>popularity, vote choice, or campaign forecasting</li>
                 <li>valuable outcomes that lack enough public evidence to grade</li>
+                <li>
+                  standalone grades for Indigenous reconciliation, healthcare
+                  transfers, public-sector bargaining, pre-designation pipeline
+                  announcements, or foreign policy beyond the defence / trade
+                  construct
+                </li>
               </ul>
             </div>
           </div>
@@ -83,6 +89,14 @@ export default function About() {
             evidence is easiest to observe. The counterweight is disclosure:
             each card names what it grades, where judgment enters, and which
             evidence would move the grade.
+          </p>
+          <p style={{ margin: "8px 0 0", fontSize: "14px", color: "#555" }}>
+            Some excluded files still appear as evidence inside a home
+            dimension when they have a direct paper trail: healthcare staffing
+            pressure appears inside Immigration, an Indigenous loan guarantee
+            appears inside Major Projects and Promise Delivery, and foreign
+            policy review commitments appear inside Defence &amp; Trade. They
+            are not separate headline grades in this version.
           </p>
         </div>
 

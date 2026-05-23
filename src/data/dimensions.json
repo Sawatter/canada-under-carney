@@ -49,7 +49,7 @@
           "criteria": "Defence spending is cut and trade dependence deepens."
         }
       ],
-      "scopeNote": "Intentionally keeps defence delivery and trade diversification in one file because both sit in the government's national-security and economic-resilience envelope. Read the defence and trade sub-scores with the headline because the two halves move at different speeds.",
+      "scopeNote": "Intentionally keeps defence delivery and trade diversification in one file because both sit in the government's national-security and economic-resilience envelope. Read the defence and trade sub-scores with the headline because the two halves move at different speeds. This file does not grade the government's broader foreign policy posture, diplomacy, or alliance strategy beyond the published defence and trade-diversification tests.",
       "guardrails": [
         "Confirm defence spending from NATO or equivalent official tables, not from domestic political claims alone.",
         "Use annual trade-share movement rather than single-month export volatility when judging diversification.",
@@ -1022,7 +1022,7 @@
     "construct": "The federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers.",
     "gradeBasis": {
       "band": "D",
-      "bandCriterion": "Instruments are still mostly announced rather than Treasury Board-authorized or in live execution, and business investment remains near-flat without a durable turn.",
+      "bandCriterion": "Across the five current core levers (AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness), fewer than two are clearly authorized or executing, and business investment remains near-flat without a durable turn.",
       "plusMinusRationale": "Current D reflects a real policy response that has not yet cleared the execution bar: key funds are still more announced than live, business investment remains near-flat, and major domestic barriers remain unresolved.",
       "activeModifiers": [
         {
@@ -1041,19 +1041,19 @@
       "thresholds": [
         {
           "grade": "A",
-          "criteria": "At least two core productivity levers are enacted or Treasury Board-authorized, at least one is in live execution or disbursement, business investment rises for two or more consecutive quarters, and independent assessment judges the trajectory improved."
+          "criteria": "At least two of the five current core productivity levers (AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, productivity-tax competitiveness) are enacted or Treasury Board-authorized, at least one is in live execution or disbursement, business investment rises for two or more consecutive quarters, and independent assessment judges the trajectory improved."
         },
         {
           "grade": "B",
-          "criteria": "At least two core levers are funded or authorized, at least one is in live execution, and business investment is no longer declining over two consecutive quarters."
+          "criteria": "At least two of the five current core levers are funded or authorized, at least one is in live execution, and business investment is no longer declining over two consecutive quarters."
         },
         {
           "grade": "C",
-          "criteria": "At least one core lever is funded or authorized and others are designed or announced, but business investment remains flat or only marginally positive and measurable productivity gains are not yet visible."
+          "criteria": "At least one of the five current core levers is funded or authorized and others are designed or announced, but business investment remains flat or only marginally positive and measurable productivity gains are not yet visible."
         },
         {
           "grade": "D",
-          "criteria": "Instruments are still mostly announced rather than authorized or executing, fewer than two core levers are clearly funded or authorized, and business investment is still near-flat without a durable two-quarter turn."
+          "criteria": "Instruments are still mostly announced rather than authorized or executing, fewer than two of the five current core levers are clearly funded or authorized, and business investment is still near-flat without a durable two-quarter turn."
         },
         {
           "grade": "F",
@@ -1277,7 +1277,7 @@
     "grade": "D-",
     "previousGrade": null,
     "trend": "down",
-    "status": "Government affordability measures cover <20% of household cost increases. Grocery Code voluntary. Tariff costs add $1,450-$2,000/yr per household. Grade reflects federal policy response, not global price levels.",
+    "status": "Grade reflects federal policy response, not global price levels. Government affordability measures cover <20% of household cost increases. Grocery Code voluntary. Tariff costs add $1,450-$2,000/yr per household.",
     "judgmentCall": "Low grade reflects federal relief versus measured household cost pressure, not a verdict on global prices.",
     "judgmentDetail": "The D- grade scores the adequacy of federal action against documented cost pressure. Judgment enters in matching relief scale to the identified annual burden, treating voluntary grocery measures as weaker than enforceable ones, and separating federal policy response from global price shocks that Ottawa does not fully control.",
     "construct": "Adequacy of the federal policy response to household cost pressure from groceries, tariffs, and targeted relief.",
@@ -1379,7 +1379,7 @@
         }
       ]
     },
-    "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure — not the price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
+    "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure, not price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
     "sources": [
       {
         "label": "StatsCan CPI Mar 2026",
@@ -2436,7 +2436,7 @@
     "construct": "The adequacy of the federal ethics framework when the sitting PM has a financial and professional background that creates non-routine disclosure requirements.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Baseline disclosure and an ethics screen exist, but material completeness questions remain and no independent review has been published.",
+      "bandCriterion": "Three of five disclosure-machinery components are present (blind trust, agreed-measure filing, Annex A conflict-screen scope), but full public accounting and a published independent review are absent.",
       "plusMinusRationale": "C sits at the lower edge of the C band — the framework exists and produces baseline disclosure (distinguishing it from D), but unresolved governance critique and an unpublished Ethics Commissioner review prevent progression toward B.",
       "activeModifiers": []
     },
@@ -2444,28 +2444,29 @@
       "thresholds": [
         {
           "grade": "A",
-          "criteria": "Full public disclosure, a published independent review, and no unresolved material perception gap."
+          "criteria": "All five disclosure-machinery components are present: blind trust, agreed-measure filing, Annex A conflict-screen scope, full public accounting, and a published independent review, with no unresolved material perception gap."
         },
         {
           "grade": "B",
-          "criteria": "Substantial disclosure, a published Ethics Commissioner review finding screening adequate, and only minor unresolved gaps."
+          "criteria": "At least four of five disclosure-machinery components are present, including a published Ethics Commissioner review finding screening adequate, with only minor unresolved gaps."
         },
         {
           "grade": "C",
-          "criteria": "Baseline disclosure and an ethics screen exist, but material completeness questions remain and no independent review has been published."
+          "criteria": "At least three of five disclosure-machinery components are present, but full public accounting or a published independent review is missing and material completeness questions remain."
         },
         {
           "grade": "D",
-          "criteria": "Material disclosure gaps remain, no independent review is published, and either an official concern or two independent governance critiques cite a material screening or disclosure problem."
+          "criteria": "Fewer than three of five disclosure-machinery components are present, or material disclosure gaps remain with no independent review and either an official concern or two independent governance critiques citing a material screening or disclosure problem."
         },
         {
           "grade": "F",
-          "criteria": "Active concealment or evidence of self-dealing."
+          "criteria": "Active concealment, evidence of self-dealing, or failure to maintain the basic ethics-screen / disclosure machinery."
         }
       ],
       "scopeNote": "Grades the framework, not the person. The question is whether disclosure and screening are adequate to the officeholder's conflict profile.",
       "guardrails": [
         "Absence of scandal or proven wrongdoing does not move this grade up by itself.",
+        "Disclosure machinery currently means five components: blind trust, agreed-measure filing, Annex A conflict-screen scope, full public accounting, and a published independent review.",
         "This is a whole-letter, medium-confidence file because the evidence stack is qualitative and event-driven.",
         "Brookfield-related conflict questions belong here as ethics-framework evidence, not as a carbon-policy grade move.",
         "A critique-driven downgrade to D requires either an official adverse finding or two independent governance critiques."
@@ -2638,8 +2639,8 @@
     "construct": "The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Per the Combination Rule, the headline grade is determined mechanically by the delivery-status distribution across the flagship files.",
-      "plusMinusRationale": "C sits at the lower edge of the C band — the delivery machinery produces real execution on defence and immigration (distinguishing it from D), but stalled housing, major projects, and climate files prevent progression toward B.",
+      "bandCriterion": "Per the Combination Rule, the headline grade follows status counts, not a grade-point average: two of five flagship files are delivering, while the other three are stalled rather than failing.",
+      "plusMinusRationale": "C sits at the lower edge of the C band: defence and immigration are delivering, while housing, major projects, and climate are stalled. If those three stalled files were classified as failing or deteriorating, the rule would push the rollup below C.",
       "activeModifiers": []
     },
     "scoring": {
@@ -2654,11 +2655,11 @@
         },
         {
           "grade": "C",
-          "criteria": "Two of the five flagship files are delivering and the rest are partial or stalled."
+          "criteria": "Two of the five flagship files are delivering and the remaining three are partial or stalled, with no more than one failing or deteriorating."
         },
         {
           "grade": "C-",
-          "criteria": "One or two flagship files are delivering while three or four are stalled."
+          "criteria": "One flagship file is delivering, or two are delivering while three others are failing or deteriorating rather than merely stalled."
         },
         {
           "grade": "D+ to D-",
@@ -2672,6 +2673,7 @@
       "scopeNote": "Derived rollup. Uses the Combination Rule to grade delivery capacity only, with statuses inherited from the home dimensions rather than re-argued here.",
       "guardrails": [
         "Flagship statuses should be inherited from the home dimensions rather than re-argued from scratch in this file.",
+        "This is not an arithmetic average of the five home grades; it is a delivery-status distribution rule.",
         "A grade move requires at least one flagship file to change status category.",
         "This remains a probationary dimension through the May 2026 cycle because its value depends on adding something the home dimensions do not already show."
       ],
