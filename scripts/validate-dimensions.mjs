@@ -9,6 +9,7 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { POCKETBOOK_DIMS } from "../src/constants.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dataPath = resolve(__dirname, "../src/data/dimensions.json");
@@ -18,12 +19,11 @@ const VALID_GRADES = new Set([
   "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F",
 ]);
 const VALID_TRENDS = new Set(["up", "stable", "down"]);
-const POCKETBOOK_NAMES = new Set([
-  "Fiscal Health",
-  "Housing Supply",
-  "Affordability Response",
-  "Economic Policy Response",
-]);
+// Single source of truth for pocketbook dimension names: src/constants.js
+// POCKETBOOK_DIMS. The validator imports directly so the validator and the
+// live GPA calculation cannot drift apart. Closes the drift risk Comet
+// Round 2 flagged in section 6.
+const POCKETBOOK_NAMES = new Set(POCKETBOOK_DIMS);
 
 const errors = [];
 const warnings = [];

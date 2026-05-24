@@ -1,4 +1,4 @@
-import { GRADES, POCKETBOOK_DIMS } from "./constants";
+import { GRADES, POCKETBOOK_DIMS } from "./constants.js";
 
 // FROZEN SURFACE - do not modify without explicit editor approval.
 // Per CLAUDE.md operational guardrails, GPA formulas, grade-point mappings,
@@ -7,10 +7,12 @@ import { GRADES, POCKETBOOK_DIMS } from "./constants";
 // they are proposed. A future agent making a change here should:
 //   1. Confirm explicit user approval in the current conversation turn.
 //   2. Update docs/Canonical-Scoring-Sheets.md to match.
-//   3. Run npm run test:data and add the new expected GPA fixture if one exists.
-//   4. Note the formula change in changelog.json with type: "method".
-// Functions affected: gpaToGrade, computeOverallGPA, computeHouseholdGPA,
-// gpaPointsForGrade, rounding behavior in the headline score.
+//   3. Update scripts/test-gpa-frozen-surface.mjs with new expected values.
+//   4. Run npm run test:data (which runs both the dimensions invariant
+//      check and the GPA frozen-surface fixture test).
+//   5. Note the formula change in changelog.json with type: "method".
+// Functions affected: gpaToGrade, calculateOverallGPA, calculatePocketbookGPA,
+// dimGPA, buildDerivation, rounding behavior in the headline score.
 
 // Convert a numeric GPA to a letter grade
 export function gpaToGrade(g) {

@@ -222,6 +222,35 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
             </span>
           )
         )}
+        {Array.isArray(trigger?.additionalSources) && trigger.additionalSources.length > 0 && (
+          <details style={{ marginTop: "4px", fontSize: "12px", color: "#374151" }}>
+            <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1565c0" }}>
+              + {trigger.additionalSources.length} independent challenge source{trigger.additionalSources.length === 1 ? "" : "s"} on this trigger
+            </summary>
+            <ul style={{ margin: "6px 0 0", paddingLeft: "18px", lineHeight: 1.5 }}>
+              {trigger.additionalSources.map((alt, i) => (
+                <li key={i} style={{ marginBottom: "4px" }}>
+                  {alt.url ? (
+                    <a
+                      href={alt.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      style={{ color: "#1565c0", fontWeight: 600 }}
+                    >
+                      {alt.label}
+                    </a>
+                  ) : (
+                    <span style={{ fontWeight: 600 }}>{alt.label}</span>
+                  )}
+                  {alt.role && (
+                    <span style={{ color: "#6b7280" }}> — {alt.role}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
       </div>
     );
   };
@@ -560,7 +589,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 id={`dim-${dim.id}-scoring`}
                 role="region"
                 style={{
-                  scrollMarginTop: "16px",
+                  scrollMarginTop: "80px",
                   fontSize: "14px",
                   color: "#333",
                   lineHeight: 1.55,
@@ -699,7 +728,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 {dim.gradeTriggers && (
                   <div
                     id={`dim-${dim.id}-triggers-section`}
-                    style={{ display: "flex", flexDirection: "column", gap: "6px", scrollMarginTop: "16px" }}
+                    style={{ display: "flex", flexDirection: "column", gap: "6px", scrollMarginTop: "80px" }}
                   >
                     <strong>What changes this grade</strong>
                     <div>
@@ -767,6 +796,124 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 <div style={{ fontSize: "14px", color: "#555" }}>
                   <strong>{dim.gradeBasis.band}</strong> means: {dim.gradeBasis.bandCriterion}
                 </div>
+                {dim.gradeBasis.leverOperationalization && (
+                  <details style={{ fontSize: "13px", color: "#444", marginTop: "4px" }}>
+                    <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1a3c5e" }}>
+                      Per-lever status criteria ({dim.gradeBasis.leverOperationalization.length} levers — click to expand)
+                    </summary>
+                    <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                      {dim.gradeBasis.leverOperationalization.map((lever, i) => (
+                        <div key={i} style={{ borderLeft: "2px solid #c7d2fe", paddingLeft: "10px" }}>
+                          <div style={{ fontWeight: 600, color: "#1a1a1a" }}>{lever.name}</div>
+                          <div style={{ marginTop: "4px", lineHeight: 1.45 }}>
+                            <div><strong>Announced if:</strong> {lever.announced}</div>
+                            <div><strong>Authorized if:</strong> {lever.authorized}</div>
+                            <div><strong>Executing if:</strong> {lever.executing}</div>
+                            <div style={{ marginTop: "4px", color: "#1a3c5e" }}><strong>Current:</strong> {lever.currentStatus}</div>
+                          </div>
+                        </div>
+                      ))}
+                      {dim.gradeBasis.leverScoreSummary && (
+                        <div style={{ marginTop: "4px", padding: "8px 10px", background: "#f6f9fc", borderRadius: "4px", fontSize: "12px", lineHeight: 1.5 }}>
+                          <strong>Score summary:</strong> {dim.gradeBasis.leverScoreSummary}
+                        </div>
+                      )}
+                    </div>
+                  </details>
+                )}
+                {dim.gradeBasis.componentOperationalization && (
+                  <details style={{ fontSize: "13px", color: "#444", marginTop: "4px" }}>
+                    <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1a3c5e" }}>
+                      Per-component checklist ({dim.gradeBasis.componentOperationalization.length} components — click to expand)
+                    </summary>
+                    <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "8px" }}>
+                      {dim.gradeBasis.componentOperationalization.map((component, i) => (
+                        <div key={i} style={{ borderLeft: "2px solid #c7d2fe", paddingLeft: "10px" }}>
+                          <div style={{ fontWeight: 600, color: "#1a1a1a" }}>{component.name}</div>
+                          <div style={{ marginTop: "4px", lineHeight: 1.45 }}>
+                            <div><strong>Present if:</strong> {component.presentIfX}</div>
+                            <div style={{ marginTop: "4px", color: "#1a3c5e" }}><strong>Current:</strong> {component.currentStatus}</div>
+                          </div>
+                        </div>
+                      ))}
+                      {dim.gradeBasis.componentScoreSummary && (
+                        <div style={{ marginTop: "4px", padding: "8px 10px", background: "#f6f9fc", borderRadius: "4px", fontSize: "12px", lineHeight: 1.5 }}>
+                          <strong>Score summary:</strong> {dim.gradeBasis.componentScoreSummary}
+                        </div>
+                      )}
+                    </div>
+                  </details>
+                )}
+                {dim.gradeBasis.combinationRule && (
+                  <details style={{ fontSize: "13px", color: "#444", marginTop: "4px" }}>
+                    <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1a3c5e" }}>
+                      Combination Rule (click to expand the full distribution table)
+                    </summary>
+                    <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "10px" }}>
+                      <div>
+                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>The five flagship files</div>
+                        <ul style={{ margin: 0, paddingLeft: "18px", lineHeight: 1.5 }}>
+                          {dim.gradeBasis.combinationRule.flagshipFiles.map((f, i) => (
+                            <li key={i}>{f}</li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>File status categories</div>
+                        {dim.gradeBasis.combinationRule.fileStatusCategories.map((cat, i) => (
+                          <div key={i} style={{ marginBottom: "3px" }}>
+                            <strong>{cat.status}:</strong> {cat.definition}
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>Distribution → grade</div>
+                        <table style={{ fontSize: "12px", borderCollapse: "collapse", width: "100%" }}>
+                          <thead>
+                            <tr style={{ background: "#f6f9fc" }}>
+                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Distribution</th>
+                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Grade</th>
+                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Logic</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {dim.gradeBasis.combinationRule.distributionToGrade.map((row, i) => (
+                              <tr key={i}>
+                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.distribution}</td>
+                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0", fontWeight: 600 }}>{row.grade}</td>
+                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.logic}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>Current snapshot</div>
+                        <table style={{ fontSize: "12px", borderCollapse: "collapse", width: "100%" }}>
+                          <thead>
+                            <tr style={{ background: "#f6f9fc" }}>
+                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>File</th>
+                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Status</th>
+                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Evidence</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {dim.gradeBasis.combinationRule.currentSnapshot.map((row, i) => (
+                              <tr key={i}>
+                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.file}</td>
+                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0", fontWeight: 600 }}>{row.status}</td>
+                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.evidence}</td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                        <div style={{ marginTop: "6px", fontWeight: 600, color: "#1a3c5e" }}>
+                          {dim.gradeBasis.combinationRule.currentDistribution} → {dim.gradeBasis.combinationRule.currentGradeFromRule}
+                        </div>
+                      </div>
+                    </div>
+                  </details>
+                )}
                 {modifierItems.length > 0 && (
                   <div style={{ fontSize: "14px", color: "#444" }}>
                     <strong>Scoring adjustments:</strong>
@@ -829,7 +976,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
           )}
 
           {/* Key Metrics */}
-          <div id={`dim-${dim.id}-metrics`} style={{ marginBottom: "14px", scrollMarginTop: "16px" }}>
+          <div id={`dim-${dim.id}-metrics`} style={{ marginBottom: "14px", scrollMarginTop: "80px" }}>
             <div
               style={{
                 fontSize: "14px",
@@ -1011,7 +1158,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
 
           {/* Source Links */}
           {dim.sources && dim.sources.length > 0 && (
-            <div id={`dim-${dim.id}-sources`} style={{ scrollMarginTop: "16px" }}>
+            <div id={`dim-${dim.id}-sources`} style={{ scrollMarginTop: "80px" }}>
               <div
                 style={{
                   fontSize: "14px",
@@ -1151,7 +1298,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
               )}
 
               {dim.perspectives && (
-                <div id={`dim-${dim.id}-perspectives-section`} style={{ marginBottom: "12px", scrollMarginTop: "16px" }}>
+                <div id={`dim-${dim.id}-perspectives-section`} style={{ marginBottom: "12px", scrollMarginTop: "80px" }}>
                   <button
                     type="button"
                     onClick={(e) => {
@@ -1420,7 +1567,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
   };
 
   return (
-    <div id={`dim-${dimId}-cohort`} style={{ marginBottom: "14px", scrollMarginTop: "16px" }}>
+    <div id={`dim-${dimId}-cohort`} style={{ marginBottom: "14px", scrollMarginTop: "80px" }}>
       <div
         style={{
           fontSize: "14px",

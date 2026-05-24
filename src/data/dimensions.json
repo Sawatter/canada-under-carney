@@ -1022,7 +1022,45 @@
     "construct": "The federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers.",
     "gradeBasis": {
       "band": "D",
-      "bandCriterion": "Across the five current core levers (AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness), fewer than two are clearly authorized or executing, and business investment remains near-flat without a durable turn.",
+      "bandCriterion": "Across the five current core levers (AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness), fewer than two are clearly authorized or executing, and business investment remains near-flat without a durable turn. Each lever is assessed independently as announced, authorized, or executing per the published criteria in leverOperationalization below. Business investment is cross-referenced against StatCan GDP as primary evidence, with CSLS Canadian Productivity Review and Conference Board of Canada research as independent productivity-analysis context.",
+      "leverOperationalization": [
+        {
+          "name": "AI compute strategy",
+          "announced": "Public commitment with named program",
+          "authorized": "Treasury Board sign-off OR Budget 2025 funded allocation visible in main estimates with named program leadership",
+          "executing": "At least one compute capacity deployment or sovereign-compute investment live with public announcement, dollar figure, and named recipient",
+          "currentStatus": "announced. The sovereign AI compute strategy is named in Budget 2025 but no Treasury Board authorization, deployment, or named recipient has been confirmed in supplementary estimates as of this cycle."
+        },
+        {
+          "name": "Critical minerals execution",
+          "announced": "Strategy or partnership signing announced",
+          "authorized": "Treasury Board-funded program with named recipients, signed federal-provincial or federal-foreign agreements, and a deployment timeline",
+          "executing": "Project advancement past partnership-signing stage into permitting, construction, or extraction phase with measurable milestones",
+          "currentStatus": "announced (boundary with authorized). NRCan announced 30 critical minerals partnerships in March 2026 with $121B in associated project capital, but partnership signings are pre-execution. Project-level advancement into permitting or construction has not been verified across the cohort."
+        },
+        {
+          "name": "Interprovincial trade implementation",
+          "announced": "Federal commitment to reduce barriers stated",
+          "authorized": "Legislative instrument enacted (Bill C-5 Building Canada Act in force)",
+          "executing": "Bill C-5 in force AND signed federal-provincial implementation agreements operationalizing specific barrier reductions in at least three provinces with measurable change",
+          "currentStatus": "authorized. Bill C-5 is the live instrument. Implementation through federal-provincial agreements is in progress but executing status would require measurable barrier reduction in at least three provinces, which is not yet confirmed."
+        },
+        {
+          "name": "Regulatory-review execution",
+          "announced": "Red tape review or regulatory modernization commitment stated",
+          "authorized": "Treasury Board mandate issued with named regulatory initiatives in queue",
+          "executing": "Regulatory initiatives reduced, repealed, or modernized with measurable change in compliance burden via PBO, Treasury Board, or independent burden estimate",
+          "currentStatus": "announced. Treasury Board's 2024-25 regulatory management annual report names hundreds of regulatory initiatives in queue. Executing status requires measurable burden reduction, not list publication."
+        },
+        {
+          "name": "Productivity-tax competitiveness",
+          "announced": "Tax measure committed in budget speech or campaign",
+          "authorized": "Tax measure passed in budget legislation",
+          "executing": "Tax measure in force AND effective rate change visible in published METR or equivalent independent estimate",
+          "currentStatus": "executing. Budget 2025 productivity super-deduction passed, with marginal effective tax rate on new business investment falling from 15.6% to 13.2% per Budget 2025 estimates."
+        }
+      ],
+      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), 3 announced (AI compute, critical minerals, regulatory review). Per the rubric's D criterion ('fewer than two of the five current core levers are clearly funded or authorized'), the threshold is met because only 2 levers sit at authorized or executing (the productivity-tax measure is the only executing lever, with interprovincial trade at authorized). The D band reflects that authorization alone is not enough to clear the executing bar across enough levers to move the file, plus business investment remains near-flat without a durable two-quarter turn. Where 'authorized' is judged to mean executing-in-substance rather than legislation-passed, the count drops to 1 executing + 0 authorized.",
       "plusMinusRationale": "Current D reflects a real policy response that has not yet cleared the execution bar: key funds are still more announced than live, business investment remains near-flat, and major domestic barriers remain unresolved.",
       "activeModifiers": [
         {
@@ -1078,7 +1116,19 @@
         {
           "text": "Business investment turns positive for two or more consecutive quarters",
           "sourceLabel": "StatsCan GDP, income and expenditure — Q4 2025",
-          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1"
+          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+          "additionalSources": [
+            {
+              "label": "CSLS — Canadian Productivity Review",
+              "url": "http://www.csls.ca/ipm.asp",
+              "role": "Independent productivity-trend analysis. CSLS publishes the reference Canadian productivity research and is cited across the political spectrum."
+            },
+            {
+              "label": "Conference Board of Canada — productivity and competitiveness research",
+              "url": "https://www.conferenceboard.ca/insights/",
+              "role": "Independent centrist economic research voice on business investment trajectory."
+            }
+          ]
         }
       ],
       "down": [
@@ -1089,7 +1139,19 @@
         {
           "text": "Business investment decline accelerates",
           "sourceLabel": "StatsCan GDP, income and expenditure — Q4 2025",
-          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1"
+          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+          "additionalSources": [
+            {
+              "label": "CSLS — Canadian Productivity Review",
+              "url": "http://www.csls.ca/ipm.asp",
+              "role": "Independent confirmation of productivity-trend deterioration."
+            },
+            {
+              "label": "Conference Board of Canada — productivity and competitiveness research",
+              "url": "https://www.conferenceboard.ca/insights/",
+              "role": "Centrist independent confirmation of business-investment decline acceleration."
+            }
+          ]
         }
       ]
     },
@@ -1348,7 +1410,14 @@
         {
           "text": "Food CPI exceeds 7%",
           "sourceLabel": "StatsCan CPI Mar 2026",
-          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm"
+          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
+          "additionalSources": [
+            {
+              "label": "Conference Board of Canada — economic and consumer research",
+              "url": "https://www.conferenceboard.ca/insights/",
+              "role": "Centrist independent confirmation of consumer-price trajectory beyond the StatCan headline."
+            }
+          ]
         },
         {
           "text": "Grocery benefit expires without replacement",
@@ -1358,7 +1427,14 @@
         {
           "text": "Food insecurity exceeds 12M",
           "sourceLabel": "PROOF food insecurity 2024",
-          "sourceUrl": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/"
+          "sourceUrl": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/",
+          "additionalSources": [
+            {
+              "label": "Food Banks Canada — Hunger Count",
+              "url": "https://foodbankscanada.ca/hungercount/",
+              "role": "Floor-level affordability evidence. Hunger Count is parallel independent ground-truth on whether households can afford food, politically undismissable, used in 2-of-2 trigger confirmation with PROOF."
+            }
+          ]
         }
       ]
     },
@@ -2090,7 +2166,19 @@
         {
           "text": "Government publishes a right-sized long-term model",
           "sourceLabel": "IRCC 2026-2028 levels plan",
-          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html"
+          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
+          "additionalSources": [
+            {
+              "label": "Macdonald-Laurier Institute — immigration research",
+              "url": "https://macdonaldlaurier.ca/research/immigration/",
+              "role": "Restrictionist independent challenge. Evaluates whether the long-term model is correctly calibrated to absorption capacity."
+            },
+            {
+              "label": "Maytree — immigration and refugee policy",
+              "url": "https://maytree.com/policies-and-research/",
+              "role": "Pro-immigration advocacy independent challenge. Evaluates whether the long-term model preserves humanitarian and economic-integration commitments."
+            }
+          ]
         },
         {
           "text": "Temporary residents reach the 5% target ahead of schedule",
@@ -2106,7 +2194,19 @@
         {
           "text": "Reversal of the contraction",
           "sourceLabel": "IRCC 2026-2028 levels plan",
-          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html"
+          "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
+          "additionalSources": [
+            {
+              "label": "Macdonald-Laurier Institute — immigration research",
+              "url": "https://macdonaldlaurier.ca/research/immigration/",
+              "role": "Restrictionist independent challenge on whether a contraction reversal is methodologically sound."
+            },
+            {
+              "label": "Maytree — immigration and refugee policy",
+              "url": "https://maytree.com/policies-and-research/",
+              "role": "Pro-immigration advocacy independent challenge on whether contraction reversal is humanitarian-aligned."
+            }
+          ]
         }
       ]
     },
@@ -2135,9 +2235,17 @@
       {
         "label": "PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028"
+      },
+      {
+        "label": "Macdonald-Laurier Institute — immigration research",
+        "url": "https://macdonaldlaurier.ca/research/immigration/"
+      },
+      {
+        "label": "Maytree — immigration and refugee policy",
+        "url": "https://maytree.com/policies-and-research/"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-23",
     "metrics": [
       {
         "label": "PR target (2026-2028)",
@@ -2507,7 +2615,35 @@
     "construct": "The adequacy of the federal ethics framework when the sitting PM has a financial and professional background that creates non-routine disclosure requirements.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Three of five disclosure-machinery components are present (blind trust, agreed-measure filing, Annex A conflict-screen scope), but full public accounting and a published independent review are absent.",
+      "bandCriterion": "Three of five disclosure-machinery components are present (blind trust, agreed-measure filing, Annex A conflict-screen scope), but full public accounting and a published independent review are absent. Each component is assessed as present only when the corresponding artifact is publicly inspectable per the criteria in componentOperationalization below.",
+      "componentOperationalization": [
+        {
+          "name": "Blind trust",
+          "presentIfX": "Ethics Commissioner Annex A or equivalent registry entry confirms a blind trust is established AND names the categories of assets held in trust",
+          "currentStatus": "present. Annex A March 2025 confirms the blind trust holds Brookfield assets with category disclosure."
+        },
+        {
+          "name": "Agreed-measure filing",
+          "presentIfX": "The PM's agreed-measure filing under the Conflict of Interest Act is published in full on the Ethics Commissioner registry",
+          "currentStatus": "present. Agreed-measure filing is on the Office of the Ethics Commissioner registry."
+        },
+        {
+          "name": "Annex A conflict-screen scope",
+          "presentIfX": "The conflict screen explicitly enumerates which government decisions the PM is recused from, with named entities and decision categories",
+          "currentStatus": "present. Annex A enumerates the conflict-screen scope; the dashboard treats this as the baseline differentiator from D."
+        },
+        {
+          "name": "Full public accounting of holdings",
+          "presentIfX": "Brookfield holdings, returns, divestments, and any related-party transactions during the trust period are published with figures and dates by either the PM, the trustee, or via a documented Ethics Commissioner inspection",
+          "currentStatus": "absent. Holdings categories are disclosed (per blind-trust criterion) but figures and divestments are not. Democracy Watch and other critics have flagged this gap explicitly."
+        },
+        {
+          "name": "Published independent ethics review",
+          "presentIfX": "The Ethics Commissioner has published a formal review of the PM's screen and disclosure (not a procedural acknowledgement that a filing was received), OR an independent parliamentary committee review has produced a substantive report",
+          "currentStatus": "absent. No formal Ethics Commissioner review of the PM's screen has been published. The Ethics Committee has not produced a substantive report on the question."
+        }
+      ],
+      "componentScoreSummary": "Five components assessed: 3 present (blind trust, agreed-measure filing, Annex A conflict-screen scope), 2 absent (full public accounting of holdings, published independent ethics review). The C band reflects the baseline disclosure framework being present (which differentiates from D) but unresolved on full accounting and independent review (which blocks progression toward B).",
       "plusMinusRationale": "C sits at the lower edge of the C band — the framework exists and produces baseline disclosure (distinguishing it from D), but unresolved governance critique and an unpublished Ethics Commissioner review prevent progression toward B.",
       "activeModifiers": []
     },
@@ -2710,7 +2846,45 @@
     "construct": "The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Per the Combination Rule, the headline grade follows status counts, not a grade-point average: two of five flagship files are delivering, while the other three are stalled rather than failing.",
+      "bandCriterion": "Per the Combination Rule (published in full at docs/Flagship-Delivery-Rules.md and reproduced below), the headline grade follows status counts across the five flagship files, not a grade-point average: two of five flagship files are delivering, while the other three are stalled rather than failing.",
+      "combinationRule": {
+        "flagshipFiles": [
+          "Defence (Defence & Trade)",
+          "Housing (Housing Supply)",
+          "Major Projects",
+          "Climate (Climate & Environment)",
+          "Immigration"
+        ],
+        "fileStatusCategories": [
+          {"status": "Delivering", "definition": "Measurable progress against stated targets. Independent verification available. Execution on or near schedule."},
+          {"status": "Partially delivering", "definition": "Some concrete action taken but pace or scale is significantly below targets. Mixed evidence."},
+          {"status": "Stalled", "definition": "Announced but no measurable progress. OR progress has stopped after initial action."},
+          {"status": "Failing", "definition": "Measurable deterioration. Metrics moving in wrong direction. Active delivery breakdown."}
+        ],
+        "distributionToGrade": [
+          {"distribution": "4-5 delivering", "grade": "B+ to A-", "logic": "Broad-based execution capacity demonstrated"},
+          {"distribution": "3 delivering, 1-2 partial/stalled", "grade": "B- to C+", "logic": "Majority executing, some gaps"},
+          {"distribution": "2 delivering, 3 partial/stalled", "grade": "C", "logic": "Split record, execution selective"},
+          {"distribution": "1-2 delivering, 3-4 stalled", "grade": "C-", "logic": "Execution concentrated, most files not moving"},
+          {"distribution": "1 delivering, 1+ failing, rest stalled", "grade": "D+", "logic": "One bright spot, systemic delivery problems"},
+          {"distribution": "0-1 delivering, 2+ failing", "grade": "D to D-", "logic": "Broad delivery failure"},
+          {"distribution": "0 delivering, 3+ failing", "grade": "F", "logic": "Complete delivery collapse"}
+        ],
+        "currentSnapshot": [
+          {"file": "Defence", "status": "Delivering", "evidence": "NATO 2% met, procurement milestones advancing"},
+          {"file": "Housing", "status": "Stalled", "evidence": "4,000 units announced, not underway, spending declining"},
+          {"file": "Major Projects", "status": "Stalled", "evidence": "MPO created, national interest designation unused"},
+          {"file": "Climate", "status": "Stalled", "evidence": "Major reversals, no funded replacement strategy"},
+          {"file": "Immigration", "status": "Delivering", "evidence": "Levels cut executed, temporary-resident contraction operational"}
+        ],
+        "currentDistribution": "2 delivering, 3 stalled",
+        "currentGradeFromRule": "C (per distribution table row: '2 delivering, 3 partial/stalled')",
+        "moveRules": {
+          "upgrade": "At least one flagship file moves up one status category AND no other file moves down, OR a previously stalled file shows first measurable delivery evidence",
+          "downgrade": "At least one flagship file moves down one status category, OR a previously delivering file shows measurable deterioration",
+          "multiNotch": "Two or more flagship files move status in the same direction simultaneously, with release log explanation, approved by Referee lane in QA"
+        }
+      },
       "plusMinusRationale": "C sits at the lower edge of the C band: defence and immigration are delivering, while housing, major projects, and climate are stalled. If those three stalled files were classified as failing or deteriorating, the rule would push the rollup below C.",
       "activeModifiers": []
     },

@@ -1,6 +1,62 @@
 [
   {
     "date": "2026-05-23",
+    "summary": "Close every remaining open item from the Comet Round 2 review: per-criterion operationalization for three dimensions, trigger-chain source threading, Immigration cross-ideological sources, anchor scroll fix, hex-color lint rule, GPA frozen-surface test.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Economic Policy Response — per-lever status criteria published",
+        "body": "src/data/dimensions.json gradeBasis.leverOperationalization now publishes a one-line status criterion for each of the five core levers (AI compute strategy, critical minerals execution, interprovincial trade implementation, regulatory-review execution, productivity-tax competitiveness). Each lever lists the announced / authorized / executing criteria a reader can use to independently verify status, plus the current status assessment. gradeBasis.leverScoreSummary explains how the rule produces the D band. Closes Comet Round 2 measure-rigor finding #1."
+      },
+      {
+        "type": "method",
+        "headline": "Ethics & Transparency — per-component checklist published",
+        "body": "src/data/dimensions.json gradeBasis.componentOperationalization now publishes a one-line 'present if X' operationalization for each of the five disclosure-machinery components (blind trust, agreed-measure filing, Annex A conflict-screen scope, full public accounting of holdings, published independent ethics review). Each component lists the specific artifact or condition that would confirm presence, plus the current status. componentScoreSummary explains how the rule produces the C band. Closes Comet Round 2 measure-rigor finding #2."
+      },
+      {
+        "type": "method",
+        "headline": "Flagship Delivery — full Combination Rule arithmetic published in gradeBasis",
+        "body": "src/data/dimensions.json gradeBasis.combinationRule now publishes the complete arithmetic from docs/Flagship-Delivery-Rules.md inside the data: the five flagship files, the four file-status categories with definitions, the seven-row distribution-to-grade table, the current snapshot by file with evidence, and the up/down/multi-notch move rules. A reader can now reproduce the C grade from the rule mechanically. Closes Comet Round 2 measure-rigor finding #3."
+      },
+      {
+        "type": "product",
+        "headline": "Dimension drawer renders the new operationalization fields",
+        "body": "src/components/DimensionCard.jsx now renders three expandable sections inside the WHY THIS GRADE block when present: 'Per-lever status criteria' (Economic Policy), 'Per-component checklist' (Ethics), and 'Combination Rule' (Flagship Delivery, with the full distribution and current-snapshot tables). Each section is a collapsed details element so the drawer stays scannable while making the rules one click away."
+      },
+      {
+        "type": "method",
+        "headline": "Immigration — cross-ideological challenge sources added",
+        "body": "src/data/dimensions.json sources[] for Immigration adds Macdonald-Laurier Institute immigration research (restrictionist independent challenge) and Maytree immigration and refugee policy (pro-immigration advocacy independent challenge). Both threaded into the up-trigger (Government publishes right-sized long-term model) and down-trigger (Reversal of the contraction) as additionalSources with explicit role descriptions. Closes Comet Round 2 finding that Immigration was the only dimension with no cross-ideological balance across the v5.58 to v5.63 arc."
+      },
+      {
+        "type": "method",
+        "headline": "v5.62 institutional sources threaded into specific triggers",
+        "body": "CSLS (Canadian Productivity Review) and Conference Board of Canada are now attached as additionalSources on the Economic Policy Response up-trigger ('Business investment turns positive...') and down-trigger ('Business investment decline accelerates'). Food Banks Canada Hunger Count is attached as additionalSource on the Affordability Response down-trigger ('Food insecurity exceeds 12M'). Conference Board is attached on the Affordability down-trigger ('Food CPI exceeds 7%'). Each additionalSource carries a one-line role description explaining the cross-source verification. DimensionCard.jsx renders these as 'independent challenge sources' under each trigger. Closes Comet Round 2 + Perplexity finding that the v5.62 sources were in pools but not in trigger chains."
+      },
+      {
+        "type": "minor",
+        "headline": "Skeptic Path anchor #4 overshoot fixed",
+        "body": "src/components/DimensionCard.jsx anchor-target scrollMarginTop raised from 16px to 80px on all six Skeptic Path scroll targets (scoring panel, metrics panel, sources panel, perspectives section, cohort table, triggers section). 80px is large enough to absorb header height variation that was causing anchor #4 (sources) to overshoot the SOURCES heading. Comet Round 2 identified this as the most actionable code-quality item; addressed at the CSS layer rather than rewriting the scroll mechanism."
+      },
+      {
+        "type": "method",
+        "headline": "POCKETBOOK_DIMS now imported by validate-dimensions.mjs",
+        "body": "scripts/validate-dimensions.mjs imports POCKETBOOK_DIMS directly from src/constants.js instead of redeclaring the list. Closes the silent-drift risk Comet Round 2 flagged: previously the validator and the live GPA calculation each held their own POCKETBOOK_DIMS list. Now there is one source of truth."
+      },
+      {
+        "type": "method",
+        "headline": "GPA frozen-surface test added",
+        "body": "scripts/test-gpa-frozen-surface.mjs runs 44 assertions across 6 test groups against the four GPA functions in src/utils.js (gpaToGrade, calculateOverallGPA, calculatePocketbookGPA, dimGPA via fixtures), the 12 grade-point mappings in GRADES, and the POCKETBOOK_DIMS identity. Wired into npm run test:data and the prebuild step so any silent change to grade math now fails the build. The src/utils.js FROZEN SURFACE comment block now references this test and its expected-value update protocol. Closes Comet Round 2 finding #6 on silent grade-math drift risk."
+      },
+      {
+        "type": "method",
+        "headline": "ESLint warning rule against inline hex colors in components",
+        "body": "eslint.config.js now warns when src/components/**/*.jsx contains an inline hex color literal. Rule is a warning (not an error) so existing builds continue while incremental cleanup happens. Each warning names the suggested replacement (src/constants.js GRADES / TREND_COLOR / STATUS_COLORS tokens, or src/index.css design tokens) and the eslint-disable escape hatch for genuinely component-local colors. Closes Comet Round 2 finding on the v5.43 color-drift recurrence class. Existing components produce 401 warnings on lint; that is the intentional cleanup TODO list."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-23",
     "summary": "Capture Comet's fourth-AI review and close the safe autonomous items: defence procurement carve-out on About, wage policy rationale refinement, editor recusal policy, utils.js FROZEN SURFACE guard.",
     "items": [
       {
