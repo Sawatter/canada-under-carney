@@ -20,12 +20,20 @@ import {
   gpaToGrade,
   calculateOverallGPA,
   calculatePocketbookGPA,
+  getOverallDerivation,
+  getPocketbookDerivation,
 } from "../src/utils.js";
 import { GRADES, POCKETBOOK_DIMS } from "../src/constants.js";
+import { readFileSync } from "node:fs";
 
 const failures = [];
+let assertionCount = 0;
+const liveDimensions = JSON.parse(
+  readFileSync(new URL("../src/data/dimensions.json", import.meta.url), "utf-8"),
+);
 
 function assert(label, actual, expected) {
+  assertionCount += 1;
   const ok =
     typeof expected === "number"
       ? Math.abs(actual - expected) < 0.001
@@ -162,6 +170,34 @@ assert(
   2.5,
 );
 
+// ─── Test 7: gpaValue override path ────────────────────────────────────────
+// A dimension can carry a direct gpaValue when the public letter grade needs a
+// precise score override. Both headline calculations must use that override
+// rather than re-computing from the letter grade.
+
+const fixtureOverride = [
+  { name: "Fiscal Health", grade: "F", gpaValue: 3.25 },
+];
+
+assert("calculateOverallGPA uses gpaValue override", calculateOverallGPA(fixtureOverride), 3.25);
+assert("calculatePocketbookGPA uses gpaValue override", calculatePocketbookGPA(fixtureOverride), 3.25);
+
+// ─── Test 8: getOverallDerivation object shape ────────────────────────────
+
+function assertDerivationShape(label, derivation) {
+  assert(`${label}.dimensions is array`, Array.isArray(derivation.dimensions), true);
+  assert(`${label}.weightedSum is number`, typeof derivation.weightedSum, "number");
+  assert(`${label}.totalWeight is number`, typeof derivation.totalWeight, "number");
+  assert(`${label}.finalScore is number`, typeof derivation.finalScore, "number");
+  assert(`${label}.finalGrade is string`, typeof derivation.finalGrade, "string");
+}
+
+assertDerivationShape("getOverallDerivation(live dimensions)", getOverallDerivation(liveDimensions));
+
+// ─── Test 9: getPocketbookDerivation object shape ─────────────────────────
+
+assertDerivationShape("getPocketbookDerivation(live dimensions)", getPocketbookDerivation(liveDimensions));
+
 // ─── Report ────────────────────────────────────────────────────────────────
 
 if (failures.length > 0) {
@@ -175,7 +211,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`✓ GPA frozen-surface test passed (${
-  // approx assertion count from above
-  24 + 12 + 5 + 1 + 1 + 1
-} assertions across 6 test groups).`);
+console.log(`✓ GPA frozen-surface test passed (${assertionCount} assertions across 9 test groups).`);

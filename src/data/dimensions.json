@@ -1120,12 +1120,12 @@
           "additionalSources": [
             {
               "label": "CSLS — Canadian Productivity Review",
-              "url": "http://www.csls.ca/ipm.asp",
+              "url": "https://www.csls.ca/reports/csls2025-04.pdf",
               "role": "Independent productivity-trend analysis. CSLS publishes the reference Canadian productivity research and is cited across the political spectrum."
             },
             {
               "label": "Conference Board of Canada — productivity and competitiveness research",
-              "url": "https://www.conferenceboard.ca/insights/",
+              "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
               "role": "Independent centrist economic research voice on business investment trajectory."
             }
           ]
@@ -1143,12 +1143,12 @@
           "additionalSources": [
             {
               "label": "CSLS — Canadian Productivity Review",
-              "url": "http://www.csls.ca/ipm.asp",
+              "url": "https://www.csls.ca/reports/csls2025-04.pdf",
               "role": "Independent confirmation of productivity-trend deterioration."
             },
             {
               "label": "Conference Board of Canada — productivity and competitiveness research",
-              "url": "https://www.conferenceboard.ca/insights/",
+              "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
               "role": "Centrist independent confirmation of business-investment decline acceleration."
             }
           ]
@@ -1414,7 +1414,7 @@
           "additionalSources": [
             {
               "label": "Conference Board of Canada — economic and consumer research",
-              "url": "https://www.conferenceboard.ca/insights/",
+              "url": "https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/",
               "role": "Centrist independent confirmation of consumer-price trajectory beyond the StatCan headline."
             }
           ]
@@ -2178,12 +2178,12 @@
           "additionalSources": [
             {
               "label": "Macdonald-Laurier Institute — immigration research",
-              "url": "https://macdonaldlaurier.ca/research/immigration/",
+              "url": "https://macdonaldlaurier.ca/fixing-canadas-broken-immigration-system-presenting-more-data-to-parliament-michael-barutciski/",
               "role": "Restrictionist independent challenge. Evaluates whether the long-term model is correctly calibrated to absorption capacity."
             },
             {
               "label": "Maytree — immigration and refugee policy",
-              "url": "https://maytree.com/policies-and-research/",
+              "url": "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/",
               "role": "Pro-immigration advocacy independent challenge. Evaluates whether the long-term model preserves humanitarian and economic-integration commitments."
             }
           ]
@@ -2206,12 +2206,12 @@
           "additionalSources": [
             {
               "label": "Macdonald-Laurier Institute — immigration research",
-              "url": "https://macdonaldlaurier.ca/research/immigration/",
+              "url": "https://macdonaldlaurier.ca/fixing-canadas-broken-immigration-system-presenting-more-data-to-parliament-michael-barutciski/",
               "role": "Restrictionist independent challenge on whether a contraction reversal is methodologically sound."
             },
             {
               "label": "Maytree — immigration and refugee policy",
-              "url": "https://maytree.com/policies-and-research/",
+              "url": "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/",
               "role": "Pro-immigration advocacy independent challenge on whether contraction reversal is humanitarian-aligned."
             }
           ]

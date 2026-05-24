@@ -35,6 +35,18 @@ function warn(dimName, msg) {
   warnings.push(`! ${dimName}: ${msg}`);
 }
 
+function hasText(value) {
+  return typeof value === "string" && value.trim().length > 0;
+}
+
+function warnMissingFields(dimName, path, item, fields) {
+  for (const field of fields) {
+    if (!hasText(item?.[field])) {
+      warn(dimName, `${path} is missing "${field}"`);
+    }
+  }
+}
+
 // ─── Top-level shape ────────────────────────────────────────────────────────
 
 if (!Array.isArray(dimensions)) {
@@ -138,7 +150,108 @@ for (const d of dimensions) {
           err(name, `gradeTriggers.${side}[${i}].internalRef.type "${ref.type}" is not one of cohort|anchor|view`);
         }
       }
+      if (t.additionalSources !== undefined) {
+        if (!Array.isArray(t.additionalSources)) {
+          warn(name, `gradeTriggers.${side}[${i}].additionalSources is present but not an array`);
+        } else {
+          t.additionalSources.forEach((additionalSource, j) => {
+            if (!additionalSource || typeof additionalSource !== "object") {
+              warn(name, `gradeTriggers.${side}[${i}].additionalSources[${j}] is not an object`);
+              return;
+            }
+            warnMissingFields(
+              name,
+              `gradeTriggers.${side}[${i}].additionalSources[${j}]`,
+              additionalSource,
+              ["label", "url", "role"],
+            );
+          });
+        }
+      }
     });
+  }
+
+  // ─── Metric source-ref shape ──────────────────────────────────────────────
+  if (d.metrics !== undefined) {
+    if (!Array.isArray(d.metrics)) {
+      warn(name, `"metrics" is present but not an array`);
+    } else {
+      d.metrics.forEach((m, i) => {
+        if (m?.sourceRefs !== undefined) {
+          if (!Array.isArray(m.sourceRefs)) {
+            warn(name, `metrics[${i}].sourceRefs is present but not an array`);
+          } else {
+            m.sourceRefs.forEach((sourceRef, j) => {
+              if (!sourceRef || typeof sourceRef !== "object") {
+                warn(name, `metrics[${i}].sourceRefs[${j}] is not an object`);
+                return;
+              }
+              warnMissingFields(name, `metrics[${i}].sourceRefs[${j}]`, sourceRef, ["label", "url"]);
+            });
+          }
+        }
+      });
+    }
+  }
+
+  // ─── Optional grade-basis operationalization shape ───────────────────────
+  const gradeBasis = d.gradeBasis || {};
+  if (gradeBasis.leverOperationalization !== undefined) {
+    if (!Array.isArray(gradeBasis.leverOperationalization)) {
+      warn(name, `gradeBasis.leverOperationalization is present but not an array`);
+    } else {
+      gradeBasis.leverOperationalization.forEach((lever, i) => {
+        if (!lever || typeof lever !== "object") {
+          warn(name, `gradeBasis.leverOperationalization[${i}] is not an object`);
+          return;
+        }
+        warnMissingFields(
+          name,
+          `gradeBasis.leverOperationalization[${i}]`,
+          lever,
+          ["name", "announced", "authorized", "executing", "currentStatus"],
+        );
+      });
+    }
+  }
+
+  if (gradeBasis.componentOperationalization !== undefined) {
+    if (!Array.isArray(gradeBasis.componentOperationalization)) {
+      warn(name, `gradeBasis.componentOperationalization is present but not an array`);
+    } else {
+      gradeBasis.componentOperationalization.forEach((component, i) => {
+        if (!component || typeof component !== "object") {
+          warn(name, `gradeBasis.componentOperationalization[${i}] is not an object`);
+          return;
+        }
+        warnMissingFields(
+          name,
+          `gradeBasis.componentOperationalization[${i}]`,
+          component,
+          ["name", "presentIfX", "currentStatus"],
+        );
+      });
+    }
+  }
+
+  if (gradeBasis.combinationRule !== undefined) {
+    const rule = gradeBasis.combinationRule;
+    if (!rule || typeof rule !== "object" || Array.isArray(rule)) {
+      warn(name, `gradeBasis.combinationRule is present but not an object`);
+    } else {
+      const arrayFields = ["flagshipFiles", "fileStatusCategories", "distributionToGrade", "currentSnapshot"];
+      for (const field of arrayFields) {
+        if (!Array.isArray(rule[field])) {
+          warn(name, `gradeBasis.combinationRule.${field} is missing or not an array`);
+        }
+      }
+      warnMissingFields(
+        name,
+        "gradeBasis.combinationRule",
+        rule,
+        ["currentDistribution", "currentGradeFromRule"],
+      );
+    }
   }
 
   // ─── Source shape ─────────────────────────────────────────────────────────

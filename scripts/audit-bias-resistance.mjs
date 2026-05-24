@@ -50,16 +50,16 @@ const FAMILY_RULES = [
   { family: 1, name: "PMO / Carney messaging", pattern: /^https?:\/\/(www\.)?conservative\.ca\//i },
   { family: 1, name: "PMO / Carney messaging", pattern: /^https?:\/\/(www\.)?ndp\.ca\//i },
 
-  // Family 4: Independent govt watchdog (before department messaging — order matters)
-  { family: 4, name: "Independent watchdog", pattern: /pbo-dpb\.ca/i },
-  { family: 4, name: "Independent watchdog", pattern: /oag-bvg\.gc\.ca/i },
-  { family: 4, name: "Independent watchdog", pattern: /ciec-ccie\.parl\.gc\.ca/i },
-  { family: 4, name: "Independent watchdog", pattern: /prciec-rpccie\.parl\.gc\.ca/i },
+  // Family 4: Independent official / watchdog (before department messaging — order matters)
+  { family: 4, name: "Independent official / watchdog", pattern: /pbo-dpb\.ca/i },
+  { family: 4, name: "Independent official / watchdog", pattern: /oag-bvg\.gc\.ca/i },
+  { family: 4, name: "Independent official / watchdog", pattern: /ciec-ccie\.parl\.gc\.ca/i },
+  { family: 4, name: "Independent official / watchdog", pattern: /prciec-rpccie\.parl\.gc\.ca/i },
   // CER (Canada Energy Regulator) is an independent federal agency with
   // arms-length status from the executive; its Energy Future projections
   // are a non-advocacy official benchmark. Added v5.65 with CER threading
   // into the Climate Emissions cap metric.
-  { family: 4, name: "Independent watchdog", pattern: /cer-rec\.gc\.ca/i },
+  { family: 4, name: "Independent official / watchdog", pattern: /cer-rec\.gc\.ca/i },
 
   // Family 5: Procedural parliamentary records (LEGISinfo bill-tracking, status pages)
   // These are neutral records of legislative status. Not critique.
@@ -118,6 +118,7 @@ const FAMILY_RULES = [
   // Comet Round 2 reviews flagged gaps in cross-ideological challenge
   // sources for Affordability, Economic Policy, and Immigration.
   { family: 7, name: "Policy institute", pattern: /conferenceboard\.ca/i },
+  { family: 7, name: "Policy institute", pattern: /signal49\.ca/i },
   { family: 7, name: "Policy institute", pattern: /maytree\.com/i },
   { family: 7, name: "Policy institute", pattern: /foodbankscanada\.ca/i },
   { family: 7, name: "Policy institute", pattern: /smartprosperity\.ca/i },
@@ -157,6 +158,9 @@ const FAMILY_RULES = [
   // arms whose research is published with named authors and methodology
   // and is cited across the political spectrum. Added v5.65.
   { family: 9, name: "Academic / research / pollsters", pattern: /csls\.ca/i },
+  // TODO June 2026: evaluate family 12 for financial-institution research
+  // (Scotiabank Economics, National Bank Economics, Conference Board market-side research)
+  // Codex review flagged these as distinct from pure policy institutes (family 7).
   { family: 9, name: "Academic / research / pollsters", pattern: /scotiabank\.com\/.*economics/i },
   { family: 9, name: "Academic / research / pollsters", pattern: /nbc\.ca\/.*economics/i },
   { family: 9, name: "Academic / research / pollsters", pattern: /nbf\.ca\/.*economics/i },
@@ -201,7 +205,7 @@ const METRIC_LABEL_TO_FAMILY = {
   statcan: 3,
   cmhc: 3,
   ircc: 3,
-  cer: 3,
+  cer: 4,
   pbo: 4,
   oag: 4,
   legisinfo: 5,
@@ -223,7 +227,7 @@ const FAMILY_LABELS = {
   1: "1. PMO / Carney messaging",
   2: "2. Department / press release",
   3: "3. Operational govt data",
-  4: "4. Independent watchdog",
+  4: "4. Independent official / watchdog",
   5: "5. Procedural parliamentary records",
   6: "6. Parliamentary committee / critique",
   7: "7. Policy institute",

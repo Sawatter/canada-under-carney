@@ -1,6 +1,32 @@
 [
   {
     "date": "2026-05-24",
+    "summary": "Follow-up commit closing Codex/Comet review items: exact-source URL discipline, validator shape checks, taxonomy alignment, frozen-surface test coverage.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "additionalSources URLs upgraded to exact publications",
+        "body": "CSLS, Conference Board, MLI, and Maytree trigger additionalSources entries replaced with specific report URLs where found, or moved to source-pool-only context where no exact publication URL was available. Closes v5.61 exact-source discipline gap flagged by Codex review."
+      },
+      {
+        "type": "method",
+        "headline": "Validator shape checks added for new structured fields",
+        "body": "scripts/validate-dimensions.mjs now warns on malformed sourceRefs, additionalSources, leverOperationalization, componentOperationalization, and combinationRule entries. Closes schema-ahead-of-tooling gap flagged by Codex review."
+      },
+      {
+        "type": "method",
+        "headline": "Audit script taxonomy aligned: CER metric label and family 4 rename",
+        "body": "METRIC_LABEL_TO_FAMILY cer: 3 corrected to cer: 4. Family 4 renamed to 'Independent official / watchdog'. Flagged-dimension count unchanged at 6."
+      },
+      {
+        "type": "method",
+        "headline": "Frozen-surface test coverage extended",
+        "body": "scripts/test-gpa-frozen-surface.mjs gains fixture tests for gpaValue override path and derivation object shape. Closes gaps in GPA test coverage flagged by Codex review."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-24",
     "summary": "Audit-script collectors now read trigger.additionalSources, closing a measurement gap surfaced by Comet between v5.64's threading layer and what the bias-audit was actually counting.",
     "items": [
       {
