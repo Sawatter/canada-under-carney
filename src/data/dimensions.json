@@ -1929,14 +1929,6 @@
         "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
       },
       {
-        "label": "CCI — industrial pricing gaps",
-        "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/"
-      },
-      {
-        "label": "ECCC 2024-25 Departmental plan at a glance",
-        "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2024-2025/dp-at-glance.html"
-      },
-      {
         "label": "ECCC 2025-26 Departmental plan at a glance",
         "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
       },
@@ -1959,6 +1951,14 @@
       {
         "label": "Macdonald-Laurier Institute — energy-superpower gap",
         "url": "https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/"
+      },
+      {
+        "label": "Canada Energy Regulator — Canada's Energy Future 2023",
+        "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/"
+      },
+      {
+        "label": "Office of the Auditor General — Shortcomings in implementation of financial measures for GHG emissions (2025)",
+        "url": "https://www.oag-bvg.gc.ca/internet/English/mr_20251106_e_44756.html"
       }
     ],
     "lastUpdated": "2026-05-23",
@@ -1979,9 +1979,13 @@
           {
             "label": "Macdonald-Laurier Institute - energy-superpower gap",
             "url": "https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/"
+          },
+          {
+            "label": "Canada Energy Regulator - Canada's Energy Future 2023",
+            "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/"
           }
         ],
-        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework.",
+        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
         "automatable": false
       },
       {
@@ -2009,9 +2013,13 @@
           {
             "label": "The Conversation - ECCC Arctic science cuts",
             "url": "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606"
+          },
+          {
+            "label": "Office of the Auditor General - Shortcomings in implementation of financial measures for GHG emissions (2025)",
+            "url": "https://www.oag-bvg.gc.ca/internet/English/mr_20251106_e_44756.html"
           }
         ],
-        "sourceNote": "ECCC departmental plan pages document refocusing reductions of $43M (2024-25), $63M (2025-26), and $91M annually from 2026-27 onward, implying roughly $1.3B in cumulative reductions by 2030. The staffing pressure is documented through departmental plan staffing tables and contemporaneous media reporting on the associated cuts. See the ECCC departmental-plan links in the dimension sources, plus CBC Radio and The Conversation for operational impact reporting.",
+        "sourceNote": "ECCC departmental plan pages document refocusing reductions of $43M (2024-25), $63M (2025-26), and $91M annually from 2026-27 onward, implying roughly $1.3B in cumulative reductions by 2030. The staffing pressure is documented through departmental plan staffing tables and contemporaneous media reporting on the associated cuts. The Office of the Auditor General's 2025 report independently audited nine federal financial measures (over $100B in investments across six departments) and concluded none were implemented effectively to reduce emissions, providing the independent-oversight read on program delivery alongside the budget-cut numbers. See the ECCC departmental-plan link in the dimension sources, plus CBC Radio and The Conversation for operational impact reporting.",
         "automatable": false
       },
       {
@@ -2472,9 +2480,17 @@
       {
         "label": "CMHC — housing supply gaps 2025",
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report"
+      },
+      {
+        "label": "CHBA — Q1 2026 Housing Market Index",
+        "url": "https://www.chba.ca/2026/04/21/low-builder-confidence-illustrates-need-for-sustained-federal-action-plan-focused-on-homeownership-housing/"
+      },
+      {
+        "label": "Scotiabank Economics — Canadian Home Sales (Housing News Flash, Feb 2026)",
+        "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
       }
     ],
-    "lastUpdated": "2026-05-13",
+    "lastUpdated": "2026-05-23",
     "metrics": [
       {
         "label": "Housing starts (2025)",
@@ -2487,7 +2503,17 @@
         "label": "Housing starts (Mar 2026 trend / SAAR)",
         "value": "248,378 trend; 235,852 monthly SAAR",
         "source": "cmhc",
-        "sourceNote": "CMHC March 2026 release: six-month trend was 248,378, while standalone monthly SAAR was 235,852. CMHC says the trend measure complements monthly SAAR because monthly estimates can swing sharply, especially in multi-unit markets. The dashboard therefore treats the down trigger as not fired unless the trend also falls below 240K or a sustained monthly pattern emerges.",
+        "sourceRefs": [
+          {
+            "label": "CHBA - Q1 2026 Housing Market Index",
+            "url": "https://www.chba.ca/2026/04/21/low-builder-confidence-illustrates-need-for-sustained-federal-action-plan-focused-on-homeownership-housing/"
+          },
+          {
+            "label": "Scotiabank Economics - Canadian Home Sales (Housing News Flash, Feb 2026)",
+            "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
+          }
+        ],
+        "sourceNote": "CMHC March 2026 release: six-month trend was 248,378, while standalone monthly SAAR was 235,852. CMHC says the trend measure complements monthly SAAR because monthly estimates can swing sharply, especially in multi-unit markets. The dashboard therefore treats the down trigger as not fired unless the trend also falls below 240K or a sustained monthly pattern emerges. CHBA's Q1 2026 Housing Market Index provides builder-side ground truth: single-family index at 20.9 and multi-family at 13.4 (record low) point to weaker future starts for homeownership, cross-checking the CMHC trend reading. Scotiabank Economics' Housing News Flash adds the market-side independent voice on sales conditions feeding through to starts.",
         "automatable": false
       },
       {
@@ -2738,9 +2764,13 @@
       {
         "label": "PM Annex A public declaration of agreed measure",
         "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf"
+      },
+      {
+        "label": "Transparency International Canada — Canada's CPI ranking",
+        "url": "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-23",
     "metrics": [
       {
         "label": "Ethics Commissioner review",
@@ -2775,7 +2805,24 @@
         "value": "ETHI report published; no Commissioner review",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "The House ETHI committee's 2026 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review."
+        "sourceRefs": [
+          {
+            "label": "House ETHI report - Review of the Conflict of Interest Act",
+            "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96",
+            "role": "Family-6 parliamentary critique. The Standing Committee on Access to Information, Privacy and Ethics report presented 2025-11-28 reviews the Conflict of Interest Act and addresses the PM's conflict screen with named recommendations for stronger public reporting."
+          },
+          {
+            "label": "Democracy Watch - PM Carney's ethics screen and blind trust critique",
+            "url": "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/",
+            "role": "Watchdog independent critique. Democracy Watch independently monitors federal ethics compliance and has published analysis directly relevant to the PM's disclosure obligations under the Conflict of Interest Act."
+          },
+          {
+            "label": "Transparency International Canada - Canada's CPI ranking",
+            "url": "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption",
+            "role": "International benchmark. The Corruption Perceptions Index ranks 180 countries on perceived public-sector corruption; Canada's drop to its lowest-ever 15th-place rank gives an international point of comparison for federal governance quality."
+          }
+        ],
+        "sourceNote": "The House ETHI committee's 2025 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review. Democracy Watch carries the independent watchdog critique on the same screen. Transparency International Canada's CPI ranking gives the international benchmark for federal governance quality. The ETHI committee report is family-6 parliamentary critique (independent challenge), not family-5 procedural — note that the dashboard's source schema does not currently carry a per-source family field; the bias-audit script infers family from labels and URLs."
       }
     ],
     "promises": [

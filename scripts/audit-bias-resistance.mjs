@@ -55,6 +55,11 @@ const FAMILY_RULES = [
   { family: 4, name: "Independent watchdog", pattern: /oag-bvg\.gc\.ca/i },
   { family: 4, name: "Independent watchdog", pattern: /ciec-ccie\.parl\.gc\.ca/i },
   { family: 4, name: "Independent watchdog", pattern: /prciec-rpccie\.parl\.gc\.ca/i },
+  // CER (Canada Energy Regulator) is an independent federal agency with
+  // arms-length status from the executive; its Energy Future projections
+  // are a non-advocacy official benchmark. Added v5.65 with CER threading
+  // into the Climate Emissions cap metric.
+  { family: 4, name: "Independent watchdog", pattern: /cer-rec\.gc\.ca/i },
 
   // Family 5: Procedural parliamentary records (LEGISinfo bill-tracking, status pages)
   // These are neutral records of legislative status. Not critique.
@@ -108,6 +113,15 @@ const FAMILY_RULES = [
   { family: 7, name: "Policy institute", pattern: /pembina\.org/i },
   { family: 7, name: "Policy institute", pattern: /macdonaldlaurier\.ca/i },
   { family: 7, name: "Policy institute", pattern: /ifsd\.ca/i },
+  // Centrist / business-focused policy institutes and pro-immigration /
+  // food-security advocacy research orgs added v5.65 after Perplexity +
+  // Comet Round 2 reviews flagged gaps in cross-ideological challenge
+  // sources for Affordability, Economic Policy, and Immigration.
+  { family: 7, name: "Policy institute", pattern: /conferenceboard\.ca/i },
+  { family: 7, name: "Policy institute", pattern: /maytree\.com/i },
+  { family: 7, name: "Policy institute", pattern: /foodbankscanada\.ca/i },
+  { family: 7, name: "Policy institute", pattern: /smartprosperity\.ca/i },
+  { family: 7, name: "Policy institute", pattern: /thebusinesscouncil\.ca/i },
 
   // Family 8: Journalism
   { family: 8, name: "Journalism", pattern: /cbc\.ca/i },
@@ -139,6 +153,13 @@ const FAMILY_RULES = [
   { family: 9, name: "Academic / research / pollsters", pattern: /ipsos\.com/i },
   { family: 9, name: "Academic / research / pollsters", pattern: /innovativeresearch\.ca/i },
   { family: 9, name: "Academic / research / pollsters", pattern: /statista\.com/i },
+  // Independent productivity-research body and private-sector economics
+  // arms whose research is published with named authors and methodology
+  // and is cited across the political spectrum. Added v5.65.
+  { family: 9, name: "Academic / research / pollsters", pattern: /csls\.ca/i },
+  { family: 9, name: "Academic / research / pollsters", pattern: /scotiabank\.com\/.*economics/i },
+  { family: 9, name: "Academic / research / pollsters", pattern: /nbc\.ca\/.*economics/i },
+  { family: 9, name: "Academic / research / pollsters", pattern: /nbf\.ca\/.*economics/i },
 
   // Family 10: International benchmark / rating agency
   { family: 10, name: "International benchmark / rating", pattern: /imf\.org/i },
@@ -149,12 +170,20 @@ const FAMILY_RULES = [
   { family: 10, name: "International benchmark / rating", pattern: /spglobal\.com/i },
   { family: 10, name: "International benchmark / rating", pattern: /weforum\.org/i },
   { family: 10, name: "International benchmark / rating", pattern: /unctad\.org/i },
+  // Transparency International Canada is the Canadian chapter of an
+  // international transparency NGO; its CPI ranking is the international
+  // governance benchmark. Added v5.65.
+  { family: 10, name: "International benchmark / rating", pattern: /transparencycanada\.ca/i },
 
   // Family 11: Industry / sector association. These can be useful challenge
   // or context sources, but are not counted as independent challenge by default.
   { family: 11, name: "Industry / sector association", pattern: /cfib-fcei\.ca/i },
   { family: 11, name: "Industry / sector association", pattern: /retailcouncil\.org/i },
   { family: 11, name: "Industry / sector association", pattern: /canadacode\.org/i },
+  // CHBA is the Canadian Home Builders' Association industry body; its
+  // HMI publishes builder confidence and starts data from the supply
+  // side. Added v5.65 as Housing Supply ground-truth source.
+  { family: 11, name: "Industry / sector association", pattern: /chba\.ca/i },
 ];
 
 // Metric source-label classifier. Some dimensions cite sources by short
