@@ -1,6 +1,27 @@
 [
   {
     "date": "2026-05-23",
+    "summary": "Three Perplexity-recommended institutional sources added to Economic Policy and Affordability source pools; two more (CER, OAG) carried forward to June for Climate source-band rebalance.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Perplexity third-AI review captured",
+        "body": "docs/Perplexity-Review-2026-05.md captures Perplexity's bundle-attached review of the dashboard at v5.60. Reaches a positive headline verdict ('Yes, genuinely') on whether the dashboard is credibly non-partisan, while flagging source-diversity gaps in Climate, Affordability, and Economic Policy as the persistent credibility ceiling. The review surfaces three-of-three convergence with the prior Grok and Comet reviews on source diversity as the load-bearing remaining gap. Perplexity's top five additions are listed with priority order, two of which are blocked by the CLAUDE.md ten-source ceiling on Climate."
+      },
+      {
+        "type": "method",
+        "headline": "Three institutional sources added (Perplexity priorities 2, 3, 5)",
+        "body": "Economic Policy Response sources[] adds Centre for the Study of Living Standards (Canadian Productivity Review) as the reference point for independent productivity analysis, and Conference Board of Canada (productivity and competitiveness research) as a centrist economic research voice. Affordability Response sources[] adds Food Banks Canada (Hunger Count) as floor-level affordability evidence that is impossible to dismiss as politically motivated, and Conference Board of Canada (economic and consumer research) as the centrist research voice. Both dimensions now sit at 10 sources, at the CLAUDE.md ceiling. Threading the new sources into specific grade-moving up/down triggers is June 2026 work under Bias-Resistance Discipline B."
+      },
+      {
+        "type": "method",
+        "headline": "CER and OAG carried to June for Climate source-band rebalance",
+        "body": "Perplexity's top two Climate recommendations (Canada Energy Regulator's Energy Future projections, Office of the Auditor General's climate program audits) are blocked from this commit because Climate is already at the 10-source CLAUDE.md ceiling. June 2026 cycle should evaluate trimming duplicates (CCI appears twice; ECCC departmental plans appear twice) and then add CER and OAG together. Both pass the 'impossible to call partisan' test and would close the most-cited remaining bias-surface gap."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-23",
     "summary": "Climate and Affordability now thread specific market-oriented challenge sources into the metric evidence, without changing grades.",
     "items": [
       {

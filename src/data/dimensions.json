@@ -1126,9 +1126,17 @@
       {
         "label": "NRCan — critical minerals partnerships",
         "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html"
+      },
+      {
+        "label": "Centre for the Study of Living Standards — Canadian Productivity Review",
+        "url": "http://www.csls.ca/ipm.asp"
+      },
+      {
+        "label": "Conference Board of Canada — productivity and competitiveness research",
+        "url": "https://www.conferenceboard.ca/insights/"
       }
     ],
-    "lastUpdated": "2026-05-13",
+    "lastUpdated": "2026-05-23",
     "metrics": [
       {
         "group": "Inherited baseline / context only",
@@ -1412,6 +1420,14 @@
       {
         "label": "Fraser Institute — GST affordability strategy critique",
         "url": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy"
+      },
+      {
+        "label": "Food Banks Canada — Hunger Count",
+        "url": "https://foodbankscanada.ca/hungercount/"
+      },
+      {
+        "label": "Conference Board of Canada — economic and consumer research",
+        "url": "https://www.conferenceboard.ca/insights/"
       }
     ],
     "lastUpdated": "2026-05-23",
