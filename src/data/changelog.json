@@ -1,5 +1,16 @@
 [
   {
+    "date": "2026-05-24",
+    "summary": "Audit-script collectors now read trigger.additionalSources, closing a measurement gap surfaced by Comet between v5.64's threading layer and what the bias-audit was actually counting.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Bias-audit measurement gap closed (collectors now read trigger.additionalSources)",
+        "body": "Comet's review of the v5.65 commit and the bundled audit-script source flagged that scripts/audit-bias-resistance.mjs collectAllSources() and collectGradeMovingSources() did not read gradeTriggers.up/down[].additionalSources[]. That meant all 8 trigger-additionalSources entries added in v5.64 (CSLS x2, Conference Board x2, Food Banks Canada, Conference Board, MLI immigration x2, Maytree x2) were invisible to the audit. The v5.65 changelog claim that 'bias-audit count holds at 6 baseline' was honest against what the script then measured, but the script wasn't measuring the v5.64 threading layer the dashboard already renders to readers. Both collectors now include trigger.additionalSources[] entries with explicit origin tags ('trigger.up.additionalSources' / 'trigger.down.additionalSources'). After the fix: total flagged dimensions still 6 (same baseline), but per-dimension family distributions for Economic Policy Response, Affordability Response, and Immigration now correctly reflect the v5.64 threading. Family 7 (Policy institute) grade-moving counts went up in Immigration from 1 to 4, in Economic Policy from 0 to 2, and in Affordability the family-9 grade-moving count rose from 3 to 5 — same dimensions, fuller picture of independent-challenge evidence. The 6 still-flagged dimensions are flagged for trigger asymmetry (carbon-pricing, immigration, ethics-transparency), numeric-threshold asymmetry (immigration, housing-supply, promise-delivery), press-release-in-chain (housing-supply), or 80% policy-institute concentration (execution-delivery) — all unrelated to family classification of additionalSources. No data changes. No grade changes. No threshold changes. No GPA formula changes."
+      }
+    ]
+  },
+  {
     "date": "2026-05-23",
     "summary": "Complete the source-additions arc identified by Perplexity and Comet: trim Climate duplicates, add CER and OAG to Climate, add CHBA and Scotiabank Economics to Housing, add Transparency International Canada to Ethics, thread three governance sources into the Committee / governance review metric.",
     "items": [

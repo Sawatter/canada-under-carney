@@ -284,9 +284,19 @@ function collectAllSources(dim) {
   }
   for (const t of dim.gradeTriggers?.up || []) {
     if (t.sourceUrl) out.push({ url: t.sourceUrl, label: t.sourceLabel || "(no label)", origin: "trigger.up" });
+    // v5.64 introduced trigger.additionalSources as a structured way to
+    // thread cross-ideological challenge sources into specific triggers.
+    // Closed v5.66: the collector now reads them so the audit can see the
+    // threading layer the dimension drawer renders to readers.
+    for (const a of t.additionalSources || []) {
+      if (a.url) out.push({ url: a.url, label: a.label || "(no label)", origin: "trigger.up.additionalSources" });
+    }
   }
   for (const t of dim.gradeTriggers?.down || []) {
     if (t.sourceUrl) out.push({ url: t.sourceUrl, label: t.sourceLabel || "(no label)", origin: "trigger.down" });
+    for (const a of t.additionalSources || []) {
+      if (a.url) out.push({ url: a.url, label: a.label || "(no label)", origin: "trigger.down.additionalSources" });
+    }
   }
   return out;
 }
@@ -297,12 +307,23 @@ function collectGradeMovingSources(dim) {
   // gradeTriggers.down[].sourceUrl, OR (b) it's attached to a metric in
   // the dimension's metrics[] array via source or sourceRefs (since metric
   // values determine which scoring.threshold band applies).
+  // Extended 2026-05-24 (v5.66): also counts trigger.additionalSources[]
+  // entries on either up or down, since those are rendered to readers as
+  // "independent challenge sources" attached to the trigger and are
+  // therefore part of the grade-moving evidence chain a reader can use
+  // to challenge or defend the grade.
   const out = [];
   for (const t of dim.gradeTriggers?.up || []) {
     if (t.sourceUrl) out.push({ url: t.sourceUrl, label: t.sourceLabel || "(no label)", origin: "trigger.up", kind: "url" });
+    for (const a of t.additionalSources || []) {
+      if (a.url) out.push({ url: a.url, label: a.label || "(no label)", origin: `trigger.up.additionalSources: ${(t.text || "").slice(0, 50)}`, kind: "trigger-additional-source" });
+    }
   }
   for (const t of dim.gradeTriggers?.down || []) {
     if (t.sourceUrl) out.push({ url: t.sourceUrl, label: t.sourceLabel || "(no label)", origin: "trigger.down", kind: "url" });
+    for (const a of t.additionalSources || []) {
+      if (a.url) out.push({ url: a.url, label: a.label || "(no label)", origin: `trigger.down.additionalSources: ${(t.text || "").slice(0, 50)}`, kind: "trigger-additional-source" });
+    }
   }
   for (const m of dim.metrics || []) {
     if (m.source && m.source !== "manual" && m.source !== "editorial") {
