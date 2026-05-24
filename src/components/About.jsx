@@ -73,6 +73,17 @@ export default function About() {
               changes.
             </li>
             <li>
+              <strong>Recusal policy:</strong> if a future conflict of
+              interest arises (paid relationship with a graded entity, a
+              federal-department contract, a board seat with a policy-
+              affected organization), the affected dimension will be
+              flagged in the next changelog entry with the nature of the
+              conflict and the editorial response (recusal from that
+              dimension's grading, transition of that dimension's grading
+              to a documented external review, or both). The flag stays
+              on the dimension card until the conflict is resolved.
+            </li>
+            <li>
               <strong>Funding:</strong> the dashboard is unfunded. No paid
               sponsorships, no advertising, no in-kind support tied to
               editorial direction. Buttondown email distribution and
@@ -178,8 +189,10 @@ export default function About() {
                 <li>
                   standalone grades for Indigenous reconciliation, healthcare
                   transfers, public-sector bargaining, pre-designation pipeline
-                  announcements, or foreign policy beyond the defence / trade
-                  construct
+                  announcements, foreign policy beyond the defence / trade
+                  construct, or specific defence procurement contracts
+                  (fighter jets, naval vessels, Arctic surveillance) beyond
+                  the NATO-spending headline
                 </li>
               </ul>
             </div>
@@ -207,17 +220,28 @@ export default function About() {
             monthly-update cadence. Healthcare federal-provincial transfers
             sit inside the Fiscal Health envelope as a fiscal line item
             because the provincial side of the equation is outside the
-            dashboard's federal scope. Public-sector bargaining feeds into
-            Fiscal Health through the workforce-reduction commitment but
+            dashboard's federal scope. Public-sector bargaining touches
+            three current dimensions at once. It feeds Fiscal Health
+            through the workforce-reduction commitment, Economic Policy
+            Response through wage dynamics, and Immigration through
+            workforce planning, but the labour-relations file as a whole
             does not have its own grade because Treasury Board agreement
-            timing is intermittent. Pre-designation pipeline announcements
-            are intentionally excluded by the Major Projects scope rule
-            that grades documented post-designation advancement rather
-            than announcement count. Foreign policy beyond defence and
-            trade is excluded because the indicators that would distinguish
-            performance from posture are not yet operational for a
-            monthly rubric. A reader who wants any of these graded directly
-            can{" "}
+            timing is intermittent and the cross-dimension footprint
+            would risk double-counting. Pre-designation pipeline
+            announcements are intentionally excluded by the Major Projects
+            scope rule that grades documented post-designation advancement
+            rather than announcement count. Defence procurement (specific
+            fighter jet, naval vessel, and Arctic surveillance contracts)
+            is not graded as a separate file because the current Defence
+            & Trade construct uses the NATO spending percentage and
+            trade-diversification rate as its measurable outcomes; specific
+            procurement contracts would fit the Major Projects model
+            better and may move there if the Defence & Trade tripwire
+            forces the dimension to split. Foreign policy beyond defence
+            and trade is excluded because the indicators that would
+            distinguish performance from posture are not yet operational
+            for a monthly rubric. A reader who wants any of these graded
+            directly can{" "}
             <a
               href="https://github.com/Sawatter/canada-under-carney/issues"
               target="_blank"

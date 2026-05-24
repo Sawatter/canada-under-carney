@@ -1,6 +1,37 @@
 [
   {
     "date": "2026-05-23",
+    "summary": "Capture Comet's fourth-AI review and close the safe autonomous items: defence procurement carve-out on About, wage policy rationale refinement, editor recusal policy, utils.js FROZEN SURFACE guard.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Comet Round 2 review captured",
+        "body": "docs/Comet-Review-Round2-2026-05-23.md captures Comet's fourth-AI review at v5.62. Confirms editor disclosure as complete enough for journalism citation, the v5.58 excluded-coverage rationale as defensible and honest, and the v5.61 source threading as the right discipline. Identifies the next-tier rigor work as per-criterion operationalization (per-lever status criteria for Economic Policy, per-component checklists for Ethics, exact combination arithmetic for Flagship Delivery). Surfaces Immigration as the only dimension untouched across the v5.58 to v5.62 arc and the dimension with the least cross-ideological source balance. Session cut off mid-section 7."
+      },
+      {
+        "type": "product",
+        "headline": "Defence procurement added to About boundary statement",
+        "body": "The About 'what this does not grade' list and rationale now explicitly name specific defence procurement contracts (fighter jets, naval vessels, Arctic surveillance) as not graded as a separate file. The Defence & Trade construct uses NATO spending percentage and trade diversification as its measurable outcomes; specific procurement contracts would fit the Major Projects model and may move there if the Defence & Trade tripwire forces the dimension to split. Closes one of two new gaps Comet's Round 2 review surfaced."
+      },
+      {
+        "type": "product",
+        "headline": "Wage policy rationale refined for cross-dimension footprint",
+        "body": "The About boundary rationale paragraph for public-sector bargaining was expanded to note that Treasury Board agreements touch three dimensions at once: Fiscal Health through workforce reduction, Economic Policy Response through wage dynamics, and Immigration through workforce planning. The labour-relations file as a whole does not have its own grade because Treasury Board agreement timing is intermittent and the cross-dimension footprint would risk double-counting. Closes Comet Round 2's finding that the prior one-line treatment undersold the complexity."
+      },
+      {
+        "type": "product",
+        "headline": "Editor recusal policy added",
+        "body": "The About Editor and Disclosures section now includes a Recusal policy line stating that if a future conflict of interest arises (paid relationship with a graded entity, federal-department contract, board seat with a policy-affected organization), the affected dimension will be flagged in the next changelog entry with the nature of the conflict and the editorial response. The flag stays on the dimension card until the conflict is resolved. Closes Comet Round 2's last-gap finding on the editor disclosure surface."
+      },
+      {
+        "type": "method",
+        "headline": "utils.js FROZEN SURFACE comment block added",
+        "body": "src/utils.js now opens with a FROZEN SURFACE comment block per CLAUDE.md operational guardrails. The comment names the functions affected (gpaToGrade, computeOverallGPA, computeHouseholdGPA, gpaPointsForGrade, headline-score rounding) and the four-step protocol a future agent must follow before changing them. Closes Comet's repeated finding that a future agent editing utils.js would have no programmatic signal that the GPA formula is frozen. No logic changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-23",
     "summary": "Three Perplexity-recommended institutional sources added to Economic Policy and Affordability source pools; two more (CER, OAG) carried forward to June for Climate source-band rebalance.",
     "items": [
       {

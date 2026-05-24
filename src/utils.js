@@ -1,5 +1,17 @@
 import { GRADES, POCKETBOOK_DIMS } from "./constants";
 
+// FROZEN SURFACE - do not modify without explicit editor approval.
+// Per CLAUDE.md operational guardrails, GPA formulas, grade-point mappings,
+// and headline-score rounding in this file are frozen. Changes here move the
+// headline score on the live dashboard and must be reviewed in the same turn
+// they are proposed. A future agent making a change here should:
+//   1. Confirm explicit user approval in the current conversation turn.
+//   2. Update docs/Canonical-Scoring-Sheets.md to match.
+//   3. Run npm run test:data and add the new expected GPA fixture if one exists.
+//   4. Note the formula change in changelog.json with type: "method".
+// Functions affected: gpaToGrade, computeOverallGPA, computeHouseholdGPA,
+// gpaPointsForGrade, rounding behavior in the headline score.
+
 // Convert a numeric GPA to a letter grade
 export function gpaToGrade(g) {
   if (g >= 3.85) return "A";
