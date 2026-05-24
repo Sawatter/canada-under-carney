@@ -33,7 +33,7 @@ The Phase 1 script tests mechanical, per-dimension patterns. It does NOT replace
 
 1. **"Grade-moving source" definition** is now the union of (a) trigger-attached URLs in `gradeTriggers.up[].sourceUrl` / `gradeTriggers.down[].sourceUrl` and (b) metric-attached sources via the `source` field or visible `sourceRefs` links in `metrics[]`. Rationale-text source mentions are NOT counted unless also surfaced through a metric source link.
 
-2. **"Independent challenge"** = families 4 (watchdog), 6 (parliamentary critique), 7 (policy institute), 8 (journalism), 9 (academic / research), and 10 (international benchmark) EXCEPT when family 10 is the threshold-defining body (currently only NATO for Defence & Trade). Family 5 (procedural parliamentary records like LEGISinfo bill status) is explicitly NOT independent challenge.
+2. **"Independent challenge"** = families 4 (watchdog), 6 (parliamentary critique), 7 (policy institute), 8 (journalism), 9 (academic / research), and 10 (international benchmark) EXCEPT when family 10 is the threshold-defining body (currently only NATO for Defence & Trade). Family 5 (procedural parliamentary records like LEGISinfo bill status) is explicitly NOT independent challenge. Family 11 (industry / sector association, added 2026-05-23) is useful challenge or context evidence, but is not independent challenge by default because sector sources have direct stakeholder interests.
 
 3. **Family-5 / family-6 split** distinguishes procedural records from parliamentary critique. LEGISinfo bill-tracking pages are family 5 (procedural). Committee reports under ourcommons.ca or sencanada.ca are family 6 (critique). This split materially changed Major Projects' assessment (see Findings).
 

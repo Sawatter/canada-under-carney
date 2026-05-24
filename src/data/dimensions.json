@@ -1406,12 +1406,12 @@
         "url": "https://canadacode.org/"
       },
       {
-        "label": "CFIB — research and economic analysis",
-        "url": "https://www.cfib-fcei.ca/en/research-economic-analysis"
-      },
-      {
         "label": "Retail Council of Canada — grocery and food",
         "url": "https://www.retailcouncil.org/community/grocery/"
+      },
+      {
+        "label": "Fraser Institute — GST affordability strategy critique",
+        "url": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy"
       }
     ],
     "lastUpdated": "2026-05-23",
@@ -1421,6 +1421,12 @@
         "value": "4.4%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
+        "sourceRefs": [
+          {
+            "label": "StatsCan CPI Mar 2026",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm"
+          }
+        ],
         "sourceNote": "StatsCan CPI daily release, April 20, 2026: food purchased from stores rose 4.4% year over year in March, after 4.1% in February. April CPI is scheduled for release on May 19.",
         "automatable": true
       },
@@ -1428,18 +1434,41 @@
         "label": "Family of 4 food cost (2026)",
         "value": "$17,572/yr",
         "source": "dalhousie",
+        "sourceRefs": [
+          {
+            "label": "Dalhousie Food Price Report",
+            "url": "https://www.dal.ca/sites/agri-food/research/canada-s-food-price-report-2026.html"
+          }
+        ],
         "automatable": false
       },
       {
         "label": "Grocery benefit",
         "value": "~$307/household (incremental)",
         "source": "pbo",
+        "sourceRefs": [
+          {
+            "label": "PBO - Canada Groceries and Essentials Benefit",
+            "url": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels"
+          },
+          {
+            "label": "Fraser Institute - GST affordability strategy critique",
+            "url": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy"
+          }
+        ],
+        "sourceNote": "PBO carries the incremental value estimate. Fraser Institute carries an independent market-oriented critique of the same GST / Canada Groceries and Essentials Benefit strategy, arguing the payment is poorly targeted even where the government is right to focus on cost of living.",
         "automatable": false
       },
       {
         "label": "Food insecure Canadians",
         "value": "~10M",
         "source": "proof",
+        "sourceRefs": [
+          {
+            "label": "PROOF food insecurity 2024",
+            "url": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/"
+          }
+        ],
         "automatable": false
       }
     ],
@@ -1797,7 +1826,7 @@
         }
       ]
     },
-    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap, EV mandate, Greener Homes Grant, and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
+    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was suspended, the EV mandate was scrapped and retooled through tailpipe rules, and the Greener Homes Grant and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
         "label": "CCI — Canada off course",
@@ -1832,12 +1861,12 @@
         "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
       },
       {
-        "label": "Fraser Institute — environment publications",
-        "url": "https://www.fraserinstitute.org/categories/environment"
+        "label": "Fraser Institute — EV mandate critique",
+        "url": "https://www.fraserinstitute.org/commentary/ottawa-should-finally-end-costly-push-evs-canada"
       },
       {
-        "label": "Macdonald-Laurier Institute — energy and natural resources",
-        "url": "https://macdonaldlaurier.ca/research/energy-natural-resources/"
+        "label": "Macdonald-Laurier Institute — energy-superpower gap",
+        "url": "https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/"
       }
     ],
     "lastUpdated": "2026-05-23",
@@ -1854,16 +1883,26 @@
           {
             "label": "IISD - Canada's 2030 climate target",
             "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
+          },
+          {
+            "label": "Macdonald-Laurier Institute - energy-superpower gap",
+            "url": "https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/"
           }
         ],
-        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, and IISD's analysis that stronger policy is still required to meet the 2030 target. Source URLs in the dimension sources array.",
+        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework.",
         "automatable": false
       },
       {
         "label": "EV mandate",
-        "value": "Repealed",
+        "value": "Scrapped / retooled",
         "source": "eccc",
-        "sourceNote": "Zero-emission vehicle mandate repealed November 2025. Event-driven policy reversal documented by CCI and media.",
+        "sourceRefs": [
+          {
+            "label": "Fraser Institute - EV mandate critique",
+            "url": "https://www.fraserinstitute.org/commentary/ottawa-should-finally-end-costly-push-evs-canada"
+          }
+        ],
+        "sourceNote": "The federal EV sales mandate was scrapped and replaced with a tailpipe-emissions approach plus renewed EV supports. Fraser Institute carries the market-oriented critique that the policy pressure continues in retooled form, which is why this metric now reads 'scrapped / retooled' rather than a plain repeal.",
         "automatable": false
       },
       {

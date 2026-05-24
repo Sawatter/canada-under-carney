@@ -856,22 +856,26 @@ These may shape interpretation but must not move the Affordability Response grad
 
 **Current state delta**
 
-Current `dimensions.json` Affordability Response source stack:  
-StatsCan CPI Feb 2026, Dalhousie Food Price Report, PROOF food insecurity 2024  
+Current `dimensions.json` Affordability Response source stack:
+StatsCan CPI Mar 2026, Dalhousie Food Price Report, PROOF food insecurity 2024, PBO Canada Groceries and Essentials Benefit, CRA Canada Groceries and Essentials Benefit, Canada Grocery Code official site, Retail Council of Canada grocery and food, Fraser Institute GST affordability strategy critique
 Source: [src/data/dimensions.json](../src/data/dimensions.json:694)
 
 - **Present and well-aligned**
-  - `StatsCan CPI Feb 2026` fills measurement truth on current food-price pressure.
+  - `StatsCan CPI Mar 2026` fills measurement truth on current food-price pressure.
   - `PROOF food insecurity 2024` fills measurement/challenge truth on the scale of household strain.
   - `Dalhousie Food Price Report` fills challenge/context on annual household food-cost burden.
+  - `PBO — Canada Groceries and Essentials Benefit` fills measurement truth on the incremental benefit value.
+  - `CRA — Canada Groceries and Essentials Benefit` fills execution truth that the benefit machinery is live.
+  - `Canada Grocery Code — official site` fills policy/execution truth on the voluntary grocery-code framework.
+  - `Fraser Institute — GST affordability strategy critique` fills market-oriented independent challenge on the benefit design and targeting.
+  - `Retail Council of Canada — grocery and food` fills grocery-sector context, not trigger-level proof.
 
 - **Gaps**
-  - No PBO source is present in the `sources` array even though the live grocery-benefit metric depends on PBO costing and the tariff-burden estimate is a minimum indicator for the file.
-  - No direct government or operational source is present in the `sources` array for the grocery benefit or Grocery Code of Conduct, even though those instruments are central to the response being graded.
   - No tariff-household-cost source is present in the `sources` array even though the status line uses the `$1,450-$2,000/yr per household` figure as a live framing claim.
+  - No Retail Council source is yet threaded into a grade-moving metric or trigger. It remains sector context unless a future cycle finds exact trigger-level support.
 
 - **Role mismatches**
-  - `StatsCan CPI Feb 2026` and `Dalhousie Food Price Report` mostly measure household pressure, not the adequacy of the federal response. They are necessary inputs, but by themselves they should not be mistaken for response evidence.
+  - `StatsCan CPI Mar 2026` and `Dalhousie Food Price Report` mostly measure household pressure, not the adequacy of the federal response. They are necessary inputs, but by themselves they should not be mistaken for response evidence.
 
 - **Orphaned sources**
   - None in the current stack. Every listed source attaches to a metric, rationale line, or perspective.
@@ -1024,8 +1028,8 @@ These may shape interpretation but must not move the Climate & Environment grade
 
 **Current state delta**
 
-Current `dimensions.json` Climate & Environment source stack:  
-CCI — Canada off course, IISD — Canada's 2030 climate target, CCI — industrial pricing gaps, ECCC 2024-25 Departmental plan at a glance, ECCC 2025-26 Departmental plan at a glance, National Observer — fossil fuel course, ECCC Arctic science cuts, CBC — ECCC job and budget cuts  
+Current `dimensions.json` Climate & Environment source stack:
+CCI — Canada off course, IISD — Canada's 2030 climate target, CCI — industrial pricing gaps, ECCC 2024-25 Departmental plan at a glance, ECCC 2025-26 Departmental plan at a glance, National Observer — fossil fuel course, The Conversation — ECCC Arctic science cuts, CBC — ECCC job and budget cuts, Fraser Institute — EV mandate critique, Macdonald-Laurier Institute — energy-superpower gap
 Source: [src/data/dimensions.json](../src/data/dimensions.json:957)
 
 - **Present and well-aligned**
@@ -1033,6 +1037,8 @@ Source: [src/data/dimensions.json](../src/data/dimensions.json:957)
   - `IISD — Canada's 2030 climate target` fills second-family independent-challenge truth on the same target gap, cited in the rationale alongside CCI.
   - `ECCC 2024-25 Departmental plan at a glance` and `ECCC 2025-26 Departmental plan at a glance` fill measurement/execution truth on institutional capacity decline.
   - `National Observer`, `The Conversation`, and `CBC` fill context and operational-impact reporting around the reversals and departmental cuts.
+  - `Macdonald-Laurier Institute — energy-superpower gap` now fills a market-oriented / energy-sector challenge role on the replacement-framework gap.
+  - `Fraser Institute — EV mandate critique` now fills a market-oriented challenge role on the EV mandate being scrapped and retooled rather than simply repealed.
 
 - **Gaps**
   - No direct CER or equivalent official source is present in the `sources` array even though the file carries a low-carbon-electricity metric.

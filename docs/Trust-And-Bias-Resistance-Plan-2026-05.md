@@ -111,7 +111,7 @@ This is pure editorial reflection. No script support. Drafted once per major rub
 
 Each monthly source-coverage ledger gains a new section: "Excluded this cycle." Editor logs what was considered for the cycle and not included, with rationale per item. Not a one-time audit. Becomes a per-cycle artifact in `docs/Source-Coverage-Ledger-YYYY-MM.md`.
 
-Source-family taxonomy (10 buckets, revised 2026-05-16 to split procedural vs critique per audit Q3):
+Source-family taxonomy (11 buckets, revised 2026-05-16 to split procedural vs critique per audit Q3, and revised 2026-05-23 to add industry / sector associations):
 
 1. PMO / Carney-specific messaging (and partisan-party platform documents)
 2. Department / press-release messaging
@@ -123,16 +123,17 @@ Source-family taxonomy (10 buckets, revised 2026-05-16 to split procedural vs cr
 8. Journalism
 9. Academic / university research (includes pollster firms used as polling sources)
 10. International benchmark / rating agency
+11. Industry / sector association
 
 **Grade-moving source definition (revised):** A source counts as grade-moving if either (a) its URL appears in `gradeTriggers.up[].sourceUrl` or `gradeTriggers.down[].sourceUrl`, OR (b) it's attached to a metric in `metrics[]` array via the `source` field or visible `sourceRefs` links. Metric values determine which `scoring.thresholds` band applies, so metric-attached sources contribute to grade direction even when not in a trigger. Rationale-text source mentions are NOT counted unless also surfaced through a metric source link.
 
-**Independent challenge definition (revised):** Families 4, 6, 7, 8, 9 count as independent challenge unconditionally. Family 10 counts as independent challenge EXCEPT when the family-10 source is the threshold-defining body for the dimension. Currently only Defence & Trade has this exception: NATO is the threshold-defining body for the 2% spending target, so a NATO source on that trigger doesn't add independent challenge — it confirms the measurement against its own rule. Family 5 (procedural parliamentary records) is explicitly NOT independent challenge — it's neutral status-tracking, not critique.
+**Independent challenge definition (revised):** Families 4, 6, 7, 8, 9 count as independent challenge unconditionally. Family 10 counts as independent challenge EXCEPT when the family-10 source is the threshold-defining body for the dimension. Currently only Defence & Trade has this exception: NATO is the threshold-defining body for the 2% spending target, so a NATO source on that trigger doesn't add independent challenge — it confirms the measurement against its own rule. Family 5 (procedural parliamentary records) is explicitly NOT independent challenge — it's neutral status-tracking, not critique. Family 11 (industry / sector association) is useful challenge or context evidence, but not independent challenge by default because sector sources have direct stakeholder interests.
 
 Flag thresholds (starting points, may tighten after first audit pass reveals signal vs noise):
 
 - **>60% one-family concentration** (all-sources view per dimension)
 - **Grade-moving claim primarily on press release.** Operational definition: a source counts as "grade-moving" if either its URL appears in `gradeTriggers.up[].sourceUrl` / `gradeTriggers.down[].sourceUrl`, or it is attached to a metric in `metrics[]` via a `source` field. The flag fires if any grade-moving source URL is a `pm.gc.ca` URL or a `canada.ca/.../news/` URL. Metric-attached source labels without URLs are classified by source name where possible and flagged manually where the script cannot classify them.
-- **No independent challenge source attached.** Operational definition: a dimension's grade-moving sources include none from family 4 (independent watchdog), 6 (parliamentary committee / opposition critique), 7 (policy institute), 8 (journalism), 9 (academic / research), or eligible family 10 sources (international benchmark / rating agency, except where the body defines the dashboard threshold being measured).
+- **No independent challenge source attached.** Operational definition: a dimension's grade-moving sources include none from family 4 (independent watchdog), 6 (parliamentary committee / opposition critique), 7 (policy institute), 8 (journalism), 9 (academic / research), or eligible family 10 sources (international benchmark / rating agency, except where the body defines the dashboard threshold being measured). Family 11 sources may help readers challenge a grade, but do not satisfy this independent-challenge test on their own.
 - **Critics-defenders length imbalance.** Operational definition: critics or defenders block is more than 2x the length of the other.
 - **Attention-bias flag.** Operational definition: a dimension with zero grade movements in the last 6 cycles while at least one peer dimension had 3+ movements, OR a dimension whose `lastUpdated` is 3+ months older than the cycle date.
 

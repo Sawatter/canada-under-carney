@@ -149,6 +149,12 @@ const FAMILY_RULES = [
   { family: 10, name: "International benchmark / rating", pattern: /spglobal\.com/i },
   { family: 10, name: "International benchmark / rating", pattern: /weforum\.org/i },
   { family: 10, name: "International benchmark / rating", pattern: /unctad\.org/i },
+
+  // Family 11: Industry / sector association. These can be useful challenge
+  // or context sources, but are not counted as independent challenge by default.
+  { family: 11, name: "Industry / sector association", pattern: /cfib-fcei\.ca/i },
+  { family: 11, name: "Industry / sector association", pattern: /retailcouncil\.org/i },
+  { family: 11, name: "Industry / sector association", pattern: /canadacode\.org/i },
 ];
 
 // Metric source-label classifier. Some dimensions cite sources by short
@@ -171,7 +177,7 @@ const METRIC_LABEL_TO_FAMILY = {
   oag: 4,
   legisinfo: 5,
   cci: 7,
-  cfib: 7,
+  cfib: 11,
   iisd: 7,
   "policy-options": 7,
   dalhousie: 9,
@@ -195,6 +201,7 @@ const FAMILY_LABELS = {
   8: "8. Journalism",
   9: "9. Academic / research / pollsters",
   10: "10. International benchmark / rating",
+  11: "11. Industry / sector association",
   0: "0. Unclassified",
 };
 
@@ -221,8 +228,8 @@ function classifyMetricLabel(label) {
 }
 
 // Independent challenge = families 4, 6, 7, 8 (watchdog, parliamentary
-// critique, policy institute, journalism). Plus family 10 EXCEPT when
-// it's a threshold-defining body for this dimension.
+// critique, policy institute, journalism), family 9 (academic / research),
+// plus family 10 EXCEPT when it's a threshold-defining body for this dimension.
 function isIndependentChallenge(family, sourceIdentifier, dimensionId) {
   if (family === 4 || family === 6 || family === 7 || family === 8) return true;
   if (family === 10) {
@@ -232,7 +239,8 @@ function isIndependentChallenge(family, sourceIdentifier, dimensionId) {
     }
     return true;
   }
-  // Family 5 (procedural) is explicitly NOT independent challenge.
+  // Family 5 (procedural) and family 11 (industry / sector association) are
+  // explicitly NOT independent challenge by default.
   // Family 9 (academic) — debatable. Treat as independent challenge for now.
   if (family === 9) return true;
   return false;
