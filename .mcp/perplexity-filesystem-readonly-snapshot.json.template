@@ -1,0 +1,8 @@
+{
+  "name": "canada-under-carney-filesystem-readonly",
+  "command": "/bin/bash",
+  "args": [
+    "<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>/scripts/start-perplexity-filesystem-mcp.sh",
+    "--readonly-snapshot"
+  ]
+}

@@ -33,3 +33,7 @@ test-results/
 
 # RSS feed is regenerated on every build by scripts/generate-feed.mjs
 public/feed.xml
+
+# Local MCP working configs (committed templates are .json.template)
+.mcp/*.json
+!.mcp/*.json.template
