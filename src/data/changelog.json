@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.70",
+    "summary": "Retrospective May source-health pass: refreshed broken source URLs, reran source-family checks, and logged June-cycle freshness candidates without changing grades or thresholds.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "May source-health pass recorded",
+        "body": "Ran the source-family audit and source-fetch/link checks against the v5.69 source stack. The bias-audit baseline held at 12 dimensions audited and 6 flagged dimensions. A new recertification note records which May data sources now have newer releases for the June cycle."
+      },
+      {
+        "type": "method",
+        "headline": "Broken and generic source URLs cleaned up",
+        "body": "Replaced stale or generic source URLs with exact live pages for Signal49 business-investment and CPI analysis, IRCC open-data dataset pages, Maytree refugee-policy analysis, The Narwhal climate explainer, ECCC's oil-and-gas cap regulatory framework, and ECCC's Electric Vehicle Availability Standard backgrounder. No grade, threshold, metric value, or GPA formula changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.69",
     "summary": "UI best-practices sweep: 10 quick wins + 5 medium-effort improvements across the scorecard, dimension drawer, and mobile experience.",
     "items": [

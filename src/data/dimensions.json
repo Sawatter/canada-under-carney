@@ -1022,7 +1022,7 @@
     "construct": "The federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers.",
     "gradeBasis": {
       "band": "D",
-      "bandCriterion": "Across the five current core levers (AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness), fewer than two are clearly authorized or executing, and business investment remains near-flat without a durable turn. Each lever is assessed independently as announced, authorized, or executing per the published criteria in leverOperationalization below. Business investment is cross-referenced against StatCan GDP as primary evidence, with CSLS Canadian Productivity Review and Conference Board of Canada research as independent productivity-analysis context.",
+      "bandCriterion": "Across the five current core levers (AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness), fewer than two are clearly authorized or executing, and business investment remains near-flat without a durable turn. Each lever is assessed independently as announced, authorized, or executing per the published criteria in leverOperationalization below. Business investment is cross-referenced against StatCan GDP as primary evidence, with CSLS Canadian Productivity Review and Signal49 Research as independent productivity-analysis context.",
       "leverOperationalization": [
         {
           "name": "AI compute strategy",
@@ -1124,7 +1124,7 @@
               "role": "Independent productivity-trend analysis. CSLS publishes the reference Canadian productivity research and is cited across the political spectrum."
             },
             {
-              "label": "Conference Board of Canada — productivity and competitiveness research",
+              "label": "Signal49 Research — business investment outlook",
               "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
               "role": "Independent centrist economic research voice on business investment trajectory."
             }
@@ -1147,7 +1147,7 @@
               "role": "Independent confirmation of productivity-trend deterioration."
             },
             {
-              "label": "Conference Board of Canada — productivity and competitiveness research",
+              "label": "Signal49 Research — business investment outlook",
               "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
               "role": "Centrist independent confirmation of business-investment decline acceleration."
             }
@@ -1194,8 +1194,8 @@
         "url": "http://www.csls.ca/ipm.asp"
       },
       {
-        "label": "Conference Board of Canada — productivity and competitiveness research",
-        "url": "https://www.conferenceboard.ca/insights/"
+        "label": "Signal49 Research — business investment outlook",
+        "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/"
       }
     ],
     "lastUpdated": "2026-05-23",
@@ -1413,7 +1413,7 @@
           "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
           "additionalSources": [
             {
-              "label": "Conference Board of Canada — economic and consumer research",
+              "label": "Signal49 Research — consumer prices analysis",
               "url": "https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/",
               "role": "Centrist independent confirmation of consumer-price trajectory beyond the StatCan headline."
             }
@@ -1502,8 +1502,8 @@
         "url": "https://foodbankscanada.ca/hungercount/"
       },
       {
-        "label": "Conference Board of Canada — economic and consumer research",
-        "url": "https://www.conferenceboard.ca/insights/"
+        "label": "Signal49 Research — consumer prices analysis",
+        "url": "https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/"
       }
     ],
     "lastUpdated": "2026-05-23",
@@ -2230,11 +2230,11 @@
       },
       {
         "label": "IRCC open data — work permits",
-        "url": "https://open.canada.ca/data/en/dataset/360024f2-17e9-4558-bfc1-3616485d65b9"
+        "url": "https://open.canada.ca/data/dataset/360024f2-17e9-4558-bfc1-3616485d65b9"
       },
       {
         "label": "IRCC open data — study permits",
-        "url": "https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee"
+        "url": "https://open.canada.ca/data/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee"
       },
       {
         "label": "Bank of Canada wage study",
@@ -2250,7 +2250,7 @@
       },
       {
         "label": "Maytree — immigration and refugee policy",
-        "url": "https://maytree.com/policies-and-research/"
+        "url": "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/"
       }
     ],
     "lastUpdated": "2026-05-23",
@@ -2272,14 +2272,14 @@
         "label": "Temp arrivals change (Jan-Sep 2025 vs 2024)",
         "value": "-53%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal: open.canada.ca/data/en/dataset/360024f2 (work permits) and /90115b00 (study permits). Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 — the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal pages cover work permits and study permits. Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 — the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
         "automatable": true
       },
       {
         "label": "Student permits change (Jan-Sep 2025 vs 2024)",
         "value": "-60%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 60% decline in new international student arrivals, Jan-Sep 2025 vs same period 2024 (150,220 fewer students). IRCC open data portal: open.canada.ca/data/en/dataset/90115b00. Note: IRCC open data shows 76% decline for Jan-Jun period specifically; the 60% figure covers the longer Jan-Sep window.",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 60% decline in new international student arrivals, Jan-Sep 2025 vs same period 2024 (150,220 fewer students). IRCC open data portal provides the study-permit series. Note: IRCC open data shows 76% decline for Jan-Jun period specifically; the 60% figure covers the longer Jan-Sep window.",
         "automatable": true
       },
       {
@@ -3185,7 +3185,7 @@
       },
       {
         "label": "The Narwhal — climate rollback analysis",
-        "url": "https://thenarwhal.ca/carney-climate-rollback-oil-gas-industry/"
+        "url": "https://thenarwhal.ca/mark-carney-climate-change-explainer/"
       },
       {
         "label": "PBO — SEU fiscal anchors and sustainability",
@@ -3309,10 +3309,10 @@
             "note": "Initial assessment"
           }
         ],
-        "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/news/2024/11/federal-government-releases-proposed-framework-regulations-to-reduce-greenhouse-gas-emissions-in-the-canadian-oil-and-gas-sector.html",
-        "originalSourceLabel": "ECCC proposed oil & gas emissions cap framework (Nov 2024)",
-        "statusSourceUrl": "https://www.canada.ca/en/environment-climate-change/news/2024/11/federal-government-releases-proposed-framework-regulations-to-reduce-greenhouse-gas-emissions-in-the-canadian-oil-and-gas-sector.html",
-        "statusSourceLabel": "ECCC proposed oil & gas emissions cap framework"
+        "originalSourceUrl": "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan/oil-gas-emissions-cap/regulatory-framework.html",
+        "originalSourceLabel": "ECCC — Regulatory Framework for an Oil and Gas Sector GHG Emissions Cap",
+        "statusSourceUrl": "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan/oil-gas-emissions-cap/regulatory-framework.html",
+        "statusSourceLabel": "ECCC — Regulatory Framework for an Oil and Gas Sector GHG Emissions Cap"
       },
       {
         "text": "EV mandate",
@@ -3327,9 +3327,9 @@
             "note": "Initial assessment"
           }
         ],
-        "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/managing-pollution/energy-production/transportation/clean-vehicles.html",
+        "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/news/2023/12/canadas-electric-vehicle-availability-standard-regulated-targets-for-zero-emission-vehicles.html",
         "originalSourceLabel": "ECCC — Electric Vehicle Availability Standard",
-        "statusSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/managing-pollution/energy-production/transportation/clean-vehicles.html",
+        "statusSourceUrl": "https://www.canada.ca/en/environment-climate-change/news/2023/12/canadas-electric-vehicle-availability-standard-regulated-targets-for-zero-emission-vehicles.html",
         "statusSourceLabel": "ECCC — Electric Vehicle Availability Standard"
       },
       {
