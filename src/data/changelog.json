@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.71",
+    "summary": "Source-to-trigger pass closes the six May carry-forward trigger evaluations: one arguably fired (needs editor methodology call), three considered and not fired with evidence, two need editor source-read in June. No grade changes.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Six deferred trigger evaluations classified",
+        "body": "Worked the six trigger evaluations carried forward from docs/Source-To-Trigger-Audit-2026-05.md. Defence & Trade 3.5% pathway is arguably fired (NATO Hague 5%-by-2035 pledge + PBO $159B costing) pending editor judgment on the \"funded pathway\" definition. Affordability ($124/HH << $500), Housing (federal $4.4B/10yr << 5% of national shortfall), and Immigration (Q1 2026 StatCan pending; trajectory downward) are considered-and-not-fired with cited evidence. Climate & Environment needs an editor read of the 2026-27 ECCC Departmental Plan; Carbon Pricing needs an effective-price interpretation read against the December 2025 federal benchmark discussion paper. Zero grade changes."
+      },
+      {
+        "type": "docs",
+        "headline": "Source-to-trigger pass logged",
+        "body": "Added docs/Source-To-Trigger-Pass-2026-05-25.md as the per-trigger evaluation record. Each trigger lists trigger text, source label, current evidence with URLs, classification, and grade-move implication. Carry-forward list rolled into the June 2026 cycle."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.70",
     "summary": "Retrospective May source-health pass: refreshed broken source URLs, reran source-family checks, and logged June-cycle freshness candidates without changing grades or thresholds.",
     "items": [
