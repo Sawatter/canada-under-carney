@@ -1,5 +1,93 @@
 [
   {
+    "date": "2026-05-25",
+    "version": "5.69",
+    "summary": "UI best-practices sweep: 10 quick wins + 5 medium-effort improvements across the scorecard, dimension drawer, and mobile experience.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Scorecard headline and tab rename",
+        "body": "Added a one-sentence orientation headline above the scoreboard row. Renamed the \"Change Log\" tab to \"Changes\" for tab-rail brevity. Removed the visit counter from the page header."
+      },
+      {
+        "type": "product",
+        "headline": "Approval Signal card visually distinguished",
+        "body": "The Approval Signal card now shows a dashed border, light-blue tint, and an \"External signal \u00b7 Ungraded\" badge so readers immediately see it is a separate, unscored data stream."
+      },
+      {
+        "type": "product",
+        "headline": "Reviewed / Next dates on every card",
+        "body": "The review pill on each dimension card now shows both the last-reviewed date and the next scheduled update date so readers can judge recency at a glance."
+      },
+      {
+        "type": "product",
+        "headline": "Source tier badges and summary chips",
+        "body": "Every source link in an expanded drawer now shows a T1/T2/T3 tier badge derived from the domain. The Sources header shows a summary chip row (e.g. \"5 Tier-1 \u00b7 2 Tier-2\") so readers can gauge source quality before scrolling through the list."
+      },
+      {
+        "type": "product",
+        "headline": "External-link icon on all source links",
+        "body": "All source citation links now display a \u2197 icon to signal they open in a new tab (target=_blank, rel=noopener)."
+      },
+      {
+        "type": "product",
+        "headline": "Download sources as JSON",
+        "body": "A \"Download sources as JSON\" link appears at the bottom of the Sources section in each drawer, letting researchers export the source list for a dimension."
+      },
+      {
+        "type": "product",
+        "headline": "Sticky mini-nav and sticky drawer header",
+        "body": "The five Skeptic Path anchor links (Rule, Triggers, Evidence, Sources, Views) are now rendered as a sticky mini-nav bar inside the drawer. A sticky title/grade header also pins to the top of the drawer so the dimension name stays visible while scrolling."
+      },
+      {
+        "type": "product",
+        "headline": "Full-screen modal drawer on mobile",
+        "body": "On screens narrower than 768 px, an expanded dimension drawer takes over the full viewport, eliminating the scroll-close bug where a touch-scroll on the drawer body was misread as a tap on the card."
+      },
+      {
+        "type": "product",
+        "headline": "CSS :target flash animation for anchor jumps",
+        "body": "Clicking an anchor link inside a drawer (e.g. from the Skeptic Path nav) now triggers a brief blue outline flash on the target section, confirming the jump landed."
+      },
+      {
+        "type": "fix",
+        "headline": "Tier badge + ↗ icon extended to all source link sites",
+        "body": "The T1/T2/T3 badge and ↗ icon now appear on trigger source links, additionalSources challenge links, and metric sourceRef links — not just the main Sources chips. conferenceboard.ca added to Tier-2 allowlist. Mini-nav sticky top corrected to 62 px (was 44 px, causing overlap with the 60 px drawer header). Mobile drawer now locks background scroll via body overflow:hidden. Tier-count IIFE refactored to a const object."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
+    "summary": "Small follow-up fixes from the best-practices review: Stalled badge contrast, pocketbook/tracker validation, CHBA source-family label mapping, and modifier-context rendering.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Stalled badge contrast fixed",
+        "body": "The Promise status color for Stalled now uses a darker foreground on the existing pale orange background, improving WCAG 2.1 AA contrast without changing status meaning or grade math."
+      },
+      {
+        "type": "method",
+        "headline": "Pocketbook/tracker validator guard added",
+        "body": "scripts/validate-dimensions.mjs now hard-fails if a tracker dimension marked excludeFromGPA is also listed in POCKETBOOK_DIMS, preventing the household-score weighting set from accidentally including a non-graded tracker."
+      },
+      {
+        "type": "method",
+        "headline": "CHBA metric-label taxonomy added",
+        "body": "scripts/audit-bias-resistance.mjs now maps metric source label chba to family 11, matching the existing CHBA URL classifier and keeping industry-association classification consistent when a metric cites CHBA by label."
+      },
+      {
+        "type": "method",
+        "headline": "Source-band validator warning aligned to the hard ceiling",
+        "body": "scripts/validate-dimensions.mjs now warns only below the source floor or above the documented 10-source ceiling, instead of warning on dimensions that are intentionally at the ceiling after approved source-addition passes."
+      },
+      {
+        "type": "product",
+        "headline": "Modifier context summary renders readable text",
+        "body": "Dimension drawers now render active scoring adjustments with readable modifier labels, status, and reason instead of displaying object placeholders in the trade-offs section."
+      }
+    ]
+  },
+  {
     "date": "2026-05-24",
     "summary": "Follow-up commit closing Codex/Comet review items: exact-source URL discipline, validator shape checks, taxonomy alignment, frozen-surface test coverage.",
     "items": [

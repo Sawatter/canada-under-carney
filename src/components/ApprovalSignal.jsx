@@ -116,8 +116,30 @@ export function ApprovalCard({
         ...cardStyle,
         cursor: "pointer",
         userSelect: "none",
+        border: "1.5px dashed #9ab8d8",
+        background: "#f7fbff",
       }}
     >
+      {/* QW5: External-signal label */}
+      <div
+        style={{
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "5px",
+          fontSize: "11px",
+          fontWeight: 800,
+          textTransform: "uppercase",
+          letterSpacing: "0.5px",
+          color: "#2d6a9f",
+          background: "#ddeeff",
+          border: "1px solid #9ab8d8",
+          borderRadius: "999px",
+          padding: "2px 8px",
+          marginBottom: "6px",
+        }}
+      >
+        External signal · Ungraded
+      </div>
       <div className="scoreboard-card-title" style={titleStyle}>Approval Signal</div>
       <div className="scoreboard-card-subtitle" style={subtitleStyle}>
         Public approval of PM Carney. Not part of the grades.

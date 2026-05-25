@@ -68,6 +68,12 @@ for (const pb of POCKETBOOK_NAMES) {
   if (!dimNames.has(pb)) err("[root]", `POCKETBOOK_DIM "${pb}" not present in dimensions.json`);
 }
 
+for (const d of dimensions) {
+  if (d.excludeFromGPA && POCKETBOOK_NAMES.has(d.name)) {
+    err("[root]", `POCKETBOOK_DIM "${d.name}" is marked excludeFromGPA`);
+  }
+}
+
 // ─── Per-dimension shape ────────────────────────────────────────────────────
 
 for (const d of dimensions) {
@@ -259,8 +265,8 @@ for (const d of dimensions) {
   if (sources.length < 3) {
     err(name, `source count ${sources.length} is below floor of 3`);
   }
-  if (sources.length < 5 || sources.length > 8) {
-    warn(name, `source count ${sources.length} is outside the 5-8 target band`);
+  if (sources.length < 5 || sources.length > 10) {
+    warn(name, `source count ${sources.length} is outside the 5-10 band (floor 5, ceiling 10)`);
   }
   sources.forEach((s, i) => {
     if (!s.label) err(name, `sources[${i}] is missing "label"`);

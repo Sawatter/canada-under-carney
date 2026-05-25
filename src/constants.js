@@ -26,7 +26,7 @@ export const TREND_COLOR = { up: "#2e7d32", stable: "#757575", down: "#c62828" }
 export const STATUS_COLORS = {
   "Delivered":   { bg: "#e8f5e9", color: "#1b5e20", label: "\u2713 Delivered" },
   "In Progress": { bg: "#e3f2fd", color: "#0d47a1", label: "\u25D1 In Progress" },
-  "Stalled":     { bg: "#fff3e0", color: "#e65100", label: "\u2298 Stalled" },
+  "Stalled":     { bg: "#fff3e0", color: "#c43d00", label: "\u2298 Stalled" },
   "Abandoned":   { bg: "#ffebee", color: "#b71c1c", label: "\u2715 Abandoned" },
   "Thwarted":    { bg: "#fce4ec", color: "#880e4f", label: "\u26A0 Thwarted" },
   "Unclear":     { bg: "#efebe9", color: "#4e342e", label: "? Unclear" },

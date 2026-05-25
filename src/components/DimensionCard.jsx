@@ -2,6 +2,102 @@ import { useState } from "react";
 import { GRADES } from "../constants";
 import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
+import meta from "../data/meta.json";
+
+// MED1: Heuristic tier classification from source URL domain.
+// Tier 1 = official government / international body / central bank / auditor.
+// Tier 2 = think tank / professional association / academic / credible media.
+// Tier 3 = other.
+// Tier 1: official government bodies, Parliament, international organizations,
+// central banks, auditors, statistical agencies, and accredited universities.
+// Any *.gc.ca subdomain is also Tier 1 (matched via endsWith).
+const TIER1_DOMAINS = [
+  // Canadian federal government (gc.ca catches all sub-agencies)
+  "canada.ca", "gc.ca", "parl.ca", "ourcommons.ca",
+  "pm.gc.ca", "budget.canada.ca", "pbo-dpb.ca",
+  "statcan.gc.ca", "cmhc-schl.gc.ca", "oag-bvg.gc.ca",
+  "bankofcanada.ca",
+  // International organizations
+  "nato.int", "imf.org", "oecd.org", "worldbank.org", "un.org",
+  // Canadian universities
+  "dal.ca", "utoronto.ca", "mcgill.ca", "ubc.ca", "uwaterloo.ca",
+  "queensu.ca", "uottawa.ca", "yorku.ca", "sfu.ca",
+  // Major bank / credit-rating (primary data sources)
+  "fitchratings.com",
+];
+// Tier 2: think tanks, professional associations, credible media, industry bodies,
+// civil-society organizations, and major financial institutions.
+const TIER2_DOMAINS = [
+  // Canadian media
+  "globeandmail.com", "theglobeandmail.com", "cbc.ca", "ctvnews.ca",
+  "nationalpost.com", "thestar.com", "financialpost.com",
+  "nationalobserver.com", "thenarwhal.ca",
+  // Think tanks and policy institutes
+  "policyoptions.irpp.org", "fraserinstitute.org", "cdhowe.org",
+  "broadbentinstitute.ca", "mli.ca", "macdonaldlaurier.ca",
+  "climateinstitute.ca", "iisd.org", "csls.ca",
+  "thehub.ca", "signal49.ca", "canada2020.ca", "canadacode.org",
+  "theconversation.com",
+  // Research / academic (non-university-domain)
+  "proof.utoronto.ca",
+  // Industry associations
+  "chba.ca", "buildingvalue.ca", "cfib-fcei.ca", "retailcouncil.org",
+  // Civil society and watchdogs
+  "maytree.com", "foodbankscanada.ca", "transparencycanada.ca",
+  "democracywatch.ca",
+  // Polling firms
+  "angusreid.org",
+  // Major financial institutions (as data sources)
+  "scotiabank.com",
+  // Official party platforms (primary political source)
+  "liberal.ca",
+  // Research / economic councils
+  "conferenceboard.ca",
+];
+
+function getSourceTier(url) {
+  if (!url) return null;
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    if (TIER1_DOMAINS.some((d) => host === d || host.endsWith(`.${d}`))) return 1;
+    if (TIER2_DOMAINS.some((d) => host === d || host.endsWith(`.${d}`))) return 2;
+    return 3;
+  } catch {
+    return null;
+  }
+}
+
+const TIER_LABEL = { 1: "T1", 2: "T2", 3: "T3" };
+const TIER_STYLE = {
+  1: { background: "#e3f2fd", color: "#0d47a1", border: "1px solid #90caf9" },
+  2: { background: "#f3e5f5", color: "#4a148c", border: "1px solid #ce93d8" },
+  3: { background: "#fafafa", color: "#555", border: "1px solid #ccc" },
+};
+
+function SourceTierBadge({ url }) {
+  const tier = getSourceTier(url);
+  if (!tier) return null;
+  const style = TIER_STYLE[tier] || TIER_STYLE[3];
+  return (
+    <span
+      title={tier === 1 ? "Tier 1 — official government, international body, or central bank" : tier === 2 ? "Tier 2 — think tank, professional association, or credible media" : "Tier 3 — other source"}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        fontSize: "10px",
+        fontWeight: 800,
+        padding: "1px 5px",
+        borderRadius: "4px",
+        marginLeft: "5px",
+        verticalAlign: "middle",
+        lineHeight: 1.4,
+        ...style,
+      }}
+    >
+      {TIER_LABEL[tier]}
+    </span>
+  );
+}
 
 const MODIFIER_LABELS = {
   "External Constraint": "External pressure",
@@ -75,6 +171,17 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     return item.item;
   };
 
+  const renderModifierContext = (modifier) => {
+    if (!modifier) return null;
+    if (typeof modifier === "string") return modifier;
+
+    const label = MODIFIER_LABELS[modifier.name] || modifier.name || "Adjustment";
+    const status = modifier.status ? `: ${modifier.status}` : "";
+    const reason = modifier.reason ? ` (${modifier.reason})` : "";
+
+    return `${label}${status}${reason}`;
+  };
+
   const scoringMetadata = [];
   if (dim.tags?.confidence) scoringMetadata.push({ label: "Confidence", value: dim.tags.confidence });
   if (dim.tags?.attribution) scoringMetadata.push({ label: "Attribution", value: dim.tags.attribution });
@@ -99,7 +206,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
   if (modifierItems.length > 0) {
     keyContextItems.push({
       label: "Active adjustments",
-      text: modifierItems.join(", "),
+      text: modifierItems.map(renderModifierContext).filter(Boolean).join(" / "),
     });
   }
   if (dim.inherited) {
@@ -180,9 +287,14 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 textDecoration: "none",
                 alignSelf: "flex-start",
                 fontWeight: 600,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "3px",
               }}
             >
-              Source: {item.sourceLabel} &rarr;
+              Source: {item.sourceLabel}
+              <SourceTierBadge url={item.sourceUrl} />
+              <span aria-hidden="true" style={{ fontSize: "11px", opacity: 0.7 }}>↗</span>
             </a>
           ) : (
             <span
@@ -236,9 +348,11 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={(e) => e.stopPropagation()}
-                      style={{ color: "#1565c0", fontWeight: 600 }}
+                      style={{ color: "#1565c0", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "3px" }}
                     >
                       {alt.label}
+                      <SourceTierBadge url={alt.url} />
+                      <span aria-hidden="true" style={{ fontSize: "11px", opacity: 0.7 }}>↗</span>
                     </a>
                   ) : (
                     <span style={{ fontWeight: 600 }}>{alt.label}</span>
@@ -402,12 +516,22 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                 border: "1px solid #d9e2ec",
                 borderRadius: "999px",
                 padding: "3px 8px",
+                flexWrap: "wrap",
               }}
             >
               <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
-                Last reviewed
+                Reviewed
               </span>
               {dim.lastUpdated}
+              {meta.nextUpdate && (
+                <>
+                  <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
+                  <span style={{ textTransform: "uppercase", letterSpacing: "0.35px", color: "#5a7a9b" }}>
+                    Next
+                  </span>
+                  <span style={{ color: "#5a7a9b" }}>{meta.nextUpdate}</span>
+                </>
+              )}
             </div>
           )}
         </div>
@@ -466,12 +590,121 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
       {isExpanded && (
         <div
           onClick={(e) => e.stopPropagation()}
+          className="dim-drawer"
           style={{
             marginTop: "16px",
             borderTop: "1px solid #eee",
-            paddingTop: "12px",
+            paddingTop: "0",
           }}
         >
+          {/* MED2: Sticky in-drawer header so title stays visible on scroll */}
+          <div
+            className="dim-drawer-sticky-head"
+            style={{
+              position: "sticky",
+              top: 0,
+              zIndex: 10,
+              background: "inherit",
+              padding: "10px 0 8px",
+              marginBottom: "4px",
+              borderBottom: "1px solid #eee",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "8px",
+            }}
+          >
+            <span
+              style={{
+                fontWeight: 700,
+                fontSize: "14px",
+                color: "#1a1a1a",
+                lineHeight: 1.3,
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                flex: 1,
+              }}
+            >
+              {dim.name}
+            </span>
+            {!isTracker && (
+              <GradeChip grade={dim.grade} />
+            )}
+            {/* MED3: Close button — visible on mobile full-screen, subtle on desktop */}
+            <button
+              type="button"
+              className="dim-drawer-close"
+              onClick={(e) => { e.stopPropagation(); onClick?.(); }}
+              aria-label="Close details"
+              style={{
+                background: "none",
+                border: "1px solid #d0d0d0",
+                borderRadius: "6px",
+                padding: "4px 8px",
+                cursor: "pointer",
+                fontSize: "13px",
+                fontWeight: 700,
+                color: "#555",
+                fontFamily: "inherit",
+                lineHeight: 1,
+                flexShrink: 0,
+              }}
+            >
+              × Close
+            </button>
+          </div>
+
+          {/* MED4: Sticky mini-nav for the 5 Skeptic Path anchors (non-tracker only) */}
+          {!isTracker && (
+            <div
+              className="dim-mini-nav"
+              style={{
+                position: "sticky",
+                top: "62px",
+                zIndex: 9,
+                background: "#f0f4ff",
+                borderRadius: "6px",
+                padding: "6px 10px",
+                marginBottom: "12px",
+                display: "flex",
+                gap: "6px",
+                flexWrap: "wrap",
+                alignItems: "center",
+                fontSize: "12px",
+                fontWeight: 700,
+                borderBottom: "1px solid #d8e3ff",
+              }}
+            >
+              <span style={{ color: "#5c6bc0", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.4px", marginRight: "2px" }}>Jump:</span>
+              {[
+                { label: "Rule", anchor: `dim-${dim.id}-scoring` },
+                { label: "Triggers", anchor: `dim-${dim.id}-triggers-section` },
+                { label: "Evidence", anchor: `dim-${dim.id}-metrics` },
+                { label: "Sources", anchor: `dim-${dim.id}-sources` },
+                { label: "Views", anchor: `dim-${dim.id}-perspectives-section` },
+              ].map(({ label, anchor }) => (
+                <a
+                  key={anchor}
+                  href={`#${anchor}`}
+                  onClick={(e) => { e.stopPropagation(); }}
+                  style={{
+                    color: "#3949ab",
+                    textDecoration: "none",
+                    padding: "2px 7px",
+                    borderRadius: "4px",
+                    background: "#fff",
+                    border: "1px solid #c5cae9",
+                    whiteSpace: "nowrap",
+                    lineHeight: 1.5,
+                  }}
+                >
+                  {label}
+                </a>
+              ))}
+            </div>
+          )}
+
           {!isTracker && (
             <div
               style={{
@@ -1047,9 +1280,14 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                               color: "#1565c0",
                               textDecoration: "none",
                               fontWeight: 600,
+                              display: "inline-flex",
+                              alignItems: "center",
+                              gap: "3px",
                             }}
                           >
-                            Source: {sourceRef.label} &rarr;
+                            Source: {sourceRef.label}
+                            <SourceTierBadge url={sourceRef.url} />
+                            <span aria-hidden="true" style={{ fontSize: "11px", opacity: 0.7 }}>↗</span>
                           </a>
                         ))}
                       </div>
@@ -1156,9 +1394,9 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
             </div>
           )}
 
-          {/* Source Links */}
+          {/* Source Links — QW2 ↗ icon + target=_blank, MED1 tier badges, MED6 chips summary, QW10 download JSON */}
           {dim.sources && dim.sources.length > 0 && (
-            <div id={`dim-${dim.id}-sources`} style={{ scrollMarginTop: "80px" }}>
+            <div id={`dim-${dim.id}-sources`} style={{ scrollMarginTop: "80px", marginBottom: "14px" }}>
               <div
                 style={{
                   fontSize: "14px",
@@ -1167,9 +1405,41 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                   textTransform: "uppercase",
                   letterSpacing: "0.5px",
                   marginBottom: "6px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: "6px",
                 }}
               >
-                Sources
+                <span>Sources ({dim.sources.length})</span>
+                {/* MED6: tier summary chips — counts extracted for linter cleanliness (P3) */}
+                {(() => {
+                  const tierCounts = {
+                    t1: dim.sources.filter((s) => getSourceTier(s.url) === 1).length,
+                    t2: dim.sources.filter((s) => getSourceTier(s.url) === 2).length,
+                    t3: dim.sources.filter((s) => getSourceTier(s.url) === 3).length,
+                  };
+                  return (
+                    <span style={{ display: "inline-flex", gap: "4px", flexWrap: "wrap", alignItems: "center" }}>
+                      {tierCounts.t1 > 0 && (
+                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#e3f2fd", color: "#0d47a1", border: "1px solid #90caf9" }}>
+                          {tierCounts.t1} Tier-1
+                        </span>
+                      )}
+                      {tierCounts.t2 > 0 && (
+                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#f3e5f5", color: "#4a148c", border: "1px solid #ce93d8" }}>
+                          {tierCounts.t2} Tier-2
+                        </span>
+                      )}
+                      {tierCounts.t3 > 0 && (
+                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#fafafa", color: "#555", border: "1px solid #ccc" }}>
+                          {tierCounts.t3} other
+                        </span>
+                      )}
+                    </span>
+                  );
+                })()}
               </div>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
                 {dim.sources.map((s, i) => (
@@ -1187,11 +1457,39 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                       padding: "3px 8px",
                       borderRadius: "4px",
                       lineHeight: 1.4,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "4px",
                     }}
                   >
-                    {s.label} &rarr;
+                    {s.label}
+                    <SourceTierBadge url={s.url} />
+                    {/* QW2: external link icon */}
+                    <span aria-hidden="true" style={{ fontSize: "12px", opacity: 0.7 }}>↗</span>
                   </a>
                 ))}
+              </div>
+              {/* QW10: Download JSON link in drawer footer */}
+              <div style={{ marginTop: "10px" }}>
+                <a
+                  href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify({ id: dim.id, name: dim.name, grade: dim.grade, sources: dim.sources, metrics: dim.metrics || [], lastUpdated: dim.lastUpdated }, null, 2))}`}
+                  download={`${dim.id}-sources.json`}
+                  onClick={(e) => e.stopPropagation()}
+                  style={{
+                    fontSize: "12px",
+                    color: "#555",
+                    textDecoration: "none",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "4px",
+                    padding: "3px 8px",
+                    borderRadius: "4px",
+                    border: "1px solid #d9d9d9",
+                    background: "#fafafa",
+                  }}
+                >
+                  ⤓ Download sources as JSON
+                </a>
               </div>
             </div>
           )}

@@ -211,6 +211,7 @@ const METRIC_LABEL_TO_FAMILY = {
   legisinfo: 5,
   cci: 7,
   cfib: 11,
+  chba: 11,
   iisd: 7,
   "policy-options": 7,
   dalhousie: 9,

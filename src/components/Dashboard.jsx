@@ -17,7 +17,6 @@ import PromiseTracker from "./PromiseTracker";
 import Methodology from "./Methodology";
 import About from "./About";
 import EmailSignup from "./EmailSignup";
-import VisitorCount from "./VisitorCount";
 
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
@@ -111,6 +110,18 @@ export default function Dashboard() {
     };
   }, [pendingScrollTarget, view]);
 
+  // P2c: Lock body scroll on mobile when a drawer is open so the background
+  // page does not scroll behind the fixed full-screen drawer.
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      document.body.style.overflow = expanded !== null ? "hidden" : "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [expanded]);
+
   const handleToggleDerivation = (variant) => {
     setDerivationOpen((curr) => (curr === variant ? null : variant));
   };
@@ -155,7 +166,7 @@ export default function Dashboard() {
   const tabs = [
     { key: "scorecard", label: "Scorecard" },
     { key: "promises", label: "Promises" },
-    { key: "changelog", label: "Change Log" },
+    { key: "changelog", label: "Changes" },
     { key: "methodology", label: "Rubric" },
     { key: "about", label: "About" },
   ];
@@ -206,7 +217,6 @@ export default function Dashboard() {
       >
         Skip to main content
       </a>
-      <VisitorCount />
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
         <div
@@ -336,6 +346,19 @@ export default function Dashboard() {
 
       {/* Scoreboard header: overall grades + promise count + approval signal card */}
       <div id="main-content" tabIndex={-1} />
+      {/* QW4: one-sentence orientation headline above the scoreboard */}
+      <p
+        style={{
+          textAlign: "center",
+          fontSize: "16px",
+          color: "#555",
+          lineHeight: 1.5,
+          marginBottom: "16px",
+          fontWeight: 500,
+        }}
+      >
+        An evidence-based scorecard grading Carney’s federal government on 11 policy files — open any card to see the rule, sources, and reasoning.
+      </p>
       <div id="scoreboard-row">
       <ScoreboardHeader
         overallGrade={gpaToGrade(parseFloat(overallGPA))}
