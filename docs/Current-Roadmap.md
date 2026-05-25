@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-05-13
+**Last updated:** 2026-05-25
 
 ---
 
@@ -36,6 +36,16 @@
 - Dimension cards show grade, rationale, scope, metrics, perspectives, and sources on expansion; confidence / attribution / lag metadata lives in dimensions.json and docs but is no longer rendered as on-card pills (pills were removed 2026-04-19 as not self-explanatory to general readers).
 - Promise Tracker link coverage is now close to complete: all 43 tracked promises have original-source links, and 40 of 43 have status-evidence links. The three remaining status-link gaps are Foreign Policy Review, Red Tape Review, and Carbon Border Adjustment Mechanism, where no clean status document has surfaced yet.
 - Consistency self-audit is now active in [Consistency-Self-Audit-2026-05.md](Consistency-Self-Audit-2026-05.md); current outliers are tracked as structural exceptions rather than hidden drift.
+- Bias-resistance audit infrastructure is live. `scripts/audit-bias-resistance.mjs` runs against the live `dimensions.json` and reports source-family distribution, trigger symmetry, and grade-moving evidence balance across all 11 graded dimensions. Baseline as of v5.66: 6 dimensions flagged for documented methodology patterns. The audit-script taxonomy now recognizes 11 source families including industry/sector associations and the financial-institution-research family that is provisionally in family 9 pending a June family-12 split decision.
+- Per-criterion operationalization landed for Economic Policy Response (5 core levers enumerated with announced/authorized/executing status), Ethics & Transparency (5 disclosure-machinery components with present-if-X criteria), and Flagship Delivery (full Combination Rule arithmetic published in `gradeBasis`). The dimension drawer renders all three as expandable details sections.
+- Cross-ideological challenge sources are now threaded into specific metric chains and grade triggers for Climate & Environment (Fraser EV-mandate critique, MLI energy-superpower gap, CER Energy Future 2023, OAG 2025 GHG-emissions audit), Affordability Response (Fraser GST critique, CFIB, Retail Council of Canada, Food Banks Canada Hunger Count, Conference Board / Signal49), Economic Policy Response (CSLS Canadian Productivity Review, Conference Board / Signal49), Housing Supply (CHBA Q1 2026 HMI, Scotiabank Economics), Ethics & Transparency (Transparency International Canada, Democracy Watch, House ETHI Report 5), and Immigration (Macdonald-Laurier Institute, Maytree). All threading uses exact publication URLs.
+- AI verification methodology is documented in [AI-Verification-Methodology.md](AI-Verification-Methodology.md). Three-model panel approach (one each from different model families), verbatim-quote anti-confabulation rule, convergence cuts (3-of-3 = real signal, 2-of-3 = candidate, 1-of-3 = artifact). The May 2026 panel runs (LaunchSims, Grok, Comet R1, Perplexity, Comet R2) are captured in their respective `docs/*-Review-*.md` files.
+- Frozen-surface protection. `src/utils.js` opens with a FROZEN SURFACE comment block naming the four protected functions and the test-update protocol. `scripts/test-gpa-frozen-surface.mjs` runs 56 assertions across 9 test groups and is wired into `npm run test:data` and the prebuild. `scripts/validate-dimensions.mjs` imports `POCKETBOOK_DIMS` from a single source of truth and now warns on malformed `metric.sourceRefs`, `gradeTriggers.additionalSources`, and the `gradeBasis` operationalization structured fields. `eslint.config.js` warns on inline hex color literals in components.
+- About page now opens with named editor disclosure (Chris Sawatsky, Calgary consultant), political affiliation, professional conflicts, funding, AI-assistance disclosure, and recusal policy. The "what this does not grade" list explicitly names Indigenous reconciliation, healthcare federal-provincial transfers, public-sector bargaining, pre-designation pipeline announcements, foreign policy beyond defence/trade, and specific defence procurement contracts, each with a published rationale for exclusion. Past Versions surface points readers to the Change Log, GitHub commit history, the data folder at any commit, and per-cycle closure memos.
+- Bundle generator (`npm run bundle`) builds a single-file 2.2 MB markdown bundle of every git-tracked text file in the repo for handing to external AI reviewers. Output writes to `tmp/perplexity-bundle.md` plus copies to `~/Downloads` and `~/Desktop`. The Claude Code `/bundle` slash command wraps this.
+- Repo-local Agent Skills for source workflows are live in `.claude/skills/`: `source-addition`, `source-audit`, `grade-evaluation`, `monthly-cycle`, `bias-resistance-check`, `scope-guard` (explicit-invocation only). Plus the Nate-inspired AI workflow layer: `project-room` (with the four-artifact discipline: source inventory table, conflict log, missing context list, duplicates report) and `ai-question-method`. The scope-guard runs against `origin/main...HEAD` for push-bound commits.
+- Perplexity / Comet / Claude Desktop MCP integration is shipped. The wrapper script `scripts/start-perplexity-filesystem-mcp.sh` pins `@modelcontextprotocol/server-filesystem@2026.1.14` and supports direct, read-only-snapshot, HTTP, SSE, and tunnel modes. Connector JSON templates use a `<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>` placeholder and the working `.mcp/*.json` files are gitignored. Setup is documented in [Perplexity-MCP-Setup.md](Perplexity-MCP-Setup.md).
+- May source-health recertification (v5.70) refreshed broken source URLs across the Signal49, IRCC Open Data, Maytree, The Narwhal, and ECCC climate-promise entries. June carry-forward freshness candidates logged in [Source-Recertification-2026-05-25.md](Source-Recertification-2026-05-25.md): April 2026 Food CPI, Q1 2026 population data, April 2026 housing starts, March 2026 trade data, PBO fuel-excise-tax note, new approval polling releases.
 
 ---
 
@@ -104,7 +114,7 @@
 
 ## Now
 
-May source refresh, manual grade-review resolution, and source-coverage hygiene are complete. The next live-dashboard work is inter-rater pilot recruitment, unless a fresh source trigger appears before the reviewer is found.
+Dashboard sits at v5.70 with the May source-health recertification complete and the next cycle scheduled for 2026-06-14. The bias-resistance audit baseline is 6 flagged dimensions and stable. Live work is in a between-cycles state: June cycle work is queued but not started, and inter-rater pilot recruitment is still the largest disclosure gap on About.
 
 ---
 
@@ -112,10 +122,26 @@ May source refresh, manual grade-review resolution, and source-coverage hygiene 
 
 These are on deck awaiting their triggers.
 
-1. Inter-rater pilot launch
-   Use the prepared May 2026 packet. Optional first step is a Claude / AI packet-QA pass for leakage, completeness, and confusing wording; it must not count as the reliability test. The first real pilot result should come from a human rater using the redacted packet without opening the live dashboard.
+1. June 2026 monthly cycle (2026-06-14)
+   First explicit task is the source-to-trigger pass for the six deferred trigger evaluations carried forward from May, per [Source-To-Trigger-Audit-2026-05.md](Source-To-Trigger-Audit-2026-05.md):
+   - Defence & Trade: 3.5% funded defence pathway after the 2026-03-26 NATO 2% confirmation
+   - Affordability Response: gas tax suspension (2026-04-14) vs the $500/household up-trigger threshold
+   - Housing Supply: Canada-Ontario Housing Partnership (2026-03-30) vs the 5%-of-shortfall up-trigger
+   - Climate & Environment: event-driven sources untouched since the 2026-04-19 D+ to D move (ECCC announcements, Climate Institute publications, Paris Agreement status)
+   - Carbon Pricing Policy: CCI industrial pricing + ECCC OBPS sources untouched in May
+   - Immigration: temporary-resident share vs the 5% target up-trigger (StatCan Q1 / Q2 2026 population)
+   Source-coverage freshness candidates from the May recertification are also picked up here (April CPI, Q1 2026 population, April starts, March trade, PBO fuel-excise note, new polling).
 
-2. Next-cycle readiness pass
+2. Promise Delivery cleanup
+   Three confirmed 404 source URLs (Narwhal climate rollback, ECCC emissions cap framework, ECCC clean vehicles) need replacement or archive.org fallbacks. Three promise entries are still missing `statusSourceUrl`: Foreign Policy Review, Red Tape Review, Carbon Border Adjustment Mechanism. The May ledger documented 11 stalled / abandoned promise statuses as "not checked" in the recurring source checklist; quarterly recertification of that cohort runs in June.
+
+3. Inter-rater pilot launch
+   Use the prepared May 2026 packet. Optional first step is a Claude / AI packet-QA pass for leakage, completeness, and confusing wording; it must not count as the reliability test. The first real pilot result should come from a human rater using the redacted packet without opening the live dashboard. This remains the single largest disclosure gap on the live About page.
+
+4. Source-band ceiling decisions
+   Economic Policy Response, Affordability Response, Climate & Environment, and Housing Supply are all at 10 sources (CLAUDE.md ceiling). Adding the deferred candidates (Pembina for Climate, Business Council for Economic Policy, Smart Prosperity / National Bank for Housing) requires either a trim-before-add or an explicit relaxation of the ceiling rule. June should make that call.
+
+5. Next-cycle readiness pass
    Focus on operational discipline, not redesign:
    - Economic Policy Response: no movement on announcements alone
    - Affordability Response: scope boundary holds
@@ -123,6 +149,9 @@ These are on deck awaiting their triggers.
    - Housing Supply: announced != started != completed
    - Major Projects: credit-claiming penalty remains explicit
    This item is cycle-triggered — runs when the next monthly update is being assembled.
+
+6. Roadmap and parking lot reconciliation
+   This roadmap was 12 days stale before the 2026-05-25 refresh. Drift like that should be caught earlier. Future cycles should refresh the roadmap as the last step of the cycle, not the first step of the next one.
 ---
 
 ## Later
