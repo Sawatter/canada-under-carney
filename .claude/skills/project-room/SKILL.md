@@ -57,14 +57,30 @@ Common source-of-truth files:
 - external-AI handoff: relevant docs, recent commits, and the exact files the
   other AI can inspect
 
-### Step 3 - Inventory before synthesis
-Before writing conclusions, produce a short inventory:
-- files read
-- files not read and why
-- stale or superseded docs found
-- missing context or unknowns
-- claims that need citation or code verification
-- boundaries: what not to change
+### Step 3 - Produce the four artifacts
+Before any synthesis or deliverable, produce these four named artifacts.
+They are separate outputs, not one combined inventory. Together they make
+the agent's judgment legible so the editor can correct it before downstream
+work inherits hidden assumptions.
+
+1. **Source inventory table.** One row per file in scope. Columns: path,
+   type, date, apparent authority, current vs superseded, what claims it
+   supports, limitations, how to use. For Carney work, "authority" follows
+   docs/Source-Authority-Map.md tiering (T1 official, T2 independent
+   analysis, T3 reporting, T4 advocacy, T5 commentary).
+2. **Conflict log.** Disagreements between sources. Surface them, do not
+   smooth them. For each: which sources disagree, what they disagree on,
+   recommended response (which is authoritative or whether the editor
+   decides). For Carney work, party-symmetry check applies when the
+   conflict relates to a grade-moving claim.
+3. **Missing context list.** What is referenced but not in scope. PBO
+   reports cited but not pulled, metrics with no current data point,
+   triggers with stale source URLs. The missing material is often more
+   important than the present material.
+4. **Duplicates report.** Likely duplicate or near-duplicate files or
+   source URLs, with a confidence rating (high / medium / low) and a
+   version-family guess. Do not silently resolve. The editor decides
+   which is canonical.
 
 ### Step 4 - Output the room
 Return a compact room brief:
@@ -75,9 +91,24 @@ Return a compact room brief:
 - Dirty files:
 - Relevant recent changes:
 
-## Source Of Truth
-- Primary:
-- Secondary:
+## Source Inventory
+| Path | Type | Date | Authority | Current/Superseded | Supports | Limitations | Usage |
+|---|---|---|---|---|---|---|---|
+| ... | ... | ... | ... | ... | ... | ... | ... |
+
+## Conflict Log
+- Conflict: [what disagrees]
+  - Source A says: ...
+  - Source B says: ...
+  - Recommended response: [authoritative call OR escalate to editor]
+
+## Missing Context
+- [what's referenced or implied but not in scope]
+
+## Duplicates Report
+- [file A] ≈ [file B] (confidence: high/medium/low)
+  - Likely version family: ...
+  - Recommended canonical: ... (or "editor decides")
 
 ## Open Questions
 - ...
@@ -91,9 +122,19 @@ Return a compact room brief:
 ```
 
 ## Rules
-- Do not make edits during the room-building pass unless the user explicitly
-  asked for implementation in the same turn.
-- Do not treat external-AI feedback as fact until checked against source files.
-- If the task is simple and already scoped, skip the full room and state why.
-- If the task will create a handoff prompt, include exactly which file or bundle
-  the other AI should read.
+- The first instruction is never "write the deliverable" (grade move,
+  source addition, changelog entry, methodology change). It is "find the
+  materials, inventory them, surface conflicts and gaps." Do not produce
+  the deliverable in the first pass.
+- If you find duplicates or near-duplicates (sources, metric entries,
+  trigger sources), list them with confidence scores. Do not silently
+  resolve them. The editor decides which is canonical.
+- Do not make grade, threshold, or frozen-surface edits during the
+  room-building pass under any circumstances. The CLAUDE.md frozen-surface
+  rule applies first.
+- Do not treat external-AI feedback as fact until checked against source
+  files.
+- If the task is simple and already scoped, skip the full room and state
+  why.
+- If the task will create a handoff prompt, include exactly which file or
+  bundle the other AI should read.
