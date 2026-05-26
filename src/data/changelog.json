@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.73",
+    "summary": "Four deep-dive evaluation memos close the remaining May carry-forward items: Climate ECCC plan read (up-trigger 1 arguably fires; budget not restored), Carbon Pricing effective-price prep ($110 headline confirmed; CCI EMCP $130 benchmark identified), Immigration TR-share check (trajectory on track but Q1 2026 data not yet published), Defence funded-pathway memo (commitment + plan + costing all present; methodology call recommended). Zero grade changes.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Climate ECCC plan read closed",
+        "body": "Worked the highest-priority June carry-forward. Q1: ECCC budget NOT restored (837 FTE reduction projected by 2028-29; 2026-27 total $1.71B). Q2: Climate Competitiveness Strategy IS the named replacement framework with funded measures (over $2B critical minerals, 15% Clean Electricity ITC, 30% Clean Tech Manufacturing ITC expanded, methane regulations Dec 2025, federal benchmark review Dec 2025, sustainable investment taxonomy targeted for 2026). Up-trigger 1 arguably fires under literal trigger-text read; does not fire under stringent gap-closure read. Editor methodology call required. Q3: oil-and-gas cap is scrapped (not suspended) per Carney-Smith MOU; metric language update queued for June. Doc at docs/Climate-ECCC-Plan-Read-2026-05-25.md."
+      },
+      {
+        "type": "method",
+        "headline": "Carbon Pricing effective-price prep documented",
+        "body": "OBPS headline charge confirmed at $110/t CAD for 2026. CCI's Effective Marginal Credit Price benchmark identified at $130 as the most defensible reference for 'effective price' interpretation. Federal benchmark review in progress (Dec 19, 2025 discussion paper closed Jan 30, 2026; updated benchmark expected later in 2026). Down-direction signals: none — government is strengthening industrial pricing, opposite direction from down-triggers. Three interpretations of 'effective price' laid out (headline / CCI EMCP / system-wide net of free allocation) with recommended editor read of Interpretation B (CCI EMCP). Doc at docs/Carbon-Pricing-Effective-Price-Prep-2026-05-25.md."
+      },
+      {
+        "type": "method",
+        "headline": "Immigration TR-share trajectory check filed",
+        "body": "Q1 2026 StatCan data NOT yet published (expected mid-June to mid-July 2026). Most recent confirmed reading: Jan 1, 2026 reference date = 6.4% TR share, down from 7.3% Jul 1, 2025 and 6.8% Oct 1, 2025. Trajectory consistently downward at ~0.4 pp/quarter. Linear extrapolation puts TR share below 5% by Q4 2026 reference date. Up-trigger NOT FIRED yet — requires actually reaching 5%, not just trending toward it. Likely to fire mid-to-late 2026. Doc at docs/Immigration-TR-Share-Check-2026-05-25.md."
+      },
+      {
+        "type": "method",
+        "headline": "Defence funded-pathway methodology memo filed",
+        "body": "All three elements that could support 'funded pathway' are present and on the public record: (a) Hague Summit Declaration June 25, 2025 commitment to 3.5% core + 1.5% security-related by 2035; (b) NATO-binding requirement to file annual plans showing credible incremental path; (c) PBO independent costing at $159B by 2035 (~$33.5B/year incremental). Two interpretations laid out: A (commitment + plan + costing = fires); B (requires legislated multi-year budget = does not fire). Interpretation A recommended with party-symmetry rationale. Mixed-construct caveat: split-shadow tripwire check required in June. Doc at docs/Defence-Funded-Pathway-Memo-2026-05-25.md."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.72",
     "summary": "Editor-disclosure redaction: removed editor name and city from the About page and supporting docs per editor preference; updated editor-role description to 'independent business and operations consultant'. All other disclosure bullets (political affiliation, professional conflicts, funding, AI assistance, recusal policy) retained. Also fixed an unintentional absolute-path leak in a closure memo.",
     "items": [
