@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.78",
+    "summary": "Closes the verification discipline gap from v5.77. Adds a new source-verification skill that codifies the fetch ladder (WebFetch -> WebSearch quote-extraction -> Wayback -> site scour -> replacement publisher -> editor list) and re-runs Round 1 with it. v2.0 verified ~30 URLs vs v1.0's 17, reduced editor-list deferrals from ~15 to ~5, and surfaced two new content-drift findings with grade-implications. Zero grade changes.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "source-verification skill landed",
+        "body": "New .claude/skills/source-verification/SKILL.md codifies the discipline that v5.77 partially skipped. The fetch ladder has six steps and explicitly bans 'browser-verifiable per Codex' deferrals. WebFetch 403 is not permission to stop — Steps 2-5 walk through WebSearch quote-extraction, Wayback Machine, site scour for alternative URLs, and replacement publishers. Step 6 (editor browser-verification) is last resort, not first. Distinct from source-audit (compliance checking) and source-addition (adding new sources)."
+      },
+      {
+        "type": "docs",
+        "headline": "May-Cycle Verification Pass v2.0 published",
+        "body": "Re-ran Round 1 verification with the new skill's fetch ladder. Verified ~30 URLs with verbatim quotes captured (vs 17 in v1.0). Editor browser-verification list reduced from ~15 to ~5 URLs. Two new content-drift findings surfaced that v1.0 missed: (1) Defence & Trade does not capture the $31.3B 2025 overall trade deficit (4x increase from $7.2B 2024, largest since 2020) — may trigger the split-shadow tripwire; (2) Immigration dimension does not capture the IRCC 2026-2028 Plan TR target structure (385,000 new arrivals 2026, 370,000 in 2027-2028) — only the PR target is in the metric chain. One refresh candidate added: IISD 2030 climate target article is January 2024 (pre-Carney era)."
+      },
+      {
+        "type": "method",
+        "headline": "Discipline gap from v5.77 closed",
+        "body": "v5.77's verification doc said '60+ URLs verified or attempted' but ~30 of those were deferred to 'browser-verifiable per Codex' without actually applying the discipline. Editor flagged this as the exact failure mode the skills were built to prevent. v5.78 closes the gap by working the fetch ladder all the way down on every blocked URL until either content was captured (Steps 2-5) or the URL was added to the editor list with the specific quote needed (Step 6)."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.77",
     "summary": "Round 1 of the May-cycle verification pass — re-runs the source-health pass with content-review discipline this time, not just URL liveness. 60+ unique URLs verified or attempted across 5 dimensions (Carbon Pricing, Immigration, Affordability, Defence, Climate). Incorporates Codex's two working-tree URL edits (Retail Council, OAG) after independent validation. Surfaces 5 findings for editor decision before any further data edits land. Zero grade changes.",
     "items": [

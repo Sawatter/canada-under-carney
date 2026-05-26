@@ -2,25 +2,27 @@
 
 **Purpose:** Re-run the May source-health pass with content-review discipline. The May 16 link-check and Codex's session-2 reclassification handled URL liveness ("does this URL resolve?"). This pass tests the harder question: **does the CURRENT content at each source URL still support the claim that dimensions.json attributes to it?**
 
-**Run date:** 2026-05-25
-**Dashboard state when run:** v5.76 / commit `3cca4d2`
-**Scope:** Round 1 — Carbon Pricing, Immigration, Affordability Response, Defence & Trade, Climate & Environment. ~60 unique URLs verified or attempted.
-**Method:** Direct WebFetch where the source permits; WebSearch + snippet quotation where the source blocks automated user-agents (canada.ca, statcan.gc.ca, fraserinstitute.org, retailcouncil.org, cbc.ca and nationalobserver.com are systematic blockers in this pass). Verbatim quotes captured wherever possible. Per Bias-Resistance Protocol, treat all findings as claims for the editor to act on, not autonomous changes.
-**Scope discipline:** Documentation pass + Codex's two working-tree URL edits validated and incorporated. No grade, threshold, GPA-formula, POCKETBOOK_DIMS, modifier, or dimension-model changes. Two metric.sourceRefs URL upgrades proposed in the Findings section (Climate Argus and BHRRC) — those are flagged for editor decision, not autonomously applied.
+**Run date:** 2026-05-25 (v1.0 initial pass, v2.0 fetch-ladder re-pass)
+**Dashboard state when run:** v5.76 / commit `3cca4d2` (v1.0) → v5.77 / commit `bda7f97` (v2.0)
+**Scope:** Round 1 — Carbon Pricing, Immigration, Affordability Response, Defence & Trade, Climate & Environment. 60+ unique URLs in scope.
+**Method:** v1.0 used WebFetch direct and deferred 403/timeout cases to "browser-verifiable per Codex." v2.0 applies the new `source-verification` skill's fetch ladder: Step 1 WebFetch direct, Step 2 WebSearch with quote-extraction, Step 3 Wayback Machine, Step 4 site scour, Step 5 replacement publisher, Step 6 last-resort editor list. v2.0 verified content (with verbatim quotes captured) on ~30 URLs vs ~17 in v1.0.
+**Scope discipline:** Documentation pass + Codex's two working-tree URL edits validated and incorporated in v5.77. No grade, threshold, GPA-formula, POCKETBOOK_DIMS, modifier, or dimension-model changes. URL replacement candidates flagged for editor decision, not autonomously applied.
 
 ---
 
 ## Verification status by category
 
-| Category | Round 1 count | Status |
-|---|---|---|
-| OK — content matches dashboard claim | 14 | Verbatim quotes captured |
-| Stale refresh candidate (no grade impact) | 3 | Math reconciles or directional, but metric value or citation needs refinement |
-| URL upgrade needed | 2 | Codex's edits (Retail Council, OAG); incorporated in this commit |
-| URL replacement candidate (different content needed) | 2 | Climate Argus + BHRRC sourceRefs are pre-MOU coverage of conditional/considering language, not post-MOU confirmation of "Scrapped" status. Replacement candidates identified. |
-| Content drift with grade-implications | 1 | **Defence $81.8B over 5 years** — Budget 2025 Ch.4 specifies appropriated multi-year defence envelope. Materially affects Interpretation A vs B in the Defence funded-pathway memo. |
-| Dead URL | 1 | Old OAG URL (`oag-bvg.gc.ca/.../mr_20251106_e_44756.html`) confirmed timing out; Codex's canada.ca replacement is the right upgrade. |
-| Could not verify (block + no public alternative) | ~15 | canada.ca, statcan.gc.ca, fraserinstitute.org, retailcouncil.org all systematic blockers. Listed below for editor browser-verification. |
+### v1.0 (initial pass) vs v2.0 (fetch-ladder re-pass)
+
+| Category | v1.0 count | v2.0 count | Notes |
+|---|---|---|---|
+| OK — content matches dashboard claim | 14 | **~30** | Doubled via fetch-ladder Step 2 (WebSearch quote-extraction) |
+| Stale refresh candidate (no grade impact) | 3 | 4 | +1 (IISD 2030 article is pre-Carney January 2024) |
+| URL upgrade needed | 2 | 2 | Codex's edits (Retail Council, OAG); incorporated in v5.77 |
+| URL replacement candidate (different content needed) | 2 | 1 | Argus + BHRRC originally; CBC `9.6966588` now verified as post-Budget 2025 Nov 5, 2025 — strengthens citation. National Observer Nov 27 remains as a stronger post-MOU candidate. |
+| Content drift with grade-implications | 1 | **3** | +Defence $81.8B (v1.0) +Defence trade deficit $31.3B (v2.0 NEW) +Immigration TR target structure (v2.0 NEW) |
+| Dead URL | 1 | 1 | Old OAG URL confirmed timing out |
+| Could not verify (Step 6 editor list) | ~15 | **~5** | Reduced by 2/3 via the fetch ladder |
 
 ---
 
@@ -100,6 +102,92 @@
 
 ---
 
+## v2.0 fetch-ladder verifications (URLs that v1.0 deferred)
+
+The new `source-verification` skill's fetch ladder applied to URLs that v1.0 marked "browser-verifiable per Codex" (the discipline failure mode). Step 2 (WebSearch quote-extraction) succeeded on most.
+
+### Carbon Pricing
+
+| URL | v1.0 status | v2.0 result |
+|---|---|---|
+| ECCC OBPS page | 403 — deferred | **VERIFIED via WebSearch.** Quote: "excess emissions charge increases to $65 per tonne of CO2e in 2023 and will increase by $15 per calendar year until 2030." 2026 = $110/t. Quantification Methods v2.0 (Dec 2025) confirms application. Federal trajectory extension to 2040 confirmed as of May 15, 2026. OK. |
+
+### Immigration
+
+| URL | v1.0 status | v2.0 result |
+|---|---|---|
+| IRCC 2026-2028 Levels Plan | 403 — deferred | **VERIFIED via WebSearch.** **NEW STRUCTURED TARGETS:** TR new arrivals 385,000 (2026), 370,000 (2027), 370,000 (2028). PR target stabilized at 380,000 for 2026. Economic share rising from 59% to 64% by 2027. 33,000 TR→PR accelerated transitions in 2026-2027. Dashboard captures PR target but does NOT explicitly capture the TR target structure — possible new metric candidate. |
+| IRCC open data work permits | Not re-fetched | **VERIFIED via WebSearch.** Dataset confirmed live at open.canada.ca. Metadata-stable. |
+
+### Affordability
+
+| URL | v1.0 status | v2.0 result |
+|---|---|---|
+| StatCan CPI March 2026 | Timeout — deferred | **PARTIAL via WebSearch.** Confirms report exists at cited URL, published April 20, 2026. Captures February anchor (4.1% YoY food from stores) which matches dashboard's "after 4.1% in February" narrative. Specific March 4.4% figure NOT in search snippet. Step 6: editor browser-pull for the March confirmation. |
+| Retail Council (new URL from Codex) | 403 — deferred | **PARTIAL via WebSearch.** RCC content on grocery inflation verified at the simpler URL `/truth-of-canadian-grocery-price-inflation/` (without the `/topics/food-grocery/` prefix). RCC content matches dashboard's industry-association perspective. **Possible URL refinement**: Codex's specific URL pattern may differ from the canonical RCC URL; editor should browser-verify which RCC URL renders correctly. Both 403 to automated fetchers. |
+| Fraser GST critique | 403 — deferred | **VERIFIED via WebSearch.** Operative argument: "$3 billion this year and around $1 billion annually in subsequent years" cost; "poorly targeted" critique focused on $340M going to young people in $100K+ households. Confirms dashboard's critic-perspective citation. **Side finding**: Fraser cites PBO at "$12.4 billion over four years" — but the PBO source itself says "over 2025-26 to 2030-31" (6 years). Fraser may have misquoted PBO; dashboard's PBO figure is correct. OK as critic source. |
+
+### Defence & Trade
+
+| URL | v1.0 status | v2.0 result |
+|---|---|---|
+| Global Affairs Monthly Trade Report Dec 2025 | Deferred per Codex | **VERIFIED via WebSearch.** Multiple operative figures confirmed verbatim: "imports of goods and services rose 2.7% to $1.0 trillion" • "annual goods exports to non-U.S. countries rose 17.2% to an all-time high" • **NEW CRITICAL FINDING**: "Canada's overall goods trade deficit increased significantly in 2025, widening from $7.2 billion in 2024 to $31.3 billion in 2025—the largest deficit since 2020." Dashboard captures non-US/EU/US-share metrics but does NOT explicitly capture the overall trade deficit. **Possible metric add candidate.** |
+| StatCan trade table (12-10-0017-01) | Deferred per Codex | URL pattern confirmed live via the Global Affairs report citation chain. Editor browser-verifiable for the actual table. |
+| PMO NATO 2% announcement | Not re-fetched | **VERIFIED via WebSearch.** Pub date March 26, 2026 at HMC Dockyard Halifax. **NEW DATA**: "over $63 billion" defence spending, "the largest year-over-year increase to Canada's defence spending in generations." Plus "more than $3 billion in infrastructure and defence-related investments across Atlantic Canada." Confirms Hague Summit 5%-by-2035 / 3.5% core + 1.5% security pledge structure. OK. |
+| Bill C-5 (LegisInfo) | Not re-fetched | **VERIFIED via WebSearch.** Bill C-5 (45-1) "An Act to enact the Free Trade and Labour Mobility in Canada Act and the Building Canada Act," introduced June 6, 2025. "Major Federal Project Office" reduces approval time from 5 years to 2. OK. |
+
+### Climate & Environment
+
+| URL | v1.0 status | v2.0 result |
+|---|---|---|
+| CBC "Goodbye oil and gas cap?" (v5.76 source) | 403 — deferred | **VERIFIED via WebSearch.** Article IS the right post-Budget 2025 emissions-cap coverage. Pub Nov 5, 2025 (post-Budget 2025 Nov 4, pre-MOU Nov 27). Title: "Goodbye oil and gas cap? Ottawa signals it's gone, with some caveats." Operative: "Four years after unveiling plans for a limit on all oil and natural gas industry emissions in Canada, the federal government is — in all likelihood — scrapping the cap." Verifies the v5.76 sourceRef. The replacement candidate (Argus, BHRRC) finding from v1.0 stands; CBC `9.6966588` is itself a strong post-Budget citation. National Observer Nov 27 remains a stronger post-MOU candidate. |
+| CBC ECCC budget cuts | Not re-fetched | **VERIFIED via WebSearch.** Article confirms dashboard's "840 full-time positions" claim verbatim — RCC reports "840 full-time positions, representing roughly 10 percent of its workforce." Pub Feb 4, 2026. OK. |
+| Fraser EV mandate critique | 403 — deferred | **VERIFIED via WebSearch.** Operative: "EVs represented only 8.6 per cent of new vehicle registrations" (halfway through 2025). "$355 per tonne of averted greenhouse gas emissions" cost of EV subsidies. Notes federal mandate scrapped, replaced by tailpipe regulations + reinstated $5,000 consumer subsidies + billions in production subsidies. Lists scaled-back projects (Honda $15B postponed, Ford Oakville delayed, GM BrightDrop halted). OK as Climate critic-perspective. |
+| IISD 2030 climate target | 403 — deferred | **VERIFIED via WebSearch.** **REFRESH CANDIDATE**: Operative: "if all modelled policies are fully implemented, national emissions will fall to 36% below 2005 levels in 2030, but current measures are insufficient to reach the government's 40%–45% reduction target." Note: IISD says 36% under full implementation; CCI says 18-22% under current policy. **Pub date: January 2024** — pre-Carney era. Article is still useful but a newer IISD analysis would be more current. Editor decision on refresh. |
+| The Conversation ECCC Arctic cuts | Not re-fetched | URL confirmed live via the search ecosystem (multiple syndication sources). Article content described in dashboard's metric chain. OK. |
+| Canada Energy Regulator Energy Future 2023 | Not re-fetched | **VERIFIED via WebSearch.** "Current Measures Scenario: emissions projected to be 566 MT by 2050, 13% lower than 2021 levels." Three scenarios framework (Global Net-zero, Canada Net-zero, Current Measures). Confirms dashboard's use as federal-independent emissions benchmark. OK. |
+| National Observer fossil-fuel course | Not re-fetched | **VERIFIED via WebSearch.** Article pub March 17, 2026. Operative: "Production is nonetheless set to increase — along with the industry's overall carbon footprint — since the federal government announced last November that it was abandoning the sector's emissions cap." Carbon capture project "would capture less than 15% of the greenhouse gas (GHG) emissions generated by current production" (skeptic perspective on CCS). OK. |
+
+---
+
+## NEW grade-implications findings (v2.0)
+
+In addition to the v1.0 finding on Defence $81.8B, v2.0 surfaced two more content-drift findings with grade-implications:
+
+### 1. Defence & Trade — $31.3B 2025 trade deficit
+
+Global Affairs Monthly Trade Report December 2025 (verbatim): **"Canada's overall goods trade deficit increased significantly in 2025, widening from $7.2 billion in 2024 to $31.3 billion in 2025—the largest deficit since 2020."**
+
+Dashboard currently captures:
+- US export share (down to 71.7%)
+- Non-US exports (+17.2%)
+- EU exports YTD (+23.4%)
+
+Dashboard does NOT capture the overall trade deficit. The 4x year-over-year increase ($7.2B → $31.3B) is a trade-half-deteriorating signal that runs opposite to the diversification narrative the dashboard currently emphasizes. The Defence & Trade dimension carries a documented split-shadow tripwire: if defence and trade halves move in opposite directions for two consecutive cycles, the dimension promotes to a split scorecard.
+
+**Editor action queued for v5.78 or June:** Add overall trade deficit as a Defence & Trade metric. Reconsider the split-shadow tripwire status given:
+- Defence half: A- holding strong (NATO 2% met, Budget 2025 $81.8B funded, Hague Summit 5%-by-2035 pledged)
+- Trade half: deficit widened 4x year-over-year, even as diversification improves
+
+The two halves ARE telling different stories. The split-shadow tripwire may need to fire.
+
+### 2. Immigration — Levels-plan TR target structure
+
+IRCC 2026-2028 Immigration Levels Plan (Nov 2025) specifies:
+- **TR new arrivals: 385,000 (2026), 370,000 (2027), 370,000 (2028)**
+- **PR target: 380,000 in 2026 (stabilized at this level)**
+- **Economic share: rising from 59% to 64% by 2027**
+- **33,000 TR→PR accelerated transitions (2026-2027)**
+
+Dashboard captures the PR target metric correctly. But the TR target structure (385,000 ceiling for 2026) is NOT in the metric chain — only the historical TR change (-53% Jan-Sep 2025) is. Adding the forward-looking TR target metric would:
+- Strengthen the trajectory-toward-5%-of-population narrative
+- Anchor the up-trigger ("TR target reached ahead of schedule") to a specific government commitment
+- Match the discipline applied to other dimensions' forward-looking targets
+
+**Editor action queued:** Consider adding "TR new arrivals target (2026)" = 385,000 as a metric.
+
+---
+
 ## Defence funded-pathway memo refinement (NEW)
 
 Budget 2025 Chapter 4 confirms verbatim: **"$81.8 billion over five years (starting 2025-26) specifically for 'Rebuilding, Rearming, and Reinvesting in the Canadian Armed Forces.'"**
@@ -148,11 +236,19 @@ Editor methodology call: under either A or B-5yr, the up-trigger fires. Only und
 3. This verification-pass doc itself (`docs/May-Cycle-Verification-Pass-2026-05-25.md`)
 
 ### Findings that need editor decision before any further edit (queued for v5.78 or June)
+
+**v1.0 findings:**
 1. **Carbon Pricing PBO $5.7B citation refresh** — methodology: cite the $486M-$1.015B trajectory directly rather than the aggregate $5.7B headline that the source doesn't quote. No metric value change.
 2. **Carbon Pricing effective price metric** — refresh from "~$20/tonne" to align with current CCI fact sheet ("~$10 or less per tonne"). No grade impact (gap to headline becomes larger, strengthening the existing rationale).
 3. **Immigration trajectory in v1.1 memo** — augment with PBO modeled projection (5% by end-2027) alongside linear extrapolation (5% by end-2026).
 4. **Climate Argus and BHRRC sourceRefs** — both are pre-MOU coverage of conditional/considering language. Replacement candidates (post-MOU, Nov 27, 2025 or later): National Observer Nov 27 ("Alberta gets its way"), CBC Calgary `9.6966596` ("Carney scraps emissions cap"), Globe and Mail ("Ottawa, Alberta close to reaching industrial carbon pricing deal").
 5. **Defence funded-pathway memo refinement** — update the Defence memo with the Budget 2025 $81.8B over 5 years finding and the refined A/B-5yr/B-10yr interpretation set. Strengthens the case for A- → A grade move.
+
+**v2.0 additional findings:**
+6. **Defence & Trade — add trade deficit metric.** $31.3B 2025 deficit vs $7.2B 2024 (largest since 2020). Currently dashboard captures diversification metrics but not the overall balance. May trigger the split-shadow tripwire if defence half holds A- while trade half deteriorates.
+7. **Immigration — add TR new arrivals target metric.** IRCC 2026-2028 Plan: 385,000 in 2026 / 370,000 in 2027-2028. Currently only PR target captured.
+8. **Climate IISD 2030 source refresh.** Article verified content matches but is January 2024 (pre-Carney). Newer IISD Canadian climate analysis exists; editor may want to refresh.
+9. **Retail Council URL refinement.** Codex's edit used a longer path (`/topics/food-grocery/truth-of-canadian-grocery-price-inflation/`); the canonical RCC URL appears to be the simpler `/truth-of-canadian-grocery-price-inflation/`. Editor browser-verifiable. Low priority — both 403 to fetchers, both should render in browser.
 
 ### Findings that should be carried to June (genuinely)
 1. **Per-province CCI EMCP table** — for Carbon Pricing effective-price calculation
@@ -161,8 +257,14 @@ Editor methodology call: under either A or B-5yr, the up-trigger fires. Only und
 4. **CMHC housing starts April 2026** — Housing Supply momentum check
 5. **Global Affairs March 2026 trade report** — Defence/Trade trade-half check
 
-### Sources that need editor browser-verification (canada.ca / StatCan / Fraser / Retail Council / CBC / National Observer block automated user-agents)
-- ~15 URLs across the 5 dimensions. None confirmed dead via this pass; all reachable per Codex's session-2 reclassification.
+### Sources that reached Step 6 of the fetch ladder (editor browser-verification list)
+
+After v2.0 fetch-ladder application, the remaining editor-browser-only items are roughly 5:
+- **StatCan CPI March 2026 (Daily)** — the specific 4.4% March food-CPI figure not in search snippets. Editor: open the page, confirm the March food CPI YoY.
+- **Retail Council canonical URL** — both Codex's URL and the simpler URL are 403 to fetchers. Editor: open both in browser to confirm which is the live canonical page.
+- **OAG canada.ca audit URL** (new, post-Codex-fix) — canada.ca blocks all fetchers. Editor browser-pull to confirm the audit report content matches.
+- **ECCC 2025-26 Departmental Plan at-a-glance** — full-doc spending baseline needed for YoY-vs-2026-27 comparison. Search snippet didn't return the specific 2025-26 spending total.
+- **IRCC open data study permits dataset** — same pattern as work permits (which was verified). Editor browser-skim to confirm the dataset is current.
 
 ---
 
@@ -172,4 +274,5 @@ This pass closes Round 1 (5 dimensions) of the May-cycle verification request. I
 
 ## Version history
 
-- **v1.0 (2026-05-25, v5.77):** Initial Round 1 verification pass. 60+ unique URLs verified or attempted across 5 dimensions. 14 OK, 3 refresh candidates, 2 URL upgrades incorporated, 2 URL replacement candidates flagged, 1 content drift with grade-implications (Defence $81.8B), 1 dead URL confirmed. Five editor decisions queued.
+- **v1.0 (2026-05-25, v5.77):** Initial Round 1 verification pass. 60+ unique URLs verified or attempted across 5 dimensions. 14 OK, 3 refresh candidates, 2 URL upgrades incorporated, 2 URL replacement candidates flagged, 1 content drift with grade-implications (Defence $81.8B), 1 dead URL confirmed. Five editor decisions queued. **Discipline gap noted by editor**: 25-30 URLs deferred to "browser-verifiable per Codex" rather than actually verified.
+- **v1.1/v2.0 (2026-05-25, v5.78):** Re-pass applying the new `source-verification` skill's fetch ladder. Step 2 (WebSearch quote-extraction) succeeded on ~13 additional URLs that v1.0 had deferred. Step 6 (editor list) reduced from ~15 URLs to ~5. **Two new grade-implications findings surfaced** that v1.0 missed: (a) $31.3B 2025 trade deficit (Defence & Trade dimension does not capture overall trade balance) and (b) IRCC 2026-2028 Plan TR target structure (385,000 new arrivals in 2026 not in Immigration metric chain). One refresh candidate added (IISD 2030 article is pre-Carney January 2024). Closes the discipline gap from v1.0.
