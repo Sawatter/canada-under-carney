@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.77",
+    "summary": "Round 1 of the May-cycle verification pass — re-runs the source-health pass with content-review discipline this time, not just URL liveness. 60+ unique URLs verified or attempted across 5 dimensions (Carbon Pricing, Immigration, Affordability, Defence, Climate). Incorporates Codex's two working-tree URL edits (Retail Council, OAG) after independent validation. Surfaces 5 findings for editor decision before any further data edits land. Zero grade changes.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "May-Cycle Verification Pass v1.0 published",
+        "body": "docs/May-Cycle-Verification-Pass-2026-05-25.md captures per-URL verification results across 5 dimensions: 14 OK with verbatim quotes, 3 refresh candidates (Carbon Pricing PBO $5.7B citation methodology, Carbon Pricing $20 vs $10 effective-price update, Immigration linear-vs-PBO trajectory), 2 URL upgrades incorporated, 2 URL replacement candidates flagged (Climate Argus and BHRRC are pre-MOU), 1 content drift with grade-implications (Defence $81.8B), 1 dead URL confirmed (old OAG URL). Five editor decisions queued for v5.78 or June."
+      },
+      {
+        "type": "fix",
+        "headline": "Retail Council URL upgrade incorporated (Codex)",
+        "body": "Affordability Response 'Retail Council of Canada — grocery and food' source URL upgraded from /community/grocery/ to /topics/food-grocery/truth-of-canadian-grocery-price-inflation/. New URL is more topic-specific and matches the citation context. Originally proposed by Codex review pass; independently validated in this verification pass."
+      },
+      {
+        "type": "fix",
+        "headline": "OAG URL upgrade incorporated (Codex)",
+        "body": "Climate & Environment Office of the Auditor General URL upgraded from the timing-out oag-bvg.gc.ca news-release short-link to the canada.ca audit-report topic anchor (https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html). Fix applied in two locations: dimension sources[] and the ECCC budget cuts metric.sourceRefs[]. Originally proposed by Codex review pass; old URL timeout confirmed in this verification pass; new URL pattern is the canonical canada.ca durable anchor."
+      },
+      {
+        "type": "method",
+        "headline": "Content-review discipline applied for the first time at this scale",
+        "body": "Codex's May 24 review and the May 16 link-check both established URL-liveness baselines. This pass adds the content-review layer: for each cited URL, does the CURRENT page still support the claim that dimensions.json attributes to it? 14 sources verified verbatim. Several findings (Defence $81.8B Budget 2025 envelope, PBO immigration projection methodology, CCI effective-price update) are content drift that the URL-only passes did not catch. Demonstrates that source-health and content-grade-implications review are separate disciplines requiring separate passes."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.76",
     "summary": "Add inline sourceRefs to the OBPS headline, OBPS effective-price, and Emissions cap metrics so the verifying URLs are one-click obvious from the metric rather than buried in the dimension's Sources section. Closes editor concern flagged after v5.75 shipped the $110/t and 'Scrapped' updates.",
     "items": [
