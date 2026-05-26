@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.76",
+    "summary": "Add inline sourceRefs to the OBPS headline, OBPS effective-price, and Emissions cap metrics so the verifying URLs are one-click obvious from the metric rather than buried in the dimension's Sources section. Closes editor concern flagged after v5.75 shipped the $110/t and 'Scrapped' updates.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "OBPS headline metric: $110 source now one-click verifiable",
+        "body": "Industrial OBPS (headline schedule) metric in Carbon Pricing now carries explicit sourceRefs to Canada.ca OBPS page ('CAD 110 per tonne for the 2026 compliance period') and ICAP Canada Federal OBPS ETS factsheet. sourceNote updated to reference these inline citations. Reader can verify $110/t in one click from the dimension drawer."
+      },
+      {
+        "type": "fix",
+        "headline": "OBPS effective-price metric: CCI sources now inline",
+        "body": "Industrial OBPS (effective market price) metric now carries explicit sourceRefs to CCI's January 2026 'Outcomes Not Optics' report and CCI's industrial carbon pricing fact sheet. Closes the gap where the ~$20/t effective number relied on the dimension-level CCI source key alone."
+      },
+      {
+        "type": "fix",
+        "headline": "Emissions cap metric: Carney–Smith MOU evidence now inline",
+        "body": "Climate 'Emissions cap' metric (Scrapped) now carries explicit sourceRefs to Argus, CBC, and Business and Human Rights Resource Centre reporting on the November 2025 Carney–Smith MOU. Reader can verify the 'Scrapped' status in one click without leaving the metric block."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.75",
     "summary": "Metric data freshness refresh based on today's verified evidence. OBPS headline metric updated from $95 (2025) to $110 (2026) per Canada.ca + ICAP. Emissions cap metric updated from 'Suspended' to 'Scrapped' per Carney-Smith MOU (Nov 27, 2025) and confirmed by Argus, CBC, Business and Human Rights Resource Centre. Zero grade or threshold changes.",
     "items": [

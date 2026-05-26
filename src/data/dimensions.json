@@ -1749,13 +1749,33 @@
         "label": "Industrial OBPS (headline schedule)",
         "value": "$110/tonne (2026)",
         "source": "eccc",
-        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $110/tCO2e in 2026 (up from $95 in 2025), increasing $15/yr to $170 by 2030. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures — dashboard shows the headline rate; rationale discusses the gap.",
+        "sourceRefs": [
+          {
+            "label": "Canada.ca — OBPS excess emissions charge page",
+            "url": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
+          },
+          {
+            "label": "ICAP — Canada Federal OBPS ETS factsheet",
+            "url": "https://icapcarbonaction.com/en/ets/canada-federal-output-based-pricing-system"
+          }
+        ],
+        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $110/tCO2e in 2026 (up from $95 in 2025), increasing $15/yr to $170 by 2030. Confirmed directly by Canada.ca OBPS page (\"CAD 110 per tonne for the 2026 compliance period\") and ICAP factsheet. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures — dashboard shows the headline rate; rationale discusses the gap.",
         "automatable": false
       },
       {
         "label": "Industrial OBPS (effective market price)",
         "value": "~$20/tonne",
         "source": "cci",
+        "sourceRefs": [
+          {
+            "label": "CCI — Outcomes Not Optics (Jan 2026)",
+            "url": "https://climateinstitute.ca/wp-content/uploads/2026/01/Canadian-Climate-Institute-Outcomes-Not-Optics-Canadian-carbon-markets-need-bold-reform-to-be-effective.pdf"
+          },
+          {
+            "label": "CCI — Fact Sheet: Industrial carbon pricing in Canada",
+            "url": "https://climateinstitute.ca/news/fact-sheet-canada-industrial-carbon-pricing-systems/"
+          }
+        ],
         "sourceNote": "CCI and IISD both note that credit oversupply can pull the effective compliance price to roughly $20/tonne, far below the $110/t 2026 headline schedule. Effective rate is the live price signal faced by industry; headline rate is the nominal design schedule. CCI's January 2026 'Outcomes Not Optics' report identifies an Effective Marginal Credit Price target of $130/t as the stringency benchmark; current per-province EMCP table to be pulled in June cycle.",
         "automatable": false
       },
@@ -1983,9 +2003,21 @@
           {
             "label": "Canada Energy Regulator - Canada's Energy Future 2023",
             "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/"
+          },
+          {
+            "label": "Argus — Canada set to scrap oil and gas emissions cap",
+            "url": "https://www.argusmedia.com/en/news-and-insights/latest-market-news/2750001-canada-set-to-scrap-oil-and-gas-emissions-cap"
+          },
+          {
+            "label": "CBC — Goodbye oil and gas cap?",
+            "url": "https://www.cbc.ca/news/politics/oil-and-gas-cap-budget-9.6966588"
+          },
+          {
+            "label": "Business and Human Rights Resource Centre — federal government considers scrapping emissions cap",
+            "url": "https://www.business-humanrights.org/en/latest-news/canada-federal-government-considers-scrapping-emissions-cap-on-the-oil-and-gas-sector-as-part-of-climate-competitiveness-strategy/"
           }
         ],
-        "sourceNote": "Emissions cap scrapped via the Carney–Smith MOU (Nov 27, 2025); the government concluded that 'effective' carbon pricing, enhanced methane regulations, and CCS deployment would make the cap 'no longer required.' Status confirmed by Argus, CBC, and Business and Human Rights Resource Centre. PM acknowledged 2030 and 2035 targets will be missed. CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework all stand. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
+        "sourceNote": "Emissions cap scrapped via the Carney–Smith MOU (Nov 27, 2025); the government concluded that 'effective' carbon pricing, enhanced methane regulations, and CCS deployment would make the cap 'no longer required.' Status confirmed by Argus, CBC, and Business and Human Rights Resource Centre (URLs in sourceRefs above). PM acknowledged 2030 and 2035 targets will be missed. CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework all stand. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
         "automatable": false
       },
       {
