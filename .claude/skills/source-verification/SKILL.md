@@ -38,6 +38,15 @@ discipline this skill enforces is:
   `grade-evaluation`. This skill stops at "current content vs current claim";
   it does not move grades.
 
+## Citation vs verification
+
+Wayback is a verification tool only. Do not cite Wayback URLs in dimensions.json.
+If the live publisher URL still exists but blocks automated fetchers, keep the
+live publisher URL as the citation and use Wayback only to confirm what the
+publisher page said. If the live URL is genuinely dead or moved, search the
+publisher site for the relocated live URL before considering a replacement
+source.
+
 ## The fetch ladder
 
 For every URL in scope, work down this ladder until you have content or you
@@ -59,8 +68,9 @@ WebSearch summarizes the live page content; capture the operative quote.
 This is the single highest-leverage workaround for canada.ca/StatCan
 blocking.
 
-### Step 3 — Wayback Machine
-For URLs that fail both Step 1 and Step 2, try the Wayback Machine pattern:
+### Step 3 — Wayback Machine (verification only, not citation)
+For URLs that fail both Step 1 and Step 2, try the Wayback Machine pattern
+**to verify content only**:
 
 > `https://web.archive.org/web/<YYYY>*/<original-url>`
 
@@ -71,6 +81,11 @@ Or, if the timestamp is unknown, the bare:
 Wayback typically bypasses live-site blocking because it serves cached
 snapshots. Note: Wayback content may be old; pick the snapshot date closest
 to when the dashboard's claim was added.
+
+**Critical:** Wayback URLs are read-only verification. They do not become the
+citation in dimensions.json. If the live publisher URL still exists (even if
+it blocks automated fetchers), the live publisher URL stays as the citation.
+Wayback only confirms what that page said.
 
 ### Step 4 — Site scour for alternative URL
 If steps 1-3 fail, search the source's own site for the article supporting
@@ -84,10 +99,18 @@ the same claim under a different URL pattern. Example:
 Don't replace silently. Surface both URLs and recommend the swap.
 
 ### Step 5 — Replacement source from a different publisher
-If the original publisher's content is genuinely unreachable AND the claim
-is load-bearing, find a different publisher whose article supports the same
+Only reach this step if the live URL is **genuinely dead or moved AND** the
+publisher's own site does not host the relocated article under any URL
+pattern (Step 4 exhausted). "Blocked-but-live" is not "unreachable" — for
+those, the citation stays on the original publisher and verification uses
+Steps 2-3.
+
+If the original publisher's content is genuinely removed AND the claim is
+load-bearing, find a different publisher whose article supports the same
 specific claim. Verify the replacement's authority tier matches or exceeds
-the original's per `docs/Source-Authority-Map.md`.
+the original's per `docs/Source-Authority-Map.md`. Note: replacing a T1
+official primary (canada.ca, statcan.gc.ca) with a T3 reporting source
+weakens source authority and should be a last resort.
 
 ### Step 6 — Last-resort editor verification list
 Only after steps 1-5 have all failed for a specific URL, add it to the
@@ -155,6 +178,11 @@ with:
   previous cycle).
 - **No silent URL replacements.** Every URL change must appear in the
   verification doc with the reason and the verbatim content comparison.
+- **No Wayback URLs in dimensions.json.** Wayback is a verification tool,
+  not a citation surface. If the live publisher URL still exists (even
+  blocking fetchers), keep the live URL as the citation. If the live URL
+  is genuinely dead, search the publisher's own site for the relocated
+  article before considering a different-publisher replacement.
 - **No grade moves during a verification pass.** This skill stops at
   content-vs-claim. Grade decisions go through `grade-evaluation` with
   party-symmetry check.

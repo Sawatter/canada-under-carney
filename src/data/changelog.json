@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.79",
+    "summary": "Fix to the source-verification skill: Wayback is a verification tool only, not a citation surface. Editor caught that v5.78 conflated 'fetch a snapshot' with 'cite a snapshot' and that 'blocked-but-live' should not trigger a different-publisher replacement.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "source-verification skill: Wayback clarified, replacement-source threshold tightened",
+        "body": "Added a new 'Citation vs verification' section to .claude/skills/source-verification/SKILL.md with the editor-verbatim wording: Wayback is a verification tool only; do not cite Wayback URLs in dimensions.json; if the live publisher URL still exists but blocks fetchers, keep the live URL as the citation; if the URL is genuinely dead, search the publisher site for the relocated live URL before considering replacement. Step 3 (Wayback) reworded to make read-only verification explicit. Step 5 (replacement publisher) reworded to clarify 'blocked-but-live is not unreachable' and that replacing T1 with T3 weakens source authority. New rule added to the Rules section."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.78",
     "summary": "Closes the verification discipline gap from v5.77. Adds a new source-verification skill that codifies the fetch ladder (WebFetch -> WebSearch quote-extraction -> Wayback -> site scour -> replacement publisher -> editor list) and re-runs Round 1 with it. v2.0 verified ~30 URLs vs v1.0's 17, reduced editor-list deferrals from ~15 to ~5, and surfaced two new content-drift findings with grade-implications. Zero grade changes.",
     "items": [
