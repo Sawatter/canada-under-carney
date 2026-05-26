@@ -11,7 +11,7 @@
 
 ## The triggers being evaluated
 
-From `dimensions.json` for `carbon-pricing-policy`:
+From `dimensions.json` for `carbon-pricing` (dimension `id`, not `carbon-pricing-policy` — that was an error in the v5.73 draft caught by Codex review):
 
 **Up-triggers:**
 1. "OBPS tightened with effective price rising above $40/t"
@@ -29,8 +29,9 @@ Current grade: **C**.
 
 ### Headline vs effective price
 
-- **OBPS excess emissions charge (2026):** **$110/tonne CAD.** This is the headline charge facilities pay for emissions above their compliance limit. ICAP and ECCC both confirm this figure.
-- **Federal trajectory:** Carbon price set to increase $15/tonne annually, settling at $170/tonne in 2030 under Budget 2025 framing. As of May 15, 2026, the federal government is extending the headline trajectory to 2040 for long-term decarbonization certainty.
+- **OBPS excess emissions charge (2026):** **$110/tonne CAD.** This is the headline charge facilities pay for emissions above their compliance limit. Confirmed by [Canada.ca OBPS page](https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html) ("the 2026 compliance period under the federal Output-Based Pricing System (OBPS), facilities can make an excess emissions charge payment to the government at CAD 110 per tonne") and by [ICAP ETS factsheet](https://icapcarbonaction.com/system/files/ets_pdfs/icap-etsmap-factsheet-135.pdf).
+- **Federal trajectory:** Carbon price set to increase $15/tonne annually from $65 in 2023 — so $80 (2024), $95 (2025), **$110 (2026)**, $125 (2027), $140 (2028), $155 (2029), $170 (2030). As of May 15, 2026, the federal government is extending the headline trajectory to 2040 for long-term decarbonization certainty.
+- **Note on dashboard data freshness:** `dimensions.json` currently shows the OBPS headline metric as `$95/tonne` with a sourceNote referencing "$95/tCO2e in 2025." This is the 2025 figure; the 2026 figure is $110. This is a metric-staleness issue caught in Codex review and should be updated in the June cycle. It does not change the analysis below: under any interpretation, the headline number is well above the $40 up-trigger and the $15 down-trigger floor.
 - **Free allocation mechanism:** Under OBPS, facilities that emit **less than** their emissions limit receive surplus credits (compliance units) for free, equal to the tCO₂e they're below the limit. Facilities above their limit pay the headline charge on the difference.
 
 **This is the math behind "effective price":** Free allocation means most facility emissions are not facing the headline charge directly — only the marginal tonne above the benchmark is. So the **effective price** (averaged across all covered emissions) is materially lower than the $110 headline.
@@ -80,7 +81,7 @@ The trigger text reads: "OBPS tightened **with effective price rising above $40/
 
 - **Up-trigger 1 ("effective price above $40/t"):** **DEPENDS ON METHODOLOGY CALL.** Likely FIRES under Interpretation A or B-aspirational (CCI's $130 target). May or may not fire under Interpretation B-actual or C.
 - **Up-trigger 2 ("CBAM with implementation plan"):** **NOT FIRED.** No carbon border adjustment mechanism has been formally announced in Canada. Federal benchmark review explicitly addresses domestic stringency, not borders.
-- **Down-trigger 1 ("effective price below $15/t"):** **NOT FIRED** under any interpretation. Headline is $110; even the most aggressive free-allocation netting does not get below $15 on a system-wide basis.
+- **Down-trigger 1 ("effective price below $15/t"):** **No evidence found that effective price is below $15/t under any interpretation.** Headline is $110, and even the most aggressive free-allocation netting under Interpretation C is unlikely to drive system-wide effective price that low. Confirming this rigorously would require a per-province EMCP table from CCI; absence of evidence here is not formal proof, but no published source contradicts the headline > $15 floor.
 - **Down-trigger 2 ("government announces intention to eliminate industrial pricing"):** **NOT FIRED — and trending opposite.** The federal benchmark review and Climate Competitiveness Strategy are explicit strengthening exercises. The dashboard should record this as a clear "not fired, negative-direction" finding.
 
 ---
@@ -108,6 +109,7 @@ Carbon Pricing Policy is currently **C**.
 3. **Add the CCI January 2026 report** as a `gradeTriggers.up[].additionalSources` entry on the Carbon Pricing dimension to give the trigger an externally-defensible source.
 4. **Add the December 2025 federal benchmark discussion paper** as a Carbon Pricing dimension source. Currently not cited.
 5. **Watch for the federal benchmark update** (expected later in 2026). When published, re-evaluate the trigger.
+6. **Update the OBPS headline metric in `dimensions.json`** from `$95/tonne` (2025 value) to `$110/tonne` (2026 value). Refresh the sourceNote to reflect the 2026 reference year. This is a data-freshness fix, not a methodology change.
 
 ---
 
@@ -130,3 +132,4 @@ This prep closes carry-forward item #3 from `docs/Source-To-Trigger-Pass-2026-05
 ## Version history
 
 - **v1.0 (2026-05-25, v5.73):** Initial prep doc. Headline OBPS charge confirmed at $110/t. CCI EMCP benchmark of $130 identified as the most defensible "effective price" reference. Trigger outcome depends on editor methodology call. Zero grade changes.
+- **v1.1 (2026-05-25, v5.74):** Per Codex review: corrected dimension ID reference from `carbon-pricing-policy` to `carbon-pricing` (the actual id in dimensions.json). Added explicit Canada.ca + ICAP citations defending the $110 figure (Codex initially flagged this as wrong against the stale `$95` in dimensions.json metric; web-search confirmed $110 is correct for 2026 and dimensions.json is the stale source). Added carry-forward item to refresh dimensions.json OBPS headline metric from $95 to $110. Softened "NOT FIRED under any interpretation" on down-trigger 1 to "no evidence found below $15/t" per Codex discipline note. Zero grade changes.

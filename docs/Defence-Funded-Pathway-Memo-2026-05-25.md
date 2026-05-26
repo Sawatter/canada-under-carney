@@ -37,9 +37,12 @@ Current grade: **A-** (mixed-construct dimension — defence milestone + trade o
 
 ### 3. Independent fiscal costing (PBO)
 
-- **PBO costing:** [Meeting NATO's 5% target would require $159 billion in core defence spending by 2035](https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/meeting-natos-5-target-would-require-159-billion-in-core-defence-spending-by-2035-says-pbo-lobjectif-de-5-fixe-par-lotan-necessiterait-159-milliards-de-dollars-en-depenses-militaires-de-base-dici-2035-selon-le-dpb).
-- Cumulative additional cash expenditure required: **~$33.5B/year** average above current baseline.
-- The PBO costing is independent, public, and operationally specific.
+- **PBO costing:** [Meeting NATO's 5% target would require $159 billion in core defence spending by 2035](https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/meeting-natos-5-target-would-require-159-billion-in-core-defence-spending-by-2035-says-pbo-lobjectif-de-5-fixe-par-lotan-necessiterait-159-milliards-de-dollars-en-depenses-militaires-de-base-dici-2035-selon-le-dpb) and the underlying report [Fiscal Implications of Meeting NATO's 5% Commitment (RP-2526-022-S)](https://www.pbo-dpb.ca/en/publications/RP-2526-022-S--fiscal-implications-meeting-nato-5-commitment--repercussions-financieres-atteinte-cible-5-otan).
+- **$159B = annual core defence spending in 2035-36 (the level, not cumulative).** This is what Canada would spend on core defence in that single fiscal year, on a cash basis, under the PBO scenario.
+- **$33.5B/year = average annual additional spending** above the current baseline, over the 2025-2035 ramp-up.
+- **$334B = cumulative additional core defence spending** over the decade ($33.5B × 10).
+- **$63B in 2035-36 = deficit impact** of the 5% pledge in the peak year (1.4 percentage points of GDP). PBO also estimates the federal debt-to-GDP ratio rises by 6.3 percentage points.
+- The PBO costing is independent, public, and operationally specific. Published February 2026.
 
 ---
 
@@ -74,6 +77,8 @@ The up-trigger text says "3.5% defence target gets a **funded pathway**." "Funde
 - **Interpretation A** is consistent with how NATO measures progress against the 5% pledge (commitment + annual planning + monitoring). It is also consistent with how grading systems normally evaluate "funded" — a publicly committed and independently costed plan with a binding mechanism. Most international defence-economics literature uses this reading.
 - **Interpretation B** is the legislative/audit reading. It is stricter and more conservative. It would not be unreasonable in a fiscal-accountability framework. But it sets a bar that no NATO Ally other than perhaps Poland would currently meet, which makes the trigger functionally unfireable until the 2030s, undermining its analytical value.
 - **The dashboard's general posture is "paper-trail evidence."** Interpretation A is supported by paper trail (Declaration text, PBO costing, annual-plan requirement). Interpretation B requires absence of evidence ("no legislated budget") which is harder to verify positively today since the 2026-27 budget cycle hasn't completed.
+
+**Operational definition required either way.** Interpretation A is defensible only if "funded pathway" is read as **commitment + NATO-binding annual plan + PBO-costed trajectory**. If "funded" is read instead as **appropriated multi-year fiscal framework**, Interpretation B is the safer call and the trigger does not fire. The editor must publish whichever operational definition is adopted in `judgmentDetail` so future passes apply the same test consistently.
 
 **Recommended editor methodology call:** Adopt Interpretation A and document the operational definition in `judgmentDetail` on the Defence & Trade dimension. Under Interpretation A, the up-trigger fires.
 
@@ -127,3 +132,4 @@ This memo closes carry-forward item #1 from `docs/Source-To-Trigger-Pass-2026-05
 ## Version history
 
 - **v1.0 (2026-05-25, v5.73):** Initial methodology memo. Three elements present (Hague commitment, NATO-binding annual-plan requirement, PBO $159B costing). Two interpretations laid out: A (commitment + plan + costing = fires); B (requires legislated multi-year budget = does not fire). Recommended A with party-symmetry rationale. Zero grade changes.
+- **v1.1 (2026-05-25, v5.74):** Clarified PBO framing per Codex review: $159B is the 2035-36 ANNUAL core defence spending level (not cumulative); $33.5B/year is the AVERAGE ANNUAL ADDITIONAL spending above baseline (not "cumulative per year" — that was nonsense phrasing); $334B is the cumulative additional over the decade; $63B is the 2035-36 deficit impact in the peak year. Added sentence on operational-definition discipline before the recommended editor call. Zero grade changes.

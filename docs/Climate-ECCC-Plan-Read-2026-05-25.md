@@ -17,9 +17,9 @@
 **Answer: NO. Budget is NOT restored; reductions continue through 2028-29.**
 
 **Evidence:**
-- **2026-27 ECCC planned spending:** $1,711,705,773 (~$1.71B) total (including internal services). Total planned FTEs: 7,868.
+- **2026-27 ECCC planned spending:** $1,711,705,773 (~$1.71B) total (including internal services). Total planned FTEs: 7,868. (Independently verified by Codex review pass 2026-05-25.)
 - **Forward-year FTE trajectory:** "spending reductions will involve a decrease of approximately 837 full-time equivalents by 2028-29" — a continued downward slope, not restoration.
-- **Comparison baseline:** Specific 2025-26 numbers were not retrievable in this pass (the at-a-glance page returned 403). Dashboard's current Climate metric ("ECCC budget cuts (to 2030)") captures the cumulative cut narrative correctly; the 2026-27 plan does not reverse it.
+- **Comparison baseline:** Specific 2025-26 numbers were not retrievable in this pass (the at-a-glance page returned 403 to WebFetch; figures sourced from search snippet and confirmed by Codex independent review). Dashboard's current Climate metric ("ECCC budget cuts (to 2030)") captures the cumulative cut narrative correctly; the 2026-27 plan does not reverse it.
 
 **Sources:**
 - [ECCC 2026-27 Departmental Plan](https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2026-2027.html) — direct fetch returned 403; figures from search snippet
@@ -39,7 +39,7 @@
 - Referenced as a coordinating framework in subsequent federal communications (e.g., the December 2025 [federal benchmark discussion paper](https://www.canada.ca/en/environment-climate-change/corporate/transparency/consultations/comment-driving-effective-carbon-markets/discussion-paper.html) and the [Spring Economic Update 2026 Chapter 1](https://budget.canada.ca/update-miseajour/2026/report-rapport/chap1-en.html)).
 - Climate Action Tracker explicitly notes the Strategy postdates their analysis ("Our analysis was published before the release of Canada's Climate Competitiveness Strategy and the Canada-Alberta Memorandum of Understanding") and remains to be integrated into formal projection assessment.
 
-**Evidence — funded measures attached to the Strategy:**
+**Evidence — funded measures attached to the Strategy (federal cash, tax credits, and regulations):**
 - **Critical Minerals — over $2B over 5 years** through a new Critical Minerals Sovereign Fund, the First and Last Mile Fund, and expanded eligibility for the Critical Mineral Exploration Tax Credit
 - **First and Last Mile Fund — $371.8M over 4 years** starting 2026-27 (already in fiscal pipeline)
 - **15% Clean Electricity Investment Tax Credit** — covers 15% of capital costs for eligible low-emitting generation, storage, and interjurisdictional transmission
@@ -48,7 +48,9 @@
 - **Methane reduction tech funding** — ~$16M
 - **Federal benchmark carbon pricing review** — Dec 19, 2025 discussion paper, Jan 30, 2026 close, updated benchmark expected later in 2026
 - **Sustainable investment taxonomy** — federal-government supported, targeted for 2026 (defines "green" vs "transition" investments)
-- **Catalytic ambition** — Budget 2025 frames the Strategy as catalysing over $1 trillion in investment over 5 years in nuclear, hydro, wind, storage, and grid infrastructure
+
+**Evidence — aspirational / catalytic framing (NOT itself a funded measure):**
+- Budget 2025 frames the Strategy as **catalysing over $1 trillion in investment over 5 years** in nuclear, hydro, wind, storage, and grid infrastructure. This is a leverage ambition for private capital response, **not direct federal funding**, and should not be counted toward the up-trigger's "funded measures" test. It is included here for completeness of the Strategy's framing.
 
 **Evidence — what the Strategy DOES NOT do:**
 - Does NOT restore the consumer carbon price (eliminated April 2025).
@@ -131,3 +133,4 @@ This read closes the highest-priority June carry-forward item from `docs/Source-
 ## Version history
 
 - **v1.0 (2026-05-25, v5.73):** Initial read closing the highest-priority Climate carry-forward. Q1 answered NO (budget not restored). Q2 answered ARGUABLY YES under literal trigger-text read, NOT under stringent gap-closure read — editor methodology call required. Q3 answered SCRAPPED (label update needed in June cycle). Zero grade changes.
+- **v1.1 (2026-05-25, v5.74):** Per Codex review: separated "catalytic / $1T leverage ambition" from "funded measures" — catalytic framing is NOT a funded measure and should not count toward the up-trigger test. Added Codex independent-verification note on the ECCC $1.71B / 7,868 FTE figures (canada.ca returned 403 to WebFetch; figures verified by Codex direct read). Zero grade changes.
