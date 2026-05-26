@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.75",
+    "summary": "Metric data freshness refresh based on today's verified evidence. OBPS headline metric updated from $95 (2025) to $110 (2026) per Canada.ca + ICAP. Emissions cap metric updated from 'Suspended' to 'Scrapped' per Carney-Smith MOU (Nov 27, 2025) and confirmed by Argus, CBC, Business and Human Rights Resource Centre. Zero grade or threshold changes.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Industrial OBPS headline refreshed for 2026",
+        "body": "Carbon Pricing dimension metric 'Industrial OBPS (headline schedule)' updated from $95/tonne to $110/tonne (2026), with metric label clarified to reference the year. Six text locations updated for consistency: metric value, metric sourceNote, effective-price sourceNote, dimension status, dimension rationale, critics perspective. Effective-price sourceNote also references CCI's January 2026 'Outcomes Not Optics' Effective Marginal Credit Price benchmark of $130/t as the per-province table to be pulled in June cycle. carbon-pricing lastUpdated bumped from 2026-04-30 to 2026-05-25."
+      },
+      {
+        "type": "minor",
+        "headline": "Emissions cap metric refreshed: Suspended -> Scrapped",
+        "body": "Climate & Environment dimension metric 'Emissions cap' updated from value 'Suspended' to 'Scrapped' per the Carney-Smith MOU dated 2025-11-27. Status confirmed by Argus, CBC, and Business and Human Rights Resource Centre; the proposed regulations were never finalized and the government concluded the cap was 'no longer required.' Dimension rationale updated to use 'scrapped via the Carney-Smith MOU' wording. promise-delivery tracker evidence text updated to match (status was already 'Abandoned' which is correct). climate-environment and promise-delivery lastUpdated bumped to 2026-05-25."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.74",
     "summary": "Codex review-pass corrections to the four v5.73 deep-dive memos. Three Codex findings accepted (Immigration TR-share rounding, Defence PBO framing, Climate funded-vs-catalytic separation); one Codex finding rejected after independent verification (the 2026 OBPS headline charge IS $110/t per Canada.ca and ICAP, not $95/t — dimensions.json is stale and needs a metric update). Zero grade changes.",
     "items": [

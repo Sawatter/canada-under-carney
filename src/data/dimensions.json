@@ -1639,7 +1639,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $95/t headline but ~$20/t effective. Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
+    "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $110/t 2026 headline but ~$20/t effective. Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
     "judgmentCall": "Middle grade credits the consumer-price promise while discounting the weak effective industrial price.",
     "judgmentDetail": "The C grade separates promise delivery from instrument strength. The consumer charge removal is credited as an executed campaign promise, but the industrial system is discounted because the effective price signal is far below the headline schedule. Judgment enters in treating the pricing instrument as partially intact but not clearly strong enough to merit a higher grade.",
     "surfaceTags": [
@@ -1713,7 +1713,7 @@
         }
       ]
     },
-    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument — the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a delivered Day 1 commitment with documented affordability effects that are graded separately under Affordability Response. Defenders argue the industrial system's preservation is justified on competitiveness grounds. CCI and IISD argue that credit oversupply can pull the effective compliance price far below the $95 headline schedule, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
+    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument — the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a delivered Day 1 commitment with documented affordability effects that are graded separately under Affordability Response. Defenders argue the industrial system's preservation is justified on competitiveness grounds. CCI and IISD argue that credit oversupply can pull the effective compliance price far below the $110 (2026) headline schedule, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
     "sources": [
       {
         "label": "Canada.ca — fuel charge removal",
@@ -1736,7 +1736,7 @@
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-05-25",
     "metrics": [
       {
         "label": "Consumer carbon tax",
@@ -1747,16 +1747,16 @@
       },
       {
         "label": "Industrial OBPS (headline schedule)",
-        "value": "$95/tonne",
+        "value": "$110/tonne (2026)",
         "source": "eccc",
-        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $95/tCO2e in 2025, increasing $15/yr to $170 by 2030. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures — dashboard shows the headline rate; rationale discusses the gap.",
+        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $110/tCO2e in 2026 (up from $95 in 2025), increasing $15/yr to $170 by 2030. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures — dashboard shows the headline rate; rationale discusses the gap.",
         "automatable": false
       },
       {
         "label": "Industrial OBPS (effective market price)",
         "value": "~$20/tonne",
         "source": "cci",
-        "sourceNote": "CCI and IISD both note that credit oversupply can pull the effective compliance price to roughly $20/tonne, far below the $95/t headline schedule. Effective rate is the live price signal faced by industry; headline rate is the nominal design schedule.",
+        "sourceNote": "CCI and IISD both note that credit oversupply can pull the effective compliance price to roughly $20/tonne, far below the $110/t 2026 headline schedule. Effective rate is the live price signal faced by industry; headline rate is the nominal design schedule. CCI's January 2026 'Outcomes Not Optics' report identifies an Effective Marginal Credit Price target of $130/t as the stringency benchmark; current per-province EMCP table to be pulled in June cycle.",
         "automatable": false
       },
       {
@@ -1827,7 +1827,7 @@
       }
     ],
     "perspectives": {
-      "critics": "Canadian Climate Institute: industrial credits trade at ~$20/tonne despite a $95 headline price — the \"preserved\" system is largely performative. NDP: eliminating the consumer rebate hurt low-income households who received more in rebates than they paid in carbon costs.",
+      "critics": "Canadian Climate Institute: industrial credits trade at ~$20/tonne despite a $110 (2026) headline price — the \"preserved\" system is largely performative. NDP: eliminating the consumer rebate hurt low-income households who received more in rebates than they paid in carbon costs.",
       "defenders": "PBO costing notes the consumer charge had a redistributively complex profile after rebate elimination. CCI identifies industrial pricing as the primary emissions-reduction lever, which was preserved. The consumer tax had also become a political liability undermining public support for any climate action. Preserving the industrial system maintains the investment signal for large emitters while removing household burden."
     },
     "tags": {
@@ -1918,7 +1918,7 @@
         }
       ]
     },
-    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was suspended, the EV mandate was scrapped and retooled through tailpipe rules, and the Greener Homes Grant and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
+    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was scrapped via the Carney–Smith MOU (Nov 27, 2025), the EV mandate was scrapped and retooled through tailpipe rules, and the Greener Homes Grant and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
         "label": "CCI — Canada off course",
@@ -1961,11 +1961,11 @@
         "url": "https://www.oag-bvg.gc.ca/internet/English/mr_20251106_e_44756.html"
       }
     ],
-    "lastUpdated": "2026-05-23",
+    "lastUpdated": "2026-05-25",
     "metrics": [
       {
         "label": "Emissions cap",
-        "value": "Suspended",
+        "value": "Scrapped",
         "source": "eccc",
         "sourceRefs": [
           {
@@ -1985,7 +1985,7 @@
             "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/"
           }
         ],
-        "sourceNote": "Emissions cap effectively suspended per PM acknowledgment, CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
+        "sourceNote": "Emissions cap scrapped via the Carney–Smith MOU (Nov 27, 2025); the government concluded that 'effective' carbon pricing, enhanced methane regulations, and CCS deployment would make the cap 'no longer required.' Status confirmed by Argus, CBC, and Business and Human Rights Resource Centre. PM acknowledged 2030 and 2035 targets will be missed. CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework all stand. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
         "automatable": false
       },
       {
@@ -3192,7 +3192,7 @@
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
       }
     ],
-    "lastUpdated": "2026-05-13",
+    "lastUpdated": "2026-05-25",
     "metrics": [
       {
         "label": "Key commitments delivered",
@@ -3300,7 +3300,7 @@
         "text": "Emissions cap",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "Effectively suspended. Guilbeault resigned from cabinet over the pipeline MOU.",
+        "evidence": "Scrapped via the Carney–Smith MOU (Nov 27, 2025); proposed regulations were never finalized and the government concluded the cap was 'no longer required.' Guilbeault resigned from cabinet over the pipeline MOU.",
         "durability": "Commitment",
         "history": [
           {
