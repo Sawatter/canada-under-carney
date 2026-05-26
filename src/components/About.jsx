@@ -53,10 +53,9 @@ export default function About() {
             }}
           >
             <li>
-              <strong>Editor:</strong> Chris Sawatsky, a Calgary-based
-              consultant working on enterprise software implementations and
-              software testing. The dashboard is a personal civic project,
-              not a commercial product.
+              <strong>Editor:</strong> An independent business and
+              operations consultant. The dashboard is a personal civic
+              project, not a commercial product.
             </li>
             <li>
               <strong>Political affiliation:</strong> no current or past

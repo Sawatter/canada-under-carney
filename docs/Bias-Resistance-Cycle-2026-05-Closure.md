@@ -20,7 +20,7 @@ The dashboard does not use git tags; refer to commits by hash. The version field
 
 ```bash
 # Repo state — the 20-commit bias-resistance arc
-cd /Users/chrissawatsky/Downloads/canada-under-carney
+cd <repo-root>
 git log --oneline c35dec6^..e8be26b               # inclusive 20-commit arc (c35dec6 IS included)
 git log --oneline c35dec6^..e8be26b | wc -l       # expect 20
 git show e8be26b --stat                           # see final arc commit's file impact

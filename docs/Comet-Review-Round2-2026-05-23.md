@@ -87,7 +87,7 @@ The v5.58 About boundary statement is "a genuine improvement." From the bundle, 
 
 **4 of 5 Skeptic Path links land cleanly.** Anchor #4 overshoot is the remaining UX bug.
 
-**Editor disclosure:** From the bundle, `src/components/About.jsx`: editor named (Chris Sawatsky, Calgary consultant), political affiliation declared (none), professional conflicts declared (none currently), funding declared (unfunded), AI assistance disclosed. Complete enough for journalism citation. **One refinement worth shipping:** a formal recusal policy commitment (e.g., "dimensions where a conflict emerges will be flagged in the changelog with the nature of the conflict and the editorial response") would close the last gap.
+**Editor disclosure:** From the bundle, `src/components/About.jsx`: editor role declared (independent business and operations consultant), political affiliation declared (none), professional conflicts declared (none currently), funding declared (unfunded), AI assistance disclosed. Complete enough for journalism citation. **One refinement worth shipping:** a formal recusal policy commitment (e.g., "dimensions where a conflict emerges will be flagged in the changelog with the nature of the conflict and the editorial response") would close the last gap.
 
 ## Section 6 — Code Review
 

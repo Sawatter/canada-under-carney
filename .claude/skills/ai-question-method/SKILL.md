@@ -1,7 +1,7 @@
 ---
 name: ai-question-method
 description: |
-  Use this skill when Chris asks for thoughts, judgment, strategy, critique,
+  Use this skill when the editor asks for thoughts, judgment, strategy, critique,
   direction, or help turning a vague concern into a better AI task. Triggers
   on: "thoughts", "does this make sense", "how should we ask", "what should
   we do", "is this biased", "review this feedback", "help me prompt",

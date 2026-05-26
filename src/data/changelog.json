@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-05-25",
+    "version": "5.72",
+    "summary": "Editor-disclosure redaction: removed editor name and city from the About page and supporting docs per editor preference; updated editor-role description to 'independent business and operations consultant'. All other disclosure bullets (political affiliation, professional conflicts, funding, AI assistance, recusal policy) retained. Also fixed an unintentional absolute-path leak in a closure memo.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "About page editor disclosure redacted",
+        "body": "src/components/About.jsx now reads 'An independent business and operations consultant. The dashboard is a personal civic project, not a commercial product.' (was: named editor + city + prior role description). All other disclosure bullets remain. The transparency posture is preserved at the role level; named-editor sourcing was removed at editor request."
+      },
+      {
+        "type": "docs",
+        "headline": "Supporting docs and historical changelog redacted to match",
+        "body": "Removed name + city references from docs/Current-Roadmap.md and docs/Comet-Review-Round2-2026-05-23.md, the v5.55 historical changelog entry (which renders on the live Change Log tab), and a project-local skill file. Historical AI-review file paths and other content untouched."
+      },
+      {
+        "type": "fix",
+        "headline": "Absolute-path leak removed from closure memo",
+        "body": "docs/Bias-Resistance-Cycle-2026-05-Closure.md had a literal '/Users/<name>/Downloads/...' path inside a bash code example. Replaced with '<repo-root>' so the verification snippet remains useful without exposing a local filesystem path."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-25",
     "version": "5.71",
     "summary": "Source-to-trigger pass closes the six May carry-forward trigger evaluations: one arguably fired (needs editor methodology call), three considered and not fired with evidence, two need editor source-read in June. No grade changes.",
     "items": [
@@ -306,7 +328,7 @@
       {
         "type": "product",
         "headline": "Editor and Disclosures section added to About",
-        "body": "The About tab now opens with a named editor disclosure: editor identity (Chris Sawatsky, a Calgary-based enterprise-software consultant), political affiliation (none — no party membership, no campaign donations on file in the coverage period), professional conflicts (no paid consulting with graded entities, no current federal contract), funding (unfunded; Buttondown and GoatCounter paid out of pocket), AI assistance (named tools used for drafting and audits; grading decisions made by the human editor against the published rubric), and corrections process (GitHub issues route to the editor per the published Corrections and Right of Reply policies). Closes the editor-disclosure gap flagged in two-of-two convergence by the Grok (2026-05-17) and Comet (2026-05-23) AI reviews."
+        "body": "The About tab now opens with an editor disclosure: editor role (independent business and operations consultant), political affiliation (none — no party membership, no campaign donations on file in the coverage period), professional conflicts (no paid consulting with graded entities, no current federal contract), funding (unfunded; Buttondown and GoatCounter paid out of pocket), AI assistance (named tools used for drafting and audits; grading decisions made by the human editor against the published rubric), and corrections process (GitHub issues route to the editor per the published Corrections and Right of Reply policies). Closes the editor-disclosure gap flagged in two-of-two convergence by the Grok (2026-05-17) and Comet (2026-05-23) AI reviews."
       },
       {
         "type": "method",

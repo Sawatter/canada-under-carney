@@ -52,7 +52,7 @@ git diff --cached --check
 
 echo
 echo "5. Running staged personal-identifier scan"
-if git diff --cached -G "(chris|sawatsky|calgary|alberta|@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,})" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' > /tmp/cuc-scope-guard-personal.txt; then
+if git diff --cached -G "([Cc]hris|[Ss]awatsky|[Cc]algary|[Aa]lberta|@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}|/Users/)" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' '*.sh' > /tmp/cuc-scope-guard-personal.txt; then
   if [ -s /tmp/cuc-scope-guard-personal.txt ]; then
     echo "Potential personal-identifier matches found in staged diff:"
     cat /tmp/cuc-scope-guard-personal.txt

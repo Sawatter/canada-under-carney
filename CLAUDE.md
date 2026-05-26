@@ -147,7 +147,7 @@ These rules are action checks, not vibes. If a future agent cannot produce the c
 - Run `git diff --cached --check`.
 - Run a staged personal-identifier scan:
   ```bash
-  git diff --cached -G "(chris|sawatsky|calgary|alberta|@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,})" -- '*.md' '*.js' '*.jsx' '*.json' '*.css'
+  git diff --cached -G "([Cc]hris|[Ss]awatsky|[Cc]algary|[Aa]lberta|@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}|/Users/)" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' '*.sh'
   ```
 - If the scan returns anything, stop and surface the matches before pushing. Some location words may be legitimate policy content, but they still need a human look.
 
