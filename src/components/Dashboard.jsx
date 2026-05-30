@@ -17,6 +17,7 @@ import PromiseTracker from "./PromiseTracker";
 import Methodology from "./Methodology";
 import About from "./About";
 import EmailSignup from "./EmailSignup";
+import VisitorCount from "./VisitorCount";
 
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
@@ -217,6 +218,7 @@ export default function Dashboard() {
       >
         Skip to main content
       </a>
+      <VisitorCount />
       {/* Header */}
       <div style={{ textAlign: "center", marginBottom: "32px" }}>
         <div

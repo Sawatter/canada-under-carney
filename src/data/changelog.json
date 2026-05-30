@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-05-30",
+    "version": "5.80",
+    "summary": "Restored the GoatCounter visitor counter pill to the top-right of the header for a traffic-measurement experiment. Reverts the v5.69 header removal; component code was unchanged and still in the tree.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Visitor counter pill back in the header",
+        "body": "Re-added the VisitorCount component to the top-right of the page header. The component reads the live cookieless GoatCounter total with a same-origin cached fallback, both of which were already wired and unchanged since v5.69. Restored to support a referral-traffic experiment. Verified at desktop (1280px) and mobile (375px) widths: the pill anchors to the top-right of the 1040px container, sits above the eyebrow text, and does not overlap the centred title or content."
+      }
+    ]
+  },
+  {
     "date": "2026-05-25",
     "version": "5.79",
     "summary": "Fix to the source-verification skill: Wayback is a verification tool only, not a citation surface. Editor caught that v5.78 conflated 'fetch a snapshot' with 'cite a snapshot' and that 'blocked-but-live' should not trigger a different-publisher replacement.",
