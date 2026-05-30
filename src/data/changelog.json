@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-05-30",
+    "version": "5.83",
+    "summary": "Q1 2026 GDP release (StatCan, May 29): Canada posted a contested technical recession. Refreshed the Economic Policy Response business-investment metric (now -3% annualized Q1 2026, fifth consecutive decline) and added a real-GDP context metric. No grade change — the business-investment down-trigger is arguably fired but needs editor confirmation against the quarterly series, and the contraction is substantially tariff-driven (external constraint).",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Business investment metric refreshed to Q1 2026",
+        "body": "Economic Policy Response 'Business investment' metric updated from the stale '+0.3% (2025 annual)' to '-3% annualized (Q1 2026), fifth consecutive quarterly decline,' driven by a 4.6% drop in engineering structures and attributed to U.S. tariff uncertainty. Source: StatCan GDP income-and-expenditure release, The Daily May 29 2026, with an inline sourceRef for one-click verification. The full-year 2025 figure (+0.3%) is retained in the note for continuity."
+      },
+      {
+        "type": "method",
+        "headline": "Real-GDP context metric added",
+        "body": "Added a 'Real GDP (Q1 2026)' context metric under the inherited-baseline group so the technical recession is visible to readers: flat quarter-over-quarter, -0.1% annualized, a second consecutive annualized decline. Labelled contested — BMO's Douglas Porter said the small Q1 dip 'could be easily revised away,' StatCan's early April estimate is +0.4%, real GDP per capita rose 0.2% (population fell), and household spending rose 1.5% annualized. Shown as context only: this dimension grades the policy response, not the level of GDP."
+      },
+      {
+        "type": "method",
+        "headline": "Grade held at D pending editor decision",
+        "body": "No grade change shipped. The down-trigger 'business investment decline accelerates' is arguably fired (Q1 2026 -3% annualized vs +0.3% full-year 2025, fifth consecutive decline), but a clean call requires the precise StatCan quarterly business-investment series, and the contraction is substantially driven by U.S. tariff uncertainty — an external constraint the dimension's modifier framework must weigh before any D-to-D- move. Economic Policy Response is already at D (trend down), so the dimension already reflects weak investment. Grade move is an editor decision per the frozen-surface rule; party-symmetry applies."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
     "version": "5.82",
     "summary": "Second Codex pass (stale — ran against pre-v5.81 state) re-flagged the Budget 2025 and CBC corrections already shipped in v5.81. Two genuine residual items taken: CBC ECCC row downgraded from a clean OK to editor-pull-pending (exact CBC sentence never directly captured), and the source-verification skill labelling rule sharpened to forbid clean OK status on snippet-only wording.",
     "items": [

@@ -1198,7 +1198,7 @@
         "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/"
       }
     ],
-    "lastUpdated": "2026-05-23",
+    "lastUpdated": "2026-05-30",
     "metrics": [
       {
         "group": "Inherited baseline / context only",
@@ -1210,6 +1210,20 @@
       },
       {
         "group": "Inherited baseline / context only",
+        "label": "Real GDP (Q1 2026)",
+        "value": "Flat q/q; -0.1% annualized (technical recession, contested)",
+        "source": "statcan",
+        "sourceRefs": [
+          {
+            "label": "StatCan — GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
+          }
+        ],
+        "sourceNote": "StatsCan GDP release May 29, 2026: real GDP was unchanged quarter-over-quarter in Q1 2026 (-0.1% annualized), a second consecutive annualized decline after Q4 2025 (-0.2% q/q). This meets some definitions of a technical recession, but economists are split — BMO's Douglas Porter noted the Q1 dip is small enough it 'could be easily revised away,' and StatCan's early April 2026 estimate is +0.4% growth. Texture matters: real GDP per capita rose 0.2% (population fell for a second quarter) and household spending rose 1.5% annualized, so the contraction is concentrated in business investment and trade (gold imports), not consumer demand. Shown as context only — this dimension grades the policy response, not the level of GDP.",
+        "automatable": false
+      },
+      {
+        "group": "Inherited baseline / context only",
         "label": "OECD per-capita growth rank (long-run context)",
         "value": "Last of 38",
         "source": "oecd",
@@ -1218,10 +1232,16 @@
       },
       {
         "group": "Response metrics",
-        "label": "Business investment (2025 annual)",
-        "value": "+0.3%",
+        "label": "Business investment (Q1 2026)",
+        "value": "-3% annualized (5th straight quarterly decline)",
         "source": "statcan",
-        "sourceNote": "StatsCan GDP, income and expenditure release for Q4 2025 reports that business investment rose 0.3% over 2025 overall after a weak year, with machinery and equipment still down 3.5%. The file treats this as essentially flat rather than a decisive turn.",
+        "sourceRefs": [
+          {
+            "label": "StatCan — GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
+          }
+        ],
+        "sourceNote": "StatsCan GDP income-and-expenditure release for Q1 2026 (May 29, 2026): business capital investment fell 3% annualized, its fifth consecutive quarterly decline, driven by a 4.6% drop in engineering structures, largely attributed to U.S. tariff uncertainty. Full-year 2025 business investment was +0.3% (essentially flat), so the Q1 2026 reading is a clear deterioration. The decline is the load-bearing evidence for this dimension's grade and is cross-referenced against the down-trigger 'business investment decline accelerates' — see grade evaluation.",
         "automatable": false
       },
       {
