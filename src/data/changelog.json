@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-05-30",
+    "version": "5.81",
+    "summary": "Codex review corrections to the May-cycle verification doc. Two verbatim-quote handling fixes (Budget 2025 defence wording, CBC ECCC cuts attribution), one source-attribution refinement (IRCC economic-share figure), and a source-verification skill tightening (search snippets are provisional, not verbatim). Codex confirmed both new findings are June editor-decision candidates, not automatic grade movers. Zero grade changes.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Budget 2025 defence quote corrected to true verbatim",
+        "body": "The verification doc had stitched a fragment ('$81.8 billion over five years (starting 2025-26) specifically for Rebuilding, Rearming, and Reinvesting...') and labelled it verbatim in two places. Corrected to the actual Budget 2025 Chapter 4 wording: 'Budget 2025 proposes to provide $81.8 billion over five years on a cash basis, starting in 2025-26, to rebuild, rearm, and reinvest in the Canadian Armed Forces (CAF).' The substantive finding (legislated 5-year envelope supports Interpretation B-5yr) is unchanged. Caught by Codex review 2026-05-30."
+      },
+      {
+        "type": "docs",
+        "headline": "CBC ECCC cuts attribution typo fixed",
+        "body": "The verification doc said 'RCC reports' (a typo for CBC — Retail Council of Canada has nothing to do with ECCC) and overclaimed 'verbatim' on the 840-positions / 10-percent figure. Corrected: the CBC What On Earth piece confirms 'roughly 10 per cent, or the equivalent of 840 full-time roles' — the number matches the dashboard claim but the exact sentence differs, so this is a number-match, not a verbatim-sentence match. Caught by Codex review 2026-05-30."
+      },
+      {
+        "type": "docs",
+        "headline": "IRCC economic-share attribution + TR unit caution added",
+        "body": "The 59%-to-64% economic-immigration-share figure is better attributed to the IRCC 2026-27 Departmental Plan than the supplementary levels table. Added Codex's unit caution: the 385,000 TR figure is annual NEW ARRIVALS (a flow), not total TR stock, so it is not directly comparable to the up-trigger's 5%-of-population target (a stock). Both clarifications now in the verification doc."
+      },
+      {
+        "type": "method",
+        "headline": "source-verification skill: search snippets are provisional",
+        "body": "Tightened Step 2 of the fetch ladder per Codex: a WebSearch snippet confirms facts (especially specific numbers) but is not guaranteed source text. The skill now says to mark snippet-derived quotes as 'verified via WebSearch (number confirmed, not exact sentence)' and never to label a snippet-derived quote as 'verbatim' unless the result opens to actual source text or Wayback confirms the wording."
+      },
+      {
+        "type": "method",
+        "headline": "Codex confirmed both new findings are June candidates, not grade movers",
+        "body": "Codex grade-relevance check confirmed: (1) the $31.3B trade deficit does not fire the US-export-share triggers (below 68% up, above 73% down) by itself, and the split-shadow tripwire is a watch item requiring two consecutive cycles of opposite movement — not fired yet; (2) the 385,000 TR new-arrivals figure is a flow measure, not directly comparable to the 5%-of-population stock trigger. Both folded into the verification doc as June editor-decision candidates."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
     "version": "5.80",
     "summary": "Restored the GoatCounter visitor counter pill to the top-right of the header for a traffic-measurement experiment. Reverts the v5.69 header removal; component code was unchanged and still in the tree.",
     "items": [

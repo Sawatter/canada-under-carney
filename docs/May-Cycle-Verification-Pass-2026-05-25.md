@@ -76,7 +76,7 @@
 |---|---|---|
 | NATO Sec Gen Annual Report 2025 | Verified earlier session | Confirms 3.5% core + 1.5% security pledge structure. OK. |
 | PMO NATO 2% announcement | Not re-fetched this pass | Pre-verified |
-| Budget 2025 Ch.4 | Direct fetch OK | **CRITICAL NEW FINDING**: Budget 2025 Chapter 4 specifies the FUNDED defence envelope verbatim: "the government proposes $81.8 billion over five years (starting 2025-26) specifically for 'Rebuilding, Rearming, and Reinvesting in the Canadian Armed Forces.'" PLUS confirms verbatim "Canada will put on a pathway to meet the NATO Defence Investment Pledge of investing 5 per cent of GDP in defence by 2035" and "3.5% by 2035 for core military needs." See Defence memo refinement note below. |
+| Budget 2025 Ch.4 | Direct fetch OK | **CRITICAL NEW FINDING**: Budget 2025 Chapter 4 specifies the FUNDED defence envelope. Verbatim: "Budget 2025 proposes to provide $81.8 billion over five years on a cash basis, starting in 2025-26, to rebuild, rearm, and reinvest in the Canadian Armed Forces (CAF)." The chapter also frames the NATO pathway (5% of GDP by 2035, 3.5% core) — paraphrase, exact wording not captured in this pass. See Defence memo refinement note below. (Quote corrected per Codex review 2026-05-30: prior version stitched a fragment and labelled it verbatim.) |
 | Building Canada Act (Bill C-5) | Not re-fetched | LegisInfo page; metadata stable |
 | StatsCan trade data | Blocked per Codex | Browser-live, table-stable |
 | Global Affairs Monthly Trade Report Dec 2025 | Blocked per Codex | Browser-live per Codex. |
@@ -116,7 +116,7 @@ The new `source-verification` skill's fetch ladder applied to URLs that v1.0 mar
 
 | URL | v1.0 status | v2.0 result |
 |---|---|---|
-| IRCC 2026-2028 Levels Plan | 403 — deferred | **VERIFIED via WebSearch.** **NEW STRUCTURED TARGETS:** TR new arrivals 385,000 (2026), 370,000 (2027), 370,000 (2028). PR target stabilized at 380,000 for 2026. Economic share rising from 59% to 64% by 2027. 33,000 TR→PR accelerated transitions in 2026-2027. Dashboard captures PR target but does NOT explicitly capture the TR target structure — possible new metric candidate. |
+| IRCC 2026-2028 Levels Plan | 403 — deferred | **VERIFIED via WebSearch.** **NEW STRUCTURED TARGETS:** TR new arrivals 385,000 (2026), 370,000 (2027), 370,000 (2028). PR target stabilized at 380,000 for 2026. 33,000 TR→PR accelerated transitions in 2026-2027 — all from the supplementary levels plan. Economic share rising from 59% to 64% by 2027 is better attributed to the IRCC 2026-27 Departmental Plan (per Codex review 2026-05-30), not the supplementary table. Dashboard captures PR target but does NOT explicitly capture the TR target structure — possible new metric candidate. **Unit caution (Codex):** the 385,000 TR figure is annual NEW ARRIVALS, not total TR stock, so it is NOT directly comparable to the up-trigger's "5% of population" (a stock measure). |
 | IRCC open data work permits | Not re-fetched | **VERIFIED via WebSearch.** Dataset confirmed live at open.canada.ca. Metadata-stable. |
 
 ### Affordability
@@ -141,7 +141,7 @@ The new `source-verification` skill's fetch ladder applied to URLs that v1.0 mar
 | URL | v1.0 status | v2.0 result |
 |---|---|---|
 | CBC "Goodbye oil and gas cap?" (v5.76 source) | 403 — deferred | **VERIFIED via WebSearch.** Article IS the right post-Budget 2025 emissions-cap coverage. Pub Nov 5, 2025 (post-Budget 2025 Nov 4, pre-MOU Nov 27). Title: "Goodbye oil and gas cap? Ottawa signals it's gone, with some caveats." Operative: "Four years after unveiling plans for a limit on all oil and natural gas industry emissions in Canada, the federal government is — in all likelihood — scrapping the cap." Verifies the v5.76 sourceRef. The replacement candidate (Argus, BHRRC) finding from v1.0 stands; CBC `9.6966588` is itself a strong post-Budget citation. National Observer Nov 27 remains a stronger post-MOU candidate. |
-| CBC ECCC budget cuts | Not re-fetched | **VERIFIED via WebSearch.** Article confirms dashboard's "840 full-time positions" claim verbatim — RCC reports "840 full-time positions, representing roughly 10 percent of its workforce." Pub Feb 4, 2026. OK. |
+| CBC ECCC budget cuts | Not re-fetched | **VERIFIED via WebSearch (number confirmed, not exact sentence).** The CBC "What On Earth" piece (cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623) confirms ECCC will cut "roughly 10 per cent, or the equivalent of 840 full-time roles" — matches the dashboard's "840 full-time positions / ~10%" claim. The 840 figure and ~10% are verified; the exact CBC sentence differs from what the dashboard paraphrases, so this is a number-match, not a verbatim-sentence match. (Corrected per Codex review 2026-05-30: prior version said "RCC reports" — a typo for CBC — and overclaimed verbatim.) Pub Feb 4, 2026. OK. |
 | Fraser EV mandate critique | 403 — deferred | **VERIFIED via WebSearch.** Operative: "EVs represented only 8.6 per cent of new vehicle registrations" (halfway through 2025). "$355 per tonne of averted greenhouse gas emissions" cost of EV subsidies. Notes federal mandate scrapped, replaced by tailpipe regulations + reinstated $5,000 consumer subsidies + billions in production subsidies. Lists scaled-back projects (Honda $15B postponed, Ford Oakville delayed, GM BrightDrop halted). OK as Climate critic-perspective. |
 | IISD 2030 climate target | 403 — deferred | **VERIFIED via WebSearch.** **REFRESH CANDIDATE**: Operative: "if all modelled policies are fully implemented, national emissions will fall to 36% below 2005 levels in 2030, but current measures are insufficient to reach the government's 40%–45% reduction target." Note: IISD says 36% under full implementation; CCI says 18-22% under current policy. **Pub date: January 2024** — pre-Carney era. Article is still useful but a newer IISD analysis would be more current. Editor decision on refresh. |
 | The Conversation ECCC Arctic cuts | Not re-fetched | URL confirmed live via the search ecosystem (multiple syndication sources). Article content described in dashboard's metric chain. OK. |
@@ -171,6 +171,12 @@ Dashboard does NOT capture the overall trade deficit. The 4x year-over-year incr
 
 The two halves ARE telling different stories. The split-shadow tripwire may need to fire.
 
+**Codex grade-relevance check (2026-05-30) — confirmed NOT an automatic grade-mover:**
+- The live trade triggers are US-export-share based (below 68% = up, above 73% = down, per dimensions.json). The $31.3B deficit does NOT fire those triggers by itself.
+- Split-shadow tripwire is a **watch item, not fired yet**. The rule requires opposite movement (or one-notch widening) for **two consecutive monthly cycles**. This finding starts the clock / updates the trade sub-score narrative; it does not promote the split immediately.
+- Party-symmetry: same evidence treated the same under any governing party. The split-shadow logic is party-blind.
+- Net: this is a June editor-decision candidate (add metric + start the tripwire clock), not a May grade move.
+
 ### 2. Immigration — Levels-plan TR target structure
 
 IRCC 2026-2028 Immigration Levels Plan (Nov 2025) specifies:
@@ -186,11 +192,13 @@ Dashboard captures the PR target metric correctly. But the TR target structure (
 
 **Editor action queued:** Consider adding "TR new arrivals target (2026)" = 385,000 as a metric.
 
+**Codex grade-relevance check (2026-05-30) — useful, but mind the unit:** The 385,000 figure is annual NEW ARRIVALS. The up-trigger ("Temporary residents reach the 5% target") is a STOCK measure (total TR as a share of population). These are different units. Adding the TR target metric strengthens the policy-path evidence and anchors the trigger to a concrete government commitment, but the 385,000 should NOT be compared directly to the 5%-of-population target. Keep the metric labelled as "new arrivals target" to avoid conflating flow with stock.
+
 ---
 
 ## Defence funded-pathway memo refinement (NEW)
 
-Budget 2025 Chapter 4 confirms verbatim: **"$81.8 billion over five years (starting 2025-26) specifically for 'Rebuilding, Rearming, and Reinvesting in the Canadian Armed Forces.'"**
+Budget 2025 Chapter 4 confirms verbatim: **"Budget 2025 proposes to provide $81.8 billion over five years on a cash basis, starting in 2025-26, to rebuild, rearm, and reinvest in the Canadian Armed Forces (CAF)."**
 
 This materially refines the binary Interpretation A vs B framing in `docs/Defence-Funded-Pathway-Memo-2026-05-25.md`. Under Interpretation B (legislated multi-year fiscal framework), **the 5-year envelope is legislated** — $81.8B over 5 years is in the budget framework, not just rhetoric.
 
