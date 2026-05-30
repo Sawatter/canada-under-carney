@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-05-30",
+    "version": "5.82",
+    "summary": "Second Codex pass (stale — ran against pre-v5.81 state) re-flagged the Budget 2025 and CBC corrections already shipped in v5.81. Two genuine residual items taken: CBC ECCC row downgraded from a clean OK to editor-pull-pending (exact CBC sentence never directly captured), and the source-verification skill labelling rule sharpened to forbid clean OK status on snippet-only wording.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "CBC ECCC row downgraded to editor-pull-pending",
+        "body": "The 840 / ~10% ECCC workforce-cut figure is well-supported across secondary search results, but CBC blocks automated fetchers and the exact article sentence was never directly read. v5.81 still labelled the row VERIFIED/OK; Codex flagged that residual overstatement in a second pass. Reclassified to 'number confirmed, exact CBC text editor source-pull pending' and added to the Step-6 editor browser-pull list. Status table updated: OK count ~30 to ~29, editor list ~5 to ~6."
+      },
+      {
+        "type": "method",
+        "headline": "source-verification skill: no clean OK on snippet-only wording",
+        "body": "Sharpened Step 2 labelling per Codex's crisper wording: a quote is verified only when the source page, a cached page, the PDF text, or a publisher-indexed excerpt actually exposes the text. A snippet that merely attributes a phrase to a publisher is triage, not verification. Explicit rule added: never write 'VERIFIED ... OK' on a row whose exact wording was only attributed by a snippet — the number can be OK while the sentence is still pending."
+      },
+      {
+        "type": "docs",
+        "headline": "Note: second Codex pass was stale",
+        "body": "The second Codex review evaluated the pre-v5.81 doc state and re-flagged the Budget 2025 verbatim and CBC RCC-typo corrections that v5.81 had already fixed (commit 7104fd4). Verified current file state already reflected those fixes before acting; only the two genuine residual items above were new. No duplicate re-application of already-shipped corrections."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
     "version": "5.81",
     "summary": "Codex review corrections to the May-cycle verification doc. Two verbatim-quote handling fixes (Budget 2025 defence wording, CBC ECCC cuts attribution), one source-attribution refinement (IRCC economic-share figure), and a source-verification skill tightening (search snippets are provisional, not verbatim). Codex confirmed both new findings are June editor-decision candidates, not automatic grade movers. Zero grade changes.",
     "items": [

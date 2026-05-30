@@ -16,13 +16,13 @@
 
 | Category | v1.0 count | v2.0 count | Notes |
 |---|---|---|---|
-| OK — content matches dashboard claim | 14 | **~30** | Doubled via fetch-ladder Step 2 (WebSearch quote-extraction) |
+| OK — content matches dashboard claim | 14 | **~29** | Doubled via fetch-ladder Step 2 (WebSearch quote-extraction); CBC ECCC row reclassified to editor-pull pending after second Codex pass |
 | Stale refresh candidate (no grade impact) | 3 | 4 | +1 (IISD 2030 article is pre-Carney January 2024) |
 | URL upgrade needed | 2 | 2 | Codex's edits (Retail Council, OAG); incorporated in v5.77 |
 | URL replacement candidate (different content needed) | 2 | 1 | Argus + BHRRC originally; CBC `9.6966588` now verified as post-Budget 2025 Nov 5, 2025 — strengthens citation. National Observer Nov 27 remains as a stronger post-MOU candidate. |
 | Content drift with grade-implications | 1 | **3** | +Defence $81.8B (v1.0) +Defence trade deficit $31.3B (v2.0 NEW) +Immigration TR target structure (v2.0 NEW) |
 | Dead URL | 1 | 1 | Old OAG URL confirmed timing out |
-| Could not verify (Step 6 editor list) | ~15 | **~5** | Reduced by 2/3 via the fetch ladder |
+| Could not verify (Step 6 editor list) | ~15 | **~6** | Reduced by 60% via the fetch ladder; CBC ECCC exact-text added back after second Codex pass |
 
 ---
 
@@ -141,7 +141,7 @@ The new `source-verification` skill's fetch ladder applied to URLs that v1.0 mar
 | URL | v1.0 status | v2.0 result |
 |---|---|---|
 | CBC "Goodbye oil and gas cap?" (v5.76 source) | 403 — deferred | **VERIFIED via WebSearch.** Article IS the right post-Budget 2025 emissions-cap coverage. Pub Nov 5, 2025 (post-Budget 2025 Nov 4, pre-MOU Nov 27). Title: "Goodbye oil and gas cap? Ottawa signals it's gone, with some caveats." Operative: "Four years after unveiling plans for a limit on all oil and natural gas industry emissions in Canada, the federal government is — in all likelihood — scrapping the cap." Verifies the v5.76 sourceRef. The replacement candidate (Argus, BHRRC) finding from v1.0 stands; CBC `9.6966588` is itself a strong post-Budget citation. National Observer Nov 27 remains a stronger post-MOU candidate. |
-| CBC ECCC budget cuts | Not re-fetched | **VERIFIED via WebSearch (number confirmed, not exact sentence).** The CBC "What On Earth" piece (cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623) confirms ECCC will cut "roughly 10 per cent, or the equivalent of 840 full-time roles" — matches the dashboard's "840 full-time positions / ~10%" claim. The 840 figure and ~10% are verified; the exact CBC sentence differs from what the dashboard paraphrases, so this is a number-match, not a verbatim-sentence match. (Corrected per Codex review 2026-05-30: prior version said "RCC reports" — a typo for CBC — and overclaimed verbatim.) Pub Feb 4, 2026. OK. |
+| CBC ECCC budget cuts | Not re-fetched | **NUMBER confirmed via secondary search; exact CBC text NOT directly captured — editor source-pull pending.** Multiple search results attribute "roughly 10 per cent, or the equivalent of 840 full-time roles" to CBC reporting, matching the dashboard's "840 full-time positions / ~10%" claim. The 840 figure and ~10% are well-supported, but CBC blocks automated fetchers and the exact article sentence was not directly read in this pass — so this is a number-match pending a manual CBC source-pull, not a completed verification. (Corrected per Codex review 2026-05-30: prior version said "RCC reports" — a typo for CBC — and overclaimed "VERIFIED/verbatim." Codex flagged the residual "OK" status in a second pass; downgraded here and added to the Step-6 editor list.) Pub Feb 4, 2026. |
 | Fraser EV mandate critique | 403 — deferred | **VERIFIED via WebSearch.** Operative: "EVs represented only 8.6 per cent of new vehicle registrations" (halfway through 2025). "$355 per tonne of averted greenhouse gas emissions" cost of EV subsidies. Notes federal mandate scrapped, replaced by tailpipe regulations + reinstated $5,000 consumer subsidies + billions in production subsidies. Lists scaled-back projects (Honda $15B postponed, Ford Oakville delayed, GM BrightDrop halted). OK as Climate critic-perspective. |
 | IISD 2030 climate target | 403 — deferred | **VERIFIED via WebSearch.** **REFRESH CANDIDATE**: Operative: "if all modelled policies are fully implemented, national emissions will fall to 36% below 2005 levels in 2030, but current measures are insufficient to reach the government's 40%–45% reduction target." Note: IISD says 36% under full implementation; CCI says 18-22% under current policy. **Pub date: January 2024** — pre-Carney era. Article is still useful but a newer IISD analysis would be more current. Editor decision on refresh. |
 | The Conversation ECCC Arctic cuts | Not re-fetched | URL confirmed live via the search ecosystem (multiple syndication sources). Article content described in dashboard's metric chain. OK. |
@@ -269,6 +269,7 @@ Editor methodology call: under either A or B-5yr, the up-trigger fires. Only und
 
 After v2.0 fetch-ladder application, the remaining editor-browser-only items are roughly 5:
 - **StatCan CPI March 2026 (Daily)** — the specific 4.4% March food-CPI figure not in search snippets. Editor: open the page, confirm the March food CPI YoY.
+- **CBC ECCC cuts article** — the 840 / ~10% number is confirmed via secondary search but the exact CBC sentence was not directly captured (CBC blocks fetchers). Editor: open cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623 and confirm the 840 / 10% wording.
 - **Retail Council canonical URL** — both Codex's URL and the simpler URL are 403 to fetchers. Editor: open both in browser to confirm which is the live canonical page.
 - **OAG canada.ca audit URL** (new, post-Codex-fix) — canada.ca blocks all fetchers. Editor browser-pull to confirm the audit report content matches.
 - **ECCC 2025-26 Departmental Plan at-a-glance** — full-doc spending baseline needed for YoY-vs-2026-27 comparison. Search snippet didn't return the specific 2025-26 spending total.

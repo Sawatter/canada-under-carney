@@ -66,11 +66,21 @@ attributes to it. Example:
 
 WebSearch summarizes the live page content. Treat a search-snippet quote as
 **provisional** — snippets are paraphrase or excerpt, not guaranteed source
-text. Mark it as "verified via WebSearch (number confirmed, not exact
-sentence)" unless the result opens to the actual source text. Do not label a
-snippet-derived quote as "verbatim." When the underlying claim is a specific
-number, the search confirms the number; when the claim is an exact sentence,
-only direct source text or Wayback (Step 3) can confirm verbatim wording.
+text. A quote is verified only when the source page, a cached page, the PDF
+text, or a publisher-indexed excerpt actually exposes the text. A search
+snippet that merely *attributes* a phrase to a publisher is triage, not
+verification.
+
+Labelling rule:
+- Specific number, confirmed across results → "number confirmed via search"
+  (this is solid for facts/figures).
+- Exact sentence not opened from source/cache/PDF → do NOT label "verbatim";
+  mark "exact text not captured — editor source-pull pending" and add it to
+  the Step-6 list.
+- Never write "VERIFIED ... OK" on a row whose exact wording was only
+  attributed by a snippet. The number can be OK while the sentence is still
+  pending.
+
 This is the single highest-leverage workaround for canada.ca/StatCan
 blocking, but it confirms facts, not phrasing.
 
