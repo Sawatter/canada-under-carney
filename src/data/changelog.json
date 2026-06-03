@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-03",
+    "version": "5.87",
+    "summary": "Round 2 source-check doc added for seven dimensions (Codex, live-web). Carbon Pricing now shows two distinct effective-price measures — the trigger-aligned marginal price (~$20/t) and CCI's average cost on total emissions (~$10/t or less) — and the PBO carbon-GST note cites the annual trajectory directly. No grade, threshold, or scoring change.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Round 2 source-check doc added",
+        "body": "Added docs/Round2-Verification-2026-06.md for Major Projects, Fiscal Health, Economic Policy Response, Housing Supply, Ethics & Transparency, Flagship Delivery, and Promise Delivery. The pass records source-to-claim status, blocked-source handling, and editor packets for the climate, IISD, Retail Council, and carbon-pricing cleanup items."
+      },
+      {
+        "type": "minor",
+        "headline": "Carbon Pricing effective-price metrics split into marginal vs average",
+        "body": "CCI's March 6, 2026 fact sheet puts industrial carbon pricing's cost at around $10 or less per tonne of total emissions. Rather than relabel the single effective-price metric (which would have collided with the down-trigger's '$15/t effective price' threshold and read as a spurious C-to-C- fire), the metric is split into two clearly-distinct measures: the trigger-aligned marginal/credit effective price (~$20/t, still above the $15 down-trigger floor) and CCI's average cost on total emissions (~$10/t or less, an average across all emissions, explicitly not the trigger measure). Caught in the Claude review of the Codex Round 2 pass. No grade change."
+      },
+      {
+        "type": "minor",
+        "headline": "PBO carbon-GST citation clarified",
+        "body": "The PBO carbon-GST metric now links directly from the metric and cites PBO's annual trajectory: $486 million in 2023-24 rising to $1.015 billion in 2030-31. The displayed $5.7B remains a rounded multi-year shorthand, not a direct PBO headline."
+      }
+    ]
+  },
+  {
     "date": "2026-05-30",
     "version": "5.86",
     "summary": "Absorbed three skills from Matt Pocock's skills repo (grill-me, review, write-a-skill), adapted to this project, and added two git safety nets: a pre-commit hook (blocks absolute-path leaks, runs test:data) and a git-guardrails Claude Code hook (blocks destructive git commands). No dashboard data or grade impact.",

@@ -1659,7 +1659,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $110/t 2026 headline but ~$20/t effective. Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
+    "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $110/t 2026 headline but a weak effective price (~$20/t marginal; CCI puts the average cost on total emissions at ~$10/t or less). Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
     "judgmentCall": "Middle grade credits the consumer-price promise while discounting the weak effective industrial price.",
     "judgmentDetail": "The C grade separates promise delivery from instrument strength. The consumer charge removal is credited as an executed campaign promise, but the industrial system is discounted because the effective price signal is far below the headline schedule. Judgment enters in treating the pricing instrument as partially intact but not clearly strong enough to merit a higher grade.",
     "surfaceTags": [
@@ -1783,26 +1783,42 @@
         "automatable": false
       },
       {
-        "label": "Industrial OBPS (effective market price)",
+        "label": "Industrial OBPS (effective price, marginal)",
         "value": "~$20/tonne",
         "source": "cci",
         "sourceRefs": [
           {
             "label": "CCI — Outcomes Not Optics (Jan 2026)",
             "url": "https://climateinstitute.ca/wp-content/uploads/2026/01/Canadian-Climate-Institute-Outcomes-Not-Optics-Canadian-carbon-markets-need-bold-reform-to-be-effective.pdf"
-          },
+          }
+        ],
+        "sourceNote": "CCI and IISD note credit oversupply pulls the marginal compliance/credit price to roughly $20/tonne, far below the $110/t 2026 headline. This is the measure the grade triggers track (up: effective price above $40/t; down: below $15/t) — so the down-trigger is not fired at ~$20. CCI's January 2026 'Outcomes Not Optics' report sets an Effective Marginal Credit Price stringency benchmark of $130/t; the per-province EMCP table is a June-cycle pull.",
+        "automatable": false
+      },
+      {
+        "label": "Industrial OBPS (avg cost on total emissions)",
+        "value": "~$10/tonne or less",
+        "source": "cci",
+        "sourceRefs": [
           {
             "label": "CCI — Fact Sheet: Industrial carbon pricing in Canada",
             "url": "https://climateinstitute.ca/news/fact-sheet-canada-industrial-carbon-pricing-systems/"
           }
         ],
-        "sourceNote": "CCI and IISD both note that credit oversupply can pull the effective compliance price to roughly $20/tonne, far below the $110/t 2026 headline schedule. Effective rate is the live price signal faced by industry; headline rate is the nominal design schedule. CCI's January 2026 'Outcomes Not Optics' report identifies an Effective Marginal Credit Price target of $130/t as the stringency benchmark; current per-province EMCP table to be pulled in June cycle.",
+        "sourceNote": "CCI's March 6, 2026 fact sheet: industrial carbon pricing imposes around $10 or less per tonne of total emissions against a $95/t carbon price (CCI's analysis base; the 2026 headline is $110/t). This is an AVERAGE cost across all emissions — distinct from the marginal effective price the grade triggers track (the ~$20 figure above) and from CCI's $130/t EMCP benchmark. Shown so readers see how little carbon cost the average tonne bears; it is not the trigger measure.",
         "automatable": false
       },
       {
         "label": "PBO carbon GST revenue (7yr)",
         "value": "$5.7B",
         "source": "pbo",
+        "sourceRefs": [
+          {
+            "label": "PBO - carbon-pricing GST costing",
+            "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
+          }
+        ],
+        "sourceNote": "PBO's January 23, 2024 costing says eliminating GST in respect of carbon pricing would reduce federal GST revenues by $486 million in 2023-24, increasing to $1.015 billion in 2030-31. The dashboard's $5.7B is a rounded multi-year trajectory shorthand, not a direct PBO headline.",
         "automatable": false
       },
       {
