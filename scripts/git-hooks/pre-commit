@@ -1,0 +1,64 @@
+#!/bin/sh
+# Pre-commit guardrail for canada-under-carney.
+#
+# Identity-neutral by design: this file is committed to a public repo, so it
+# contains NO names or locations. It blocks the categorically-bad leak class
+# (absolute local paths), runs the data-integrity and whitespace checks, and
+# optionally reads editor-identity patterns from a gitignored file so those
+# literals never enter the repo.
+#
+# Install:  npm run setup:hooks   (sets core.hooksPath to scripts/git-hooks)
+# Bypass :  git commit --no-verify   (genuine emergencies only)
+
+fail=0
+
+# Staged added lines only (new content being introduced this commit).
+added=$(git diff --cached --unified=0 --no-color | grep '^+' | grep -v '^+++' || true)
+
+# 1. Absolute local-machine paths never belong in a public repo. This was the
+#    v5.72 leak class (an editor home path in a doc code block). The trailing
+#    [A-Za-z] requires a real directory name, so documented scan-regex literals
+#    that mention the bare path token are not false-positives.
+leak=$(printf '%s\n' "$added" | grep -nE '/Users/[A-Za-z]|/home/[A-Za-z]' || true)
+if [ -n "$leak" ]; then
+  echo "pre-commit: BLOCKED — staged change adds an absolute local path:"
+  printf '%s\n' "$leak"
+  echo "Scrub it (use <repo-root> or a relative path), then re-commit."
+  fail=1
+fi
+
+# 2. Optional local identity-pattern check. The patterns live in a gitignored
+#    file so the editor's name/location never get committed. Create it locally
+#    with one grep -E pattern per line, e.g. your surname and city.
+patterns_file="$(git rev-parse --show-toplevel)/.identity-patterns"
+if [ -f "$patterns_file" ]; then
+  hit=$(printf '%s\n' "$added" | grep -nEf "$patterns_file" || true)
+  if [ -n "$hit" ]; then
+    echo "pre-commit: BLOCKED — staged change matches a local identity pattern:"
+    printf '%s\n' "$hit"
+    echo "Scrub it, then re-commit."
+    fail=1
+  fi
+fi
+
+# 3. Whitespace errors.
+if ! git diff --cached --check; then
+  echo "pre-commit: BLOCKED — whitespace errors above."
+  fail=1
+fi
+
+# 4. Data integrity — only when data files are staged (keeps the hook fast).
+if git diff --cached --name-only | grep -q '^src/data/.*\.json$'; then
+  echo "pre-commit: src/data changed — running test:data..."
+  if ! npm run test:data --silent >/dev/null 2>&1; then
+    echo "pre-commit: BLOCKED — test:data failed. Run 'npm run test:data' to see why."
+    fail=1
+  fi
+fi
+
+if [ "$fail" -ne 0 ]; then
+  echo "pre-commit: commit blocked. Fix the above, or 'git commit --no-verify' to override."
+  exit 1
+fi
+echo "pre-commit: checks passed."
+exit 0

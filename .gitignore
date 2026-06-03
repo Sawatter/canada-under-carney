@@ -40,3 +40,6 @@ public/feed.xml
 
 # Disposable dev scratch and session handoff docs (never committed)
 tmp/
+
+# Local-only editor identity patterns for the pre-commit hook (never committed)
+.identity-patterns

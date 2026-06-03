@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "sh \"$CLAUDE_PROJECT_DIR/scripts/git-hooks/block-dangerous-git.sh\"",
+            "if": "Bash(git *)",
+            "statusMessage": "git-guardrails"
+          }
+        ]
+      }
+    ]
+  }
+}

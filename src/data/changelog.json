@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-05-30",
+    "version": "5.86",
+    "summary": "Absorbed three skills from Matt Pocock's skills repo (grill-me, review, write-a-skill), adapted to this project, and added two git safety nets: a pre-commit hook (blocks absolute-path leaks, runs test:data) and a git-guardrails Claude Code hook (blocks destructive git commands). No dashboard data or grade impact.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "grill-me, review, write-a-skill skills added",
+        "body": "After reviewing the full Matt Pocock skills repo, absorbed the three that fit a data/methodology project (skipped the GitHub-issue/PRD-dependent and coding-specific ones). grill-me: one-question-at-a-time interrogation of an editor decision, routed through grade-evaluation (no autonomous grade moves). review: two-axis Standards-vs-Spec diff review via parallel sub-agents — an in-house second opinion when Codex/Comet are unavailable. write-a-skill: encodes the house format and the under-100-lines / triggers-in-description / identifier-scan conventions so the skill set stays consistent. All three built Carney-local plus global Claude and Codex versions."
+      },
+      {
+        "type": "method",
+        "headline": "Pre-commit hook (identity-neutral)",
+        "body": "scripts/git-hooks/pre-commit blocks staged absolute local paths (the v5.72 leak class), runs git diff --cached --check, and runs test:data when src/data is staged. Identity-neutral by design — the committed hook contains no names; editor-identity patterns live in a gitignored .identity-patterns file read at runtime. Install with npm run setup:hooks. Verified: blocks a /Users/ leak, passes clean content, and does not false-positive on skill files that document the scan regex."
+      },
+      {
+        "type": "method",
+        "headline": "git-guardrails hook blocks destructive git",
+        "body": "scripts/git-hooks/block-dangerous-git.sh, wired as a PreToolUse Bash hook in .claude/settings.json, blocks the agent from running force push, reset --hard, clean -f, branch -D, push --delete / push :ref, filter-branch, update-ref -d, and reflog expire --expire=now. Allows --force-with-lease and all normal add/commit/push/status/log/diff/checkout. Dependency-free POSIX sh, identity-neutral. Pipe-tested: 9/9 destructive blocked, 9/9 normal allowed. Activates after opening /hooks once or restarting (the project settings.json is new this session)."
+      },
+      {
+        "type": "docs",
+        "headline": ".gitignore: .identity-patterns",
+        "body": "Added .identity-patterns to .gitignore so the optional local editor-identity pattern file for the pre-commit hook is never committed."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
     "version": "5.85",
     "summary": "Added a handoff skill that compresses a session into a disposable markdown doc a fresh agent or Codex can pick up cold. Bookends project-room (room builds context at the start, handoff compresses it at the end). gitignored tmp/ so disposable handoffs can never be committed. No dashboard data or grade impact.",
     "items": [
