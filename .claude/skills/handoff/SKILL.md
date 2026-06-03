@@ -46,10 +46,13 @@ copying them.
   public-facing and the editor's identity is redacted from it. A handoff going
   to Codex or any other agent must not leak it. Run:
   ```bash
-  grep -nE "([Cc]hris|[Ss]awatsky|[Cc]algary|/Users/)" <handoff-file>
+  grep -nE "(/Users/[A-Za-z]|@[A-Za-z0-9._%+-]+\.[A-Za-z]{2,})" <handoff-file>
+  [ -f .identity-patterns ] && grep -nEf .identity-patterns <handoff-file>
   ```
-  If anything matches, scrub it (use `<editor>`, `<repo-root>`) before handing
-  the doc off. Also redact any API keys, tokens, or PII.
+  (Editor name/city patterns live in the gitignored `.identity-patterns` so
+  they stay out of this public repo.) If anything matches, scrub it (use
+  `<editor>`, `<repo-root>`) before handing the doc off. Also redact any API
+  keys, tokens, or PII.
 - **Carry the boundaries forward.** The handoff MUST restate the frozen-surface
   rule and the "no autonomous grade moves" boundary so the next session
   inherits them. A fresh agent without those guardrails is dangerous on this

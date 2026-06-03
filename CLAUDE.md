@@ -145,11 +145,17 @@ These rules are action checks, not vibes. If a future agent cannot produce the c
 
 **Before any `git push`:**
 - Run `git diff --cached --check`.
-- Run a staged personal-identifier scan:
+- Run a staged personal-identifier scan. Universal patterns (absolute local
+  paths + emails) are inline; the editor's name and city live in the
+  gitignored `.identity-patterns` file so those literals never enter this
+  public repo:
   ```bash
-  git diff --cached -G "([Cc]hris|[Ss]awatsky|[Cc]algary|[Aa]lberta|@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}|/Users/)" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' '*.sh'
+  # Universal: absolute local paths + email addresses
+  git diff --cached -G "(/Users/[A-Za-z]|/home/[A-Za-z]|@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,})" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' '*.sh'
+  # Editor identity (name, city) — patterns kept local-only in .identity-patterns
+  [ -f .identity-patterns ] && git diff --cached -G "$(paste -sd'|' .identity-patterns)" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' '*.sh'
   ```
-- If the scan returns anything, stop and surface the matches before pushing. Some location words may be legitimate policy content, but they still need a human look.
+- If either scan returns anything, stop and surface the matches before pushing. Some location words may be legitimate policy content, but they still need a human look. (The pre-commit hook and scope-guard run these same checks automatically.)
 
 **Frozen surfaces - never change without explicit user approval in the current turn:**
 - GPA formulas, grade-point mappings, and headline-score rounding in `src/utils.js`

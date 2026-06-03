@@ -52,7 +52,16 @@ git diff --cached --check
 
 echo
 echo "5. Running staged personal-identifier scan"
-if git diff --cached -G "([Cc]hris|[Ss]awatsky|[Cc]algary|[Aa]lberta|@[A-Za-z0-9._%+-]+\\.[A-Za-z]{2,}|/Users/)" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' '*.sh' > /tmp/cuc-scope-guard-personal.txt; then
+# Universal patterns (absolute local paths + emails) are inline. Editor-identity
+# patterns (name, city) live in the gitignored .identity-patterns so those
+# literals never enter this public repo; they are merged in if the file exists.
+root=$(git rev-parse --show-toplevel 2>/dev/null || echo .)
+scan_re='(/Users/[A-Za-z]|/home/[A-Za-z]|@[A-Za-z0-9._%+-]+\.[A-Za-z]{2,})'
+if [ -f "$root/.identity-patterns" ]; then
+  extra=$(paste -sd'|' "$root/.identity-patterns")
+  [ -n "$extra" ] && scan_re="${scan_re%)}|${extra})"
+fi
+if git diff --cached -G "$scan_re" -- '*.md' '*.js' '*.jsx' '*.json' '*.css' '*.sh' > /tmp/cuc-scope-guard-personal.txt; then
   if [ -s /tmp/cuc-scope-guard-personal.txt ]; then
     echo "Potential personal-identifier matches found in staged diff:"
     cat /tmp/cuc-scope-guard-personal.txt
