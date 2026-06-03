@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-05-30",
+    "version": "5.84",
+    "summary": "Approval-signal refresh: added the Abacus Data May 14-20 2026 federal government approval poll (approve 59 / disapprove 27 / n=1,920) and rolled the rolling-window asOf date to 2026-05-30. The 60-day weighted average ticks up to approve ~57 / disapprove ~30 / net +27. Approval Signal is ungraded — no grade or GPA impact.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Abacus May 14-20 2026 approval poll added",
+        "body": "Added the Abacus Data federal-government-approval poll fielded May 14-20, 2026 (n=1,920, MoE ±2.23): approve 59%, disapprove 27%, net +32. Source verified against the Abacus release; the disapprove field was confirmed from the published approval card (the only field not retrievable by automated fetch). Reconciles with the prior May 5 wave (57/28) via the published +2/-1 deltas. asOf rolled from 2026-05-13 to 2026-05-30 so the new poll falls inside the 60-day window."
+      },
+      {
+        "type": "minor",
+        "headline": "Rolling-window approval average ticks up",
+        "body": "With the window now anchored at 2026-05-30, the sample-size-weighted recent-window average (5 polls) is approve ~57.3 / disapprove ~30.2 / net +27, up from the prior-window ~55.7 / ~31.7 / net +24. Direction is improving (approval up, disapproval down). The Approval Signal card is an external, ungraded data stream — this does not touch any dimension grade, the GPA, or any frozen surface."
+      },
+      {
+        "type": "minor",
+        "headline": "Note: too early to reflect the Q1 GDP/recession news",
+        "body": "The May 14-20 fieldwork predates the May 29 StatCan Q1 GDP release. Any approval response to the technical-recession news will only show in polls fielded after May 29, which were not yet published at this refresh. Flagged for the June cycle."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
     "version": "5.83",
     "summary": "Q1 2026 GDP release (StatCan, May 29): Canada posted a contested technical recession. Refreshed the Economic Policy Response business-investment metric (now -3% annualized Q1 2026, fifth consecutive decline) and added a real-GDP context metric. No grade change — the business-investment down-trigger is arguably fired but needs editor confirmation against the quarterly series, and the contraction is substantially tariff-driven (external constraint).",
     "items": [

@@ -1,10 +1,23 @@
 {
-  "asOf": "2026-05-13",
+  "asOf": "2026-05-30",
   "rollingWindowDays": 60,
   "construct": "PM / government job approval (approve vs. disapprove)",
   "inclusionRule": "Canadian polling firms publishing a direct PM or government approval question with both approve and disapprove percentages, disclosed sample size, and published methodology. CRIC accreditation (Canadian Research Insights Council) is preferred but not strictly required — public-interest institutes (Angus Reid Institute) and well-established firms with equivalent transparency (Innovative Research Group) are admissible. Preferred-PM, favourability, and vote-intention polls are tracked separately and not included here.",
   "aggregationRule": "Sample-size-weighted mean across all polls whose field end date falls in the rolling window. A poll with n=2,000 carries twice the weight of one with n=1,000. House effects across CRIC members are small enough that explicit de-housing is not yet required; multi-pollster coverage remains the primary house-effect control.",
   "polls": [
+    {
+      "pollster": "Abacus Data",
+      "fieldStart": "2026-05-14",
+      "fieldEnd": "2026-05-20",
+      "approve": 59,
+      "disapprove": 27,
+      "sampleSize": 1920,
+      "methodology": "Online panel via PureSpectrum partners, weighted to census",
+      "marginOfErrorNote": "Comparable probability sample ±2.23 pp",
+      "construct": "Federal government approval",
+      "sourceUrl": "https://abacusdata.ca/canadian-politics-carney-government-approval-and-liberal-lead-reach-new-highs-as-optimism-about-canada-improves/",
+      "sourceLabel": "Abacus Data: Government Approval May 2026 (May 14-20 wave)"
+    },
     {
       "pollster": "Abacus Data",
       "fieldStart": "2026-04-30",
