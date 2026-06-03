@@ -455,7 +455,7 @@
             "url": "https://angusreid.org/major-projects-reaction-canada/"
           }
         ],
-        "sourceNote": "PMO nation-building project announcements across all three tranches. Government cites $126B in combined investment. Fraser Institute and Angus Reid both found the figure primarily represents pre-existing private-sector investment decisions — qualifier 'mostly pre-existing' reflects their assessment.",
+        "sourceNote": "PMO nation-building project announcements across all three tranches. Government cites $126B in combined investment. Fraser Institute's analysis finds the figure primarily represents pre-existing private-sector investment decisions (the 'mostly pre-existing' qualifier); Angus Reid polling captures public reaction to the announcements, not the investment-composition claim.",
         "automatable": false
       },
       {
@@ -2041,19 +2041,15 @@
             "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/"
           },
           {
-            "label": "Argus — Canada set to scrap oil and gas emissions cap",
-            "url": "https://www.argusmedia.com/en/news-and-insights/latest-market-news/2750001-canada-set-to-scrap-oil-and-gas-emissions-cap"
+            "label": "National Observer — Carney abandoning the oil and gas emissions cap",
+            "url": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy"
           },
           {
             "label": "CBC — Goodbye oil and gas cap?",
             "url": "https://www.cbc.ca/news/politics/oil-and-gas-cap-budget-9.6966588"
-          },
-          {
-            "label": "Business and Human Rights Resource Centre — federal government considers scrapping emissions cap",
-            "url": "https://www.business-humanrights.org/en/latest-news/canada-federal-government-considers-scrapping-emissions-cap-on-the-oil-and-gas-sector-as-part-of-climate-competitiveness-strategy/"
           }
         ],
-        "sourceNote": "Emissions cap scrapped via the Carney–Smith MOU (Nov 27, 2025); the government concluded that 'effective' carbon pricing, enhanced methane regulations, and CCS deployment would make the cap 'no longer required.' Status confirmed by Argus, CBC, and Business and Human Rights Resource Centre (URLs in sourceRefs above). PM acknowledged 2030 and 2035 targets will be missed. CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework all stand. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
+        "sourceNote": "Emissions cap scrapped via the Carney–Smith MOU (Nov 27, 2025) and carried through in the May 15, 2026 Canada-Alberta MOU implementation agreement; the government concluded that 'effective' carbon pricing, enhanced methane regulations, and CCS deployment would make the cap 'no longer required.' Post-decision status is anchored to independent reporting — National Observer (March 2026: 'the federal government announced last November that it was abandoning the sector's emissions cap') and CBC. The earlier Argus (Apr 2025) and Business and Human Rights Resource Centre (Sep 2025) citations were swapped out because they predated the final decision and only described it as 'considered'; an independent source is used rather than the government's own press release to keep the grade-moving evidence independent. PM acknowledged 2030 and 2035 targets will be missed. CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework all stand. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
         "automatable": false
       },
       {

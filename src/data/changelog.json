@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.88",
+    "summary": "Worked the executable Round 2 editor packets: swapped the Climate emissions-cap citations from pre-MOU coverage to the official post-MOU source, and fixed a Fraser/Angus mis-attribution on the Major Projects headline metric. No grade, threshold, or scoring change; the grade decisions and four browser-pull sources remain editor-only.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Climate emissions-cap citations swapped to independent post-MOU source",
+        "body": "The 'Scrapped' emissions-cap metric was citing Argus (April 2025) and Business and Human Rights Resource Centre (September 2025) — both pre-date the final decision and only described the cap as 'considered.' Replaced them with the National Observer's March 2026 reporting ('the federal government announced last November that it was abandoning the sector's emissions cap') and kept the CBC post-Budget coverage. A first attempt used the PMO implementation-agreement press release, but the bias-resistance audit correctly flagged it as a government press release serving as grade-moving evidence; switched to independent reporting instead. Bias audit baseline restored to 12 audited / 6 flagged."
+      },
+      {
+        "type": "minor",
+        "headline": "Major Projects Fraser/Angus attribution corrected",
+        "body": "The $126B headline metric note claimed Fraser Institute AND Angus Reid both found the figure primarily represents pre-existing private-sector investment. Corrected: Fraser's analysis carries the pre-existing-investment critique; Angus Reid polling captures public reaction, not the investment-composition claim. The 'mostly pre-existing' qualifier and the grade are unchanged."
+      },
+      {
+        "type": "docs",
+        "headline": "Remaining packets left as editor-only",
+        "body": "IISD 2030-target source kept (no clean same-claim replacement found). Building Canada Act trigger URL left as the authoritative LegisInfo page (the upgrade was optional). Four browser-pull sources (OECD, CHBA, Signal49, Angus Reid one-year report card) and the two grade decisions (Defence A-to-A, Economic Policy D-to-D-) remain editor-only — no autonomous action taken."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.87",
     "summary": "Round 2 source-check doc added for seven dimensions (Codex, live-web). Carbon Pricing now shows two distinct effective-price measures — the trigger-aligned marginal price (~$20/t) and CCI's average cost on total emissions (~$10/t or less) — and the PBO carbon-GST note cites the annual trajectory directly. No grade, threshold, or scoring change.",
     "items": [
