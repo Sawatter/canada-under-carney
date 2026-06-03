@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-05-30",
+    "version": "5.85",
+    "summary": "Added a handoff skill that compresses a session into a disposable markdown doc a fresh agent or Codex can pick up cold. Bookends project-room (room builds context at the start, handoff compresses it at the end). gitignored tmp/ so disposable handoffs can never be committed. No dashboard data or grade impact.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "handoff skill added (repo-local + global)",
+        "body": "New .claude/skills/handoff/SKILL.md plus global Claude and Codex versions. Compresses the working state of a session into a disposable tmp/ markdown file that points at durable artifacts rather than duplicating them. Carney-specific rules baked in: run the personal-identifier scan before any handoff leaves the session (no editor name/location/path leaks to a reviewer), carry the frozen-surface and no-autonomous-grade-moves boundaries forward, and a suggested-skills section pointing at the project's own skill set. Distinct from the bundle generator (full snapshot for a cold reviewer) and from governance docs (durable audit trail) — handoff is the thin cover letter for a warm next session. Pattern documented in AI-Operating-System/Handoff-Protocol.md."
+      },
+      {
+        "type": "fix",
+        "headline": "tmp/ added to .gitignore",
+        "body": "The tmp/ scratch directory was untracked but not formally gitignored, so disposable handoff docs and dev scratch could be staged by accident. Added tmp/ to .gitignore so the handoff skill's 'disposable, never committed' guarantee is actually enforced. CLAUDE.md already treated tmp/ as never-commit; this makes it structural."
+      }
+    ]
+  },
+  {
+    "date": "2026-05-30",
     "version": "5.84",
     "summary": "Approval-signal refresh: added the Abacus Data May 14-20 2026 federal government approval poll (approve 59 / disapprove 27 / n=1,920) and rolled the rolling-window asOf date to 2026-05-30. The 60-day weighted average ticks up to approve ~57 / disapprove ~30 / net +27. Approval Signal is ungraded — no grade or GPA impact.",
     "items": [

@@ -37,3 +37,6 @@ public/feed.xml
 # Local MCP working configs (committed templates are .json.template)
 .mcp/*.json
 !.mcp/*.json.template
+
+# Disposable dev scratch and session handoff docs (never committed)
+tmp/
