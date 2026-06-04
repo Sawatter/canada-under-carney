@@ -1,7 +1,7 @@
 # Inter-Rater Reliability Protocol
 
 - **Purpose:** Turn the dashboard's disclosure that "external inter-rater reliability has not been tested" into something testable. Define the process for a second reader (the rater) to independently apply the published rubric to a subset of dimensions, and the criteria for comparing their grades against the editor's.
-- **Status:** Active protocol. First v1 packet prepared; AI packet QA run 2026-06 ([Inter-Rater-Pilot-AI-QA-2026-06.md](Inter-Rater-Pilot-AI-QA-2026-06.md)) surfaced packet fixes; first human run pending those fixes and a willing second reader.
+- **Status:** Active protocol. First v1 packet prepared; AI packet QA run 2026-06 ([Inter-Rater-Pilot-AI-QA-2026-06.md](Inter-Rater-Pilot-AI-QA-2026-06.md)) surfaced packet fixes, now applied; first human run pending a willing second reader and one editor check of the flagged tariff-cost estimate.
 - **Last updated:** 2026-05-13
 - **Editor dependencies, not rater materials:** [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [Plus-Minus-Decision-Rules.md](Plus-Minus-Decision-Rules.md)
 - **Used by:** Product Thesis claims about editorial vs. statistical rigor. Methodology tab "Limits of this model" block.

@@ -1,7 +1,7 @@
 # Inter-Rater Pilot Packet - May 2026
 
 - **Purpose:** Give an outside rater enough evidence and rules to independently grade three dimensions without seeing the published grade, editor rationale, judgment call, perspectives, or active modifier selection.
-- **Status:** AI packet QA complete (2026-06); fixes needed before the first human rater run. See [Inter-Rater-Pilot-AI-QA-2026-06.md](Inter-Rater-Pilot-AI-QA-2026-06.md).
+- **Status:** AI packet QA complete and fixes applied (2026-06); ready for the first human rater run, pending one editor check of the flagged tariff-cost estimate. See [Inter-Rater-Pilot-AI-QA-2026-06.md](Inter-Rater-Pilot-AI-QA-2026-06.md).
 - **Snapshot:** Dashboard data reviewed through 2026-04-30.
 - **Important:** This is a frozen snapshot packet. The live dashboard may have moved past this evidence date. Your answers will be compared against the 2026-04-30 snapshot grade, not today's published grade.
 - **Rater materials:** This packet is self-contained. Use only this packet and the external source links inside it before submitting the worksheet.
@@ -23,6 +23,8 @@ For each dimension, submit:
 5. Final grade.
 6. Confidence: Low, Medium, or High.
 7. Any evidence gaps or rubric ambiguities that affected your grade.
+
+If your confidence on a dimension is Low because the packet was missing a rule or a piece of evidence you needed, name exactly what was missing in field 7 of the worksheet. That is the signal we use to fix the packet.
 
 ---
 
@@ -73,7 +75,7 @@ Plus requires all of:
 - at least one primary indicator shows measurable positive momentum toward the next band
 - no material caveat undermines the positive signal
 
-Example pattern: a file that barely clears a C threshold but has no measurable movement toward B stays flat C, not C+.
+Example pattern: a file that barely clears its letter threshold but shows no measurable movement toward the next band stays flat, not a plus.
 
 Minus requires any of:
 
@@ -92,6 +94,10 @@ Straight letter applies when neither plus nor minus condition is met, or when th
 | Jurisdictional limits | Delivery depends heavily on provincial, municipal, or other non-federal actors | If more than 50% of delivery depends on non-federal actors and no agreement exists, maximum grade is C+. |
 | External constraint | Genuine external pressure affects the dimension | +0.3 GPA only when the government's response is adequate given that constraint. Constraint excuses slower pace, not inaction. |
 | Credit-claiming penalty | Government claims credit for outcomes it did not primarily cause | -0.3 GPA where documented overclaiming exceeds counterfactual contribution. |
+
+### Resolving Split Conditions
+
+Some bands list several conditions. When a dimension's indicators fall in different bands, do not read the thresholds as strict all-or-nothing gates, and do not let one strong indicator lift the grade above the band the other core indicators support. Weigh the indicators together, place the dimension in the band that best fits the overall picture, and name in your notes which conditions drove the placement. A single strong number does not rescue a grade when the other core indicators sit a band lower.
 
 ---
 
@@ -145,8 +151,9 @@ The sustainability of the federal fiscal trajectory and the credibility of the m
 | Working nominal GDP denominator | about $2.94T | computed | Approximate denominator included only so the rater can apply the deficit-as-percent-of-GDP threshold. |
 | Deficit as percent of GDP | about 2.7% | computed | Derived from $78.3B deficit / about $2.94T working denominator. |
 | Federal debt, 2024-25 | $1.27T | Finance Canada | Federal debt / accumulated deficit. Different from Budget 2025 net debt concept. |
-| Fitch rating | AA+ stable outlook, fiscal concerns noted | Manual rating check | Event-driven source; next update depends on rating-agency action or statement. |
+| Fitch rating | AA+, stable outlook | Manual rating check | Fitch affirmed AA+/stable after Budget 2025 and referenced fiscal expansion and the rising debt burden in its commentary. Event-driven; next update depends on rating-agency action or statement. |
 | PBO confidence in targets | 7.5% | PBO | Confidence in stated fiscal targets. |
+| Debt-to-GDP path | See Budget 2025 Annex 1 | Budget 2025 | The A and C/D bands turn on whether debt-to-GDP is on a declining path. Read the projected medium-term direction from the Budget 2025 annex cited in the Source List below. |
 
 ### Source List
 
@@ -161,7 +168,7 @@ The sustainability of the federal fiscal trajectory and the credibility of the m
 Up:
 
 - PBO confidence rises above 25%.
-- Fitch removes its warning.
+- Fitch outlook improves or its cautionary fiscal commentary is withdrawn.
 
 Down:
 
@@ -224,6 +231,8 @@ Out of scope:
 | D | Federal relief covers less than 20% of the cost increase, voluntary or narrow measures dominate, and food insecurity remains elevated or rising. |
 | F | No material federal relief or competition response is in place. |
 
+The "identified annual cost increase" in these bands is the in-scope added household cost: food-price inflation plus tariff-driven costs. Estimate it from the metrics below (for example, the food CPI applied to the annual food cost, plus the tariff household cost burden). The coverage ratio is the federal relief amount (the grocery benefit) divided by that increase.
+
 ### Modifier Guidance
 
 - External constraint may apply if tariff-driven costs demonstrably exceed what domestic policy can offset.
@@ -244,7 +253,9 @@ Out of scope:
 | Food CPI, stores YoY, Feb 2026 | 4.1% | Statistics Canada | Food purchased from stores rose 4.1% in February 2026. |
 | Family of 4 food cost, 2026 | $17,572/yr | Dalhousie | Annual food-cost estimate. |
 | Grocery benefit | about $307/household incremental | PBO | Costed federal benefit amount. |
-| Food insecure Canadians | about 10M | PROOF | Household food insecurity estimate. |
+| Food insecure Canadians | about 10M | PROOF | Household food insecurity estimate. PROOF's 2024 data reports food insecurity rising versus prior years. |
+| Tariff household cost burden | $1,450-$2,000/yr per household (estimate) | Tariff-cost estimate | Estimated added annual household cost from retaliatory tariffs. This is a synthesized estimate, not a single cited figure; treat it as approximate. |
+| Grocery Code of Conduct | Voluntary, industry-led | Canada Grocery Code | A voluntary industry code, not a mandatory federal competition or market-conduct measure. |
 
 ### Source List
 
@@ -324,7 +335,7 @@ The adequacy of the federal ethics framework when the officeholder presents non-
 
 | Metric | Value | Source | Notes |
 |---|---|---|---|
-| Ethics Commissioner review | Not published | Office public materials | No PM-specific review found in current public materials. |
+| Ethics Commissioner review | Not published | Office public materials | No PM-specific Commissioner review is listed in the public registry as of the snapshot. |
 | Blind trust status | Established | PM blind-trust summary statement | Summary statement records divestment of listed assets into a blind trust. |
 | Agreed measure filing | Filed | Annex A public declaration | Public declaration of agreed measure is published. |
 | Conflict screening scope | Declared in Annex A | Annex A public declaration | Annex A lists entities covered by the agreed measure and ethics screen. |
@@ -334,7 +345,7 @@ The adequacy of the federal ethics framework when the officeholder presents non-
 
 - [Globe and Mail - ethics filing](https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/)
 - [CBC - financial assets](https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443)
-- [Democracy Watch critique](https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/)
+- [Democracy Watch critique](https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/) (the URL headline is the source's own wording, not the editor's)
 - [House ETHI report - Review of the Conflict of Interest Act](https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96)
 - [Office of the Ethics Commissioner - registry and reviews](https://ciec-ccie.parl.gc.ca/en/)
 - [PM blind-trust summary statement](https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf)
@@ -383,10 +394,11 @@ Date:
 
 2. Band pick before plus/minus:
    Band:
-   Threshold clause used:
+   Threshold clause used (quote the band's threshold text from the packet):
 
 
 3. Plus / flat / minus / whole-letter-only:
+   (If the dimension is marked whole-letter-only, write "whole-letter-only" here and do not assign a plus or minus.)
    Choice:
    Rule or clause used:
 

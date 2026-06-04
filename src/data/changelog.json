@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.93",
+    "summary": "Applied the inter-rater pilot packet fixes from the 2026-06 QA pass, so the blind rater packet is ready for a human run (one editor check pending). Governance docs only, no grade or dashboard-data change.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Inter-rater pilot packet fixed and readied",
+        "body": "Applied the QA fixes to the blind rater packet: de-editorialized the Fiscal and Ethics metric lines so they state facts without pre-applying a threshold test, added a split-condition tie-break rule matching the rubric's existing holistic practice (a strong single indicator does not rescue a grade the others sit below), supplied the missing snapshot-valid facts (tariff household cost burden, Grocery Code status, food-insecurity trend, debt-to-GDP trajectory pointer), and tightened the worksheet. The packet is frozen to the 2026-04-30 snapshot, so post-snapshot Spring Economic Update figures were deliberately kept out. One item flagged for the editor: confirm the tariff-cost estimate's primary source before a human run. External inter-rater reliability is still untested; it needs a human rater."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.92",
     "summary": "Methodology pass from the 2026-06 audit. Approval polling now uses recency decay and house-effect correction, the Defence & Trade split tripwire wording is reconciled to one canonical rule, grade triggers gain publish dates, and a source-tier distribution is published. No grade change.",
     "items": [

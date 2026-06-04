@@ -1,8 +1,9 @@
 # Inter-Rater Pilot — AI Packet QA (2026-06)
 
-**Status:** AI packet QA pass complete, 2026-06-03. This is protocol step 1 ("run
-optional AI packet QA"), not the pilot. No grades were assigned. The reliability
-test remains untested until a human rater runs the corrected packet.
+**Status:** AI packet QA pass complete, 2026-06-03, and the resulting fixes applied
+to the packet the same day (see "Fixes applied" below). This was protocol step 1
+("run optional AI packet QA"), not the pilot. No grades were assigned. The
+reliability test remains untested until a human rater runs the packet.
 
 **How it was run:** a clean AI reviewer was given only the three permitted inputs
 (the redacted pilot packet, the results template, and the protocol) and asked to
@@ -17,7 +18,19 @@ telegraph the current position, and the central threshold math for two of the th
 dimensions is missing its denominator. Fixes are needed before a human run
 (protocol step 2).
 
-## Fixes before the human run
+## Fixes applied (2026-06)
+
+All fixes below were applied to the packet on 2026-06-03:
+
+- Worksheet: whole-letter-only now resolves in field 3; the band field asks the rater to quote the threshold text; a "Low confidence means name the gap" instruction was added; the plus/minus example was genericized.
+- Added a "Resolving Split Conditions" rule (weigh indicators holistically; one strong indicator does not lift the grade above the band the others support), matching the rubric's existing "debt level does not rescue an unsustainable path" principle rather than inventing a new rule.
+- De-editorialized the Fiscal Fitch line and up-trigger and the Ethics review status so they state facts without pre-applying a threshold test.
+- Added the missing snapshot-valid facts: Affordability tariff household cost burden, Grocery Code status (voluntary), food-insecurity trend, a denominator-definition note for the coverage ratio, and a Fiscal debt-to-GDP trajectory pointer to the snapshot-era Budget 2025 source. The live post-snapshot Spring Economic Update figures were deliberately kept out to preserve the frozen 2026-04-30 comparison.
+- Flagged the Democracy Watch URL headline as the source's own wording.
+
+**One item for the editor to verify before the run:** the tariff household cost-burden figure ($1,450-$2,000/yr per household) is a synthesized estimate, not a single cited number. Confirm it or attach a primary source before sending the packet. Everything else is sourced to material already in the packet or the dimension data.
+
+## Original QA findings (now addressed)
 
 ### Blocking — need the editor to source snapshot facts or set a rule
 
