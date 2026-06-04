@@ -101,6 +101,8 @@ and the Methodology tab's limits block is updated to say so.
 
 ## Related
 
+- [Grade-Change-Red-Team-Reviewer-Invite-2026-06.md](Grade-Change-Red-Team-Reviewer-Invite-2026-06.md)
+  — copy-ready recruitment language for the politically-different reviewer.
 - [Bias-Resistance-Protocol.md](Bias-Resistance-Protocol.md) — the party-symmetry
   rule this externalizes.
 - [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md) — the

@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.95",
+    "summary": "Added copy-ready recruitment language for the grade-change red-team reviewer, so the area 3 mechanism is one step from activation. Governance docs only.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "Red-team reviewer recruitment note added",
+        "body": "Added docs/Grade-Change-Red-Team-Reviewer-Invite-2026-06.md: short and long copy-ready language for recruiting one reviewer with a different political prior to red-team grade changes, mirroring the inter-rater invite but inverting the political framing (politics screened in, not out). Linked from the red-team protocol. The mechanism is now build-complete; what remains is recruiting the reviewer."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.94",
     "summary": "Built the grade-change red-team protocol, closing the methodology audit's area 3 gap in design: an external, politically-different symmetry check on grade changes. Governance docs only; activation pends a reviewer.",
     "items": [
