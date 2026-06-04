@@ -8,7 +8,7 @@
     "trend": "stable",
     "status": "NATO 2.01% met. Trade diversification measurable: US share fell from 75.9% to 71.7%.",
     "judgmentCall": "High grade rests on defence delivery; trade gains are discounted because some improvement is market-driven.",
-    "judgmentDetail": "The A- is not a blanket endorsement of the whole file. Defence spending clears the published NATO 2% threshold, while trade diversification improves enough to help the grade. Judgment enters in discounting the trade-side gain because the U.S. trade shock helped produce some diversification, and in stopping short of A because the 3.5% defence pathway is not funded.",
+    "judgmentDetail": "The A- is not a blanket endorsement of the whole file. Defence spending clears the published NATO 2% threshold, while trade diversification improves enough to help the grade. Judgment enters in discounting the trade-side gain because the U.S. trade shock helped produce some diversification, and in stopping short of A. The 3.5% defence pathway is now funded (Budget 2025, $81.8B over five years; up-trigger fired on a B-5yr reading, June 2026 review), but the editor held at A- on the two remaining reasons and because the trade half is mixed — diversification improved while the overall goods deficit widened to $31.3B in 2025 (largest since 2020). Split-shadow watch: this defence-strengthening / trade-balance-deteriorating divergence is recorded as cycle 1; if it persists next cycle the tripwire promotes the dimension to a split scorecard.",
     "surfaceTags": [
       "Sub-score file",
       "Trade partly market-driven"
@@ -17,7 +17,7 @@
     "gradeBasis": {
       "band": "A",
       "bandCriterion": "Defence target sustained and trade diversification materially improved away from single-market dependency.",
-      "plusMinusRationale": "A- rather than A reflects Canada meeting but not materially exceeding the 2% defence floor, while trade diversification remains partly market-driven and the 3.5% target lacks a funded pathway.",
+      "plusMinusRationale": "A- rather than A reflects Canada meeting but not materially exceeding the 2% defence floor, and trade diversification that remains partly market-driven. The 3.5% target now has a funded pathway (Budget 2025: $81.8B over five years for the CAF; the up-trigger fired on a B-5yr reading in the June 2026 editor review), so that is no longer a discount reason — but the grade held at A- on the two remaining reasons and because the trade half is mixed: diversification improved while the overall goods deficit widened 4x to $31.3B in 2025.",
       "activeModifiers": [
         {
           "name": "External Constraint",
@@ -150,6 +150,13 @@
         "value": "+23.4%",
         "source": "global-affairs-canada",
         "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: EU goods exports +23.4% year-to-date. Substituted for prior unverified '$134B CETA trade' figure in March 2026 cycle. Canonical-Scoring-Sheets.md and Pilot-Templates.md updated to reflect this substitution.",
+        "automatable": true
+      },
+      {
+        "label": "Overall goods trade deficit (2025)",
+        "value": "$31.3B (4x 2024)",
+        "source": "global-affairs-canada",
+        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: Canada's overall goods trade deficit widened from $7.2B in 2024 to $31.3B in 2025, the largest since 2020 — even as diversification improved (US export share 71.7%, non-US exports +17.2%). Tracked to put the trade-balance deterioration on the split-shadow clock (cycle 1); it is NOT one of the dimension's grade triggers, which track US-export-share (currently 71.7%, between the 68% up and 73% down bands).",
         "automatable": true
       }
     ],

@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.89",
+    "summary": "Defence & Trade editor evaluation (grill-me session): the '3.5% funded pathway' up-trigger fired on a B-5yr reading (Budget 2025 appropriates $81.8B over five years for the CAF), but the editor held the grade at A-. Split-shadow watch opened with the $31.3B overall trade deficit added as a tracked metric. No grade change.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Defence 3.5% funded-pathway up-trigger fired; grade held at A-",
+        "body": "Editor decision via a structured grill: (1) 'funded pathway' read as B-5yr — Budget 2025 Ch.4 appropriates $81.8B over five years for the CAF, so the up-trigger fires; (2) the combined grade holds at A- rather than moving to A, because this is a mixed-construct dimension and only one of the three A- reasons is removed — Canada is still at the 2% floor (2.01%), trade gains remain partly market-driven, and the trade half is mixed (diversification up while the overall goods deficit widened to $31.3B). plusMinusRationale and judgmentDetail updated to record the fired trigger and the hold. Party-symmetry applied: the same Budget-2025 + Hague + PBO evidence would fire the trigger under any governing party."
+      },
+      {
+        "type": "minor",
+        "headline": "Trade deficit added as a tracked metric; split-shadow watch opened",
+        "body": "Added 'Overall goods trade deficit (2025)' = $31.3B (4x 2024, largest since 2020) per the Global Affairs Monthly Trade Report. It is tracked, not a grade trigger — the dimension's trade triggers track US-export-share (currently 71.7%, between the 68% and 73% bands). The defence-strengthening / trade-balance-deteriorating divergence is recorded as cycle 1 of the split-shadow tripwire; if it persists next cycle, the dimension promotes to a split Defence and Trade scorecard. No split this cycle."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.88",
     "summary": "Worked the executable Round 2 editor packets: swapped the Climate emissions-cap citations from pre-MOU coverage to the official post-MOU source, and fixed a Fraser/Angus mis-attribution on the Major Projects headline metric. No grade, threshold, or scoring change; the grade decisions and four browser-pull sources remain editor-only.",
     "items": [
