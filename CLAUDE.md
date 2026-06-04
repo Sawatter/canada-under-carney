@@ -175,10 +175,12 @@ These rules are action checks, not vibes. If a future agent cannot produce the c
 - If feedback proposes a solution, confirm the underlying problem first.
 - Reddit comments from likely product-promo accounts are low-trust. Check `docs/Beta-Feedback-Log.md` before treating them as product direction.
 
-**Bug handling:**
+**Bug handling** (applies to data/methodology anomalies too, not just code):
 - Reproduce or characterize the symptom.
+- Minimise before hypothesising — isolate the smallest input, file, or step that still shows the anomaly before guessing the cause. (E.g. when the bias audit flags an unexpected count, find the single source/metric responsible before changing anything.)
 - Trace it to a concrete mechanism in code or data.
 - Fix the root cause, not only the visible symptom.
+- Re-run the relevant check to confirm the fix and catch recurrence: `npm run test:data`, `node scripts/audit-bias-resistance.mjs`, or the frozen-surface test, whichever covers the surface you touched.
 - Do not add broad try/catch blocks, defensive guards, or "just in case" rewrites without naming what failure they catch and why.
 
 ## Versioning and changelog

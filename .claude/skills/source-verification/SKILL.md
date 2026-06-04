@@ -1,237 +1,78 @@
 ---
 name: source-verification
 description: |
-  Use this skill to verify that the current content at each source URL in the
-  Canada Under Carney dashboard still supports the claim that dimensions.json
-  attributes to it. Triggers on: "verify the sources", "content check the
-  sources", "do the sources still say what we claim", "did Codex actually
-  read the content", "re-run the May cycle verification", "verify before we
-  ship", "content drift check", "source-to-claim verification".
+  Verify that the CURRENT content at each source URL still supports the claim
+  dimensions.json attributes to it — the gap URL-liveness passes miss. Triggers
+  on: "verify the sources", "content check the sources", "do the sources still
+  say what we claim", "did Codex actually read the content", "re-run the cycle
+  verification", "verify before we ship", "content drift check",
+  "source-to-claim verification".
 when_to_use: |
-  Distinct from source-audit (which checks compliance with the three-component
-  standard) and source-addition (which adds new sources). Use this skill when
-  the question is "is the current page content at URL X consistent with the
-  claim that dimensions.json says URL X supports?" This is the gap that pure
-  URL-liveness passes miss.
+  When the question is "does URL X's current page still back the claim we cite
+  it for?" Distinct from source-audit (three-component compliance) and
+  source-addition (adding sources). Stops at content-vs-claim; does not move
+  grades.
 allowed-tools: Read Grep Glob Bash WebFetch WebSearch
 ---
 
 # Source Verification
 
-## What this skill does
-
-Closes the gap between URL-liveness ("does the URL load?") and content-claim
-consistency ("does the current page still say what we cite it for?"). The
-discipline this skill enforces is:
-
-- WebFetch returning 403 or timeout is NOT permission to defer to "editor
-  browser-verification." It is the start of a fetch ladder.
-- "Browser-live per Codex" is NOT verification. It's URL-health.
-- The deliverable is a per-URL classification, not a generic pass-count.
-
-## When to skip
-
-- If the task is genuinely just URL-liveness (does it 200, 4xx, 5xx?), use
-  `source-audit` plus the link-rot script. This skill is heavier.
-- If the task is to add a new source, use `source-addition`.
-- If the task is to evaluate whether a grade should move, use
-  `grade-evaluation`. This skill stops at "current content vs current claim";
-  it does not move grades.
-
-## Citation vs verification
-
-Wayback is a verification tool only. Do not cite Wayback URLs in dimensions.json.
-If the live publisher URL still exists but blocks automated fetchers, keep the
-live publisher URL as the citation and use Wayback only to confirm what the
-publisher page said. If the live URL is genuinely dead or moved, search the
-publisher site for the relocated live URL before considering a replacement
-source.
+A 403/timeout is NOT permission to defer to "editor browser-verification," and
+"browser-live per Codex" is URL-health, not verification. The deliverable is a
+per-URL classification with captured quotes, not a pass-count.
 
 ## The fetch ladder
+Work down it per URL until you have content or have exhausted every rung. Many
+official sites block fetchers (canada.ca, statcan.gc.ca, fraserinstitute.org,
+cbc.ca, nationalobserver.com).
 
-For every URL in scope, work down this ladder until you have content or you
-have exhausted every option. Do not stop at the first 403.
+1. **WebFetch direct.**
+2. **WebSearch quote-extraction** — query the URL slug + the exact claim phrase
+   (e.g. `site:canada.ca "output-based pricing" "CAD 110 per tonne"`). A snippet
+   is PROVISIONAL: it can confirm a number ("confirmed via search") but never an
+   exact sentence. Never label a snippet-only quote "verbatim" or a row
+   "VERIFIED … OK"; mark "exact text not captured — editor pull pending."
+3. **Wayback** (`web.archive.org/web/*/<url>`) — verification ONLY; a Wayback
+   URL never becomes the citation.
+4. **Site scour** — if the live URL is dead, search the publisher's own site for
+   the relocated article. Surface both URLs; never replace silently.
+5. **Replacement publisher** — only if the live URL is genuinely dead AND the
+   publisher dropped it (Step 4 exhausted). Match/exceed the authority tier
+   (docs/Source-Authority-Map.md); replacing a T1 official with a T3 report
+   weakens authority — last resort.
+6. **Editor list** — after 1-5 fail: record the URL, the dimension/metric it
+   backs, the exact quote needed, and the steps tried. Keep it small (≤10/round).
 
-### Step 1 — WebFetch direct
-Standard call. Many official Canadian sources block automated user-agents
-(canada.ca, statcan.gc.ca, fraserinstitute.org, retailcouncil.org, cbc.ca,
-nationalobserver.com, theglobeandmail.com all known blockers).
+## Citation vs verification
+If the live publisher URL exists but blocks fetchers, KEEP it as the citation
+and use Steps 2-3 only to confirm what it said ("blocked-but-live" ≠ dead).
+Wayback URLs are never cited. Only a genuinely-dead URL triggers Step 4 → 5.
 
-### Step 2 — WebSearch with quote-extraction query
-When WebFetch returns 403 or timeout, construct a WebSearch query that
-includes both the URL path slug AND the specific claim phrase the dashboard
-attributes to it. Example:
-
-> `site:canada.ca "output-based pricing" "CAD 110 per tonne" 2026`
-
-WebSearch summarizes the live page content. Treat a search-snippet quote as
-**provisional** — snippets are paraphrase or excerpt, not guaranteed source
-text. A quote is verified only when the source page, a cached page, the PDF
-text, or a publisher-indexed excerpt actually exposes the text. A search
-snippet that merely *attributes* a phrase to a publisher is triage, not
-verification.
-
-Labelling rule:
-- Specific number, confirmed across results → "number confirmed via search"
-  (this is solid for facts/figures).
-- Exact sentence not opened from source/cache/PDF → do NOT label "verbatim";
-  mark "exact text not captured — editor source-pull pending" and add it to
-  the Step-6 list.
-- Never write "VERIFIED ... OK" on a row whose exact wording was only
-  attributed by a snippet. The number can be OK while the sentence is still
-  pending.
-
-This is the single highest-leverage workaround for canada.ca/StatCan
-blocking, but it confirms facts, not phrasing.
-
-### Step 3 — Wayback Machine (verification only, not citation)
-For URLs that fail both Step 1 and Step 2, try the Wayback Machine pattern
-**to verify content only**:
-
-> `https://web.archive.org/web/<YYYY>*/<original-url>`
-
-Or, if the timestamp is unknown, the bare:
-
-> `https://web.archive.org/web/*/<original-url>`
-
-Wayback typically bypasses live-site blocking because it serves cached
-snapshots. Note: Wayback content may be old; pick the snapshot date closest
-to when the dashboard's claim was added.
-
-**Critical:** Wayback URLs are read-only verification. They do not become the
-citation in dimensions.json. If the live publisher URL still exists (even if
-it blocks automated fetchers), the live publisher URL stays as the citation.
-Wayback only confirms what that page said.
-
-### Step 4 — Site scour for alternative URL
-If steps 1-3 fail, search the source's own site for the article supporting
-the same claim under a different URL pattern. Example:
-
-> CBC `/news/politics/oil-and-gas-cap-budget-9.6966588` returns 403 →
-> WebSearch finds CBC `/news/canada/calgary/carney-scraps-emissions-cap-
-> danielle-smith-alberta-9.6966596` covers the same MOU, which is also
-> publicly indexed.
-
-Don't replace silently. Surface both URLs and recommend the swap.
-
-### Step 5 — Replacement source from a different publisher
-Only reach this step if the live URL is **genuinely dead or moved AND** the
-publisher's own site does not host the relocated article under any URL
-pattern (Step 4 exhausted). "Blocked-but-live" is not "unreachable" — for
-those, the citation stays on the original publisher and verification uses
-Steps 2-3.
-
-If the original publisher's content is genuinely removed AND the claim is
-load-bearing, find a different publisher whose article supports the same
-specific claim. Verify the replacement's authority tier matches or exceeds
-the original's per `docs/Source-Authority-Map.md`. Note: replacing a T1
-official primary (canada.ca, statcan.gc.ca) with a T3 reporting source
-weakens source authority and should be a last resort.
-
-### Step 6 — Last-resort editor verification list
-Only after steps 1-5 have all failed for a specific URL, add it to the
-editor verification list with:
-
-- The URL
-- The specific dimension and metric/trigger it supports
-- The exact quote or figure the dashboard attributes to it
-- The fetch ladder steps already attempted (so the editor knows what didn't
-  work)
-
-This list is the editor's manual browser-pull task. It should be small —
-ten URLs maximum across a single round.
-
-## Verification discipline per URL
-
-For each URL, regardless of which fetch-ladder step succeeded:
-
-1. **Identify the claim.** Read dimensions.json. What metric, trigger,
-   sourceNote, status text, rationale, or other field does this URL
-   support? Quote the dashboard claim verbatim.
-2. **Read the source content.** Capture a verbatim quote from the source
-   that either supports, modifies, or contradicts the dashboard claim.
-3. **Classify the finding.** One of:
-   - **OK** — source content supports dashboard claim. Quote captured.
-   - **Stale refresh candidate** — source content has updated values that
-     should refresh the dashboard. No grade impact under current
-     methodology. Editor decision required for the refresh.
-   - **URL upgrade** — source publisher moved the article; URL needs swap
-     but the underlying claim and authority tier are unchanged. Auto-apply
-     after sanity check.
-   - **URL replacement candidate** — current URL covers a different claim
-     or date than what the dashboard attributes to it. Different URL from
-     same or different publisher better supports the claim. Editor
-     decision.
-   - **Content drift, grade-implications** — current source content is
-     materially different in a way that could move a grade trigger. Do
-     not move the grade. Flag for editor methodology review.
-   - **Dead** — no live or cached version exists at any URL on the
-     publisher's site. Needs replacement source from a different
-     publisher.
-4. **Document.** Per-URL line in the verification doc with URL, claim,
-   verbatim quote, classification, recommended action.
+## Per URL
+1. **Identify the claim** — which metric/trigger/note/status it backs; quote the
+   dashboard claim.
+2. **Read the source** — capture a quote that supports / modifies / contradicts it.
+3. **Classify:** OK · stale-refresh-candidate (editor decides) · URL-upgrade
+   (auto after sanity check) · URL-replacement-candidate (editor decides) ·
+   content-drift-with-grade-implications (flag, don't move grade) · dead.
+4. **Document** — one row: URL, claim, quote, classification, recommended action.
 
 ## Output
-
-Produce a verification doc at `docs/<scope>-Verification-<YYYY-MM-DD>.md`
-with:
-
-- Header: purpose, run date, dashboard state at run time, fetch-ladder
-  steps used, scope discipline (no grade moves, etc.)
-- Verification status table — count by classification
-- Per-dimension findings tables — one row per URL with verbatim quotes
-- Roll-up: findings that ship this commit, findings queued for editor
-  decision, findings queued for the next monthly cycle
-- Authority and scope footer
+`docs/<scope>-Verification-<date>.md`: header (purpose, dashboard state, ladder
+steps used, scope discipline) · status table by classification · per-dimension
+findings tables with quotes · roll-up (ship now / editor-decision / next-cycle)
+· authority + scope footer.
 
 ## Rules
+- No "browser-verifiable per Codex" deferrals — work the ladder to Step 6 or
+  admit the URL wasn't verified.
+- No silent URL replacements — every change goes in the doc with the comparison.
+- No Wayback URLs in dimensions.json.
+- No grade moves (→ grade-evaluation) and no new sources (→ source-addition)
+  inside a verification pass.
+- No frozen-surface edits (GPA math, POCKETBOOK_DIMS, thresholds, modifiers,
+  dimension model).
 
-- **No "browser-verifiable per Codex" deferrals.** That phrase indicates
-  the discipline was skipped. Either work the fetch ladder all the way to
-  Step 6 or admit the URL was not verified in this pass.
-- **No "not re-fetched in this pass" entries** unless explicitly justified
-  (e.g., a metadata-stable open-data catalog page that was verified in the
-  previous cycle).
-- **No silent URL replacements.** Every URL change must appear in the
-  verification doc with the reason and the verbatim content comparison.
-- **No Wayback URLs in dimensions.json.** Wayback is a verification tool,
-  not a citation surface. If the live publisher URL still exists (even
-  blocking fetchers), keep the live URL as the citation. If the live URL
-  is genuinely dead, search the publisher's own site for the relocated
-  article before considering a different-publisher replacement.
-- **No grade moves during a verification pass.** This skill stops at
-  content-vs-claim. Grade decisions go through `grade-evaluation` with
-  party-symmetry check.
-- **No new sources without `source-addition` discipline.** If verification
-  surfaces a replacement candidate from a different publisher, that's a
-  source addition that goes through that skill's protocol.
-- **No frozen-surface edits.** GPA formulas, POCKETBOOK_DIMS, thresholds,
-  modifiers, dimension model — all off-limits during verification.
-
-## When the fetch ladder still fails
-
-Some sources will resist every step. PDF binaries that WebFetch can't
-parse, sites that block all known automated user-agents and aren't in
-Wayback. These get the last-resort editor-list treatment.
-
-The verification doc should be explicit: "These N URLs reached Step 6 of
-the fetch ladder. Editor browser-verification with the specific quote
-each one should support is the only remaining path."
-
-Do not claim verification was performed on those URLs.
-
-## Codex cross-check
-
-After the verification pass is written but before ship, optionally hand
-the doc plus the dashboard bundle to Codex for verbatim-quote cross-check.
-Codex's role here is independent verification of the quotes Claude
-captured, not to do the verification work itself. Use the structured
-prompt pattern from `docs/AI-Verification-Methodology.md`.
-
-## Example invocation
-
-> "Verify Round 1 of the May cycle — Carbon Pricing, Immigration,
-> Affordability, Defence, Climate. Run the full fetch ladder on every
-> URL. No 'browser-verifiable per Codex' deferrals. Produce
-> docs/May-Cycle-Verification-Pass-2026-05-25.md v2.0 with per-URL
-> verbatim quotes."
+## Codex cross-check (optional)
+Before ship, hand the doc + bundle to Codex for verbatim-quote cross-check only —
+it verifies your captured quotes, it doesn't redo the pass.
