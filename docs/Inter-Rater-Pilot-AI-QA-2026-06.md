@@ -28,7 +28,7 @@ All fixes below were applied to the packet on 2026-06-03:
 - Added the missing snapshot-valid facts: Affordability tariff household cost burden, Grocery Code status (voluntary), food-insecurity trend, a denominator-definition note for the coverage ratio, and a Fiscal debt-to-GDP trajectory pointer to the snapshot-era Budget 2025 source. The live post-snapshot Spring Economic Update figures were deliberately kept out to preserve the frozen 2026-04-30 comparison.
 - Flagged the Democracy Watch URL headline as the source's own wording.
 
-**One item for the editor to verify before the run:** the tariff household cost-burden figure ($1,450-$2,000/yr per household) is a synthesized estimate, not a single cited number. Confirm it or attach a primary source before sending the packet. Everything else is sourced to material already in the packet or the dimension data.
+**One item for the editor to verify before the run:** the tariff household cost-burden figure ($1,450-$2,000/yr per household) is a synthesized estimate, not a single cited number. Confirm it or attach a primary source before sending the packet. Everything else is sourced to material already in the packet or the dimension data. (External sourcing was attempted 2026-06: published analyses frame the tariff hit as a GDP impact of roughly 2% and a CPI impact of about 0.3 points / roughly 6% on tariffed goods, not a clean per-household dollar, and RBC's one-year review carries no per-household figure. So the range stays an editor scenario synthesis to confirm, not an externally citable number.)
 
 ## Original QA findings (now addressed)
 
