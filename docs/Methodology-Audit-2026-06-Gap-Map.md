@@ -141,8 +141,12 @@ political-diversity review (#6) run on their own timelines because they need peo
   activated ([Perceived-Bias-Survey.md:3](Perceived-Bias-Survey.md)). The internal
   "Red Team" lane is an editorial role / AI personas, not a politically-different
   human.
-- **Recommendation status:** the true gap is a politically-diverse *human* perspective.
-  Comet's blanket "no human review" is too strong; its precise concern holds.
+- **Recommendation status:** addressed in design (2026-06). The true gap was a
+  politically-diverse *human* perspective; the [Grade-Change Red-Team Protocol](Grade-Change-Red-Team-Protocol.md)
+  now builds that external symmetry check, wired into the bias-resistance and
+  QA-gatekeeping grade-change path. Activation pends a willing politically-different
+  reviewer (the irreducible human step). Comet's blanket "no human review" was too
+  strong, but its precise concern is now closed in design.
 
 ### Area 4 — Source-Authority Tiering
 - **Comet:** MEETS/EXCEEDS; recommends a per-dimension tier-distribution statistic.

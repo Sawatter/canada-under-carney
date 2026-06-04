@@ -79,6 +79,8 @@ Every cycle that changes a `grade` value on any dimension must include this line
 
 If the answer is anything other than an unqualified "Yes," the grade move requires extra documentation in `judgmentDetail` explaining why the evidence is being read the way it is and whether a hypothetical alternative-party reading would arrive at the same band.
 
+This check is currently applied by the editor. The [Grade-Change Red-Team Protocol](Grade-Change-Red-Team-Protocol.md) externalizes it: when a politically-different outside reviewer is available, a grade change also gets an independent symmetry check from a prior that is not the editor's. Built 2026-06; activation pending a reviewer.
+
 ## Public-surface status
 
 These are the reader-facing trust artifacts that follow this protocol. Status is current as of v5.55:

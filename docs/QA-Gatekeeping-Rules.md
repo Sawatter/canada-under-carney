@@ -219,6 +219,8 @@ For every proposed grade change (not grade holds, source-stack-only changes, or 
    modifier application (if any), confidence level, and date
 ```
 
+For a published grade change, the Red Team lane in step 7 escalates to the [Grade-Change Red-Team Protocol](Grade-Change-Red-Team-Protocol.md) when a politically-different outside reviewer is available: an external check that the same evidence yields the same grade across political priors. Until one is recruited, the editor-applied party-symmetry line is the interim control and the release log notes red-team availability.
+
 ---
 
 ## Companion References

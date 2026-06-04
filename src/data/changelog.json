@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.94",
+    "summary": "Built the grade-change red-team protocol, closing the methodology audit's area 3 gap in design: an external, politically-different symmetry check on grade changes. Governance docs only; activation pends a reviewer.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Grade-change red-team protocol added",
+        "body": "Added docs/Grade-Change-Red-Team-Protocol.md and wired it into the bias-resistance party-symmetry section and the QA grade-change gate. On a grade change, a reviewer holding a different political prior independently checks whether the same evidence yields the same grade, externalizing the party-symmetry test the editor currently applies alone. It flags rather than changes grades, stays separate from the inter-rater reliability pilot (which screens political agreement out by design), and complements the reader-facing perceived-bias survey. Built 2026-06; activation pends a willing politically-different reviewer."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.93",
     "summary": "Applied the inter-rater pilot packet fixes from the 2026-06 QA pass, so the blind rater packet is ready for a human run (one editor check pending). Governance docs only, no grade or dashboard-data change.",
     "items": [
