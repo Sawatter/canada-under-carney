@@ -107,10 +107,13 @@ Trigger objects (in `gradeTriggers.up[]` and `down[]`) must be structured:
 ```json
 {
   "text": "PBO confidence rises above 25%",
+  "setDate": "2026-04-17",
   "sourceLabel": "PBO fiscal analysis",
   "sourceUrl": "https://..."           // present for external sources
 }
 ```
+Every trigger carries a `setDate` (the date the condition was first published, `YYYY-MM-DD`). Existing triggers were backfilled from git introduction dates; new triggers take the cycle date. The validator requires it, so a reader can confirm a trigger predated the evidence it now adjudicates.
+
 Triggers without an external URL must either:
 - Carry an `internalRef` like `{type: "cohort"}`, `{type: "anchor", view: "scorecard", target: "scorecard-dimension-grid"}`, or `{type: "view", target: "promises"}` — these render as in-app navigation
 - OR be honestly labeled in the `sourceLabel` as event-driven (e.g. `"Fitch / Moody's / S&P event-driven rating source"`)
@@ -126,7 +129,7 @@ The dashboard is non-partisan by construction. When in doubt:
 - **No advocacy.** The dashboard scores; it does not argue for or against any party, candidate, or policy direction.
 - **Paper-trail only.** Don't grade things without public evidence. Refuses to score: leadership style, vision, symbolic politics, popularity, character.
 - **Named exceptions are explicitly framed:**
-  - Defence & Trade is mixed-construct (defence milestone + trade outcome under one grade) and carries a tripwire: if the two halves move opposite directions for two consecutive monthly review cycles, the split shadow promotes to a live separate file.
+  - Defence & Trade is mixed-construct (defence milestone + trade outcome under one grade) and carries a tripwire: if the two sub-scores move in opposite directions, or diverge by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, the split shadow promotes to a live separate file.
   - Flagship Delivery is a meta-rollup, not a peer dimension. Scoped explicitly in its `judgmentCall`.
   - Promise Delivery is a tracker, not part of the GPA. Has `excludeFromGPA: true` and `informationalGrade` instead of `grade`.
 - **Consistency over absence-of-bias.** The credibility argument is "same rule applied across all 11 files" — not "no editor judgment exists." Judgment is admitted in `judgmentCall` and `judgmentDetail` on every graded card.

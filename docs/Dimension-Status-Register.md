@@ -25,7 +25,7 @@
 |---|---|
 | **Status** | Stable with split tripwire |
 | **Unresolved issue** | Mixed construct remains, but sub-scores and a split-promotion tripwire now make the defence/trade tension visible. |
-| **What needs doing** | Monitor the live tripwire: if one sub-score rises while the other falls, or the gap widens by one full notch, for two consecutive monthly review cycles, promote the split shadow into live separate files. |
+| **What needs doing** | Monitor the live tripwire: if the defence and trade sub-scores move in opposite directions, or diverge by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, promote the split shadow into live separate files. |
 | **Before next cycle?** | Monitor only. Full split: no unless the tripwire fires. |
 | **Affects** | Live model monitoring |
 

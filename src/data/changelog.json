@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.92",
+    "summary": "Methodology pass from the 2026-06 audit. Approval polling now uses recency decay and house-effect correction, the Defence & Trade split tripwire wording is reconciled to one canonical rule, grade triggers gain publish dates, and a source-tier distribution is published. No grade change.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Approval polling: recency decay + house-effect correction",
+        "body": "The Approval Signal aggregate now weights each poll by recency (30-day half-life) on top of sample size, and subtracts each firm's house effect (its standing lean versus other firms polling the same weeks, leave-one-pollster-out, for firms with at least 3 polls). On the current window this moves the headline from 57/30 (net +27) to 61/34 (net +26): approve and disapprove each rise about 4 points because the window is Abacus-heavy and Abacus runs low on both. The per-firm offsets are shown in the drill-down. The signal is ungraded, so the GPA math is untouched. Method: docs/Polling-Aggregation-Method-2026-06.md."
+      },
+      {
+        "type": "method",
+        "headline": "Defence & Trade split tripwire wording reconciled",
+        "body": "The split-promotion tripwire was stated three inconsistent ways across the data file, CLAUDE.md, the status register, and the decision memo. All now state one canonical rule: if the defence and trade sub-scores move in opposite directions, or diverge by more than 1.0 GPA points (about one full letter grade), for two consecutive review cycles, the split shadow promotes. This does not change whether the tripwire has fired. It has not."
+      },
+      {
+        "type": "method",
+        "headline": "Grade triggers now carry a publish date",
+        "body": "Every grade-move trigger now records a setDate (the date it was first published), backfilled from git history for the existing 49 triggers and required by the data validator going forward. A reader can confirm a trigger predated the evidence it now adjudicates."
+      },
+      {
+        "type": "method",
+        "headline": "Source-tier distribution published",
+        "body": "Added scripts/audit-source-tiers.mjs and docs/Source-Tier-Distribution-2026-06.md, classifying all 94 citations into the T1-T5 authority tiers. 74% sit in T1-T2 (official data plus independent analysis); per-dimension shares are published so the evidence mix is visible, not just the tier definitions. Major Projects (38%) is the most government-page-reliant dimension."
+      },
+      {
+        "type": "docs",
+        "headline": "Methodology audit gap-map and inter-rater packet QA",
+        "body": "Mapped the 2026-06 external methodology audit against our actual files (docs/Methodology-Audit-2026-06-Gap-Map.md): two of its three top gaps were already addressed and polling was the one confirmed gap. Also ran an AI packet-QA pass on the inter-rater pilot (docs/Inter-Rater-Pilot-AI-QA-2026-06.md), which found fixes needed before a human run. External inter-rater reliability remains untested."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.91",
     "summary": "Closed the last open Round 1 Immigration items: added the IRCC temporary-resident new-arrivals target (385,000 in 2026) as a tracked metric, labelled as an annual flow distinct from the 5%-of-population stock trigger, and added PBO's modeled 5%-by-end-2027 projection to the TR-share memo. No grade change.",
     "items": [

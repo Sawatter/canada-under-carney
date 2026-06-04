@@ -3,7 +3,13 @@
   "rollingWindowDays": 60,
   "construct": "PM / government job approval (approve vs. disapprove)",
   "inclusionRule": "Canadian polling firms publishing a direct PM or government approval question with both approve and disapprove percentages, disclosed sample size, and published methodology. CRIC accreditation (Canadian Research Insights Council) is preferred but not strictly required — public-interest institutes (Angus Reid Institute) and well-established firms with equivalent transparency (Innovative Research Group) are admissible. Preferred-PM, favourability, and vote-intention polls are tracked separately and not included here.",
-  "aggregationRule": "Sample-size-weighted mean across all polls whose field end date falls in the rolling window. A poll with n=2,000 carries twice the weight of one with n=1,000. House effects across CRIC members are small enough that explicit de-housing is not yet required; multi-pollster coverage remains the primary house-effect control.",
+  "aggregationRule": "Each poll is weighted by sample size and by recency on a 30-day half-life (a poll loses half its weight every 30 days) within the rolling window. Before averaging, each firm's house effect is subtracted: the firm's standing lean versus other firms polling the same weeks, from a leave-one-pollster-out contemporaneous comparison over the full poll set, computed separately for approve and disapprove. A firm earns an offset only with at least 3 polls on record; firms below that are left neutral. The per-firm offsets are shown in the dashboard drill-down.",
+  "halfLifeDays": 30,
+  "houseEffect": {
+    "minPolls": 3,
+    "neighborhoodDays": 45,
+    "method": "Leave-one-pollster-out contemporaneous deviation over the full poll set. For each poll, the firm's value is compared to the equal-firm-weighted average of other firms polling within neighborhoodDays; the firm's offset is the mean of those deviations, computed separately for approve and disapprove. Firms with fewer than minPolls computable deviations are neutral (zero offset). Offsets are subtracted to de-house each firm toward cross-firm consensus."
+  },
   "polls": [
     {
       "pollster": "Abacus Data",

@@ -1,7 +1,7 @@
 # Inter-Rater Pilot Packet - May 2026
 
 - **Purpose:** Give an outside rater enough evidence and rules to independently grade three dimensions without seeing the published grade, editor rationale, judgment call, perspectives, or active modifier selection.
-- **Status:** Ready for first v1 rater run.
+- **Status:** AI packet QA complete (2026-06); fixes needed before the first human rater run. See [Inter-Rater-Pilot-AI-QA-2026-06.md](Inter-Rater-Pilot-AI-QA-2026-06.md).
 - **Snapshot:** Dashboard data reviewed through 2026-04-30.
 - **Important:** This is a frozen snapshot packet. The live dashboard may have moved past this evidence date. Your answers will be compared against the 2026-04-30 snapshot grade, not today's published grade.
 - **Rater materials:** This packet is self-contained. Use only this packet and the external source links inside it before submitting the worksheet.

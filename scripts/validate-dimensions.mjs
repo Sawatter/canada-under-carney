@@ -140,6 +140,9 @@ for (const d of dimensions) {
       if (!t.sourceLabel || !t.sourceLabel.trim()) {
         err(name, `gradeTriggers.${side}[${i}] is missing "sourceLabel"`);
       }
+      if (!t.setDate || !/^\d{4}-\d{2}-\d{2}$/.test(t.setDate)) {
+        err(name, `gradeTriggers.${side}[${i}] is missing a valid "setDate" (YYYY-MM-DD)`);
+      }
       // Either sourceUrl, internalRef, or sourceLabel must indicate event-driven
       const hasUrl = typeof t.sourceUrl === "string" && t.sourceUrl.startsWith("http");
       const hasInternalRef = t.internalRef && typeof t.internalRef === "object";
