@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.91",
+    "summary": "Closed the last open Round 1 Immigration items: added the IRCC temporary-resident new-arrivals target (385,000 in 2026) as a tracked metric, labelled as an annual flow distinct from the 5%-of-population stock trigger, and added PBO's modeled 5%-by-end-2027 projection to the TR-share memo. No grade change.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Immigration TR new-arrivals target added as a metric",
+        "body": "Added 'TR new arrivals target (2026)' = 385,000 (annual flow) to the Immigration dimension, per the IRCC 2026-2028 Levels Plan and PBO RP-2526-025-S. The note flags that it is an annual FLOW, not the total TR stock, so it is not directly comparable to the up-trigger's 5%-of-population (a stock measure) — it is forward-looking policy-path evidence. The trigger still tracks total TR share (6.5% as of Jan 1, 2026). Grade stays C+."
+      },
+      {
+        "type": "docs",
+        "headline": "TR-share memo gains PBO modeled forecast",
+        "body": "docs/Immigration-TR-Share-Check-2026-05-25.md trajectory table now records PBO's modeled projection that NPR share declines to just under 5% by end of 2027 — more conservative than the linear ~end-2026 read, so 'ahead of schedule' is even less supported. Closes the last open Round 1 Immigration packet."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.90",
     "summary": "Logged the Economic Policy D-to-D- decision as held pending the April 2026 GDP actual, closing out the open June-cycle evaluation items. No grade change.",
     "items": [

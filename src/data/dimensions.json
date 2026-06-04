@@ -2340,6 +2340,19 @@
         "automatable": true
       },
       {
+        "label": "TR new arrivals target (2026)",
+        "value": "385,000 (annual flow)",
+        "source": "ircc",
+        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan: temporary-resident new-arrivals target of 385,000 in 2026 (370,000 in 2027 and 2028). This is an annual FLOW, not the total TR stock, so it is NOT directly comparable to the up-trigger's '5% of population' (a stock measure) — it is forward-looking policy-path evidence. The trigger tracks total TR share of population (6.5% as of Jan 1, 2026; trajectory downward). Confirmed via the IRCC plan and PBO RP-2526-025-S.",
+        "sourceRefs": [
+          {
+            "label": "PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
+            "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028"
+          }
+        ],
+        "automatable": false
+      },
+      {
         "label": "Temp arrivals change (Jan-Sep 2025 vs 2024)",
         "value": "-53%",
         "source": "ircc",

@@ -54,6 +54,7 @@ The TR-share trajectory is **consistently downward** since the Q3 2024 peak:
 | Has TR share reached 5%? | NO — currently 6.5% (Jan 1, 2026 reference date). |
 | Is the trajectory consistent with reaching 5% before end of 2026? | ON THE BUBBLE — linear extrapolation puts TR share at ~5.0% by Q4 2026 reference date (Jan 1, 2027), which is the target year, not "ahead of schedule." |
 | Is "ahead of schedule" satisfied? | NOT YET. Target is end-of-2026; current trajectory hits 5% right around end-of-2026, not before. |
+| What does PBO's *modeled* forecast say? | PBO RP-2526-025-S projects NPR share declining to just under 5% by **end of 2027** — more conservative than the linear ~end-2026 read. On PBO's model, "ahead of schedule" is even less supported. |
 
 **Classification:** **NOT FIRED.** Trajectory is on track and arguably moving faster than required, but the up-trigger language requires actually reaching 5%, not just trending toward it. Confirmation requires Q1 2026 or later StatCan data showing TR share ≤ 5%.
 
