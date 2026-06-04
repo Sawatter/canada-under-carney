@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.90",
+    "summary": "Logged the Economic Policy D-to-D- decision as held pending the April 2026 GDP actual, closing out the open June-cycle evaluation items. No grade change.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Economic Policy D-to-D- formally held pending April GDP",
+        "body": "Recorded in judgmentDetail that the Q1 2026 technical recession and the fifth straight quarterly business-investment decline are captured in the metrics, but a D-to-D- move is held pending the April 2026 GDP actual (StatCan's early estimate was +0.4%, which could revise the technical recession away). The decision is data-gated, not judgment-gated — there is nothing to decide until that print lands, so no grill or grade move now. Grade stays D."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.89",
     "summary": "Defence & Trade editor evaluation (grill-me session): the '3.5% funded pathway' up-trigger fired on a B-5yr reading (Budget 2025 appropriates $81.8B over five years for the CAF), but the editor held the grade at A-. Split-shadow watch opened with the $31.3B overall trade deficit added as a tracked metric. No grade change.",
     "items": [
