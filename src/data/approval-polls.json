@@ -1,11 +1,24 @@
 {
-  "asOf": "2026-05-30",
+  "asOf": "2026-06-05",
   "rollingWindowDays": 60,
   "construct": "PM / government job approval (approve vs. disapprove)",
   "inclusionRule": "Canadian polling firms publishing a direct PM or government approval question with both approve and disapprove percentages, disclosed sample size, and published methodology. CRIC accreditation (Canadian Research Insights Council) is preferred but not strictly required — public-interest institutes (Angus Reid Institute) and well-established firms with equivalent transparency (Innovative Research Group) are admissible. Preferred-PM, favourability, and vote-intention polls are tracked separately and not included here.",
   "aggregationRule": "Each poll is weighted by sample size and by recency on a 30-day half-life (a poll loses half its weight every 30 days) within the rolling window. The aggregate is a plain sample-and-recency-weighted mean of the raw polls. House-effect de-housing was tried and reverted in v5.98: with only three firms it over-corrected and pushed the headline above every input poll. De-housing can return, centred, once more firms are tracked. See docs/Polling-Aggregation-Method-2026-06.md.",
   "halfLifeDays": 30,
   "polls": [
+    {
+      "pollster": "Léger",
+      "fieldStart": "2026-05-29",
+      "fieldEnd": "2026-06-01",
+      "approve": 56,
+      "disapprove": 34,
+      "sampleSize": 1532,
+      "methodology": "Online (LEO panel), weighted to census",
+      "marginOfErrorNote": "±2.50 pp comparable probability sample",
+      "construct": "PM performance approval",
+      "sourceUrl": "https://leger360.com/in-the-news-liberals-reach-highest-level-support/",
+      "sourceLabel": "Leger June 2026 Federal Politics Report"
+    },
     {
       "pollster": "Abacus Data",
       "fieldStart": "2026-05-14",

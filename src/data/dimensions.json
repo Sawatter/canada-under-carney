@@ -116,9 +116,13 @@
       {
         "label": "PBO — Spring Economic Update Major Capital Priorities",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans"
+      },
+      {
+        "label": "Global Affairs Canada Monthly Trade Report (March 2026)",
+        "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "label": "NATO spending (2025e)",
@@ -138,30 +142,54 @@
         "value": "71.7%",
         "source": "global-affairs-canada",
         "sourceId": "12-10-0176-01",
-        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: 'the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025 compared to 2024, the lowest share since the early 1980s.' Based on StatsCan 12-10-0176-01.",
-        "automatable": true
+        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025 compared to 2024, the lowest share since the early 1980s. The March 2026 monthly report shows U.S. goods exports of $48.5B out of total goods exports of $72.8B, or about 66.7% for that month, but the dashboard does not use a single-month share for the grade trigger.",
+        "automatable": true,
+        "sourceRefs": [
+          {
+            "label": "Global Affairs Canada Monthly Trade Report (March 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03"
+          }
+        ]
       },
       {
         "label": "Non-US exports (2025 annual)",
         "value": "+17.2%",
         "source": "global-affairs-canada",
         "sourceId": "12-10-0176-01",
-        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: 'annual goods exports to non-U.S. countries rose 17.2% to an all-time high.' Based on StatsCan 12-10-0176-01.",
-        "automatable": true
+        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: annual goods exports to non-U.S. countries rose 17.2% to an all-time high. The March 2026 monthly report shows non-U.S. goods exports reaching $24.3B, another record monthly level.",
+        "automatable": true,
+        "sourceRefs": [
+          {
+            "label": "Global Affairs Canada Monthly Trade Report (March 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03"
+          }
+        ]
       },
       {
         "label": "EU exports growth (2025 YTD)",
         "value": "+23.4%",
         "source": "global-affairs-canada",
-        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: EU goods exports +23.4% year-to-date. Substituted for prior unverified '$134B CETA trade' figure in March 2026 cycle. Canonical-Scoring-Sheets.md and Pilot-Templates.md updated to reflect this substitution.",
-        "automatable": true
+        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: EU goods exports +23.4% year-to-date. The March 2026 monthly report shows EU goods exports +19.9% year-to-date, still positive but below the 2025 full-year pace.",
+        "automatable": true,
+        "sourceRefs": [
+          {
+            "label": "Global Affairs Canada Monthly Trade Report (March 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03"
+          }
+        ]
       },
       {
         "label": "Overall goods trade deficit (2025)",
         "value": "$31.3B (4x 2024)",
         "source": "global-affairs-canada",
-        "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: Canada's overall goods trade deficit widened from $7.2B in 2024 to $31.3B in 2025, the largest since 2020 — even as diversification improved (US export share 71.7%, non-US exports +17.2%). Tracked to put the trade-balance deterioration on the split-shadow clock (cycle 1); it is NOT one of the dimension's grade triggers, which track US-export-share (currently 71.7%, between the 68% up and 73% down bands).",
-        "automatable": true
+        "sourceNote": "Global Affairs Canada's December 2025 Monthly Trade Report remains the latest full-year read: Canada's overall goods trade deficit widened from $7.2B in 2024 to $31.3B in 2025. The March 2026 monthly report adds current context: goods exports were $72.8B, goods imports were $71.0B, and the monthly goods balance moved to a $1.8B surplus. The dashboard keeps the annual 2025 deficit as the headline value because the trade trigger uses durable annual share movement, not one-month volatility.",
+        "automatable": true,
+        "sourceRefs": [
+          {
+            "label": "Global Affairs Canada Monthly Trade Report (March 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03"
+          }
+        ]
       }
     ],
     "promises": [
@@ -428,13 +456,13 @@
         "url": "https://angusreid.org/major-projects-reaction-canada/"
       }
     ],
-    "lastUpdated": "2026-05-13",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "label": "Projects in MPO cohort",
         "value": "15 across 3 tranches",
         "source": "manual",
-        "sourceNote": "The official Major Projects Office project page, date modified 2026-05-08, lists 15 referred projects. The dashboard counts projects in that official list and does not count the separately listed transformative strategies in the project denominator. Full list with stage tracking lives in projectCohort.projects.",
+        "sourceNote": "The official Major Projects Office project page, date modified 2026-05-21, lists 15 referred projects. The dashboard counts projects in that official list and does not count separately listed transformative strategies in the project denominator. Full list with stage tracking lives in projectCohort.projects.",
         "automatable": false
       },
       {
@@ -895,37 +923,77 @@
       {
         "label": "IMF Article IV (Jan 2026)",
         "url": "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340/"
+      },
+      {
+        "label": "Finance Canada Fiscal Monitor (March 2026)",
+        "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html"
+      },
+      {
+        "label": "PBO Economic and Fiscal Outlook (June 2026)",
+        "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026"
       }
     ],
-    "lastUpdated": "2026-05-13",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
-        "label": "Deficit (FY 2025-26, projected)",
-        "value": "$66.9B",
+        "label": "Deficit (FY 2025-26, latest reads)",
+        "value": "$55.3B prelim.; PBO projects $72.0B",
         "source": "finance-canada",
-        "sourceNote": "Spring Economic Update 2026 Annex 1: projected FY 2025-26 budgetary balance -$66.9B, down from Budget 2025's -$78.3B projection. This is a projection, not an actual outturn.",
-        "automatable": false
+        "sourceNote": "Finance Canada's March 2026 Fiscal Monitor posts a preliminary $55.3B budgetary deficit for April 2025 to March 2026 before post-March accruals and other final adjustments. PBO's June 2026 Economic and Fiscal Outlook projects the FY 2025-26 deficit at $72.0B, or 2.2% of GDP, after accounting for Budget 2025 and Spring Economic Update 2026 measures. This refresh records the split between the latest actual/preliminary fiscal monitor and the latest PBO projection; no grade changes are made here.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "label": "Finance Canada Fiscal Monitor (March 2026)",
+            "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html"
+          },
+          {
+            "label": "PBO Economic and Fiscal Outlook (June 2026)",
+            "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026"
+          }
+        ]
       },
       {
         "label": "Deficit-to-GDP path",
-        "value": "2.1% -> 1.4%",
+        "value": "2.2%; deficits avg 1.8% over projection",
         "source": "pbo",
-        "sourceNote": "PBO Fiscal Anchors and Fiscal Sustainability note: deficit-to-GDP ratio projected to decline from 2.1% in 2025-26 to 1.4% by 2030-31. This places the file in the C band rather than D, but still above the B threshold of <2% GDP in the current year.",
-        "automatable": false
+        "sourceNote": "PBO June 2026 EFO projects the budgetary deficit rising to $72.0B, or 2.2% of GDP, in 2025-26. Over the projection period, budgetary deficits average 1.8% of GDP and remain persistent. The latest projection is weaker than the earlier SEU anchor note, but still sits inside the dashboard's C-band deficit range.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "label": "PBO Economic and Fiscal Outlook (June 2026)",
+            "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026"
+          }
+        ]
       },
       {
-        "label": "Federal debt (FY 2025-26 projected)",
-        "value": "$1.33T projected FY 2025-26",
+        "label": "Federal debt / debt-to-GDP",
+        "value": "$1.322T prelim.; 41.3% -> 42.5%",
         "source": "finance-canada",
-        "sourceNote": "Spring Economic Update 2026 Annex 1 projects federal debt (accumulated deficit) at $1,333.9B for FY 2025-26. PBO says the debt-to-GDP ratio remains broadly stable over the medium term, while interest burden rises.",
-        "automatable": false
+        "sourceNote": "Finance Canada's March 2026 Fiscal Monitor reports federal debt, or accumulated deficit, of $1.322T for FY 2025-26. PBO's June 2026 EFO projects the federal debt-to-GDP ratio rising from 41.3% in 2025-26 to 42.5% in 2030-31, while describing the ratio as broadly flat over the medium term.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "label": "Finance Canada Fiscal Monitor (March 2026)",
+            "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html"
+          },
+          {
+            "label": "PBO Economic and Fiscal Outlook (June 2026)",
+            "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026"
+          }
+        ]
       },
       {
         "label": "PBO fiscal-anchor assessment",
-        "value": "On track, with caveats",
+        "value": "Broadly in line, higher-risk stress read",
         "source": "pbo",
-        "sourceNote": "PBO says SEU projections indicate the government is on track to respect both fiscal anchors, but flags imprecise capital-budgeting definitions, rising interest burden, and omitted anticipated defence spending.",
-        "automatable": false
+        "sourceNote": "The earlier PBO Spring Economic Update fiscal-anchor note said the government was on track to respect both fiscal anchors, with caveats. PBO's June 2026 EFO says the baseline outlook is broadly in line with the SEU but projects weaker growth and higher deficits, with stress testing showing material uncertainty. This is flagged for editor review rather than converted into a grade move.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "label": "PBO Economic and Fiscal Outlook (June 2026)",
+            "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026"
+          }
+        ]
       },
       {
         "label": "Fitch rating",
@@ -1187,8 +1255,8 @@
         "url": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html"
       },
       {
-        "label": "StatsCan GDP, income and expenditure — Q4 2025",
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1"
+        "label": "StatsCan GDP, income and expenditure - Q1 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
       },
       {
         "label": "ISED — Canadian Sovereign AI Compute Strategy",
@@ -1223,7 +1291,7 @@
         "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/"
       }
     ],
-    "lastUpdated": "2026-05-30",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "group": "Inherited baseline / context only",
@@ -1271,12 +1339,18 @@
       },
       {
         "group": "Response metrics",
-        "label": "Labour market change (Apr 2026)",
-        "value": "-18,000 jobs m/m; unemployment 6.9%",
+        "label": "Labour market change (May 2026)",
+        "value": "+88,000 jobs m/m; unemployment 6.6%",
         "source": "statcan",
         "sourceId": "14-10-0287-01",
-        "sourceNote": "StatsCan Labour Force Survey, April 2026: employment was little changed (-18,000; -0.1%), the unemployment rate rose 0.2 points to 6.9%, and employment was down a net 112,000 over the first four months of 2026 after the February decline.",
-        "automatable": true
+        "sourceNote": "StatsCan Labour Force Survey, May 2026: employment increased by 88,000 (+0.4%), the employment rate rose to 60.7%, and the unemployment rate fell to 6.6%. This replaces the April 2026 row (-18,000 jobs; 6.9% unemployment) as the freshest labour-market context. The response grade still rests mainly on business investment, productivity, and policy execution metrics.",
+        "automatable": true,
+        "sourceRefs": [
+          {
+            "label": "StatCan - Labour Force Survey, May 2026",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260605/dq260605a-eng.htm"
+          }
+        ]
       },
       {
         "group": "Response metrics",
@@ -1516,16 +1590,16 @@
     "rationale": "This dimension grades the adequacy of the federal government's policy response to household cost pressure, not price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs compound the burden. The grade reflects what the government chose to do about affordability, and whether its interventions match the scale of the problem.",
     "sources": [
       {
-        "label": "StatsCan CPI Mar 2026",
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm"
+        "label": "StatsCan CPI Apr 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm"
       },
       {
         "label": "Dalhousie Food Price Report",
         "url": "https://www.dal.ca/sites/agri-food/research/canada-s-food-price-report-2026.html"
       },
       {
-        "label": "PROOF food insecurity 2024",
-        "url": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/"
+        "label": "PROOF food insecurity 2025",
+        "url": "https://proof.utoronto.ca/2026/new-data-on-household-food-insecurity-in-2025/"
       },
       {
         "label": "PBO — Canada Groceries and Essentials Benefit",
@@ -1556,20 +1630,20 @@
         "url": "https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/"
       }
     ],
-    "lastUpdated": "2026-05-23",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
-        "label": "Food CPI (stores, YoY, Mar 2026)",
-        "value": "4.4%",
+        "label": "Food CPI (stores, YoY, Apr 2026)",
+        "value": "3.8%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
         "sourceRefs": [
           {
-            "label": "StatsCan CPI Mar 2026",
-            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm"
+            "label": "StatsCan CPI Apr 2026",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm"
           }
         ],
-        "sourceNote": "StatsCan CPI daily release, April 20, 2026: food purchased from stores rose 4.4% year over year in March, after 4.1% in February. April CPI is scheduled for release on May 19.",
+        "sourceNote": "StatsCan CPI daily release, May 19, 2026: food purchased from stores rose 3.8% year over year in April. This replaces the March 2026 food-store CPI row (4.4%). May CPI is scheduled for release on June 22.",
         "automatable": true
       },
       {
@@ -1603,15 +1677,16 @@
       },
       {
         "label": "Food insecure Canadians",
-        "value": "~10M",
+        "value": "9.8M",
         "source": "proof",
         "sourceRefs": [
           {
-            "label": "PROOF food insecurity 2024",
-            "url": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/"
+            "label": "PROOF food insecurity 2025",
+            "url": "https://proof.utoronto.ca/2026/new-data-on-household-food-insecurity-in-2025/"
           }
         ],
-        "automatable": false
+        "automatable": false,
+        "sourceNote": "PROOF's April 29, 2026 post summarizing Statistics Canada Canadian Income Survey data reports that 24.0% of people in Canada, about 9.8 million people, lived in a food-insecure household in 2025. This replaces the prior 2024 PROOF source while preserving the same rough scale of the metric."
       }
     ],
     "promises": [
@@ -1788,9 +1863,17 @@
       {
         "label": "PBO carbon GST revenue",
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
+      },
+      {
+        "label": "Canada.ca - updated industrial carbon price trajectory",
+        "url": "https://www.canada.ca/climateaction"
+      },
+      {
+        "label": "Canada-Alberta MOU implementation agreement",
+        "url": "https://www.pm.gc.ca/en/news/backgrounders/2026/05/15/implementation-agreement-canada-alberta-memorandum-understanding"
       }
     ],
-    "lastUpdated": "2026-05-25",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "label": "Consumer carbon tax",
@@ -1801,19 +1884,19 @@
       },
       {
         "label": "Industrial OBPS (headline schedule)",
-        "value": "$110/tonne (2026)",
+        "value": "$95/tonne (2026); $115 by 2030",
         "source": "eccc",
         "sourceRefs": [
           {
-            "label": "Canada.ca — OBPS excess emissions charge page",
-            "url": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
+            "label": "Canada.ca - updated industrial carbon price trajectory",
+            "url": "https://www.canada.ca/climateaction"
           },
           {
-            "label": "ICAP — Canada Federal OBPS ETS factsheet",
-            "url": "https://icapcarbonaction.com/en/ets/canada-federal-output-based-pricing-system"
+            "label": "Canada-Alberta MOU implementation agreement",
+            "url": "https://www.pm.gc.ca/en/news/backgrounders/2026/05/15/implementation-agreement-canada-alberta-memorandum-understanding"
           }
         ],
-        "sourceNote": "ECCC Output-Based Pricing System: excess emissions charge $110/tCO2e in 2026 (up from $95 in 2025), increasing $15/yr to $170 by 2030. Confirmed directly by Canada.ca OBPS page (\"CAD 110 per tonne for the 2026 compliance period\") and ICAP factsheet. CCI and IISD both note that credit oversupply can pull the effective compliance price materially below the headline schedule. Headline and effective rates are different measures — dashboard shows the headline rate; rationale discusses the gap.",
+        "sourceNote": "Canada.ca's climate action page, modified 2026-05-19, says the federal industrial carbon pricing benchmark was updated as of May 15, 2026: $95/t in 2026, $100/t in 2027-2029, $115/t in 2030, and $130/t in 2035. The Canada-Alberta MOU implementation agreement carries the same Alberta TIER headline path and a future credit-price floor beginning in 2030. This replaces the old $110/t 2026 headline schedule. The grade is not moved because the scoring thresholds use the effective market price, not only the headline schedule.",
         "automatable": false
       },
       {
@@ -1822,11 +1905,11 @@
         "source": "cci",
         "sourceRefs": [
           {
-            "label": "CCI — Outcomes Not Optics (Jan 2026)",
-            "url": "https://climateinstitute.ca/wp-content/uploads/2026/01/Canadian-Climate-Institute-Outcomes-Not-Optics-Canadian-carbon-markets-need-bold-reform-to-be-effective.pdf"
+            "label": "Canada-Alberta MOU implementation agreement",
+            "url": "https://www.pm.gc.ca/en/news/backgrounders/2026/05/15/implementation-agreement-canada-alberta-memorandum-understanding"
           }
         ],
-        "sourceNote": "CCI and IISD note credit oversupply pulls the marginal compliance/credit price to roughly $20/tonne, far below the $110/t 2026 headline. This is the measure the grade triggers track (up: effective price above $40/t; down: below $15/t) — so the down-trigger is not fired at ~$20. CCI's January 2026 'Outcomes Not Optics' report sets an Effective Marginal Credit Price stringency benchmark of $130/t; the per-province EMCP table is a June-cycle pull.",
+        "sourceNote": "The dashboard's live effective-price estimate remains roughly $20/t pending a market-price source refresh. The May 15, 2026 Canada-Alberta implementation agreement sets a future design target for Alberta's TIER credit market to reach an effective price of $130 by 2040 and introduces a minimum transfer price starting at $60 in 2030, but that is a future floor/target rather than a current traded effective price.",
         "automatable": false
       },
       {
@@ -2023,8 +2106,8 @@
         "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target"
       },
       {
-        "label": "ECCC 2025-26 Departmental plan at a glance",
-        "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
+        "label": "ECCC 2026-27 Departmental Plan",
+        "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2026-2027.html"
       },
       {
         "label": "National Observer — fossil fuel course",
@@ -2055,13 +2138,17 @@
         "url": "https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html"
       }
     ],
-    "lastUpdated": "2026-05-25",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "label": "Emissions cap",
         "value": "Scrapped",
         "source": "eccc",
         "sourceRefs": [
+          {
+            "label": "Canada-Alberta MOU implementation agreement",
+            "url": "https://www.pm.gc.ca/en/news/backgrounders/2026/05/15/implementation-agreement-canada-alberta-memorandum-understanding"
+          },
           {
             "label": "CCI - Canada off course",
             "url": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/"
@@ -2087,7 +2174,7 @@
             "url": "https://www.cbc.ca/news/politics/oil-and-gas-cap-budget-9.6966588"
           }
         ],
-        "sourceNote": "Emissions cap scrapped via the Carney–Smith MOU (Nov 27, 2025) and carried through in the May 15, 2026 Canada-Alberta MOU implementation agreement; the government concluded that 'effective' carbon pricing, enhanced methane regulations, and CCS deployment would make the cap 'no longer required.' Post-decision status is anchored to independent reporting — National Observer (March 2026: 'the federal government announced last November that it was abandoning the sector's emissions cap') and CBC. The earlier Argus (Apr 2025) and Business and Human Rights Resource Centre (Sep 2025) citations were swapped out because they predated the final decision and only described it as 'considered'; an independent source is used rather than the government's own press release to keep the grade-moving evidence independent. PM acknowledged 2030 and 2035 targets will be missed. CCI's off-course assessment, IISD's analysis that stronger policy is still required to meet the 2030 target, and Macdonald-Laurier's energy-sector critique that the government has not yet replaced the prior policy maze with a predictable framework all stand. The Canada Energy Regulator's Energy Future 2023 projections provide a federal-independent benchmark for the emissions trajectory under current policy.",
+        "sourceNote": "The May 15, 2026 Canada-Alberta MOU implementation agreement confirms that Canada honoured its commitment not to introduce the Oil and Gas Emissions Cap. Independent reporting from National Observer and CBC remains in the source chain for non-government confirmation. PM acknowledged 2030 and 2035 targets will be missed; CCI, IISD, Macdonald-Laurier, and CER sources continue to anchor the target and replacement-framework context.",
         "automatable": false
       },
       {
@@ -2104,10 +2191,14 @@
         "automatable": false
       },
       {
-        "label": "ECCC budget cuts (to 2030)",
-        "value": "$1.3B cumulative",
+        "label": "ECCC CER reductions (2026-27 to 2028-29)",
+        "value": "$762.8M; ~837 FTE by 2028-29",
         "source": "eccc",
         "sourceRefs": [
+          {
+            "label": "ECCC 2026-27 Departmental Plan",
+            "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2026-2027.html"
+          },
           {
             "label": "CBC - ECCC job and budget cuts",
             "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
@@ -2121,7 +2212,7 @@
             "url": "https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html"
           }
         ],
-        "sourceNote": "ECCC departmental plan pages document refocusing reductions of $43M (2024-25), $63M (2025-26), and $91M annually from 2026-27 onward, implying roughly $1.3B in cumulative reductions by 2030. The staffing pressure is documented through departmental plan staffing tables and contemporaneous media reporting on the associated cuts. The Office of the Auditor General's 2025 report independently audited nine federal financial measures (over $100B in investments across six departments) and concluded none were implemented effectively to reduce emissions, providing the independent-oversight read on program delivery alongside the budget-cut numbers. See the ECCC departmental-plan link in the dimension sources, plus CBC Radio and The Conversation for operational impact reporting.",
+        "sourceNote": "ECCC's 2026-27 Departmental Plan reports Comprehensive Expenditure Review reductions of $236.8M in 2026-27, $244.4M in 2027-28, and $282.6M in 2028-29, with an expected reduction of about 837 full-time equivalents by 2028-29. This replaces the older 2025-26 departmental-plan reference with the current plan horizon while keeping CBC, The Conversation, and the Auditor General as context on operational and implementation pressure.",
         "automatable": false
       },
       {
@@ -2581,8 +2672,8 @@
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025"
       },
       {
-        "label": "CMHC March 2026 starts",
-        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026"
+        "label": "CMHC April 2026 starts",
+        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-april-2026"
       },
       {
         "label": "Canada-Ontario Partnership",
@@ -2613,7 +2704,7 @@
         "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
       }
     ],
-    "lastUpdated": "2026-05-23",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "label": "Housing starts (2025)",
@@ -2623,10 +2714,14 @@
         "automatable": true
       },
       {
-        "label": "Housing starts (Mar 2026 trend / SAAR)",
-        "value": "248,378 trend; 235,852 monthly SAAR",
+        "label": "Housing starts (Apr 2026 trend / SAAR)",
+        "value": "256,777 trend; 279,317 monthly SAAR",
         "source": "cmhc",
         "sourceRefs": [
+          {
+            "label": "CMHC April 2026 starts",
+            "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-april-2026"
+          },
           {
             "label": "CHBA - Q1 2026 Housing Market Index",
             "url": "https://www.chba.ca/2026/04/21/low-builder-confidence-illustrates-need-for-sustained-federal-action-plan-focused-on-homeownership-housing/"
@@ -2636,7 +2731,7 @@
             "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
           }
         ],
-        "sourceNote": "CMHC March 2026 release: six-month trend was 248,378, while standalone monthly SAAR was 235,852. CMHC says the trend measure complements monthly SAAR because monthly estimates can swing sharply, especially in multi-unit markets. The dashboard therefore treats the down trigger as not fired unless the trend also falls below 240K or a sustained monthly pattern emerges. CHBA's Q1 2026 Housing Market Index provides builder-side ground truth: single-family index at 20.9 and multi-family at 13.4 (record low) point to weaker future starts for homeownership, cross-checking the CMHC trend reading. Scotiabank Economics' Housing News Flash adds the market-side independent voice on sales conditions feeding through to starts.",
+        "sourceNote": "CMHC April 2026 release: the six-month trend rose 3.2% to 256,777 units, while total monthly SAAR increased 17% to 279,317 units from 239,747 in March. CMHC cautions that month-to-month volatility remains high, especially in multi-unit markets. This refresh replaces the March row, improves the near-term starts read, and still leaves starts below the dashboard's C-band threshold.",
         "automatable": false
       },
       {
@@ -2898,14 +2993,20 @@
         "url": "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption"
       }
     ],
-    "lastUpdated": "2026-05-23",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "label": "Ethics Commissioner review",
         "value": "Not published",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "No PM-specific Ethics Commissioner review is published in the Office's current public materials."
+        "sourceNote": "Checked the Office of the Ethics Commissioner public search on 2026-06-05. The search surfaced MP Status Report entries naming Mark Carney but no PM-specific Ethics Commissioner review or report. The metric remains 'Not published'.",
+        "sourceRefs": [
+          {
+            "label": "Office of the Ethics Commissioner - Carney search results",
+            "url": "https://ciec-ccie.parl.gc.ca/en/Pages/search-recherche.aspx?k=Carney"
+          }
+        ]
       },
       {
         "label": "Blind trust status",
@@ -3325,13 +3426,13 @@
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
       }
     ],
-    "lastUpdated": "2026-05-25",
+    "lastUpdated": "2026-06-05",
     "metrics": [
       {
         "label": "Key commitments delivered",
         "value": "14 of 43",
         "source": "editorial",
-        "sourceNote": "Editorial tally based on promise-by-promise status assessment. Each promise status is documented with evidence in the promises array. Derivative of home dimension evidence.",
+        "sourceNote": "Editorial tally based on promise-by-promise status assessment. Each promise status is documented with evidence in the promises array. Derivative of home dimension evidence. Data-freshness sweep on 2026-06-05 found no automatic count change; carbon-pricing trajectory remains an editor-review item, not a count move here.",
         "automatable": false
       },
       {

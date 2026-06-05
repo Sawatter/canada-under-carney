@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-05",
+    "version": "5.99",
+    "summary": "Data-freshness refresh: updated stale non-grade metrics, added the June Leger approval poll, and recorded fiscal and carbon review flags without moving grades.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Freshness-only metric updates",
+        "body": "Updated live data rows for May labour market, April food CPI, 2025 food insecurity, April housing starts, March trade context, the MPO project-list modified date, the current ECCC departmental plan, and the public Ethics Commissioner search check. No grade, GPA, threshold, or rubric surface changed."
+      },
+      {
+        "type": "minor",
+        "headline": "Approval Signal poll added",
+        "body": "Added the Leger federal-politics poll fielded May 29 to June 1, 2026: Mark Carney approval 56%, disapproval 34%, n=1,532. The Approval Signal remains ungraded and uses the same sample-size and recency-weighted raw-poll method restored in v5.98."
+      },
+      {
+        "type": "minor",
+        "headline": "Fiscal and carbon review flags recorded",
+        "body": "Fiscal Health now carries both the Finance March 2026 preliminary deficit read ($55.3B) and PBO June 2026 projection ($72.0B / 2.2% of GDP). Carbon Pricing now reflects the updated official industrial headline path ($95/t in 2026, $115/t by 2030), while leaving the effective-price grade question for editor review."
+      }
+    ]
+  },
+  {
     "date": "2026-06-03",
     "version": "5.98",
     "summary": "Corrected the Approval Signal headline: reverted the house-effect de-housing that was pushing the number above every input poll. Approve/disapprove now read 58/30 (was 61/34), inside the range of the actual polls.",
