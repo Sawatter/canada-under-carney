@@ -28,26 +28,41 @@ automated fetch is blocked or the content is gated.
 - Result: claim confirmed. The 58/35 also matches the Angus Reid Institute
   "Election +365" entry already in `approval-polls.json`.
 
-## Editor browser-pull required (automated fetch blocked or gated)
+## Resolved via Chrome browser (2026-06-04)
 
-### OECD Economic Survey: Canada 2025 (Economic Policy Response)
+A connected Chrome session (a real browser, not the headless fetcher) read the pages
+that return 403 to automated fetch.
 
-- oecd.org returns HTTP 403 to automated fetch, and the Wayback archive is
-  unreachable from this environment. The URL is live in a normal browser. Editor to
-  capture the headline productivity / business-investment assessment verbatim.
+### OECD Economic Survey: Canada 2025 (Economic Policy Response) — captured
 
-### Signal49 - Canada's Five-Year Business Investment Outlook (Economic Policy Response)
+- Live. Verbatim, on the productivity / business-investment angle it is cited for:
+  "Canada's labour productivity performance lags its peers." "Business investment per
+  worker remains weak in Canada compared to other OECD countries." Business R&D is
+  "low, representing only 1% of GDP compared to the OECD average of 2%." Claim confirmed.
 
-- Gated product page ($225). Only the public summary is capturable: "Tariffs,
-  ongoing tariff threats, and an uncertain trade environment weighed on Canadian
-  business investment in 2025." The detailed analysis sits behind the paywall. The
-  public sentence supports the source's stated role (independent confirmation of weak
-  business investment), but the underlying numbers need a purchased or subscriber view.
-  Worth deciding in the June cycle whether to replace it with an open source.
+### Signal49 — Canada's Five-Year Business Investment Outlook (Economic Policy Response) — still gated
+
+- Confirmed gated in-browser too ($225 product page; "Read the online experience for
+  the full analysis"). Only the public summary is visible: "Tariffs, ongoing tariff
+  threats, and an uncertain trade environment weighed on Canadian business investment
+  in 2025." Note: Signal49 is the former Conference Board of Canada (the licence ended
+  2026-01-26), which is why dimension sourceNotes read "Conference Board / Signal49."
+  The detailed numbers need a subscriber view; consider replacing with an open source
+  in the June cycle.
+
+### Roadmap "three dead links" — all verified LIVE
+
+- The roadmap's "Next #2" listed three confirmed 404s (Narwhal climate rollback, ECCC
+  emissions-cap framework, ECCC clean-vehicles/EV standard). All three are live in a
+  browser. They were never 404; they return 403 to the headless fetcher, and the
+  roadmap's May call was stale. No replacement was needed.
+- The v5.97 change still stands as a correctness improvement: the Emissions cap and EV
+  mandate promises are "Abandoned," so their statusSourceUrl now cites live independent
+  abandonment evidence (National Observer; The Narwhal) rather than the original ECCC
+  program page. The original ECCC pages remain as originalSourceUrl (live, correct).
 
 ## Note
 
-This was the "four browser-pull sources (OECD, CHBA, Signal49, Angus Reid one-year
-card)" item parked in the prior handoff. The capture work is done where it can be done
-without a browser. The two remaining are genuine browser-pulls, which is how they were
-tagged, and fold naturally into the June cycle source refresh.
+This closes the "four browser-pull sources" item and the roadmap's Promise Delivery
+dead-link item. The only thing still out of reach is Signal49's paid detail, which
+needs a subscription or an open-source swap. Everything else is verified live.
