@@ -103,14 +103,16 @@ function computeHouseEffects(allPolls) {
       if (baseD != null && typeof p.disapprove === "number")
         devD.push(p.disapprove - baseD);
     }
-    const applied = devA.length >= HE_MIN_POLLS;
+    const approveApplied = devA.length >= HE_MIN_POLLS;
+    const disapproveApplied = devD.length >= HE_MIN_POLLS;
     effects[pollster] = {
       pollster,
       n: polls.length,
       nComparable: devA.length,
-      applied,
-      approve: applied ? mean(devA) : 0,
-      disapprove: devD.length >= HE_MIN_POLLS ? mean(devD) : 0,
+      approveApplied,
+      disapproveApplied,
+      approve: approveApplied ? mean(devA) : 0,
+      disapprove: disapproveApplied ? mean(devD) : 0,
     };
   }
   return effects;
@@ -118,7 +120,10 @@ function computeHouseEffects(allPolls) {
 
 function adjustedValue(poll, field, effects) {
   const e = effects[poll.pollster];
-  const offset = e && e.applied ? e[field] : 0;
+  // Each field's offset is already 0 when that field is below the poll-count
+  // threshold (see computeHouseEffects), so the approve and disapprove
+  // corrections apply independently rather than being coupled by one flag.
+  const offset = e ? e[field] || 0 : 0;
   return typeof poll[field] === "number" ? poll[field] - offset : null;
 }
 
@@ -487,13 +492,17 @@ export function ApprovalDetail() {
                   <td style={{ padding: "4px 6px" }}>{h.pollster}</td>
                   <td style={{ padding: "4px 6px", color: "#777" }}>{h.n}</td>
                   <td style={{ padding: "4px 6px", fontWeight: 700 }}>
-                    {h.applied ? formatOffset(h.approve) : "—"}
+                    {h.approveApplied ? formatOffset(h.approve) : "—"}
                   </td>
                   <td style={{ padding: "4px 6px", fontWeight: 700 }}>
-                    {h.applied ? formatOffset(h.disapprove) : "—"}
+                    {h.disapproveApplied ? formatOffset(h.disapprove) : "—"}
                   </td>
                   <td style={{ padding: "4px 6px", color: "#777" }}>
-                    {h.applied ? "applied" : `neutral (n<${s.minPolls})`}
+                    {h.approveApplied && h.disapproveApplied
+                      ? "applied"
+                      : h.approveApplied || h.disapproveApplied
+                        ? "partial"
+                        : `neutral (n<${s.minPolls})`}
                   </td>
                 </tr>
               ))}

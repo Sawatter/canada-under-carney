@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.96",
+    "summary": "Fixed a latent polling house-effect bug found in Codex review: the approve and disapprove corrections now gate independently. Output is unchanged on current data (still 61/34).",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Polling house-effect offsets gate per field",
+        "body": "Codex review found that the house-effect correction applied both the approve and disapprove offsets behind a single approve-only eligibility flag. Each field now gates on its own poll-count threshold, matching the method doc's separate-offsets design. No change to the current headline (61/34, net +26), because every qualifying firm has both fields on record; the fix only affects future asymmetric or missing-field data, where a valid disapprove correction would previously have been dropped."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.95",
     "summary": "Added copy-ready recruitment language for the grade-change red-team reviewer, so the area 3 mechanism is one step from activation. Governance docs only.",
     "items": [
