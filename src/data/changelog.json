@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.98",
+    "summary": "Corrected the Approval Signal headline: reverted the house-effect de-housing that was pushing the number above every input poll. Approve/disapprove now read 58/30 (was 61/34), inside the range of the actual polls.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Reverted the polling house-effect correction",
+        "body": "The v5.92 house-effect de-housing over-corrected with only three firms in the window: it lifted every Abacus poll by about 4.3 points and, since Abacus was three of the five polls, drove the aggregate to 61% approve — higher than the highest input poll (59%). A weighted average cannot legitimately exceed all of its inputs, so de-housing was pulled. The headline is now a plain sample-and-recency-weighted mean of the raw polls: 58% approve / 30% disapprove, net +28, inside the 54-59% range of the actual polls. Recency decay (30-day half-life) is kept. The underlying poll data is accurate (the 59/27 Abacus entry matches the May 24 Abacus release verbatim). De-housing can return later, centred and with broader firm coverage. Method: docs/Polling-Aggregation-Method-2026-06.md."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.97",
     "summary": "Promise Delivery source cleanup: repointed the abandoned emissions-cap and EV-mandate promises' status links to live independent abandonment evidence. The rest of the parked list turned out to be live, browser-gated, or not-yet-applicable.",
     "items": [

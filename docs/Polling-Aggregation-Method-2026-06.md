@@ -1,10 +1,27 @@
 # Approval Signal — Aggregation Method (2026-06)
 
-**Status:** Live as of v5.92. Records the polling-aggregation upgrade decided in
-the 2026-06 methodology pass (gap-map area 6). The Approval Signal is an ungraded
-context card. It is not part of the 11-dimension GPA, so this change does not
-touch the frozen GPA math in `src/utils.js`. It does move a published number, so
-it is a methodology change with editor sign-off and a changelog entry.
+**Status:** Partially reverted as of v5.98. Recency decay is live; the
+house-effect de-housing described below was tried in v5.92 and **reverted** (see
+the next section). The Approval Signal is an ungraded context card, not part of
+the 11-dimension GPA, so none of this touches the frozen GPA math in
+`src/utils.js`.
+
+## Reverted in v5.98 — house effects pulled, recency decay kept
+
+The house-effect correction was removed from the live headline. With only three
+firms in the window the de-housing over-corrected: it added about +4.3 to every
+Abacus poll (Abacus runs low, so de-housing lifts it), and because Abacus was
+three of the five polls, the aggregate floated to 61% approve — **above every
+input poll** (the highest in the window was 59%). An average that exceeds all of
+its inputs fails the basic sniff test, so it was pulled.
+
+The live method is now a plain sample-and-recency-weighted mean of the raw polls,
+which lands at **58% approve / 30% disapprove (net +28)**, inside the range of the
+actual polls (approve 54–59). De-housing can return later, **centred** so it
+cannot push the level outside the data, once more than three firms are tracked.
+
+Everything below is retained as a record of the reverted attempt and the leans
+that were measured.
 
 ## What changed
 

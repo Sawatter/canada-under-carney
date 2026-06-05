@@ -2,18 +2,9 @@ import data from "../data/approval-polls.json";
 
 const DAY_MS = 1000 * 60 * 60 * 24;
 
-// Tunables read from the data file so the published methodology and the math
-// stay in sync. Fallbacks match the documented defaults.
+// Recency half-life (days), read from the data file so the published
+// methodology and the math stay in sync.
 const HALF_LIFE_DAYS = data.halfLifeDays || 30;
-const HE_MIN_POLLS = (data.houseEffect && data.houseEffect.minPolls) || 3;
-const HE_NEIGHBORHOOD_DAYS =
-  (data.houseEffect && data.houseEffect.neighborhoodDays) || 45;
-
-function mean(values) {
-  const nums = values.filter((v) => typeof v === "number");
-  if (nums.length === 0) return null;
-  return nums.reduce((a, b) => a + b, 0) / nums.length;
-}
 
 function weightedMean(values, weights) {
   if (values.length === 0) return null;
@@ -50,13 +41,6 @@ function formatDelta(curr, prior) {
   return rounded > 0 ? `+${rounded}` : `${rounded}`;
 }
 
-// Signed one-decimal offset for the house-effect table.
-function formatOffset(v) {
-  if (v == null) return "—";
-  const r = Math.round(v * 10) / 10;
-  return r > 0 ? `+${r.toFixed(1)}` : r.toFixed(1);
-}
-
 function filterByWindow(polls, windowEnd, windowStart) {
   return polls.filter((p) => {
     const end = new Date(p.fieldEnd);
@@ -64,72 +48,13 @@ function filterByWindow(polls, windowEnd, windowStart) {
   });
 }
 
-// Leave-one-pollster-out contemporaneous baseline for one poll and field
-// ("approve" | "disapprove"). Averages OTHER pollsters' polls within
-// HE_NEIGHBORHOOD_DAYS, giving each other pollster equal weight so the most
-// frequent pollster cannot define its own baseline. Null if no comparison.
-function leaveOneOutBaseline(target, allPolls, field) {
-  const t = new Date(target.fieldEnd).getTime();
-  const byPollster = {};
-  for (const p of allPolls) {
-    if (p.pollster === target.pollster) continue;
-    if (typeof p[field] !== "number") continue;
-    const age = Math.abs(new Date(p.fieldEnd).getTime() - t) / DAY_MS;
-    if (age > HE_NEIGHBORHOOD_DAYS) continue;
-    (byPollster[p.pollster] = byPollster[p.pollster] || []).push(p[field]);
-  }
-  const pollsterMeans = Object.values(byPollster).map((vals) => mean(vals));
-  return pollsterMeans.length ? mean(pollsterMeans) : null;
-}
-
-// Per-pollster house effect over the full poll set. A firm earns an offset
-// only with at least HE_MIN_POLLS computable deviations; otherwise it is
-// neutral (zero). Offsets are deviations from the contemporaneous field, so
-// subtracting them de-houses each firm toward cross-pollster consensus.
-function computeHouseEffects(allPolls) {
-  const byPollster = {};
-  for (const p of allPolls) {
-    (byPollster[p.pollster] = byPollster[p.pollster] || []).push(p);
-  }
-  const effects = {};
-  for (const [pollster, polls] of Object.entries(byPollster)) {
-    const devA = [];
-    const devD = [];
-    for (const p of polls) {
-      const baseA = leaveOneOutBaseline(p, allPolls, "approve");
-      const baseD = leaveOneOutBaseline(p, allPolls, "disapprove");
-      if (baseA != null && typeof p.approve === "number")
-        devA.push(p.approve - baseA);
-      if (baseD != null && typeof p.disapprove === "number")
-        devD.push(p.disapprove - baseD);
-    }
-    const approveApplied = devA.length >= HE_MIN_POLLS;
-    const disapproveApplied = devD.length >= HE_MIN_POLLS;
-    effects[pollster] = {
-      pollster,
-      n: polls.length,
-      nComparable: devA.length,
-      approveApplied,
-      disapproveApplied,
-      approve: approveApplied ? mean(devA) : 0,
-      disapprove: disapproveApplied ? mean(devD) : 0,
-    };
-  }
-  return effects;
-}
-
-function adjustedValue(poll, field, effects) {
-  const e = effects[poll.pollster];
-  // Each field's offset is already 0 when that field is below the poll-count
-  // threshold (see computeHouseEffects), so the approve and disapprove
-  // corrections apply independently rather than being coupled by one flag.
-  const offset = e ? e[field] || 0 : 0;
-  return typeof poll[field] === "number" ? poll[field] - offset : null;
-}
-
-// De-housed, recency-and-sample-weighted mean for one field over a poll set.
-function adjustedWeightedMean(polls, field, effects, refDate) {
-  const values = polls.map((p) => adjustedValue(p, field, effects));
+// Recency- and sample-size-weighted mean for one field over a poll set.
+// House-effect de-housing was tried and reverted: with only three firms it
+// over-corrected and pushed the headline above every input poll. See
+// docs/Polling-Aggregation-Method-2026-06.md. It can return, centered, once
+// there is broader firm coverage.
+function weightedField(polls, field, refDate) {
+  const values = polls.map((p) => p[field]);
   const weights = polls.map(
     (p) => (p.sampleSize || 0) * recencyWeight(p, refDate)
   );
@@ -137,9 +62,8 @@ function adjustedWeightedMean(polls, field, effects, refDate) {
 }
 
 // Shared compute helper — both the card and the drilldown call this so the
-// displayed numbers are guaranteed consistent. The aggregate weights each poll
-// by sample size and by recency (HALF_LIFE_DAYS half-life), and subtracts each
-// firm's house effect before averaging.
+// displayed numbers stay consistent. The aggregate weights each poll by sample
+// size and by recency (HALF_LIFE_DAYS half-life), within the rolling window.
 function computeApproval() {
   const asOf = new Date(data.asOf);
   const windowDays = data.rollingWindowDays;
@@ -151,12 +75,10 @@ function computeApproval() {
   const recent = filterByWindow(data.polls, asOf, recentStart);
   const prior = filterByWindow(data.polls, recentStart, priorStart);
 
-  const effects = computeHouseEffects(data.polls);
-
-  const approveNow = adjustedWeightedMean(recent, "approve", effects, asOf);
-  const disapproveNow = adjustedWeightedMean(recent, "disapprove", effects, asOf);
-  const approvePrior = adjustedWeightedMean(prior, "approve", effects, recentStart);
-  const disapprovePrior = adjustedWeightedMean(prior, "disapprove", effects, recentStart);
+  const approveNow = weightedField(recent, "approve", asOf);
+  const disapproveNow = weightedField(recent, "disapprove", asOf);
+  const approvePrior = weightedField(prior, "approve", recentStart);
+  const disapprovePrior = weightedField(prior, "disapprove", recentStart);
 
   const net =
     approveNow !== null && disapproveNow !== null
@@ -168,14 +90,10 @@ function computeApproval() {
 
   const pollstersInWindow = Array.from(new Set(recent.map((p) => p.pollster)));
 
-  // House-effect rows (all firms, most-polled first) for the drilldown table.
-  const houseEffectRows = Object.values(effects).sort((a, b) => b.n - a.n);
-
   return {
     asOf: data.asOf,
     windowDays,
     halfLifeDays: HALF_LIFE_DAYS,
-    minPolls: HE_MIN_POLLS,
     approveNow,
     disapproveNow,
     net,
@@ -183,7 +101,6 @@ function computeApproval() {
     disapproveDelta,
     recent,
     pollstersInWindow,
-    houseEffectRows,
   };
 }
 
@@ -440,75 +357,9 @@ export function ApprovalDetail() {
         {s.recent.length} polls in window ({s.pollstersInWindow.join(", ")}).
         The average weights each poll by sample size and by recency, on a{" "}
         {s.halfLifeDays}-day half-life, so a poll loses half its weight every{" "}
-        {s.halfLifeDays} days. It also corrects for house effects, subtracting
-        each firm's standing lean versus other firms polling the same weeks, for
-        firms with at least {s.minPolls} polls on record (table below). Tracked
-        as an ungraded signal so popularity does not feed the 11-dimension
+        {s.halfLifeDays} days, within the {s.windowDays}-day window. Tracked as
+        an ungraded signal so popularity does not feed the 11-dimension
         performance grades.
-      </div>
-
-      <div style={{ marginTop: "12px" }}>
-        <div
-          style={{
-            fontSize: "14px",
-            color: "#666",
-            marginBottom: "6px",
-            lineHeight: 1.5,
-          }}
-        >
-          House-effect correction. Each firm's standing lean versus other firms
-          polling the same weeks, subtracted from that firm's polls before the
-          average. Firms with fewer than {s.minPolls} polls on record are left
-          neutral. A positive lean means the firm runs higher than the field on
-          that measure.
-        </div>
-        <div style={{ overflowX: "auto" }}>
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              fontSize: "14px",
-            }}
-          >
-            <thead>
-              <tr style={{ color: "#777", textAlign: "left" }}>
-                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Pollster</th>
-                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Polls</th>
-                <th style={{ padding: "4px 6px", fontWeight: 700 }}>
-                  Approve lean
-                </th>
-                <th style={{ padding: "4px 6px", fontWeight: 700 }}>
-                  Disapprove lean
-                </th>
-                <th style={{ padding: "4px 6px", fontWeight: 700 }}>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {s.houseEffectRows.map((h, i) => (
-                <tr
-                  key={i}
-                  style={{ borderTop: "1px solid #eee", color: "#444" }}
-                >
-                  <td style={{ padding: "4px 6px" }}>{h.pollster}</td>
-                  <td style={{ padding: "4px 6px", color: "#777" }}>{h.n}</td>
-                  <td style={{ padding: "4px 6px", fontWeight: 700 }}>
-                    {h.approveApplied ? formatOffset(h.approve) : "—"}
-                  </td>
-                  <td style={{ padding: "4px 6px", fontWeight: 700 }}>
-                    {h.disapproveApplied ? formatOffset(h.disapprove) : "—"}
-                  </td>
-                  <td style={{ padding: "4px 6px", color: "#777" }}>
-                    {h.approveApplied && h.disapproveApplied
-                      ? "applied"
-                      : h.approveApplied || h.disapproveApplied
-                        ? "partial"
-                        : `neutral (n<${s.minPolls})`}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
 
       {data.preferredPM && data.preferredPM.polls && data.preferredPM.polls.length > 0 && (() => {
