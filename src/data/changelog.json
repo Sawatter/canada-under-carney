@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-03",
+    "version": "5.97",
+    "summary": "Promise Delivery source cleanup: repointed the abandoned emissions-cap and EV-mandate promises' status links to live independent abandonment evidence. The rest of the parked list turned out to be live, browser-gated, or not-yet-applicable.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Abandoned-promise status links repointed to live evidence",
+        "body": "The Emissions cap and EV mandate promises (both Abandoned) had statusSourceUrl pointing to ECCC program pages that block automated fetch and, semantically, evidenced the original program rather than its abandonment. Repointed to live independent abandonment reporting already vetted in the Climate dimension: National Observer for the emissions cap, The Narwhal for the EV pause. Findings on the rest of the parked cleanup: the Narwhal climate-rollback source flagged as a 404 in the roadmap is actually live and was left in place; the two original ECCC program URLs return 403 to automated fetch and need an editor browser-pull; and the three 'Too Early' promises (Foreign Policy Review, Red Tape Review, Carbon Border Adjustment Mechanism) have no status document to cite while unlaunched, so a status link is appropriate only once each launches."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-03",
     "version": "5.96",
     "summary": "Fixed a latent polling house-effect bug found in Codex review: the approve and disapprove corrections now gate independently. Output is unchanged on current data (still 61/34).",
     "items": [
