@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { GRADES } from "../constants";
 import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
@@ -8,52 +8,106 @@ import meta from "../data/meta.json";
 // Tier 1 = official government / international body / central bank / auditor.
 // Tier 2 = think tank / professional association / academic / credible media.
 // Tier 3 = other.
-// Tier 1: official government bodies, Parliament, international organizations,
-// central banks, auditors, statistical agencies, and accredited universities.
-// Any *.gc.ca subdomain is also Tier 1 (matched via endsWith).
 const TIER1_DOMAINS = [
-  // Canadian federal government (gc.ca catches all sub-agencies)
   "canada.ca", "gc.ca", "parl.ca", "ourcommons.ca",
   "pm.gc.ca", "budget.canada.ca", "pbo-dpb.ca",
   "statcan.gc.ca", "cmhc-schl.gc.ca", "oag-bvg.gc.ca",
   "bankofcanada.ca",
-  // International organizations
   "nato.int", "imf.org", "oecd.org", "worldbank.org", "un.org",
-  // Canadian universities
   "dal.ca", "utoronto.ca", "mcgill.ca", "ubc.ca", "uwaterloo.ca",
   "queensu.ca", "uottawa.ca", "yorku.ca", "sfu.ca",
-  // Major bank / credit-rating (primary data sources)
   "fitchratings.com",
 ];
-// Tier 2: think tanks, professional associations, credible media, industry bodies,
-// civil-society organizations, and major financial institutions.
+
 const TIER2_DOMAINS = [
-  // Canadian media
   "globeandmail.com", "theglobeandmail.com", "cbc.ca", "ctvnews.ca",
   "nationalpost.com", "thestar.com", "financialpost.com",
   "nationalobserver.com", "thenarwhal.ca",
-  // Think tanks and policy institutes
   "policyoptions.irpp.org", "fraserinstitute.org", "cdhowe.org",
   "broadbentinstitute.ca", "mli.ca", "macdonaldlaurier.ca",
   "climateinstitute.ca", "iisd.org", "csls.ca",
   "thehub.ca", "signal49.ca", "canada2020.ca", "canadacode.org",
   "theconversation.com",
-  // Research / academic (non-university-domain)
   "proof.utoronto.ca",
-  // Industry associations
   "chba.ca", "buildingvalue.ca", "cfib-fcei.ca", "retailcouncil.org",
-  // Civil society and watchdogs
   "maytree.com", "foodbankscanada.ca", "transparencycanada.ca",
   "democracywatch.ca",
-  // Polling firms
   "angusreid.org",
-  // Major financial institutions (as data sources)
   "scotiabank.com",
-  // Official party platforms (primary political source)
   "liberal.ca",
-  // Research / economic councils
   "conferenceboard.ca",
 ];
+
+const TIER_LABEL = { 1: "T1", 2: "T2", 3: "T3" };
+const TIER_STYLE = {
+  1: { background: "#e3f2fd", color: "#0d47a1", border: "1px solid #90caf9" },
+  2: { background: "#f3e5f5", color: "#4a148c", border: "1px solid #ce93d8" },
+  3: { background: "#fafafa", color: "#555", border: "1px solid #ccc" },
+};
+
+const MODIFIER_LABELS = {
+  "External Constraint": "External pressure",
+  "Timing Fairness": "Early-cycle adjustment",
+  "Jurisdictional limits": "Shared-control limit",
+  "Credit-claiming penalty": "Credit reduced for overclaiming",
+};
+
+const GRADE_ORDER = [
+  "A+", "A", "A-",
+  "B+", "B", "B-",
+  "C+", "C", "C-",
+  "D+", "D", "D-",
+  "F",
+];
+
+const TOP_LEVEL_SECTIONS = [
+  "skeptic",
+  "context",
+  "rule",
+  "why",
+  "subScores",
+  "triggers",
+  "metrics",
+  "sources",
+  "projects",
+  "promises",
+  "trackerTriggers",
+  "perspectives",
+  "scope",
+  "inherited",
+];
+
+const NESTED_SECTIONS = [
+  "glossary",
+  "leverOperationalization",
+  "componentOperationalization",
+  "combinationRule",
+  "cohortList",
+];
+
+const SECTION_ANCHOR_SUFFIXES = {
+  skeptic: "skeptic-path",
+  context: "context",
+  rule: "scoring",
+  why: "why",
+  subScores: "subscores",
+  triggers: "triggers-section",
+  metrics: "metrics",
+  sources: "sources",
+  projects: "cohort",
+  promises: "promises",
+  trackerTriggers: "tracker-triggers",
+  perspectives: "perspectives-section",
+  scope: "scope",
+  inherited: "inherited",
+  glossary: "glossary",
+  leverOperationalization: "lever-operationalization",
+  componentOperationalization: "component-operationalization",
+  combinationRule: "combination-rule",
+  cohortList: "cohort-list",
+};
+
+const ANCHOR_SCROLL_FALLBACK_MS = 300;
 
 function getSourceTier(url) {
   if (!url) return null;
@@ -67,20 +121,13 @@ function getSourceTier(url) {
   }
 }
 
-const TIER_LABEL = { 1: "T1", 2: "T2", 3: "T3" };
-const TIER_STYLE = {
-  1: { background: "#e3f2fd", color: "#0d47a1", border: "1px solid #90caf9" },
-  2: { background: "#f3e5f5", color: "#4a148c", border: "1px solid #ce93d8" },
-  3: { background: "#fafafa", color: "#555", border: "1px solid #ccc" },
-};
-
 function SourceTierBadge({ url }) {
   const tier = getSourceTier(url);
   if (!tier) return null;
   const style = TIER_STYLE[tier] || TIER_STYLE[3];
   return (
     <span
-      title={tier === 1 ? "Tier 1 — official government, international body, or central bank" : tier === 2 ? "Tier 2 — think tank, professional association, or credible media" : "Tier 3 — other source"}
+      title={tier === 1 ? "Tier 1 source" : tier === 2 ? "Tier 2 source" : "Tier 3 source"}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -99,13 +146,6 @@ function SourceTierBadge({ url }) {
   );
 }
 
-const MODIFIER_LABELS = {
-  "External Constraint": "External pressure",
-  "Timing Fairness": "Early-cycle adjustment",
-  "Jurisdictional limits": "Shared-control limit",
-  "Credit-claiming penalty": "Credit reduced for overclaiming",
-};
-
 function normalizeTrigger(trigger) {
   if (!trigger) return null;
   if (typeof trigger === "string") return { text: trigger };
@@ -119,22 +159,256 @@ function isEventDrivenTrigger(trigger) {
     && (label.includes("event-driven") || label.includes("(see source list)"));
 }
 
-export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, onInternalRef }) {
-  const g = GRADES[dim.grade];
+function gradeIndex(grade) {
+  return GRADE_ORDER.indexOf(grade);
+}
+
+function baseGrade(grade) {
+  return (grade || "").replace(/[+-]/g, "");
+}
+
+function gradeInRange(grade, rangeLabel) {
+  const match = String(rangeLabel || "").match(/\b([ABCDF][+-]?)\s+to\s+([ABCDF][+-]?)\b/);
+  if (!match) return false;
+
+  const current = gradeIndex(grade);
+  const a = gradeIndex(match[1]);
+  const b = gradeIndex(match[2]);
+  if (current < 0 || a < 0 || b < 0) return false;
+
+  const high = Math.min(a, b);
+  const low = Math.max(a, b);
+  return current >= high && current <= low;
+}
+
+function findActiveThresholdRow(thresholds, grade) {
+  if (!Array.isArray(thresholds) || !grade) return null;
+
+  const exact = thresholds.find((row) => row.grade === grade);
+  if (exact) return exact;
+
+  const range = thresholds.find((row) => gradeInRange(grade, row.grade));
+  if (range) return range;
+
+  return thresholds.find((row) => baseGrade(row.grade) === baseGrade(grade)) || null;
+}
+
+function sectionKeysForTarget(target, dimId) {
+  if (!target) return [];
+  if (target === `dim-${dimId}-scoring`) return ["rule"];
+  if (target === `dim-${dimId}-triggers-section`) return ["triggers"];
+  if (target === `dim-${dimId}-metrics`) return ["metrics"];
+  if (target === `dim-${dimId}-sources`) return ["sources"];
+  if (target === `dim-${dimId}-perspectives-section`) return ["perspectives"];
+  if (target === `dim-${dimId}-context`) return ["context"];
+  if (target === `dim-${dimId}-scope`) return ["scope"];
+  if (target === `dim-${dimId}-inherited`) return ["inherited"];
+  if (target === `dim-${dimId}-skeptic-path`) return ["skeptic"];
+  if (target === `dim-${dimId}-why`) return ["why"];
+  if (target === `dim-${dimId}-subscores`) return ["subScores"];
+  if (target === `dim-${dimId}-promises`) return ["promises"];
+  if (target === `dim-${dimId}-tracker-triggers`) return ["trackerTriggers"];
+  if (
+    target === `dim-${dimId}-cohort`
+    || target === `dim-${dimId}-cohort-list`
+    || target === `dim-${dimId}-cohort-table`
+  ) {
+    return ["projects", "cohortList"];
+  }
+  return [];
+}
+
+function targetBelongsToDimension(target, dimId) {
+  return target === `dim-${dimId}` || target.startsWith(`dim-${dimId}-`);
+}
+
+function getTierCounts(sources = []) {
+  return {
+    t1: sources.filter((s) => getSourceTier(s.url) === 1).length,
+    t2: sources.filter((s) => getSourceTier(s.url) === 2).length,
+    t3: sources.filter((s) => getSourceTier(s.url) === 3).length,
+  };
+}
+
+function panelIdForSection(dimId, section) {
+  const suffix = SECTION_ANCHOR_SUFFIXES[section];
+  return suffix ? `dim-${dimId}-${suffix}-panel` : null;
+}
+
+function useDisclosureVisibility(isOpen) {
+  const [visible, setVisible] = useState(isOpen);
+  const [animatedOpen, setAnimatedOpen] = useState(isOpen);
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") {
+      return undefined;
+    }
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let frameA = null;
+    let frameB = null;
+
+    frameA = window.requestAnimationFrame(() => {
+      if (reduce) {
+        setVisible(isOpen);
+        setAnimatedOpen(isOpen);
+        return;
+      }
+
+      if (isOpen) {
+        setVisible(true);
+        setAnimatedOpen(false);
+        frameB = window.requestAnimationFrame(() => setAnimatedOpen(true));
+        return;
+      }
+
+      setAnimatedOpen(false);
+    });
+
+    return () => {
+      if (frameA) window.cancelAnimationFrame(frameA);
+      if (frameB) window.cancelAnimationFrame(frameB);
+    };
+  }, [isOpen]);
+
+  const handleTransitionEnd = (event) => {
+    if (event.target !== event.currentTarget) return;
+    if (!isOpen) setVisible(false);
+  };
+
+  return { visible, animatedOpen, handleTransitionEnd };
+}
+
+function DisclosurePanel({ id, labelledBy, isOpen, children, region = false, active = false }) {
+  const { visible, animatedOpen, handleTransitionEnd } = useDisclosureVisibility(isOpen);
+  const role = region || active ? "region" : undefined;
+
+  return (
+    <div
+      id={id}
+      className="dim-disclosure-panel"
+      data-open={animatedOpen ? "true" : "false"}
+      hidden={!visible}
+      aria-hidden={!isOpen}
+      aria-labelledby={labelledBy}
+      role={role}
+      onTransitionEnd={handleTransitionEnd}
+    >
+      <div className="dim-disclosure-panel-inner">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+function DisclosureSection({
+  id,
+  title,
+  isOpen,
+  onToggle,
+  children,
+  summary,
+  variant = "neutral",
+  region = false,
+  active = false,
+  anchor = true,
+}) {
+  const buttonId = `${id}-button`;
+  const panelId = `${id}-panel`;
+
+  return (
+    <section
+      id={anchor ? id : undefined}
+      className={`dim-disclosure-section dim-disclosure-${variant}`}
+      data-dim-anchor={anchor ? "true" : undefined}
+    >
+      <h3 className="dim-section-heading">
+        <button
+          type="button"
+          id={buttonId}
+          className="dim-section-button"
+          aria-expanded={isOpen}
+          aria-controls={panelId}
+          onClick={(e) => {
+            e.stopPropagation();
+            onToggle();
+          }}
+        >
+          <span aria-hidden="true" className="dim-section-caret">
+            {isOpen ? "\u25BE" : "\u25B8"}
+          </span>
+          <span>{title}</span>
+          {summary && <span className="dim-section-summary">{summary}</span>}
+        </button>
+      </h3>
+      <DisclosurePanel
+        id={panelId}
+        labelledBy={buttonId}
+        isOpen={isOpen}
+        region={region}
+        active={active}
+      >
+        {children}
+      </DisclosurePanel>
+    </section>
+  );
+}
+
+function SourceTierSummary({ counts }) {
+  return (
+    <span className="dim-source-tier-summary">
+      {counts.t1 > 0 && <span className="dim-tier-chip dim-tier-chip-1">{counts.t1} Tier-1</span>}
+      {counts.t2 > 0 && <span className="dim-tier-chip dim-tier-chip-2">{counts.t2} Tier-2</span>}
+      {counts.t3 > 0 && <span className="dim-tier-chip dim-tier-chip-3">{counts.t3} other</span>}
+    </span>
+  );
+}
+
+export default function DimensionCard({
+  dim,
+  isExpanded,
+  onClick,
+  trackerStat,
+  onInternalRef,
+  anchorNavigation,
+  onHashTarget,
+}) {
   const isTracker = !!dim.excludeFromGPA;
+  const g = isTracker ? null : GRADES[dim.grade];
   const modifierItems = isTracker ? [] : (dim.gradeBasis?.activeModifiers || []);
   const metrics = dim.metrics || [];
+  const sources = dim.sources || [];
   const scoring = dim.scoring || null;
-  const showLowerTriggers = !isTracker && !scoring && (dim.gradeTriggers || dim.nextTrigger);
-  const [scopeOpen, setScopeOpen] = useState(false);
-  const [inheritedOpen, setInheritedOpen] = useState(false);
-  const [triggersOpen, setTriggersOpen] = useState(false);
-  const [perspectivesOpen, setPerspectivesOpen] = useState(false);
-  const [glossaryOpen, setGlossaryOpen] = useState(false);
-  const [cohortOpen, setCohortOpen] = useState(false);
+  const showTriggers = !!(dim.gradeTriggers || dim.nextTrigger);
   const cohort = dim.projectCohort || null;
+  const sourceCounts = useMemo(() => getTierCounts(sources), [sources]);
+  const activeThresholdRow = useMemo(
+    () => (isTracker ? null : findActiveThresholdRow(scoring?.thresholds, dim.grade)),
+    [dim.grade, isTracker, scoring?.thresholds]
+  );
 
-  const metricGroups = (() => {
+  const [openSections, setOpenSections] = useState({});
+  const [scrollIntent, setScrollIntent] = useState(null);
+  const [activeAnchorTarget, setActiveAnchorTarget] = useState(null);
+  const [activeNavAnchor, setActiveNavAnchor] = useState(null);
+  const [stickyStackHeight, setStickyStackHeight] = useState(80);
+  const [stickyHeadHeight, setStickyHeadHeight] = useState(52);
+  const [isMobileDialog, setIsMobileDialog] = useState(() => (
+    typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
+  ));
+  const openSectionsRef = useRef({});
+  const localScrollRequestIdRef = useRef(0);
+  const headerButtonRef = useRef(null);
+  const drawerRef = useRef(null);
+  const stickyHeadRef = useRef(null);
+  const miniNavRef = useRef(null);
+  const previousFocusRef = useRef(null);
+
+  useEffect(() => {
+    openSectionsRef.current = openSections;
+  }, [openSections]);
+
+  const metricGroups = useMemo(() => {
     if (!metrics.some((metric) => metric.group)) {
       return [{ title: null, items: metrics }];
     }
@@ -142,45 +416,14 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     return metrics.reduce((groups, metric) => {
       const title = metric.group || "Other";
       const existingGroup = groups.find((group) => group.title === title);
-
       if (existingGroup) {
         existingGroup.items.push(metric);
         return groups;
       }
-
       groups.push({ title, items: [metric] });
       return groups;
     }, []);
-  })();
-
-  const renderScopeItem = (item) => {
-    if (!item) return null;
-
-    if (typeof item === "string") {
-      return item;
-    }
-
-    if (item.homedIn) {
-      return `${item.item} (homed in ${item.homedIn})`;
-    }
-
-    if (item.reason) {
-      return `${item.item} (${item.reason})`;
-    }
-
-    return item.item;
-  };
-
-  const renderModifierContext = (modifier) => {
-    if (!modifier) return null;
-    if (typeof modifier === "string") return modifier;
-
-    const label = MODIFIER_LABELS[modifier.name] || modifier.name || "Adjustment";
-    const status = modifier.status ? `: ${modifier.status}` : "";
-    const reason = modifier.reason ? ` (${modifier.reason})` : "";
-
-    return `${label}${status}${reason}`;
-  };
+  }, [metrics]);
 
   const scoringMetadata = [];
   if (dim.tags?.confidence) scoringMetadata.push({ label: "Confidence", value: dim.tags.confidence });
@@ -213,17 +456,151 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     keyContextItems.push({ label: "Inherited context", text: dim.inherited });
   }
 
-  const handleSkepticAnchorClick = (e, beforeJump) => {
-    e.stopPropagation();
-    beforeJump?.();
+  const hasRuleSection = !isTracker && (dim.construct || scoring || scoringMetadata.length > 0);
+  const hasWhySection = !isTracker && !!(dim.gradeBasis || dim.rationale || dim.judgmentDetail || modifierItems.length > 0);
+  const hasSubScores = !isTracker && !!dim.subScores;
+  const hasProjects = !!(cohort && cohort.projects && cohort.projects.length > 0);
+  const hasPromises = !!(dim.promises && dim.promises.length > 0);
+  const hasTrackerTriggers = isTracker && !!dim.gradeTriggers;
+
+  const availableSections = useMemo(() => {
+    const sections = [];
+    if (!isTracker) sections.push("skeptic");
+    if (keyContextItems.length > 0) sections.push("context");
+    if (hasRuleSection) sections.push("rule");
+    if (hasWhySection) sections.push("why");
+    if (hasSubScores) sections.push("subScores");
+    if (showTriggers && !hasTrackerTriggers) sections.push("triggers");
+    if (metrics.length > 0) sections.push("metrics");
+    if (sources.length > 0) sections.push("sources");
+    if (hasProjects) sections.push("projects");
+    if (hasPromises) sections.push("promises");
+    if (hasTrackerTriggers) sections.push("trackerTriggers");
+    if (dim.perspectives) sections.push("perspectives");
+    if (dim.scope) sections.push("scope");
+    if (dim.inherited) sections.push("inherited");
+    if (scoringMetadata.length > 0) sections.push("glossary");
+    if (dim.gradeBasis?.leverOperationalization) sections.push("leverOperationalization");
+    if (dim.gradeBasis?.componentOperationalization) sections.push("componentOperationalization");
+    if (dim.gradeBasis?.combinationRule) sections.push("combinationRule");
+    if (hasProjects) sections.push("cohortList");
+    return sections;
+  }, [
+    dim.gradeBasis?.combinationRule,
+    dim.gradeBasis?.componentOperationalization,
+    dim.gradeBasis?.leverOperationalization,
+    dim.inherited,
+    dim.perspectives,
+    dim.scope,
+    hasProjects,
+    hasPromises,
+    hasRuleSection,
+    hasSubScores,
+    hasTrackerTriggers,
+    hasWhySection,
+    isTracker,
+    keyContextItems.length,
+    metrics.length,
+    scoringMetadata.length,
+    showTriggers,
+    sources.length,
+  ]);
+
+  const jumpItems = useMemo(() => {
+    if (isTracker) {
+      return [
+        metrics.length > 0 && { label: "Metrics", anchor: `dim-${dim.id}-metrics`, keys: ["metrics"] },
+        sources.length > 0 && { label: "Sources", anchor: `dim-${dim.id}-sources`, keys: ["sources"] },
+        hasPromises && { label: "Promises", anchor: `dim-${dim.id}-promises`, keys: ["promises"] },
+        hasTrackerTriggers && { label: "Moves", anchor: `dim-${dim.id}-tracker-triggers`, keys: ["trackerTriggers"] },
+      ].filter(Boolean);
+    }
+
+    return [
+      hasRuleSection && { label: "Rule", anchor: `dim-${dim.id}-scoring`, keys: ["rule"] },
+      showTriggers && { label: "Triggers", anchor: `dim-${dim.id}-triggers-section`, keys: ["triggers"] },
+      metrics.length > 0 && { label: "Evidence", anchor: `dim-${dim.id}-metrics`, keys: ["metrics"] },
+      sources.length > 0 && { label: "Sources", anchor: `dim-${dim.id}-sources`, keys: ["sources"] },
+      hasProjects && { label: "Projects", anchor: `dim-${dim.id}-cohort`, keys: ["projects", "cohortList"] },
+      dim.perspectives && { label: "Views", anchor: `dim-${dim.id}-perspectives-section`, keys: ["perspectives"] },
+    ].filter(Boolean);
+  }, [
+    dim.id,
+    dim.perspectives,
+    hasProjects,
+    hasPromises,
+    hasRuleSection,
+    hasTrackerTriggers,
+    isTracker,
+    metrics.length,
+    showTriggers,
+    sources.length,
+  ]);
+
+  const toggleSection = (section) => {
+    setOpenSections((current) => ({
+      ...current,
+      [section]: !current[section],
+    }));
   };
 
-  const skepticPathLinkStyle = {
-    color: "#1565c0",
-    textDecoration: "underline",
-    display: "inline-block",
-    whiteSpace: "nowrap",
-    lineHeight: 1.4,
+  const openSectionKeys = useCallback((sections) => {
+    setOpenSections((current) => {
+      const next = { ...current };
+      sections.forEach((section) => {
+        next[section] = true;
+      });
+      return next;
+    });
+  }, []);
+
+  const openAllSections = () => {
+    const next = {};
+    availableSections.forEach((section) => {
+      if (TOP_LEVEL_SECTIONS.includes(section) || NESTED_SECTIONS.includes(section)) {
+        next[section] = true;
+      }
+    });
+    setOpenSections(next);
+  };
+
+  const queueAnchorScroll = useCallback((target, sections = sectionKeysForTarget(target, dim.id)) => {
+    if (!target) return;
+    const keys = sections.length > 0 ? sections : sectionKeysForTarget(target, dim.id);
+    const currentOpenSections = openSectionsRef.current;
+    const waitForSections = keys.filter((section) => !currentOpenSections[section]);
+    const requestId = anchorNavigation?.target === target
+      ? anchorNavigation.requestId
+      : (localScrollRequestIdRef.current += 1);
+    if (keys.length > 0) openSectionKeys(keys);
+    setActiveAnchorTarget(target);
+    setScrollIntent({
+      target,
+      sections: keys,
+      waitForSections,
+      requestId,
+    });
+  }, [anchorNavigation?.requestId, anchorNavigation?.target, dim.id, openSectionKeys]);
+
+  const handleHashLinkClick = (e, target, sections) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (onHashTarget) {
+      onHashTarget(target);
+      return;
+    }
+    if (typeof window !== "undefined") {
+      window.history.replaceState(window.history.state, "", `#${target}`);
+    }
+    queueAnchorScroll(target, sections);
+  };
+
+  const renderScopeItem = (item) => {
+    if (!item) return null;
+    if (typeof item === "string") return item;
+    if (item.homedIn) return `${item.item} (homed in ${item.homedIn})`;
+    if (item.reason) return `${item.item} (${item.reason})`;
+    return item.item;
   };
 
   const renderTriggerItem = (trigger, keyPrefix) => {
@@ -236,13 +613,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
       if (!item.internalRef) return;
 
       if (item.internalRef.type === "cohort") {
-        setCohortOpen(true);
-        window.requestAnimationFrame(() => {
-          document.getElementById(`dim-${dim.id}-cohort`)?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        });
+        queueAnchorScroll(`dim-${dim.id}-cohort`, ["projects", "cohortList"]);
         return;
       }
 
@@ -259,6 +630,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
           item.internalRef ? (
             <button
               type="button"
+              className="text-link-button"
               onClick={handleInternalRefClick}
               style={{
                 fontSize: "12px",
@@ -310,24 +682,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
             >
               Source: {item.sourceLabel}
               {eventDriven && (
-                <span
-                  title="Event-driven trigger: the source family is known now; the specific URL is added if the event happens."
-                  aria-label="Event-driven trigger. The source family is known now; the specific URL is added if the event happens."
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    minHeight: "18px",
-                    padding: "1px 6px",
-                    borderRadius: "999px",
-                    border: "1px solid #b8c7d9",
-                    background: "#eef4fb",
-                    color: "#315170",
-                    fontSize: "11px",
-                    fontWeight: 800,
-                    textTransform: "uppercase",
-                    letterSpacing: "0.3px",
-                  }}
-                >
+                <span className="dim-event-chip">
                   Event
                 </span>
               )}
@@ -358,7 +713,7 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
                     <span style={{ fontWeight: 600 }}>{alt.label}</span>
                   )}
                   {alt.role && (
-                    <span style={{ color: "#6b7280" }}> — {alt.role}</span>
+                    <span style={{ color: "#6b7280" }}> - {alt.role}</span>
                   )}
                 </li>
               ))}
@@ -369,1430 +724,1087 @@ export default function DimensionCard({ dim, isExpanded, onClick, trackerStat, o
     );
   };
 
-  const handleCardKeyDown = (e) => {
-    if (e.target !== e.currentTarget) return;
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onClick?.(e);
-    }
-  };
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobileDialog(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
-  const handleCardClick = (e) => {
-    if (e.target !== e.currentTarget && e.target.closest("a, button, input, select, textarea")) {
-      return;
+  useEffect(() => {
+    if (!isExpanded) return undefined;
+    if (!isMobileDialog) return undefined;
+
+    previousFocusRef.current = document.activeElement;
+    let frame = window.requestAnimationFrame(() => {
+      drawerRef.current?.focus({ preventScroll: true });
+    });
+
+    const handleKeyDown = (event) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      onClick?.(event);
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame);
+      window.removeEventListener("keydown", handleKeyDown);
+      const previousFocus = previousFocusRef.current;
+      if (previousFocus && typeof previousFocus.focus === "function") {
+        previousFocus.focus({ preventScroll: true });
+      } else {
+        headerButtonRef.current?.focus({ preventScroll: true });
+      }
+    };
+  }, [isExpanded, isMobileDialog, onClick]);
+
+  useLayoutEffect(() => {
+    if (!isExpanded) return undefined;
+
+    const measure = () => {
+      const head = stickyHeadRef.current?.getBoundingClientRect().height || 0;
+      const nav = miniNavRef.current?.getBoundingClientRect().height || 0;
+      const stack = Math.max(64, Math.ceil(head + nav));
+      setStickyHeadHeight(Math.max(48, Math.ceil(head)));
+      setStickyStackHeight(stack);
+    };
+
+    measure();
+
+    const observers = [];
+    if (typeof ResizeObserver !== "undefined") {
+      const observer = new ResizeObserver(measure);
+      if (stickyHeadRef.current) observer.observe(stickyHeadRef.current);
+      if (miniNavRef.current) observer.observe(miniNavRef.current);
+      observers.push(observer);
     }
-    onClick?.(e);
-  };
+
+    window.addEventListener("resize", measure);
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+      window.removeEventListener("resize", measure);
+    };
+  }, [isExpanded, jumpItems.length]);
+
+  useEffect(() => {
+    const target = anchorNavigation?.target;
+    if (!isExpanded || !target || !targetBelongsToDimension(target, dim.id)) return;
+    queueAnchorScroll(target);
+  }, [anchorNavigation, dim.id, isExpanded, queueAnchorScroll]);
+
+  useLayoutEffect(() => {
+    const targetId = scrollIntent?.target;
+    if (!isExpanded || !targetId) return undefined;
+    if (typeof window === "undefined") return undefined;
+
+    const sections = scrollIntent.sections?.length
+      ? scrollIntent.sections
+      : sectionKeysForTarget(targetId, dim.id);
+    const sectionsOpen = sections.every((section) => openSections[section]);
+    if (!sectionsOpen) return undefined;
+
+    let done = false;
+    let fallbackTimer = null;
+    const cleanupCallbacks = [];
+    const panelsToWaitFor = (scrollIntent.waitForSections || [])
+      .map((section) => document.getElementById(panelIdForSection(dim.id, section)))
+      .filter(Boolean);
+
+    const cleanup = () => {
+      cleanupCallbacks.forEach((clean) => clean());
+      cleanupCallbacks.length = 0;
+      if (fallbackTimer) window.clearTimeout(fallbackTimer);
+    };
+
+    const scrollOnce = () => {
+      if (done) return;
+      done = true;
+      cleanup();
+      const target = document.getElementById(targetId);
+      if (target) {
+        target.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+          inline: "nearest",
+        });
+      }
+      setScrollIntent(null);
+    };
+
+    if (panelsToWaitFor.length === 0) {
+      scrollOnce();
+      return undefined;
+    }
+
+    const pendingPanels = new Set(panelsToWaitFor);
+    panelsToWaitFor.forEach((panel) => {
+      const handleTransitionEnd = (event) => {
+        if (event.target !== panel) return;
+        if (event.propertyName && event.propertyName !== "grid-template-rows") return;
+        pendingPanels.delete(panel);
+        if (pendingPanels.size === 0) scrollOnce();
+      };
+
+      panel.addEventListener("transitionend", handleTransitionEnd);
+      cleanupCallbacks.push(() => panel.removeEventListener("transitionend", handleTransitionEnd));
+    });
+
+    fallbackTimer = window.setTimeout(scrollOnce, ANCHOR_SCROLL_FALLBACK_MS);
+
+    return () => {
+      done = true;
+      cleanup();
+    };
+  }, [dim.id, isExpanded, openSections, scrollIntent]);
+
+  useEffect(() => {
+    if (!isExpanded || !drawerRef.current || jumpItems.length === 0) return undefined;
+    if (typeof IntersectionObserver === "undefined") return undefined;
+
+    const media = window.matchMedia("(max-width: 767px)");
+    const root = media.matches ? drawerRef.current : null;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (visible?.target?.id) setActiveNavAnchor(visible.target.id);
+      },
+      {
+        root,
+        rootMargin: `-${stickyStackHeight + 8}px 0px -60% 0px`,
+        threshold: [0.05, 0.25, 0.5],
+      }
+    );
+
+    const anchors = jumpItems
+      .map((item) => document.getElementById(item.anchor))
+      .filter(Boolean);
+
+    anchors.forEach((anchor) => observer.observe(anchor));
+    return () => observer.disconnect();
+  }, [isExpanded, jumpItems, stickyStackHeight]);
+
+  if (!isTracker && !g) return null;
+
+  const borderColor = isExpanded
+    ? (isTracker ? "#bfa86b" : g.color)
+    : (isTracker ? "#d9d4b8" : "#e0e0e0");
+  const raisedShadow = isTracker ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`;
+  const subScoreSummary = hasSubScores
+    ? Object.values(dim.subScores).map((sub) => `${sub.label}: ${sub.grade}`).join(" / ")
+    : null;
+  const sourceSummary = `${sources.length} source${sources.length === 1 ? "" : "s"} · ${sourceCounts.t1} Tier-1 → open`;
+  const metricsSummary = `${metrics.length} metric${metrics.length === 1 ? "" : "s"} tracked → open`;
+  const activeSectionKeys = sectionKeysForTarget(activeAnchorTarget, dim.id);
 
   return (
     <div
       id={`dim-${dim.id}`}
-      onClick={handleCardClick}
-      onKeyDown={handleCardKeyDown}
-      role="button"
-      tabIndex={0}
-      aria-expanded={isExpanded}
-      aria-label={`${isExpanded ? "Collapse" : "Expand"} ${dim.name} details`}
+      className="dimension-card-root"
       style={{
         background: isTracker ? "#fcfcf7" : "#fff",
-        border: `1px solid ${
-          isExpanded
-            ? (isTracker ? "#bfa86b" : g.color)
-            : (isTracker ? "#d9d4b8" : "#e0e0e0")
-        }`,
+        border: `1px solid ${borderColor}`,
         borderRadius: "8px",
         padding: "16px",
-        cursor: "pointer",
-        transition: "all 0.2s",
-        boxShadow: isExpanded
-          ? (isTracker ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`)
-          : "0 1px 3px rgba(0,0,0,0.06)",
-        // When expanded, take the full grid row so we don't leave adjacent
-        // cards stranded in whitespace. Same pattern YouTube / Material use
-        // for in-grid expansions. Ignored on single-column (mobile) layouts
-        // because there's nothing to span.
+        transition: "border-color 0.2s, box-shadow 0.2s",
+        boxShadow: isExpanded ? raisedShadow : "0 1px 3px rgba(0,0,0,0.06)",
         gridColumn: isExpanded ? "1 / -1" : "auto",
       }}
     >
-      {/* Header row: name + grade */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          gap: "12px",
-        }}
+      <button
+        ref={headerButtonRef}
+        type="button"
+        className="dim-card-header-button"
+        onClick={onClick}
+        aria-expanded={isExpanded}
+        aria-controls={`dim-${dim.id}-drawer`}
+        aria-labelledby={`dim-${dim.id}-title`}
       >
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <div
-            style={{
-              fontWeight: 700,
-              fontSize: "15px",
-              color: "#1a1a1a",
-              fontFamily: "'DM Sans', sans-serif",
-              marginBottom: "4px",
-            }}
-          >
-            {dim.name}
-            <TrendArrow trend={dim.trend} />
-            {dim.previousGrade && (
-              <span
+        <div className="dim-card-header-content">
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <h2
+              id={`dim-${dim.id}-title`}
+              style={{
+                fontWeight: 700,
+                fontSize: "15px",
+                color: "#1a1a1a",
+                fontFamily: "'DM Sans', sans-serif",
+                margin: "0 0 4px",
+                lineHeight: 1.3,
+              }}
+            >
+              {dim.name}
+              <TrendArrow trend={dim.trend} />
+              {dim.previousGrade && (
+                <span
+                  style={{
+                    fontSize: "12px",
+                    color: "#c62828",
+                    marginLeft: "4px",
+                    fontWeight: 600,
+                    whiteSpace: "nowrap",
+                    verticalAlign: "middle",
+                  }}
+                >
+                  (was {dim.previousGrade})
+                </span>
+              )}
+            </h2>
+            {isTracker && (
+              <div className="dim-tracker-pill">
+                Tracker &middot; No letter grade
+              </div>
+            )}
+            {dim.whatThisGrades && (
+              <div
                 style={{
-                  fontSize: "12px",
-                  color: "#c62828",
-                  marginLeft: "4px",
-                  fontWeight: 600,
-                  whiteSpace: "nowrap",
-                  verticalAlign: "middle",
+                  fontSize: "14px",
+                  color: "#555",
+                  fontStyle: "italic",
+                  lineHeight: 1.4,
+                  marginBottom: "4px",
                 }}
               >
-                (was {dim.previousGrade})
-              </span>
+                {dim.whatThisGrades}
+              </div>
+            )}
+            <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
+              {dim.status}
+            </div>
+            {dim.lastUpdated && (
+              <div className="last-reviewed-pill dim-last-reviewed-pill">
+                <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
+                  Reviewed
+                </span>
+                {dim.lastUpdated}
+                {meta.nextUpdate && (
+                  <>
+                    <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
+                    <span style={{ textTransform: "uppercase", letterSpacing: "0.35px", color: "#5a7a9b" }}>
+                      Next
+                    </span>
+                    <span style={{ color: "#5a7a9b" }}>{meta.nextUpdate}</span>
+                  </>
+                )}
+              </div>
             )}
           </div>
-          {isTracker && (
-            <div
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                fontSize: "13px",
-                fontWeight: 700,
-                color: "#7a6a28",
-                background: "#f5edd0",
-                border: "1px solid #e6d79b",
-                borderRadius: "999px",
-                padding: "3px 8px",
-                marginBottom: "6px",
-                textTransform: "uppercase",
-                letterSpacing: "0.4px",
-              }}
-            >
-              Tracker &middot; No letter grade
-            </div>
-          )}
-          {dim.whatThisGrades && (
-            <div
-              style={{
-                fontSize: "14px",
-                color: "#555",
-                fontStyle: "italic",
-                lineHeight: 1.4,
-                marginBottom: "4px",
-              }}
-            >
-              {dim.whatThisGrades}
-            </div>
-          )}
-          <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
-            {dim.status}
-          </div>
-          {!isTracker && dim.judgmentCall && (
-            <div
-              style={{
-                fontSize: "13px",
-                color: "#444",
-                lineHeight: 1.45,
-                marginTop: "8px",
-              }}
-            >
-              <strong style={{ color: "#6b4a00" }}>Judgment call:</strong>{" "}
-              {dim.judgmentCall}
-            </div>
-          )}
-          {dim.lastUpdated && (
-            <div
-              className="last-reviewed-pill"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "5px",
-                alignSelf: "flex-start",
-                fontSize: "12px",
-                color: "#3f4a55",
-                marginTop: "8px",
-                fontWeight: 700,
-                background: "#f4f7fb",
-                border: "1px solid #d9e2ec",
-                borderRadius: "999px",
-                padding: "3px 8px",
-                flexWrap: "wrap",
-              }}
-            >
-              <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
-                Reviewed
-              </span>
-              {dim.lastUpdated}
-              {meta.nextUpdate && (
-                <>
-                  <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
-                  <span style={{ textTransform: "uppercase", letterSpacing: "0.35px", color: "#5a7a9b" }}>
-                    Next
-                  </span>
-                  <span style={{ color: "#5a7a9b" }}>{meta.nextUpdate}</span>
-                </>
-              )}
-            </div>
-          )}
-        </div>
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "4px" }}>
-          {isTracker && trackerStat ? (
-            <div
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                textAlign: "center",
-                minWidth: "64px",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "28px",
-                  fontWeight: 800,
-                  color: "#7a6a28",
-                  lineHeight: 1,
-                }}
-              >
-                {trackerStat.delivered}
-                <span style={{ fontSize: "16px", color: "#666", fontWeight: 600 }}>
-                  /{trackerStat.total}
+          <div className="dim-card-grade-stack">
+            {isTracker ? (
+              trackerStat ? (
+                <div className="dim-tracker-count">
+                  <div className="dim-tracker-count-number">
+                    {trackerStat.delivered}
+                    <span>/{trackerStat.total}</span>
+                  </div>
+                  <div className="dim-tracker-count-label">delivered</div>
+                </div>
+              ) : (
+                <span className="dim-info-grade-pill">
+                  {dim.informationalGrade} informational
                 </span>
-              </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#666",
-                  marginTop: "3px",
-                  letterSpacing: "0.4px",
-                  textTransform: "uppercase",
-                  fontWeight: 700,
-                }}
-              >
-                delivered
-              </div>
-            </div>
-          ) : (
-            <GradeChip grade={dim.grade} />
-          )}
-          {/* Expand hint */}
-          <span
-            style={{
-              fontSize: "14px",
-              color: "#555",
-              fontWeight: 600,
-            }}
-          >
-            {isExpanded ? "\u25B2 close" : "\u25BC open"}
-          </span>
+              )
+            ) : (
+              <GradeChip grade={dim.grade} />
+            )}
+            <span className="dim-open-hint">
+              {isExpanded ? "\u25B2 close" : "\u25BC open"}
+            </span>
+          </div>
         </div>
-      </div>
+      </button>
 
-      {/* Expanded details */}
       {isExpanded && (
         <div
+          id={`dim-${dim.id}-drawer`}
+          ref={drawerRef}
+          tabIndex={-1}
+          role={isMobileDialog ? "dialog" : undefined}
+          aria-modal={isMobileDialog ? "true" : undefined}
+          aria-labelledby={`dim-${dim.id}-title`}
           onClick={(e) => e.stopPropagation()}
           className="dim-drawer"
           style={{
-            marginTop: "16px",
-            borderTop: "1px solid #eee",
+            "--dim-sticky-head": `${stickyHeadHeight}px`,
+            "--dim-sticky-stack": `${stickyStackHeight}px`,
+            "--dim-anchor-offset": `calc(${stickyStackHeight}px + 12px)`,
+            ...(isMobileDialog ? {} : {
+              marginTop: "16px",
+              borderTop: "1px solid #eee",
+            }),
             paddingTop: "0",
           }}
         >
-          {/* MED2: Sticky in-drawer header so title stays visible on scroll */}
           <div
+            ref={stickyHeadRef}
             className="dim-drawer-sticky-head"
-            style={{
-              position: "sticky",
-              top: 0,
-              zIndex: 10,
-              background: "inherit",
-              padding: "10px 0 8px",
-              marginBottom: "4px",
-              borderBottom: "1px solid #eee",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-              gap: "8px",
-            }}
           >
-            <span
-              style={{
-                fontWeight: 700,
-                fontSize: "14px",
-                color: "#1a1a1a",
-                lineHeight: 1.3,
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-                whiteSpace: "nowrap",
-                flex: 1,
-              }}
-            >
+            <span className="dim-drawer-title">
               {dim.name}
             </span>
             {!isTracker && (
               <GradeChip grade={dim.grade} />
             )}
-            {/* MED3: Close button — visible on mobile full-screen, subtle on desktop */}
+            {isTracker && (
+              <span className="dim-drawer-info-grade">
+                {dim.informationalGrade} informational
+              </span>
+            )}
             <button
               type="button"
               className="dim-drawer-close"
-              onClick={(e) => { e.stopPropagation(); onClick?.(); }}
-              aria-label="Close details"
-              style={{
-                background: "none",
-                border: "1px solid #d0d0d0",
-                borderRadius: "6px",
-                padding: "4px 8px",
-                cursor: "pointer",
-                fontSize: "13px",
-                fontWeight: 700,
-                color: "#555",
-                fontFamily: "inherit",
-                lineHeight: 1,
-                flexShrink: 0,
+              onClick={(e) => {
+                e.stopPropagation();
+                onClick?.(e);
               }}
+              aria-label="Close details"
             >
               × Close
             </button>
           </div>
 
-          {/* MED4: Sticky mini-nav for the 5 Skeptic Path anchors (non-tracker only) */}
-          {!isTracker && (
-            <div
+          {jumpItems.length > 0 && (
+            <nav
+              ref={miniNavRef}
               className="dim-mini-nav"
-              style={{
-                position: "sticky",
-                top: "62px",
-                zIndex: 9,
-                background: "#f0f4ff",
-                borderRadius: "6px",
-                padding: "6px 10px",
-                marginBottom: "12px",
-                display: "flex",
-                gap: "6px",
-                flexWrap: "wrap",
-                alignItems: "center",
-                fontSize: "12px",
-                fontWeight: 700,
-                borderBottom: "1px solid #d8e3ff",
-              }}
+              aria-label={`${dim.name} section jumps`}
             >
-              <span style={{ color: "#5c6bc0", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.4px", marginRight: "2px" }}>Jump:</span>
-              {[
-                { label: "Rule", anchor: `dim-${dim.id}-scoring` },
-                { label: "Triggers", anchor: `dim-${dim.id}-triggers-section` },
-                { label: "Evidence", anchor: `dim-${dim.id}-metrics` },
-                { label: "Sources", anchor: `dim-${dim.id}-sources` },
-                { label: "Views", anchor: `dim-${dim.id}-perspectives-section` },
-              ].map(({ label, anchor }) => (
+              <span className="dim-mini-nav-label">Jump:</span>
+              {jumpItems.map((item) => (
                 <a
-                  key={anchor}
-                  href={`#${anchor}`}
-                  onClick={(e) => { e.stopPropagation(); }}
-                  style={{
-                    color: "#3949ab",
-                    textDecoration: "none",
-                    padding: "2px 7px",
-                    borderRadius: "4px",
-                    background: "#fff",
-                    border: "1px solid #c5cae9",
-                    whiteSpace: "nowrap",
-                    lineHeight: 1.5,
-                  }}
+                  key={item.anchor}
+                  href={`#${item.anchor}`}
+                  aria-current={activeNavAnchor === item.anchor ? "true" : undefined}
+                  onClick={(e) => handleHashLinkClick(e, item.anchor, item.keys)}
                 >
-                  {label}
+                  {item.label}
                 </a>
               ))}
-            </div>
+              <button
+                type="button"
+                className="text-link-button dim-show-all-button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  openAllSections();
+                }}
+              >
+                Show all sections
+              </button>
+            </nav>
           )}
 
-          {!isTracker && (
-            <div
-              style={{
-                marginBottom: "14px",
-                fontSize: "12px",
-                color: "#555",
-                background: "#fafafa",
-                padding: "8px 12px",
-                borderRadius: "6px",
-                borderLeft: "3px solid #1a73e8",
-                lineHeight: 1.5,
-              }}
-            >
-              <strong style={{ color: "#1565c0" }}>Skeptic path:</strong> to
-              challenge this grade, walk these five ingredients in order:{" "}
-              <a
-                href={`#dim-${dim.id}-scoring`}
-                onClick={(e) => handleSkepticAnchorClick(e)}
-                style={skepticPathLinkStyle}
-              >
-                (1) the rule
-              </a>
-              ,{" "}
-              <a
-                href={`#dim-${dim.id}-triggers-section`}
-                onClick={(e) => handleSkepticAnchorClick(e, () => {
-                  if (showLowerTriggers) setTriggersOpen(true);
-                })}
-                style={skepticPathLinkStyle}
-              >
-                (2) what would move the grade
-              </a>
-              ,{" "}
-              <a
-                href={`#dim-${dim.id}-metrics`}
-                onClick={(e) => handleSkepticAnchorClick(e)}
-                style={skepticPathLinkStyle}
-              >
-                (3) the evidence under each metric
-              </a>
-              ,{" "}
-              <a
-                href={`#dim-${dim.id}-sources`}
-                onClick={(e) => handleSkepticAnchorClick(e)}
-                style={skepticPathLinkStyle}
-              >
-                (4) the cited sources
-              </a>
-              , and{" "}
-              <a
-                href={`#dim-${dim.id}-perspectives-section`}
-                onClick={(e) => handleSkepticAnchorClick(e, () => setPerspectivesOpen(true))}
-                style={skepticPathLinkStyle}
-              >
-                (5) named critic and defender views
-              </a>
-              . The grade in the header is the result; this drawer is the
-              derivation. Click an ingredient to jump to its section.
-            </div>
-          )}
-          {keyContextItems.length > 0 && (
-            <div
-              id={`dim-${dim.id}-context`}
-              style={{
-                marginBottom: "14px",
-                fontSize: "14px",
-                color: "#333",
-                lineHeight: 1.5,
-                background: "#f7fbf8",
-                padding: "10px 12px",
-                borderRadius: "6px",
-                borderLeft: "3px solid #558b2f",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                }}
-              >
-                Key trade-offs &amp; confounders
-              </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                {keyContextItems.map((item) => (
-                  <div key={item.label}>
-                    <strong>{item.label}:</strong> {item.text}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-          {!isTracker && (dim.construct || scoring || scoringMetadata.length > 0) && (
-            <div style={{ marginBottom: "14px" }}>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "6px",
-                }}
-              >
-                <span style={{ fontSize: "11px" }}>{isExpanded ? "\u25BE" : "\u25B8"}</span>
-                How This File Is Scored
-              </div>
-              <div
-                id={`dim-${dim.id}-scoring`}
-                role="region"
-                style={{
-                  scrollMarginTop: "80px",
-                  fontSize: "14px",
-                  color: "#333",
-                  lineHeight: 1.55,
-                  background: "#f7f8fa",
-                  padding: "12px 14px",
-                  borderRadius: "6px",
-                  borderLeft: "3px solid #607d8b",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "12px",
-                }}
-              >
-                {dim.construct && (
-                  <div>
-                    <strong>Construct:</strong> {dim.construct}
-                  </div>
+          <div className="dim-default-blocks" aria-label={`${dim.name} score summary`}>
+            <section className="dim-score-block dim-default-block">
+              <div className="dim-default-block-head">
+                <span>Score</span>
+                {isTracker ? (
+                  <span className="dim-info-grade-pill">
+                    {dim.informationalGrade} informational
+                  </span>
+                ) : (
+                  <GradeChip grade={dim.grade} />
                 )}
-                {scoringMetadata.length > 0 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                      {scoringMetadata.map((item) => (
-                        <span
-                          key={item.label}
-                          style={{
-                            display: "inline-flex",
-                            alignItems: "center",
-                            gap: "4px",
-                            padding: "3px 8px",
-                            borderRadius: "999px",
-                            background: "#fff",
-                            border: "1px solid #d9dde1",
-                            fontSize: "12px",
-                            color: "#5f6368",
-                          }}
-                        >
-                          <strong style={{ color: "#444" }}>{item.label}:</strong> {item.value}
-                        </span>
-                      ))}
+              </div>
+              {isTracker ? (
+                <div className="dim-score-body">
+                  {trackerStat && (
+                    <div className="dim-tracker-score-line">
+                      <strong>{trackerStat.delivered} of {trackerStat.total}</strong> promises delivered.
                     </div>
-                    <div>
-                      <button
-                        type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setGlossaryOpen((v) => !v);
-                        }}
-                        aria-expanded={glossaryOpen}
-                        aria-controls={`dim-${dim.id}-glossary`}
-                        style={{
-                          fontSize: "13px",
-                          color: "#1565c0",
-                          background: "none",
-                          border: "none",
-                          padding: "2px 0",
-                          cursor: "pointer",
-                          fontFamily: "inherit",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {glossaryOpen ? "▾ Hide definitions" : "▸ What do these mean?"}
-                      </button>
-                      {glossaryOpen && (
-                        <div
-                          id={`dim-${dim.id}-glossary`}
-                          role="region"
-                          style={{
-                            marginTop: "4px",
-                            padding: "8px 10px",
-                            background: "#fff",
-                            border: "1px dashed #d9dde1",
-                            borderRadius: "6px",
-                            fontSize: "13px",
-                            color: "#444",
-                            lineHeight: 1.55,
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "6px",
-                          }}
-                        >
-                          <div>
-                            <strong>Confidence</strong> — how robust the editor thinks this grade is to new data. <em>High</em> = direct measurement against numeric thresholds. <em>Medium</em> = qualitative judgment with mixed evidence. <em>Low</em> = sparse evidence.
-                          </div>
-                          <div>
-                            <strong>Attribution</strong> — what share of the outcome the federal government actually controls. <em>Direct</em> = ≥60% federal levers. <em>Mixed</em> = 30–60%. <em>Mostly inherited</em> = &lt;30%.
-                          </div>
-                          <div>
-                            <strong>Lag</strong> — how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1–2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = the file moves on discrete disclosures or rulings rather than a fixed cadence.
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
-                {scoring?.scopeNote && (
-                  <div>
-                    <strong>Scope note:</strong> {scoring.scopeNote}
-                  </div>
-                )}
-                {!isTracker && dim.judgmentDetail && (
-                  <div>
-                    <strong>Where judgment enters:</strong> {dim.judgmentDetail}
-                  </div>
-                )}
-                {scoring?.modifierExpiry && (
-                  <div>
-                    <strong>Timing rule:</strong> {scoring.modifierExpiry}
-                  </div>
-                )}
-                {scoring?.thresholds?.length > 0 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <strong>Threshold ladder</strong>
-                    {scoring.thresholds.map((threshold) => (
-                      <div
-                        key={threshold.grade}
-                        style={{
-                          display: "grid",
-                          gridTemplateColumns: "36px minmax(0, 1fr)",
-                          gap: "8px",
-                          alignItems: "start",
-                        }}
-                      >
-                        <span
-                          style={{
-                            fontFamily: "'DM Mono', monospace",
-                            fontWeight: 700,
-                            color: "#1a1a1a",
-                          }}
-                        >
-                          {threshold.grade}
-                        </span>
-                        <span>{threshold.criteria}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                {dim.gradeTriggers && (
-                  <div
-                    id={`dim-${dim.id}-triggers-section`}
-                    style={{ display: "flex", flexDirection: "column", gap: "6px", scrollMarginTop: "80px" }}
-                  >
-                    <strong>What changes this grade</strong>
-                    <div>
-                      <strong>Up one step:</strong>
-                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                        {dim.gradeTriggers.up.map((trigger, i) =>
-                          renderTriggerItem(trigger, `drawer-up-${i}`)
-                        )}
-                      </div>
-                    </div>
-                    <div>
-                      <strong>Down one step:</strong>
-                      <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                        {dim.gradeTriggers.down.map((trigger, i) =>
-                          renderTriggerItem(trigger, `drawer-down-${i}`)
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                )}
-                {scoring?.guardrails?.length > 0 && (
-                  <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-                    <strong>Guardrails</strong>
-                    {scoring.guardrails.map((rule, i) => (
-                      <div key={i} style={{ color: "#444" }}>
-                        {rule}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-
-          {/* Grade Rationale */}
-          {!isTracker && (dim.gradeBasis ? (
-            <div style={{ marginBottom: "14px" }}>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                }}
-              >
-                Why This Grade
-              </div>
-              <div
-                style={{
-                  fontSize: "15px",
-                  color: "#333",
-                  lineHeight: 1.6,
-                  background: "#fafafa",
-                  padding: "12px 14px",
-                  borderRadius: "6px",
-                  borderLeft: `3px solid ${g.color}`,
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "10px",
-                }}
-              >
-                <div>{dim.gradeBasis.plusMinusRationale}</div>
-                <div style={{ fontSize: "14px", color: "#555" }}>
-                  <strong>{dim.gradeBasis.band}</strong> means: {dim.gradeBasis.bandCriterion}
+                  )}
+                  {dim.whatThisGrades && <p>{dim.whatThisGrades}</p>}
+                  <p>{dim.status}</p>
+                  {dim.rationale && <p>{dim.rationale}</p>}
                 </div>
-                {dim.gradeBasis.leverOperationalization && (
-                  <details style={{ fontSize: "13px", color: "#444", marginTop: "4px" }}>
-                    <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1a3c5e" }}>
-                      Per-lever status criteria ({dim.gradeBasis.leverOperationalization.length} levers — click to expand)
-                    </summary>
-                    <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                      {dim.gradeBasis.leverOperationalization.map((lever, i) => (
-                        <div key={i} style={{ borderLeft: "2px solid #c7d2fe", paddingLeft: "10px" }}>
-                          <div style={{ fontWeight: 600, color: "#1a1a1a" }}>{lever.name}</div>
-                          <div style={{ marginTop: "4px", lineHeight: 1.45 }}>
-                            <div><strong>Announced if:</strong> {lever.announced}</div>
-                            <div><strong>Authorized if:</strong> {lever.authorized}</div>
-                            <div><strong>Executing if:</strong> {lever.executing}</div>
-                            <div style={{ marginTop: "4px", color: "#1a3c5e" }}><strong>Current:</strong> {lever.currentStatus}</div>
-                          </div>
-                        </div>
-                      ))}
-                      {dim.gradeBasis.leverScoreSummary && (
-                        <div style={{ marginTop: "4px", padding: "8px 10px", background: "#f6f9fc", borderRadius: "4px", fontSize: "12px", lineHeight: 1.5 }}>
-                          <strong>Score summary:</strong> {dim.gradeBasis.leverScoreSummary}
-                        </div>
-                      )}
+              ) : (
+                <div className="dim-score-body">
+                  {dim.whatThisGrades && <p>{dim.whatThisGrades}</p>}
+                  <p>{dim.status}</p>
+                  {dim.judgmentCall && (
+                    <p>
+                      <strong>Judgment call:</strong> {dim.judgmentCall}
+                    </p>
+                  )}
+                  {dim.gradeBasis?.plusMinusRationale && (
+                    <p>{dim.gradeBasis.plusMinusRationale}</p>
+                  )}
+                  {dim.gradeBasis?.band && (
+                    <p>
+                      <strong>{dim.gradeBasis.band}</strong> means: {dim.gradeBasis.bandCriterion}
+                    </p>
+                  )}
+                  {activeThresholdRow && (
+                    <div className="dim-live-threshold-row">
+                      <span>{activeThresholdRow.grade}</span>
+                      <p>{activeThresholdRow.criteria}</p>
                     </div>
-                  </details>
-                )}
-                {dim.gradeBasis.componentOperationalization && (
-                  <details style={{ fontSize: "13px", color: "#444", marginTop: "4px" }}>
-                    <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1a3c5e" }}>
-                      Per-component checklist ({dim.gradeBasis.componentOperationalization.length} components — click to expand)
-                    </summary>
-                    <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "8px" }}>
-                      {dim.gradeBasis.componentOperationalization.map((component, i) => (
-                        <div key={i} style={{ borderLeft: "2px solid #c7d2fe", paddingLeft: "10px" }}>
-                          <div style={{ fontWeight: 600, color: "#1a1a1a" }}>{component.name}</div>
-                          <div style={{ marginTop: "4px", lineHeight: 1.45 }}>
-                            <div><strong>Present if:</strong> {component.presentIfX}</div>
-                            <div style={{ marginTop: "4px", color: "#1a3c5e" }}><strong>Current:</strong> {component.currentStatus}</div>
-                          </div>
-                        </div>
-                      ))}
-                      {dim.gradeBasis.componentScoreSummary && (
-                        <div style={{ marginTop: "4px", padding: "8px 10px", background: "#f6f9fc", borderRadius: "4px", fontSize: "12px", lineHeight: 1.5 }}>
-                          <strong>Score summary:</strong> {dim.gradeBasis.componentScoreSummary}
-                        </div>
-                      )}
+                  )}
+                  {subScoreSummary && (
+                    <p className="dim-subscore-summary">
+                      <strong>Sub-scores:</strong> {subScoreSummary}
+                    </p>
+                  )}
+                </div>
+              )}
+            </section>
+
+            {sources.length > 0 && (
+              <section className="dim-default-block dim-summary-block">
+                <div className="dim-default-block-head">
+                  <span>Sources</span>
+                  <SourceTierSummary counts={sourceCounts} />
+                </div>
+                <button
+                  type="button"
+                  className="dim-summary-open-button"
+                  aria-expanded={!!openSections.sources}
+                  aria-controls={`dim-${dim.id}-sources-panel`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    queueAnchorScroll(`dim-${dim.id}-sources`, ["sources"]);
+                  }}
+                >
+                  {sourceSummary}
+                </button>
+              </section>
+            )}
+
+            {metrics.length > 0 && (
+              <section className="dim-default-block dim-summary-block">
+                <div className="dim-default-block-head">
+                  <span>Metrics</span>
+                </div>
+                <button
+                  type="button"
+                  className="dim-summary-open-button"
+                  aria-expanded={!!openSections.metrics}
+                  aria-controls={`dim-${dim.id}-metrics-panel`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    queueAnchorScroll(`dim-${dim.id}-metrics`, ["metrics"]);
+                  }}
+                >
+                  {metricsSummary}
+                </button>
+              </section>
+            )}
+          </div>
+
+          <div className="dim-fold-stack">
+            {!isTracker && (
+              <DisclosureSection
+                id={`dim-${dim.id}-skeptic-path`}
+                title="Skeptic path"
+                summary="walk the grade ingredients"
+                isOpen={!!openSections.skeptic}
+                onToggle={() => toggleSection("skeptic")}
+                active={activeSectionKeys.includes("skeptic")}
+                variant="blue"
+              >
+                <p>
+                  To challenge this grade, walk the ingredients in order:{" "}
+                  {jumpItems.map((item, index) => (
+                    <span key={item.anchor}>
+                      <a
+                        href={`#${item.anchor}`}
+                        onClick={(e) => handleHashLinkClick(e, item.anchor, item.keys)}
+                        className="dim-inline-link"
+                      >
+                        {item.label.toLowerCase()}
+                      </a>
+                      {index < jumpItems.length - 1 ? ", " : "."}
+                    </span>
+                  ))}
+                </p>
+              </DisclosureSection>
+            )}
+
+            {keyContextItems.length > 0 && (
+              <DisclosureSection
+                id={`dim-${dim.id}-context`}
+                title="Key trade-offs and confounders"
+                summary={`${keyContextItems.length} notes`}
+                isOpen={!!openSections.context}
+                onToggle={() => toggleSection("context")}
+                active={activeSectionKeys.includes("context")}
+                variant="green"
+              >
+                <div className="dim-stack">
+                  {keyContextItems.map((item) => (
+                    <div key={item.label}>
+                      <strong>{item.label}:</strong> {item.text}
                     </div>
-                  </details>
-                )}
-                {dim.gradeBasis.combinationRule && (
-                  <details style={{ fontSize: "13px", color: "#444", marginTop: "4px" }}>
-                    <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1a3c5e" }}>
-                      Combination Rule (click to expand the full distribution table)
-                    </summary>
-                    <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "10px" }}>
-                      <div>
-                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>The five flagship files</div>
-                        <ul style={{ margin: 0, paddingLeft: "18px", lineHeight: 1.5 }}>
-                          {dim.gradeBasis.combinationRule.flagshipFiles.map((f, i) => (
-                            <li key={i}>{f}</li>
-                          ))}
-                        </ul>
-                      </div>
-                      <div>
-                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>File status categories</div>
-                        {dim.gradeBasis.combinationRule.fileStatusCategories.map((cat, i) => (
-                          <div key={i} style={{ marginBottom: "3px" }}>
-                            <strong>{cat.status}:</strong> {cat.definition}
-                          </div>
+                  ))}
+                </div>
+              </DisclosureSection>
+            )}
+
+            {hasRuleSection && (
+              <DisclosureSection
+                id={`dim-${dim.id}-scoring`}
+                title="How this file is scored"
+                summary="rule and thresholds"
+                isOpen={!!openSections.rule}
+                onToggle={() => toggleSection("rule")}
+                region
+                active={activeSectionKeys.includes("rule")}
+                variant="rule"
+              >
+                <div className="dim-stack">
+                  {dim.construct && (
+                    <div>
+                      <strong>Construct:</strong> {dim.construct}
+                    </div>
+                  )}
+                  {scoringMetadata.length > 0 && (
+                    <div className="dim-stack">
+                      <div className="dim-meta-chip-row">
+                        {scoringMetadata.map((item) => (
+                          <span key={item.label} className="dim-meta-chip">
+                            <strong>{item.label}:</strong> {item.value}
+                          </span>
                         ))}
                       </div>
-                      <div>
-                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>Distribution → grade</div>
-                        <table style={{ fontSize: "12px", borderCollapse: "collapse", width: "100%" }}>
-                          <thead>
-                            <tr style={{ background: "#f6f9fc" }}>
-                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Distribution</th>
-                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Grade</th>
-                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Logic</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {dim.gradeBasis.combinationRule.distributionToGrade.map((row, i) => (
-                              <tr key={i}>
-                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.distribution}</td>
-                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0", fontWeight: 600 }}>{row.grade}</td>
-                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.logic}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                      <div>
-                        <div style={{ fontWeight: 600, color: "#1a1a1a", marginBottom: "4px" }}>Current snapshot</div>
-                        <table style={{ fontSize: "12px", borderCollapse: "collapse", width: "100%" }}>
-                          <thead>
-                            <tr style={{ background: "#f6f9fc" }}>
-                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>File</th>
-                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Status</th>
-                              <th style={{ textAlign: "left", padding: "4px 6px", border: "1px solid #e0e0e0" }}>Evidence</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {dim.gradeBasis.combinationRule.currentSnapshot.map((row, i) => (
-                              <tr key={i}>
-                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.file}</td>
-                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0", fontWeight: 600 }}>{row.status}</td>
-                                <td style={{ padding: "4px 6px", border: "1px solid #e0e0e0" }}>{row.evidence}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                        <div style={{ marginTop: "6px", fontWeight: 600, color: "#1a3c5e" }}>
-                          {dim.gradeBasis.combinationRule.currentDistribution} → {dim.gradeBasis.combinationRule.currentGradeFromRule}
+                      <DisclosureSection
+                        id={`dim-${dim.id}-glossary`}
+                        title="What do these mean?"
+                        isOpen={!!openSections.glossary}
+                        onToggle={() => toggleSection("glossary")}
+                        active={activeSectionKeys.includes("glossary")}
+                        anchor={false}
+                      >
+                        <div className="dim-stack">
+                          <div>
+                            <strong>Confidence</strong> - how resistant the grade is to new data. <em>High</em> = direct measurement against numeric thresholds. <em>Medium</em> = qualitative judgment with mixed evidence. <em>Low</em> = sparse evidence.
+                          </div>
+                          <div>
+                            <strong>Attribution</strong> - what share of the outcome the federal government actually controls. <em>Direct</em> = at least 60% federal levers. <em>Mixed</em> = 30 to 60%. <em>Mostly inherited</em> = less than 30%.
+                          </div>
+                          <div>
+                            <strong>Lag</strong> - how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1 to 2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = the file moves on discrete disclosures or rulings rather than a fixed cadence.
+                          </div>
                         </div>
-                      </div>
+                      </DisclosureSection>
                     </div>
-                  </details>
-                )}
-                {modifierItems.length > 0 && (
-                  <div style={{ fontSize: "14px", color: "#444" }}>
-                    <strong>Scoring adjustments:</strong>
-                    <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                  )}
+                  {scoring?.scopeNote && (
+                    <div>
+                      <strong>Scope note:</strong> {scoring.scopeNote}
+                    </div>
+                  )}
+                  {scoring?.modifierExpiry && (
+                    <div>
+                      <strong>Timing rule:</strong> {scoring.modifierExpiry}
+                    </div>
+                  )}
+                  {scoring?.thresholds?.length > 0 && (
+                    <div className="dim-stack">
+                      <strong>Threshold ladder</strong>
+                      {scoring.thresholds.map((threshold) => (
+                        <div
+                          key={threshold.grade}
+                          className={`dim-threshold-row ${threshold === activeThresholdRow ? "dim-threshold-row-active" : ""}`}
+                        >
+                          <span>{threshold.grade}</span>
+                          <p>{threshold.criteria}</p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  {scoring?.guardrails?.length > 0 && (
+                    <div className="dim-stack">
+                      <strong>Guardrails</strong>
+                      {scoring.guardrails.map((rule, i) => (
+                        <div key={i} style={{ color: "#444" }}>
+                          {rule}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </DisclosureSection>
+            )}
+
+            {hasWhySection && (
+              <DisclosureSection
+                id={`dim-${dim.id}-why`}
+                title="Why this grade"
+                summary="rationale and judgment"
+                isOpen={!!openSections.why}
+                onToggle={() => toggleSection("why")}
+                region
+                active={activeSectionKeys.includes("why")}
+                variant="why"
+              >
+                <div className="dim-stack">
+                  {dim.judgmentDetail && (
+                    <div>
+                      <strong>Where judgment enters:</strong> {dim.judgmentDetail}
+                    </div>
+                  )}
+                  {dim.rationale && <div>{dim.rationale}</div>}
+                  {modifierItems.length > 0 && (
+                    <div className="dim-stack">
+                      <strong>Scoring adjustments</strong>
                       {modifierItems.map((modifier, i) => (
                         <div key={i}>
                           <strong>{MODIFIER_LABELS[modifier.name] || modifier.name}</strong>: {modifier.status}. {modifier.reason}
                         </div>
                       ))}
                     </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : (
-            dim.rationale && (
-            <div style={{ marginBottom: "14px" }}>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                }}
-              >
-                Why This Grade
-              </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#444",
-                  lineHeight: 1.5,
-                  background: "#fafafa",
-                  padding: "10px 12px",
-                  borderRadius: "6px",
-                  borderLeft: `3px solid ${g.color}`,
-                }}
-              >
-                {dim.rationale}
-              </div>
-            </div>
-            )
-          ))}
-
-          {/* Sub-Scores (Defence & Trade) */}
-          {dim.subScores && (
-            <div style={{ display: "flex", gap: "10px", marginBottom: "12px", flexWrap: "wrap" }}>
-              {Object.values(dim.subScores).map((sub, i) => (
-                <div key={i} style={{ flex: 1, minWidth: "120px", background: "#fafafa", borderRadius: "6px", padding: "8px 10px", border: "1px solid #eee" }}>
-                  <div style={{ fontSize: "14px", fontWeight: 700, color: "#1a1a1a", textTransform: "uppercase", marginBottom: "4px" }}>{sub.label}</div>
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                    <GradeChip grade={sub.grade} size="sm" />
-                    <span style={{ fontSize: "14px", color: "#666", lineHeight: 1.3 }}>{sub.rationale}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Key Metrics */}
-          <div id={`dim-${dim.id}-metrics`} style={{ marginBottom: "14px", scrollMarginTop: "80px" }}>
-            <div
-              style={{
-                fontSize: "14px",
-                fontWeight: 700,
-                color: "#1a1a1a",
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-                marginBottom: "6px",
-              }}
-            >
-              Key Metrics
-              {/* The "Last reviewed" pill on the card face is the canonical
-                  freshness marker — duplicating it here was redundant. */}
-            </div>
-            {metricGroups.map((group, groupIndex) => (
-              <div
-                key={group.title || `group-${groupIndex}`}
-                style={{ marginTop: group.title ? "10px" : 0 }}
-              >
-                {group.title && (
-                  <div
-                    style={{
-                      fontSize: "12px",
-                      fontWeight: 700,
-                      color: "#666",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.4px",
-                      marginBottom: "4px",
-                    }}
-                  >
-                    {group.title}
-                  </div>
-                )}
-                {group.items.map((m, i) => (
-                  <div
-                    key={`${group.title || "metrics"}-${i}-${m.label}`}
-                    style={{
-                      fontSize: "13px",
-                      color: "#444",
-                      padding: "2px 0",
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: "2px",
-                    }}
-                  >
-                    <div style={{ fontFamily: "'DM Mono', monospace" }}>
-                      {m.label}: {m.value}
-                    </div>
-                    {m.sourceRefs && m.sourceRefs.length > 0 && (
-                      <div
-                        style={{
-                          display: "flex",
-                          flexWrap: "wrap",
-                          gap: "4px 8px",
-                          fontFamily: "'DM Sans', sans-serif",
-                          fontSize: "12px",
-                          lineHeight: 1.35,
-                        }}
-                      >
-                        {m.sourceRefs.map((sourceRef) => (
-                          <a
-                            key={`${m.label}-${sourceRef.url}`}
-                            href={sourceRef.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                            style={{
-                              color: "#1565c0",
-                              textDecoration: "none",
-                              fontWeight: 600,
-                              display: "inline-flex",
-                              alignItems: "center",
-                              gap: "3px",
-                            }}
-                          >
-                            Source: {sourceRef.label}
-                            <SourceTierBadge url={sourceRef.url} />
-                            <span aria-hidden="true" style={{ fontSize: "11px", opacity: 0.7 }}>↗</span>
-                          </a>
+                  )}
+                  {dim.gradeBasis?.leverOperationalization && (
+                    <DisclosureSection
+                      id={`dim-${dim.id}-lever-operationalization`}
+                      title={`Per-lever status criteria (${dim.gradeBasis.leverOperationalization.length} levers)`}
+                      isOpen={!!openSections.leverOperationalization}
+                      onToggle={() => toggleSection("leverOperationalization")}
+                      active={activeSectionKeys.includes("leverOperationalization")}
+                      anchor={false}
+                    >
+                      <div className="dim-stack">
+                        {dim.gradeBasis.leverOperationalization.map((lever, i) => (
+                          <div key={i} className="dim-nested-rule-card">
+                            <div className="dim-nested-rule-title">{lever.name}</div>
+                            <div><strong>Announced if:</strong> {lever.announced}</div>
+                            <div><strong>Authorized if:</strong> {lever.authorized}</div>
+                            <div><strong>Executing if:</strong> {lever.executing}</div>
+                            <div><strong>Current:</strong> {lever.currentStatus}</div>
+                          </div>
                         ))}
+                        {dim.gradeBasis.leverScoreSummary && (
+                          <div className="dim-note-box">
+                            <strong>Score summary:</strong> {dim.gradeBasis.leverScoreSummary}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            ))}
-          </div>
+                    </DisclosureSection>
+                  )}
+                  {dim.gradeBasis?.componentOperationalization && (
+                    <DisclosureSection
+                      id={`dim-${dim.id}-component-operationalization`}
+                      title={`Per-component checklist (${dim.gradeBasis.componentOperationalization.length} components)`}
+                      isOpen={!!openSections.componentOperationalization}
+                      onToggle={() => toggleSection("componentOperationalization")}
+                      active={activeSectionKeys.includes("componentOperationalization")}
+                      anchor={false}
+                    >
+                      <div className="dim-stack">
+                        {dim.gradeBasis.componentOperationalization.map((component, i) => (
+                          <div key={i} className="dim-nested-rule-card">
+                            <div className="dim-nested-rule-title">{component.name}</div>
+                            <div><strong>Present if:</strong> {component.presentIfX}</div>
+                            <div><strong>Current:</strong> {component.currentStatus}</div>
+                          </div>
+                        ))}
+                        {dim.gradeBasis.componentScoreSummary && (
+                          <div className="dim-note-box">
+                            <strong>Score summary:</strong> {dim.gradeBasis.componentScoreSummary}
+                          </div>
+                        )}
+                      </div>
+                    </DisclosureSection>
+                  )}
+                  {dim.gradeBasis?.combinationRule && (
+                    <DisclosureSection
+                      id={`dim-${dim.id}-combination-rule`}
+                      title="Combination rule"
+                      isOpen={!!openSections.combinationRule}
+                      onToggle={() => toggleSection("combinationRule")}
+                      active={activeSectionKeys.includes("combinationRule")}
+                      anchor={false}
+                    >
+                      <CombinationRule rule={dim.gradeBasis.combinationRule} />
+                    </DisclosureSection>
+                  )}
+                </div>
+              </DisclosureSection>
+            )}
 
-          {/* Project pipeline (cohort-based dimensions only — currently Major Projects) */}
-          {cohort && cohort.projects && cohort.projects.length > 0 && (
-            <ProjectCohortSection
-              cohort={cohort}
-              isOpen={cohortOpen}
-              onToggle={(e) => {
-                e.stopPropagation();
-                setCohortOpen((v) => !v);
-              }}
-              dimId={dim.id}
-            />
-          )}
+            {hasSubScores && (
+              <DisclosureSection
+                id={`dim-${dim.id}-subscores`}
+                title="Sub-scores"
+                summary={subScoreSummary}
+                isOpen={!!openSections.subScores}
+                onToggle={() => toggleSection("subScores")}
+                active={activeSectionKeys.includes("subScores")}
+                variant="neutral"
+              >
+                <div className="dim-subscore-cards">
+                  {Object.values(dim.subScores).map((sub, i) => (
+                    <div key={i} className="dim-subscore-card">
+                      <div className="dim-subscore-card-title">{sub.label}</div>
+                      <div className="dim-subscore-card-body">
+                        <GradeChip grade={sub.grade} size="sm" />
+                        <span>{sub.rationale}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </DisclosureSection>
+            )}
 
-          {/* Promise Tracker summary — per-item detail lives on the Promises tab */}
-          {dim.promises && dim.promises.length > 0 && (
-            <div style={{ marginBottom: "14px" }}>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                }}
+            {showTriggers && !hasTrackerTriggers && (
+              <DisclosureSection
+                id={`dim-${dim.id}-triggers-section`}
+                title="What would change this grade"
+                summary={dim.gradeTriggers ? "up and down triggers" : "next trigger"}
+                isOpen={!!openSections.triggers}
+                onToggle={() => toggleSection("triggers")}
+                region
+                active={activeSectionKeys.includes("triggers")}
+                variant="yellow"
               >
-                Promises
-              </div>
-              <div
-                style={{
-                  fontSize: "13px",
-                  color: "#555",
-                  lineHeight: 1.5,
-                  background: "#fafafa",
-                  padding: "8px 10px",
-                  borderRadius: "6px",
-                  borderLeft: "3px solid #9e9e9e",
-                }}
-              >
-                {dim.promises.length} promise
-                {dim.promises.length === 1 ? "" : "s"} tracked on this file. For
-                per-promise status and evidence, see the{" "}
-                <strong>Promises</strong> tab.
-              </div>
-            </div>
-          )}
+                {dim.gradeTriggers ? (
+                  <TriggerColumns
+                    up={dim.gradeTriggers.up}
+                    down={dim.gradeTriggers.down}
+                    renderTriggerItem={renderTriggerItem}
+                    keyPrefix="grade"
+                    upLabel="Up one step"
+                    downLabel="Down one step"
+                  />
+                ) : (
+                  <div>{dim.nextTrigger}</div>
+                )}
+              </DisclosureSection>
+            )}
 
-          {/* Tracker trigger traceability — kept separate from grade language. */}
-          {isTracker && dim.gradeTriggers && (
-            <div style={{ marginBottom: "14px" }}>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                }}
+            {metrics.length > 0 && (
+              <DisclosureSection
+                id={`dim-${dim.id}-metrics`}
+                title="Key metrics"
+                summary={`${metrics.length} tracked`}
+                isOpen={!!openSections.metrics}
+                onToggle={() => toggleSection("metrics")}
+                region
+                active={activeSectionKeys.includes("metrics")}
+                variant="neutral"
               >
-                What Changes This Tracker
-              </div>
-              <div
-                style={{
-                  fontSize: "14px",
-                  color: "#555",
-                  lineHeight: 1.5,
-                  background: "#fffaf0",
-                  padding: "10px 12px",
-                  borderRadius: "6px",
-                  borderLeft: "3px solid #bfa86b",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: "8px",
-                }}
+                <MetricsList metricGroups={metricGroups} />
+              </DisclosureSection>
+            )}
+
+            {hasProjects && (
+              <DisclosureSection
+                id={`dim-${dim.id}-cohort`}
+                title="Project pipeline"
+                summary={`${cohort.projects.length} projects`}
+                isOpen={!!openSections.projects}
+                onToggle={() => toggleSection("projects")}
+                region
+                active={activeSectionKeys.includes("projects")}
+                variant="rule"
+              >
+                <ProjectCohortSection
+                  cohort={cohort}
+                  isOpen={!!openSections.cohortList}
+                  onToggle={() => toggleSection("cohortList")}
+                  dimId={dim.id}
+                  active={activeSectionKeys.includes("cohortList")}
+                />
+              </DisclosureSection>
+            )}
+
+            {hasPromises && (
+              <DisclosureSection
+                id={`dim-${dim.id}-promises`}
+                title="Promises"
+                summary={`${dim.promises.length} tracked`}
+                isOpen={!!openSections.promises}
+                onToggle={() => toggleSection("promises")}
+                region
+                active={activeSectionKeys.includes("promises")}
+                variant="neutral"
               >
                 <div>
-                  <strong>Upward trigger:</strong>
-                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                    {dim.gradeTriggers.up.map((trigger, i) =>
-                      renderTriggerItem(trigger, `tracker-up-${i}`)
-                    )}
-                  </div>
+                  {dim.promises.length} promise{dim.promises.length === 1 ? "" : "s"} tracked on this file. For per-promise status and evidence, see the <strong>Promises</strong> tab.
                 </div>
-                <div>
-                  <strong>Downward triggers:</strong>
-                  <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                    {dim.gradeTriggers.down.map((trigger, i) =>
-                      renderTriggerItem(trigger, `tracker-down-${i}`)
-                    )}
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+              </DisclosureSection>
+            )}
 
-          {/* Source Links — QW2 ↗ icon + target=_blank, MED1 tier badges, MED6 chips summary, QW10 download JSON */}
-          {dim.sources && dim.sources.length > 0 && (
-            <div id={`dim-${dim.id}-sources`} style={{ scrollMarginTop: "80px", marginBottom: "14px" }}>
-              <div
-                style={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#1a1a1a",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.5px",
-                  marginBottom: "6px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "space-between",
-                  flexWrap: "wrap",
-                  gap: "6px",
-                }}
+            {hasTrackerTriggers && (
+              <DisclosureSection
+                id={`dim-${dim.id}-tracker-triggers`}
+                title="What changes this tracker"
+                summary="tracker movement rules"
+                isOpen={!!openSections.trackerTriggers}
+                onToggle={() => toggleSection("trackerTriggers")}
+                region
+                active={activeSectionKeys.includes("trackerTriggers")}
+                variant="yellow"
               >
-                <span>Sources ({dim.sources.length})</span>
-                {/* MED6: tier summary chips — counts extracted for linter cleanliness (P3) */}
-                {(() => {
-                  const tierCounts = {
-                    t1: dim.sources.filter((s) => getSourceTier(s.url) === 1).length,
-                    t2: dim.sources.filter((s) => getSourceTier(s.url) === 2).length,
-                    t3: dim.sources.filter((s) => getSourceTier(s.url) === 3).length,
-                  };
-                  return (
-                    <span style={{ display: "inline-flex", gap: "4px", flexWrap: "wrap", alignItems: "center" }}>
-                      {tierCounts.t1 > 0 && (
-                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#e3f2fd", color: "#0d47a1", border: "1px solid #90caf9" }}>
-                          {tierCounts.t1} Tier-1
-                        </span>
-                      )}
-                      {tierCounts.t2 > 0 && (
-                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#f3e5f5", color: "#4a148c", border: "1px solid #ce93d8" }}>
-                          {tierCounts.t2} Tier-2
-                        </span>
-                      )}
-                      {tierCounts.t3 > 0 && (
-                        <span style={{ fontSize: "11px", fontWeight: 700, padding: "1px 6px", borderRadius: "4px", background: "#fafafa", color: "#555", border: "1px solid #ccc" }}>
-                          {tierCounts.t3} other
-                        </span>
-                      )}
-                    </span>
-                  );
-                })()}
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "6px" }}>
-                {dim.sources.map((s, i) => (
+                <TriggerColumns
+                  up={dim.gradeTriggers.up}
+                  down={dim.gradeTriggers.down}
+                  renderTriggerItem={renderTriggerItem}
+                  keyPrefix="tracker"
+                  upLabel="Upward trigger"
+                  downLabel="Downward triggers"
+                />
+              </DisclosureSection>
+            )}
+
+            {sources.length > 0 && (
+              <DisclosureSection
+                id={`dim-${dim.id}-sources`}
+                title="Sources"
+                summary={`${sources.length} total`}
+                isOpen={!!openSections.sources}
+                onToggle={() => toggleSection("sources")}
+                region
+                active={activeSectionKeys.includes("sources")}
+                variant="blue"
+              >
+                <div className="dim-stack">
+                  <SourceTierSummary counts={sourceCounts} />
+                  <div className="dim-source-chip-list">
+                    {sources.map((s, i) => (
+                      <a
+                        key={i}
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="dim-source-chip"
+                      >
+                        {s.label}
+                        <SourceTierBadge url={s.url} />
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    ))}
+                  </div>
                   <a
-                    key={i}
-                    href={s.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify({ id: dim.id, name: dim.name, ...(isTracker ? { informationalGrade: dim.informationalGrade } : { grade: dim.grade }), sources, metrics, lastUpdated: dim.lastUpdated }, null, 2))}`}
+                    download={`${dim.id}-sources.json`}
                     onClick={(e) => e.stopPropagation()}
-                    style={{
-                      fontSize: "14px",
-                      color: "#1565c0",
-                      textDecoration: "none",
-                      background: "#e8f0fe",
-                      padding: "3px 8px",
-                      borderRadius: "4px",
-                      lineHeight: 1.4,
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: "4px",
-                    }}
+                    className="dim-download-link"
                   >
-                    {s.label}
-                    <SourceTierBadge url={s.url} />
-                    {/* QW2: external link icon */}
-                    <span aria-hidden="true" style={{ fontSize: "12px", opacity: 0.7 }}>↗</span>
+                    ⤓ Download sources as JSON
                   </a>
-                ))}
-              </div>
-              {/* QW10: Download JSON link in drawer footer */}
-              <div style={{ marginTop: "10px" }}>
-                <a
-                  href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify({ id: dim.id, name: dim.name, grade: dim.grade, sources: dim.sources, metrics: dim.metrics || [], lastUpdated: dim.lastUpdated }, null, 2))}`}
-                  download={`${dim.id}-sources.json`}
-                  onClick={(e) => e.stopPropagation()}
-                  style={{
-                    fontSize: "12px",
-                    color: "#555",
-                    textDecoration: "none",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "4px",
-                    padding: "3px 8px",
-                    borderRadius: "4px",
-                    border: "1px solid #d9d9d9",
-                    background: "#fafafa",
-                  }}
-                >
-                  ⤓ Download sources as JSON
-                </a>
-              </div>
-            </div>
-          )}
+                </div>
+              </DisclosureSection>
+            )}
 
-          {/* ─── More details: collapsibles stacked below the main flow ─── */}
-          {(showLowerTriggers || dim.perspectives || dim.scope || dim.inherited) && (
-            <div
-              style={{
-                marginTop: "18px",
-                paddingTop: "12px",
-                borderTop: "1px dashed #d8d8d8",
-              }}
-            >
-              <div
-                style={{
-                  fontSize: "12px",
-                  fontWeight: 700,
-                  color: "#777",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.8px",
-                  marginBottom: "10px",
-                }}
+            {dim.perspectives && (
+              <DisclosureSection
+                id={`dim-${dim.id}-perspectives-section`}
+                title="Critics and defenders"
+                summary="named views"
+                isOpen={!!openSections.perspectives}
+                onToggle={() => toggleSection("perspectives")}
+                region
+                active={activeSectionKeys.includes("perspectives")}
+                variant="blue"
               >
-                More details
-              </div>
-
-              {showLowerTriggers && (
-                <div id={`dim-${dim.id}-triggers-section`} style={{ marginBottom: "12px" }}>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setTriggersOpen((v) => !v);
-                    }}
-                    aria-expanded={triggersOpen}
-                    aria-controls={`dim-${dim.id}-triggers`}
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 700,
-                      color: "#1a1a1a",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "6px",
-                      background: "none",
-                      border: "none",
-                      padding: "2px 0",
-                      minHeight: "24px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "inherit",
-                    }}
-                  >
-                    <span style={{ fontSize: "11px" }}>{triggersOpen ? "\u25BE" : "\u25B8"}</span>
-                    What Would Change This Grade
-                  </button>
-                  {triggersOpen && (
-                    dim.gradeTriggers ? (
-                      <div
-                        id={`dim-${dim.id}-triggers`}
-                        role="region"
-                        style={{
-                          fontSize: "14px",
-                          color: "#666",
-                          lineHeight: 1.5,
-                          background: "#fffde7",
-                          padding: "8px 10px",
-                          borderRadius: "6px",
-                          borderLeft: "3px solid #f9a825",
-                          display: "flex",
-                          flexDirection: "column",
-                          gap: "8px",
-                        }}
-                      >
-                        <div>
-                          <strong>Up one step:</strong>
-                          <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                            {dim.gradeTriggers.up.map((trigger, i) =>
-                              renderTriggerItem(trigger, `lower-up-${i}`)
-                            )}
-                          </div>
-                        </div>
-                        <div>
-                          <strong>Down one step:</strong>
-                          <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                            {dim.gradeTriggers.down.map((trigger, i) =>
-                              renderTriggerItem(trigger, `lower-down-${i}`)
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div
-                        id={`dim-${dim.id}-triggers`}
-                        role="region"
-                        style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#fffde7", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #f9a825" }}
-                      >
-                        {dim.nextTrigger}
-                      </div>
-                    )
-                  )}
+                <div className="dim-stack">
+                  <div className="dim-perspective-card dim-perspective-critics">
+                    <strong>Critics say:</strong> {dim.perspectives.critics}
+                  </div>
+                  <div className="dim-perspective-card dim-perspective-defenders">
+                    <strong>Defenders say:</strong> {dim.perspectives.defenders}
+                  </div>
                 </div>
-              )}
+              </DisclosureSection>
+            )}
 
-              {dim.perspectives && (
-                <div id={`dim-${dim.id}-perspectives-section`} style={{ marginBottom: "12px", scrollMarginTop: "80px" }}>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPerspectivesOpen((v) => !v);
-                    }}
-                    aria-expanded={perspectivesOpen}
-                    aria-controls={`dim-${dim.id}-perspectives`}
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 700,
-                      color: "#1a1a1a",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "6px",
-                      background: "none",
-                      border: "none",
-                      padding: "2px 0",
-                      minHeight: "24px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "inherit",
-                    }}
-                  >
-                    <span style={{ fontSize: "11px" }}>{perspectivesOpen ? "\u25BE" : "\u25B8"}</span>
-                    Critics and defenders
-                  </button>
-                  {perspectivesOpen && (
-                    <div
-                      id={`dim-${dim.id}-perspectives`}
-                      role="region"
-                      style={{ display: "flex", flexDirection: "column", gap: "8px" }}
-                    >
-                      <div
-                        style={{
-                          fontSize: "14px",
-                          lineHeight: 1.5,
-                          padding: "8px 10px",
-                          background: "#fff3f0",
-                          borderRadius: "6px",
-                          borderLeft: "3px solid #d84315",
-                          color: "#333",
-                        }}
-                      >
-                        <strong style={{ color: "#d84315" }}>Critics say:</strong>{" "}
-                        {dim.perspectives.critics}
-                      </div>
-                      <div
-                        style={{
-                          fontSize: "14px",
-                          lineHeight: 1.5,
-                          padding: "8px 10px",
-                          background: "#f0f4ff",
-                          borderRadius: "6px",
-                          borderLeft: "3px solid #1565c0",
-                          color: "#333",
-                        }}
-                      >
-                        <strong style={{ color: "#1565c0" }}>Defenders say:</strong>{" "}
-                        {dim.perspectives.defenders}
-                      </div>
+            {dim.scope && (
+              <DisclosureSection
+                id={`dim-${dim.id}-scope`}
+                title="Scope"
+                summary="in and out"
+                isOpen={!!openSections.scope}
+                onToggle={() => toggleSection("scope")}
+                active={activeSectionKeys.includes("scope")}
+              >
+                <div className="dim-stack">
+                  <div>
+                    <strong>In scope:</strong>
+                    <div className="dim-stack dim-narrow-stack">
+                      {dim.scope.inScope.map((item, i) => (
+                        <div key={i}>{renderScopeItem(item)}</div>
+                      ))}
                     </div>
-                  )}
-                </div>
-              )}
-
-              {dim.scope && (
-                <div style={{ marginBottom: "12px" }}>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setScopeOpen((v) => !v);
-                    }}
-                    aria-expanded={scopeOpen}
-                    aria-controls={`dim-${dim.id}-scope`}
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 700,
-                      color: "#1a1a1a",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "6px",
-                      background: "none",
-                      border: "none",
-                      padding: "2px 0",
-                      minHeight: "24px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "inherit",
-                    }}
-                  >
-                    <span style={{ fontSize: "11px" }}>{scopeOpen ? "\u25BE" : "\u25B8"}</span>
-                    Scope
-                  </button>
-                  {scopeOpen && (
-                    <div
-                      id={`dim-${dim.id}-scope`}
-                      role="region"
-                      style={{
-                        fontSize: "14px",
-                        color: "#666",
-                        lineHeight: 1.5,
-                        background: "#f9f9f9",
-                        padding: "8px 10px",
-                        borderRadius: "6px",
-                        borderLeft: "3px solid #9e9e9e",
-                        display: "flex",
-                        flexDirection: "column",
-                        gap: "8px",
-                      }}
-                    >
-                      <div>
-                        <strong>In scope:</strong>
-                        <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                          {dim.scope.inScope.map((item, i) => (
-                            <div key={i}>{renderScopeItem(item)}</div>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <strong>Out of scope:</strong>
-                        <div style={{ marginTop: "4px", display: "flex", flexDirection: "column", gap: "4px" }}>
-                          {dim.scope.outOfScope.map((item, i) => (
-                            <div key={i}>{renderScopeItem(item)}</div>
-                          ))}
-                        </div>
-                      </div>
+                  </div>
+                  <div>
+                    <strong>Out of scope:</strong>
+                    <div className="dim-stack dim-narrow-stack">
+                      {dim.scope.outOfScope.map((item, i) => (
+                        <div key={i}>{renderScopeItem(item)}</div>
+                      ))}
                     </div>
-                  )}
+                  </div>
                 </div>
-              )}
+              </DisclosureSection>
+            )}
 
-              {dim.inherited && (
-                <div style={{ marginBottom: "0" }}>
-                  <button
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setInheritedOpen((v) => !v);
-                    }}
-                    aria-expanded={inheritedOpen}
-                    aria-controls={`dim-${dim.id}-inherited`}
-                    style={{
-                      fontSize: "14px",
-                      fontWeight: 700,
-                      color: "#1a1a1a",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.5px",
-                      marginBottom: "6px",
-                      background: "none",
-                      border: "none",
-                      padding: "2px 0",
-                      minHeight: "24px",
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: "6px",
-                      fontFamily: "inherit",
-                    }}
-                  >
-                    <span style={{ fontSize: "11px" }}>{inheritedOpen ? "\u25BE" : "\u25B8"}</span>
-                    What Was Inherited
-                  </button>
-                  {inheritedOpen && (
-                    <div
-                      id={`dim-${dim.id}-inherited`}
-                      role="region"
-                      style={{ fontSize: "14px", color: "#666", lineHeight: 1.5, background: "#f9f9f9", padding: "8px 10px", borderRadius: "6px", borderLeft: "3px solid #9e9e9e" }}
-                    >
-                      {dim.inherited}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-
+            {dim.inherited && (
+              <DisclosureSection
+                id={`dim-${dim.id}-inherited`}
+                title="What was inherited"
+                summary="starting context"
+                isOpen={!!openSections.inherited}
+                onToggle={() => toggleSection("inherited")}
+                active={activeSectionKeys.includes("inherited")}
+              >
+                <div>{dim.inherited}</div>
+              </DisclosureSection>
+            )}
+          </div>
         </div>
       )}
     </div>
   );
 }
 
-// Renders the MPO project cohort: a header with the count and stage breakdown,
-// plus a collapsible full project list. Desktop gets a compact table; mobile
-// gets stacked cards so stage dates and source links are visible without
-// sideways scrolling.
-// `cohort.stageGates` orders the stages from least-advanced (designated) to
-// most-advanced (completed); the table sorts in reverse so advanced projects
-// surface first.
-function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
+function renderModifierContext(modifier) {
+  if (!modifier) return null;
+  if (typeof modifier === "string") return modifier;
+
+  const label = MODIFIER_LABELS[modifier.name] || modifier.name || "Adjustment";
+  const status = modifier.status ? `: ${modifier.status}` : "";
+  const reason = modifier.reason ? ` (${modifier.reason})` : "";
+
+  return `${label}${status}${reason}`;
+}
+
+function TriggerColumns({ up, down, renderTriggerItem, keyPrefix, upLabel, downLabel }) {
+  return (
+    <div className="dim-trigger-columns">
+      <div>
+        <strong>{upLabel}:</strong>
+        <div className="dim-trigger-list">
+          {up.map((trigger, i) => renderTriggerItem(trigger, `${keyPrefix}-up-${i}`))}
+        </div>
+      </div>
+      <div>
+        <strong>{downLabel}:</strong>
+        <div className="dim-trigger-list">
+          {down.map((trigger, i) => renderTriggerItem(trigger, `${keyPrefix}-down-${i}`))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function MetricsList({ metricGroups }) {
+  return (
+    <div className="dim-stack">
+      {metricGroups.map((group, groupIndex) => (
+        <div
+          key={group.title || `group-${groupIndex}`}
+          className="dim-stack"
+        >
+          {group.title && (
+            <div className="dim-metric-group-title">
+              {group.title}
+            </div>
+          )}
+          {group.items.map((m, i) => (
+            <div
+              key={`${group.title || "metrics"}-${i}-${m.label}`}
+              className="dim-metric-row"
+            >
+              <div className="dim-metric-value">
+                {m.label}: {m.value}
+              </div>
+              {m.sourceRefs && m.sourceRefs.length > 0 && (
+                <div className="dim-metric-source-list">
+                  {m.sourceRefs.map((sourceRef) => (
+                    <a
+                      key={`${m.label}-${sourceRef.url}`}
+                      href={sourceRef.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Source: {sourceRef.label}
+                      <SourceTierBadge url={sourceRef.url} />
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CombinationRule({ rule }) {
+  return (
+    <div className="dim-stack">
+      <div>
+        <div className="dim-nested-rule-title">The five flagship files</div>
+        <ul className="dim-plain-list">
+          {rule.flagshipFiles.map((f, i) => (
+            <li key={i}>{f}</li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <div className="dim-nested-rule-title">File status categories</div>
+        <div className="dim-stack dim-narrow-stack">
+          {rule.fileStatusCategories.map((cat, i) => (
+            <div key={i}>
+              <strong>{cat.status}:</strong> {cat.definition}
+            </div>
+          ))}
+        </div>
+      </div>
+      <RuleTable
+        title="Distribution to grade"
+        columns={["Distribution", "Grade", "Logic"]}
+        rows={rule.distributionToGrade.map((row) => [row.distribution, row.grade, row.logic])}
+      />
+      <RuleTable
+        title="Current snapshot"
+        columns={["File", "Status", "Evidence"]}
+        rows={rule.currentSnapshot.map((row) => [row.file, row.status, row.evidence])}
+      />
+      <div className="dim-note-box">
+        <strong>{rule.currentDistribution} → {rule.currentGradeFromRule}</strong>
+      </div>
+    </div>
+  );
+}
+
+function RuleTable({ title, columns, rows }) {
+  return (
+    <div>
+      <div className="dim-nested-rule-title">{title}</div>
+      <div className="dim-table-wrap">
+        <table className="dim-rule-table">
+          <thead>
+            <tr>
+              {columns.map((column) => (
+                <th key={column}>{column}</th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={i}>
+                {row.map((cell, cellIndex) => (
+                  <td key={`${i}-${cellIndex}`}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active }) {
   const stageGates = cohort.stageGates || [];
   const stageOrder = stageGates.reduce((acc, gate, i) => {
     acc[gate.key] = i;
@@ -1803,7 +1815,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
     return acc;
   }, {});
 
-  const STAGE_COLORS = {
+  const stageColors = {
     designated: { bg: "#eceff1", color: "#37474f", border: "#cfd8dc" },
     reviewed: { bg: "#e8eaf6", color: "#283593", border: "#c5cae9" },
     approved: { bg: "#e3f2fd", color: "#0d47a1", border: "#bbdefb" },
@@ -1825,7 +1837,6 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
   const documentedAdvancedPct =
     total > 0 ? Math.round((documentedAdvancedCount / total) * 100) : 0;
 
-  // Stage-by-stage counts for the headline summary line.
   const stageCounts = stageGates
     .map((gate) => ({
       key: gate.key,
@@ -1844,7 +1855,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
     });
 
   const stagePill = (stage) => {
-    const c = STAGE_COLORS[stage] || STAGE_COLORS.designated;
+    const c = stageColors[stage] || stageColors.designated;
     return (
       <span
         style={{
@@ -1865,198 +1876,123 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId }) {
   };
 
   return (
-    <div id={`dim-${dimId}-cohort`} style={{ marginBottom: "14px", scrollMarginTop: "80px" }}>
-      <div
-        style={{
-          fontSize: "14px",
-          fontWeight: 700,
-          color: "#1a1a1a",
-          textTransform: "uppercase",
-          letterSpacing: "0.5px",
-          marginBottom: "6px",
-        }}
-      >
-        Project pipeline
-        <span
-          style={{
-            fontWeight: 400,
-            textTransform: "none",
-            letterSpacing: 0,
-            marginLeft: "8px",
-            color: "#666",
-          }}
-        >
-          As of {cohort.asOf}
-        </span>
-      </div>
-      <div
-        style={{
-          fontSize: "14px",
-          color: "#333",
-          lineHeight: 1.5,
-          background: "#fafafa",
-          padding: "10px 12px",
-          borderRadius: "6px",
-          borderLeft: "3px solid #607d8b",
-        }}
-      >
-        <div style={{ marginBottom: "8px" }}>
+    <div className="dim-stack">
+      <div className="dim-cohort-summary">
+        <div className="dim-cohort-asof">As of {cohort.asOf}</div>
+        <div>
           <strong>{total} projects in MPO cohort.</strong>{" "}
           {aboveDesignatedCount} currently sit above designated status;{" "}
           {documentedAdvancedCount} of {total} ({documentedAdvancedPct}%) have
           documented post-designation advancement.
         </div>
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "6px",
-            marginBottom: "8px",
-          }}
-        >
+        <div className="dim-stage-counts">
           {stageCounts.map((s) => (
-            <span key={s.key} style={{ display: "inline-flex", gap: "4px" }}>
+            <span key={s.key} className="dim-stage-count">
               {stagePill(s.key)}
-              <span style={{ fontSize: "13px", color: "#444", fontWeight: 600 }}>
-                ×{s.count}
-              </span>
+              <span>×{s.count}</span>
             </span>
           ))}
         </div>
-        <button
-          type="button"
-          onClick={onToggle}
-          aria-expanded={isOpen}
-          aria-controls={`dim-${dimId}-cohort-list`}
-          style={{
-            fontSize: "13px",
-            color: "#1565c0",
-            background: "none",
-            border: "none",
-            padding: "2px 0",
-            cursor: "pointer",
-            fontFamily: "inherit",
-            fontWeight: 700,
-          }}
-        >
-          {isOpen ? "▾ Hide full project list" : "▸ Show full project list"}
-        </button>
-        {isOpen && (
-          <div id={`dim-${dimId}-cohort-list`} style={{ marginTop: "8px" }}>
-            <div className="cohort-mobile-projects" aria-label="Full Major Projects cohort list">
-              {sortedProjects.map((p, i) => (
-                <article
-                  key={`${p.name}-card-${i}`}
-                  className="cohort-mobile-project-card"
-                >
-                  <div className="cohort-mobile-project-head">
-                    <div>
-                      <strong>{p.name}</strong>
-                      {p.location && <span>{p.location}</span>}
-                    </div>
-                    {stagePill(p.stage)}
+      </div>
+      <DisclosureSection
+        id={`dim-${dimId}-cohort-list`}
+        title="Full project list"
+        summary={`${total} rows`}
+        isOpen={isOpen}
+        onToggle={onToggle}
+        active={active}
+        anchor
+      >
+        <div className="cohort-mobile-projects" aria-label="Full Major Projects cohort list">
+          {sortedProjects.map((p, i) => (
+            <article
+              key={`${p.name}-card-${i}`}
+              className="cohort-mobile-project-card"
+            >
+              <div className="cohort-mobile-project-head">
+                <div>
+                  <strong>{p.name}</strong>
+                  {p.location && <span>{p.location}</span>}
+                </div>
+                {stagePill(p.stage)}
+              </div>
+              <dl className="cohort-mobile-project-facts">
+                <div>
+                  <dt>Tranche</dt>
+                  <dd>{p.tranche}</dd>
+                </div>
+                <div>
+                  <dt>Stage date</dt>
+                  <dd>{p.stageDate}</dd>
+                </div>
+                {p.sourceUrl && (
+                  <div>
+                    <dt>Source</dt>
+                    <dd>
+                      <a
+                        href={p.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Open source →
+                      </a>
+                    </dd>
                   </div>
-                  <dl className="cohort-mobile-project-facts">
-                    <div>
-                      <dt>Tranche</dt>
-                      <dd>{p.tranche}</dd>
-                    </div>
-                    <div>
-                      <dt>Stage date</dt>
-                      <dd>{p.stageDate}</dd>
-                    </div>
-                    {p.sourceUrl && (
-                      <div>
-                        <dt>Source</dt>
-                        <dd>
-                          <a
-                            href={p.sourceUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            Open source →
-                          </a>
-                        </dd>
+                )}
+              </dl>
+            </article>
+          ))}
+        </div>
+        <div
+          id={`dim-${dimId}-cohort-table`}
+          role={active ? "region" : undefined}
+          aria-labelledby={`dim-${dimId}-cohort-list-button`}
+          className="cohort-table-wrap"
+        >
+          <table className="dim-cohort-table">
+            <thead>
+              <tr>
+                <th>Project</th>
+                <th>Tranche</th>
+                <th>Stage</th>
+                <th>Stage date</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedProjects.map((p, i) => (
+                <tr key={`${p.name}-${i}`}>
+                  <td>
+                    <div className="dim-cohort-project-name">{p.name}</div>
+                    {p.location && (
+                      <div className="dim-cohort-location">
+                        {p.location}
                       </div>
                     )}
-                  </dl>
-                </article>
-              ))}
-            </div>
-            <div
-              id={`dim-${dimId}-cohort-table`}
-              role="region"
-              className="cohort-table-wrap"
-              style={{ overflowX: "auto" }}
-            >
-            <table
-              style={{
-                width: "100%",
-                minWidth: "560px",
-                borderCollapse: "collapse",
-                fontSize: "13px",
-              }}
-            >
-              <thead>
-                <tr style={{ color: "#777", textAlign: "left" }}>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Project</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Tranche</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Stage</th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>
-                    Stage date
-                  </th>
-                  <th style={{ padding: "4px 6px", fontWeight: 700 }}>Source</th>
+                  </td>
+                  <td>{p.tranche}</td>
+                  <td>{stagePill(p.stage)}</td>
+                  <td>{p.stageDate}</td>
+                  <td>
+                    {p.sourceUrl && (
+                      <a
+                        href={p.sourceUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="dim-inline-link"
+                      >
+                        Source →
+                      </a>
+                    )}
+                  </td>
                 </tr>
-              </thead>
-              <tbody>
-                {sortedProjects.map((p, i) => (
-                  <tr
-                    key={`${p.name}-${i}`}
-                    style={{ borderTop: "1px solid #eee", color: "#333" }}
-                  >
-                    <td style={{ padding: "4px 6px" }}>
-                      <div style={{ fontWeight: 600 }}>{p.name}</div>
-                      {p.location && (
-                        <div style={{ fontSize: "12px", color: "#777" }}>
-                          {p.location}
-                        </div>
-                      )}
-                    </td>
-                    <td style={{ padding: "4px 6px", color: "#777" }}>
-                      {p.tranche}
-                    </td>
-                    <td style={{ padding: "4px 6px" }}>{stagePill(p.stage)}</td>
-                    <td style={{ padding: "4px 6px", color: "#777" }}>
-                      {p.stageDate}
-                    </td>
-                    <td style={{ padding: "4px 6px" }}>
-                      {p.sourceUrl && (
-                        <a
-                          href={p.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                          style={{
-                            color: "#1565c0",
-                            fontSize: "12px",
-                            fontWeight: 600,
-                            textDecoration: "none",
-                            whiteSpace: "nowrap",
-                          }}
-                        >
-                          Source →
-                        </a>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            </div>
-          </div>
-        )}
-      </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </DisclosureSection>
     </div>
   );
 }

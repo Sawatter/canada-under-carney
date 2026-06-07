@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import dimensions from "../data/dimensions.json";
 import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
@@ -19,13 +19,28 @@ import About from "./About";
 import EmailSignup from "./EmailSignup";
 import VisitorCount from "./VisitorCount";
 
+function isMobileViewport() {
+  return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+}
+
+function getDimensionIdForHashTarget(target) {
+  if (!target) return null;
+  const match = dimensions.find((dim) => (
+    target === `dim-${dim.id}` || target.startsWith(`dim-${dim.id}-`)
+  ));
+  return match?.id || null;
+}
+
 export default function Dashboard() {
   const [expanded, setExpanded] = useState(null);
   const [view, setView] = useState("scorecard");
   const [approvalExpanded, setApprovalExpanded] = useState(false);
   // Which headline-score derivation panel is open: "household", "overall", or null.
   const [derivationOpen, setDerivationOpen] = useState(null);
-  const [pendingScrollTarget, setPendingScrollTarget] = useState(null);
+  const [anchorNavigation, setAnchorNavigation] = useState(null);
+  const anchorRequestIdRef = useRef(0);
+  const expandedRef = useRef(null);
+  const mobileModalEntryRef = useRef(false);
   const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
 
@@ -35,6 +50,164 @@ export default function Dashboard() {
   const overallDerivation = getOverallDerivation(dimensions);
   const pocketbookDerivation = getPocketbookDerivation(dimensions);
   const { all: allPromises, counts: promiseCounts, total: totalPromises } = countPromises(dimensions);
+
+  useEffect(() => {
+    expandedRef.current = expanded;
+  }, [expanded]);
+
+  const pushMobileModalEntry = useCallback((dimensionId) => {
+    if (typeof window === "undefined") return;
+    if (!isMobileViewport()) return;
+    if (mobileModalEntryRef.current) return;
+
+    window.history.pushState(
+      { ...(window.history.state || {}), dimModal: dimensionId },
+      "",
+      window.location.href
+    );
+    mobileModalEntryRef.current = true;
+  }, []);
+
+  const openDimension = useCallback((dimensionId, options = {}) => {
+    setExpanded((current) => {
+      if (current === dimensionId) return current;
+      if (!options.fromHash) pushMobileModalEntry(dimensionId);
+      return dimensionId;
+    });
+  }, [pushMobileModalEntry]);
+
+  const closeDimension = useCallback(() => {
+    if (typeof window !== "undefined" && isMobileViewport() && mobileModalEntryRef.current) {
+      mobileModalEntryRef.current = false;
+      setExpanded(null);
+      window.history.back();
+      return;
+    }
+    mobileModalEntryRef.current = false;
+    setExpanded(null);
+  }, []);
+
+  const closeDimensionForInternalNavigation = useCallback((options = {}) => {
+    const closeDesktop = !!options.closeDesktop;
+
+    if (typeof window === "undefined") {
+      if (closeDesktop) setExpanded(null);
+      return;
+    }
+
+    const isMobile = isMobileViewport();
+    if (!isMobile && !closeDesktop) return;
+
+    if (isMobile && mobileModalEntryRef.current) {
+      mobileModalEntryRef.current = false;
+      setExpanded(null);
+      window.history.back();
+      return;
+    }
+
+    if (isMobile && window.history.state?.dimModal) {
+      const nextState = { ...(window.history.state || {}) };
+      delete nextState.dimModal;
+      window.history.replaceState(nextState, "", window.location.href);
+    }
+
+    mobileModalEntryRef.current = false;
+    setExpanded(null);
+  }, []);
+
+  const toggleDimension = useCallback((dimensionId) => {
+    if (expandedRef.current === dimensionId) {
+      closeDimension();
+      return;
+    }
+    openDimension(dimensionId);
+  }, [closeDimension, openDimension]);
+
+  const requestAnchorNavigation = useCallback((target) => {
+    if (!target) return;
+    anchorRequestIdRef.current += 1;
+    setAnchorNavigation({ target, requestId: anchorRequestIdRef.current });
+  }, []);
+
+  const routeHashTarget = useCallback((target) => {
+    if (!target) return;
+    requestAnchorNavigation(target);
+
+    const dimensionId = getDimensionIdForHashTarget(target);
+    if (dimensionId) {
+      setView("scorecard");
+      openDimension(dimensionId, { fromHash: true });
+      return;
+    }
+
+    if (target.startsWith("view-")) {
+      closeDimensionForInternalNavigation({ closeDesktop: true });
+      setView(target.replace(/^view-/, ""));
+      return;
+    }
+
+    closeDimensionForInternalNavigation();
+  }, [closeDimensionForInternalNavigation, openDimension, requestAnchorNavigation]);
+
+  const handleHashTargetNavigation = useCallback((target) => {
+    if (!target) return;
+    if (typeof window !== "undefined") {
+      window.history.replaceState(window.history.state, "", `#${target}`);
+    }
+    routeHashTarget(target);
+  }, [routeHashTarget]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handlePopState = (event) => {
+      const state = event.state || {};
+      if (mobileModalEntryRef.current && expandedRef.current && !state.dimModal) {
+        mobileModalEntryRef.current = false;
+        setExpanded(null);
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+
+    const handleHashChange = () => {
+      const target = window.location.hash.replace(/^#/, "");
+      if (target) routeHashTarget(target);
+    };
+
+    handleHashChange();
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [routeHashTarget]);
+
+  useEffect(() => {
+    const target = anchorNavigation?.target;
+    if (!target || getDimensionIdForHashTarget(target)) return undefined;
+    if (typeof window === "undefined") return undefined;
+    if (expanded && isMobileViewport()) return undefined;
+
+    let frameA = null;
+    let frameB = null;
+
+    frameA = window.requestAnimationFrame(() => {
+      frameB = window.requestAnimationFrame(() => {
+        document.getElementById(target)?.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+        });
+      });
+    });
+
+    return () => {
+      if (frameA) window.cancelAnimationFrame(frameA);
+      if (frameB) window.cancelAnimationFrame(frameB);
+    };
+  }, [anchorNavigation, expanded, view]);
 
   const scheduleMobileScroll = (targetId) => {
     if (typeof window === "undefined") return undefined;
@@ -89,28 +262,6 @@ export default function Dashboard() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [approvalExpanded]);
 
-  useEffect(() => {
-    if (!pendingScrollTarget) return undefined;
-
-    let frameA = null;
-    let frameB = null;
-
-    frameA = window.requestAnimationFrame(() => {
-      frameB = window.requestAnimationFrame(() => {
-        document.getElementById(pendingScrollTarget)?.scrollIntoView({
-          behavior: "auto",
-          block: "start",
-        });
-        setPendingScrollTarget(null);
-      });
-    });
-
-    return () => {
-      if (frameA) window.cancelAnimationFrame(frameA);
-      if (frameB) window.cancelAnimationFrame(frameB);
-    };
-  }, [pendingScrollTarget, view]);
-
   // P2c: Lock body scroll on mobile when a drawer is open so the background
   // page does not scroll behind the fixed full-screen drawer.
   useEffect(() => {
@@ -133,34 +284,29 @@ export default function Dashboard() {
 
   const handleShowSafeguards = () => {
     setView("methodology");
-    setPendingScrollTarget("methodology-safeguards");
+    requestAnchorNavigation("methodology-safeguards");
   };
 
   const handleInternalRef = (ref) => {
     if (!ref) return;
 
-    const scrollTo = (targetId) => {
-      if (typeof window === "undefined") return;
-      window.requestAnimationFrame(() => {
-        window.requestAnimationFrame(() => {
-          document.getElementById(targetId)?.scrollIntoView({
-            behavior: "smooth",
-            block: "start",
-          });
-        });
-      });
-    };
-
     if (ref.type === "view") {
+      closeDimensionForInternalNavigation({ closeDesktop: true });
       setView(ref.target);
-      setExpanded(null);
-      scrollTo(`view-${ref.target}`);
+      requestAnchorNavigation(`view-${ref.target}`);
       return;
     }
 
     if (ref.type === "anchor") {
       if (ref.view) setView(ref.view);
-      scrollTo(ref.target);
+      const dimensionId = getDimensionIdForHashTarget(ref.target);
+      if (dimensionId) {
+        requestAnchorNavigation(ref.target);
+        openDimension(dimensionId, { fromHash: true });
+        return;
+      }
+      closeDimensionForInternalNavigation();
+      requestAnchorNavigation(ref.target);
     }
   };
 
@@ -485,8 +631,10 @@ export default function Dashboard() {
               key={d.id}
               dim={d}
               isExpanded={expanded === d.id}
-              onClick={() => setExpanded(expanded === d.id ? null : d.id)}
+              onClick={() => toggleDimension(d.id)}
               onInternalRef={handleInternalRef}
+              anchorNavigation={anchorNavigation}
+              onHashTarget={handleHashTargetNavigation}
             />
           ))}
         </div>
@@ -532,8 +680,10 @@ export default function Dashboard() {
                   key={d.id}
                   dim={d}
                   isExpanded={expanded === d.id}
-                  onClick={() => setExpanded(expanded === d.id ? null : d.id)}
+                  onClick={() => toggleDimension(d.id)}
                   onInternalRef={handleInternalRef}
+                  anchorNavigation={anchorNavigation}
+                  onHashTarget={handleHashTargetNavigation}
                   trackerStat={{
                     delivered: promiseCounts["Delivered"] || 0,
                     total: totalPromises,
