@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-06-07",
+    "version": "5.104",
+    "summary": "Added small maintenance guardrails for approval polling, RSS updates, and AI-assisted UI review.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Approval Signal range check",
+        "body": "The data test suite now checks that the Approval Signal aggregate stays inside the range of the polls in its rolling window. The UI and the validator share the same aggregation helper, so a future formula change gets checked against the public number."
+      },
+      {
+        "type": "product",
+        "headline": "RSS update links fixed",
+        "body": "RSS items now use version-specific identifiers instead of date-only identifiers, so multiple same-day updates do not collide in feed readers. Feed item links now open the in-app Changes view."
+      },
+      {
+        "type": "docs",
+        "headline": "Review guardrails written down",
+        "body": "Added the short workflow rule we kept relearning: review starts from a synced branch, HEAD, and version, and Codex cannot be the final verifier for browser-only UI behavior unless it has browser access. A tiny desktop/mobile UI checklist now covers the dashboard surfaces most likely to regress."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-07",
     "version": "5.103",
     "summary": "Added persistent desktop section navigation inside expanded dimension cards.",
     "items": [

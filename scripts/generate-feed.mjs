@@ -38,6 +38,7 @@ const TYPE_LABELS = {
   event:   "Policy event",
   product: "Product update",
   method:  "Methodology",
+  docs:    "Docs",
   minor:   "Minor update",
 };
 
@@ -67,19 +68,26 @@ function renderItemDescription(entry) {
   return `${summary}${block}`.trim();
 }
 
+function entryId(entry, index) {
+  if (entry.version) return `update-v${entry.version}`;
+  return `update-${entry.date}-${index}`;
+}
+
 const items = changelog
-  .map((entry) => {
+  .map((entry, index) => {
+    const id = entryId(entry, index);
+    const itemLink = `${SITE_URL}#view-changelog`;
     const title = `Update ${entry.date} — ${
       entry.summary
         ? entry.summary.slice(0, 80) + (entry.summary.length > 80 ? "…" : "")
         : "Dashboard update"
     }`;
     const description = renderItemDescription(entry);
-    const guid = `${SITE_URL}#update-${entry.date}`;
+    const guid = `${SITE_URL}#${id}`;
     return `
     <item>
       <title>${xmlEscape(title)}</title>
-      <link>${xmlEscape(SITE_URL)}</link>
+      <link>${xmlEscape(itemLink)}</link>
       <guid isPermaLink="false">${xmlEscape(guid)}</guid>
       <pubDate>${pubDate(entry.date)}</pubDate>
       <description><![CDATA[${description}]]></description>

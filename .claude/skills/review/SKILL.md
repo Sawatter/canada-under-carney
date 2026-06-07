@@ -24,12 +24,24 @@ they don't pollute each other's context; then this skill aggregates them.
 
 ## Process
 
-### 1. Pin the fixed point
+### 1. Sync state
+Start by reading `git status --short`, `git branch --show-current`,
+`git log -1 --oneline`, and `src/data/meta.json`. State the current branch,
+HEAD, version, and whether the review is against a committed state or a dirty
+working tree. If the tree is dirty, name the dirty files and which ones are in
+scope before reviewing.
+
+If the review involves browser-only UI behavior, say so explicitly. Codex or a
+read-only reviewer can review code and deterministic checks, but scroll, focus,
+responsive layout, and interactive states need a browser-capable verification
+pass before the change is called done.
+
+### 2. Pin the fixed point
 Use what the editor said. If none given, ask: "review against what — origin/main,
 a commit, or HEAD~N?" Capture `git diff <fixed-point>...HEAD` (three-dot) and
 `git log <fixed-point>..HEAD --oneline`.
 
-### 2. Standards sources
+### 3. Standards sources
 - CLAUDE.md / AGENTS.md (frozen surfaces, voice rules, consulting-risk wording,
   operational guardrails)
 - docs/Scoring-Rubric-v1.1.md, docs/Bias-Resistance-Protocol.md,
@@ -37,12 +49,12 @@ a commit, or HEAD~N?" Capture `git diff <fixed-point>...HEAD` (three-dot) and
 - Note machine-enforced checks (`test:data`, identifier scan) but don't
   re-check what tooling already does.
 
-### 3. Spec source
+### 4. Spec source
 The originating editor request — the chat instruction, the changelog-entry
 intent, or the governance doc the change implements. If there's no clear spec,
 the Spec axis reports "no spec available."
 
-### 4. Spawn both sub-agents in parallel (one message, two Agent calls)
+### 5. Spawn both sub-agents in parallel (one message, two Agent calls)
 **Standards brief:** "Read the standards docs. Read the diff. Report every place
 it violates a documented rule — frozen-surface edits, voice / consulting-risk
 violations, grade or threshold changes without approval, personal-identifier
@@ -53,7 +65,7 @@ was asked for that's missing or partial; (b) anything not asked for (scope
 creep); (c) anything implemented but wrong. Quote the request per finding.
 Under 400 words."
 
-### 5. Aggregate
+### 6. Aggregate
 Present under `## Standards` and `## Spec`, verbatim. Do not merge or rerank —
 the axes stay separate so one can't mask the other. End with a one-line
 summary: findings per axis + worst single issue.

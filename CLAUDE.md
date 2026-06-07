@@ -141,10 +141,15 @@ These rules are action checks, not vibes. If a future agent cannot produce the c
 
 **Before saying a change is complete:**
 - Data change: run `npm run test:data` and report the exit status.
-- UI change: run `npm run build`, then inspect the affected view at desktop and mobile widths. Name the view, viewport, and what was checked.
+- UI change: run `npm run build`, then inspect the affected view at desktop and mobile widths. Use `docs/UI-Regression-Checklist.md` for dimension-card or dashboard-shell work. Name the view, viewport, and what was checked.
 - Methodology change: re-read the relevant methodology doc and name the consistency check applied.
 - Copy or external-message change: check against the Voice rules and Consulting risk wording above. Name any risky words removed or intentionally kept.
 - Bug fix: reproduce or otherwise identify the mechanism first, then name the file and line range that caused it.
+
+**AI review state sync:**
+- Before asking another agent to review a diff, commit or stash unrelated work so the reviewer sees a coherent state. If the review must run on a dirty tree, name the dirty files and which ones are in scope.
+- Start review passes by confirming the current branch, `HEAD`, `meta.json` version, and whether the live site is expected to match that version.
+- Codex can plan, read, patch, and run deterministic checks. It cannot be the final verifier for browser-only UI behavior unless it has working browser access in that session. A browser-capable agent or human must verify scroll, focus, responsive layout, and interactive states.
 
 **Before any `git push`:**
 - Run `git diff --cached --check`.

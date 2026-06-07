@@ -1,107 +1,15 @@
 import data from "../data/approval-polls.json";
-
-const DAY_MS = 1000 * 60 * 60 * 24;
-
-// Recency half-life (days), read from the data file so the published
-// methodology and the math stay in sync.
-const HALF_LIFE_DAYS = data.halfLifeDays || 30;
-
-function weightedMean(values, weights) {
-  if (values.length === 0) return null;
-  let num = 0;
-  let den = 0;
-  for (let i = 0; i < values.length; i++) {
-    const v = values[i];
-    const w = weights[i];
-    if (typeof v !== "number" || typeof w !== "number" || w <= 0) continue;
-    num += v * w;
-    den += w;
-  }
-  return den > 0 ? num / den : null;
-}
-
-// Exponential recency weight: a poll loses half its weight every
-// HALF_LIFE_DAYS, measured from a window's reference (newest) date.
-function recencyWeight(poll, refDate) {
-  const ageDays =
-    (refDate.getTime() - new Date(poll.fieldEnd).getTime()) / DAY_MS;
-  if (!(ageDays >= 0)) return 1; // at/after the reference keeps full weight
-  return Math.pow(0.5, ageDays / HALF_LIFE_DAYS);
-}
+import { computeApprovalSignal } from "../approvalAggregation";
 
 function formatPct(v) {
   return v === null ? "—" : `${Math.round(v)}%`;
-}
-
-function formatDelta(curr, prior) {
-  if (curr === null || prior === null) return null;
-  const d = curr - prior;
-  const rounded = Math.round(d);
-  if (rounded === 0) return "no change";
-  return rounded > 0 ? `+${rounded}` : `${rounded}`;
-}
-
-function filterByWindow(polls, windowEnd, windowStart) {
-  return polls.filter((p) => {
-    const end = new Date(p.fieldEnd);
-    return end > windowStart && end <= windowEnd;
-  });
-}
-
-// Recency- and sample-size-weighted mean for one field over a poll set.
-// House-effect de-housing was tried and reverted: with only three firms it
-// over-corrected and pushed the headline above every input poll. See
-// docs/Polling-Aggregation-Method-2026-06.md. It can return, centered, once
-// there is broader firm coverage.
-function weightedField(polls, field, refDate) {
-  const values = polls.map((p) => p[field]);
-  const weights = polls.map(
-    (p) => (p.sampleSize || 0) * recencyWeight(p, refDate)
-  );
-  return weightedMean(values, weights);
 }
 
 // Shared compute helper — both the card and the drilldown call this so the
 // displayed numbers stay consistent. The aggregate weights each poll by sample
 // size and by recency (HALF_LIFE_DAYS half-life), within the rolling window.
 function computeApproval() {
-  const asOf = new Date(data.asOf);
-  const windowDays = data.rollingWindowDays;
-  const recentStart = new Date(asOf);
-  recentStart.setDate(recentStart.getDate() - windowDays);
-  const priorStart = new Date(recentStart);
-  priorStart.setDate(priorStart.getDate() - windowDays);
-
-  const recent = filterByWindow(data.polls, asOf, recentStart);
-  const prior = filterByWindow(data.polls, recentStart, priorStart);
-
-  const approveNow = weightedField(recent, "approve", asOf);
-  const disapproveNow = weightedField(recent, "disapprove", asOf);
-  const approvePrior = weightedField(prior, "approve", recentStart);
-  const disapprovePrior = weightedField(prior, "disapprove", recentStart);
-
-  const net =
-    approveNow !== null && disapproveNow !== null
-      ? Math.round(approveNow - disapproveNow)
-      : null;
-
-  const approveDelta = formatDelta(approveNow, approvePrior);
-  const disapproveDelta = formatDelta(disapproveNow, disapprovePrior);
-
-  const pollstersInWindow = Array.from(new Set(recent.map((p) => p.pollster)));
-
-  return {
-    asOf: data.asOf,
-    windowDays,
-    halfLifeDays: HALF_LIFE_DAYS,
-    approveNow,
-    disapproveNow,
-    net,
-    approveDelta,
-    disapproveDelta,
-    recent,
-    pollstersInWindow,
-  };
+  return computeApprovalSignal(data);
 }
 
 const DETAIL_ID = "approval-signal-detail";
