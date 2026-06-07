@@ -502,6 +502,8 @@ export default function Dashboard() {
           color: "#555",
           lineHeight: 1.5,
           marginBottom: "16px",
+          marginLeft: "auto",
+          marginRight: "auto",
           fontWeight: 500,
         }}
       >
@@ -623,6 +625,7 @@ export default function Dashboard() {
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+            gridAutoFlow: "dense",
             gap: "12px",
           }}
         >
@@ -672,6 +675,7 @@ export default function Dashboard() {
               style={{
                 display: "grid",
                 gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                gridAutoFlow: "dense",
                 gap: "12px",
               }}
             >

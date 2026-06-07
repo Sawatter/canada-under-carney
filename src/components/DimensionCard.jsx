@@ -414,10 +414,12 @@ export default function DimensionCard({
   const pendingInstantClearRef = useRef(null);
   const localScrollRequestIdRef = useRef(0);
   const headerButtonRef = useRef(null);
+  const rootRef = useRef(null);
   const drawerRef = useRef(null);
   const stickyHeadRef = useRef(null);
   const miniNavRef = useRef(null);
   const previousFocusRef = useRef(null);
+  const wasExpandedRef = useRef(isExpanded);
 
   useEffect(() => {
     openSectionsRef.current = openSections;
@@ -601,6 +603,7 @@ export default function DimensionCard({
     markInstantOpenSections(instantSections, requestId);
     if (keys.length > 0) openSectionKeys(keys);
     setActiveAnchorTarget(target);
+    setActiveNavAnchor(target);
     setScrollIntent({
       target,
       sections: keys,
@@ -618,6 +621,13 @@ export default function DimensionCard({
   const handleHashLinkClick = (e, target, sections) => {
     e.preventDefault();
     e.stopPropagation();
+    if (targetBelongsToDimension(target, dim.id)) {
+      if (typeof window !== "undefined") {
+        window.history.replaceState(window.history.state, "", `#${target}`);
+      }
+      queueAnchorScroll(target, sections);
+      return;
+    }
     if (onHashTarget) {
       onHashTarget(target);
       return;
@@ -822,6 +832,20 @@ export default function DimensionCard({
     };
   }, [isExpanded, jumpItems.length]);
 
+  useLayoutEffect(() => {
+    const wasExpanded = wasExpandedRef.current;
+    wasExpandedRef.current = isExpanded;
+    if (!isExpanded || wasExpanded || isMobileDialog) return undefined;
+
+    rootRef.current?.scrollIntoView({
+      behavior: "auto",
+      block: "start",
+      inline: "nearest",
+    });
+
+    return undefined;
+  }, [isExpanded, isMobileDialog]);
+
   useEffect(() => {
     const target = anchorNavigation?.target;
     if (!isExpanded || !target || !targetBelongsToDimension(target, dim.id)) return;
@@ -885,9 +909,14 @@ export default function DimensionCard({
     const root = media.matches ? drawerRef.current : null;
     const observer = new IntersectionObserver(
       (entries) => {
+        const anchorTop = stickyStackHeight + 8;
         const visible = entries
           .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          .sort((a, b) => {
+            const aTop = a.target.getBoundingClientRect().top;
+            const bTop = b.target.getBoundingClientRect().top;
+            return Math.abs(aTop - anchorTop) - Math.abs(bTop - anchorTop);
+          })[0];
         if (visible?.target?.id) setActiveNavAnchor(visible.target.id);
       },
       {
@@ -922,6 +951,7 @@ export default function DimensionCard({
   return (
     <div
       id={`dim-${dim.id}`}
+      ref={rootRef}
       className="dimension-card-root"
       style={{
         background: isTracker ? "#fcfcf7" : "#fff",
@@ -1049,7 +1079,9 @@ export default function DimensionCard({
           style={{
             "--dim-sticky-head": `${stickyHeadHeight}px`,
             "--dim-sticky-stack": `${stickyStackHeight}px`,
-            "--dim-anchor-offset": `calc(${stickyStackHeight}px + 12px)`,
+            "--dim-anchor-offset": isMobileDialog
+              ? `calc(${stickyStackHeight}px + 12px)`
+              : "20px",
             ...(isMobileDialog ? {} : {
               marginTop: "16px",
               borderTop: "1px solid #eee",

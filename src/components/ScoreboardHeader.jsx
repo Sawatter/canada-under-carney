@@ -95,6 +95,7 @@ export default function ScoreboardHeader({
   return (
     <div style={{ marginBottom: "24px" }}>
       <div
+        className="scoreboard-card-row"
         style={{
           display: "flex",
           gap: "16px",

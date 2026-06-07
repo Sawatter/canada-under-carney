@@ -141,6 +141,7 @@ button.text-link-button {
 /* Dimension card drawer chrome and controlled disclosures. */
 .dimension-card-root {
   position: relative;
+  scroll-margin-top: 20px;
 }
 
 .dim-card-header-button {
@@ -243,9 +244,8 @@ button.text-link-button {
 }
 
 .dim-drawer-sticky-head {
-  position: sticky;
-  top: 0;
-  z-index: 10;
+  position: static;
+  z-index: 1;
   background: inherit;
   padding: 10px 0 8px;
   margin-bottom: 4px;
@@ -299,9 +299,8 @@ button.text-link-button {
 }
 
 .dim-mini-nav {
-  position: sticky;
-  top: var(--dim-sticky-head);
-  z-index: 9;
+  position: static;
+  z-index: 1;
   background: #f0f4ff;
   border-radius: 6px;
   padding: 6px 10px;
@@ -969,11 +968,16 @@ button.text-link-button {
 
   /* Sticky header gets white background so it doesn't bleed through */
   .dim-drawer-sticky-head {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     background: #fff !important;
     border-bottom: 1px solid #e0e0e0 !important;
   }
 
   .dim-mini-nav {
+    position: sticky;
+    z-index: 9;
     top: var(--dim-sticky-head, 48px) !important;
   }
 
@@ -1053,7 +1057,7 @@ a:hover { text-decoration: underline; }
    Without this, each card's subtitle and stat block drift vertically based on
    copy length, which is what makes the first row feel visually sloppy. */
 .scoreboard-card-title {
-  min-height: 2.4em;
+  min-height: 0;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1061,7 +1065,7 @@ a:hover { text-decoration: underline; }
 }
 
 .scoreboard-card-subtitle {
-  min-height: 5.6em;
+  min-height: 4.3em;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1069,17 +1073,25 @@ a:hover { text-decoration: underline; }
 }
 
 .scoreboard-card-main {
-  flex: 1 0 auto;
-  min-height: 10.5rem;
-  justify-content: flex-start;
+  flex: 0 0 auto;
+  min-height: 6rem;
+  justify-content: center;
 }
 
 .scoreboard-card-footer {
-  margin-top: auto;
-  min-height: 44px;
+  margin-top: 12px;
+  min-height: 32px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
+}
+
+.scoreboard-card-row {
+  align-items: stretch !important;
+}
+
+.scoreboard-card-approval {
+  min-height: 0;
 }
 
 .scoreboard-card-household { order: 10; }

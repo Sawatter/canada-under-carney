@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-06-07",
+    "version": "5.101",
+    "summary": "Cleaned up the desktop dashboard header, centered the scorecard intro, and made desktop dimension jumps route locally inside the open card.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Desktop card and jump polish",
+        "body": "Desktop score cards now sit at natural heights instead of stretching into tall blocks, the scorecard intro is centered under the header, and the Approval Signal no longer carries the extra ungraded badge. Expanded policy cards keep the sticky drawer behavior on mobile, while desktop jumps now use a simpler in-card path with a smaller anchor offset."
+      }
+    ]
+  },
+  {
     "date": "2026-06-06",
     "version": "5.100",
     "summary": "Made expanded policy cards shorter on open by moving sources, metrics, rationale, and supporting context into labeled folds.",
