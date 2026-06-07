@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-07",
+    "version": "5.103",
+    "summary": "Added persistent desktop section navigation inside expanded dimension cards.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Desktop sticky section nav",
+        "body": "Expanded desktop dimension cards now keep the title, grade, close control, and section chips visible while readers move through long evidence sections. A desktop-only Summary chip returns to the score/source/metrics blocks, while mobile keeps the existing full-screen drawer behavior."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-07",
     "version": "5.102",
     "summary": "Polished the mobile drawer motion and moved deep-link focus to the opened disclosure control.",
     "items": [

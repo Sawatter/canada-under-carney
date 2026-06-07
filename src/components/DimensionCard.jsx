@@ -567,6 +567,11 @@ export default function DimensionCard({
     sources.length,
   ]);
 
+  const sectionNavItems = useMemo(() => ([
+    { label: "Summary", anchor: `dim-${dim.id}-summary`, keys: [], desktopOnly: true },
+    ...jumpItems,
+  ]), [dim.id, jumpItems]);
+
   const toggleSection = (section) => {
     setOpenSections((current) => ({
       ...current,
@@ -929,18 +934,42 @@ export default function DimensionCard({
 
     const media = window.matchMedia("(max-width: 767px)");
     const root = media.matches ? drawerRef.current : null;
+    const anchors = sectionNavItems
+      .filter((item) => !(media.matches && item.desktopOnly))
+      .map((item) => document.getElementById(item.anchor))
+      .filter(Boolean);
+    const updateActiveAnchor = () => {
+      const anchorTop = stickyStackHeight + 8;
+      const hashTarget = window.location.hash.replace(/^#/, "");
+      const hashAnchor = anchors.find((anchor) => anchor.id === hashTarget);
+
+      if (hashAnchor) {
+        const hashRect = hashAnchor.getBoundingClientRect();
+        if (hashRect.bottom > anchorTop && hashRect.top < anchorTop + 160) {
+          setActiveNavAnchor(hashAnchor.id);
+          return;
+        }
+      }
+
+      const visible = anchors
+        .map((anchor) => {
+          const rect = anchor.getBoundingClientRect();
+          return {
+            id: anchor.id,
+            top: rect.top,
+            bottom: rect.bottom,
+          };
+        })
+        .filter((anchor) => anchor.bottom > anchorTop)
+        .sort((a, b) => (
+          Math.abs(a.top - anchorTop) - Math.abs(b.top - anchorTop)
+        ))[0];
+
+      if (visible?.id) setActiveNavAnchor(visible.id);
+    };
+
     const observer = new IntersectionObserver(
-      (entries) => {
-        const anchorTop = stickyStackHeight + 8;
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => {
-            const aTop = a.target.getBoundingClientRect().top;
-            const bTop = b.target.getBoundingClientRect().top;
-            return Math.abs(aTop - anchorTop) - Math.abs(bTop - anchorTop);
-          })[0];
-        if (visible?.target?.id) setActiveNavAnchor(visible.target.id);
-      },
+      updateActiveAnchor,
       {
         root,
         rootMargin: `-${stickyStackHeight + 8}px 0px -60% 0px`,
@@ -948,13 +977,17 @@ export default function DimensionCard({
       }
     );
 
-    const anchors = jumpItems
-      .map((item) => document.getElementById(item.anchor))
-      .filter(Boolean);
-
     anchors.forEach((anchor) => observer.observe(anchor));
+    updateActiveAnchor();
     return () => observer.disconnect();
-  }, [isExpanded, jumpItems, stickyStackHeight]);
+  }, [isExpanded, jumpItems.length, sectionNavItems, stickyStackHeight]);
+
+  useEffect(() => {
+    if (isExpanded) return;
+    setActiveAnchorTarget(null);
+    setActiveNavAnchor(null);
+    setScrollIntent(null);
+  }, [isExpanded]);
 
   if (!isTracker && !g) return null;
 
@@ -1101,9 +1134,7 @@ export default function DimensionCard({
           style={{
             "--dim-sticky-head": `${stickyHeadHeight}px`,
             "--dim-sticky-stack": `${stickyStackHeight}px`,
-            "--dim-anchor-offset": isMobileDialog
-              ? `calc(${stickyStackHeight}px + 12px)`
-              : "20px",
+            "--dim-anchor-offset": `calc(${stickyStackHeight}px + 12px)`,
             ...(isMobileDialog ? {} : {
               marginTop: "16px",
               borderTop: "1px solid #eee",
@@ -1143,19 +1174,27 @@ export default function DimensionCard({
             <nav
               ref={miniNavRef}
               className="dim-mini-nav"
-              aria-label={`${dim.name} section jumps`}
+              aria-label={`${dim.name} section navigation`}
             >
-              <span className="dim-mini-nav-label">Jump:</span>
-              {jumpItems.map((item) => (
-                <a
-                  key={item.anchor}
-                  href={`#${item.anchor}`}
-                  aria-current={activeNavAnchor === item.anchor ? "true" : undefined}
-                  onClick={(e) => handleHashLinkClick(e, item.anchor, item.keys)}
-                >
-                  {item.label}
-                </a>
-              ))}
+              <span className="dim-mini-nav-label dim-mini-nav-label-mobile">Jump:</span>
+              <span className="dim-mini-nav-label dim-mini-nav-label-desktop">Sections:</span>
+              {sectionNavItems.map((item) => {
+                const isActive = activeNavAnchor === item.anchor
+                  || (!activeNavAnchor && item.anchor === `dim-${dim.id}-summary`)
+                  || (activeNavAnchor === `dim-${dim.id}` && item.anchor === `dim-${dim.id}-summary`);
+
+                return (
+                  <a
+                    key={item.anchor}
+                    href={`#${item.anchor}`}
+                    className={item.desktopOnly ? "dim-desktop-only-nav-item" : undefined}
+                    aria-current={isActive ? "true" : undefined}
+                    onClick={(e) => handleHashLinkClick(e, item.anchor, item.keys)}
+                  >
+                    {item.label}
+                  </a>
+                );
+              })}
               <button
                 type="button"
                 className="text-link-button dim-show-all-button"
@@ -1169,7 +1208,11 @@ export default function DimensionCard({
             </nav>
           )}
 
-          <div className="dim-default-blocks" aria-label={`${dim.name} score summary`}>
+          <div
+            id={`dim-${dim.id}-summary`}
+            className="dim-default-blocks"
+            aria-label={`${dim.name} score summary`}
+          >
             <section className="dim-score-block dim-default-block">
               <div className="dim-default-block-head">
                 <span>Score</span>

@@ -322,6 +322,10 @@ button.text-link-button {
   margin-right: 2px;
 }
 
+.dim-mini-nav-label-desktop {
+  display: none;
+}
+
 .dim-mini-nav a,
 .dim-show-all-button {
   color: #3949ab;
@@ -351,6 +355,7 @@ button.text-link-button {
   display: grid;
   gap: 10px;
   margin-bottom: 14px;
+  scroll-margin-top: var(--dim-anchor-offset);
 }
 
 .dim-default-block {
@@ -947,6 +952,32 @@ button.text-link-button {
   }
 }
 
+@media (min-width: 768px) {
+  .dim-mini-nav-label-mobile {
+    display: none;
+  }
+
+  .dim-mini-nav-label-desktop {
+    display: inline;
+  }
+
+  .dim-drawer-sticky-head {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: #fff;
+    box-shadow: 0 1px 0 #e6e6e6;
+  }
+
+  .dim-mini-nav {
+    position: sticky;
+    top: var(--dim-sticky-head, 52px);
+    z-index: 19;
+    border-radius: 0 0 6px 6px;
+    box-shadow: 0 1px 0 #d8e3ff;
+  }
+}
+
 /* MED3: Full-screen modal drawer on mobile (<768px).
    When a DimensionCard is expanded, the `.dim-drawer` panel becomes a
    fixed full-screen overlay so the user gets a focused reading surface.
@@ -992,6 +1023,10 @@ button.text-link-button {
     border: 1px solid #b0b0b0 !important;
     background: #f5f5f5 !important;
     color: #333 !important;
+  }
+
+  .dim-desktop-only-nav-item {
+    display: none !important;
   }
 }
 
