@@ -85,30 +85,6 @@ const NESTED_SECTIONS = [
   "cohortList",
 ];
 
-const SECTION_ANCHOR_SUFFIXES = {
-  skeptic: "skeptic-path",
-  context: "context",
-  rule: "scoring",
-  why: "why",
-  subScores: "subscores",
-  triggers: "triggers-section",
-  metrics: "metrics",
-  sources: "sources",
-  projects: "cohort",
-  promises: "promises",
-  trackerTriggers: "tracker-triggers",
-  perspectives: "perspectives-section",
-  scope: "scope",
-  inherited: "inherited",
-  glossary: "glossary",
-  leverOperationalization: "lever-operationalization",
-  componentOperationalization: "component-operationalization",
-  combinationRule: "combination-rule",
-  cohortList: "cohort-list",
-};
-
-const ANCHOR_SCROLL_FALLBACK_MS = 300;
-
 function getSourceTier(url) {
   if (!url) return null;
   try {
@@ -230,18 +206,30 @@ function getTierCounts(sources = []) {
   };
 }
 
-function panelIdForSection(dimId, section) {
-  const suffix = SECTION_ANCHOR_SUFFIXES[section];
-  return suffix ? `dim-${dimId}-${suffix}-panel` : null;
-}
-
-function useDisclosureVisibility(isOpen) {
+function useDisclosureVisibility(isOpen, instantOpen = false) {
   const [visible, setVisible] = useState(isOpen);
   const [animatedOpen, setAnimatedOpen] = useState(isOpen);
 
   useLayoutEffect(() => {
     if (typeof window === "undefined") {
       return undefined;
+    }
+
+    if (instantOpen && isOpen) {
+      let cancelled = false;
+      const schedule = typeof queueMicrotask === "function"
+        ? queueMicrotask
+        : (callback) => Promise.resolve().then(callback);
+
+      schedule(() => {
+        if (cancelled) return;
+        setVisible(true);
+        setAnimatedOpen(true);
+      });
+
+      return () => {
+        cancelled = true;
+      };
     }
 
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -269,18 +257,40 @@ function useDisclosureVisibility(isOpen) {
       if (frameA) window.cancelAnimationFrame(frameA);
       if (frameB) window.cancelAnimationFrame(frameB);
     };
-  }, [isOpen]);
+  }, [instantOpen, isOpen]);
 
   const handleTransitionEnd = (event) => {
     if (event.target !== event.currentTarget) return;
-    if (!isOpen) setVisible(false);
+    if (!isOpen) {
+      setVisible(false);
+    }
   };
 
-  return { visible, animatedOpen, handleTransitionEnd };
+  const instantActive = isOpen && instantOpen;
+
+  return {
+    visible: instantActive || visible,
+    animatedOpen: instantActive || animatedOpen,
+    instantActive,
+    handleTransitionEnd,
+  };
 }
 
-function DisclosurePanel({ id, labelledBy, isOpen, children, region = false, active = false }) {
-  const { visible, animatedOpen, handleTransitionEnd } = useDisclosureVisibility(isOpen);
+function DisclosurePanel({
+  id,
+  labelledBy,
+  isOpen,
+  children,
+  region = false,
+  active = false,
+  instantOpen = false,
+}) {
+  const {
+    visible,
+    animatedOpen,
+    instantActive,
+    handleTransitionEnd,
+  } = useDisclosureVisibility(isOpen, instantOpen);
   const role = region || active ? "region" : undefined;
 
   return (
@@ -292,6 +302,7 @@ function DisclosurePanel({ id, labelledBy, isOpen, children, region = false, act
       aria-hidden={!isOpen}
       aria-labelledby={labelledBy}
       role={role}
+      style={instantActive ? { transition: "none" } : undefined}
       onTransitionEnd={handleTransitionEnd}
     >
       <div className="dim-disclosure-panel-inner">
@@ -312,6 +323,7 @@ function DisclosureSection({
   region = false,
   active = false,
   anchor = true,
+  instantOpen = false,
 }) {
   const buttonId = `${id}-button`;
   const panelId = `${id}-panel`;
@@ -347,6 +359,7 @@ function DisclosureSection({
         isOpen={isOpen}
         region={region}
         active={active}
+        instantOpen={instantOpen}
       >
         {children}
       </DisclosurePanel>
@@ -388,6 +401,7 @@ export default function DimensionCard({
   );
 
   const [openSections, setOpenSections] = useState({});
+  const [instantOpenSections, setInstantOpenSections] = useState({});
   const [scrollIntent, setScrollIntent] = useState(null);
   const [activeAnchorTarget, setActiveAnchorTarget] = useState(null);
   const [activeNavAnchor, setActiveNavAnchor] = useState(null);
@@ -397,6 +411,7 @@ export default function DimensionCard({
     typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
   ));
   const openSectionsRef = useRef({});
+  const pendingInstantClearRef = useRef(null);
   const localScrollRequestIdRef = useRef(0);
   const headerButtonRef = useRef(null);
   const drawerRef = useRef(null);
@@ -554,6 +569,17 @@ export default function DimensionCard({
     });
   }, []);
 
+  const markInstantOpenSections = useCallback((sections, requestId) => {
+    if (sections.length === 0) return;
+    setInstantOpenSections((current) => {
+      const next = { ...current };
+      sections.forEach((section) => {
+        next[section] = requestId;
+      });
+      return next;
+    });
+  }, []);
+
   const openAllSections = () => {
     const next = {};
     availableSections.forEach((section) => {
@@ -568,19 +594,26 @@ export default function DimensionCard({
     if (!target) return;
     const keys = sections.length > 0 ? sections : sectionKeysForTarget(target, dim.id);
     const currentOpenSections = openSectionsRef.current;
-    const waitForSections = keys.filter((section) => !currentOpenSections[section]);
+    const instantSections = keys.filter((section) => !currentOpenSections[section]);
     const requestId = anchorNavigation?.target === target
       ? anchorNavigation.requestId
       : (localScrollRequestIdRef.current += 1);
+    markInstantOpenSections(instantSections, requestId);
     if (keys.length > 0) openSectionKeys(keys);
     setActiveAnchorTarget(target);
     setScrollIntent({
       target,
       sections: keys,
-      waitForSections,
+      instantSections,
       requestId,
     });
-  }, [anchorNavigation?.requestId, anchorNavigation?.target, dim.id, openSectionKeys]);
+  }, [
+    anchorNavigation?.requestId,
+    anchorNavigation?.target,
+    dim.id,
+    markInstantOpenSections,
+    openSectionKeys,
+  ]);
 
   const handleHashLinkClick = (e, target, sections) => {
     e.preventDefault();
@@ -806,59 +839,43 @@ export default function DimensionCard({
     const sectionsOpen = sections.every((section) => openSections[section]);
     if (!sectionsOpen) return undefined;
 
-    let done = false;
-    let fallbackTimer = null;
-    const cleanupCallbacks = [];
-    const panelsToWaitFor = (scrollIntent.waitForSections || [])
-      .map((section) => document.getElementById(panelIdForSection(dim.id, section)))
-      .filter(Boolean);
-
-    const cleanup = () => {
-      cleanupCallbacks.forEach((clean) => clean());
-      cleanupCallbacks.length = 0;
-      if (fallbackTimer) window.clearTimeout(fallbackTimer);
-    };
-
-    const scrollOnce = () => {
-      if (done) return;
-      done = true;
-      cleanup();
-      const target = document.getElementById(targetId);
-      if (target) {
-        target.scrollIntoView({
-          behavior: "auto",
-          block: "start",
-          inline: "nearest",
-        });
-      }
-      setScrollIntent(null);
-    };
-
-    if (panelsToWaitFor.length === 0) {
-      scrollOnce();
-      return undefined;
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({
+        behavior: "auto",
+        block: "start",
+        inline: "nearest",
+      });
     }
 
-    const pendingPanels = new Set(panelsToWaitFor);
-    panelsToWaitFor.forEach((panel) => {
-      const handleTransitionEnd = (event) => {
-        if (event.target !== panel) return;
-        if (event.propertyName && event.propertyName !== "grid-template-rows") return;
-        pendingPanels.delete(panel);
-        if (pendingPanels.size === 0) scrollOnce();
+    if (scrollIntent.instantSections?.length > 0) {
+      pendingInstantClearRef.current = {
+        requestId: scrollIntent.requestId,
+        sections: scrollIntent.instantSections,
       };
-
-      panel.addEventListener("transitionend", handleTransitionEnd);
-      cleanupCallbacks.push(() => panel.removeEventListener("transitionend", handleTransitionEnd));
-    });
-
-    fallbackTimer = window.setTimeout(scrollOnce, ANCHOR_SCROLL_FALLBACK_MS);
-
-    return () => {
-      done = true;
-      cleanup();
-    };
+    }
+    setScrollIntent(null);
+    return undefined;
   }, [dim.id, isExpanded, openSections, scrollIntent]);
+
+  useEffect(() => {
+    if (scrollIntent) return;
+    const pending = pendingInstantClearRef.current;
+    if (!pending) return;
+
+    pendingInstantClearRef.current = null;
+    setInstantOpenSections((current) => {
+      let changed = false;
+      const next = { ...current };
+      pending.sections.forEach((section) => {
+        if (next[section] === pending.requestId) {
+          delete next[section];
+          changed = true;
+        }
+      });
+      return changed ? next : current;
+    });
+  }, [scrollIntent]);
 
   useEffect(() => {
     if (!isExpanded || !drawerRef.current || jumpItems.length === 0) return undefined;
@@ -900,6 +917,7 @@ export default function DimensionCard({
   const sourceSummary = `${sources.length} source${sources.length === 1 ? "" : "s"} · ${sourceCounts.t1} Tier-1 → open`;
   const metricsSummary = `${metrics.length} metric${metrics.length === 1 ? "" : "s"} tracked → open`;
   const activeSectionKeys = sectionKeysForTarget(activeAnchorTarget, dim.id);
+  const isInstantOpenSection = (section) => !!instantOpenSections[section];
 
   return (
     <div
@@ -1204,6 +1222,7 @@ export default function DimensionCard({
                 onToggle={() => toggleSection("skeptic")}
                 active={activeSectionKeys.includes("skeptic")}
                 variant="blue"
+                instantOpen={isInstantOpenSection("skeptic")}
               >
                 <p>
                   To challenge this grade, walk the ingredients in order:{" "}
@@ -1232,6 +1251,7 @@ export default function DimensionCard({
                 onToggle={() => toggleSection("context")}
                 active={activeSectionKeys.includes("context")}
                 variant="green"
+                instantOpen={isInstantOpenSection("context")}
               >
                 <div className="dim-stack">
                   {keyContextItems.map((item) => (
@@ -1253,6 +1273,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("rule")}
                 variant="rule"
+                instantOpen={isInstantOpenSection("rule")}
               >
                 <div className="dim-stack">
                   {dim.construct && (
@@ -1276,6 +1297,7 @@ export default function DimensionCard({
                         onToggle={() => toggleSection("glossary")}
                         active={activeSectionKeys.includes("glossary")}
                         anchor={false}
+                        instantOpen={isInstantOpenSection("glossary")}
                       >
                         <div className="dim-stack">
                           <div>
@@ -1339,6 +1361,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("why")}
                 variant="why"
+                instantOpen={isInstantOpenSection("why")}
               >
                 <div className="dim-stack">
                   {dim.judgmentDetail && (
@@ -1365,6 +1388,7 @@ export default function DimensionCard({
                       onToggle={() => toggleSection("leverOperationalization")}
                       active={activeSectionKeys.includes("leverOperationalization")}
                       anchor={false}
+                      instantOpen={isInstantOpenSection("leverOperationalization")}
                     >
                       <div className="dim-stack">
                         {dim.gradeBasis.leverOperationalization.map((lever, i) => (
@@ -1392,6 +1416,7 @@ export default function DimensionCard({
                       onToggle={() => toggleSection("componentOperationalization")}
                       active={activeSectionKeys.includes("componentOperationalization")}
                       anchor={false}
+                      instantOpen={isInstantOpenSection("componentOperationalization")}
                     >
                       <div className="dim-stack">
                         {dim.gradeBasis.componentOperationalization.map((component, i) => (
@@ -1417,6 +1442,7 @@ export default function DimensionCard({
                       onToggle={() => toggleSection("combinationRule")}
                       active={activeSectionKeys.includes("combinationRule")}
                       anchor={false}
+                      instantOpen={isInstantOpenSection("combinationRule")}
                     >
                       <CombinationRule rule={dim.gradeBasis.combinationRule} />
                     </DisclosureSection>
@@ -1434,6 +1460,7 @@ export default function DimensionCard({
                 onToggle={() => toggleSection("subScores")}
                 active={activeSectionKeys.includes("subScores")}
                 variant="neutral"
+                instantOpen={isInstantOpenSection("subScores")}
               >
                 <div className="dim-subscore-cards">
                   {Object.values(dim.subScores).map((sub, i) => (
@@ -1459,6 +1486,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("triggers")}
                 variant="yellow"
+                instantOpen={isInstantOpenSection("triggers")}
               >
                 {dim.gradeTriggers ? (
                   <TriggerColumns
@@ -1485,6 +1513,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("metrics")}
                 variant="neutral"
+                instantOpen={isInstantOpenSection("metrics")}
               >
                 <MetricsList metricGroups={metricGroups} />
               </DisclosureSection>
@@ -1500,6 +1529,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("projects")}
                 variant="rule"
+                instantOpen={isInstantOpenSection("projects")}
               >
                 <ProjectCohortSection
                   cohort={cohort}
@@ -1507,6 +1537,7 @@ export default function DimensionCard({
                   onToggle={() => toggleSection("cohortList")}
                   dimId={dim.id}
                   active={activeSectionKeys.includes("cohortList")}
+                  instantOpen={isInstantOpenSection("cohortList")}
                 />
               </DisclosureSection>
             )}
@@ -1521,6 +1552,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("promises")}
                 variant="neutral"
+                instantOpen={isInstantOpenSection("promises")}
               >
                 <div>
                   {dim.promises.length} promise{dim.promises.length === 1 ? "" : "s"} tracked on this file. For per-promise status and evidence, see the <strong>Promises</strong> tab.
@@ -1538,6 +1570,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("trackerTriggers")}
                 variant="yellow"
+                instantOpen={isInstantOpenSection("trackerTriggers")}
               >
                 <TriggerColumns
                   up={dim.gradeTriggers.up}
@@ -1560,6 +1593,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("sources")}
                 variant="blue"
+                instantOpen={isInstantOpenSection("sources")}
               >
                 <div className="dim-stack">
                   <SourceTierSummary counts={sourceCounts} />
@@ -1601,6 +1635,7 @@ export default function DimensionCard({
                 region
                 active={activeSectionKeys.includes("perspectives")}
                 variant="blue"
+                instantOpen={isInstantOpenSection("perspectives")}
               >
                 <div className="dim-stack">
                   <div className="dim-perspective-card dim-perspective-critics">
@@ -1621,6 +1656,7 @@ export default function DimensionCard({
                 isOpen={!!openSections.scope}
                 onToggle={() => toggleSection("scope")}
                 active={activeSectionKeys.includes("scope")}
+                instantOpen={isInstantOpenSection("scope")}
               >
                 <div className="dim-stack">
                   <div>
@@ -1651,6 +1687,7 @@ export default function DimensionCard({
                 isOpen={!!openSections.inherited}
                 onToggle={() => toggleSection("inherited")}
                 active={activeSectionKeys.includes("inherited")}
+                instantOpen={isInstantOpenSection("inherited")}
               >
                 <div>{dim.inherited}</div>
               </DisclosureSection>
@@ -1804,7 +1841,7 @@ function RuleTable({ title, columns, rows }) {
   );
 }
 
-function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active }) {
+function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active, instantOpen = false }) {
   const stageGates = cohort.stageGates || [];
   const stageOrder = stageGates.reduce((acc, gate, i) => {
     acc[gate.key] = i;
@@ -1901,6 +1938,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active }) {
         isOpen={isOpen}
         onToggle={onToggle}
         active={active}
+        instantOpen={instantOpen}
         anchor
       >
         <div className="cohort-mobile-projects" aria-label="Full Major Projects cohort list">
