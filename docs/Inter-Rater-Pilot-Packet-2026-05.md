@@ -1,7 +1,7 @@
 # Inter-Rater Pilot Packet - May 2026
 
 - **Purpose:** Give an outside rater enough evidence and rules to independently grade three dimensions without seeing the published grade, editor rationale, judgment call, perspectives, or active modifier selection.
-- **Status:** AI packet QA complete and fixes applied (2026-06); ready for the first human rater run, pending one editor check of the flagged tariff-cost estimate. See [Inter-Rater-Pilot-AI-QA-2026-06.md](Inter-Rater-Pilot-AI-QA-2026-06.md).
+- **Status:** Ready for the first human rater run. This packet is the rater-facing material; editor-only QA notes, results templates, grades, and rationale are intentionally excluded.
 - **Snapshot:** Dashboard data reviewed through 2026-04-30.
 - **Important:** This is a frozen snapshot packet. The live dashboard may have moved past this evidence date. Your answers will be compared against the 2026-04-30 snapshot grade, not today's published grade.
 - **Rater materials:** This packet is self-contained. Use only this packet and the external source links inside it before submitting the worksheet.
@@ -218,7 +218,7 @@ Out of scope:
 
 - Food CPI year-over-year
 - Grocery benefit amount per household
-- Tariff household cost burden estimate
+- Canadian counter-tariff household cost estimate
 - Food insecurity population
 
 ### Grade Thresholds
@@ -231,7 +231,7 @@ Out of scope:
 | D | Federal relief covers less than 20% of the cost increase, voluntary or narrow measures dominate, and food insecurity remains elevated or rising. |
 | F | No material federal relief or competition response is in place. |
 
-The "identified annual cost increase" in these bands is the in-scope added household cost: food-price inflation plus tariff-driven costs. Estimate it from the metrics below (for example, the food CPI applied to the annual food cost, plus the tariff household cost burden). The coverage ratio is the federal relief amount (the grocery benefit) divided by that increase.
+The "identified annual cost increase" in these bands is the in-scope added household cost: food-price inflation plus tariff-driven costs. Estimate it from the metrics below (for example, the food CPI applied to the annual food cost, plus the Canadian counter-tariff household cost estimate). The coverage ratio is the federal relief amount (the grocery benefit) divided by that increase. Do not substitute U.S. household tariff-cost estimates; use the Canadian evidence in this packet.
 
 ### Modifier Guidance
 
@@ -241,7 +241,7 @@ The "identified annual cost increase" in these bands is the in-scope added house
 
 ### Deconfliction
 
-- Food CPI and tariff household cost burden are primary-homed here.
+- Food CPI and the Canadian counter-tariff household cost estimate are primary-homed here.
 - Housing costs are primary-homed in Housing Supply.
 - Consumer carbon tax elimination is primary-homed in Carbon Pricing Policy; household savings can appear here as context.
 - Unemployment and LFS data are context only and primary-homed in Economic Policy Response.
@@ -254,7 +254,7 @@ The "identified annual cost increase" in these bands is the in-scope added house
 | Family of 4 food cost, 2026 | $17,572/yr | Dalhousie | Annual food-cost estimate. |
 | Grocery benefit | about $307/household incremental | PBO | Costed federal benefit amount. |
 | Food insecure Canadians | about 10M | PROOF | Household food insecurity estimate. PROOF's 2024 data reports food insecurity rising versus prior years. |
-| Tariff household cost burden | $1,450-$2,000/yr per household (estimate) | Tariff-cost estimate | Estimated added annual household cost from retaliatory tariffs. This is a synthesized estimate, not a single cited figure; treat it as approximate. |
+| Canadian counter-tariff household cost estimate | $548.97 per household by March 31, 2026 if the April-May 2025 trend persisted; $91.50 per household for April-May 2025 alone | MEI / Finance Canada / Statistics Canada | Canadian counter-tariffs on U.S. goods only. This is narrower than a total trade-war household-cost estimate. |
 | Grocery Code of Conduct | Voluntary, industry-led | Canada Grocery Code | A voluntary industry code, not a mandatory federal competition or market-conduct measure. |
 
 ### Source List
@@ -265,6 +265,7 @@ The "identified annual cost increase" in these bands is the in-scope added house
 - [PBO - Canada Groceries and Essentials Benefit](https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels)
 - [CRA - Canada Groceries and Essentials Benefit](https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html)
 - [Canada Grocery Code official site](https://canadacode.org/)
+- [MEI - Canadian tariffs on American goods have cost Canadian families $92 in new taxes over the last two months](https://www.iedm.org/canadian-tariffs-on-american-goods-have-cost-canadian-families-92-in-new-taxes-over-the-last-two-months-calculates-the-mei/)
 
 ### One-Notch Move Triggers
 
@@ -283,7 +284,7 @@ Down:
 
 | Role | Preferred sources |
 |---|---|
-| Measurement truth | StatsCan food CPI, PBO tariff-burden and benefit-costing, PROOF food insecurity |
+| Measurement truth | StatsCan food CPI, Finance Canada tariff collections, Statistics Canada household counts, PBO benefit-costing, PROOF food insecurity |
 | Policy truth | Budget, GST-credit, grocery-benefit, Grocery Code, tariff or relief documents |
 | Execution truth | Operational proof that benefits were delivered and the Grocery Code was in force |
 | Independent challenge truth | PBO, PROOF, disclosed-methodology affordability analysis, Dalhousie |
@@ -426,6 +427,6 @@ Date:
 
 ## Submission
 
-Return the three completed worksheets before checking the live dashboard, local data files, governance docs, changelog, or Git history. After submission, the editor compares the rater grades against the published snapshot using [Inter-Rater-Pilot-Results-Template-2026-05.md](Inter-Rater-Pilot-Results-Template-2026-05.md).
+Return the three completed worksheets before checking the live dashboard, local data files, governance docs, changelog, or Git history. After submission, the editor compares the rater grades against the published snapshot using an editor-only results template.
 
 This packet is frozen to the 2026-04-30 dashboard snapshot. If you check the live dashboard after submitting and see a different grade or newer metric, that means the live dashboard moved forward after the snapshot. It does not change the comparison target for this pilot.

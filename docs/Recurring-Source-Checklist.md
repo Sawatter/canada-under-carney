@@ -24,7 +24,11 @@ That generator expands bundled rows into source-level rows and pulls the current
 
 ## Every Monthly Cycle
 
-Run these before the monthly changelog is drafted.
+Run these before the monthly changelog is drafted. The scheduled
+`monthly-source-scout` workflow runs the fetch script and source-ledger generator
+on the first day of each month, then uploads the artifacts for editor review.
+The artifact is a starting point, not permission to change data without checking
+the live source.
 
 | Check | Source home | Dashboard area | Current status | What to look for | Update trigger |
 |---|---|---|---|---|---|

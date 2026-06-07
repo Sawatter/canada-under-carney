@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-06-07",
+    "version": "5.105",
+    "summary": "Moved monthly source scouting to a first-of-month cadence and readied the first inter-rater packet.",
+    "items": [
+      {
+        "type": "docs",
+        "headline": "First-of-month source scout",
+        "body": "The monthly cycle now starts on the first day of each month, covering the prior calendar month's available evidence. A scheduled GitHub Actions scout prepares fetch, link-rot, and source-ledger artifacts for editor review; it does not edit dashboard data or move grades on its own."
+      },
+      {
+        "type": "docs",
+        "headline": "Inter-rater packet cleanup",
+        "body": "The rater-facing packet is now the canonical file for the first human run. It excludes editor-only QA/results links and replaces the old unsourced tariff scenario with a sourced Canadian counter-tariff household-cost estimate."
+      },
+      {
+        "type": "minor",
+        "headline": "Visitor-count snapshot kept",
+        "body": "The static visitor-count fallback was updated to the current GoatCounter snapshot so the public counter still has a recent value if the live same-origin fetch is unavailable."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-07",
     "version": "5.104",
     "summary": "Added small maintenance guardrails for approval polling, RSS updates, and AI-assisted UI review.",
     "items": [

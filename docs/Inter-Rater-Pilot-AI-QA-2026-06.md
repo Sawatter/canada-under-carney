@@ -12,11 +12,13 @@ the live dashboard, current grades, changelog, or editor rationale, and it was
 instructed not to assign grades. This matches the guardrails in
 `Inter-Rater-Reliability-Protocol.md` lines 25-30.
 
-**Headline:** the packet is **not ready to send as-is**. The redaction intent is
-right, but several metric lines pre-apply a threshold test, a few trigger phrasings
-telegraph the current position, and the central threshold math for two of the three
-dimensions is missing its denominator. Fixes are needed before a human run
-(protocol step 2).
+**Headline:** the packet is ready for a human rater run after the 2026-06-06
+cleanup. The redaction intent was right, but the first QA pass found several metric
+lines that pre-applied a threshold test, a few trigger phrasings that telegraphed
+the current position, and missing threshold math for two dimensions. The 2026-06-03
+fixes addressed the main instrument issues; the 2026-06-06 cleanup removed
+rater-facing links to editor-only QA/results files and replaced the unsourced tariff
+scenario estimate with a sourced Canadian counter-tariff estimate.
 
 ## Fixes applied (2026-06)
 
@@ -28,7 +30,14 @@ All fixes below were applied to the packet on 2026-06-03:
 - Added the missing snapshot-valid facts: Affordability tariff household cost burden, Grocery Code status (voluntary), food-insecurity trend, a denominator-definition note for the coverage ratio, and a Fiscal debt-to-GDP trajectory pointer to the snapshot-era Budget 2025 source. The live post-snapshot Spring Economic Update figures were deliberately kept out to preserve the frozen 2026-04-30 comparison.
 - Flagged the Democracy Watch URL headline as the source's own wording.
 
-**One item for the editor to verify before the run:** the tariff household cost-burden figure ($1,450-$2,000/yr per household) is a synthesized estimate, not a single cited number. Confirm it or attach a primary source before sending the packet. Everything else is sourced to material already in the packet or the dimension data. (External sourcing, 2026-06, headless then Chrome browser: the credible Canadian per-household figure is about $550/yr — Financial Post / Montreal Economic Institute, July 2025 — and that is for Canada's counter-tariffs only, a narrower measure than the dimension's total. The higher per-household numbers in circulation, about $1,200 (PIIE) and a $2,200 median (Budget Lab, Yale), are US households, not Canadian. No Canadian source supports a $1,450-$2,000 total. Recommendation: either rescope the figure to the Canadian evidence and label what it covers, or keep it as an explicit scenario estimate. It should not be presented as an externally sourced Canadian total.)
+**Resolved 2026-06-06:** the tariff household cost-burden figure was replaced.
+The packet now uses the Montreal Economic Institute's Canadian counter-tariff
+estimate: $91.50 per household for April-May 2025, or $548.97 per household by
+March 31, 2026 if that trend persisted. The packet labels this as Canadian
+counter-tariffs on U.S. goods only, not as a total trade-war household-cost
+estimate. The higher per-household numbers in circulation, about $1,200 (PIIE)
+and a $2,200 median (Budget Lab, Yale), are U.S. household estimates and are not
+used in the rater packet.
 
 ## Original QA findings (now addressed)
 

@@ -1,0 +1,52 @@
+name: Monthly source scout
+
+# Runs on the first day of each month after the prior month has closed.
+# It prepares source/freshness artifacts for editor review. It does not edit
+# dashboard data, move grades, or push commits.
+
+on:
+  schedule:
+    # Avoid minute 0 because GitHub scheduled workflows are more likely to be
+    # delayed or dropped at the top of the hour.
+    - cron: "17 13 1 * *"
+  workflow_dispatch: {}
+
+jobs:
+  source-scout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          python -m pip install --upgrade pip
+          python -m pip install -r scripts/requirements.txt
+
+      - name: Determine cycle month
+        run: echo "CYCLE_MONTH=$(date -u +'%Y-%m')" >> "$GITHUB_ENV"
+
+      - name: Run source fetch and link-rot scan
+        run: python3 scripts/fetch-data.py --link-rot
+
+      - name: Generate source ledger
+        run: node scripts/generate-source-ledger.mjs "$CYCLE_MONTH" --force
+
+      - name: Upload source-scout artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: monthly-source-scout-${{ env.CYCLE_MONTH }}
+          path: |
+            scripts/output/fetch-report.txt
+            scripts/output/draft-changelog-entry.json
+            scripts/output/draft-dimensions.json
+            docs/Source-Coverage-Ledger-${{ env.CYCLE_MONTH }}.md

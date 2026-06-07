@@ -9,7 +9,8 @@ when_to_use: |
   Any request to run or plan a monthly dashboard update cycle, including
   source fetching, trigger evaluation, grade review, source-to-trigger audit,
   bias-resistance audit, and changelog entry. Also triggers when asked to
-  prepare for a cycle or check what the cycle requires.
+  prepare for a cycle, check what the cycle requires, or run the first-day
+  source scout.
 allowed-tools: Read Grep Glob Bash
 context: fork
 ---
@@ -28,6 +29,10 @@ Before starting any data work:
 - [ ] Viewport-check rule noted: any UI commit needs desktop + phone check
 
 ## Step 1 — Fetch fresh data
+The regular cycle starts on the first day of each month and covers the prior
+calendar month's available data. Use the GitHub Actions monthly-source-scout
+artifact when it exists; otherwise run the scout locally.
+
 ```bash
 (cd "${CLAUDE_SKILL_DIR}/../../.." && python3 scripts/fetch-data.py)
 ```
