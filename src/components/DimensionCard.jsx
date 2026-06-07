@@ -198,6 +198,14 @@ function targetBelongsToDimension(target, dimId) {
   return target === `dim-${dimId}` || target.startsWith(`dim-${dimId}-`);
 }
 
+function focusDisclosureButtonForTarget(target) {
+  if (!target) return;
+  const button = document.getElementById(`${target}-button`);
+  if (button && typeof button.focus === "function") {
+    button.focus({ preventScroll: true });
+  }
+}
+
 function getTierCounts(sources = []) {
   return {
     t1: sources.filter((s) => getSourceTier(s.url) === 1).length,
@@ -420,10 +428,15 @@ export default function DimensionCard({
   const miniNavRef = useRef(null);
   const previousFocusRef = useRef(null);
   const wasExpandedRef = useRef(isExpanded);
+  const anchorTargetRef = useRef(anchorNavigation?.target || null);
 
   useEffect(() => {
     openSectionsRef.current = openSections;
   }, [openSections]);
+
+  useEffect(() => {
+    anchorTargetRef.current = anchorNavigation?.target || null;
+  }, [anchorNavigation?.target]);
 
   const metricGroups = useMemo(() => {
     if (!metrics.some((metric) => metric.group)) {
@@ -781,9 +794,17 @@ export default function DimensionCard({
     if (!isMobileDialog) return undefined;
 
     previousFocusRef.current = document.activeElement;
-    let frame = window.requestAnimationFrame(() => {
-      drawerRef.current?.focus({ preventScroll: true });
-    });
+    const anchorTarget = anchorTargetRef.current;
+    const hasPendingSectionTarget = anchorTarget
+      && targetBelongsToDimension(anchorTarget, dim.id)
+      && sectionKeysForTarget(anchorTarget, dim.id).length > 0;
+    let frame = null;
+
+    if (!hasPendingSectionTarget) {
+      frame = window.requestAnimationFrame(() => {
+        drawerRef.current?.focus({ preventScroll: true });
+      });
+    }
 
     const handleKeyDown = (event) => {
       if (event.key !== "Escape") return;
@@ -802,7 +823,7 @@ export default function DimensionCard({
         headerButtonRef.current?.focus({ preventScroll: true });
       }
     };
-  }, [isExpanded, isMobileDialog, onClick]);
+  }, [dim.id, isExpanded, isMobileDialog, onClick]);
 
   useLayoutEffect(() => {
     if (!isExpanded) return undefined;
@@ -870,6 +891,7 @@ export default function DimensionCard({
         block: "start",
         inline: "nearest",
       });
+      focusDisclosureButtonForTarget(targetId);
     }
 
     if (scrollIntent.instantSections?.length > 0) {

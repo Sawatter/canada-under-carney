@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-07",
+    "version": "5.102",
+    "summary": "Polished the mobile drawer motion and moved deep-link focus to the opened disclosure control.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Mobile drawer motion and focus polish",
+        "body": "Mobile dimension drawers now enter with a slightly springier sheet animation instead of the short basic slide. Deep links and jump-nav targets also move focus to the opened disclosure button after scrolling, so screen-reader users land on the section control instead of the drawer container."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-07",
     "version": "5.101",
     "summary": "Cleaned up the desktop dashboard header, centered the scorecard intro, and made desktop dimension jumps route locally inside the open card.",
     "items": [
