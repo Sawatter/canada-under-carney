@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-06-06",
+    "version": "5.100",
+    "summary": "Made expanded policy cards shorter on open by moving sources, metrics, rationale, and supporting context into labeled folds.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Concise expanded card view",
+        "body": "Expanded cards now open with the score, a compact sources line, and a metrics teaser first. The rule, why, source chips, metrics, triggers, project list, promise notes, scope, inherited context, and critic / defender views are still reachable behind controlled folds."
+      }
+    ]
+  },
+  {
     "date": "2026-06-05",
     "version": "5.99",
     "summary": "Data-freshness refresh: updated stale non-grade metrics, added the June Leger approval poll, and recorded fiscal and carbon review flags without moving grades.",
