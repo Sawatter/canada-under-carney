@@ -11,6 +11,9 @@ on:
     - cron: "17 13 1 * *"
   workflow_dispatch: {}
 
+permissions:
+  contents: read
+
 jobs:
   source-scout:
     runs-on: ubuntu-latest
