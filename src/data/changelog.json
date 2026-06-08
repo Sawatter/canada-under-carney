@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-08",
+    "version": "5.107",
+    "summary": "Polished desktop focused-view landing so every dimension opens at the top of the detail surface.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Consistent desktop detail landing",
+        "body": "Desktop focused detail now treats its first render as an opening event, so clicking any dimension lands the title, sticky section nav, and three summary blocks in view. This fixes lower-row cards opening with the summary already scrolled past while preserving close-to-grid scroll restore, deep links, and mobile drawer behavior."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-08",
     "version": "5.106",
     "summary": "Changed desktop dimension opening into a focused detail view instead of an expanded grid card.",
     "items": [

@@ -429,7 +429,7 @@ export default function DimensionCard({
   const stickyHeadRef = useRef(null);
   const miniNavRef = useRef(null);
   const previousFocusRef = useRef(null);
-  const wasExpandedRef = useRef(isExpanded);
+  const wasExpandedRef = useRef(false);
   const anchorTargetRef = useRef(anchorNavigation?.target || null);
 
   useEffect(() => {
