@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-06-08",
+    "version": "5.106",
+    "summary": "Changed desktop dimension opening into a focused detail view instead of an expanded grid card.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Desktop focused detail view",
+        "body": "On desktop, opening a dimension now replaces the grid area with a full-width reading surface instead of stretching one card inside the grid. The focused view keeps the compact sticky section nav, close control, deep-link behavior, and the same three opening summary blocks, while mobile keeps the existing full-screen drawer."
+      }
+    ]
+  },
+  {
     "date": "2026-06-07",
     "version": "5.105",
     "summary": "Moved monthly source scouting to a first-of-month cadence and readied the first inter-rater packet.",

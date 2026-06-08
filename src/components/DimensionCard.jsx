@@ -388,6 +388,7 @@ function SourceTierSummary({ counts }) {
 export default function DimensionCard({
   dim,
   isExpanded,
+  focusedDesktop = false,
   onClick,
   trackerStat,
   onInternalRef,
@@ -418,6 +419,7 @@ export default function DimensionCard({
   const [isMobileDialog, setIsMobileDialog] = useState(() => (
     typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
   ));
+  const isFocusedDesktop = focusedDesktop && !isMobileDialog;
   const openSectionsRef = useRef({});
   const pendingInstantClearRef = useRef(null);
   const localScrollRequestIdRef = useRef(0);
@@ -995,6 +997,13 @@ export default function DimensionCard({
     ? (isTracker ? "#bfa86b" : g.color)
     : (isTracker ? "#d9d4b8" : "#e0e0e0");
   const raisedShadow = isTracker ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`;
+  const rootBackground = isFocusedDesktop ? "transparent" : (isTracker ? "#fcfcf7" : "#fff");
+  const rootBorder = isFocusedDesktop ? "0" : `1px solid ${borderColor}`;
+  const rootPadding = isFocusedDesktop ? 0 : "16px";
+  const rootRadius = isFocusedDesktop ? 0 : "8px";
+  const rootShadow = isFocusedDesktop
+    ? "none"
+    : (isExpanded ? raisedShadow : "0 1px 3px rgba(0,0,0,0.06)");
   const subScoreSummary = hasSubScores
     ? Object.values(dim.subScores).map((sub) => `${sub.label}: ${sub.grade}`).join(" / ")
     : null;
@@ -1007,119 +1016,121 @@ export default function DimensionCard({
     <div
       id={`dim-${dim.id}`}
       ref={rootRef}
-      className="dimension-card-root"
+      className={`dimension-card-root${isFocusedDesktop ? " dim-focused-detail-root" : ""}`}
       style={{
-        background: isTracker ? "#fcfcf7" : "#fff",
-        border: `1px solid ${borderColor}`,
-        borderRadius: "8px",
-        padding: "16px",
+        background: rootBackground,
+        border: rootBorder,
+        borderRadius: rootRadius,
+        padding: rootPadding,
         transition: "border-color 0.2s, box-shadow 0.2s",
-        boxShadow: isExpanded ? raisedShadow : "0 1px 3px rgba(0,0,0,0.06)",
+        boxShadow: rootShadow,
         gridColumn: isExpanded ? "1 / -1" : "auto",
       }}
     >
-      <button
-        ref={headerButtonRef}
-        type="button"
-        className="dim-card-header-button"
-        onClick={onClick}
-        aria-expanded={isExpanded}
-        aria-controls={`dim-${dim.id}-drawer`}
-        aria-labelledby={`dim-${dim.id}-title`}
-      >
-        <div className="dim-card-header-content">
-          <div style={{ flex: 1, minWidth: 0 }}>
-            <h2
-              id={`dim-${dim.id}-title`}
-              style={{
-                fontWeight: 700,
-                fontSize: "15px",
-                color: "#1a1a1a",
-                fontFamily: "'DM Sans', sans-serif",
-                margin: "0 0 4px",
-                lineHeight: 1.3,
-              }}
-            >
-              {dim.name}
-              <TrendArrow trend={dim.trend} />
-              {dim.previousGrade && (
-                <span
-                  style={{
-                    fontSize: "12px",
-                    color: "#c62828",
-                    marginLeft: "4px",
-                    fontWeight: 600,
-                    whiteSpace: "nowrap",
-                    verticalAlign: "middle",
-                  }}
-                >
-                  (was {dim.previousGrade})
-                </span>
-              )}
-            </h2>
-            {isTracker && (
-              <div className="dim-tracker-pill">
-                Tracker &middot; No letter grade
-              </div>
-            )}
-            {dim.whatThisGrades && (
-              <div
+      {!isFocusedDesktop && (
+        <button
+          ref={headerButtonRef}
+          type="button"
+          className="dim-card-header-button"
+          onClick={onClick}
+          aria-expanded={isExpanded}
+          aria-controls={`dim-${dim.id}-drawer`}
+          aria-labelledby={`dim-${dim.id}-title`}
+        >
+          <div className="dim-card-header-content">
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h2
+                id={`dim-${dim.id}-title`}
                 style={{
-                  fontSize: "14px",
-                  color: "#555",
-                  fontStyle: "italic",
-                  lineHeight: 1.4,
-                  marginBottom: "4px",
+                  fontWeight: 700,
+                  fontSize: "15px",
+                  color: "#1a1a1a",
+                  fontFamily: "'DM Sans', sans-serif",
+                  margin: "0 0 4px",
+                  lineHeight: 1.3,
                 }}
               >
-                {dim.whatThisGrades}
-              </div>
-            )}
-            <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
-              {dim.status}
-            </div>
-            {dim.lastUpdated && (
-              <div className="last-reviewed-pill dim-last-reviewed-pill">
-                <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
-                  Reviewed
-                </span>
-                {dim.lastUpdated}
-                {meta.nextUpdate && (
-                  <>
-                    <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
-                    <span style={{ textTransform: "uppercase", letterSpacing: "0.35px", color: "#5a7a9b" }}>
-                      Next
-                    </span>
-                    <span style={{ color: "#5a7a9b" }}>{meta.nextUpdate}</span>
-                  </>
+                {dim.name}
+                <TrendArrow trend={dim.trend} />
+                {dim.previousGrade && (
+                  <span
+                    style={{
+                      fontSize: "12px",
+                      color: "#c62828",
+                      marginLeft: "4px",
+                      fontWeight: 600,
+                      whiteSpace: "nowrap",
+                      verticalAlign: "middle",
+                    }}
+                  >
+                    (was {dim.previousGrade})
+                  </span>
                 )}
-              </div>
-            )}
-          </div>
-          <div className="dim-card-grade-stack">
-            {isTracker ? (
-              trackerStat ? (
-                <div className="dim-tracker-count">
-                  <div className="dim-tracker-count-number">
-                    {trackerStat.delivered}
-                    <span>/{trackerStat.total}</span>
-                  </div>
-                  <div className="dim-tracker-count-label">delivered</div>
+              </h2>
+              {isTracker && (
+                <div className="dim-tracker-pill">
+                  Tracker &middot; No letter grade
                 </div>
+              )}
+              {dim.whatThisGrades && (
+                <div
+                  style={{
+                    fontSize: "14px",
+                    color: "#555",
+                    fontStyle: "italic",
+                    lineHeight: 1.4,
+                    marginBottom: "4px",
+                  }}
+                >
+                  {dim.whatThisGrades}
+                </div>
+              )}
+              <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
+                {dim.status}
+              </div>
+              {dim.lastUpdated && (
+                <div className="last-reviewed-pill dim-last-reviewed-pill">
+                  <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
+                    Reviewed
+                  </span>
+                  {dim.lastUpdated}
+                  {meta.nextUpdate && (
+                    <>
+                      <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
+                      <span style={{ textTransform: "uppercase", letterSpacing: "0.35px", color: "#5a7a9b" }}>
+                        Next
+                      </span>
+                      <span style={{ color: "#5a7a9b" }}>{meta.nextUpdate}</span>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className="dim-card-grade-stack">
+              {isTracker ? (
+                trackerStat ? (
+                  <div className="dim-tracker-count">
+                    <div className="dim-tracker-count-number">
+                      {trackerStat.delivered}
+                      <span>/{trackerStat.total}</span>
+                    </div>
+                    <div className="dim-tracker-count-label">delivered</div>
+                  </div>
+                ) : (
+                  <span className="dim-info-grade-pill">
+                    {dim.informationalGrade} informational
+                  </span>
+                )
               ) : (
-                <span className="dim-info-grade-pill">
-                  {dim.informationalGrade} informational
-                </span>
-              )
-            ) : (
-              <GradeChip grade={dim.grade} />
-            )}
-            <span className="dim-open-hint">
-              {isExpanded ? "\u25B2 close" : "\u25BC open"}
-            </span>
+                <GradeChip grade={dim.grade} />
+              )}
+              <span className="dim-open-hint">
+                {isExpanded ? "\u25B2 close" : "\u25BC open"}
+              </span>
+            </div>
           </div>
-        </div>
-      </button>
+        </button>
+      )}
 
       {isExpanded && (
         <div
@@ -1135,7 +1146,7 @@ export default function DimensionCard({
             "--dim-sticky-head": `${stickyHeadHeight}px`,
             "--dim-sticky-stack": `${stickyStackHeight}px`,
             "--dim-anchor-offset": `calc(${stickyStackHeight}px + 12px)`,
-            ...(isMobileDialog ? {} : {
+            ...(isMobileDialog || isFocusedDesktop ? {} : {
               marginTop: "16px",
               borderTop: "1px solid #eee",
             }),
@@ -1146,7 +1157,10 @@ export default function DimensionCard({
             ref={stickyHeadRef}
             className="dim-drawer-sticky-head"
           >
-            <span className="dim-drawer-title">
+            <span
+              id={isFocusedDesktop ? `dim-${dim.id}-title` : undefined}
+              className="dim-drawer-title"
+            >
               {dim.name}
             </span>
             {!isTracker && (

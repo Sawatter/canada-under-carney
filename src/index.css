@@ -144,6 +144,10 @@ button.text-link-button {
   scroll-margin-top: 20px;
 }
 
+.desktop-focused-detail-wrap {
+  scroll-margin-top: 16px;
+}
+
 .dim-card-header-button {
   width: 100%;
   display: block;
@@ -953,6 +957,44 @@ button.text-link-button {
 }
 
 @media (min-width: 768px) {
+  .desktop-focused-detail-wrap {
+    display: block;
+  }
+
+  .dim-focused-detail-root {
+    max-width: 100%;
+  }
+
+  .dim-focused-detail-root .dim-drawer {
+    background: #fff;
+    border: 1px solid #dfe4ea;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    padding: 0 18px 20px;
+  }
+
+  .dim-focused-detail-root .dim-drawer-sticky-head {
+    margin: 0 -18px;
+    padding: 12px 18px 10px;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .dim-focused-detail-root .dim-drawer-title {
+    font-size: 16px;
+  }
+
+  .dim-focused-detail-root .dim-mini-nav {
+    margin: 0 -18px 16px;
+    padding: 8px 18px;
+    border-radius: 0;
+  }
+
+  .dim-focused-detail-root .dim-default-blocks {
+    grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.9fr) minmax(220px, 0.9fr);
+    align-items: stretch;
+    gap: 12px;
+  }
+
   .dim-mini-nav-label-mobile {
     display: none;
   }

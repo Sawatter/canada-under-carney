@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import dimensions from "../data/dimensions.json";
 import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
@@ -38,11 +38,16 @@ export default function Dashboard() {
   // Which headline-score derivation panel is open: "household", "overall", or null.
   const [derivationOpen, setDerivationOpen] = useState(null);
   const [anchorNavigation, setAnchorNavigation] = useState(null);
+  const [isMobile, setIsMobile] = useState(() => isMobileViewport());
   const anchorRequestIdRef = useRef(0);
   const expandedRef = useRef(null);
   const mobileModalEntryRef = useRef(false);
+  const desktopReturnScrollRef = useRef(null);
+  const pendingDesktopReturnRef = useRef(null);
   const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
+  const expandedDimension = dimensions.find((d) => d.id === expanded) || null;
+  const isDesktopFocusedDetail = view === "scorecard" && !!expandedDimension && !isMobile;
 
   // Calculate grades and promises from the data
   const overallGPA = calculateOverallGPA(dimensions).toFixed(1);
@@ -54,6 +59,15 @@ export default function Dashboard() {
   useEffect(() => {
     expandedRef.current = expanded;
   }, [expanded]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
 
   const pushMobileModalEntry = useCallback((dimensionId) => {
     if (typeof window === "undefined") return;
@@ -69,6 +83,14 @@ export default function Dashboard() {
   }, []);
 
   const openDimension = useCallback((dimensionId, options = {}) => {
+    if (
+      typeof window !== "undefined"
+      && !isMobileViewport()
+      && expandedRef.current !== dimensionId
+    ) {
+      desktopReturnScrollRef.current = options.fromHash ? null : window.scrollY;
+    }
+
     setExpanded((current) => {
       if (current === dimensionId) return current;
       if (!options.fromHash) pushMobileModalEntry(dimensionId);
@@ -82,6 +104,9 @@ export default function Dashboard() {
       setExpanded(null);
       window.history.back();
       return;
+    }
+    if (typeof window !== "undefined" && !isMobileViewport()) {
+      pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
     }
     mobileModalEntryRef.current = false;
     setExpanded(null);
@@ -97,6 +122,7 @@ export default function Dashboard() {
 
     const isMobile = isMobileViewport();
     if (!isMobile && !closeDesktop) return;
+    if (!isMobile) pendingDesktopReturnRef.current = null;
 
     if (isMobile && mobileModalEntryRef.current) {
       mobileModalEntryRef.current = false;
@@ -273,6 +299,24 @@ export default function Dashboard() {
       document.body.style.overflow = "";
     };
   }, [expanded]);
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    if (expanded !== null || view !== "scorecard" || isMobile) return undefined;
+    const target = pendingDesktopReturnRef.current;
+    if (target === null) return undefined;
+
+    pendingDesktopReturnRef.current = null;
+    if (target === "grid") {
+      document.getElementById("scorecard-dimension-grid")?.scrollIntoView({
+        behavior: "auto",
+        block: "start",
+      });
+      return undefined;
+    }
+    window.scrollTo({ top: target, behavior: "auto" });
+    return undefined;
+  }, [expanded, isMobile, view]);
 
   const handleToggleDerivation = (variant) => {
     setDerivationOpen((curr) => (curr === variant ? null : variant));
@@ -620,28 +664,50 @@ export default function Dashboard() {
             </span>
           </div>
         </div>
-        <div
-          id="scorecard-dimension-grid"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-            gridAutoFlow: "dense",
-            gap: "12px",
-          }}
-        >
-          {scoredDimensions.map((d) => (
+        {isDesktopFocusedDetail ? (
+          <div
+            id="scorecard-dimension-grid"
+            className="desktop-focused-detail-wrap"
+          >
             <DimensionCard
-              key={d.id}
-              dim={d}
-              isExpanded={expanded === d.id}
-              onClick={() => toggleDimension(d.id)}
+              key={`focused-${expandedDimension.id}`}
+              dim={expandedDimension}
+              isExpanded
+              focusedDesktop
+              onClick={() => toggleDimension(expandedDimension.id)}
               onInternalRef={handleInternalRef}
               anchorNavigation={anchorNavigation}
               onHashTarget={handleHashTargetNavigation}
+              trackerStat={expandedDimension.excludeFromGPA ? {
+                delivered: promiseCounts["Delivered"] || 0,
+                total: totalPromises,
+              } : undefined}
             />
-          ))}
-        </div>
-        {trackerDimensions.length > 0 && (
+          </div>
+        ) : (
+          <>
+          <div
+            id="scorecard-dimension-grid"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+              gridAutoFlow: "dense",
+              gap: "12px",
+            }}
+          >
+            {scoredDimensions.map((d) => (
+              <DimensionCard
+                key={d.id}
+                dim={d}
+                isExpanded={expanded === d.id}
+                onClick={() => toggleDimension(d.id)}
+                onInternalRef={handleInternalRef}
+                anchorNavigation={anchorNavigation}
+                onHashTarget={handleHashTargetNavigation}
+              />
+            ))}
+          </div>
+          {trackerDimensions.length > 0 && (
           <div style={{ marginTop: "20px" }}>
             <div
               style={{
@@ -696,6 +762,8 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
+          )}
+          </>
         )}
         </>
       )}
