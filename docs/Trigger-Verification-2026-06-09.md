@@ -1,17 +1,17 @@
 # Independent Trigger Re-Check — 2026-06-09
 
-**Purpose:** An independent, external evidence re-check of the six carry-forward trigger evaluations the June 2026 cycle already shipped (v5.75–v5.99). Not a fresh evaluation and not a grade move. It asks one question per dimension: does current public evidence corroborate the shipped hold, or surface something the editor should still adjudicate?
+**Purpose:** An AI-assisted re-check of the six carry-forward trigger evaluations the June 2026 cycle already shipped (v5.75–v5.99), against current public evidence. Not a fresh evaluation and not a grade move. It asks one question per dimension: does current public evidence corroborate the shipped hold, or surface something the editor should still adjudicate?
 
 **Run date:** 2026-06-09
 **Dashboard state:** v5.107, `dimensions.json` data refreshed 2026-06-05 (v5.99)
-**Method:** Six parallel web-research passes under a strict anti-confabulation contract (every factual claim carries a source URL plus a verbatim quote, or is logged as "could not verify"). Findings were then reconciled against the current `dimensions.json` and the June cycle git history, not the stale 2026-05-17 source-to-trigger audit.
+**Method:** Six parallel web-research passes under a strict anti-confabulation contract (each pass had to back claims with a source URL plus a verbatim quote, or log them as "could not verify"). This note summarizes those findings and names the controlling source per claim; findings were reconciled against the current `dimensions.json` and the June cycle git history, not the stale 2026-05-17 source-to-trigger audit.
 **Boundary:** No grade, threshold, scoring, modifier, or dimension-data change. Every item below is for editor adjudication. AI-assisted research is candidate signal, not a settled finding — the editor and the scheduled Codex pass confirm against primary sources.
 
 ---
 
 ## Headline
 
-Of the six carry-forward triggers, external evidence **corroborates all six shipped holds**. Two dimensions carry an open editor decision that pre-dates this re-check and is definitional, not factual. Two time-boxed watch items land within the next ~10 days.
+Of the six carry-forward triggers, external evidence **corroborates all six shipped holds** (for Defence & Trade, the A- hold stands under either reading of its funded-pathway trigger — see below). Two dimensions carry an open editor decision that pre-dates this re-check and is definitional, not factual. Two time-boxed watch items land within the next ~10 days.
 
 ---
 
@@ -68,18 +68,18 @@ Of the six carry-forward triggers, external evidence **corroborates all six ship
 
 ## Bias-resistance note (item #4)
 
-`scripts/audit-bias-resistance.mjs` against the live data: 12 dimensions audited, **7 flagged** (the documented baseline was 6). The flags are all documented-pattern, not anomalies:
+`scripts/audit-bias-resistance.mjs` against the live data: 12 dimensions audited, **7 flagged** (documented baseline: 6 as of v5.66). Re-running the current script against the v5.66 `dimensions.json` in a throwaway worktree pins the delta exactly: the baseline six were Carbon Pricing, Ethics & Transparency, Flagship Delivery, Housing Supply, Immigration, and Promise Delivery. **The new seventh is Climate & Environment**, flagged because the May 15 Canada-Alberta MOU backgrounder (a PMO press release) is now threaded as grade-moving evidence. Expected drift from real source work, not a defect. The full current flag set, all documented-pattern:
 
-- Press-release concentration in grade-moving sources for Carbon Pricing, Climate, and Housing — driven by the legitimate threading of the May 15 Canada-Alberta MOU (a PMO backgrounder) and the Build Canada Homes pipeline page.
+- Press-release share of grade-moving sources: Carbon Pricing and Climate & Environment (the May 15 MOU backgrounder), Housing Supply (the Build Canada Homes pipeline page).
 - Flagship Delivery's long-standing >60% policy-institute concentration (a meta-rollup with a thin five-source stack).
-- Numeric-threshold trigger-symmetry notes for Immigration, Housing, and Promise Delivery (a numeric up-trigger paired with a qualitative down-trigger, or vice versa).
+- Trigger-symmetry notes: asymmetric sourcing on Carbon Pricing, Ethics & Transparency, and Immigration (one trigger unsourced on one side while the other side is fully sourced), and numeric-threshold asymmetry on Immigration, Housing Supply, and Promise Delivery (a numeric trigger on one side paired with a qualitative one on the other).
 
-`npm run test:data` passes clean (12 dimensions, approval-signal invariants, 56 frozen-surface assertions). The 6→7 delta is the MOU-threading press-release flag and is expected drift from real grade-moving source work, not a defect.
+`npm run test:data` passes clean (12 dimensions, approval-signal invariants, 56 frozen-surface assertions).
 
 ---
 
 ## Limits
 
-- AI-assisted research is candidate signal. Every claim above carries a source for the editor and the scheduled Codex pass to confirm against the primary document.
+- AI-assisted research is candidate signal. Each claim above names its controlling source for the editor and the scheduled Codex pass to confirm against the primary document.
 - Several government pages (Finance Canada gas-tax background, IRCC levels supplementary, some ECCC/canada.ca pages) returned 403 to the headless fetcher and were confirmed through secondary sources; a browser check may be needed on those.
 - This re-check reads evidence against triggers. It does not move grades, and it is not the inter-rater reliability test.
