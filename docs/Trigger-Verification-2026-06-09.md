@@ -81,5 +81,11 @@ Of the six carry-forward triggers, external evidence **corroborates all six ship
 ## Limits
 
 - AI-assisted research is candidate signal. Each claim above names its controlling source for the editor and the scheduled Codex pass to confirm against the primary document.
-- Several government pages (Finance Canada gas-tax background, IRCC levels supplementary, some ECCC/canada.ca pages) returned 403 to the headless fetcher and were confirmed through secondary sources; a browser check may be needed on those.
+- Several government pages (Finance Canada gas-tax background, IRCC levels supplementary, some ECCC/canada.ca pages) returned 403 to the headless fetcher and were confirmed through secondary sources; a browser check may be needed on those. (Closed 2026-06-12 — see Verification record.)
 - This re-check reads evidence against triggers. It does not move grades, and it is not the inter-rater reliability test.
+
+---
+
+## Verification record
+
+- **2026-06-12 — Codex cross-model pass (read-only, visible browser): no findings.** Each of the six evidence chains was checked against its primary document and supports the recorded claim — including the three pages the headless fetcher could not read. Finance Canada's gas-tax backgrounder shows 10c/L gasoline and 4c/L diesel from April 20 to September 7 (~$2.4B total relief) with no per-household figure contradicting PBO's $124 average. The IRCC 2026-2028 levels supplementary page states the below-5% temporary-resident target lands at the end of 2027, with 385,000 TR arrivals planned for 2026. The PMO Canada-Alberta backgrounder states the industrial-carbon path directly: headline price $95 in 2026, $115 in 2030, $130 in 2035, $140 in 2040, with a TIER effective-price target of $130 in 2040 and a minimum credit transfer price rising from $60 in 2030 to $110 in 2040 — Claude separately re-fetched the backgrounder and matched those figures. The bias-audit delta was independently reproduced (12 audited / 7 flagged on live data; 12 / 6 on the v5.66 data with no Climate flag), and the StatCan temporary-resident share recomputed at ~6.45%. The 11-promise quarterly recert was re-checked as still open: the May ledger rows remain "not checked" with no later recertifying commit.
