@@ -61,7 +61,7 @@ export function ApprovalCard({
       </div>
       <div
         className="scoreboard-card-main"
-        style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+        style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
       >
         <div>
           <span

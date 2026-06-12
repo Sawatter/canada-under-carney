@@ -3,21 +3,19 @@ import ScoreDerivation from "./ScoreDerivation";
 import { ApprovalCard, ApprovalDetail } from "./ApprovalSignal";
 
 // Shared card container style so the four scoreboard cards have identical
-// size, spacing, and alignment. justifyContent is flex-start so every card's
-// title sits at the same y-position, regardless of how tall the main content
-// area is.
+// size, spacing, and alignment. Each card is a subgrid spanning the row's
+// four shared tracks (title / subtitle / stat block / footer), so the same
+// slot lands at the same y-position on every card no matter how many lines
+// its copy wraps to. Column counts per viewport live in index.css.
 const cardBase = {
   background: "#fff",
   border: "1px solid #e0e0e0",
   borderRadius: "12px",
   padding: "20px 20px 18px",
   textAlign: "center",
-  flex: "1 1 220px",
-  maxWidth: "280px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "flex-start",
-  alignItems: "stretch",
+  display: "grid",
+  gridTemplateRows: "subgrid",
+  gridRow: "span 4",
 };
 
 const cardTitle = {
@@ -97,11 +95,9 @@ export default function ScoreboardHeader({
       <div
         className="scoreboard-card-row"
         style={{
-          display: "flex",
+          display: "grid",
+          gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
           gap: "16px",
-          justifyContent: "center",
-          alignItems: "stretch",
-          flexWrap: "wrap",
           marginBottom: "12px",
         }}
       >
@@ -111,7 +107,7 @@ export default function ScoreboardHeader({
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             How the government is performing on housing, cost of living, the economy, and spending.
           </div>
-          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <GradeChip grade={pocketbookGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {pocketbookGPA}</div>
           </div>
@@ -141,7 +137,7 @@ export default function ScoreboardHeader({
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             How the Carney government is performing across all 11 policy areas.
           </div>
-          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <GradeChip grade={overallGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {overallGPA}</div>
           </div>
@@ -171,7 +167,7 @@ export default function ScoreboardHeader({
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             A running count of tracked government commitments across every dimension.
           </div>
-          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <div
               style={{
                 fontFamily: "'DM Mono', monospace",

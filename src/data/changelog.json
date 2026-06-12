@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-06-12",
+    "version": "5.108",
+    "summary": "Aligned the four scoreboard summary cards so titles, descriptions, scores, and footers sit on shared rows.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Scoreboard cards line up",
+        "body": "The Household Impact, Full Policy Audit, Promises Delivered, and Approval Signal cards now share row tracks, so each card's title, description, stat, and footer land at the same height instead of drifting with copy length. Phones keep the single-column stack, tablets get a 2x2 layout, and the open poll drilldown no longer forces a sideways page scroll on phones."
+      }
+    ]
+  },
+  {
     "date": "2026-06-08",
     "version": "5.107",
     "summary": "Polished desktop focused-view landing so every dimension opens at the top of the detail surface.",

@@ -1134,11 +1134,12 @@ button:focus-visible, [role="button"]:focus-visible {
 a { color: inherit; }
 a:hover { text-decoration: underline; }
 
-/* Scoreboard cards need shared internal slots as well as a shared outer box.
-   Without this, each card's subtitle and stat block drift vertically based on
-   copy length, which is what makes the first row feel visually sloppy. */
+/* Scoreboard cards align by sharing the row's grid tracks (subgrid): title,
+   subtitle, stat block, and footer each live on a common track, so the four
+   cards line up at any copy length or viewport width. The old fixed
+   min-heights (4.3em / 6rem) are gone — they mis-aligned whenever a subtitle
+   wrapped one line past the reservation (Household at desktop width). */
 .scoreboard-card-title {
-  min-height: 0;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1146,17 +1147,10 @@ a:hover { text-decoration: underline; }
 }
 
 .scoreboard-card-subtitle {
-  min-height: 4.3em;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   text-wrap: pretty;
-}
-
-.scoreboard-card-main {
-  flex: 0 0 auto;
-  min-height: 6rem;
-  justify-content: center;
 }
 
 .scoreboard-card-footer {
@@ -1182,9 +1176,24 @@ a:hover { text-decoration: underline; }
 
 .scoreboard-detail {
   order: 50;
-  flex: 1 1 100%;
+  grid-column: 1 / -1;
+  justify-self: center;
   max-width: 1120px;
   width: 100%;
+  /* Contain wide inner content (the poll table's min-content is ~417px):
+     without this the detail pushes past the track on phones and forces a
+     page-level horizontal scroll. Pre-existing under the old flex row too. */
+  min-width: 0;
+  overflow-x: auto;
+}
+
+/* Scoreboard columns: 4-up on desktop (set inline), 2x2 on tablets, single
+   column on phones (set in the 640px block below). !important beats the
+   inline grid template. */
+@media (max-width: 980px) and (min-width: 641px) {
+  .scoreboard-card-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
 }
 
 /* ---------------------------------------------------------------
@@ -1235,16 +1244,8 @@ a:hover { text-decoration: underline; }
     font-size: 24px !important;
   }
 
-  .scoreboard-card-title {
-    min-height: auto;
-  }
-
-  .scoreboard-card-subtitle {
-    min-height: 4.8em;
-  }
-
-  .scoreboard-card-main {
-    min-height: 9.25rem;
+  .scoreboard-card-row {
+    grid-template-columns: 1fr !important;
   }
 
   .scoreboard-detail-household { order: 11; }
@@ -1299,7 +1300,6 @@ a:hover { text-decoration: underline; }
   }
 
   .scoreboard-card {
-    flex: 1 1 100% !important;
     max-width: 100% !important;
     min-width: 0 !important;
   }
