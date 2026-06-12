@@ -4,6 +4,34 @@ Purpose: keep external trust and usability feedback traceable to concrete produc
 
 Status: active public-feedback log. This is not a scoring memo and does not itself change any grade.
 
+## 2026-06-12 Reddit source-balance and framing feedback
+
+### Signal received
+
+A reader who had initially found the dashboard interesting came back after a closer look at the source registration and offered a more trust-focused critique:
+
+- Source selections could be expanded within categories, and the project may need more source categories.
+- Where a source like Fraser Institute appears, the reader expected a clearly visible alternate perspective or analytical counterweight, such as environmental or watchdog analysis.
+- The reader asked who decides the parameters and whether the dashboard is mainly the editor's reference tool or something fleshed out enough for broader public use.
+- The title `Canada Under Carney` read as more loaded than intended to this reader: Carney as all government, Canada below or subject to Carney, or a name attached to a feeling.
+- The reader did not see enough accounting for the past six years of disruption or factors outside the current government's control.
+
+### Methodological interpretation
+
+This is useful reader-perception feedback, not a grade or source-change instruction. It points to four trust surfaces:
+
+- **Source-role visibility:** balance is not only whether the source stack contains varied families. Readers need to see why a given source is present and what counterweight exists nearby.
+- **Rubric ownership:** the dashboard is a transparent solo scorecard, not a neutral public institution. The editor sets the parameters; the safeguard is that thresholds, sources, judgment calls, and triggers are public and can be challenged.
+- **Title framing:** `Canada Under Carney` was intended as period framing, meaning during the Carney government. At least one reader heard a more loaded meaning. This may need softer surrounding copy rather than an immediate rename.
+- **External-control clarity:** the model should keep distinguishing government performance from background conditions outside federal control. Where this is already handled through scope notes, deconfliction rules, or context-only metrics, the UI may need to make that easier to find.
+
+### Remaining follow-ups
+
+1. Do not add sources reactively from this comment alone; handle source-stack changes through the monthly source-band / source-role process.
+2. Consider a later About or Methodology FAQ entry: "Who sets the rubric?"
+3. Consider whether first-viewport or About-page copy should clarify that the title means "during the Carney government."
+4. During the July data cycle, watch whether source-role labels and context/confounder notes are visible enough for readers who do not open every fold.
+
 ## 2026-05-02 Reddit trust-feedback wave
 
 ### Signal received
