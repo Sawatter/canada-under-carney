@@ -60,7 +60,7 @@ The basis under the cited source has shifted: Bill C-5 received Royal Assent **2
 - **Ethics Commissioner review.** Registry (ciec-ccie.parl.gc.ca) returned 503 to headless fetches — could not verify directly. Negative evidence is consistent across CBC/Democracy Watch/targeted searches: no formal examination of the PM opened or published through 2026-06-12. Commissioner testimony to ETHI (unaware of several Carney-Brookfield meetings) is committee evidence, not an examination. Manual browser check queued for the Codex pass.
 - **Get big projects built quickly.** Policy Options critique live and supporting. Noted for the record: **Contrecoeur Terminal broke ground 2026-04-09** — the first MPO-cohort construction start, "less than seven months after the referral... after a $1.16 billion financing commitment from the Canada Infrastructure Bank" (Spring Economic Update, confirmed directly). One construction start among the 15-project cohort; April analyst commentary (EnergyNow) criticized MPO transparency.
 - **Emissions cap.** Re-confirmed dead post-April: Environmental Defence (2026-05-15) — "PM Carney scrapped the planned cap on emissions from the oil and gas industry" — in the Canada-Alberta implementation agreement context. No revival signals. Cited National Observer page is live but 403s headless (paywall/bot block).
-- **EV mandate.** Status holds and is now *better* supported than when set: the September 2025 pause hardened into formal repeal of the EV Availability Standard on **2026-02-05** (Electric Autonomy: "Prime Minister Mark Carney today announced the end of the Electric Vehicle Availability Standard"; corroborated by ESG Today and Global News), replaced by a voluntary 75%-by-2035 target plus $2.3B in rebates. **Maintenance candidate:** repoint `statusSourceUrl` from the Narwhal pause explainer to the February repeal coverage.
+- **EV mandate.** Status holds and is now *better* supported than when set: the September 2025 pause hardened into a repeal / replacement announcement for the EV Availability Standard on **2026-02-05** (Electric Autonomy: "Prime Minister Mark Carney today announced the end of the Electric Vehicle Availability Standard"; the official PMO release says the new GHG-standard approach "will enable the Government of Canada to repeal" the standard; corroborated by ESG Today and Global News), replaced by a voluntary 75%-by-2035 target plus $2.3B in rebates. **Maintenance candidate:** repoint `statusSourceUrl` from the Narwhal pause explainer to the February repeal / replacement coverage; the formal legal repeal instrument was not confirmed in this pass.
 - **2 Billion Trees (halved).** Budget 2025 Ch.5, live, confirmed: "The government will wind down the 2 Billion Trees program. Existing contribution agreements and commitments will be honoured." NRCan program page: "no longer accepting applications." May 2026 BC project announcements are pre-wind-down agreement fulfillment, not revival. **Label note:** the promise label says "halved"; the Budget language is full wind-down of new commitments (the program was tracking near ~1B of 2B trees when cut). Editor may want to confirm the "halved" framing's source or relabel.
 
 ---
@@ -79,6 +79,15 @@ The basis under the cited source has shifted: Bill C-5 received Royal Assent **2
 
 - AI-assisted research is candidate signal; each claim names its controlling source for the editor and the Codex pass to confirm. The two editor flags were independently re-fetched against primary documents (PMO release; Spring Economic Update) before recording — including correcting one search-summary paraphrase ("still endeavouring") to the document's actual words ("advancing efforts to realise").
 - This recert does not move statuses or grades, and it is not the monthly cycle.
+
+## Adjudication outcomes (2026-06-12)
+
+Both editor flags were adjudicated the same day in a structured grill-me session and shipped as v5.109:
+
+- **Conserve biodiversity / freshwater: Stalled → In Progress.** The 2026-03-31 $3.8B A Force of Nature launch meets the coding-rules In Progress bar (funding allocated, program structure announced). The AG delivery critique and marine 28% shortfall stay in the evidence note. Status source repointed to the PMO release.
+- **One Project, One Review: Stalled → In Progress.** Enabling law in force plus seven signed provincial cooperation agreements meet the bar (legislation, partial implementation). The lapsed 6-month deadline and the absence of a completed single-assessment cycle stay in the evidence note.
+- The EV-mandate maintenance candidate was applied (status source upgraded to the 2026-02-05 formal-repeal coverage). The 2 Billion Trees "halved" label remains open.
+- Same-day related decisions on the grade side: the Carbon effective-price metric definition (marginal compliance price) and the Climate CER armed watch — see the v5.109 changelog and Trigger-Verification-2026-06-09.md.
 
 ## Verification record
 

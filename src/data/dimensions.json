@@ -748,15 +748,20 @@
       },
       {
         "text": "One Project, One Review within 6 months",
-        "status": "Stalled",
-        "since": "2026-04-14",
-        "evidence": "Aspiration stated but regulatory harmonization not yet achieved across agencies.",
+        "status": "In Progress",
+        "since": "2026-06-12",
+        "evidence": "C-5 in force since 2025-06-26 and seven provincial cooperation agreements signed (Alberta 2026-04-02, Ontario 2025-12-18, plus BC, MB, NB, NS, PEI). The platform's 6-month deadline lapsed unmet, and no project has yet completed a single-assessment cycle under the new regime. Meets the In Progress bar (legislation in force, partial implementation documented).",
         "durability": "Framework",
         "history": [
           {
             "date": "2026-04-14",
             "status": "Stalled",
             "note": "Initial assessment"
+          },
+          {
+            "date": "2026-06-12",
+            "status": "In Progress",
+            "note": "Quarterly recert + editor adjudication: enabling law plus seven signed provincial agreements meet the coding-rules In Progress bar. Deadline miss and absence of a completed single-assessment cycle retained in evidence."
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
@@ -1766,7 +1771,7 @@
     "trend": "stable",
     "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $110/t 2026 headline but a weak effective price (~$20/t marginal; CCI puts the average cost on total emissions at ~$10/t or less). Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
     "judgmentCall": "Middle grade credits the consumer-price promise while discounting the weak effective industrial price.",
-    "judgmentDetail": "The C grade separates promise delivery from instrument strength. The consumer charge removal is credited as an executed campaign promise, but the industrial system is discounted because the effective price signal is far below the headline schedule. Judgment enters in treating the pricing instrument as partially intact but not clearly strong enough to merit a higher grade.",
+    "judgmentDetail": "The C grade separates promise delivery from instrument strength. The consumer charge removal is credited as an executed campaign promise, but the industrial system is discounted because the effective price signal is far below the headline schedule. Judgment enters in treating the pricing instrument as partially intact but not clearly strong enough to merit a higher grade. Definition fixed by editor decision (2026-06-12): the effective-price triggers adjudicate on the marginal compliance price — the market price of compliance credits under the federal OBPS and equivalent provincial systems (currently ~$20/t) — not the economy-wide average cost per tonne, which is shown as a context metric and does not move the grade. Under that definition the May 15 Canada-Alberta agreement was considered against the $15/t down-trigger and did not fire it: the agreement weakens the forward price trajectory, not the current marginal price.",
     "surfaceTags": [
       "Instrument-only file"
     ],
@@ -1816,7 +1821,7 @@
     "gradeTriggers": {
       "up": [
         {
-          "text": "OBPS tightened with effective price rising above $40/t",
+          "text": "OBPS tightened with effective marginal price rising above $40/t",
           "setDate": "2026-04-17",
           "sourceLabel": "CCI — industrial pricing",
           "sourceUrl": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
@@ -1829,7 +1834,7 @@
       ],
       "down": [
         {
-          "text": "OBPS further weakened with effective price below $15/t",
+          "text": "OBPS further weakened with effective marginal price below $15/t",
           "setDate": "2026-04-17",
           "sourceLabel": "CCI — industrial pricing",
           "sourceUrl": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
@@ -1922,7 +1927,7 @@
             "url": "https://climateinstitute.ca/news/fact-sheet-canada-industrial-carbon-pricing-systems/"
           }
         ],
-        "sourceNote": "CCI's March 6, 2026 fact sheet: industrial carbon pricing imposes around $10 or less per tonne of total emissions against a $95/t carbon price (CCI's analysis base; the 2026 headline is $110/t). This is an AVERAGE cost across all emissions — distinct from the marginal effective price the grade triggers track (the ~$20 figure above) and from CCI's $130/t EMCP benchmark. Shown so readers see how little carbon cost the average tonne bears; it is not the trigger measure.",
+        "sourceNote": "CCI's March 6, 2026 fact sheet: industrial carbon pricing imposes around $10 or less per tonne of total emissions against a $95/t carbon price (CCI's analysis base; since the May 15 benchmark update the 2026 headline is also $95/t). This is an AVERAGE cost across all emissions — distinct from the marginal effective price the grade triggers track (the ~$20 figure above) and from CCI's $130/t EMCP benchmark. Shown so readers see how little carbon cost the average tonne bears; it is not the trigger measure.",
         "automatable": false
       },
       {
@@ -2020,7 +2025,7 @@
     "trend": "down",
     "status": "Major environmental policy reversals. No replacement strategy. CCI confirms Canada on track for half of required 2030 reduction. See Carbon Pricing Policy for industrial pricing details.",
     "judgmentCall": "Low grade reflects missing replacement strategy after reversals, not single-month emissions movement.",
-    "judgmentDetail": "The D grade is driven by the policy framework: major reversals, no funded replacement strategy, shrinking institutional capacity, and an acknowledged gap to 2030 targets. Judgment enters in deconflicting this file from Carbon Pricing Policy and in weighting framework credibility more heavily than short-run emissions noise.",
+    "judgmentDetail": "The D grade is driven by the policy framework: major reversals, no funded replacement strategy, shrinking institutional capacity, and an acknowledged gap to 2030 targets. Judgment enters in deconflicting this file from Carbon Pricing Policy and in weighting framework credibility more heavily than short-run emissions noise. Editor decision (2026-06-12): the May 14 announced weakening of the Clean Electricity Regulations was considered against the program-eliminations down-trigger and did not fire it — the same announced-is-not-done rule that withholds credit for announcements also withholds penalties for them. The trigger is armed: a materially weakening CER amendment published in the Canada Gazette, or repeal, brings it back for adjudication.",
     "surfaceTags": [
       "Framework file"
     ],
@@ -2091,7 +2096,14 @@
           "text": "Additional climate program eliminations",
           "setDate": "2026-04-17",
           "sourceLabel": "ECCC 2025-26 Departmental plan at a glance",
-          "sourceUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
+          "sourceUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html",
+          "additionalSources": [
+            {
+              "label": "PMO — National Electricity Strategy / CER adjustment announcement (2026-05-14)",
+              "url": "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity",
+              "role": "Armed watch evidence (editor decision 2026-06-12): the announced intention to weaken the Clean Electricity Regulations does not fire this trigger on its own — announced is not done, in both directions. The trigger comes back for adjudication when a materially weakening CER amendment is published in the Canada Gazette or the CER is repealed."
+            }
+          ]
         }
       ]
     },
@@ -2243,21 +2255,26 @@
       },
       {
         "text": "Conserve biodiversity / freshwater",
-        "status": "Stalled",
-        "since": "2026-04-14",
-        "evidence": "$3.8B recommitted for 30x30 target (March 2026). Marine target will fall short at 28%.",
+        "status": "In Progress",
+        "since": "2026-06-12",
+        "evidence": "A Force of Nature strategy launched 2026-03-31: $3.8B with named programs (up to 14 new marine protected areas, at least 10 national parks, 15 urban parks). Meets the In Progress bar (funding allocated, program structure announced). Delivery milestones remain unmet: the Auditor General found the 25-by-2025 milestone missed and 30x30 planning ineffective, and the marine target is projected to fall short at 28%.",
         "durability": "Commitment",
         "history": [
           {
             "date": "2026-04-14",
             "status": "Stalled",
             "note": "Initial assessment"
+          },
+          {
+            "date": "2026-06-12",
+            "status": "In Progress",
+            "note": "Quarterly recert + editor adjudication: the 2026-03-31 $3.8B funded strategy launch meets the coding-rules In Progress bar. AG delivery critique retained in evidence."
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
-        "statusSourceUrl": "https://www.canada.ca/en/services/environment/nature/nature-strategy.html",
-        "statusSourceLabel": "Canada.ca — A Force of Nature strategy"
+        "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/31/prime-minister-carney-launches-new-nature-strategy-protect-canadas",
+        "statusSourceLabel": "PMO — A Force of Nature strategy launch"
       },
       {
         "text": "Net-zero commitment",
@@ -3563,8 +3580,8 @@
         ],
         "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/news/2023/12/canadas-electric-vehicle-availability-standard-regulated-targets-for-zero-emission-vehicles.html",
         "originalSourceLabel": "ECCC — Electric Vehicle Availability Standard",
-        "statusSourceUrl": "https://thenarwhal.ca/mark-carney-climate-change-explainer/",
-        "statusSourceLabel": "The Narwhal — climate rollback analysis (EV mandate pause)"
+        "statusSourceUrl": "https://electricautonomy.ca/policy-regulations/2026-02-05/canada-repeals-ev-availability-standard-restores-5000-vehicle-incentives-with-new-automotive-policy/",
+        "statusSourceLabel": "Electric Autonomy — EVAS formally repealed (2026-02-05)"
       },
       {
         "text": "2 Billion Trees (halved)",

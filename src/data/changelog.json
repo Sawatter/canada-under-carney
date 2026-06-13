@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-06-12",
+    "version": "5.109",
+    "summary": "Editor adjudication: the carbon effective-price trigger now names its metric, the Clean Electricity Regulations watch is armed, and two stalled promises moved to In Progress.",
+    "items": [
+      {
+        "type": "method",
+        "headline": "Carbon effective-price metric defined",
+        "body": "The $15/t and $40/t triggers now adjudicate on the effective marginal price, meaning the market price of compliance credits (currently about $20/t). The economy-wide average cost and the Canada-Alberta scheduled price stay visible as labeled context metrics that do not move the grade. Under that definition the May 15 agreement weakened the forward trajectory but did not fire the down-trigger, so Carbon Pricing holds C."
+      },
+      {
+        "type": "method",
+        "headline": "Clean Electricity Regulations watch armed",
+        "body": "The May 14 announced weakening of the CER was considered against Climate's program-eliminations down-trigger and did not fire it: announced is not done, in both directions. The firing condition is pre-committed in the data. A materially weakening amendment published in the Canada Gazette, or repeal, brings the trigger back for adjudication. Climate holds D."
+      },
+      {
+        "type": "event",
+        "headline": "Two promises move from Stalled to In Progress",
+        "body": "Conserve biodiversity / freshwater moves on the March 31 launch of the $3.8B A Force of Nature strategy (funding allocated, program structure named), and One Project, One Review moves on C-5 being in force with seven signed provincial cooperation agreements. Both evidence notes keep the shortfalls visible: missed conservation milestones, the lapsed 6-month deadline, and no completed single-assessment cycle. The tracker now reads 6 stalled."
+      },
+      {
+        "type": "minor",
+        "headline": "EV-mandate status evidence upgraded",
+        "body": "The Abandoned status now cites the February 5, 2026 formal repeal of the EV Availability Standard rather than the earlier pause coverage."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-12",
     "version": "5.108",
     "summary": "Aligned the four scoreboard summary cards so titles, descriptions, scores, and footers sit on shared rows.",
     "items": [
