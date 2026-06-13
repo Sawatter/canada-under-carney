@@ -811,7 +811,8 @@ button.text-link-button {
 }
 
 .dim-rule-table,
-.dim-cohort-table {
+.dim-cohort-table,
+.dim-evidence-timeline-table {
   width: 100%;
   min-width: 560px;
   border-collapse: collapse;
@@ -821,17 +822,69 @@ button.text-link-button {
 .dim-rule-table th,
 .dim-rule-table td,
 .dim-cohort-table th,
-.dim-cohort-table td {
+.dim-cohort-table td,
+.dim-evidence-timeline-table th,
+.dim-evidence-timeline-table td {
   text-align: left;
   padding: 4px 6px;
   border: 1px solid #e0e0e0;
+  vertical-align: top;
 }
 
 .dim-rule-table th,
-.dim-cohort-table th {
+.dim-cohort-table th,
+.dim-evidence-timeline-table th {
   background: #f6f9fc;
   color: #777;
   font-weight: 700;
+}
+
+.dim-evidence-timeline-table {
+  min-width: 760px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.dim-evidence-timeline-table th:first-child,
+.dim-evidence-timeline-table td:first-child {
+  width: 96px;
+}
+
+.dim-evidence-timeline-table th:nth-child(2),
+.dim-evidence-timeline-table td:nth-child(2) {
+  width: 210px;
+}
+
+.dim-evidence-date {
+  font-family: 'DM Mono', monospace;
+  color: #555;
+  white-space: nowrap;
+}
+
+.dim-evidence-source-link {
+  color: #1565c0;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dim-evidence-source-label {
+  font-weight: 700;
+  color: #555;
+}
+
+.dim-evidence-effect {
+  display: inline-flex;
+  border-radius: 999px;
+  border: 1px solid #d8e3ff;
+  background: #f0f4ff;
+  color: #3949ab;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
 }
 
 .dim-cohort-table {

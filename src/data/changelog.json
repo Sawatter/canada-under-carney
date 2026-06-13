@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-06-13",
+    "version": "5.112",
+    "summary": "Added a per-dimension evidence timeline and refreshed the safe June 13 data items without moving any grades.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Evidence timeline added to dimension cards",
+        "body": "Each open dimension now has a Timeline section that lays out dated evidence rows in plain language: source, what it showed, and how it is used. It is a reader-facing evidence trail, not a new scoring formula."
+      },
+      {
+        "type": "minor",
+        "headline": "Approval Signal refreshed",
+        "body": "The ungraded approval card now includes the June Abacus Data and Angus Reid Institute releases. The 60-day weighted average reads 56% approve, 32% disapprove, net +23, across 8 polls."
+      },
+      {
+        "type": "minor",
+        "headline": "Promise count summary reconciled",
+        "body": "The Promise Delivery metric for stalled or abandoned commitments now matches the post-recertification ledger: 6 stalled plus 3 abandoned, or 9 of 43. No promise status changed in this update."
+      },
+      {
+        "type": "minor",
+        "headline": "MPO project name aligned",
+        "body": "The Major Projects cohort now uses the current MPO listing name for Northcliff Resources' Sisson Mine. The cohort count, stage, and grade are unchanged."
+      }
+    ]
+  },
+  {
     "date": "2026-06-12",
     "version": "5.111",
     "summary": "Relabelled the 2 Billion Trees promise to match Budget 2025's wind-down wording instead of inferring a halved outcome.",

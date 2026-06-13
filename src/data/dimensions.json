@@ -660,9 +660,9 @@
           "sourceLabel": "PMO second tranche announcement"
         },
         {
-          "name": "Sisson Tungsten Mine",
-          "sponsor": "Northcliff Resources",
-          "location": "New Brunswick",
+          "name": "Northcliff Resources' Sisson Mine",
+          "sponsor": "Northcliff Resources Ltd.",
+          "location": "Sisson Brook, New Brunswick",
           "tranche": 2,
           "referredDate": "2025-11-13",
           "stage": "designated",
@@ -3443,7 +3443,7 @@
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
       }
     ],
-    "lastUpdated": "2026-06-05",
+    "lastUpdated": "2026-06-13",
     "metrics": [
       {
         "label": "Key commitments delivered",
@@ -3454,9 +3454,9 @@
       },
       {
         "label": "Commitments stalled or abandoned",
-        "value": "11 of 43",
+        "value": "9 of 43",
         "source": "editorial",
-        "sourceNote": "Editorial tally. See individual promise entries for evidence basis.",
+        "sourceNote": "Editorial tally after the 2026-06 quarterly recert and editor adjudications: 6 stalled and 3 abandoned. See individual promise entries for evidence basis.",
         "automatable": false
       },
       {

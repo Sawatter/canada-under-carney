@@ -65,6 +65,7 @@ const TOP_LEVEL_SECTIONS = [
   "context",
   "rule",
   "why",
+  "timeline",
   "subScores",
   "triggers",
   "metrics",
@@ -181,6 +182,7 @@ function sectionKeysForTarget(target, dimId) {
   if (target === `dim-${dimId}-inherited`) return ["inherited"];
   if (target === `dim-${dimId}-skeptic-path`) return ["skeptic"];
   if (target === `dim-${dimId}-why`) return ["why"];
+  if (target === `dim-${dimId}-timeline`) return ["timeline"];
   if (target === `dim-${dimId}-subscores`) return ["subScores"];
   if (target === `dim-${dimId}-promises`) return ["promises"];
   if (target === `dim-${dimId}-tracker-triggers`) return ["trackerTriggers"];
@@ -385,6 +387,106 @@ function SourceTierSummary({ counts }) {
   );
 }
 
+function normalizeDateForSort(date) {
+  if (!date) return "0000-00-00";
+  const match = String(date).match(/\d{4}-\d{2}-\d{2}/);
+  return match ? match[0] : String(date);
+}
+
+function sourceFromMetric(metric) {
+  const sourceRef = metric?.sourceRefs?.[0];
+  if (sourceRef) {
+    return {
+      label: sourceRef.label,
+      url: sourceRef.url,
+    };
+  }
+  if (metric?.source && metric.source !== "manual" && metric.source !== "editorial") {
+    return {
+      label: metric.source,
+      url: null,
+    };
+  }
+  return {
+    label: metric?.source === "editorial" ? "Editorial tally" : "Dashboard metric",
+    url: null,
+  };
+}
+
+function sourceFromTrigger(trigger) {
+  const item = normalizeTrigger(trigger);
+  if (!item) return null;
+  return {
+    label: item.sourceLabel || "Trigger condition",
+    url: item.sourceUrl || null,
+  };
+}
+
+function latestPromiseDate(promise, fallback) {
+  if (promise?.since) return promise.since;
+  if (Array.isArray(promise?.history) && promise.history.length > 0) {
+    return promise.history
+      .map((event) => event.date)
+      .filter(Boolean)
+      .sort()
+      .at(-1);
+  }
+  return fallback;
+}
+
+function buildEvidenceTimeline(dim, metrics, isTracker) {
+  const rows = [];
+  const reviewedDate = dim.lastUpdated || meta.lastUpdated;
+
+  if (!isTracker && dim.grade) {
+    rows.push({
+      date: reviewedDate,
+      source: { label: "Current grade read", url: null },
+      what: `${dim.grade} grade: ${dim.gradeBasis?.bandCriterion || dim.status}`,
+      effect: "Current grade",
+    });
+  }
+
+  metrics.forEach((metric) => {
+    rows.push({
+      date: metric.asOf || reviewedDate,
+      source: sourceFromMetric(metric),
+      what: `${metric.label}: ${metric.value}`,
+      effect: metric.automatable === false ? "Context / editorial metric" : "Metric evidence",
+    });
+  });
+
+  ["up", "down"].forEach((direction) => {
+    const triggers = dim.gradeTriggers?.[direction] || [];
+    triggers.forEach((trigger) => {
+      const item = normalizeTrigger(trigger);
+      if (!item) return;
+      rows.push({
+        date: item.setDate || reviewedDate,
+        source: sourceFromTrigger(item),
+        what: item.text,
+        effect: direction === "up" ? "Up-trigger watch" : "Down-trigger watch",
+      });
+    });
+  });
+
+  (dim.promises || []).forEach((promise) => {
+    rows.push({
+      date: latestPromiseDate(promise, reviewedDate),
+      source: {
+        label: promise.statusSourceLabel || promise.originalSourceLabel || "Promise evidence",
+        url: promise.statusSourceUrl || promise.originalSourceUrl || null,
+      },
+      what: `${promise.text}: ${promise.status}${promise.evidence ? ` - ${promise.evidence}` : ""}`,
+      effect: "Promise tracker evidence",
+    });
+  });
+
+  return rows
+    .filter((row) => row.what)
+    .sort((a, b) => normalizeDateForSort(b.date).localeCompare(normalizeDateForSort(a.date)));
+}
+
 export default function DimensionCard({
   dim,
   isExpanded,
@@ -456,6 +558,10 @@ export default function DimensionCard({
       return groups;
     }, []);
   }, [metrics]);
+  const evidenceTimelineRows = useMemo(
+    () => buildEvidenceTimeline(dim, metrics, isTracker),
+    [dim, isTracker, metrics]
+  );
 
   const scoringMetadata = [];
   if (dim.tags?.confidence) scoringMetadata.push({ label: "Confidence", value: dim.tags.confidence });
@@ -490,6 +596,7 @@ export default function DimensionCard({
 
   const hasRuleSection = !isTracker && (dim.construct || scoring || scoringMetadata.length > 0);
   const hasWhySection = !isTracker && !!(dim.gradeBasis || dim.rationale || dim.judgmentDetail || modifierItems.length > 0);
+  const hasEvidenceTimeline = evidenceTimelineRows.length > 0;
   const hasSubScores = !isTracker && !!dim.subScores;
   const hasProjects = !!(cohort && cohort.projects && cohort.projects.length > 0);
   const hasPromises = !!(dim.promises && dim.promises.length > 0);
@@ -501,6 +608,7 @@ export default function DimensionCard({
     if (keyContextItems.length > 0) sections.push("context");
     if (hasRuleSection) sections.push("rule");
     if (hasWhySection) sections.push("why");
+    if (hasEvidenceTimeline) sections.push("timeline");
     if (hasSubScores) sections.push("subScores");
     if (showTriggers && !hasTrackerTriggers) sections.push("triggers");
     if (metrics.length > 0) sections.push("metrics");
@@ -526,6 +634,7 @@ export default function DimensionCard({
     dim.scope,
     hasProjects,
     hasPromises,
+    hasEvidenceTimeline,
     hasRuleSection,
     hasSubScores,
     hasTrackerTriggers,
@@ -542,6 +651,7 @@ export default function DimensionCard({
     if (isTracker) {
       return [
         metrics.length > 0 && { label: "Metrics", anchor: `dim-${dim.id}-metrics`, keys: ["metrics"] },
+        hasEvidenceTimeline && { label: "Timeline", anchor: `dim-${dim.id}-timeline`, keys: ["timeline"] },
         sources.length > 0 && { label: "Sources", anchor: `dim-${dim.id}-sources`, keys: ["sources"] },
         hasPromises && { label: "Promises", anchor: `dim-${dim.id}-promises`, keys: ["promises"] },
         hasTrackerTriggers && { label: "Moves", anchor: `dim-${dim.id}-tracker-triggers`, keys: ["trackerTriggers"] },
@@ -551,6 +661,7 @@ export default function DimensionCard({
     return [
       hasRuleSection && { label: "Rule", anchor: `dim-${dim.id}-scoring`, keys: ["rule"] },
       showTriggers && { label: "Triggers", anchor: `dim-${dim.id}-triggers-section`, keys: ["triggers"] },
+      hasEvidenceTimeline && { label: "Timeline", anchor: `dim-${dim.id}-timeline`, keys: ["timeline"] },
       metrics.length > 0 && { label: "Evidence", anchor: `dim-${dim.id}-metrics`, keys: ["metrics"] },
       sources.length > 0 && { label: "Sources", anchor: `dim-${dim.id}-sources`, keys: ["sources"] },
       hasProjects && { label: "Projects", anchor: `dim-${dim.id}-cohort`, keys: ["projects", "cohortList"] },
@@ -561,6 +672,7 @@ export default function DimensionCard({
     dim.perspectives,
     hasProjects,
     hasPromises,
+    hasEvidenceTimeline,
     hasRuleSection,
     hasTrackerTriggers,
     isTracker,
@@ -1587,6 +1699,22 @@ export default function DimensionCard({
               </DisclosureSection>
             )}
 
+            {hasEvidenceTimeline && (
+              <DisclosureSection
+                id={`dim-${dim.id}-timeline`}
+                title="Evidence timeline"
+                summary={`${evidenceTimelineRows.length} rows`}
+                isOpen={!!openSections.timeline}
+                onToggle={() => toggleSection("timeline")}
+                region
+                active={activeSectionKeys.includes("timeline")}
+                variant="green"
+                instantOpen={isInstantOpenSection("timeline")}
+              >
+                <EvidenceTimeline rows={evidenceTimelineRows} />
+              </DisclosureSection>
+            )}
+
             {showTriggers && !hasTrackerTriggers && (
               <DisclosureSection
                 id={`dim-${dim.id}-triggers-section`}
@@ -1835,6 +1963,61 @@ function TriggerColumns({ up, down, renderTriggerItem, keyPrefix, upLabel, downL
         <div className="dim-trigger-list">
           {down.map((trigger, i) => renderTriggerItem(trigger, `${keyPrefix}-down-${i}`))}
         </div>
+      </div>
+    </div>
+  );
+}
+
+function EvidenceTimeline({ rows }) {
+  return (
+    <div className="dim-stack">
+      <div className="dim-note-box">
+        This is the evidence trail the grade reads against. It is not a
+        weighted formula.
+      </div>
+      <div className="dim-table-wrap">
+        <table className="dim-evidence-timeline-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Source</th>
+              <th>What it showed</th>
+              <th>Used as</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row, i) => (
+              <tr key={`${row.date || "undated"}-${row.effect}-${i}`}>
+                <td className="dim-evidence-date">{row.date || "Undated"}</td>
+                <td>
+                  {row.source?.url ? (
+                    <a
+                      href={row.source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="dim-evidence-source-link"
+                    >
+                      {row.source.label}
+                      <SourceTierBadge url={row.source.url} />
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    <span className="dim-evidence-source-label">
+                      {row.source?.label || "Dashboard evidence"}
+                    </span>
+                  )}
+                </td>
+                <td>{row.what}</td>
+                <td>
+                  <span className="dim-evidence-effect">
+                    {row.effect}
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
