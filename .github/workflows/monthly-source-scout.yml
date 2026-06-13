@@ -127,7 +127,11 @@ jobs:
           fi
 
           git commit -m "Source monitor: $CYCLE_MONTH candidates (editor review, no data moved)"
-          git push -u origin "$BRANCH"
+          # The review branch is rebased onto origin/main each run (see Prepare
+          # review branch), so a plain push is non-fast-forward on a re-dispatch
+          # in the same month. force-with-lease updates the disposable branch and
+          # still aborts if someone pushed to it since the fetch above.
+          git push --force-with-lease -u origin "$BRANCH"
 
           if gh pr view "$BRANCH" >/dev/null 2>&1; then
             echo "PR already open for $BRANCH; the push updated it."
@@ -137,20 +141,14 @@ jobs:
               --head "$BRANCH" \
               --draft \
               --title "Source monitor: $CYCLE_MONTH candidates" \
-              --body "$(cat <<'BODY'
-Automated source-monitoring candidates for editor review.
-
-This PR carries the candidate packet and updated monitoring state for the cycle.
-It does not change grades, statuses, thresholds, scoring, or any dashboard data.
-Everything in it is a candidate for the editor to look at and adjudicate.
-
-- Packet: docs/Source-Monitoring-Candidates-<cycle>.md
-- Candidate ledger: monitoring/candidates/<cycle>.json
-- Per-source state: monitoring/state.json
-
-If the search or relevance tier was skipped (missing API key), the packet says so
-near the top under Run status. Search-fan-out snippets are provisional discovery
-only and need a browser pull plus editor verification before anything is cited.
-BODY
-)"
+              --body "$(printf '%s\n' \
+                'Automated source-monitoring candidates for editor review.' \
+                '' \
+                'This PR carries the candidate packet and updated monitoring state for the cycle. It does not change grades, statuses, thresholds, scoring, or any dashboard data. Everything in it is a candidate for the editor to look at and adjudicate.' \
+                '' \
+                '- Packet: docs/Source-Monitoring-Candidates-<cycle>.md' \
+                '- Candidate ledger: monitoring/candidates/<cycle>.json' \
+                '- Per-source state: monitoring/state.json' \
+                '' \
+                'If the search or relevance tier was skipped (missing API key), the packet says so near the top under Run status. Search-fan-out snippets are provisional discovery only and need a browser pull plus editor verification before anything is cited.')"
           fi
