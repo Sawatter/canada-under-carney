@@ -40,7 +40,7 @@ import json
 import os
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -491,6 +491,8 @@ def empty_source_state():
         "etag": None,
         "lastModified": None,
         "lastSurfacedCandidateId": None,
+        "lastSurfacedFingerprint": None,
+        "surfacedFingerprints": [],
         "accessIssue": None,
     }
 
@@ -517,15 +519,44 @@ def mark_checked(state, source_id, ok, content_hash=None, access_issue=None):
     return s
 
 
+def already_surfaced(state, candidate):
+    """Return true when the same source signal was already shown before.
+
+    Candidate ids include the cycle month, so they are packet-local. The
+    fingerprint stays stable across cycles for the same source / discovery /
+    URL / title / snippet combination.
+    """
+    source_state = (state.get("sources") or {}).get(candidate.get("sourceId")) or {}
+    seen = set(source_state.get("surfacedFingerprints") or [])
+    fp = candidate.get("candidateFingerprint")
+    return bool(fp and fp in seen)
+
+
+def remember_candidate(state, candidate, limit=80):
+    source_id = candidate.get("sourceId")
+    fp = candidate.get("candidateFingerprint")
+    if not source_id or not fp:
+        return
+    source_state = state["sources"].setdefault(source_id, empty_source_state())
+    fingerprints = list(source_state.get("surfacedFingerprints") or [])
+    if fp not in fingerprints:
+        fingerprints.append(fp)
+    source_state["surfacedFingerprints"] = fingerprints[-limit:]
+    source_state["lastSurfacedFingerprint"] = fp
+    source_state["lastSurfacedCandidateId"] = candidate.get("candidate_id")
+
+
 # --------------------------------------------------------------------------- #
 # deterministic tier  (consume scripts/output/fetch-results.json)
 # --------------------------------------------------------------------------- #
 def _candidate(cycle, source_id, discovery, title, url, snippet,
                published=None, provisional=False, dims=None):
     basis = f"{source_id}|{url}|{title}"
+    fingerprint_basis = f"{source_id}|{discovery}|{url}|{title}|{snippet}"
     cid = f"{cycle}-{source_id}-{sha256_short(basis)}"
     return {
         "candidate_id": cid,
+        "candidateFingerprint": sha256_short(fingerprint_basis),
         "sourceId": source_id,
         "discovery": discovery,
         "title": (title or "").strip()[:300],
@@ -580,6 +611,8 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
         sid, dims = _source_id_and_dims(url, reg_by_surface)
         cand = _candidate(cycle, sid, discovery, title, url, snippet,
                           published=published, provisional=provisional, dims=dims)
+        if already_surfaced(state, cand):
+            return None
         candidates.append(cand)
         return cand
 
@@ -721,6 +754,13 @@ def _days_since(state, source_id, default=40):
         return default
 
 
+def search_window_dates(state, source_id):
+    days = _days_since(state, source_id)
+    end = datetime.now(timezone.utc).date()
+    start = end - timedelta(days=days)
+    return start.isoformat(), end.isoformat()
+
+
 def run_search_fanout(registry, state, cycle, api_key, max_results=5):
     """Domain-restricted, time-windowed Tavily queries over feed-less / blocked
     surfaces. Results are provisional discovery, never citation-ready."""
@@ -735,17 +775,20 @@ def run_search_fanout(registry, state, cycle, api_key, max_results=5):
 
     for src in targets:
         domains = src.get("searchDomains") or []
-        days = _days_since(state, src["id"])
+        start_date, end_date = search_window_dates(state, src["id"])
         query = (f"{src['publisher']} new report or announcement relevant to "
                  f"{', '.join(src.get('dimensions') or ['federal policy'])}")
         payload = {
             "api_key": api_key,
             "query": query,
             "search_depth": "basic",
+            "topic": "general",
             "include_domains": domains,
             "max_results": max_results,
-            "days": days,
+            "start_date": start_date,
+            "end_date": end_date,
             "include_answer": False,
+            "include_raw_content": False,
         }
         try:
             resp = requests.post(TAVILY_ENDPOINT, json=payload, timeout=40)
@@ -771,6 +814,8 @@ def run_search_fanout(registry, state, cycle, api_key, max_results=5):
                 published=hit.get("published_date"),
                 provisional=True, dims=src.get("dimensions"),
             )
+            if already_surfaced(state, cand):
+                continue
             candidates.append(cand)
         mark_checked(state, src["id"], True)
 
@@ -1214,10 +1259,10 @@ def main(argv=None):
     # --- split, write --------------------------------------------------------
     surfaced, suppressed = _suppressed(candidates)
     state["lastRun"] = now_iso()
-    # update last-surfaced candidate per source
-    for c in surfaced:
-        s = state["sources"].setdefault(c["sourceId"], empty_source_state())
-        s["lastSurfacedCandidateId"] = c["candidate_id"]
+    # Remember every processed candidate, including low-relevance suppressions,
+    # so unchanged items do not consume editor/model attention again next cycle.
+    for c in surfaced + suppressed:
+        remember_candidate(state, c)
 
     suffix = args.out_suffix
     cand_path = CANDIDATES_DIR / f"{cycle}{suffix}.json"

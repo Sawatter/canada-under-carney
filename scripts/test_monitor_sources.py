@@ -73,6 +73,15 @@ def main():
     check("new Fraser study surfaced",
           any("federal-housing-starts-vs-targets-2026" in (u or "") for u in urls))
     check("a feed access failure was recorded", any(f.get("method") == "rss" for f in fails))
+    check("every candidate has a stable fingerprint",
+          all(c.get("candidateFingerprint") for c in cands))
+
+    repeat_state = {"schemaVersion": 1, "lastRun": None, "sources": {}}
+    repeated = cands[0]
+    m.remember_candidate(repeat_state, repeated)
+    cands_after_repeat, _ = m.candidates_from_fetch_results(fixture, reg, repeat_state, "2026-07")
+    check("already-surfaced fingerprint is not emitted again",
+          repeated["candidateFingerprint"] not in {c.get("candidateFingerprint") for c in cands_after_repeat})
 
     # --- the invariants that keep the monitor from moving a grade ---------- #
     check("no candidate can move a grade automatically",
@@ -102,6 +111,12 @@ def main():
     check("candidate id is stable for the same content", c1["candidate_id"] == c2["candidate_id"])
     check("candidate defaults to no auto grade move", c1["can_move_grade_automatically"] is False)
     check("candidate defaults to requires editor review", c1["requires_editor_review"] is True)
+    check("candidate fingerprint is stable across cycles",
+          c1["candidateFingerprint"] == m._candidate("2026-07", "s", "rss", "t", "https://u", "snip")["candidateFingerprint"])
+
+    start_date, end_date = m.search_window_dates({"sources": {}}, "surface-x")
+    check("search fan-out emits Tavily date strings", len(start_date) == 10 and len(end_date) == 10)
+    check("search fan-out date range is ordered", start_date <= end_date)
 
     # --- classifier never controls the safety flags ------------------------ #
     check("classifier tool schema cannot set the safety flags",

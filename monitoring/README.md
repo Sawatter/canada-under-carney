@@ -17,7 +17,8 @@ candidate for the editor to look at, not a change.
   monitoring method, and any known access issue.
 - `state.json` — per-source runtime state: last checked, last successful check,
   content hash / etag / last-modified where available, last surfaced candidate id,
-  and any access issue. `lastSuccessfulCheck` is only advanced when a fetch succeeds.
+  stable candidate fingerprints used to avoid repeating unchanged items, and any
+  access issue. `lastSuccessfulCheck` is only advanced when a fetch succeeds.
 - `ethics-reports.json` — the Ethics Commissioner investigation-report diff cache,
   migrated here from `tmp/`. `scripts/fetch-data.py` reads and rewrites it each run.
 - `candidates/YYYY-MM.json` — the structured candidate ledger for a cycle.

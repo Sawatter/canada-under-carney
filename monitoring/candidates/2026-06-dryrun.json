@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "cycle": "2026-06",
-  "generatedAt": "2026-06-13T18:33:41+00:00",
+  "generatedAt": "2026-06-13T19:23:21+00:00",
   "tiers": {
     "deterministic": "run (fetch-results-sample.json)",
     "search_fanout": "skipped (dry-run)",
@@ -16,6 +16,7 @@
   "candidates": [
     {
       "candidate_id": "2026-06-www150-statcan-gc-ca-c73f812d",
+      "candidateFingerprint": "7fc7f92f",
       "sourceId": "www150-statcan-gc-ca",
       "discovery": "statcan_wds",
       "title": "StatCan Consumer Price Index - Food purchased from stores: newer release available",
@@ -39,6 +40,7 @@
     },
     {
       "candidate_id": "2026-06-www150-statcan-gc-ca-404671aa",
+      "candidateFingerprint": "2c51486b",
       "sourceId": "www150-statcan-gc-ca",
       "discovery": "statcan_wds",
       "title": "StatCan Population estimates, quarterly: newer release available",
@@ -62,6 +64,7 @@
     },
     {
       "candidate_id": "2026-06-pbo-dpb-ca-b86f8969",
+      "candidateFingerprint": "51c885cc",
       "sourceId": "pbo-dpb-ca",
       "discovery": "rss",
       "title": "Fiscal Sustainability Report 2026",
@@ -88,6 +91,7 @@
     },
     {
       "candidate_id": "2026-06-pbo-dpb-ca-584f86d5",
+      "candidateFingerprint": "e7fbeb0c",
       "sourceId": "pbo-dpb-ca",
       "discovery": "rss",
       "title": "Cost estimate: expanded Build Canada Homes program",
@@ -114,6 +118,7 @@
     },
     {
       "candidate_id": "2026-06-abacusdata-ca-94ef0ba6",
+      "candidateFingerprint": "08a8ca86",
       "sourceId": "abacusdata-ca",
       "discovery": "rss",
       "title": "Carney government approval holds in June Abacus release",
@@ -133,6 +138,7 @@
     },
     {
       "candidate_id": "2026-06-fraserinstitute-org-58f2f14a",
+      "candidateFingerprint": "9b02d001",
       "sourceId": "fraserinstitute-org",
       "discovery": "rss",
       "title": "New housing-supply analysis: federal starts vs targets",
@@ -154,6 +160,7 @@
     },
     {
       "candidate_id": "2026-06-parl-ca-93f74913",
+      "candidateFingerprint": "7521cfaf",
       "sourceId": "parl-ca",
       "discovery": "legisinfo",
       "title": "C-5: Royal Assent",
@@ -177,6 +184,7 @@
     },
     {
       "candidate_id": "2026-06-canada-ca-privy-council-91b44cb8",
+      "candidateFingerprint": "21a176ab",
       "sourceId": "canada-ca-privy-council",
       "discovery": "mpo_diff",
       "title": "MPO page lists a project not in the cohort: Cedar LNG Phase 2 expansion",
@@ -196,6 +204,7 @@
     },
     {
       "candidate_id": "2026-06-ciec-ccie-parl-gc-ca-77cc55a3",
+      "candidateFingerprint": "b20d8e08",
       "sourceId": "ciec-ccie-parl-gc-ca",
       "discovery": "ethics_diff",
       "title": "New Ethics Commissioner report listing: Examination report under the Conflict of Interest Act (June 2026)",
@@ -215,6 +224,7 @@
     },
     {
       "candidate_id": "2026-06-ciec-ccie-parl-gc-ca-9eecd1cf",
+      "candidateFingerprint": "483f1448",
       "sourceId": "ciec-ccie-parl-gc-ca",
       "discovery": "link_rot",
       "title": "Cited URL blocked: Ethics & Transparency: Commissioner investigation registry",
@@ -234,6 +244,7 @@
     },
     {
       "candidate_id": "2026-06-canada-ca-environment-climate-change-29a547ec",
+      "candidateFingerprint": "34b061d1",
       "sourceId": "canada-ca-environment-climate-change",
       "discovery": "link_rot",
       "title": "Cited URL broken: Climate & Environment: ECCC transparency page",

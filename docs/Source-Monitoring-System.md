@@ -52,7 +52,8 @@ The dashboard data is never touched. The monitor writes to a separate area:
   cited URLs in `dimensions.json` and `approval-polls.json`.
 - `monitoring/state.json` - per-source state: last checked, last successful
   check, content hash / etag / last-modified where available, last surfaced
-  candidate id, and any access issue. `lastSuccessfulCheck` only advances on a
+  candidate id, stable candidate fingerprints used to avoid repeating unchanged
+  items, and any access issue. `lastSuccessfulCheck` only advances on a
   successful fetch.
 - `monitoring/ethics-reports.json` - the Ethics Commissioner diff cache, moved
   here from `tmp/` so the month-over-month diff survives across CI runs.
@@ -66,7 +67,8 @@ The dashboard data is never touched. The monitor writes to a separate area:
 1. `fetch-data.py --link-rot --json-out scripts/output/fetch-results.json`
 2. `generate-source-ledger.mjs`
 3. `monitor_sources.py --cycle YYYY-MM --fetch-results ...`
-4. A guard step rejects any absolute local path or email in the committed files.
+4. A guard step rejects any absolute local path in the committed files. The
+   local pre-commit hook still handles the private identity-pattern scan.
 5. Opens or updates a draft PR on branch `source-monitor/YYYY-MM` with the packet
    and state. It never pushes to main.
 6. Uploads the packet, ledger, and fetch report as artifacts too, so a failed PR

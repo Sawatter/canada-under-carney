@@ -44,6 +44,24 @@ jobs:
       - name: Determine cycle month
         run: echo "CYCLE_MONTH=$(date -u +'%Y-%m')" >> "$GITHUB_ENV"
 
+      - name: Prepare review branch
+        run: |
+          set -euo pipefail
+          BRANCH="source-monitor/$CYCLE_MONTH"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git fetch origin main
+
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$BRANCH"
+            git checkout -B "$BRANCH" "origin/main"
+            # Keep the previous monitor state from the open monthly PR, but run
+            # the current main-branch code and workflow every time.
+            git checkout "origin/$BRANCH" -- monitoring/state.json monitoring/ethics-reports.json 2>/dev/null || true
+          else
+            git checkout -B "$BRANCH" "origin/main"
+          fi
+
       - name: Run source fetch and link-rot scan
         run: python3 scripts/fetch-data.py --link-rot --json-out scripts/output/fetch-results.json
 
@@ -74,7 +92,7 @@ jobs:
             monitoring/candidates/${{ env.CYCLE_MONTH }}.json
             monitoring/state.json
 
-      - name: Guard committed files for local paths or emails
+      - name: Guard committed files for local paths
         run: |
           FILES=$(git status --porcelain -- monitoring docs/Source-Monitoring-Candidates-*.md | awk '{print $2}')
           if [ -z "$FILES" ]; then
@@ -101,13 +119,6 @@ jobs:
           BRANCH="source-monitor/$CYCLE_MONTH"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
-            git fetch origin "$BRANCH"
-            git checkout -B "$BRANCH" "origin/$BRANCH"
-          else
-            git checkout -B "$BRANCH"
-          fi
 
           git add monitoring docs/Source-Monitoring-Candidates-"$CYCLE_MONTH".md
           if git diff --cached --quiet; then
