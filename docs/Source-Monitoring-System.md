@@ -85,6 +85,23 @@ If a key is missing, that tier is skipped and the packet says so near the top
 under Run status, with a heads-up line. The run does not report a clean cycle by
 staying quiet. The deterministic tier still runs and still produces candidates.
 
+### Rollout (before the first run)
+
+The workflow runs from `main`. Its "Prepare review branch" step rebuilds the
+review branch from `origin/main`, so the monitor scripts and the `--json-out`
+flag have to be on `main` before a run will work. That means:
+
+1. Merge this work to `main` first. A `workflow_dispatch` before the merge fails,
+   because `main` still has the old `fetch-data.py` (no `--json-out`) and no
+   `scripts/monitor_sources.py`.
+2. Set the `ANTHROPIC_API_KEY` and `TAVILY_API_KEY` repository secrets. Without
+   them the run still completes and opens a PR; the search and relevance tiers
+   skip with a note.
+3. The repository setting "Allow GitHub Actions to create and approve pull
+   requests" must be on, or the `gh pr create` step fails.
+
+Then a manual `workflow_dispatch` is the smoke test for the whole path.
+
 ## Running it locally
 
 ```bash
