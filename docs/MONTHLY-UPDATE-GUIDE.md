@@ -74,16 +74,16 @@ Then edit these files:
 **`src/data/meta.json`** — Update dates:
 ```json
 {
-  "lastUpdated": "2026-05-14",
-  "nextUpdate": "2026-06-14"
+  "lastUpdated": "2026-07-01",
+  "nextUpdate": "2026-08-01"
 }
 ```
 
 **`src/data/changelog.json`** — Add a new entry at the TOP of the array:
 ```json
 {
-  "date": "2026-05-14",
-  "summary": "May 2026 update: [what changed in one sentence]",
+  "date": "2026-07-01",
+  "summary": "July 2026 update: [what changed in one sentence]",
   "items": [
     {
       "type": "event",
