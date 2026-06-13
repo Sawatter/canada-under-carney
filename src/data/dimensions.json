@@ -2107,7 +2107,7 @@
         }
       ]
     },
-    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was scrapped via the Carney–Smith MOU (Nov 27, 2025), the EV mandate was scrapped and retooled through tailpipe rules, and the Greener Homes Grant and tree-planting program were eliminated or halved. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
+    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was scrapped via the Carney–Smith MOU (Nov 27, 2025), the EV mandate was scrapped and retooled through tailpipe rules, and the Greener Homes Grant and tree-planting program were eliminated or wound down. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
         "label": "CCI — Canada off course",
@@ -3584,10 +3584,10 @@
         "statusSourceLabel": "Electric Autonomy — EVAS repeal announced (2026-02-05)"
       },
       {
-        "text": "2 Billion Trees (halved)",
+        "text": "2 Billion Trees (wound down)",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "Program halved. Tangential connection to trade-war justification.",
+        "evidence": "New commitments wound down; existing agreements honoured. Tangential connection to trade-war justification.",
         "durability": "Legislated",
         "history": [
           {

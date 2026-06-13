@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-12",
+    "version": "5.111",
+    "summary": "Relabelled the 2 Billion Trees promise to match Budget 2025's wind-down wording instead of inferring a halved outcome.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "2 Billion Trees wording aligned to the source",
+        "body": "The Promise Delivery label now reads \"2 Billion Trees (wound down)\" and the evidence note says new commitments were wound down while existing agreements are honoured. The Abandoned status is unchanged; this only replaces the old \"halved\" shorthand with Budget 2025's own wording."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-12",
     "version": "5.110",
     "summary": "Tightened the EV-mandate source wording so the public record distinguishes an announced repeal / replacement from a confirmed legal repeal instrument.",
     "items": [

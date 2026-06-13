@@ -29,7 +29,7 @@
 | 8 | Get big projects built quickly (Stalled) | Policy Options | OK | Holds, with Contrecoeur noted |
 | 9 | Emissions cap (Abandoned) | National Observer | OK | Holds, re-confirmed |
 | 10 | EV mandate (Abandoned) | The Narwhal | OK | Holds; source-upgrade candidate |
-| 11 | 2 Billion Trees, halved (Abandoned) | Budget 2025 Ch.5 | OK | Holds; label note |
+| 11 | 2 Billion Trees, wound down (Abandoned) | Budget 2025 Ch.5 | OK | Holds |
 
 ---
 
@@ -61,7 +61,7 @@ The basis under the cited source has shifted: Bill C-5 received Royal Assent **2
 - **Get big projects built quickly.** Policy Options critique live and supporting. Noted for the record: **Contrecoeur Terminal broke ground 2026-04-09** — the first MPO-cohort construction start, "less than seven months after the referral... after a $1.16 billion financing commitment from the Canada Infrastructure Bank" (Spring Economic Update, confirmed directly). One construction start among the 15-project cohort; April analyst commentary (EnergyNow) criticized MPO transparency.
 - **Emissions cap.** Re-confirmed dead post-April: Environmental Defence (2026-05-15) — "PM Carney scrapped the planned cap on emissions from the oil and gas industry" — in the Canada-Alberta implementation agreement context. No revival signals. Cited National Observer page is live but 403s headless (paywall/bot block).
 - **EV mandate.** Status holds and is now *better* supported than when set: the September 2025 pause hardened into a repeal / replacement announcement for the EV Availability Standard on **2026-02-05** (Electric Autonomy: "Prime Minister Mark Carney today announced the end of the Electric Vehicle Availability Standard"; the official PMO release says the new GHG-standard approach "will enable the Government of Canada to repeal" the standard; corroborated by ESG Today and Global News), replaced by a voluntary 75%-by-2035 target plus $2.3B in rebates. **Maintenance candidate:** repoint `statusSourceUrl` from the Narwhal pause explainer to the February repeal / replacement coverage; the formal legal repeal instrument was not confirmed in this pass.
-- **2 Billion Trees (halved).** Budget 2025 Ch.5, live, confirmed: "The government will wind down the 2 Billion Trees program. Existing contribution agreements and commitments will be honoured." NRCan program page: "no longer accepting applications." May 2026 BC project announcements are pre-wind-down agreement fulfillment, not revival. **Label note:** the promise label says "halved"; the Budget language is full wind-down of new commitments (the program was tracking near ~1B of 2B trees when cut). Editor may want to confirm the "halved" framing's source or relabel.
+- **2 Billion Trees (wound down).** Budget 2025 Ch.5, live, confirmed: "The government will wind down the 2 Billion Trees program. Existing contribution agreements and commitments will be honoured." NRCan program page: "no longer accepting applications." May 2026 BC project announcements are pre-wind-down agreement fulfillment, not revival. The label now follows the Budget wording rather than inferring a "halved" outcome from the nearly 1B-of-2B-tree commitment line.
 
 ---
 
@@ -86,7 +86,7 @@ Both editor flags were adjudicated the same day in a structured grill-me session
 
 - **Conserve biodiversity / freshwater: Stalled → In Progress.** The 2026-03-31 $3.8B A Force of Nature launch meets the coding-rules In Progress bar (funding allocated, program structure announced). The AG delivery critique and marine 28% shortfall stay in the evidence note. Status source repointed to the PMO release.
 - **One Project, One Review: Stalled → In Progress.** Enabling law in force plus seven signed provincial cooperation agreements meet the bar (legislation, partial implementation). The lapsed 6-month deadline and the absence of a completed single-assessment cycle stay in the evidence note.
-- The EV-mandate maintenance candidate was applied (status source upgraded to the 2026-02-05 repeal / replacement coverage). The 2 Billion Trees "halved" label remains open.
+- The EV-mandate maintenance candidate was applied (status source upgraded to the 2026-02-05 repeal / replacement coverage). The 2 Billion Trees label was tightened in v5.111 to match the Budget's wind-down wording.
 - Same-day related decisions on the grade side: the Carbon effective-price metric definition (marginal compliance price) and the Climate CER armed watch — see the v5.109 changelog and Trigger-Verification-2026-06-09.md.
 
 ## Verification record
