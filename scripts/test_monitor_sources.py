@@ -1,0 +1,122 @@
+#!/usr/bin/env python3
+"""Lightweight checks for monitor_sources.py. No network, no API keys.
+
+Run: python3 scripts/test_monitor_sources.py  (or `npm run test:monitor`)
+
+These lock the things that matter for a monitor that must never move a grade:
+the registry stays faithful to the data, the deterministic parser surfaces new
+material and filters already-cited material, per-source state stays honest, and
+the no-auto-grade invariants hold on every candidate.
+"""
+import json
+import sys
+from pathlib import Path
+
+import monitor_sources as m  # same directory on sys.path[0]
+
+SCRIPT_DIR = Path(__file__).parent
+FIXTURE = SCRIPT_DIR / "fixtures" / "fetch-results-sample.json"
+
+CITED_PBO = ("https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/"
+             "build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-"
+             "prevoit-de-construire-26-000-unites-selon-le-dpb")
+CITED_ABACUS = ("https://abacusdata.ca/canadian-politics-carney-government-approval-"
+                "and-liberal-lead-reach-new-highs-as-optimism-about-canada-improves/")
+CITED_FRASER = ("https://www.fraserinstitute.org/commentary/carney-governments-gst-"
+                "plan-new-name-same-flawed-affordability-strategy")
+
+_results = []
+
+
+def check(name, cond):
+    _results.append((name, bool(cond)))
+    print(("PASS" if cond else "FAIL"), name)
+
+
+def load(path):
+    return json.loads(Path(path).read_text())
+
+
+def main():
+    dims = load(m.DIMENSIONS_FILE)
+    approval = load(m.APPROVAL_POLLS_FILE)
+
+    # --- registry build ---------------------------------------------------- #
+    reg = m.build_registry(dims, approval)
+    sources = reg["sources"]
+    check("registry has a sensible number of surfaces", 30 < len(sources) < 200)
+    check("every surface method is valid", all(s["method"] in m.VALID_METHODS for s in sources))
+    check("every surface family is in the taxonomy", all(s["family"] in m.FAMILY_NAMES for s in sources))
+    check("every surface has a stable id", all(s["id"] for s in sources))
+    real_ids = {d["id"] for d in dims} | {"approval-signal"}
+    stray = sorted({d for s in sources for d in s["dimensions"] if d not in real_ids})
+    check("surface dimensions map to real dimension ids", not stray)
+    if stray:
+        print("   stray dimension ids:", stray)
+    rss = [s for s in sources if s["method"] == "rss"]
+    check("rss surfaces carry a feedUrl", all(s.get("feedUrl") for s in rss))
+
+    # --- deterministic parse over the fixture ------------------------------ #
+    fixture = load(FIXTURE)
+    state = {"schemaVersion": 1, "lastRun": None, "sources": {}}
+    cands, fails = m.candidates_from_fetch_results(fixture, reg, state, "2026-06")
+    disc = {c["discovery"] for c in cands}
+    for d in ("statcan_wds", "rss", "legisinfo", "mpo_diff", "ethics_diff", "link_rot"):
+        check(f"deterministic tier surfaced a {d} candidate", d in disc)
+
+    urls = {c["url"] for c in cands}
+    check("already-cited PBO item filtered out", CITED_PBO not in urls)
+    check("already-cited Abacus item filtered out", CITED_ABACUS not in urls)
+    check("already-cited Fraser item filtered out", CITED_FRASER not in urls)
+    check("new PBO publication surfaced",
+          any("fiscal-sustainability-report-2026" in (u or "") for u in urls))
+    check("new Fraser study surfaced",
+          any("federal-housing-starts-vs-targets-2026" in (u or "") for u in urls))
+    check("a feed access failure was recorded", any(f.get("method") == "rss" for f in fails))
+
+    # --- the invariants that keep the monitor from moving a grade ---------- #
+    check("no candidate can move a grade automatically",
+          all(c["can_move_grade_automatically"] is False for c in cands))
+    check("every candidate requires editor review",
+          all(c["requires_editor_review"] is True for c in cands))
+    # the fixture holds only deterministic-tier results; those are real signals,
+    # not provisional. Search fan-out candidates (not present here) would be.
+    check("deterministic candidates are not flagged provisional",
+          all(c["provisional"] is False for c in cands))
+
+    # --- per-source state honesty ------------------------------------------ #
+    st = {"schemaVersion": 1, "sources": {}}
+    m.mark_checked(st, "surface-x", ok=False, access_issue="http 403")
+    sx = st["sources"]["surface-x"]
+    check("failed check sets lastChecked", sx["lastChecked"] is not None)
+    check("failed check does NOT advance lastSuccessfulCheck", sx["lastSuccessfulCheck"] is None)
+    check("failed check records the access issue", sx["accessIssue"] == "http 403")
+    m.mark_checked(st, "surface-x", ok=True)
+    sx = st["sources"]["surface-x"]
+    check("later success advances lastSuccessfulCheck", sx["lastSuccessfulCheck"] is not None)
+    check("later success clears the access issue", sx["accessIssue"] is None)
+
+    # --- candidate id is stable and safe by default ------------------------ #
+    c1 = m._candidate("2026-06", "s", "rss", "t", "https://u", "snip")
+    c2 = m._candidate("2026-06", "s", "rss", "t", "https://u", "snip")
+    check("candidate id is stable for the same content", c1["candidate_id"] == c2["candidate_id"])
+    check("candidate defaults to no auto grade move", c1["can_move_grade_automatically"] is False)
+    check("candidate defaults to requires editor review", c1["requires_editor_review"] is True)
+
+    # --- classifier never controls the safety flags ------------------------ #
+    check("classifier tool schema cannot set the safety flags",
+          "can_move_grade_automatically" not in json.dumps(m.CLASSIFIER_TOOL))
+
+    failed = [n for n, ok in _results if not ok]
+    print()
+    if failed:
+        print(f"{len(failed)} of {len(_results)} checks FAILED:")
+        for n in failed:
+            print("  -", n)
+        return 1
+    print(f"all {len(_results)} checks passed")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

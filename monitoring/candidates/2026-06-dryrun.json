@@ -1,0 +1,265 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026-06",
+  "generatedAt": "2026-06-13T18:33:41+00:00",
+  "tiers": {
+    "deterministic": "run (fetch-results-sample.json)",
+    "search_fanout": "skipped (dry-run)",
+    "classification": "skipped (dry-run)"
+  },
+  "noChangeStatement": "No grades, statuses, thresholds, scoring, or dashboard data were changed by this run. Everything below is a candidate for the editor to look at.",
+  "counts": {
+    "surfaced": 11,
+    "suppressed": 0,
+    "accessFailures": 1
+  },
+  "candidates": [
+    {
+      "candidate_id": "2026-06-www150-statcan-gc-ca-c73f812d",
+      "sourceId": "www150-statcan-gc-ca",
+      "discovery": "statcan_wds",
+      "title": "StatCan Consumer Price Index - Food purchased from stores: newer release available",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401",
+      "publishedDate": "2026-06-17T08:30",
+      "snippet": "WDS cubeEndDate 2026-05-01 is ahead of the period cited on the dashboard. Released 2026-06-17T08:30.",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "affordability-response",
+        "defence-trade",
+        "economic-policy",
+        "immigration",
+        "promise-delivery"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-www150-statcan-gc-ca-404671aa",
+      "sourceId": "www150-statcan-gc-ca",
+      "discovery": "statcan_wds",
+      "title": "StatCan Population estimates, quarterly: newer release available",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901",
+      "publishedDate": "2026-06-18T08:30",
+      "snippet": "WDS cubeEndDate 2026-04-01 is ahead of the period cited on the dashboard. Released 2026-06-18T08:30.",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "affordability-response",
+        "defence-trade",
+        "economic-policy",
+        "immigration",
+        "promise-delivery"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-pbo-dpb-ca-b86f8969",
+      "sourceId": "pbo-dpb-ca",
+      "discovery": "rss",
+      "title": "Fiscal Sustainability Report 2026",
+      "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-001-S--fiscal-sustainability-report-2026",
+      "publishedDate": "Tue, 09 Jun 2026 13:00:00 GMT",
+      "snippet": "New PBO publication (not yet cited).",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "affordability-response",
+        "carbon-pricing",
+        "defence-trade",
+        "execution-delivery",
+        "fiscal-health",
+        "housing-supply",
+        "immigration",
+        "promise-delivery"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-pbo-dpb-ca-584f86d5",
+      "sourceId": "pbo-dpb-ca",
+      "discovery": "rss",
+      "title": "Cost estimate: expanded Build Canada Homes program",
+      "url": "https://www.pbo-dpb.ca/en/publications/LEG-2627-010-S--build-canada-homes-expansion",
+      "publishedDate": "Thu, 04 Jun 2026 13:00:00 GMT",
+      "snippet": "New PBO publication (not yet cited).",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "affordability-response",
+        "carbon-pricing",
+        "defence-trade",
+        "execution-delivery",
+        "fiscal-health",
+        "housing-supply",
+        "immigration",
+        "promise-delivery"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-abacusdata-ca-94ef0ba6",
+      "sourceId": "abacusdata-ca",
+      "discovery": "rss",
+      "title": "Carney government approval holds in June Abacus release",
+      "url": "https://abacusdata.ca/canadian-politics-carney-approval-june-2026/",
+      "publishedDate": "Wed, 11 Jun 2026 10:00:00 GMT",
+      "snippet": "Abacus Data approval-relevant post, not yet cited.",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "approval-signal"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-fraserinstitute-org-58f2f14a",
+      "sourceId": "fraserinstitute-org",
+      "discovery": "rss",
+      "title": "New housing-supply analysis: federal starts vs targets",
+      "url": "https://www.fraserinstitute.org/studies/federal-housing-starts-vs-targets-2026",
+      "publishedDate": "Mon, 08 Jun 2026 12:00:00 GMT",
+      "snippet": "Fraser Institute post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "affordability-response",
+        "climate-environment",
+        "major-projects"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-parl-ca-93f74913",
+      "sourceId": "parl-ca",
+      "discovery": "legisinfo",
+      "title": "C-5: Royal Assent",
+      "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
+      "publishedDate": null,
+      "snippet": "Latest stage: Royal Assent received. Ongoing: Completed.",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "defence-trade",
+        "economic-policy",
+        "execution-delivery",
+        "major-projects",
+        "promise-delivery"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-privy-council-91b44cb8",
+      "sourceId": "canada-ca-privy-council",
+      "discovery": "mpo_diff",
+      "title": "MPO page lists a project not in the cohort: Cedar LNG Phase 2 expansion",
+      "url": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html",
+      "publishedDate": null,
+      "snippet": "Appears on the Major Projects Office page but not in the tracked cohort.",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "major-projects"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-ciec-ccie-parl-gc-ca-77cc55a3",
+      "sourceId": "ciec-ccie-parl-gc-ca",
+      "discovery": "ethics_diff",
+      "title": "New Ethics Commissioner report listing: Examination report under the Conflict of Interest Act (June 2026)",
+      "url": "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/ExampleReport-2026.aspx",
+      "publishedDate": null,
+      "snippet": "New entry on the investigation-report listing page since the last cache.",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-ciec-ccie-parl-gc-ca-9eecd1cf",
+      "sourceId": "ciec-ccie-parl-gc-ca",
+      "discovery": "link_rot",
+      "title": "Cited URL blocked: Ethics & Transparency: Commissioner investigation registry",
+      "url": "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx",
+      "publishedDate": null,
+      "snippet": "Link-rot scan flagged this cited URL (blocked_no_archive, no Wayback snapshot).",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-environment-climate-change-29a547ec",
+      "sourceId": "canada-ca-environment-climate-change",
+      "discovery": "link_rot",
+      "title": "Cited URL broken: Climate & Environment: ECCC transparency page",
+      "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/example-moved.html",
+      "publishedDate": null,
+      "snippet": "Link-rot scan flagged this cited URL (broken_with_archive, has Wayback snapshot).",
+      "provisional": false,
+      "classification": null,
+      "affected_dimensions": [
+        "carbon-pricing",
+        "climate-environment",
+        "promise-delivery"
+      ],
+      "relevance_score": null,
+      "reason": null,
+      "evidence_limitations": null,
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    }
+  ],
+  "suppressed": [],
+  "accessFailures": [
+    {
+      "surface": "Léger",
+      "method": "rss",
+      "detail": "http_error"
+    }
+  ]
+}

@@ -1,2 +1,7 @@
 requests>=2.31.0
 pandas>=2.0.0
+# Used only by scripts/monitor_sources.py for the relevance pass (claude-opus-4-8).
+# Lazily imported: the monitor's dry-run and the deterministic tier run without it.
+# The Tavily search fan-out uses the Tavily REST API via requests, so it needs no
+# separate client library.
+anthropic>=0.40.0

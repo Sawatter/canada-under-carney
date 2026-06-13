@@ -1,8 +1,9 @@
 name: Monthly source scout
 
 # Runs on the first day of each month after the prior month has closed.
-# It prepares source/freshness artifacts for editor review. It does not edit
-# dashboard data, move grades, or push commits.
+# It surveys cited sources for new dimension-relevant material and opens a
+# review PR with an editor-adjudicated candidate packet. It never edits
+# dashboard data, moves grades, or pushes to main.
 
 on:
   schedule:
@@ -11,14 +12,19 @@ on:
     - cron: "17 13 1 * *"
   workflow_dispatch: {}
 
+# Least privilege for opening a review branch and PR. No write to main happens;
+# the deploy workflow is the only thing that builds from main.
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
 
 jobs:
   source-scout:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v6
         with:
@@ -39,17 +45,101 @@ jobs:
         run: echo "CYCLE_MONTH=$(date -u +'%Y-%m')" >> "$GITHUB_ENV"
 
       - name: Run source fetch and link-rot scan
-        run: python3 scripts/fetch-data.py --link-rot
+        run: python3 scripts/fetch-data.py --link-rot --json-out scripts/output/fetch-results.json
 
       - name: Generate source ledger
         run: node scripts/generate-source-ledger.mjs "$CYCLE_MONTH" --force
 
+      - name: Run source monitor (deterministic + search fan-out + relevance pass)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: |
+          python3 scripts/monitor_sources.py \
+            --cycle "$CYCLE_MONTH" \
+            --fetch-results scripts/output/fetch-results.json
+
       - name: Upload source-scout artifacts
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: monthly-source-scout-${{ env.CYCLE_MONTH }}
           path: |
             scripts/output/fetch-report.txt
+            scripts/output/fetch-results.json
             scripts/output/draft-changelog-entry.json
             scripts/output/draft-dimensions.json
             docs/Source-Coverage-Ledger-${{ env.CYCLE_MONTH }}.md
+            docs/Source-Monitoring-Candidates-${{ env.CYCLE_MONTH }}.md
+            monitoring/candidates/${{ env.CYCLE_MONTH }}.json
+            monitoring/state.json
+
+      - name: Guard committed files for local paths or emails
+        run: |
+          FILES=$(git status --porcelain -- monitoring docs/Source-Monitoring-Candidates-*.md | awk '{print $2}')
+          if [ -z "$FILES" ]; then
+            echo "No monitoring changes to guard."
+            exit 0
+          fi
+          # Block an absolute local path leaking into committed state. That is the
+          # one identity vector that could reach generated files. The editor's
+          # name / email / city patterns live in the gitignored .identity-patterns
+          # and are enforced by the local pre-commit hook. That file is not on the
+          # runner, and a generic email scan would false-positive on scraped
+          # snippet text and fail the PR, so it is intentionally not run here.
+          if grep -nE '/Users/[A-Za-z]|/home/[A-Za-z]' $FILES; then
+            echo "::error::Found an absolute local path in monitoring output. Stopping."
+            exit 1
+          fi
+          echo "Guard passed."
+
+      - name: Open or update the review PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          BRANCH="source-monitor/$CYCLE_MONTH"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
+            git fetch origin "$BRANCH"
+            git checkout -B "$BRANCH" "origin/$BRANCH"
+          else
+            git checkout -B "$BRANCH"
+          fi
+
+          git add monitoring docs/Source-Monitoring-Candidates-"$CYCLE_MONTH".md
+          if git diff --cached --quiet; then
+            echo "No monitoring changes this run. Not opening a PR."
+            exit 0
+          fi
+
+          git commit -m "Source monitor: $CYCLE_MONTH candidates (editor review, no data moved)"
+          git push -u origin "$BRANCH"
+
+          if gh pr view "$BRANCH" >/dev/null 2>&1; then
+            echo "PR already open for $BRANCH; the push updated it."
+          else
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --draft \
+              --title "Source monitor: $CYCLE_MONTH candidates" \
+              --body "$(cat <<'BODY'
+Automated source-monitoring candidates for editor review.
+
+This PR carries the candidate packet and updated monitoring state for the cycle.
+It does not change grades, statuses, thresholds, scoring, or any dashboard data.
+Everything in it is a candidate for the editor to look at and adjudicate.
+
+- Packet: docs/Source-Monitoring-Candidates-<cycle>.md
+- Candidate ledger: monitoring/candidates/<cycle>.json
+- Per-source state: monitoring/state.json
+
+If the search or relevance tier was skipped (missing API key), the packet says so
+near the top under Run status. Search-fan-out snippets are provisional discovery
+only and need a browser pull plus editor verification before anything is cited.
+BODY
+)"
+          fi

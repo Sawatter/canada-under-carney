@@ -1,0 +1,1369 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-13T18:18:40+00:00",
+  "generatedFrom": "src/data/dimensions.json + src/data/approval-polls.json",
+  "note": "Registry of monitored source surfaces. Regenerate with `python3 scripts/monitor_sources.py --rebuild-registry` when the cited source base changes. Hand-edits to access notes, methods, or search domains are preserved only if you re-apply them after a rebuild. The monitor never moves grades.",
+  "methods": [
+    "api",
+    "manual",
+    "page_hash",
+    "rss",
+    "search_fanout",
+    "sitemap"
+  ],
+  "sources": [
+    {
+      "id": "abacusdata-ca",
+      "publisher": "Abacus Data",
+      "homeUrl": "https://abacusdata.ca/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "approval-signal"
+      ],
+      "method": "rss",
+      "feedUrl": "https://abacusdata.ca/feed/",
+      "searchDomains": [
+        "abacusdata.ca"
+      ],
+      "citedUrls": [
+        "https://abacusdata.ca/canadian-politics-carney-government-approval-and-liberal-lead-reach-new-highs-as-optimism-about-canada-improves/",
+        "https://abacusdata.ca/canadian-politics-carney-government-approval-hits-new-high-as-liberals-lead-conservatives-by-10/",
+        "https://abacusdata.ca/canadian-politics-liberals-extend-lead-and-consolidate-support-following-majority-wins/",
+        "https://abacusdata.ca/liberal-momentum-slows-as-approval-optimism-and-carneys-ratings-retreat/",
+        "https://abacusdata.ca/prime-minister-carney-approval-liberals-strengthen-ahead-conservative-convention/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "angusreid-org",
+      "publisher": "Angus Reid Institute",
+      "homeUrl": "https://angusreid.org/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "approval-signal",
+        "major-projects",
+        "promise-delivery"
+      ],
+      "method": "rss",
+      "feedUrl": "https://angusreid.org/feed/",
+      "searchDomains": [
+        "angusreid.org"
+      ],
+      "citedUrls": [
+        "https://angusreid.org/carney-one-year-approval-campaign-promises-liberals/",
+        "https://angusreid.org/federal-politics-canadians-cooling-on-carney-as-gap-narrows-between-liberals-and-cpc/",
+        "https://angusreid.org/federal-politics-carney-receives-post-davos-bump-in-approval/",
+        "https://angusreid.org/major-projects-reaction-canada/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "bankofcanada-ca",
+      "publisher": "Bank of Canada",
+      "homeUrl": "https://bankofcanada.ca/",
+      "family": 3,
+      "familyName": "Operational government data",
+      "dimensions": [
+        "immigration"
+      ],
+      "method": "api",
+      "feedUrl": null,
+      "searchDomains": [
+        "bankofcanada.ca"
+      ],
+      "citedUrls": [
+        "https://www.bankofcanada.ca/2025/05/staff-discussion-paper-2025-8/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "budget-canada-ca",
+      "publisher": "Federal Budget",
+      "homeUrl": "https://budget.canada.ca/",
+      "family": 3,
+      "familyName": "Operational government data",
+      "dimensions": [
+        "affordability-response",
+        "climate-environment",
+        "defence-trade",
+        "economic-policy",
+        "fiscal-health",
+        "major-projects",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "budget.canada.ca"
+      ],
+      "citedUrls": [
+        "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
+        "https://budget.canada.ca/2025/report-rapport/chap1-en.html",
+        "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
+        "https://budget.canada.ca/2025/report-rapport/chap4-en.html",
+        "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
+        "https://budget.canada.ca/2025/report-rapport/intro-en.html",
+        "https://budget.canada.ca/update-miseajour/2026/report-rapport/anx1-en.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-auditor-general",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "climate-environment"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-campaign",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "economic-policy",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/campaign/2-billion-trees.html",
+        "https://www.canada.ca/en/campaign/critical-minerals-in-canada.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-climateaction",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "carbon-pricing"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/climateaction"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-department-finance",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "carbon-pricing",
+        "fiscal-health",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
+        "https://www.canada.ca/en/department-finance/services/publications/annual-financial-report/2025.html",
+        "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-environment-climate-change",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "carbon-pricing",
+        "climate-environment",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html",
+        "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2026-2027.html",
+        "https://www.canada.ca/en/environment-climate-change/news/2023/12/canadas-electric-vehicle-availability-standard-regulated-targets-for-zero-emission-vehicles.html",
+        "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-housing-infrastructure-communities",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "housing-supply"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-immigration-refugees-citizenship",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "immigration",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
+        "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html",
+        "https://www.canada.ca/en/immigration-refugees-citizenship/news/notices/supplementary-immigration-levels-2025-2027.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-intergovernmental-affairs",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "defence-trade",
+        "economic-policy",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-natural-resources-canada",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "economic-policy"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-privy-council",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "major-projects"
+      ],
+      "method": "page_hash",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-revenue-agency",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "affordability-response"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-services",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "housing-supply",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan/oil-gas-emissions-cap/regulatory-framework.html",
+        "https://www.canada.ca/en/services/jobs/training/support-skilled-trades-apprentices/grants.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-treasury-board-secretariat",
+      "publisher": "canada.ca",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "economic-policy"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canadacode-org",
+      "publisher": "Canada Grocery Code",
+      "homeUrl": "https://canadacode.org/",
+      "family": 11,
+      "familyName": "Industry / sector association",
+      "dimensions": [
+        "affordability-response"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canadacode.org"
+      ],
+      "citedUrls": [
+        "https://canadacode.org/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "cbc-ca",
+      "publisher": "CBC News",
+      "homeUrl": "https://cbc.ca/",
+      "family": 8,
+      "familyName": "Journalism",
+      "dimensions": [
+        "climate-environment",
+        "ethics-transparency"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "cbc.ca"
+      ],
+      "citedUrls": [
+        "https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443",
+        "https://www.cbc.ca/news/politics/oil-and-gas-cap-budget-9.6966588",
+        "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "cdhowe-org",
+      "publisher": "C.D. Howe Institute",
+      "homeUrl": "https://cdhowe.org/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "execution-delivery",
+        "fiscal-health"
+      ],
+      "method": "rss",
+      "feedUrl": "https://www.cdhowe.org/feed/",
+      "searchDomains": [
+        "cdhowe.org"
+      ],
+      "citedUrls": [
+        "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/",
+        "https://cdhowe.org/publication/fiscal-fantasies-four-incredible-projections-in-the-november-2025-federal-budget/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "cer-rec-gc-ca",
+      "publisher": "Canada Energy Regulator",
+      "homeUrl": "https://cer-rec.gc.ca/",
+      "family": 4,
+      "familyName": "Independent official / watchdog",
+      "dimensions": [
+        "climate-environment"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "cer-rec.gc.ca"
+      ],
+      "citedUrls": [
+        "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "chba-ca",
+      "publisher": "Canadian Home Builders' Association",
+      "homeUrl": "https://chba.ca/",
+      "family": 11,
+      "familyName": "Industry / sector association",
+      "dimensions": [
+        "housing-supply"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "chba.ca"
+      ],
+      "citedUrls": [
+        "https://www.chba.ca/2026/04/21/low-builder-confidence-illustrates-need-for-sustained-federal-action-plan-focused-on-homeownership-housing/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "ciec-ccie-parl-gc-ca",
+      "publisher": "Conflict of Interest and Ethics Commissioner",
+      "homeUrl": "https://ciec-ccie.parl.gc.ca/",
+      "family": 4,
+      "familyName": "Independent official / watchdog",
+      "dimensions": [
+        "ethics-transparency"
+      ],
+      "method": "page_hash",
+      "feedUrl": null,
+      "searchDomains": [
+        "ciec-ccie.parl.gc.ca"
+      ],
+      "citedUrls": [
+        "https://ciec-ccie.parl.gc.ca/",
+        "https://ciec-ccie.parl.gc.ca/en/",
+        "https://ciec-ccie.parl.gc.ca/en/Pages/search-recherche.aspx?k=Carney"
+      ],
+      "accessNote": "Host intermittently returns 403/503 to command-line fetchers; browser pull may be needed."
+    },
+    {
+      "id": "climateinstitute-ca",
+      "publisher": "Canadian Climate Institute",
+      "homeUrl": "https://climateinstitute.ca/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "carbon-pricing",
+        "climate-environment"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "climateinstitute.ca"
+      ],
+      "citedUrls": [
+        "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
+        "https://climateinstitute.ca/news/fact-sheet-canada-industrial-carbon-pricing-systems/",
+        "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/",
+        "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "cmhc-schl-gc-ca",
+      "publisher": "Canada Mortgage and Housing Corporation",
+      "homeUrl": "https://cmhc-schl.gc.ca/",
+      "family": 3,
+      "familyName": "Operational government data",
+      "dimensions": [
+        "housing-supply",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "cmhc-schl.gc.ca"
+      ],
+      "citedUrls": [
+        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report",
+        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-april-2026",
+        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
+        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "csls-ca",
+      "publisher": "Centre for the Study of Living Standards",
+      "homeUrl": "https://csls.ca/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "economic-policy"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "csls.ca"
+      ],
+      "citedUrls": [
+        "http://www.csls.ca/ipm.asp",
+        "https://www.csls.ca/reports/csls2025-04.pdf"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "dal-ca",
+      "publisher": "Dalhousie University",
+      "homeUrl": "https://dal.ca/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "affordability-response"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "dal.ca"
+      ],
+      "citedUrls": [
+        "https://www.dal.ca/sites/agri-food/research/canada-s-food-price-report-2026.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "democracywatch-ca",
+      "publisher": "Democracy Watch",
+      "homeUrl": "https://democracywatch.ca/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "ethics-transparency"
+      ],
+      "method": "rss",
+      "feedUrl": "https://democracywatch.ca/feed/",
+      "searchDomains": [
+        "democracywatch.ca"
+      ],
+      "citedUrls": [
+        "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "electricautonomy-ca",
+      "publisher": "Electric Autonomy Canada",
+      "homeUrl": "https://electricautonomy.ca/",
+      "family": 8,
+      "familyName": "Journalism",
+      "dimensions": [
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "electricautonomy.ca"
+      ],
+      "citedUrls": [
+        "https://electricautonomy.ca/policy-regulations/2026-02-05/canada-repeals-ev-availability-standard-restores-5000-vehicle-incentives-with-new-automotive-policy/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "en-wikipedia-org",
+      "publisher": "en.wikipedia.org",
+      "homeUrl": "https://en.wikipedia.org/",
+      "family": 0,
+      "familyName": "Unclassified",
+      "dimensions": [
+        "approval-signal"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "en.wikipedia.org"
+      ],
+      "citedUrls": [
+        "https://en.wikipedia.org/wiki/Opinion_polling_for_the_46th_Canadian_federal_election"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "foodbankscanada-ca",
+      "publisher": "Food Banks Canada",
+      "homeUrl": "https://foodbankscanada.ca/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "affordability-response"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "foodbankscanada.ca"
+      ],
+      "citedUrls": [
+        "https://foodbankscanada.ca/hungercount/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "fraserinstitute-org",
+      "publisher": "Fraser Institute",
+      "homeUrl": "https://fraserinstitute.org/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "affordability-response",
+        "climate-environment",
+        "major-projects"
+      ],
+      "method": "rss",
+      "feedUrl": "https://www.fraserinstitute.org/rss.xml",
+      "searchDomains": [
+        "fraserinstitute.org"
+      ],
+      "citedUrls": [
+        "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy",
+        "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration",
+        "https://www.fraserinstitute.org/commentary/ottawa-should-finally-end-costly-push-evs-canada"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "iisd-org",
+      "publisher": "International Institute for Sustainable Development",
+      "homeUrl": "https://iisd.org/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "carbon-pricing",
+        "climate-environment"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "iisd.org"
+      ],
+      "citedUrls": [
+        "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target",
+        "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "imf-org",
+      "publisher": "International Monetary Fund",
+      "homeUrl": "https://imf.org/",
+      "family": 10,
+      "familyName": "International benchmark / rating",
+      "dimensions": [
+        "fiscal-health"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "imf.org"
+      ],
+      "citedUrls": [
+        "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "international-canada-ca",
+      "publisher": "Global Affairs Canada",
+      "homeUrl": "https://international.canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "defence-trade"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "international.canada.ca"
+      ],
+      "citedUrls": [
+        "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12",
+        "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "ipsos-com",
+      "publisher": "ipsos.com",
+      "homeUrl": "https://ipsos.com/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "approval-signal"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "ipsos.com"
+      ],
+      "citedUrls": [
+        "https://www.ipsos.com/en-ca/carney-approval-climbs-after-one-year-outpacing-poilievre-support-momentum"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "ised-isde-canada-ca",
+      "publisher": "Innovation, Science and Economic Development Canada",
+      "homeUrl": "https://ised-isde.canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "economic-policy"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "ised-isde.canada.ca"
+      ],
+      "citedUrls": [
+        "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "laws-lois-justice-gc-ca",
+      "publisher": "Justice Laws (consolidated Acts)",
+      "homeUrl": "https://laws-lois.justice.gc.ca/",
+      "family": 3,
+      "familyName": "Operational government data",
+      "dimensions": [
+        "climate-environment"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "laws-lois.justice.gc.ca"
+      ],
+      "citedUrls": [
+        "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "leger360-com",
+      "publisher": "Leger",
+      "homeUrl": "https://leger360.com/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "approval-signal"
+      ],
+      "method": "rss",
+      "feedUrl": "https://leger360.com/en/feed/",
+      "searchDomains": [
+        "leger360.com"
+      ],
+      "citedUrls": [
+        "https://leger360.com/in-the-news-canada-politics-carney-approval-stays-strong-ndp-faces-reset-avi-lewis-win-leger-march-2026/",
+        "https://leger360.com/in-the-news-federal-politics-liberals-hold-lead-april-2026/",
+        "https://leger360.com/in-the-news-liberals-reach-highest-level-support/",
+        "https://leger360.com/wp-content/uploads/2026/03/Leger_FedPol_EN_March2026.pdf"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "liberal-ca",
+      "publisher": "Liberal Party of Canada",
+      "homeUrl": "https://liberal.ca/",
+      "family": 1,
+      "familyName": "PMO / governing-party messaging",
+      "dimensions": [
+        "affordability-response",
+        "carbon-pricing",
+        "climate-environment",
+        "defence-trade",
+        "economic-policy",
+        "ethics-transparency",
+        "fiscal-health",
+        "housing-supply",
+        "immigration",
+        "major-projects",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "liberal.ca"
+      ],
+      "citedUrls": [
+        "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "macdonaldlaurier-ca",
+      "publisher": "Macdonald-Laurier Institute",
+      "homeUrl": "https://macdonaldlaurier.ca/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "climate-environment",
+        "immigration"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "macdonaldlaurier.ca"
+      ],
+      "citedUrls": [
+        "https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/",
+        "https://macdonaldlaurier.ca/fixing-canadas-broken-immigration-system-presenting-more-data-to-parliament-michael-barutciski/",
+        "https://macdonaldlaurier.ca/research/immigration/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "maytree-com",
+      "publisher": "Maytree",
+      "homeUrl": "https://maytree.com/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "immigration"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "maytree.com"
+      ],
+      "citedUrls": [
+        "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "nanos-co",
+      "publisher": "nanos.co",
+      "homeUrl": "https://nanos.co/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "approval-signal"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "nanos.co"
+      ],
+      "citedUrls": [
+        "https://nanos.co/wp-content/uploads/2026/03/Political-Package-2026q7283x-03-06-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/04/Political-Package-2026-04-10C4prRx3658-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/04/Political-Package-mjwf5-2026-04-03-FOR-RELEASE.pdf"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "nationalobserver-com",
+      "publisher": "Canada's National Observer",
+      "homeUrl": "https://nationalobserver.com/",
+      "family": 8,
+      "familyName": "Journalism",
+      "dimensions": [
+        "climate-environment",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "nationalobserver.com"
+      ],
+      "citedUrls": [
+        "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy"
+      ],
+      "accessNote": "Paywalled. Search snippets are provisional discovery only."
+    },
+    {
+      "id": "nato-int",
+      "publisher": "NATO",
+      "homeUrl": "https://nato.int/",
+      "family": 10,
+      "familyName": "International benchmark / rating",
+      "dimensions": [
+        "defence-trade",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "nato.int"
+      ],
+      "citedUrls": [
+        "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "oecd-org",
+      "publisher": "OECD",
+      "homeUrl": "https://oecd.org/",
+      "family": 10,
+      "familyName": "International benchmark / rating",
+      "dimensions": [
+        "economic-policy"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "oecd.org"
+      ],
+      "citedUrls": [
+        "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "open-canada-ca",
+      "publisher": "Open Government (IRCC open data)",
+      "homeUrl": "https://open.canada.ca/",
+      "family": 3,
+      "familyName": "Operational government data",
+      "dimensions": [
+        "immigration"
+      ],
+      "method": "api",
+      "feedUrl": null,
+      "searchDomains": [
+        "open.canada.ca"
+      ],
+      "citedUrls": [
+        "https://open.canada.ca/data/dataset/360024f2-17e9-4558-bfc1-3616485d65b9",
+        "https://open.canada.ca/data/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "ourcommons-ca",
+      "publisher": "House of Commons",
+      "homeUrl": "https://ourcommons.ca/",
+      "family": 6,
+      "familyName": "Parliamentary committee / critique",
+      "dimensions": [
+        "ethics-transparency"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "ourcommons.ca"
+      ],
+      "citedUrls": [
+        "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "parl-ca",
+      "publisher": "Parliament of Canada (LEGISinfo)",
+      "homeUrl": "https://parl.ca/",
+      "family": 5,
+      "familyName": "Procedural parliamentary records",
+      "dimensions": [
+        "defence-trade",
+        "economic-policy",
+        "execution-delivery",
+        "major-projects",
+        "promise-delivery"
+      ],
+      "method": "api",
+      "feedUrl": null,
+      "searchDomains": [
+        "parl.ca"
+      ],
+      "citedUrls": [
+        "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
+        "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "pbo-dpb-ca",
+      "publisher": "Parliamentary Budget Officer",
+      "homeUrl": "https://pbo-dpb.ca/",
+      "family": 4,
+      "familyName": "Independent official / watchdog",
+      "dimensions": [
+        "affordability-response",
+        "carbon-pricing",
+        "defence-trade",
+        "execution-delivery",
+        "fiscal-health",
+        "housing-supply",
+        "immigration",
+        "promise-delivery"
+      ],
+      "method": "rss",
+      "feedUrl": "https://www.pbo-dpb.ca/en/feed.xml",
+      "searchDomains": [
+        "pbo-dpb.ca"
+      ],
+      "citedUrls": [
+        "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
+        "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone",
+        "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels",
+        "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere",
+        "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
+        "https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans",
+        "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires",
+        "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025",
+        "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028",
+        "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "pm-gc-ca",
+      "publisher": "Prime Minister's Office",
+      "homeUrl": "https://pm.gc.ca/",
+      "family": 1,
+      "familyName": "PMO / governing-party messaging",
+      "dimensions": [
+        "carbon-pricing",
+        "climate-environment",
+        "defence-trade",
+        "fiscal-health",
+        "housing-supply",
+        "major-projects",
+        "promise-delivery"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "pm.gc.ca"
+      ],
+      "citedUrls": [
+        "https://www.pm.gc.ca/en/news/backgrounders/2026/05/15/implementation-agreement-canada-alberta-memorandum-understanding",
+        "https://www.pm.gc.ca/en/news/news-releases/2025/03/21/prime-minister-mark-carney-cancels-proposed-capital-gains-tax-increase",
+        "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new",
+        "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
+        "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and",
+        "https://www.pm.gc.ca/en/news/news-releases/2026/03/26/prime-minister-carney-announces-canada-has-achieved-nato-2-defence",
+        "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes",
+        "https://www.pm.gc.ca/en/news/news-releases/2026/03/31/prime-minister-carney-launches-new-nature-strategy-protect-canadas",
+        "https://www.pm.gc.ca/en/news/news-releases/2026/04/09/prime-minister-carney-breaks-ground-contrecoeur-terminal-expansion",
+        "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity",
+        "https://www.pm.gc.ca/en/news/speeches/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes-housing"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "policyoptions-irpp-org",
+      "publisher": "Policy Options (IRPP)",
+      "homeUrl": "https://policyoptions.irpp.org/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "execution-delivery",
+        "housing-supply"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "policyoptions.irpp.org"
+      ],
+      "citedUrls": [
+        "https://policyoptions.irpp.org/2026/01/canadian-real-estate-trap/",
+        "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
+        "https://policyoptions.irpp.org/2026/03/carney-national-security-dms/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "prciec-rpccie-parl-gc-ca",
+      "publisher": "Public Registry (Ethics Commissioner)",
+      "homeUrl": "https://prciec-rpccie.parl.gc.ca/",
+      "family": 4,
+      "familyName": "Independent official / watchdog",
+      "dimensions": [
+        "ethics-transparency"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "prciec-rpccie.parl.gc.ca"
+      ],
+      "citedUrls": [
+        "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
+        "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf"
+      ],
+      "accessNote": "Host intermittently returns 403/503 to command-line fetchers; browser pull may be needed."
+    },
+    {
+      "id": "proof-utoronto-ca",
+      "publisher": "PROOF (food insecurity research)",
+      "homeUrl": "https://proof.utoronto.ca/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "affordability-response"
+      ],
+      "method": "rss",
+      "feedUrl": "https://proof.utoronto.ca/feed/",
+      "searchDomains": [
+        "proof.utoronto.ca"
+      ],
+      "citedUrls": [
+        "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/",
+        "https://proof.utoronto.ca/2026/new-data-on-household-food-insecurity-in-2025/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "retailcouncil-org",
+      "publisher": "Retail Council of Canada",
+      "homeUrl": "https://retailcouncil.org/",
+      "family": 11,
+      "familyName": "Industry / sector association",
+      "dimensions": [
+        "affordability-response"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "retailcouncil.org"
+      ],
+      "citedUrls": [
+        "https://www.retailcouncil.org/topics/food-grocery/truth-of-canadian-grocery-price-inflation/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "scotiabank-com",
+      "publisher": "Scotiabank Economics",
+      "homeUrl": "https://scotiabank.com/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "housing-supply"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "scotiabank.com"
+      ],
+      "citedUrls": [
+        "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "signal49-ca",
+      "publisher": "Signal 49",
+      "homeUrl": "https://signal49.ca/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "affordability-response",
+        "economic-policy"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "signal49.ca"
+      ],
+      "citedUrls": [
+        "https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/",
+        "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "tc-canada-ca",
+      "publisher": "Transport Canada",
+      "homeUrl": "https://tc.canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "major-projects"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "tc.canada.ca"
+      ],
+      "citedUrls": [
+        "https://tc.canada.ca/en/corporate-services/transparency/corporate-management-reporting/strategic-environmental-economic-assessment/public-statement-strategic-environmental-economic-assessment-co-development-phase-alto-s-high-speed-rail-initiative"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "theconversation-com",
+      "publisher": "The Conversation Canada",
+      "homeUrl": "https://theconversation.com/",
+      "family": 8,
+      "familyName": "Journalism",
+      "dimensions": [
+        "climate-environment"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "theconversation.com"
+      ],
+      "citedUrls": [
+        "https://theconversation.com/budget-cuts-at-environment-and-climate-change-canada-threaten-arctic-science-276606"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "theglobeandmail-com",
+      "publisher": "The Globe and Mail",
+      "homeUrl": "https://theglobeandmail.com/",
+      "family": 8,
+      "familyName": "Journalism",
+      "dimensions": [
+        "ethics-transparency"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "theglobeandmail.com"
+      ],
+      "citedUrls": [
+        "https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/"
+      ],
+      "accessNote": "Paywalled. Search snippets are provisional discovery only."
+    },
+    {
+      "id": "thehub-ca",
+      "publisher": "The Hub",
+      "homeUrl": "https://thehub.ca/",
+      "family": 7,
+      "familyName": "Policy institute",
+      "dimensions": [
+        "execution-delivery"
+      ],
+      "method": "rss",
+      "feedUrl": "https://thehub.ca/feed/",
+      "searchDomains": [
+        "thehub.ca"
+      ],
+      "citedUrls": [
+        "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "thenarwhal-ca",
+      "publisher": "The Narwhal",
+      "homeUrl": "https://thenarwhal.ca/",
+      "family": 8,
+      "familyName": "Journalism",
+      "dimensions": [
+        "promise-delivery"
+      ],
+      "method": "rss",
+      "feedUrl": "https://thenarwhal.ca/feed/",
+      "searchDomains": [
+        "thenarwhal.ca"
+      ],
+      "citedUrls": [
+        "https://thenarwhal.ca/mark-carney-climate-change-explainer/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "transparencycanada-ca",
+      "publisher": "Transparency International Canada",
+      "homeUrl": "https://transparencycanada.ca/",
+      "family": 10,
+      "familyName": "International benchmark / rating",
+      "dimensions": [
+        "ethics-transparency"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "transparencycanada.ca"
+      ],
+      "citedUrls": [
+        "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "www150-statcan-gc-ca",
+      "publisher": "Statistics Canada",
+      "homeUrl": "https://www150.statcan.gc.ca/",
+      "family": 3,
+      "familyName": "Operational government data",
+      "dimensions": [
+        "affordability-response",
+        "defence-trade",
+        "economic-policy",
+        "immigration",
+        "promise-delivery"
+      ],
+      "method": "api",
+      "feedUrl": null,
+      "searchDomains": [
+        "www150.statcan.gc.ca"
+      ],
+      "citedUrls": [
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260605/dq260605a-eng.htm",
+        "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
+      ],
+      "accessNote": null
+    }
+  ]
+}
