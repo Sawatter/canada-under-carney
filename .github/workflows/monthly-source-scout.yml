@@ -41,6 +41,9 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install -r scripts/requirements.txt
 
+      - name: Validate workflow YAML
+        run: python3 scripts/validate_workflow_yaml.py
+
       - name: Determine cycle month
         run: echo "CYCLE_MONTH=$(date -u +'%Y-%m')" >> "$GITHUB_ENV"
 

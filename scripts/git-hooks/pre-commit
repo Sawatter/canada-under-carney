@@ -56,6 +56,22 @@ if git diff --cached --name-only | grep -q '^src/data/.*\.json$'; then
   fi
 fi
 
+# 5. Workflow YAML — only when a workflow file is staged. A broken block scalar
+#    (a heredoc body at column 0, say) makes the whole workflow unparseable and
+#    GitHub Actions refuses to run it, so catch it before it lands. Skips
+#    gracefully if PyYAML is not installed locally; CI still runs the same check.
+if git diff --cached --name-only | grep -qE '^\.github/workflows/.*\.ya?ml$'; then
+  if python3 -c 'import yaml' >/dev/null 2>&1; then
+    echo "pre-commit: workflow YAML changed — parsing it..."
+    if ! python3 scripts/validate_workflow_yaml.py >/dev/null 2>&1; then
+      echo "pre-commit: BLOCKED — a workflow YAML file failed to parse. Run 'python3 scripts/validate_workflow_yaml.py'."
+      fail=1
+    fi
+  else
+    echo "pre-commit: workflow YAML changed but PyYAML is not installed; skipping parse check (CI still runs it)."
+  fi
+fi
+
 if [ "$fail" -ne 0 ]; then
   echo "pre-commit: commit blocked. Fix the above, or 'git commit --no-verify' to override."
   exit 1
