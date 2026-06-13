@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-12",
+    "version": "5.110",
+    "summary": "Tightened the EV-mandate source wording so the public record distinguishes an announced repeal / replacement from a confirmed legal repeal instrument.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "EV-mandate source wording tightened",
+        "body": "The Promise Delivery source label and June recert notes now say the EV Availability Standard repeal / replacement was announced on February 5, 2026. That matches the PMO wording and Electric Autonomy coverage without overclaiming that the formal legal repeal instrument was confirmed in this pass. The Abandoned status is unchanged."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-12",
     "version": "5.109",
     "summary": "Editor adjudication: the carbon effective-price trigger now names its metric, the Clean Electricity Regulations watch is armed, and two stalled promises moved to In Progress.",
     "items": [
@@ -22,7 +34,7 @@
       {
         "type": "minor",
         "headline": "EV-mandate status evidence upgraded",
-        "body": "The Abandoned status now cites the February 5, 2026 formal repeal of the EV Availability Standard rather than the earlier pause coverage."
+        "body": "The Abandoned status now cites the February 5, 2026 repeal / replacement announcement for the EV Availability Standard rather than the earlier pause coverage."
       }
     ]
   },

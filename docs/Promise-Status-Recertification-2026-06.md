@@ -86,7 +86,7 @@ Both editor flags were adjudicated the same day in a structured grill-me session
 
 - **Conserve biodiversity / freshwater: Stalled → In Progress.** The 2026-03-31 $3.8B A Force of Nature launch meets the coding-rules In Progress bar (funding allocated, program structure announced). The AG delivery critique and marine 28% shortfall stay in the evidence note. Status source repointed to the PMO release.
 - **One Project, One Review: Stalled → In Progress.** Enabling law in force plus seven signed provincial cooperation agreements meet the bar (legislation, partial implementation). The lapsed 6-month deadline and the absence of a completed single-assessment cycle stay in the evidence note.
-- The EV-mandate maintenance candidate was applied (status source upgraded to the 2026-02-05 formal-repeal coverage). The 2 Billion Trees "halved" label remains open.
+- The EV-mandate maintenance candidate was applied (status source upgraded to the 2026-02-05 repeal / replacement coverage). The 2 Billion Trees "halved" label remains open.
 - Same-day related decisions on the grade side: the Carbon effective-price metric definition (marginal compliance price) and the Climate CER armed watch — see the v5.109 changelog and Trigger-Verification-2026-06-09.md.
 
 ## Verification record
