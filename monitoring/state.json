@@ -1,6 +1,965 @@
 {
   "schemaVersion": 1,
-  "lastRun": null,
+  "lastRun": "2026-06-14T01:34:47+00:00",
   "note": "Per-source monitoring state. Seeded empty; the first monitored cycle populates it. lastSuccessfulCheck only advances on a successful fetch.",
-  "sources": {}
+  "sources": {
+    "www150-statcan-gc-ca": {
+      "lastChecked": "2026-06-14T01:31:24+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:24+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-www150-statcan-gc-ca-48319e69",
+      "lastSurfacedFingerprint": "c064fa24",
+      "surfacedFingerprints": [
+        "81663917",
+        "1dab1631",
+        "c064fa24"
+      ],
+      "accessIssue": null
+    },
+    "pbo-dpb-ca": {
+      "lastChecked": "2026-06-14T01:31:24+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:24+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-pbo-dpb-ca-e8c1ac1e",
+      "lastSurfacedFingerprint": "c9957e07",
+      "surfacedFingerprints": [
+        "2b89c2d5",
+        "11c08188",
+        "9897b15a",
+        "b194ac68",
+        "d0617208",
+        "9cd300d2",
+        "9fbfca91",
+        "c1dba8b4",
+        "77540eea",
+        "59ebc59c",
+        "6ce58268",
+        "2cdc948b",
+        "ded60fc2",
+        "8dcd894e",
+        "7dc0ceda",
+        "37bec4cb",
+        "0e575667",
+        "5bec0e59",
+        "c9957e07"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-privy-council": {
+      "lastChecked": "2026-06-14T01:31:24+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:24+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "ciec-ccie-parl-gc-ca": {
+      "lastChecked": "2026-06-14T01:31:24+00:00",
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-ciec-ccie-parl-gc-ca-e9ba92b0",
+      "lastSurfacedFingerprint": "c3618a03",
+      "surfacedFingerprints": [
+        "d0baf921",
+        "c3618a03"
+      ],
+      "accessIssue": "http_error"
+    },
+    "budget-canada-ca": {
+      "lastChecked": "2026-06-14T01:31:26+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:26+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "canada-ca-auditor-general": {
+      "lastChecked": "2026-06-14T01:31:26+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:26+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-auditor-general-3c08da30",
+      "lastSurfacedFingerprint": "cf798758",
+      "surfacedFingerprints": [
+        "a512f48b",
+        "d6482803",
+        "da5fdbf8",
+        "4d48382a",
+        "2c96f00f",
+        "2bc4aeff",
+        "0b691591",
+        "7fff4701",
+        "5e36cc56",
+        "cf798758"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-campaign": {
+      "lastChecked": "2026-06-14T01:31:27+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:27+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-campaign-ec687c13",
+      "lastSurfacedFingerprint": "94c8ed7b",
+      "surfacedFingerprints": [
+        "7bef7865",
+        "10d107cc",
+        "a976d665",
+        "b677dec1",
+        "2e2ad88e",
+        "f7cf8ca3",
+        "94c8ed7b"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-climateaction": {
+      "lastChecked": "2026-06-14T01:31:28+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:28+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-climateaction-0786c048",
+      "lastSurfacedFingerprint": "ebc47a4f",
+      "surfacedFingerprints": [
+        "5107f1b1",
+        "aee7c0a6",
+        "655c69a5",
+        "24427ec9",
+        "f77ea06b",
+        "ab0f56ab",
+        "cb1fc545",
+        "bd465cc0",
+        "1d36c016",
+        "ebc47a4f"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-department-finance": {
+      "lastChecked": "2026-06-14T01:31:29+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:29+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-department-finance-3cbca68a",
+      "lastSurfacedFingerprint": "b01fe7f7",
+      "surfacedFingerprints": [
+        "27ca251f",
+        "17861a16",
+        "454c1f4e",
+        "0c8de640",
+        "c7467879",
+        "b01fe7f7"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-environment-climate-change": {
+      "lastChecked": "2026-06-14T01:31:30+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:30+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "canada-ca-housing-infrastructure-communities": {
+      "lastChecked": "2026-06-14T01:31:31+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:31+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-housing-infrastructure-communities-25e8626a",
+      "lastSurfacedFingerprint": "7466fe5a",
+      "surfacedFingerprints": [
+        "3eb9bf25",
+        "c75e247b",
+        "478c79fe",
+        "d57cc1fd",
+        "9d807969",
+        "82ac6f64",
+        "c618c826",
+        "503b776e",
+        "513b8f7e",
+        "7466fe5a"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-immigration-refugees-citizenship": {
+      "lastChecked": "2026-06-14T01:31:32+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:32+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-immigration-refugees-citizenship-b63ffe56",
+      "lastSurfacedFingerprint": "4e5d271e",
+      "surfacedFingerprints": [
+        "ffe69bdc",
+        "8972ff19",
+        "8a5352f9",
+        "3dbfe4a5",
+        "28915b6f",
+        "5d173326",
+        "c7f0b9dc",
+        "4e5d271e"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-intergovernmental-affairs": {
+      "lastChecked": "2026-06-14T01:31:33+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:33+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-intergovernmental-affairs-a3fee437",
+      "lastSurfacedFingerprint": "49e12029",
+      "surfacedFingerprints": [
+        "88c5f6ef",
+        "c7b1cfc7",
+        "072f7c67",
+        "f684434e",
+        "0f68cc51",
+        "8073f24d",
+        "49e12029"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-natural-resources-canada": {
+      "lastChecked": "2026-06-14T01:31:34+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:34+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-natural-resources-canada-5060de9e",
+      "lastSurfacedFingerprint": "9edebca1",
+      "surfacedFingerprints": [
+        "cb64b24d",
+        "7cee7514",
+        "6bd7eff3",
+        "4615bbfc",
+        "82405822",
+        "3c7483bb",
+        "2b8e8ca2",
+        "a0e29181",
+        "4dae3e3f",
+        "9edebca1"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-revenue-agency": {
+      "lastChecked": "2026-06-14T01:31:35+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:35+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-revenue-agency-debf13dc",
+      "lastSurfacedFingerprint": "23315bb4",
+      "surfacedFingerprints": [
+        "0e7ffd5e",
+        "64ea63d3",
+        "6435ff3c",
+        "645ca21f",
+        "9ce2ee94",
+        "7ef6a3db",
+        "8cf86a2b",
+        "ac2d934e",
+        "b7b30cfb",
+        "23315bb4"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-services": {
+      "lastChecked": "2026-06-14T01:31:36+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:36+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-services-12e63e56",
+      "lastSurfacedFingerprint": "2ff1d760",
+      "surfacedFingerprints": [
+        "0e030bb8",
+        "2e82e953",
+        "3af8c28f",
+        "082aad2d",
+        "cd641a84",
+        "2ff1d760"
+      ],
+      "accessIssue": null
+    },
+    "canada-ca-treasury-board-secretariat": {
+      "lastChecked": "2026-06-14T01:31:37+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:37+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-canada-ca-treasury-board-secretariat-142a7d60",
+      "lastSurfacedFingerprint": "ec1c300b",
+      "surfacedFingerprints": [
+        "4a87d1a1",
+        "a71df359",
+        "b1ba2143",
+        "db18750d",
+        "a9a12f42",
+        "453147af",
+        "4d5ae376",
+        "25eac013",
+        "bfaf008d",
+        "ec1c300b"
+      ],
+      "accessIssue": null
+    },
+    "canadacode-org": {
+      "lastChecked": "2026-06-14T01:31:38+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:38+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "cbc-ca": {
+      "lastChecked": "2026-06-14T01:31:39+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:39+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-cbc-ca-9d8af4e8",
+      "lastSurfacedFingerprint": "08bdf85f",
+      "surfacedFingerprints": [
+        "30e53d7e",
+        "847b64ad",
+        "fac2d98b",
+        "e958a9f0",
+        "08bdf85f"
+      ],
+      "accessIssue": null
+    },
+    "cer-rec-gc-ca": {
+      "lastChecked": "2026-06-14T01:31:40+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:40+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "chba-ca": {
+      "lastChecked": "2026-06-14T01:31:41+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:41+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "climateinstitute-ca": {
+      "lastChecked": "2026-06-14T01:31:42+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:42+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "cmhc-schl-gc-ca": {
+      "lastChecked": "2026-06-14T01:31:44+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:44+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "csls-ca": {
+      "lastChecked": "2026-06-14T01:31:45+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:45+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "dal-ca": {
+      "lastChecked": "2026-06-14T01:31:46+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:46+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "electricautonomy-ca": {
+      "lastChecked": "2026-06-14T01:31:47+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:47+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-electricautonomy-ca-9b19b999",
+      "lastSurfacedFingerprint": "98a1a64a",
+      "surfacedFingerprints": [
+        "98a1a64a"
+      ],
+      "accessIssue": null
+    },
+    "en-wikipedia-org": {
+      "lastChecked": "2026-06-14T01:31:48+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:48+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-en-wikipedia-org-9792ed4f",
+      "lastSurfacedFingerprint": "359d675f",
+      "surfacedFingerprints": [
+        "8bb729f9",
+        "b8d935de",
+        "1f2aa18e",
+        "3b673057",
+        "ec8174c7",
+        "8a649e3b",
+        "359d675f"
+      ],
+      "accessIssue": null
+    },
+    "foodbankscanada-ca": {
+      "lastChecked": "2026-06-14T01:31:49+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:49+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-foodbankscanada-ca-a0e788cf",
+      "lastSurfacedFingerprint": "4872a70f",
+      "surfacedFingerprints": [
+        "4872a70f"
+      ],
+      "accessIssue": null
+    },
+    "iisd-org": {
+      "lastChecked": "2026-06-14T01:31:51+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:51+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-iisd-org-ba492b3c",
+      "lastSurfacedFingerprint": "3103f726",
+      "surfacedFingerprints": [
+        "ea8e37db",
+        "3103f726"
+      ],
+      "accessIssue": null
+    },
+    "imf-org": {
+      "lastChecked": "2026-06-14T01:31:52+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:52+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-imf-org-1daee76d",
+      "lastSurfacedFingerprint": "af8550bb",
+      "surfacedFingerprints": [
+        "59fbfc49",
+        "992570b7",
+        "902450ef",
+        "7daae6bd",
+        "205d806f",
+        "b8dc8c56",
+        "daa5da0b",
+        "18f6c571",
+        "794aaeb6",
+        "af8550bb"
+      ],
+      "accessIssue": null
+    },
+    "international-canada-ca": {
+      "lastChecked": "2026-06-14T01:31:52+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:52+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-international-canada-ca-09ffc931",
+      "lastSurfacedFingerprint": "fb5cd03d",
+      "surfacedFingerprints": [
+        "81e25534",
+        "79b027c1",
+        "b2d35ee3",
+        "cb688bd9",
+        "4f760fe6",
+        "fb5cd03d"
+      ],
+      "accessIssue": null
+    },
+    "ipsos-com": {
+      "lastChecked": "2026-06-14T01:31:53+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:53+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-ipsos-com-b653a30a",
+      "lastSurfacedFingerprint": "e07a0820",
+      "surfacedFingerprints": [
+        "a2989cc0",
+        "6a5d9161",
+        "503a47a0",
+        "4fb8eaa9",
+        "e07a0820"
+      ],
+      "accessIssue": null
+    },
+    "ised-isde-canada-ca": {
+      "lastChecked": "2026-06-14T01:31:55+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:55+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "laws-lois-justice-gc-ca": {
+      "lastChecked": "2026-06-14T01:31:56+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:56+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-laws-lois-justice-gc-ca-ef2b4df9",
+      "lastSurfacedFingerprint": "d70e5ea8",
+      "surfacedFingerprints": [
+        "ad776398",
+        "3fb801ff",
+        "450b2648",
+        "564917a1",
+        "d70e5ea8"
+      ],
+      "accessIssue": null
+    },
+    "liberal-ca": {
+      "lastChecked": "2026-06-14T01:31:57+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:57+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "macdonaldlaurier-ca": {
+      "lastChecked": "2026-06-14T01:31:58+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:58+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-macdonaldlaurier-ca-a0947215",
+      "lastSurfacedFingerprint": "96acfe1a",
+      "surfacedFingerprints": [
+        "5ef71cfa",
+        "58203a2a",
+        "d0d5a896",
+        "8daf9093",
+        "5f51a270",
+        "9a60632f",
+        "96acfe1a"
+      ],
+      "accessIssue": null
+    },
+    "maytree-com": {
+      "lastChecked": "2026-06-14T01:31:59+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:59+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-maytree-com-d0d93e18",
+      "lastSurfacedFingerprint": "29db10e2",
+      "surfacedFingerprints": [
+        "e339671a",
+        "29db10e2"
+      ],
+      "accessIssue": null
+    },
+    "nanos-co": {
+      "lastChecked": "2026-06-14T01:31:59+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:31:59+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "nationalobserver-com": {
+      "lastChecked": "2026-06-14T01:32:01+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:01+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-nationalobserver-com-7ef5f768",
+      "lastSurfacedFingerprint": "37a5695f",
+      "surfacedFingerprints": [
+        "37a5695f"
+      ],
+      "accessIssue": null
+    },
+    "nato-int": {
+      "lastChecked": "2026-06-14T01:32:03+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:03+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "oecd-org": {
+      "lastChecked": "2026-06-14T01:32:04+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:04+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-oecd-org-408430b8",
+      "lastSurfacedFingerprint": "adeb9870",
+      "surfacedFingerprints": [
+        "7e4d7586",
+        "76904a91",
+        "9c8769d7",
+        "46b9efb8",
+        "c2b9b426",
+        "bce80868",
+        "dd2a0285",
+        "0b8d2965",
+        "adeb9870"
+      ],
+      "accessIssue": null
+    },
+    "ourcommons-ca": {
+      "lastChecked": "2026-06-14T01:32:05+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:05+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-ourcommons-ca-d098c7da",
+      "lastSurfacedFingerprint": "268f7918",
+      "surfacedFingerprints": [
+        "77d65daa",
+        "16c38eda",
+        "8379dba3",
+        "25012bca",
+        "b7f84cf2",
+        "214364ea",
+        "93f28341",
+        "f64f8a3f",
+        "c60ce509",
+        "268f7918"
+      ],
+      "accessIssue": null
+    },
+    "pm-gc-ca": {
+      "lastChecked": "2026-06-14T01:32:06+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:06+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "policyoptions-irpp-org": {
+      "lastChecked": "2026-06-14T01:32:07+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:07+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "prciec-rpccie-parl-gc-ca": {
+      "lastChecked": "2026-06-14T01:32:08+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:08+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-prciec-rpccie-parl-gc-ca-8b7a226b",
+      "lastSurfacedFingerprint": "a33d8c62",
+      "surfacedFingerprints": [
+        "2fca6c12",
+        "a33d8c62"
+      ],
+      "accessIssue": null
+    },
+    "retailcouncil-org": {
+      "lastChecked": "2026-06-14T01:32:09+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:09+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-retailcouncil-org-2a08e592",
+      "lastSurfacedFingerprint": "ea01fa2b",
+      "surfacedFingerprints": [
+        "df8158d2",
+        "ea01fa2b"
+      ],
+      "accessIssue": null
+    },
+    "scotiabank-com": {
+      "lastChecked": "2026-06-14T01:32:09+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:09+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-scotiabank-com-db5ad94b",
+      "lastSurfacedFingerprint": "7ec65e12",
+      "surfacedFingerprints": [
+        "bf759c22",
+        "ada71280",
+        "17326a20",
+        "307179d9",
+        "3bd80402",
+        "88da5024",
+        "a366f971",
+        "9ec747d8",
+        "7ec65e12"
+      ],
+      "accessIssue": null
+    },
+    "signal49-ca": {
+      "lastChecked": "2026-06-14T01:32:11+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:11+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-signal49-ca-4b0b4a51",
+      "lastSurfacedFingerprint": "aeef0201",
+      "surfacedFingerprints": [
+        "aeef0201"
+      ],
+      "accessIssue": null
+    },
+    "tc-canada-ca": {
+      "lastChecked": "2026-06-14T01:32:12+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:12+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-tc-canada-ca-156b439d",
+      "lastSurfacedFingerprint": "96c96f6a",
+      "surfacedFingerprints": [
+        "226f352a",
+        "be547fac",
+        "fce9dd0f",
+        "019ffb8a",
+        "456fa5cd",
+        "e03b53c2",
+        "90f69217",
+        "ba16e9ec",
+        "96c96f6a"
+      ],
+      "accessIssue": null
+    },
+    "theconversation-com": {
+      "lastChecked": "2026-06-14T01:32:13+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:13+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-theconversation-com-08586322",
+      "lastSurfacedFingerprint": "fa5b789b",
+      "surfacedFingerprints": [
+        "1dfad044",
+        "0842e402",
+        "d9fba2d4",
+        "4072a826",
+        "dbe740e9",
+        "87ce5cb4",
+        "bb67a1c2",
+        "a9efc109",
+        "c422a16b",
+        "fa5b789b"
+      ],
+      "accessIssue": null
+    },
+    "theglobeandmail-com": {
+      "lastChecked": "2026-06-14T01:32:15+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:15+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-theglobeandmail-com-036e6cee",
+      "lastSurfacedFingerprint": "feeee4c3",
+      "surfacedFingerprints": [
+        "a71b2e78",
+        "6d78b2dc",
+        "0479c025",
+        "ba6635d9",
+        "feeee4c3"
+      ],
+      "accessIssue": null
+    },
+    "transparencycanada-ca": {
+      "lastChecked": "2026-06-14T01:32:16+00:00",
+      "lastSuccessfulCheck": "2026-06-14T01:32:16+00:00",
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
+    },
+    "abacusdata-ca": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-abacusdata-ca-dc0fb709",
+      "lastSurfacedFingerprint": "6b8c015a",
+      "surfacedFingerprints": [
+        "6b8c015a"
+      ],
+      "accessIssue": null
+    },
+    "thehub-ca": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-thehub-ca-99e15af9",
+      "lastSurfacedFingerprint": "98b6d6eb",
+      "surfacedFingerprints": [
+        "8bc27b7b",
+        "2893001b",
+        "98b6d6eb"
+      ],
+      "accessIssue": null
+    },
+    "proof-utoronto-ca": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-proof-utoronto-ca-9f4c2767",
+      "lastSurfacedFingerprint": "3a5b5ed8",
+      "surfacedFingerprints": [
+        "859c2a69",
+        "e383a16f",
+        "c77f97aa",
+        "90054ea1",
+        "3a5b5ed8"
+      ],
+      "accessIssue": null
+    },
+    "thenarwhal-ca": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-thenarwhal-ca-e4ac8890",
+      "lastSurfacedFingerprint": "17c50d73",
+      "surfacedFingerprints": [
+        "da0ddd73",
+        "e8c7d3e1",
+        "17c50d73"
+      ],
+      "accessIssue": null
+    },
+    "parl-ca": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-parl-ca-0b182bb4",
+      "lastSurfacedFingerprint": "1df609a2",
+      "surfacedFingerprints": [
+        "11d9391e",
+        "b07bd4c3",
+        "1df609a2"
+      ],
+      "accessIssue": null
+    },
+    "fraserinstitute-org": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-fraserinstitute-org-4f902b12",
+      "lastSurfacedFingerprint": "90f77c5d",
+      "surfacedFingerprints": [
+        "230d3cb4",
+        "aa7af99b",
+        "90f77c5d"
+      ],
+      "accessIssue": null
+    },
+    "cdhowe-org": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-cdhowe-org-7f14ca03",
+      "lastSurfacedFingerprint": "f3fa6fe9",
+      "surfacedFingerprints": [
+        "ac1a8cda",
+        "87933027",
+        "f3fa6fe9"
+      ],
+      "accessIssue": null
+    },
+    "democracywatch-ca": {
+      "lastChecked": null,
+      "lastSuccessfulCheck": null,
+      "contentHash": null,
+      "etag": null,
+      "lastModified": null,
+      "lastSurfacedCandidateId": "2026-06-democracywatch-ca-05867f95",
+      "lastSurfacedFingerprint": "f7b03c8b",
+      "surfacedFingerprints": [
+        "78fea806",
+        "2ff05d24",
+        "8c966132",
+        "7feaf3e2",
+        "4933c04d",
+        "26eb83c4",
+        "f7b03c8b"
+      ],
+      "accessIssue": null
+    }
+  }
 }
