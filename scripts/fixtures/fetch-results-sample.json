@@ -1,0 +1,175 @@
+{
+  "generatedAt": "2026-06-13T13:17:00+00:00",
+  "cycle": "2026-06",
+  "linkRot": true,
+  "note": "Offline fixture for monitor_sources.py dry-run and tests. Hand-built to exercise every deterministic discovery path. Not a real fetch.",
+  "results": {
+    "statcan_food_cpi": {
+      "status": "accessible",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401",
+      "metadata": {
+        "status": "success",
+        "cubeTitleEn": "Consumer Price Index - Food purchased from stores",
+        "cubeEndDate": "2026-05-01",
+        "releaseTime": "2026-06-17T08:30",
+        "frequencyCode": 6
+      },
+      "freshness": { "status": "newer_data_available" }
+    },
+    "statcan_population": {
+      "status": "accessible",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901",
+      "metadata": {
+        "status": "success",
+        "cubeTitleEn": "Population estimates, quarterly",
+        "cubeEndDate": "2026-04-01",
+        "releaseTime": "2026-06-18T08:30",
+        "frequencyCode": 9
+      },
+      "freshness": { "status": "newer_data_available" }
+    },
+    "statcan_unemployment": {
+      "status": "accessible",
+      "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410028701",
+      "metadata": { "status": "success", "cubeTitleEn": "Labour force characteristics", "cubeEndDate": "2026-05-01" },
+      "freshness": { "status": "current_or_equal" }
+    },
+    "boc_fx": { "status": "success", "latest": { "d": "2026-06-12", "FXCADUSD": "0.7312" } },
+    "pbo_feed": {
+      "status": "success",
+      "count": 3,
+      "publications": [
+        {
+          "title": "Fiscal Sustainability Report 2026",
+          "link": "https://www.pbo-dpb.ca/en/publications/RP-2627-001-S--fiscal-sustainability-report-2026",
+          "pubDate": "Tue, 09 Jun 2026 13:00:00 GMT"
+        },
+        {
+          "title": "Cost estimate: expanded Build Canada Homes program",
+          "link": "https://www.pbo-dpb.ca/en/publications/LEG-2627-010-S--build-canada-homes-expansion",
+          "pubDate": "Thu, 04 Jun 2026 13:00:00 GMT"
+        },
+        {
+          "title": "Build Canada Homes forecast to build 26,000 units (already cited)",
+          "link": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
+          "pubDate": "Mon, 12 May 2026 13:00:00 GMT"
+        }
+      ]
+    },
+    "pollster_feeds": [
+      {
+        "pollster": "Abacus Data",
+        "url": "https://abacusdata.ca/feed/",
+        "status": "success",
+        "all_count": 12,
+        "relevant_count": 2,
+        "new_count": 1,
+        "items": [
+          {
+            "title": "Carney government approval holds in June Abacus release",
+            "link": "https://abacusdata.ca/canadian-politics-carney-approval-june-2026/",
+            "pubDate": "Wed, 11 Jun 2026 10:00:00 GMT",
+            "is_cited": false
+          },
+          {
+            "title": "Approval and Liberal lead reach new highs (already cited)",
+            "link": "https://abacusdata.ca/canadian-politics-carney-government-approval-and-liberal-lead-reach-new-highs-as-optimism-about-canada-improves/",
+            "pubDate": "Sat, 07 Jun 2026 10:00:00 GMT",
+            "is_cited": true
+          }
+        ]
+      },
+      {
+        "pollster": "Léger",
+        "url": "https://leger360.com/en/feed/",
+        "status": "http_error",
+        "code": 403
+      }
+    ],
+    "policy_feeds": [
+      {
+        "publisher": "Fraser Institute",
+        "url": "https://www.fraserinstitute.org/rss.xml",
+        "status": "success",
+        "count": 8,
+        "topic_count": 2,
+        "items": [
+          {
+            "title": "New housing-supply analysis: federal starts vs targets",
+            "link": "https://www.fraserinstitute.org/studies/federal-housing-starts-vs-targets-2026",
+            "pubDate": "Mon, 08 Jun 2026 12:00:00 GMT",
+            "topic_match": true
+          },
+          {
+            "title": "Carney government's GST plan: new name, same strategy (already cited)",
+            "link": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy",
+            "pubDate": "Tue, 20 May 2026 12:00:00 GMT",
+            "topic_match": true
+          },
+          {
+            "title": "Unrelated provincial commentary",
+            "link": "https://www.fraserinstitute.org/commentary/provincial-budget-roundup-2026",
+            "pubDate": "Wed, 10 Jun 2026 12:00:00 GMT",
+            "topic_match": false
+          }
+        ]
+      }
+    ],
+    "legisinfo": [
+      {
+        "bill": "c-5",
+        "parl": "45-1",
+        "citations": 4,
+        "record": {
+          "status": "success",
+          "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
+          "number_code": "C-5",
+          "short_title": "One Canadian Economy Act",
+          "current_status": "Royal Assent",
+          "latest_stage": "Royal Assent received",
+          "ongoing_stage": "Completed"
+        }
+      }
+    ],
+    "mpo_diff": {
+      "status": "success",
+      "mpo_count": 16,
+      "matched": [],
+      "cohort_only": [],
+      "mpo_only": [
+        { "display": "Cedar LNG Phase 2 expansion", "tokens": ["cedar", "lng", "phase", "2", "expansion"] }
+      ]
+    },
+    "ethics_reports_diff": {
+      "status": "success",
+      "priorCacheFound": true,
+      "priorCount": 66,
+      "currentCount": 67,
+      "additions": [
+        {
+          "title": "Examination report under the Conflict of Interest Act (June 2026)",
+          "url": "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/ExampleReport-2026.aspx"
+        }
+      ],
+      "removals": []
+    },
+    "link_rot": [
+      {
+        "label": "Ethics & Transparency: Commissioner investigation registry",
+        "url": "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx",
+        "context": "dim-source",
+        "status": "blocked_no_archive",
+        "http_code": 403
+      },
+      {
+        "label": "Climate & Environment: ECCC transparency page",
+        "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/example-moved.html",
+        "context": "dim-source",
+        "status": "broken_with_archive",
+        "http_code": 404,
+        "wayback_url": "https://web.archive.org/web/2026/https://www.canada.ca/en/environment-climate-change/corporate/transparency/example-moved.html",
+        "wayback_timestamp": "20260401000000"
+      }
+    ]
+  }
+}

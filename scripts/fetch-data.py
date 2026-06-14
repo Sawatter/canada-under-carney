@@ -901,7 +901,19 @@ ETHICS_REPORTS_URL = (
     "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/"
     "AllInvestRepAct-TousRapEnqLoi.aspx"
 )
-ETHICS_REPORTS_CACHE = PROJECT_DIR / "tmp" / "ethics-reports.json"
+# Durable diff cache. Lives under monitoring/ (committed) rather than tmp/
+# (gitignored, not durable in GitHub Actions) so the month-over-month diff
+# survives across CI runs.
+ETHICS_REPORTS_CACHE = PROJECT_DIR / "monitoring" / "ethics-reports.json"
+
+
+def _repo_rel(path):
+    """Repo-relative string for a path, so emitted state never carries an
+    absolute local path into committed or surfaced output."""
+    try:
+        return str(Path(path).relative_to(PROJECT_DIR))
+    except ValueError:
+        return Path(path).name
 
 
 def _clean_html_text(raw):
@@ -986,7 +998,7 @@ def fetch_ethics_reports_page(timeout=20):
 def diff_ethics_reports_against_cache(fetch_result, cache_path=ETHICS_REPORTS_CACHE):
     """Diff current ethics-report links against the previous local cache."""
     if fetch_result.get("status") != "success":
-        return {"status": fetch_result.get("status", "not_checked"), "cachePath": str(cache_path)}
+        return {"status": fetch_result.get("status", "not_checked"), "cachePath": _repo_rel(cache_path)}
 
     current = fetch_result.get("reports") or []
     prior = []
@@ -1017,7 +1029,7 @@ def diff_ethics_reports_against_cache(fetch_result, cache_path=ETHICS_REPORTS_CA
         "currentCount": len(current),
         "additions": additions if prior_exists else [],
         "removals": removals if prior_exists else [],
-        "cachePath": str(cache_path),
+        "cachePath": _repo_rel(cache_path),
     }
 
 
@@ -1689,6 +1701,12 @@ def main():
         action="store_true",
         help="Run full link-rot scan across every cited URL with Wayback Machine fallback. Adds 30-60s to the run time.",
     )
+    parser.add_argument(
+        "--json-out",
+        default=None,
+        metavar="PATH",
+        help="Also write the full machine-readable results to this path. monitor_sources.py reads it as the deterministic tier.",
+    )
     args = parser.parse_args()
 
     print("Canada Under Carney — Monthly Data Fetch")
@@ -1944,6 +1962,20 @@ def main():
     with open(changelog_path, "w") as f:
         json.dump(changelog_entry, f, indent=2)
     print(f"Changelog template written to {changelog_path}")
+
+    # 4. Machine-readable results for the source monitor (optional)
+    if args.json_out:
+        json_payload = {
+            "generatedAt": datetime.now().isoformat(timespec="seconds"),
+            "cycle": date.today().strftime("%Y-%m"),
+            "linkRot": bool(args.link_rot),
+            "results": results,
+        }
+        json_out_path = Path(args.json_out)
+        json_out_path.parent.mkdir(parents=True, exist_ok=True)
+        with open(json_out_path, "w") as f:
+            json.dump(json_payload, f, indent=2, ensure_ascii=False)
+        print(f"Machine-readable results written to {json_out_path}")
 
     print()
     print("Done! Next steps:")

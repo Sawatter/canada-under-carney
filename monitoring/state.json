@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "lastRun": null,
+  "note": "Per-source monitoring state. Seeded empty; the first monitored cycle populates it. lastSuccessfulCheck only advances on a successful fetch.",
+  "sources": {}
+}
