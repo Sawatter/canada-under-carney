@@ -789,6 +789,20 @@ def _jaccard(a, b):
     return len(a & b) / len(a | b)
 
 
+def json_safe_default(obj):
+    """JSON fallback for fetch-result internals.
+
+    The monitor's machine-readable payload can include helper values used by a
+    deterministic parser, such as MPO token frozensets. Keep those serializable
+    without changing the human-facing report.
+    """
+    if isinstance(obj, (set, frozenset)):
+        return sorted(obj)
+    if isinstance(obj, (date, datetime)):
+        return obj.isoformat()
+    raise TypeError(f"Object of type {obj.__class__.__name__} is not JSON serializable")
+
+
 def fetch_mpo_page_projects(timeout=20):
     """Scrape the Major Projects Office national-projects page and
     extract the project names. Returns dict with `status` and either
@@ -1974,7 +1988,7 @@ def main():
         json_out_path = Path(args.json_out)
         json_out_path.parent.mkdir(parents=True, exist_ok=True)
         with open(json_out_path, "w") as f:
-            json.dump(json_payload, f, indent=2, ensure_ascii=False)
+            json.dump(json_payload, f, indent=2, ensure_ascii=False, default=json_safe_default)
         print(f"Machine-readable results written to {json_out_path}")
 
     print()

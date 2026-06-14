@@ -10,12 +10,14 @@ the no-auto-grade invariants hold on every candidate.
 """
 import json
 import sys
+import importlib.util
 from pathlib import Path
 
 import monitor_sources as m  # same directory on sys.path[0]
 
 SCRIPT_DIR = Path(__file__).parent
 FIXTURE = SCRIPT_DIR / "fixtures" / "fetch-results-sample.json"
+FETCH_DATA_PATH = SCRIPT_DIR / "fetch-data.py"
 
 CITED_PBO = ("https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/"
              "build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-"
@@ -37,9 +39,17 @@ def load(path):
     return json.loads(Path(path).read_text())
 
 
+def load_fetch_data_module():
+    spec = importlib.util.spec_from_file_location("fetch_data", FETCH_DATA_PATH)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def main():
     dims = load(m.DIMENSIONS_FILE)
     approval = load(m.APPROVAL_POLLS_FILE)
+    fetch_data = load_fetch_data_module()
 
     # --- registry build ---------------------------------------------------- #
     reg = m.build_registry(dims, approval)
@@ -117,6 +127,14 @@ def main():
     start_date, end_date = m.search_window_dates({"sources": {}}, "surface-x")
     check("search fan-out emits Tavily date strings", len(start_date) == 10 and len(end_date) == 10)
     check("search fan-out date range is ordered", start_date <= end_date)
+
+    # --- fetch-data.py JSON output compatibility -------------------------- #
+    try:
+        encoded = json.dumps({"tokens": frozenset(["b", "a"])}, default=fetch_data.json_safe_default)
+    except TypeError:
+        encoded = ""
+    check("fetch-data json_out serializes set-like parser internals",
+          encoded == '{"tokens": ["a", "b"]}')
 
     # --- classifier never controls the safety flags ------------------------ #
     check("classifier tool schema cannot set the safety flags",
