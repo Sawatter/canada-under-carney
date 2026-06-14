@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-14",
+    "version": "5.114",
+    "summary": "Hand-dated 34 more sources, cutting the needs-review count from 38 to 4.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Source dates filled in",
+        "body": "Went back through every source that was missing a date, opened the page, and read the publication date off it. Where a page blocks bots or is a PDF, i looked the date up from a second source. 95 of 99 sources now show a real date in the source table. The 4 left as needs review are bot-blocked pages or living index pages with no single publish date."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-14",
     "version": "5.113",
     "summary": "Added dated source stacks to each dimension and made the source-monitor backtest dispatch reusable from GitHub Actions.",
     "items": [
