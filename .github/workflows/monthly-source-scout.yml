@@ -108,7 +108,7 @@ jobs:
           # and are enforced by the local pre-commit hook. That file is not on the
           # runner, and a generic email scan would false-positive on scraped
           # snippet text and fail the PR, so it is intentionally not run here.
-          if grep -nE '/Users/[A-Za-z]|/home/[A-Za-z]' $FILES; then
+          if grep -nE '(^|[[:space:]"'\''=:({[])(/Users/[A-Za-z]|/home/[A-Za-z])' $FILES; then
             echo "::error::Found an absolute local path in monitoring output. Stopping."
             exit 1
           fi

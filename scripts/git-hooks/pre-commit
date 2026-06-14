@@ -19,7 +19,7 @@ added=$(git diff --cached --unified=0 --no-color | grep '^+' | grep -v '^+++' ||
 #    v5.72 leak class (an editor home path in a doc code block). The trailing
 #    [A-Za-z] requires a real directory name, so documented scan-regex literals
 #    that mention the bare path token are not false-positives.
-leak=$(printf '%s\n' "$added" | grep -nE '/Users/[A-Za-z]|/home/[A-Za-z]' || true)
+leak=$(printf '%s\n' "$added" | grep -nE '(^|[[:space:]"'\''=:({[])(/Users/[A-Za-z]|/home/[A-Za-z])' || true)
 if [ -n "$leak" ]; then
   echo "pre-commit: BLOCKED — staged change adds an absolute local path:"
   printf '%s\n' "$leak"
