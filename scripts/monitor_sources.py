@@ -60,6 +60,7 @@ DEFAULT_FETCH_RESULTS = SCRIPT_DIR / "output" / "fetch-results.json"
 DEFAULT_MODEL = "claude-opus-4-8"
 SCHEMA_VERSION = 1
 TAVILY_ENDPOINT = "https://api.tavily.com/search"
+NORMAL_SURFACE_THRESHOLD = 0.15
 
 # Monitoring methods a source surface can carry.
 VALID_METHODS = {"rss", "api", "sitemap", "page_hash", "search_fanout", "manual"}
@@ -331,6 +332,42 @@ def slugify(text):
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def normalize_url(url):
+    """Stable URL key for cross-surface dedupe.
+
+    Search fan-out can find the same page through multiple source surfaces
+    (especially broad hosts such as canada.ca). Dedupe by URL, not by source id.
+    """
+    if not url:
+        return ""
+    try:
+        parsed = urlparse(url.strip())
+    except Exception:
+        return (url or "").strip().lower().rstrip("/")
+    scheme = (parsed.scheme or "https").lower()
+    host = (parsed.hostname or "").lower()
+    if host.startswith("www."):
+        host = host[4:]
+    path = (parsed.path or "").rstrip("/")
+    query = f"?{parsed.query}" if parsed.query else ""
+    if host:
+        return f"{scheme}://{host}{path}{query}"
+    return (url or "").strip().lower().rstrip("/")
+
+
+def parse_dateish(value):
+    if not value:
+        return None
+    text = str(value)
+    match = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", text)
+    if not match:
+        return None
+    try:
+        return datetime(int(match.group(1)), int(match.group(2)), int(match.group(3))).date()
+    except ValueError:
+        return None
+
+
 # Friendly names for www.canada.ca department sections (first path segment).
 CANADA_CA_DEPTS = {
     "department-finance": "Department of Finance (canada.ca)",
@@ -497,8 +534,8 @@ def empty_source_state():
     }
 
 
-def load_state():
-    state = load_json(STATE_FILE)
+def load_state(path=STATE_FILE):
+    state = load_json(path)
     if not state:
         state = {"schemaVersion": SCHEMA_VERSION, "lastRun": None, "sources": {}}
     state.setdefault("sources", {})
@@ -546,6 +583,32 @@ def remember_candidate(state, candidate, limit=80):
     source_state["lastSurfacedCandidateId"] = candidate.get("candidate_id")
 
 
+def load_seen_ledger(path):
+    """Load candidate fingerprints and URLs from a prior candidate ledger."""
+    if not path:
+        return {"fingerprints": set(), "urls": set()}
+    payload = load_json(path, default={}) or {}
+    seen = {"fingerprints": set(), "urls": set()}
+    for key in ("candidates", "suppressed"):
+        for cand in payload.get(key, []) or []:
+            if cand.get("candidateFingerprint"):
+                seen["fingerprints"].add(cand["candidateFingerprint"])
+            if cand.get("url"):
+                seen["urls"].add(normalize_url(cand["url"]))
+            if cand.get("normalizedUrl"):
+                seen["urls"].add(cand["normalizedUrl"])
+    return seen
+
+
+def already_seen_in_ledger(candidate, seen):
+    if not seen:
+        return False
+    fp = candidate.get("candidateFingerprint")
+    url = candidate.get("normalizedUrl") or normalize_url(candidate.get("url"))
+    return bool((fp and fp in seen.get("fingerprints", set())) or
+                (url and url in seen.get("urls", set())))
+
+
 # --------------------------------------------------------------------------- #
 # deterministic tier  (consume scripts/output/fetch-results.json)
 # --------------------------------------------------------------------------- #
@@ -561,9 +624,12 @@ def _candidate(cycle, source_id, discovery, title, url, snippet,
         "discovery": discovery,
         "title": (title or "").strip()[:300],
         "url": url,
+        "normalizedUrl": normalize_url(url),
         "publishedDate": published,
         "snippet": (snippet or "").strip()[:600],
         "provisional": provisional,
+        "sourceRelationship": None,
+        "timingConfidence": None,
         # filled by the relevance pass; defaults keep the safety invariant true
         "classification": None,
         "affected_dimensions": sorted(dims) if dims else [],
@@ -577,6 +643,167 @@ def _candidate(cycle, source_id, discovery, title, url, snippet,
 
 def _registry_index(registry):
     return {s["id"]: s for s in registry.get("sources", [])}
+
+
+def registry_url_host_sets(registry):
+    cited_urls = set()
+    hosts = set()
+    for src in registry.get("sources", []) or []:
+        for url in src.get("citedUrls", []) or []:
+            cited_urls.add(normalize_url(url))
+            h = host_of(url)
+            if h:
+                hosts.add(h)
+        for h in src.get("searchDomains", []) or []:
+            h = (h or "").lower()
+            if h.startswith("www."):
+                h = h[4:]
+            if h:
+                hosts.add(h)
+    return cited_urls, hosts
+
+
+def load_adjacent_authorities(path):
+    data = load_json(path, default={}) or {}
+    hosts_by_dim = {}
+    for dim_id, hosts in data.items():
+        cleaned = []
+        for h in hosts or []:
+            host = str(h).strip().lower()
+            if host.startswith("www."):
+                host = host[4:]
+            if host:
+                cleaned.append(host)
+        if cleaned:
+            hosts_by_dim[dim_id] = sorted(set(cleaned))
+    return hosts_by_dim
+
+
+def adjacent_registry_entries(adjacent_by_dim, existing_registry):
+    existing_hosts = set()
+    for src in existing_registry.get("sources", []) or []:
+        for h in src.get("searchDomains", []) or []:
+            host = (h or "").lower()
+            if host.startswith("www."):
+                host = host[4:]
+            if host:
+                existing_hosts.add(host)
+
+    entries = []
+    for dim_id, hosts in sorted(adjacent_by_dim.items()):
+        for host in hosts:
+            if host in existing_hosts:
+                continue
+            fam = family_for_host(host)
+            entries.append({
+                "id": f"adjacent-{slugify(dim_id)}-{slugify(host)}",
+                "publisher": publisher_for(host, host),
+                "homeUrl": f"https://{host}/",
+                "family": fam,
+                "familyName": FAMILY_NAMES.get(fam, "Unclassified"),
+                "dimensions": [dim_id],
+                "method": "search_fanout",
+                "feedUrl": None,
+                "searchDomains": [host],
+                "citedUrls": [],
+                "accessNote": "Adjacent authority allowlist; not currently cited.",
+                "adjacentAuthority": True,
+            })
+    return entries
+
+
+def month_label(start_date):
+    if not start_date:
+        return "window"
+    return start_date.strftime("%B")
+
+
+def timing_confidence(candidate, window_start=None, window_end=None):
+    if not window_start or not window_end:
+        return "date-unclear" if not candidate.get("publishedDate") else "published-date-present"
+    published = parse_dateish(candidate.get("publishedDate"))
+    if not published:
+        return "date-unclear"
+    if window_start <= published <= window_end:
+        return f"published-in-{month_label(window_start)}"
+    return "found-now-window-relevant"
+
+
+def assign_candidate_labels(candidates, registry, window_start=None, window_end=None,
+                            adjacent_hosts=None):
+    cited_urls, registry_hosts = registry_url_host_sets(registry)
+    adjacent_hosts = set(adjacent_hosts or [])
+    for cand in candidates:
+        norm = cand.get("normalizedUrl") or normalize_url(cand.get("url"))
+        cand["normalizedUrl"] = norm
+        host = host_of(cand.get("url"))
+        if norm and norm in cited_urls:
+            rel = "cited-source-update"
+        elif host and host in registry_hosts:
+            rel = "same-publisher-new-item"
+        elif host and host in adjacent_hosts:
+            rel = "adjacent-authority-source"
+        else:
+            rel = "search-only-provisional"
+        cand["sourceRelationship"] = rel
+        cand["timingConfidence"] = timing_confidence(cand, window_start, window_end)
+        cand["requires_editor_review"] = True
+        cand["can_move_grade_automatically"] = False
+    return candidates
+
+
+RELATIONSHIP_PRIORITY = {
+    "cited-source-update": 4,
+    "same-publisher-new-item": 3,
+    "adjacent-authority-source": 2,
+    "search-only-provisional": 1,
+}
+
+
+def collapse_candidates_by_url(candidates):
+    """Collapse duplicate URLs found through multiple source surfaces."""
+    by_url = {}
+    passthrough = []
+    for cand in candidates:
+        norm = cand.get("normalizedUrl") or normalize_url(cand.get("url"))
+        if not norm:
+            passthrough.append(cand)
+            continue
+        existing = by_url.get(norm)
+        if existing is None:
+            cand["normalizedUrl"] = norm
+            by_url[norm] = cand
+            continue
+
+        dims = set(existing.get("affected_dimensions") or [])
+        dims.update(cand.get("affected_dimensions") or [])
+        existing["affected_dimensions"] = sorted(dims)
+        if not existing.get("snippet") and cand.get("snippet"):
+            existing["snippet"] = cand["snippet"]
+        current_rel = existing.get("sourceRelationship") or ""
+        new_rel = cand.get("sourceRelationship") or ""
+        if RELATIONSHIP_PRIORITY.get(new_rel, 0) > RELATIONSHIP_PRIORITY.get(current_rel, 0):
+            existing["sourceRelationship"] = new_rel
+            existing["sourceId"] = cand.get("sourceId") or existing.get("sourceId")
+            existing["discovery"] = cand.get("discovery") or existing.get("discovery")
+        if not existing.get("publishedDate") and cand.get("publishedDate"):
+            existing["publishedDate"] = cand["publishedDate"]
+        if existing.get("timingConfidence") == "date-unclear" and cand.get("timingConfidence"):
+            existing["timingConfidence"] = cand["timingConfidence"]
+
+    return list(by_url.values()) + passthrough
+
+
+def filter_seen_ledger(candidates, seen):
+    if not seen:
+        return candidates, []
+    kept, skipped = [], []
+    for cand in candidates:
+        if already_seen_in_ledger(cand, seen):
+            skipped.append(cand)
+        else:
+            kept.append(cand)
+    return kept, skipped
 
 
 def _source_id_and_dims(url, reg_by_surface):
@@ -754,14 +981,17 @@ def _days_since(state, source_id, default=40):
         return default
 
 
-def search_window_dates(state, source_id):
+def search_window_dates(state, source_id, fixed_window=None):
+    if fixed_window:
+        return fixed_window
     days = _days_since(state, source_id)
     end = datetime.now(timezone.utc).date()
     start = end - timedelta(days=days)
     return start.isoformat(), end.isoformat()
 
 
-def run_search_fanout(registry, state, cycle, api_key, max_results=5):
+def run_search_fanout(registry, state, cycle, api_key, max_results=5,
+                      fixed_window=None, adjacent_entries=None):
     """Domain-restricted, time-windowed Tavily queries over feed-less / blocked
     surfaces. Results are provisional discovery, never citation-ready."""
     import requests  # already a project dependency
@@ -772,10 +1002,11 @@ def run_search_fanout(registry, state, cycle, api_key, max_results=5):
 
     targets = [s for s in registry.get("sources", [])
                if s.get("method") == "search_fanout" and s.get("searchDomains")]
+    targets.extend(adjacent_entries or [])
 
     for src in targets:
         domains = src.get("searchDomains") or []
-        start_date, end_date = search_window_dates(state, src["id"])
+        start_date, end_date = search_window_dates(state, src["id"], fixed_window=fixed_window)
         query = (f"{src['publisher']} new report or announcement relevant to "
                  f"{', '.join(src.get('dimensions') or ['federal policy'])}")
         payload = {
@@ -814,6 +1045,8 @@ def run_search_fanout(registry, state, cycle, api_key, max_results=5):
                 published=hit.get("published_date"),
                 provisional=True, dims=src.get("dimensions"),
             )
+            if src.get("adjacentAuthority"):
+                cand["sourceRelationship"] = "adjacent-authority-source"
             if already_surfaced(state, cand):
                 continue
             candidates.append(cand)
@@ -989,20 +1222,48 @@ def _suppressed(candidates, threshold=0.15):
     return surfaced, suppressed
 
 
-def write_candidate_json(path, cycle, tiers, candidates, access_failures, suppressed):
+def threshold_count(candidates, threshold):
+    count = 0
+    for c in candidates:
+        if c.get("classification") == "irrelevant":
+            continue
+        score = c.get("relevance_score")
+        if score is None or score >= threshold:
+            count += 1
+    return count
+
+
+def source_set_delta(registry, compare_registry):
+    if not compare_registry:
+        return None
+    current = {s.get("id") for s in registry.get("sources", []) or []}
+    other = {s.get("id") for s in compare_registry.get("sources", []) or []}
+    return {
+        "activeCount": len(current),
+        "compareCount": len(other),
+        "onlyActive": sorted(x for x in current - other if x),
+        "onlyCompare": sorted(x for x in other - current if x),
+    }
+
+
+def write_candidate_json(path, cycle, tiers, candidates, access_failures, suppressed,
+                         skipped_seen=None, metadata=None):
     payload = {
         "schemaVersion": SCHEMA_VERSION,
         "cycle": cycle,
         "generatedAt": now_iso(),
         "tiers": tiers,
         "noChangeStatement": NO_CHANGE_STATEMENT,
+        "metadata": metadata or {},
         "counts": {
             "surfaced": len(candidates),
             "suppressed": len(suppressed),
             "accessFailures": len(access_failures),
+            "skippedSeenLedger": len(skipped_seen or []),
         },
         "candidates": candidates,
         "suppressed": suppressed,
+        "skippedSeenLedger": skipped_seen or [],
         "accessFailures": access_failures,
     }
     write_json(path, payload)
@@ -1018,7 +1279,11 @@ def _md_table(rows, headers):
 
 
 def render_packet_md(cycle, tiers, registry, candidates, access_failures,
-                     suppressed, dry_run, warnings):
+                     suppressed, dry_run, warnings, title_note=None,
+                     surface_threshold=NORMAL_SURFACE_THRESHOLD,
+                     normal_threshold=NORMAL_SURFACE_THRESHOLD,
+                     skipped_seen=None, source_delta=None,
+                     show_borderline=False):
     surveyed = registry.get("sources", [])
     by_method = {}
     for s in surveyed:
@@ -1027,6 +1292,9 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
     lines = []
     lines.append(f"# Source monitoring candidates - {cycle}")
     lines.append("")
+    if title_note:
+        lines.append(f"> {title_note}")
+        lines.append("")
     if dry_run:
         lines.append("> DRY RUN. The search fan-out and the relevance pass did not run. "
                      "This packet shows the format and the deterministic-tier output only.")
@@ -1056,6 +1324,33 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
     lines.append(f"{len(surveyed)} surfaces in the registry. By method: " +
                  ", ".join(f"{m} {by_method[m]}" for m in sorted(by_method)) + ".")
     lines.append("")
+    if source_delta:
+        lines.append("### Source-set delta")
+        lines.append("")
+        lines.append(
+            f"Active registry for this run: {source_delta['activeCount']} surfaces. "
+            f"Comparison registry: {source_delta['compareCount']} surfaces."
+        )
+        if source_delta.get("onlyActive"):
+            lines.append("")
+            lines.append("Only in this run's source set: " +
+                         ", ".join(source_delta["onlyActive"][:30]) +
+                         (" ..." if len(source_delta["onlyActive"]) > 30 else "") + ".")
+        if source_delta.get("onlyCompare"):
+            lines.append("")
+            lines.append("Only in the comparison source set: " +
+                         ", ".join(source_delta["onlyCompare"][:30]) +
+                         (" ..." if len(source_delta["onlyCompare"]) > 30 else "") + ".")
+        lines.append("")
+
+    lines.append("### Label legends")
+    lines.append("")
+    lines.append("- `cited-source-update`: exact cited URL came back through monitoring.")
+    lines.append("- `same-publisher-new-item`: same cited publisher/domain, new URL.")
+    lines.append("- `adjacent-authority-source`: curated adjacent authority host, not currently cited.")
+    lines.append("- `search-only-provisional`: search discovery outside the cited/allowlisted hosts.")
+    lines.append("- Timing labels are mechanical, based on source/search publication dates when exposed.")
+    lines.append("")
 
     surfaced_det = [c for c in candidates if c["discovery"] != "search_fanout"]
     surfaced_search = [c for c in candidates if c["discovery"] == "search_fanout"]
@@ -1069,8 +1364,19 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
             score_s = f"{score:.2f}" if isinstance(score, (int, float)) else "-"
             title = c.get("title") or "(no title)"
             link = f"[{title}]({c['url']})" if c.get("url") else title
-            rows.append([cls, dims, score_s, c["discovery"], link])
+            rows.append([
+                cls,
+                dims,
+                score_s,
+                c.get("sourceRelationship") or "-",
+                c.get("timingConfidence") or "-",
+                c["discovery"],
+                link,
+            ])
         return rows
+
+    candidate_headers = ["Routing", "Dimensions", "Score", "Source relation",
+                         "Timing", "Discovery", "Item"]
 
     # deterministic candidates
     lines.append("## Deterministic candidates")
@@ -1079,8 +1385,7 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
                  "IRCC, Bank of Canada, LEGISinfo, MPO page, Ethics page, link-rot).")
     lines.append("")
     if surfaced_det:
-        lines.append(_md_table(cand_rows(surfaced_det),
-                               ["Routing", "Dimensions", "Score", "Discovery", "Item"]))
+        lines.append(_md_table(cand_rows(surfaced_det), candidate_headers))
     else:
         lines.append("_No deterministic candidates this run._")
     lines.append("")
@@ -1092,11 +1397,44 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
                  "needs a browser pull and editor verification before it touches the dashboard.")
     lines.append("")
     if surfaced_search:
-        lines.append(_md_table(cand_rows(surfaced_search),
-                               ["Routing", "Dimensions", "Score", "Discovery", "Item"]))
+        lines.append(_md_table(cand_rows(surfaced_search), candidate_headers))
     else:
         lines.append("_No search fan-out candidates this run._")
     lines.append("")
+
+    borderline = []
+    if show_borderline and surface_threshold < normal_threshold:
+        borderline = [
+            c for c in candidates
+            if c.get("classification") != "irrelevant"
+            and isinstance(c.get("relevance_score"), (int, float))
+            and surface_threshold <= c["relevance_score"] < normal_threshold
+        ]
+        lines.append("## Borderline (calibration band)")
+        lines.append("")
+        lines.append(
+            f"These items surfaced only because this run used the permissive "
+            f"{surface_threshold:.2f} calibration threshold instead of the normal "
+            f"{normal_threshold:.2f} threshold."
+        )
+        lines.append("")
+        if borderline:
+            lines.append(_md_table(cand_rows(borderline), candidate_headers))
+        else:
+            lines.append("_No borderline candidates landed between the two thresholds._")
+        lines.append("")
+
+        lines.append("### Threshold calibration")
+        lines.append("")
+        lines.append(_md_table(
+            [
+                [f"{surface_threshold:.2f} permissive", threshold_count(candidates, surface_threshold)],
+                [f"{normal_threshold:.2f} normal", threshold_count(candidates, normal_threshold)],
+                ["0.30 stricter", threshold_count(candidates, 0.30)],
+            ],
+            ["Threshold", "Would surface"],
+        ))
+        lines.append("")
 
     # editor decision required
     decision = [c for c in candidates
@@ -1142,6 +1480,15 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
         lines.append("_Nothing suppressed this run._")
     lines.append("")
 
+    if skipped_seen:
+        lines.append("## Already seen in comparison ledger")
+        lines.append("")
+        lines.append(
+            f"{len(skipped_seen)} candidates matched the supplied seen ledger and were "
+            "kept out of this packet to avoid duplicating an existing source-monitor PR."
+        )
+        lines.append("")
+
     lines.append("---")
     lines.append("")
     lines.append(NO_CHANGE_STATEMENT)
@@ -1168,6 +1515,27 @@ def main(argv=None):
     parser.add_argument("--out-suffix", default="", help="Suffix for output filenames, e.g. -dryrun.")
     parser.add_argument("--model", default=DEFAULT_MODEL, help="Claude model id for the relevance pass.")
     parser.add_argument("--require-keys", action="store_true", help="Exit non-zero if a needed API key is missing.")
+    parser.add_argument("--dimensions-file", default=str(DIMENSIONS_FILE), help="dimensions.json path override.")
+    parser.add_argument("--approval-file", default=str(APPROVAL_POLLS_FILE), help="approval-polls.json path override.")
+    parser.add_argument("--sources-file", default=str(SOURCES_FILE), help="Source registry path override.")
+    parser.add_argument("--state-file", default=str(STATE_FILE), help="Monitor state path override.")
+    parser.add_argument("--ledger-path", default=None, help="Candidate JSON output path override.")
+    parser.add_argument("--packet-path", default=None, help="Markdown packet output path override.")
+    parser.add_argument("--surface-threshold", type=float, default=NORMAL_SURFACE_THRESHOLD,
+                        help="Relevance score threshold for surfacing candidates.")
+    parser.add_argument("--window-start", default=None, help="Fixed search window start, YYYY-MM-DD.")
+    parser.add_argument("--window-end", default=None, help="Fixed search window end, YYYY-MM-DD.")
+    parser.add_argument("--no-deterministic", action="store_true",
+                        help="Intentionally skip deterministic fetch-results parsing.")
+    parser.add_argument("--seen-ledger", default=None,
+                        help="Prior candidate ledger whose fingerprints/URLs should be treated as already seen.")
+    parser.add_argument("--adjacent", action="store_true",
+                        help="Also search curated adjacent-authority hosts from monitoring/adjacent-authorities.json.")
+    parser.add_argument("--adjacent-file", default=str(MONITORING_DIR / "adjacent-authorities.json"),
+                        help="Adjacent authority allowlist JSON path.")
+    parser.add_argument("--compare-sources-file", default=None,
+                        help="Optional registry path to summarize source-set delta.")
+    parser.add_argument("--title-note", default=None, help="Banner note rendered near the top of the packet.")
     args = parser.parse_args(argv)
 
     if args.out_suffix and not re.match(r"^[A-Za-z0-9._-]+$", args.out_suffix):
@@ -1176,23 +1544,37 @@ def main(argv=None):
         return 1
 
     if args.rebuild_registry:
-        dimensions = load_json(DIMENSIONS_FILE)
-        approval = load_json(APPROVAL_POLLS_FILE, default={})
+        dimensions = load_json(args.dimensions_file)
+        approval = load_json(args.approval_file, default={})
         if not dimensions:
-            print(f"ERROR: {DIMENSIONS_FILE} not found or empty", file=sys.stderr)
+            print(f"ERROR: {args.dimensions_file} not found or empty", file=sys.stderr)
             return 1
         registry = build_registry(dimensions, approval)
-        write_json(SOURCES_FILE, registry)
-        print(f"Wrote {SOURCES_FILE} with {len(registry['sources'])} source surfaces.")
+        write_json(args.sources_file, registry)
+        print(f"Wrote {args.sources_file} with {len(registry['sources'])} source surfaces.")
         return 0
 
-    registry = load_json(SOURCES_FILE)
+    if (args.window_start and not args.window_end) or (args.window_end and not args.window_start):
+        print("ERROR: --window-start and --window-end must be supplied together", file=sys.stderr)
+        return 1
+    fixed_window = None
+    window_start_date = None
+    window_end_date = None
+    if args.window_start and args.window_end:
+        window_start_date = parse_dateish(args.window_start)
+        window_end_date = parse_dateish(args.window_end)
+        if not window_start_date or not window_end_date or window_start_date > window_end_date:
+            print("ERROR: invalid --window-start/--window-end", file=sys.stderr)
+            return 1
+        fixed_window = (window_start_date.isoformat(), window_end_date.isoformat())
+
+    registry = load_json(args.sources_file)
     if not registry:
-        print(f"ERROR: {SOURCES_FILE} not found. Run --rebuild-registry first.", file=sys.stderr)
+        print(f"ERROR: {args.sources_file} not found. Run --rebuild-registry first.", file=sys.stderr)
         return 1
 
-    dimensions = load_json(DIMENSIONS_FILE) or []
-    state = load_state()
+    dimensions = load_json(args.dimensions_file) or []
+    state = load_state(args.state_file)
     cycle = args.cycle
 
     tavily_key = os.environ.get("TAVILY_API_KEY")
@@ -1202,11 +1584,26 @@ def main(argv=None):
 
     warnings = []
     tiers = {}
+    skipped_seen = []
+    seen = load_seen_ledger(args.seen_ledger)
+    if args.seen_ledger:
+        tiers["seen_ledger"] = f"loaded ({len(seen['fingerprints'])} fingerprints, {len(seen['urls'])} URLs)"
+
+    adjacent_by_dim = load_adjacent_authorities(args.adjacent_file) if args.adjacent else {}
+    adjacent_entries = adjacent_registry_entries(adjacent_by_dim, registry) if adjacent_by_dim else []
+    adjacent_hosts = {h for hosts in adjacent_by_dim.values() for h in hosts}
+    if args.adjacent:
+        tiers["adjacent_authorities"] = f"enabled ({len(adjacent_entries)} hosts)"
 
     # --- deterministic tier --------------------------------------------------
     fetch_path = Path(args.fetch_results)
-    results_payload = load_json(fetch_path)
-    if results_payload:
+    results_payload = None if args.no_deterministic else load_json(fetch_path)
+    if args.no_deterministic:
+        det_candidates, det_failures = [], []
+        tiers["deterministic"] = "intentionally_skipped (--no-deterministic)"
+        warnings.append("Deterministic tier intentionally skipped for a historical/windowed run; "
+                        "live endpoint state cannot be reconstructed for a past window.")
+    elif results_payload:
         det_candidates, det_failures = candidates_from_fetch_results(
             results_payload, registry, state, cycle)
         tiers["deterministic"] = f"run ({fetch_path.name})"
@@ -1230,10 +1627,18 @@ def main(argv=None):
             print("ERROR: TAVILY_API_KEY required but not set", file=sys.stderr)
             return 1
     else:
-        search_candidates, search_failures = run_search_fanout(registry, state, cycle, tavily_key)
+        search_candidates, search_failures = run_search_fanout(
+            registry, state, cycle, tavily_key, fixed_window=fixed_window,
+            adjacent_entries=adjacent_entries)
         candidates.extend(search_candidates)
         access_failures.extend(search_failures)
         tiers["search_fanout"] = f"run ({len(search_candidates)} hits)"
+
+    candidates = assign_candidate_labels(
+        candidates, registry, window_start=window_start_date,
+        window_end=window_end_date, adjacent_hosts=adjacent_hosts)
+    candidates = collapse_candidates_by_url(candidates)
+    candidates, skipped_seen = filter_seen_ledger(candidates, seen)
 
     # --- relevance pass ------------------------------------------------------
     if not do_classify:
@@ -1257,7 +1662,7 @@ def main(argv=None):
             tiers["classification"] = f"run (model {args.model})"
 
     # --- split, write --------------------------------------------------------
-    surfaced, suppressed = _suppressed(candidates)
+    surfaced, suppressed = _suppressed(candidates, threshold=args.surface_threshold)
     state["lastRun"] = now_iso()
     # Remember every processed candidate, including low-relevance suppressions,
     # so unchanged items do not consume editor/model attention again next cycle.
@@ -1265,21 +1670,40 @@ def main(argv=None):
         remember_candidate(state, c)
 
     suffix = args.out_suffix
-    cand_path = CANDIDATES_DIR / f"{cycle}{suffix}.json"
-    packet_path = DOCS_DIR / f"Source-Monitoring-Candidates-{cycle}{suffix}.md"
+    cand_path = Path(args.ledger_path) if args.ledger_path else CANDIDATES_DIR / f"{cycle}{suffix}.json"
+    packet_path = Path(args.packet_path) if args.packet_path else DOCS_DIR / f"Source-Monitoring-Candidates-{cycle}{suffix}.md"
 
-    write_candidate_json(cand_path, cycle, tiers, surfaced, access_failures, suppressed)
+    compare_registry = load_json(args.compare_sources_file) if args.compare_sources_file else None
+    delta = source_set_delta(registry, compare_registry)
+    metadata = {
+        "surfaceThreshold": args.surface_threshold,
+        "normalThreshold": NORMAL_SURFACE_THRESHOLD,
+        "windowStart": args.window_start,
+        "windowEnd": args.window_end,
+        "noDeterministic": bool(args.no_deterministic),
+        "titleNote": args.title_note,
+        "sourceSetDelta": delta,
+    }
+
+    write_candidate_json(cand_path, cycle, tiers, surfaced, access_failures, suppressed,
+                         skipped_seen=skipped_seen, metadata=metadata)
     packet = render_packet_md(cycle, tiers, registry, surfaced, access_failures,
-                              suppressed, args.dry_run, warnings)
+                              suppressed, args.dry_run, warnings,
+                              title_note=args.title_note,
+                              surface_threshold=args.surface_threshold,
+                              normal_threshold=NORMAL_SURFACE_THRESHOLD,
+                              skipped_seen=skipped_seen,
+                              source_delta=delta,
+                              show_borderline=args.surface_threshold < NORMAL_SURFACE_THRESHOLD)
     packet_path.parent.mkdir(parents=True, exist_ok=True)
     packet_path.write_text(packet)
-    write_json(STATE_FILE, state)
+    write_json(args.state_file, state)
 
     print(f"Cycle {cycle}: {len(surfaced)} candidates surfaced, "
           f"{len(suppressed)} suppressed, {len(access_failures)} access failures.")
     print(f"  candidates: {cand_path}")
     print(f"  packet:     {packet_path}")
-    print(f"  state:      {STATE_FILE}")
+    print(f"  state:      {args.state_file}")
     for w in warnings:
         print(f"  warning: {w}")
     return 0

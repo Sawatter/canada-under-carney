@@ -11,6 +11,7 @@ the no-auto-grade invariants hold on every candidate.
 import json
 import sys
 import importlib.util
+import tempfile
 from pathlib import Path
 
 import monitor_sources as m  # same directory on sys.path[0]
@@ -127,6 +128,68 @@ def main():
     start_date, end_date = m.search_window_dates({"sources": {}}, "surface-x")
     check("search fan-out emits Tavily date strings", len(start_date) == 10 and len(end_date) == 10)
     check("search fan-out date range is ordered", start_date <= end_date)
+    fixed_start, fixed_end = m.search_window_dates(
+        {"sources": {}}, "surface-x", fixed_window=("2026-05-01", "2026-05-31"))
+    check("search fan-out fixed window overrides state dates",
+          (fixed_start, fixed_end) == ("2026-05-01", "2026-05-31"))
+
+    # --- URL dedupe and mechanical labels --------------------------------- #
+    label_registry = {
+        "sources": [{
+            "id": "finance-canada-ca",
+            "searchDomains": ["canada.ca"],
+            "citedUrls": ["https://www.canada.ca/en/department-finance/news/cited.html"],
+        }]
+    }
+    dup_a = m._candidate("2026-06", "a", "search_fanout", "A",
+                         "https://www.canada.ca/en/news/media-centre/item.html/",
+                         "first", published="2026-06-05", dims=["fiscal-health"])
+    dup_b = m._candidate("2026-06", "b", "search_fanout", "B",
+                         "https://canada.ca/en/news/media-centre/item.html",
+                         "", published="2026-06-05", dims=["housing-supply"])
+    labeled = m.assign_candidate_labels(
+        [dup_a, dup_b], label_registry,
+        window_start=m.parse_dateish("2026-06-01"),
+        window_end=m.parse_dateish("2026-06-13"),
+    )
+    collapsed = m.collapse_candidates_by_url(labeled)
+    check("same normalized URL collapses across source surfaces", len(collapsed) == 1)
+    check("URL dedupe unions affected dimensions",
+          set(collapsed[0]["affected_dimensions"]) == {"fiscal-health", "housing-supply"})
+    check("same-publisher source relationship assigned mechanically",
+          collapsed[0]["sourceRelationship"] == "same-publisher-new-item")
+    check("timing confidence assigned from the fixed window",
+          collapsed[0]["timingConfidence"] == "published-in-June")
+
+    adjacent_cand = m._candidate("2026-06", "adjacent-x", "search_fanout", "Adj",
+                                 "https://pembina.org/report/example", "snippet",
+                                 published=None, dims=["climate-environment"])
+    m.assign_candidate_labels(
+        [adjacent_cand], label_registry,
+        window_start=m.parse_dateish("2026-06-01"),
+        window_end=m.parse_dateish("2026-06-13"),
+        adjacent_hosts={"pembina.org"},
+    )
+    check("adjacent authority source relationship assigned mechanically",
+          adjacent_cand["sourceRelationship"] == "adjacent-authority-source")
+    check("missing publication date becomes date-unclear",
+          adjacent_cand["timingConfidence"] == "date-unclear")
+
+    # --- threshold and seen-ledger behavior -------------------------------- #
+    high = dict(c1, relevance_score=0.3, classification="context")
+    low = dict(c1, relevance_score=0.07, classification="context")
+    irrelevant = dict(c1, relevance_score=0.9, classification="irrelevant")
+    surfaced_t, suppressed_t = m._suppressed([high, low, irrelevant], threshold=0.15)
+    check("surface threshold shifts the surfaced/suppressed split",
+          high in surfaced_t and low in suppressed_t and irrelevant in suppressed_t)
+
+    with tempfile.TemporaryDirectory() as td:
+        ledger = Path(td) / "seen.json"
+        ledger.write_text(json.dumps({"candidates": [collapsed[0]], "suppressed": []}))
+        seen = m.load_seen_ledger(ledger)
+        kept, skipped = m.filter_seen_ledger(collapsed + [adjacent_cand], seen)
+    check("seen-ledger suppresses already-seen URLs", collapsed[0] in skipped)
+    check("seen-ledger keeps unseen candidates", adjacent_cand in kept)
 
     # --- fetch-data.py JSON output compatibility -------------------------- #
     try:
