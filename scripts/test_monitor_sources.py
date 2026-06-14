@@ -212,6 +212,52 @@ def main():
     check("classifier tool schema cannot set the safety flags",
           "can_move_grade_automatically" not in json.dumps(m.CLASSIFIER_TOOL))
 
+    # --- timingConfidence URL/title fallback (no Tavily publishedDate) ----- #
+    ws = m.parse_dateish("2026-05-01"); we = m.parse_dateish("2026-05-31")
+    check("timing from URL path /2026/05/",
+          m.timing_confidence({"url": "https://www.canada.ca/en/x/news/2026/05/a.html",
+                               "title": "a", "publishedDate": None}, ws, we) == "published-in-May")
+    check("timing from title 'May 6, 2026'",
+          m.timing_confidence({"url": "https://www.ourcommons.ca/x",
+                               "title": "Hansard No. 118 - May 6, 2026", "publishedDate": None},
+                              ws, we) == "published-in-May")
+    check("timing out-of-window URL is found-now-window-relevant",
+          m.timing_confidence({"url": "https://www.canada.ca/en/x/news/2025/12/z.html",
+                               "title": "z", "publishedDate": None}, ws, we) == "found-now-window-relevant")
+    check("timing with no recoverable date stays date-unclear",
+          m.timing_confidence({"url": "https://example.org/no-date", "title": "no date",
+                               "publishedDate": None}, ws, we) == "date-unclear")
+
+    # --- near-duplicate collapse by host + title --------------------------- #
+    near = [
+        {"url": "https://www.canada.ca/en/x/news/2026/06/p0.html", "title": "Same Title",
+         "affected_dimensions": ["climate-environment"], "relevance_score": 0.3},
+        {"url": "https://www.canada.ca/en/x/news/2026/06/p.html", "title": "Same Title",
+         "affected_dimensions": ["economic-policy"], "relevance_score": 0.4},
+        {"url": "https://www.canada.ca/en/x/news/2026/06/q.html", "title": "Different Title",
+         "affected_dimensions": ["housing-supply"], "relevance_score": 0.5},
+    ]
+    collapsed_t = m.collapse_candidates_by_title(near)
+    merged = [c for c in collapsed_t if c.get("collapsedUrls")]
+    check("near-dup collapse merges same host + title", len(collapsed_t) == 2)
+    check("near-dup collapse unions dimensions",
+          bool(merged) and set(merged[0]["affected_dimensions"]) == {"climate-environment", "economic-policy"})
+    check("near-dup collapse preserves the dropped URL", bool(merged) and bool(merged[0]["collapsedUrls"]))
+    check("near-dup collapse leaves distinct titles alone",
+          any(c.get("title") == "Different Title" for c in collapsed_t))
+
+    # --- browser-pull list sorted by score in the packet ------------------ #
+    bp = [
+        {"classification": "manual_browser_pull", "title": "LOW pull", "url": "https://x/low",
+         "relevance_score": 0.2, "discovery": "search_fanout", "affected_dimensions": []},
+        {"classification": "manual_browser_pull", "title": "HIGH pull", "url": "https://x/high",
+         "relevance_score": 0.7, "discovery": "search_fanout", "affected_dimensions": []},
+    ]
+    packet = m.render_packet_md("2026-06", {}, {"sources": []}, bp, [], [], False, [])
+    bp_section = packet.split("## Access failures and browser-pull list", 1)[1].split("## Suppressed", 1)[0]
+    check("browser-pull list is sorted by score (high first)",
+          bp_section.index("HIGH pull") < bp_section.index("LOW pull"))
+
     failed = [n for n, ok in _results if not ok]
     print()
     if failed:

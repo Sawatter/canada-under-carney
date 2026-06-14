@@ -1,12 +1,13 @@
 {
   "schemaVersion": 1,
   "cycle": "2026-05",
-  "generatedAt": "2026-06-14T03:17:08+00:00",
+  "generatedAt": "2026-06-14T03:43:40+00:00",
   "tiers": {
     "adjacent_authorities": "enabled (7 hosts)",
     "deterministic": "intentionally_skipped (--no-deterministic)",
     "search_fanout": "run (72 hits)",
-    "classification": "run (model claude-opus-4-8)"
+    "classification": "run (model claude-opus-4-8)",
+    "reprocess": "relabeled offline: timing fallback + near-dup collapse; no new API/search calls"
   },
   "noChangeStatement": "No grades, statuses, thresholds, scoring, or dashboard data were changed by this run. Everything below is a candidate for the editor to look at.",
   "metadata": {
@@ -95,7 +96,7 @@
       "snippet": "Auditor General of Canada Auditor General of Canada. # The Office of the Auditor General of Canada will deliver 5 performance audit reports to the House of Commons on Monday, May 4, 2026. **Ottawa, April 21, 2026** —On Monday, May 4, 2026, the Auditor General of Canada, Karen Hogan, and the Commissioner of the Environment and Sustainable Development, Jerry V. Copies of the reports on the special examinations of the National Capital Commission and the International Development Research Centre are also included in this release. Journalists accredited by a recognized media organization who wish t",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "context",
       "affected_dimensions": [
         "climate-environment"
@@ -141,7 +142,7 @@
       "snippet": "# **Canada invests in Arctic infrastructure to bring critical minerals to market and strengthen Northern communities**. Today, the Honourable Tim Hodgson, Minister of Energy and Natural Resources, announced more than $55 million in federal funding for two projects that will strengthen Arctic infrastructure, support export diversification and help build resilient Canadian minerals supply chains. The Government of Canada is making strategic investments to advance Canada’s critical minerals potential, reinforce Arctic sovereignty and create long‑term economic prosperity for northern and Indigenou",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "context",
       "affected_dimensions": [
         "defence-trade",
@@ -165,7 +166,7 @@
       "snippet": "# **Government of Canada invests in British Columbia’s forest sector to support jobs and strengthen communities**. Today, the Honourable Tim Hodgson, Minister of Energy and Natural Resources, announced a $12.4-million federal investment in 14 projects that will strengthen the forest sector in British Columbia. These projects will advance new low-carbon wood technologies; expand the use of mass timber in construction; support Indigenous groups and forest sector businesses; increase the capacity of manufacturers to add more value to wood products; and diversify Canada’s export markets for forest",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "context",
       "affected_dimensions": [
         "defence-trade",
@@ -189,7 +190,7 @@
       "snippet": "# **The Honourable Tim Hodgson,** **Minister of Energy and Natural Resources: Ksi Lisims LNG Offtake Agreement Announcement**. That is because we have not only abundant energy and extraordinary natural resources but also one of the most skilled workforces and educated populations in the world. This trust, as Dr. Birol said, gives Canada a “golden opportunity.”  He said, I quote, “When I look at the world, the energy-hungry world, it needs Canada more than ever.”. Less than one year after we shipped our first cargo of LNG to global markets in Canadian history, this represents the first agreemen",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "context",
       "affected_dimensions": [
         "defence-trade",
@@ -308,7 +309,7 @@
       "snippet": "##### Quick Links. # Friday May 1, 2026 Episode Transcript. Text reads: The Current, Episode Transcripts over an orange and blue-purple background. The blue-purple section looks like waves. ## Social Sharing. ## Footer Links. ### My Account. ### Connect with CBC. P.O. Box 500 Station A. ### About CBC. ### Services. ### Accessibility. It is a priority for CBC to create products that are accessible to all in Canada including people with visual, hearing, motor and cognitive challenges. Closed Captioning and Described Video is available for many CBC shows offered on CBC Gem.",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "manual_browser_pull",
       "affected_dimensions": [
         "climate-environment",
@@ -566,7 +567,7 @@
       "snippet": "Restoring Public Finances Enabling Effective Government Restoring Public Finances ENABLING EFFECTIVE GOVERNMENT This work was approved and declassified by the Committee of Senior Budget Officials on 25 May 2026, except for Chapter 14 \"Revenue Measures\", which was approved by the Committee on Fiscal Affairs on 15 May 2026. The use of such data by the OECD is without prejudice to the status of the Golan Heights, East Jerusalem and Israeli settlements in the West Bank under the terms of international law. Please cite this publication as: OECD (2026), Restoring Public Finances: Enabling Effective ",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "manual_browser_pull",
       "affected_dimensions": [
         "economic-policy",
@@ -590,7 +591,7 @@
       "snippet": "The ***Debates*** are the report—transcribed, edited, and corrected—of what is said in the House. The ***Journals*** are the official record of the decisions and other transactions of the House. The ***Order Paper and Notice Paper*** contains the listing of all items that may be brought forward on a particular sitting day, and notices for upcoming items. | June 6, 2025 — The Honourable Andrew Scheer (Regina—Qu'Appelle) — That, given that, Liberal anti-energy laws have stopped energy infrastructure projects from being built, make us more dependent on the Americans and send Canadian jobs and pay",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "context",
       "affected_dimensions": [
         "defence-trade",
@@ -614,7 +615,7 @@
       "snippet": "# Debates (Hansard) No. 118 - May 6, 2026 (45-1) - House of Commons of Canada. Image 1: House of Commons Menu. *   A Member's Typical Week. *   A Typical Week at the House. *   Contact a Member of Parliament. *   Current Opportunities at the House of Commons. Working for a Member of Parliament. *   Current Listed Opportunities Working for a Member of Parliament. The _**Debates**_ are the report—transcribed, edited, and corrected—of what is said in the House. The _**Journals**_ are the official record of the decisions and other transactions of the House. The _**Order Paper and Notice Paper**_ c",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "manual_browser_pull",
       "affected_dimensions": [
         "ethics-transparency"
@@ -1108,7 +1109,7 @@
       "snippet": "Electronic Frontier Foundation (EFF) has launched a campaign calling for release from prison for Osama Khalid (User:OsamaK), who has been imprisoned in Saudi Arabia since 2020 for editing Wikipedia (see previous *Signpost* coverage). EFF has further profiled Osama as \"Offline\", which is their broader effort to recognize people who are imprisoned for sharing media, and the context of how and why people face opposition to information sharing. Osama was very active as a Wikipedia editor in English and Arabic, as a bot operator, in the Wikipedia IRC group chat, and he attended the international Wi",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "irrelevant",
       "affected_dimensions": [
         "approval-signal"
@@ -1177,7 +1178,7 @@
       "snippet": "*   [About](https://www.imf.org/en/about). *   [Fiscal Policies](https://www.imf.org/en/topics/fiscal-policies). *   [Fiscal Monitor](https://www.imf.org/en/publications/fm). *   [Countries](https://www.imf.org/en/countries). *   [A](https://www.imf.org/en/countries#A). *   [I](https://www.imf.org/en/countries#I). *   [S](https://www.imf.org/en/countries#S). *   [T](https://www.imf.org/en/countries#T). *   [What We Do](https://www.imf.org/en/capacity-development/what-we-do). *   [Financial Sector Assessment Program (FSAP)](https://www.imf.org/en/publications/fssa). *   [Publications](https://w",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "irrelevant",
       "affected_dimensions": [
         "fiscal-health"
@@ -1200,7 +1201,7 @@
       "snippet": "* Monetary policy should remain sufficiently restrictive to ensure that second-round effects from higher energy prices to inflation are contained. * The authorities’ medium-term fiscal strategy continues to strike a good balance between deficit reduction and growth-friendly spending, and recent changes to the fiscal framework strengthen policy stability and credibility. **While the UK economy has remained resilient in recent years, the Middle East war is dampening near-term prospects.** The economy grew at its potential rate of 1.4 percent in 2025 despite headwinds—trade tensions and tight and",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "irrelevant",
       "affected_dimensions": [
         "fiscal-health"
@@ -1223,7 +1224,7 @@
       "snippet": "• Given still strong growth under staff’s baseline projection, the authorities should accelerate the pace of discretionary consolidation to rebuild fiscal buffers ahead of the looming sharp rise in aging-related spending pressures—starting with discontinuing recent energy support measures, except if a severe scenario materialized, in which case they should be narrowly targeted and not distort energy prices. Spain’s recent fiscal reforms focus on raising structural revenues and improving tax efficiency through a combination of new taxes and base -broadening measures, notably including the 2024 ",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "irrelevant",
       "affected_dimensions": [
         "fiscal-health"
@@ -1384,7 +1385,7 @@
       "snippet": "The Charter and Canada’s Westminster inheritance.......................................................... UNSEATING RESPONSIBLE GOVERNMENT Judicial interference in Canada’s parliamentary democracy 4 Foreword The Canadian Charter of Rights and Freedoms was enacted with the consent of nine provinces in 1982. Upon its passing, significant concern was expressed that the Charter would undermine the Canadian system of parliamentary democracy, replacing it instead with a system of judicial supremacy (and court overreach). These fears have found their place in recent decisions of the Supreme Court of",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "irrelevant",
       "affected_dimensions": [
         "climate-environment",
@@ -1431,7 +1432,7 @@
       "snippet": "# OECD Economic Surveys: New Zealand 2026 May 2026. # Volume 2026/11 OECD Economic Surveys: New Zealand 2026 This work was approved and declassified by the Economic Development and Review Committee on 23 April 2026. OECD (2026), OECD Economic Surveys: New Zealand 2026 , OECD Publishing, Paris, https://doi.org/10.1787/3ec5de98-en. Capital intensity in New Zealand is low relative to OECD economies 99. New Zealand’s capital markets are smaller than in many OECD economies 99. KiwiSaver provides significant funding to New Zealand capital markets 104. (2005) , A Study of New Zealand's Venture Capita",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-May",
       "classification": "irrelevant",
       "affected_dimensions": [
         "economic-policy"

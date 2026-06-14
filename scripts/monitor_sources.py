@@ -734,15 +734,66 @@ def month_label(start_date):
     return start_date.strftime("%B")
 
 
+_MONTH_TO_NUM = {}
+for _i, _name in enumerate(
+        ["january", "february", "march", "april", "may", "june", "july",
+         "august", "september", "october", "november", "december"], start=1):
+    _MONTH_TO_NUM[_name] = _i
+    _MONTH_TO_NUM[_name[:3]] = _i
+
+
+def derive_candidate_date(candidate):
+    """Best-effort (date, month_only) for a candidate.
+
+    Tavily frequently returns no publishedDate, which would leave every item
+    `date-unclear`. Fall back to the date embedded in the URL path (/YYYY/MM/)
+    and then to a date in the title ("May 6, 2026", "2026-05-06"). Returns
+    (date|None, month_only) where month_only is True when only a year-month was
+    recoverable (day unknown).
+    """
+    d = parse_dateish(candidate.get("publishedDate"))
+    if d:
+        return d, False
+    url = candidate.get("url") or candidate.get("normalizedUrl") or ""
+    m = re.search(r"/(20\d{2})/(\d{1,2})/", url)
+    if m:
+        try:
+            return datetime(int(m.group(1)), int(m.group(2)), 1).date(), True
+        except ValueError:
+            pass
+    title = candidate.get("title") or ""
+    d = parse_dateish(title)
+    if d:
+        return d, False
+    m = re.search(r"\b([A-Za-z]{3,9})\.?\s+(\d{1,2}),?\s+(20\d{2})\b", title)
+    if m and m.group(1).lower() in _MONTH_TO_NUM:
+        try:
+            return datetime(int(m.group(3)), _MONTH_TO_NUM[m.group(1).lower()],
+                            int(m.group(2))).date(), False
+        except ValueError:
+            pass
+    m = re.search(r"\b([A-Za-z]{3,9})\.?\s+(20\d{2})\b", title)
+    if m and m.group(1).lower() in _MONTH_TO_NUM:
+        try:
+            return datetime(int(m.group(2)), _MONTH_TO_NUM[m.group(1).lower()], 1).date(), True
+        except ValueError:
+            pass
+    return None, False
+
+
 def timing_confidence(candidate, window_start=None, window_end=None):
     if not window_start or not window_end:
         return "date-unclear" if not candidate.get("publishedDate") else "published-date-present"
-    published = parse_dateish(candidate.get("publishedDate"))
-    if not published:
+    derived, month_only = derive_candidate_date(candidate)
+    if not derived:
         return "date-unclear"
-    if window_start <= published <= window_end:
-        return f"published-in-{month_label(window_start)}"
-    return "found-now-window-relevant"
+    if month_only:
+        in_window = ((window_start.year, window_start.month)
+                     <= (derived.year, derived.month)
+                     <= (window_end.year, window_end.month))
+    else:
+        in_window = window_start <= derived <= window_end
+    return f"published-in-{month_label(window_start)}" if in_window else "found-now-window-relevant"
 
 
 def assign_candidate_labels(candidates, registry, window_start=None, window_end=None,
@@ -808,6 +859,38 @@ def collapse_candidates_by_url(candidates):
             existing["timingConfidence"] = cand["timingConfidence"]
 
     return list(by_url.values()) + passthrough
+
+
+def collapse_candidates_by_title(candidates):
+    """Collapse near-duplicate items that share a host AND an identical
+    normalized title within one run (e.g. canada.ca pages that differ only by a
+    trailing path character). Conservative: only same-host, same-title items
+    collapse, dims are unioned, the higher score is kept, and the dropped URL is
+    preserved in collapsedUrls so nothing is lost. Items that genuinely differ
+    in title (e.g. separate ministerial releases about the same event) are left
+    alone."""
+    seen = {}
+    order = []
+    for cand in candidates:
+        title = re.sub(r"[^a-z0-9]+", " ", (cand.get("title") or "").lower()).strip()
+        host = host_of(cand.get("url"))
+        if not title or not host:
+            order.append(cand)
+            continue
+        key = (host, title)
+        existing = seen.get(key)
+        if existing is None:
+            seen[key] = cand
+            order.append(cand)
+            continue
+        dims = set(existing.get("affected_dimensions") or []) | set(cand.get("affected_dimensions") or [])
+        existing["affected_dimensions"] = sorted(dims)
+        if (cand.get("relevance_score") or 0) > (existing.get("relevance_score") or 0):
+            existing["relevance_score"] = cand.get("relevance_score")
+        urls = existing.setdefault("collapsedUrls", [])
+        if cand.get("url") and cand["url"] != existing.get("url") and cand["url"] not in urls:
+            urls.append(cand["url"])
+    return order
 
 
 def filter_seen_ledger(candidates, seen):
@@ -1474,7 +1557,9 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
     # access failures / browser pull
     lines.append("## Access failures and browser-pull list")
     lines.append("")
-    browser_pull = [c for c in candidates if c.get("classification") == "manual_browser_pull"]
+    browser_pull = sorted(
+        [c for c in candidates if c.get("classification") == "manual_browser_pull"],
+        key=lambda c: c.get("relevance_score") or 0, reverse=True)
     if access_failures or browser_pull:
         rows = [[f.get("surface"), f.get("method"), f.get("detail")] for f in access_failures]
         for c in browser_pull:
@@ -1654,6 +1739,7 @@ def main(argv=None):
         candidates, registry, window_start=window_start_date,
         window_end=window_end_date, adjacent_hosts=adjacent_hosts)
     candidates = collapse_candidates_by_url(candidates)
+    candidates = collapse_candidates_by_title(candidates)
     candidates, skipped_seen = filter_seen_ledger(candidates, seen)
 
     # --- relevance pass ------------------------------------------------------

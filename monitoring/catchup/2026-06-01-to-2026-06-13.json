@@ -1,13 +1,14 @@
 {
   "schemaVersion": 1,
   "cycle": "2026-06",
-  "generatedAt": "2026-06-14T03:20:02+00:00",
+  "generatedAt": "2026-06-14T03:43:40+00:00",
   "tiers": {
     "seen_ledger": "loaded (77 fingerprints, 60 URLs)",
     "adjacent_authorities": "enabled (7 hosts)",
     "deterministic": "intentionally_skipped (--no-deterministic)",
     "search_fanout": "run (93 hits)",
-    "classification": "run (model claude-opus-4-8)"
+    "classification": "run (model claude-opus-4-8)",
+    "reprocess": "relabeled offline: timing fallback + near-dup collapse; no new API/search calls"
   },
   "noChangeStatement": "No grades, statuses, thresholds, scoring, or dashboard data were changed by this run. Everything below is a candidate for the editor to look at.",
   "metadata": {
@@ -20,7 +21,7 @@
     "sourceSetDelta": null
   },
   "counts": {
-    "surfaced": 31,
+    "surfaced": 30,
     "suppressed": 24,
     "accessFailures": 0,
     "skippedSeenLedger": 16
@@ -38,7 +39,7 @@
       "snippet": "# During Canadian Environment Week, Canada’s Environmental Damages Fund supports 12 new nature conservation and restoration projects. **From: Environment and Climate Change Canada**. Today, the Honourable Julie Dabrusin, Minister of the Environment, Climate Change and Nature, announced that the Government of Canada will invest over $4 million in funding from the Environmental Damages Fund in 12 projects in Quebec, New Brunswick, and Newfoundland and Labrador. The Environmental Damages Fund uses fines from environmental infractions to support projects that will benefit Canada’s natural environm",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "context",
       "affected_dimensions": [
         "climate-environment"
@@ -47,30 +48,10 @@
       "reason": "Environmental Damages Fund supporting 12 conservation/restoration projects (~$4M) bears on biodiversity/conservation background but is a small fines-funded program, not a tracked metric, trigger, or listed promise. Conserve biodiversity is a promise but this small disbursement does not clearly move its status. Route to context. Note this is a near-duplicate URL of another candidate.",
       "evidence_limitations": "Provisional search snippet, truncated; one of two near-identical URLs (trailing '0' variant), likely a duplicate page.",
       "requires_editor_review": true,
-      "can_move_grade_automatically": false
-    },
-    {
-      "candidate_id": "2026-06-canada-ca-auditor-general-42f16106",
-      "candidateFingerprint": "e66c451a",
-      "sourceId": "canada-ca-auditor-general",
-      "discovery": "search_fanout",
-      "title": "During Canadian Environment Week, Canada's Environmental ...",
-      "url": "https://www.canada.ca/en/environment-climate-change/news/2026/06/during-canadian-environment-week-canadas-environmental-damages-fund-supports-12-new-nature-conservation-and-restoration-projects.html",
-      "normalizedUrl": "https://canada.ca/en/environment-climate-change/news/2026/06/during-canadian-environment-week-canadas-environmental-damages-fund-supports-12-new-nature-conservation-and-restoration-projects.html",
-      "publishedDate": null,
-      "snippet": "# During Canadian Environment Week, Canada’s Environmental Damages Fund supports 12 new nature conservation and restoration projects. **From: Environment and Climate Change Canada**. The Honourable Julie Dabrusin, Minister of the Environment, Climate Change and Nature, announced that the Government of Canada will invest over $4 million in funding from the Environmental Damages Fund in 12 projects in Quebec, New Brunswick, and Newfoundland and Labrador. Canada’s Environmental Damages Fund uses fines from environmental infractions to support projects that will benefit Canada’s natural environmen",
-      "provisional": true,
-      "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
-      "classification": "context",
-      "affected_dimensions": [
-        "climate-environment"
-      ],
-      "relevance_score": 0.35,
-      "reason": "Same Environmental Damages Fund conservation announcement as the near-duplicate candidate. Background relevant to conservation/biodiversity but not a metric, trigger, or clear promise-status mover. Conservative routing to context.",
-      "evidence_limitations": "Provisional snippet; appears to be the canonical version of a duplicated page.",
-      "requires_editor_review": true,
-      "can_move_grade_automatically": false
+      "can_move_grade_automatically": false,
+      "collapsedUrls": [
+        "https://www.canada.ca/en/environment-climate-change/news/2026/06/during-canadian-environment-week-canadas-environmental-damages-fund-supports-12-new-nature-conservation-and-restoration-projects.html"
+      ]
     },
     {
       "candidate_id": "2026-06-canada-ca-auditor-general-71fafceb",
@@ -84,7 +65,7 @@
       "snippet": "# **Government of Canada renews support to the International Sustainability Standards Board office in Montréal**. In an increasingly divided and uncertain world, the Government of Canada is focused on what it can control—building a stronger, more independent, and more sustainable economy—and is committed to mobilizing public and private capital to support investment in the transition to net-zero. Today, at the Sustainable Finance Summit, Ryan Turnbull, Parliamentary Secretary to the Minister of Finance and National Revenue, announced that the Government of Canada will invest $10 million over f",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "context",
       "affected_dimensions": [
         "climate-environment",
@@ -108,7 +89,7 @@
       "snippet": "4.   [Capital Budgeting Framework & New Budget Cycle](https://www.canada.ca/en/department-finance/corporate/transparency/briefing-materials/2026/c15-eng.html#a86). *   As of October 17, 2025, the government assessed more than $3.7 billion revenue, net of remissions and other relief programs, from Canada's counter-tariffs on U.S. goods, as detailed in [Chart A1.1](https://budget.canada.ca/2025/report-rapport/anx1-en.html#f1-1) of Budget 2025. A. Announced in Budget 2024 and launched in 2024-25 with an investment of $1 billion over five years, the National School Food Program is supporting provi",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "found-now-window-relevant",
       "classification": "manual_browser_pull",
       "affected_dimensions": [
         "affordability-response",
@@ -135,7 +116,7 @@
       "snippet": "# **Minister Solomon highlights Canada’s National Artificial Intelligence Strategy**. Today, the Honourable Evan Solomon, Minister of Artificial Intelligence and Digital Innovation and Minister responsible for the Federal Economic Development Agency for Southern Ontario, highlighted the launch of Canada’s National Artificial Intelligence Strategy: AI for All, announced by Prime Minister Mark Carney on June 4. At its core, AI for All reflects our commitment to making artificial intelligence an engine of opportunity for Canadians in every region. To bring this vision to life, the Government of C",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "promise_status",
       "affected_dimensions": [
         "economic-policy"
@@ -182,7 +163,7 @@
       "snippet": "# Canada invests in Newfoundland and Labrador’s energy sector. June 2, 2026               St. John’s, Newfoundland and Labrador         Natural Resources Canada. Today, at the Energy NL Conference & Exhibition in St. John’s, the Honourable François-Philippe Champagne, Minister of Finance and National Revenue, on behalf of the Honourable Tim Hodgson, Minister of Energy and Natural Resources, announced more than $4.5 million in funding for four energy projects in Newfoundland and Labrador. > *Minister of Energy and Natural Resources*. * Newfoundland and Labrador Hydro and Tacora Resources Inc.’s",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "context",
       "affected_dimensions": [
         "climate-environment",
@@ -206,7 +187,7 @@
       "snippet": "These projects will support the development of new low-carbon wood technologies, expand the use of mass timber in construction, support Indigenous participation and forest-sector businesses, increase manufacturers’ capacity to add value to wood products and help diversify export markets. **Description:** The Canada Wood Group will undertake codes and standards development, research, testing, product validation, and phytosanitary and market access support to diversify and increase demand for Canadianwood products in key markets such as Japan, South Korea and China. The project also supports str",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "context",
       "affected_dimensions": [
         "climate-environment",
@@ -278,7 +259,7 @@
       "snippet": "The Ontario government is opening applications for a new program that is intended to reduce building costs and speed up the construction of new homes. As part of the up to $8.8 billion partnership announced in March, the Development Charge Reduction Program (DCRP) will deliver federal and provincial funding over 10 years for housing-enabling infrastructure projects, with funding prioritized for municipalities that reduce development charges for all residential types by 30 per cent to 50 per cent or greater and maintain the reductions for at least three years. *$8.8 billion federal-provincial f",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "promise_status",
       "affected_dimensions": [
         "housing-supply"
@@ -324,7 +305,7 @@
       "snippet": "# Secretary of State Sarai highlights that Canadians will begin receiving enhanced Canada Groceries and Essentials Benefit starting today. June 5, 2026 Surrey, British Columbia Global Affairs Canada The world’s economic and trade landscape is undergoing a rapid transformation, thrusting countries, businesses, and workers into a period of uncertainty. Today, the Honourable Randeep Sarai, Secretary of State (International Development), highlighted that the Canada Revenue Agency (CRA) has begun issuing a one-time top-up payment under the new Canada Groceries and Essentials Benefit, equal to a 50%",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "promise_status",
       "affected_dimensions": [
         "affordability-response"
@@ -347,7 +328,7 @@
       "snippet": "# Minister Olszewski and Minister Robertson Highlight that Canadians Will Begin Receiving Enhanced Canada Groceries and Essentials Benefit Starting Today. Today, the Honourable Eleanor Olszewski, Minister of Emergency Management and Community Resilience and Minister responsible for Prairies Economic Development Canada (PrairiesCan), joined by the Honourable Gregor Robertson, Minister of Housing and Infrastructure and Minister responsible for Pacific Economic Development Canada (PacifiCan) highlighted that the Canada Revenue Agency (CRA) has begun issuing a one-time top-up payment under the new",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "promise_status",
       "affected_dimensions": [
         "affordability-response"
@@ -370,7 +351,7 @@
       "snippet": "Government of Canada  / Gouvernement du Canada. # Briefing binder created for the Deputy Minister of Finance on the occasion of his appearance at the Standing Committee on Public Accounts on February 9, 2026 on the 2024 and 2025 Public Accounts of Canada. 1. Affordability (Overview of Government Actions). 2. Grocery Affordability and Food Inflation. 3. Housing Affordability (and Immigration). 4. Bank of Canada and Foreign Exchange Reserves. 1. Public Accounts of Canada Overview 2024 and 2025. 3. Annex C: Public Accounts of Canada. * Real GDP expanded in the second half of 2025 after nearly sta",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "found-now-window-relevant",
       "classification": "context",
       "affected_dimensions": [
         "affordability-response",
@@ -395,7 +376,7 @@
       "snippet": "Government of Canada  / Gouvernement du Canada. # Secretary of State Sarai to highlight government investments in grocery affordability. **June 4, 2026 –** The Honourable Randeep Sarai, Secretary of State (International Development), will make an announcement in Surrey, British Columbia to mark the first payment of the Canada Groceries and Essentials Benefit. The Honourable Randeep Sarai, Secretary of State (International Development), will make an announcement in Surrey, British Columbia to mark the first payment of the Canada Groceries and Essentials Benefit. **Notes for members of the media",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "promise_status",
       "affected_dimensions": [
         "affordability-response"
@@ -418,7 +399,7 @@
       "snippet": "# Government of Canada announces immediate support to strengthen Canadian culture and ensure Canadian content remains affordable. Federal investments of $600 million will provide stability and immediate support to Canada’s audio and audiovisual sectors and keep Canadian culture accessible and affordable for all. Canada’s new government is committed to supporting Canadian culture and making life more affordable for Canadians. That is why, today, the Honourable Marc Miller, Minister of Canadian Identity and Culture and Minister responsible for Official Languages, announced federal investments of",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "context",
       "affected_dimensions": [
         "affordability-response"
@@ -488,7 +469,7 @@
       "snippet": "*   [About](https://www.imf.org/en/about). *   [How the IMF Supports the Global Economy](https://www.imf.org/en/about/how-the-imf-supports-the-global-economy). *   [Global Financial Stability Report](https://www.imf.org/en/publications/gfsr). *   [Countries](https://www.imf.org/en/countries). *   [A](https://www.imf.org/en/countries#A). *   [B](https://www.imf.org/en/countries#B). *   [C](https://www.imf.org/en/countries#C). *   [D](https://www.imf.org/en/countries#D). *   [E](https://www.imf.org/en/countries#E). *   [F](https://www.imf.org/en/countries#F). *   [G](https://www.imf.org/en/count",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "manual_browser_pull",
       "affected_dimensions": [
         "fiscal-health"
@@ -583,7 +564,7 @@
       "snippet": "expected to widen to 4.8 % of GDP this year , mainly due to tax cuts in response to higher energy prices. GDP growth is projected to slow to 6.5 % in 2026 and 6.2 % in 2027 amid higher energy prices and. The  prices of  energy and  other key inputs produced in  the  Persian Gulf have soared since February, pushing up headline inflation, and  some signs of  supply shortfalls are emerging amidst disruptions to  production and  exports. Key medium‑term policy priorities also remain, such as the  need to  establish a  credible fiscal path to  debt sustainability, enhance energy security and  resil",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "manual_browser_pull",
       "affected_dimensions": [
         "economic-policy",
@@ -776,7 +757,7 @@
       "snippet": "# Minister Dabrusin and Minister Michel mark Clean Air Day in Canada. The Honourable Julie Dabrusin, Minister of the Environment, Climate Change and Nature, and the Honourable Marjorie Michel, Minister of Health, issued the following statement to mark Clean Air Day in Canada. “Today is Clean Air Day in Canada, a time to reflect on the importance of clean air to our health, our communities, and our environment. “As wildfires continue to affect communities across Canada, the Government of Canada is helping Canadians understand the health risks associated with wildfire smoke and how to reduce the",
       "provisional": true,
       "sourceRelationship": "same-publisher-new-item",
-      "timingConfidence": "date-unclear",
+      "timingConfidence": "published-in-June",
       "classification": "irrelevant",
       "affected_dimensions": [
         "climate-environment"
