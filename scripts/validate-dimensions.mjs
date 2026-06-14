@@ -13,12 +13,15 @@ import { POCKETBOOK_DIMS } from "../src/constants.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dataPath = resolve(__dirname, "../src/data/dimensions.json");
+const changelogPath = resolve(__dirname, "../src/data/changelog.json");
 const dimensions = JSON.parse(readFileSync(dataPath, "utf-8"));
+const changelog = JSON.parse(readFileSync(changelogPath, "utf-8"));
 
 const VALID_GRADES = new Set([
   "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F",
 ]);
 const VALID_TRENDS = new Set(["up", "stable", "down"]);
+const VALID_SOURCE_DATE_KINDS = new Set(["published", "updated", "as-of"]);
 // Single source of truth for pocketbook dimension names: src/constants.js
 // POCKETBOOK_DIMS. The validator imports directly so the validator and the
 // live GPA calculation cannot drift apart. Closes the drift risk Comet
@@ -47,6 +50,53 @@ function warnMissingFields(dimName, path, item, fields) {
   }
 }
 
+function validDateString(value) {
+  if (typeof value !== "string") return false;
+  const month = value.match(/^(\d{4})-(\d{2})$/);
+  if (month) {
+    const y = Number(month[1]);
+    const m = Number(month[2]);
+    return y >= 1900 && m >= 1 && m <= 12;
+  }
+  const day = value.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!day) return false;
+  const y = Number(day[1]);
+  const m = Number(day[2]);
+  const d = Number(day[3]);
+  const parsed = new Date(Date.UTC(y, m - 1, d));
+  return y >= 1900
+    && parsed.getUTCFullYear() === y
+    && parsed.getUTCMonth() === m - 1
+    && parsed.getUTCDate() === d;
+}
+
+function canonicalUrl(value) {
+  if (!hasText(value)) return null;
+  try {
+    const parsed = new URL(value);
+    const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
+    const path = parsed.pathname.replace(/\/+$/, "");
+    return `${host}${path}`.toLowerCase();
+  } catch {
+    return String(value)
+      .replace(/^https?:\/\//i, "")
+      .replace(/^www\./i, "")
+      .replace(/[?#].*$/, "")
+      .replace(/\/+$/, "")
+      .toLowerCase();
+  }
+}
+
+function addCanonicalUrl(set, url) {
+  const canonical = canonicalUrl(url);
+  if (canonical) set.add(canonical);
+}
+
+function isMethodologyLink(url) {
+  const normalized = String(url || "").toLowerCase();
+  return normalized.includes("/docs/") || normalized.includes("scoring-rubric");
+}
+
 // ─── Top-level shape ────────────────────────────────────────────────────────
 
 if (!Array.isArray(dimensions)) {
@@ -57,6 +107,7 @@ if (!Array.isArray(dimensions)) {
 const totalCount = dimensions.length;
 const trackerCount = dimensions.filter((d) => d.excludeFromGPA).length;
 const gradedCount = totalCount - trackerCount;
+const canonicalUrlsByDimension = new Map();
 
 if (totalCount !== 12) err("[root]", `expected 12 dimensions, found ${totalCount}`);
 if (gradedCount !== 11) err("[root]", `expected 11 graded dimensions, found ${gradedCount}`);
@@ -265,6 +316,7 @@ for (const d of dimensions) {
 
   // ─── Source shape ─────────────────────────────────────────────────────────
   const sources = d.sources || [];
+  const canonicalUrls = new Set();
   if (sources.length < 3) {
     err(name, `source count ${sources.length} is below floor of 3`);
   }
@@ -274,9 +326,78 @@ for (const d of dimensions) {
   sources.forEach((s, i) => {
     if (!s.label) err(name, `sources[${i}] is missing "label"`);
     if (!s.url) err(name, `sources[${i}] is missing "url"`);
-    else if (!s.url.startsWith("http")) err(name, `sources[${i}].url is not a valid http(s) URL`);
+    else if (!s.url.startsWith("http")) {
+      err(name, `sources[${i}].url is not a valid http(s) URL`);
+    } else {
+      addCanonicalUrl(canonicalUrls, s.url);
+    }
+
+    const needsManualDate = s.needsManualDate === true;
+    if (needsManualDate) {
+      if (s.date || s.dateKind) {
+        err(name, `sources[${i}] has needsManualDate=true and should not also carry date/dateKind`);
+      }
+    } else {
+      if (!s.date) {
+        err(name, `sources[${i}] is missing "date" or needsManualDate=true`);
+      }
+      if (!s.dateKind) {
+        err(name, `sources[${i}] is missing "dateKind" or needsManualDate=true`);
+      }
+    }
+    if (s.date && !validDateString(s.date)) {
+      err(name, `sources[${i}].date "${s.date}" is not a valid YYYY-MM or YYYY-MM-DD date`);
+    }
+    if (s.dateKind && !VALID_SOURCE_DATE_KINDS.has(s.dateKind)) {
+      err(name, `sources[${i}].dateKind "${s.dateKind}" must be published|updated|as-of`);
+    }
   });
+
+  if (Array.isArray(d.metrics)) {
+    d.metrics.forEach((m) => {
+      if (Array.isArray(m?.sourceRefs)) {
+        m.sourceRefs.forEach((sourceRef) => addCanonicalUrl(canonicalUrls, sourceRef?.url));
+      }
+    });
+  }
+  for (const side of ["up", "down"]) {
+    const arr = d.gradeTriggers?.[side] || [];
+    arr.forEach((trigger) => {
+      addCanonicalUrl(canonicalUrls, trigger?.sourceUrl);
+      if (Array.isArray(trigger?.additionalSources)) {
+        trigger.additionalSources.forEach((source) => addCanonicalUrl(canonicalUrls, source?.url));
+      }
+    });
+  }
+  canonicalUrlsByDimension.set(d.id, canonicalUrls);
 }
+
+// ─── Grade-change link shape ───────────────────────────────────────────────
+
+changelog.forEach((entry, entryIndex) => {
+  (entry.items || []).forEach((item, itemIndex) => {
+    if (item?.type !== "grade") return;
+    if (!item.dimensionId) {
+      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] grade item is missing dimensionId`);
+      return;
+    }
+    const href = item.link?.href;
+    if (!hasText(href)) {
+      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] grade item is missing link.href`);
+      return;
+    }
+    if (isMethodologyLink(href)) return;
+    const dimUrls = canonicalUrlsByDimension.get(item.dimensionId);
+    if (!dimUrls) {
+      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] references unknown dimensionId "${item.dimensionId}"`);
+      return;
+    }
+    const canonical = canonicalUrl(href);
+    if (!canonical || !dimUrls.has(canonical)) {
+      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] grade link does not resolve to a source/metric/trigger URL for ${item.dimensionId}`);
+    }
+  });
+});
 
 // ─── Output ─────────────────────────────────────────────────────────────────
 
