@@ -387,6 +387,88 @@ function SourceTierSummary({ counts }) {
   );
 }
 
+const SOURCE_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+function formatSourceDate(date) {
+  const iso = normalizeDateForSort(date);
+  const [y, mo, d] = iso.split("-");
+  const mi = parseInt(mo, 10);
+  if (!y || !mi) return String(date);
+  const day = parseInt(d, 10);
+  return `${SOURCE_MONTHS[mi]}${day ? ` ${day}` : ""}, ${y}`;
+}
+
+// Newest-to-oldest source table, mirroring the Approval Signal (polling) layout.
+// Sources with a publication date sort newest-first; "living" sources that
+// update continuously (data tables, bill status pages) have no single date and
+// are listed last as chips.
+function SourceDateTable({ sources }) {
+  const dated = sources
+    .filter((s) => s.date)
+    .slice()
+    .sort((a, b) => (normalizeDateForSort(a.date) < normalizeDateForSort(b.date) ? 1 : -1));
+  const ongoing = sources.filter((s) => !s.date);
+  return (
+    <div>
+      <div style={{ overflowX: "auto" }}>
+        <table style={{ width: "100%", borderCollapse: "collapse", fontSize: "14px" }}>
+          <thead>
+            <tr style={{ color: "#777", textAlign: "left" }}>
+              <th style={{ padding: "4px 6px", fontWeight: 700, whiteSpace: "nowrap" }}>Published</th>
+              <th style={{ padding: "4px 6px", fontWeight: 700 }}>Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            {dated.map((s, i) => (
+              <tr key={i} style={{ borderTop: "1px solid #eee", color: "#444" }}>
+                <td style={{ padding: "4px 6px", color: "#777", whiteSpace: "nowrap" }}>
+                  {formatSourceDate(s.date)}
+                </td>
+                <td style={{ padding: "4px 6px" }}>
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => e.stopPropagation()}
+                    style={{ color: "#2563eb", textDecoration: "none", fontWeight: 600 }}
+                  >
+                    {s.label}
+                  </a>{" "}
+                  <SourceTierBadge url={s.url} />
+                  <span aria-hidden="true"> ↗</span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {ongoing.length > 0 && (
+        <div style={{ marginTop: "10px" }}>
+          <div style={{ color: "#777", fontSize: "13px", marginBottom: "4px" }}>
+            Ongoing sources (continuously updated, no single publication date):
+          </div>
+          <div className="dim-source-chip-list">
+            {ongoing.map((s, i) => (
+              <a
+                key={i}
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="dim-source-chip"
+              >
+                {s.label}
+                <SourceTierBadge url={s.url} />
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 function normalizeDateForSort(date) {
   if (!date) return "0000-00-00";
   const match = String(date).match(/\d{4}-\d{2}-\d{2}/);
@@ -1836,22 +1918,26 @@ export default function DimensionCard({
               >
                 <div className="dim-stack">
                   <SourceTierSummary counts={sourceCounts} />
-                  <div className="dim-source-chip-list">
-                    {sources.map((s, i) => (
-                      <a
-                        key={i}
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="dim-source-chip"
-                      >
-                        {s.label}
-                        <SourceTierBadge url={s.url} />
-                        <span aria-hidden="true">↗</span>
-                      </a>
-                    ))}
-                  </div>
+                  {sources.some((s) => s.date) ? (
+                    <SourceDateTable sources={sources} />
+                  ) : (
+                    <div className="dim-source-chip-list">
+                      {sources.map((s, i) => (
+                        <a
+                          key={i}
+                          href={s.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="dim-source-chip"
+                        >
+                          {s.label}
+                          <SourceTierBadge url={s.url} />
+                          <span aria-hidden="true">↗</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                   <a
                     href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify({ id: dim.id, name: dim.name, ...(isTracker ? { informationalGrade: dim.informationalGrade } : { grade: dim.grade }), sources, metrics, lastUpdated: dim.lastUpdated }, null, 2))}`}
                     download={`${dim.id}-sources.json`}
