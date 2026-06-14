@@ -812,7 +812,8 @@ button.text-link-button {
 
 .dim-rule-table,
 .dim-cohort-table,
-.dim-evidence-timeline-table {
+.dim-evidence-timeline-table,
+.dim-source-table {
   width: 100%;
   min-width: 560px;
   border-collapse: collapse;
@@ -824,7 +825,9 @@ button.text-link-button {
 .dim-cohort-table th,
 .dim-cohort-table td,
 .dim-evidence-timeline-table th,
-.dim-evidence-timeline-table td {
+.dim-evidence-timeline-table td,
+.dim-source-table th,
+.dim-source-table td {
   text-align: left;
   padding: 4px 6px;
   border: 1px solid #e0e0e0;
@@ -833,7 +836,8 @@ button.text-link-button {
 
 .dim-rule-table th,
 .dim-cohort-table th,
-.dim-evidence-timeline-table th {
+.dim-evidence-timeline-table th,
+.dim-source-table th {
   background: #f6f9fc;
   color: #777;
   font-weight: 700;
@@ -885,6 +889,119 @@ button.text-link-button {
   font-size: 11px;
   font-weight: 800;
   white-space: nowrap;
+}
+
+.dim-source-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dim-source-stack-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  color: #555;
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.dim-source-table {
+  min-width: 720px;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.dim-source-table th:first-child,
+.dim-source-table td:first-child {
+  width: 118px;
+}
+
+.dim-source-table th:nth-child(3),
+.dim-source-table td:nth-child(3) {
+  width: 60px;
+}
+
+.dim-source-table th:nth-child(4),
+.dim-source-table td:nth-child(4) {
+  width: 132px;
+}
+
+.dim-source-table tr[data-source-needs-review="true"] {
+  background: #fffdf5;
+}
+
+.dim-source-date-cell {
+  font-family: 'DM Mono', monospace;
+  color: #555;
+  white-space: nowrap;
+}
+
+.dim-source-date {
+  display: block;
+}
+
+.dim-source-date-kind {
+  display: inline-flex;
+  margin-top: 3px;
+  min-height: 17px;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid #d9dde1;
+  background: #fafafa;
+  color: #555;
+  padding: 0 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 1.5;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.dim-source-date-kind-live {
+  border-color: #9ccc65;
+  background: #f1f8e9;
+  color: #33691e;
+}
+
+.dim-source-date-kind-updated {
+  border-color: #ffcc80;
+  background: #fff8e1;
+  color: #8a5a00;
+}
+
+.dim-source-date-kind-manual {
+  border-color: #d7b46a;
+  background: #fff7e0;
+  color: #6b4a00;
+}
+
+.dim-source-table-link {
+  color: #1565c0;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dim-source-effect {
+  display: inline-flex;
+  border-radius: 999px;
+  border: 1px solid #d9dde1;
+  background: #fafafa;
+  color: #555;
+  padding: 1px 7px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.dim-source-effect-moved {
+  border-color: #b7d7f2;
+  background: #eef7ff;
+  color: #0d47a1;
 }
 
 .dim-cohort-table {

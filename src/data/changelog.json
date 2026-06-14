@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-14",
+    "version": "5.113",
+    "summary": "Added dated source stacks to each dimension and made the source-monitor backtest dispatch reusable from GitHub Actions.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Dated source stacks",
+        "body": "The Sources fold now shows a newest-first table with the source date, tier, and whether that source is linked to a recorded grade move. Blocked or unclear publication dates are marked as needs review instead of guessed."
+      },
+      {
+        "type": "method",
+        "headline": "Source-date fields added",
+        "body": "Each cited source now carries date metadata where the review pass could derive it, with dateKind distinguishing published, updated, and as-of pages. Sources still needing a hand date are explicitly flagged for follow-up."
+      },
+      {
+        "type": "docs",
+        "headline": "Backtest dispatch exposed",
+        "body": "The monthly source-scout workflow can now run a labeled historical backtest with a fixed search window, pinned source registry, isolated state, and artifact-only output. Backtests skip live deterministic fetches and do not open review PRs."
+      }
+    ]
+  },
+  {
     "date": "2026-06-13",
     "version": "5.112",
     "summary": "Added a per-dimension evidence timeline and refreshed the safe June 13 data items without moving any grades.",

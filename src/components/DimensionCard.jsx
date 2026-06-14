@@ -3,6 +3,7 @@ import { GRADES } from "../constants";
 import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
 import meta from "../data/meta.json";
+import changelog from "../data/changelog.json";
 
 // MED1: Heuristic tier classification from source URL domain.
 // Tier 1 = official government / international body / central bank / auditor.
@@ -104,7 +105,7 @@ function SourceTierBadge({ url }) {
   const style = TIER_STYLE[tier] || TIER_STYLE[3];
   return (
     <span
-      title={tier === 1 ? "Tier 1 source" : tier === 2 ? "Tier 2 source" : "Tier 3 source"}
+      title={tier === 1 ? "Tier 1 source" : tier === 2 ? "Tier 2 source" : "Tier 3 / other source"}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -214,6 +215,100 @@ function getTierCounts(sources = []) {
     t2: sources.filter((s) => getSourceTier(s.url) === 2).length,
     t3: sources.filter((s) => getSourceTier(s.url) === 3).length,
   };
+}
+
+function canonicalUrl(value) {
+  if (!value) return null;
+  try {
+    const parsed = new URL(value);
+    const host = parsed.hostname.replace(/^www\./, "").toLowerCase();
+    const path = parsed.pathname.replace(/\/+$/, "");
+    return `${host}${path}`.toLowerCase();
+  } catch {
+    return String(value)
+      .replace(/^https?:\/\//i, "")
+      .replace(/^www\./i, "")
+      .replace(/[?#].*$/, "")
+      .replace(/\/+$/, "")
+      .toLowerCase();
+  }
+}
+
+function isMethodologyUrl(value) {
+  return String(value || "").toLowerCase().includes("/docs/")
+    || String(value || "").toLowerCase().includes("scoring-rubric");
+}
+
+function buildGradeMovesBySource(dimId) {
+  const moves = new Map();
+  const timelineRows = [];
+
+  changelog.forEach((entry) => {
+    (entry.items || []).forEach((item) => {
+      if (item?.type !== "grade" || item.dimensionId !== dimId) return;
+      const label = `${item.from} → ${item.to}`;
+      const href = item.link?.href || null;
+      const source = {
+        label: item.link?.label || (isMethodologyUrl(href) ? "Methodology note" : "Grade-change source"),
+        url: href,
+      };
+      const row = {
+        date: entry.date,
+        source,
+        what: item.headline || item.body || `Grade moved ${label}`,
+        effect: isMethodologyUrl(href) ? "Methodology / rubric re-score" : `Moved ${label}`,
+        gradeMoveLabel: label,
+      };
+      timelineRows.push(row);
+
+      const canonical = canonicalUrl(href);
+      if (!canonical || isMethodologyUrl(href)) return;
+      const existing = moves.get(canonical) || [];
+      existing.push({
+        date: entry.date,
+        label,
+        title: `${entry.date}: ${item.headline || `Grade moved ${label}`}`,
+      });
+      moves.set(canonical, existing);
+    });
+  });
+
+  return { moves, timelineRows };
+}
+
+function sourceDateSortValue(source) {
+  if (!source?.date) return "0000-00-00";
+  if (/^\d{4}-\d{2}$/.test(source.date)) return `${source.date}-01`;
+  return source.date;
+}
+
+function formatSourceDate(source) {
+  if (source?.needsManualDate) return "needs review";
+  if (!source?.date) return "undated";
+
+  const [year, month, day] = source.date.split("-").map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day || 1));
+  const formatted = day
+    ? date.toLocaleDateString("en-CA", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" })
+    : date.toLocaleDateString("en-CA", { month: "short", year: "numeric", timeZone: "UTC" });
+
+  if (source.dateKind === "as-of") return `as of ${formatted}`;
+  return formatted;
+}
+
+function sourceDateKindLabel(source) {
+  if (source?.needsManualDate) return "manual";
+  if (source?.dateKind === "as-of") return "live";
+  if (source?.dateKind === "updated") return "updated";
+  return "published";
+}
+
+function sortSourcesByDate(sources = []) {
+  return [...sources].sort((a, b) => {
+    const byDate = sourceDateSortValue(b).localeCompare(sourceDateSortValue(a));
+    if (byDate !== 0) return byDate;
+    return String(a.label || "").localeCompare(String(b.label || ""));
+  });
 }
 
 function useDisclosureVisibility(isOpen, instantOpen = false) {
@@ -434,8 +529,8 @@ function latestPromiseDate(promise, fallback) {
   return fallback;
 }
 
-function buildEvidenceTimeline(dim, metrics, isTracker) {
-  const rows = [];
+function buildEvidenceTimeline(dim, metrics, isTracker, gradeMoveRows = []) {
+  const rows = [...gradeMoveRows];
   const reviewedDate = dim.lastUpdated || meta.lastUpdated;
 
   if (!isTracker && dim.grade) {
@@ -506,6 +601,8 @@ export default function DimensionCard({
   const showTriggers = !!(dim.gradeTriggers || dim.nextTrigger);
   const cohort = dim.projectCohort || null;
   const sourceCounts = useMemo(() => getTierCounts(sources), [sources]);
+  const sortedSources = useMemo(() => sortSourcesByDate(sources), [sources]);
+  const sourceGradeMoves = useMemo(() => buildGradeMovesBySource(dim.id), [dim.id]);
   const activeThresholdRow = useMemo(
     () => (isTracker ? null : findActiveThresholdRow(scoring?.thresholds, dim.grade)),
     [dim.grade, isTracker, scoring?.thresholds]
@@ -559,8 +656,8 @@ export default function DimensionCard({
     }, []);
   }, [metrics]);
   const evidenceTimelineRows = useMemo(
-    () => buildEvidenceTimeline(dim, metrics, isTracker),
-    [dim, isTracker, metrics]
+    () => buildEvidenceTimeline(dim, metrics, isTracker, sourceGradeMoves.timelineRows),
+    [dim, isTracker, metrics, sourceGradeMoves.timelineRows]
   );
 
   const scoringMetadata = [];
@@ -1836,22 +1933,10 @@ export default function DimensionCard({
               >
                 <div className="dim-stack">
                   <SourceTierSummary counts={sourceCounts} />
-                  <div className="dim-source-chip-list">
-                    {sources.map((s, i) => (
-                      <a
-                        key={i}
-                        href={s.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="dim-source-chip"
-                      >
-                        {s.label}
-                        <SourceTierBadge url={s.url} />
-                        <span aria-hidden="true">↗</span>
-                      </a>
-                    ))}
-                  </div>
+                  <SourceStackTable
+                    sources={sortedSources}
+                    gradeMovesBySource={sourceGradeMoves.moves}
+                  />
                   <a
                     href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify({ id: dim.id, name: dim.name, ...(isTracker ? { informationalGrade: dim.informationalGrade } : { grade: dim.grade }), sources, metrics, lastUpdated: dim.lastUpdated }, null, 2))}`}
                     download={`${dim.id}-sources.json`}
@@ -2016,6 +2101,74 @@ function EvidenceTimeline({ rows }) {
                 </td>
               </tr>
             ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+function SourceStackTable({ sources, gradeMovesBySource }) {
+  return (
+    <div className="dim-source-stack">
+      <div className="dim-source-stack-legend">
+        <span><strong>T1</strong> official / institutional</span>
+        <span><strong>T2</strong> analysis / media</span>
+        <span><strong>T3</strong> other</span>
+      </div>
+      <div className="dim-table-wrap">
+        <table className="dim-source-table">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Source</th>
+              <th>Tier</th>
+              <th>Effect on grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sources.map((source, i) => {
+              const canonical = canonicalUrl(source.url);
+              const moves = canonical ? gradeMovesBySource.get(canonical) || [] : [];
+              const moved = moves.length > 0;
+              const effectTitle = moved
+                ? moves.map((move) => move.title).join(" / ")
+                : "This source is cited as evidence but is not linked to a recorded grade move.";
+
+              return (
+                <tr key={`${source.url}-${i}`} data-source-needs-review={source.needsManualDate ? "true" : undefined}>
+                  <td className="dim-source-date-cell">
+                    <span className="dim-source-date">{formatSourceDate(source)}</span>
+                    <span className={`dim-source-date-kind dim-source-date-kind-${sourceDateKindLabel(source)}`}>
+                      {sourceDateKindLabel(source)}
+                    </span>
+                  </td>
+                  <td>
+                    <a
+                      href={source.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={(e) => e.stopPropagation()}
+                      className="dim-source-table-link"
+                    >
+                      {source.label}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </td>
+                  <td>
+                    <SourceTierBadge url={source.url} />
+                  </td>
+                  <td>
+                    <span
+                      className={`dim-source-effect ${moved ? "dim-source-effect-moved" : "dim-source-effect-none"}`}
+                      title={effectTitle}
+                    >
+                      {moved ? moves.map((move) => `moved ${move.label}`).join(" / ") : "no change"}
+                    </span>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

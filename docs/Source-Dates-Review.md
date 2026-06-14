@@ -2,11 +2,11 @@
 
 Generated: 2026-06-14T17:42:42+00:00
 
-Phase 1 draft only. This file proposes dates for source-table review. It does not change `src/data/dimensions.json`, grades, thresholds, statuses, scoring, GPA math, or source order.
+Phase 1 review record. The dated rows from this table were applied to `src/data/dimensions.json`; unresolved rows remain explicit `needsManualDate` flags. This review did not change grades, thresholds, statuses, scoring, GPA math, or source order.
 
 Sources reviewed: 99. Manual-date flags: 38.
 
-Chris review gate: correct this table before any `date` / `dateKind` fields are added to `dimensions.json`.
+Follow-up gate: correct rows marked `needs manual date` before replacing any `needsManualDate` flag with `date` / `dateKind`.
 
 | Source | Dimension | Proposed date | dateKind | How derived | Confidence |
 |---|---|---:|---|---|---|

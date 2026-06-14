@@ -10,7 +10,32 @@ on:
     # Avoid minute 0 because GitHub scheduled workflows are more likely to be
     # delayed or dropped at the top of the hour.
     - cron: "17 13 1 * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      label:
+        description: "Backtest label, e.g. 2026-06-parity. Leave blank for the live monthly scout."
+        required: false
+        default: ""
+      window_start:
+        description: "Backtest search window start, YYYY-MM-DD. Required when label is set."
+        required: false
+        default: ""
+      window_end:
+        description: "Backtest search window end, YYYY-MM-DD. Required when label is set."
+        required: false
+        default: ""
+      surface_threshold:
+        description: "Backtest surface threshold."
+        required: false
+        default: "0.08"
+      seen_ledger_path:
+        description: "Optional prior candidate ledger to dedupe against."
+        required: false
+        default: ""
+      registry_ref:
+        description: "Full 40-character commit SHA to reconstruct the backtest source registry."
+        required: false
+        default: ""
 
 # Least privilege for opening a review branch and PR. No write to main happens;
 # the deploy workflow is the only thing that builds from main.
@@ -21,6 +46,13 @@ permissions:
 jobs:
   source-scout:
     runs-on: ubuntu-latest
+    env:
+      BACKTEST_LABEL: ${{ inputs.label || '' }}
+      WINDOW_START: ${{ inputs.window_start || '' }}
+      WINDOW_END: ${{ inputs.window_end || '' }}
+      SURFACE_THRESHOLD: ${{ inputs.surface_threshold || '0.08' }}
+      SEEN_LEDGER_PATH: ${{ inputs.seen_ledger_path || '' }}
+      REGISTRY_REF: ${{ inputs.registry_ref || '' }}
     steps:
       - uses: actions/checkout@v6
         with:
@@ -45,9 +77,55 @@ jobs:
         run: python3 scripts/validate_workflow_yaml.py
 
       - name: Determine cycle month
-        run: echo "CYCLE_MONTH=$(date -u +'%Y-%m')" >> "$GITHUB_ENV"
+        run: |
+          if [ -n "$BACKTEST_LABEL" ]; then
+            echo "CYCLE_MONTH=$BACKTEST_LABEL" >> "$GITHUB_ENV"
+            echo "BACKTEST_MODE=true" >> "$GITHUB_ENV"
+          else
+            echo "CYCLE_MONTH=$(date -u +'%Y-%m')" >> "$GITHUB_ENV"
+            echo "BACKTEST_MODE=false" >> "$GITHUB_ENV"
+          fi
+
+      - name: Validate backtest inputs
+        if: env.BACKTEST_LABEL != ''
+        run: |
+          set -euo pipefail
+          if ! printf '%s' "$BACKTEST_LABEL" | grep -Eq '^[a-z0-9-]+$'; then
+            echo "::error::label must match ^[a-z0-9-]+$"
+            exit 1
+          fi
+          if ! printf '%s' "$WINDOW_START" | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+            echo "::error::window_start is required and must be YYYY-MM-DD"
+            exit 1
+          fi
+          if ! printf '%s' "$WINDOW_END" | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
+            echo "::error::window_end is required and must be YYYY-MM-DD"
+            exit 1
+          fi
+          if ! printf '%s' "$REGISTRY_REF" | grep -Eq '^[0-9a-f]{40}$'; then
+            echo "::error::registry_ref must be a full 40-character commit SHA"
+            exit 1
+          fi
+          git cat-file -e "$REGISTRY_REF^{commit}"
+          case "$SEEN_LEDGER_PATH" in
+            ""|monitoring/candidates/*.json|monitoring/backtest/*.json) ;;
+            *)
+              echo "::error::seen_ledger_path must be empty or stay under monitoring/candidates/ or monitoring/backtest/"
+              exit 1
+              ;;
+          esac
+          python3 - <<'PY'
+          from datetime import date
+          import os
+          start = date.fromisoformat(os.environ["WINDOW_START"])
+          end = date.fromisoformat(os.environ["WINDOW_END"])
+          if start > end:
+              raise SystemExit("window_start must be on or before window_end")
+          float(os.environ["SURFACE_THRESHOLD"])
+          PY
 
       - name: Prepare review branch
+        if: env.BACKTEST_LABEL == ''
         run: |
           set -euo pipefail
           BRANCH="source-monitor/$CYCLE_MONTH"
@@ -66,12 +144,15 @@ jobs:
           fi
 
       - name: Run source fetch and link-rot scan
+        if: env.BACKTEST_LABEL == ''
         run: python3 scripts/fetch-data.py --link-rot --json-out scripts/output/fetch-results.json
 
       - name: Generate source ledger
+        if: env.BACKTEST_LABEL == ''
         run: node scripts/generate-source-ledger.mjs "$CYCLE_MONTH" --force
 
       - name: Run source monitor (deterministic + search fan-out + relevance pass)
+        if: env.BACKTEST_LABEL == ''
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
@@ -79,6 +160,46 @@ jobs:
           python3 scripts/monitor_sources.py \
             --cycle "$CYCLE_MONTH" \
             --fetch-results scripts/output/fetch-results.json
+
+      - name: Reconstruct backtest source registry
+        if: env.BACKTEST_LABEL != ''
+        run: |
+          set -euo pipefail
+          mkdir -p monitoring/backtest
+          git show "$REGISTRY_REF:src/data/dimensions.json" > "monitoring/backtest/dimensions-$BACKTEST_LABEL.json"
+          git show "$REGISTRY_REF:src/data/approval-polls.json" > "monitoring/backtest/approval-polls-$BACKTEST_LABEL.json"
+          python3 scripts/monitor_sources.py \
+            --rebuild-registry \
+            --dimensions-file "monitoring/backtest/dimensions-$BACKTEST_LABEL.json" \
+            --approval-file "monitoring/backtest/approval-polls-$BACKTEST_LABEL.json" \
+            --sources-file "monitoring/backtest/sources-$BACKTEST_LABEL.json"
+
+      - name: Run source monitor backtest
+        if: env.BACKTEST_LABEL != ''
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
+        run: |
+          set -euo pipefail
+          args=(
+            --cycle "$BACKTEST_LABEL"
+            --sources-file "monitoring/backtest/sources-$BACKTEST_LABEL.json"
+            --state-file "monitoring/backtest/state-$BACKTEST_LABEL.json"
+            --ledger-path "monitoring/backtest/$BACKTEST_LABEL.json"
+            --packet-path "docs/Source-Monitoring-Backtest-$BACKTEST_LABEL.md"
+            --window-start "$WINDOW_START"
+            --window-end "$WINDOW_END"
+            --surface-threshold "$SURFACE_THRESHOLD"
+            --no-deterministic
+            --adjacent
+            --require-keys
+            --compare-sources-file monitoring/sources.json
+            --title-note "Backtest $BACKTEST_LABEL. Registry ref: $REGISTRY_REF. Window: $WINDOW_START to $WINDOW_END."
+          )
+          if [ -n "$SEEN_LEDGER_PATH" ]; then
+            args+=(--seen-ledger "$SEEN_LEDGER_PATH")
+          fi
+          python3 scripts/monitor_sources.py "${args[@]}"
 
       - name: Upload source-scout artifacts
         if: always()
@@ -94,8 +215,13 @@ jobs:
             docs/Source-Monitoring-Candidates-${{ env.CYCLE_MONTH }}.md
             monitoring/candidates/${{ env.CYCLE_MONTH }}.json
             monitoring/state.json
+            docs/Source-Monitoring-Backtest-${{ env.CYCLE_MONTH }}.md
+            monitoring/backtest/${{ env.CYCLE_MONTH }}.json
+            monitoring/backtest/state-${{ env.CYCLE_MONTH }}.json
+            monitoring/backtest/sources-${{ env.CYCLE_MONTH }}.json
 
       - name: Guard committed files for local paths
+        if: env.BACKTEST_LABEL == ''
         run: |
           FILES=$(git status --porcelain -- monitoring docs/Source-Monitoring-Candidates-*.md | awk '{print $2}')
           if [ -z "$FILES" ]; then
@@ -115,6 +241,7 @@ jobs:
           echo "Guard passed."
 
       - name: Open or update the review PR
+        if: env.BACKTEST_LABEL == ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

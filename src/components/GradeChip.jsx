@@ -11,6 +11,7 @@ export default function GradeChip({ grade, size = "md" }) {
 
   return (
     <span
+      title={`Grade ${grade}`}
       style={{
         background: g.bg,
         color: g.color,
