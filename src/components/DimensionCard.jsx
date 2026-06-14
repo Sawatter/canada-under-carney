@@ -389,13 +389,15 @@ function SourceTierSummary({ counts }) {
 
 const SOURCE_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
+// Format honestly to the precision we actually have: "May 4, 2026" for a full
+// date, "Dec 2025" for a month-only date (YYYY-MM). Never invents a day.
 function formatSourceDate(date) {
-  const iso = normalizeDateForSort(date);
-  const [y, mo, d] = iso.split("-");
-  const mi = parseInt(mo, 10);
-  if (!y || !mi) return String(date);
-  const day = parseInt(d, 10);
-  return `${SOURCE_MONTHS[mi]}${day ? ` ${day}` : ""}, ${y}`;
+  const s = String(date || "");
+  const full = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+  if (full) return `${SOURCE_MONTHS[parseInt(full[2], 10)]} ${parseInt(full[3], 10)}, ${full[1]}`;
+  const ym = s.match(/^(\d{4})-(\d{2})$/);
+  if (ym) return `${SOURCE_MONTHS[parseInt(ym[2], 10)]} ${ym[1]}`;
+  return s;
 }
 
 // Newest-to-oldest source table, mirroring the Approval Signal (polling) layout.
@@ -471,8 +473,12 @@ function SourceDateTable({ sources }) {
 
 function normalizeDateForSort(date) {
   if (!date) return "0000-00-00";
-  const match = String(date).match(/\d{4}-\d{2}-\d{2}/);
-  return match ? match[0] : String(date);
+  const s = String(date);
+  const full = s.match(/\d{4}-\d{2}-\d{2}/);
+  if (full) return full[0];
+  const ym = s.match(/^(\d{4})-(\d{2})$/);
+  if (ym) return `${ym[1]}-${ym[2]}-01`;
+  return s;
 }
 
 function sourceFromMetric(metric) {
