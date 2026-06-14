@@ -61,6 +61,8 @@ DEFAULT_MODEL = "claude-opus-4-8"
 SCHEMA_VERSION = 1
 TAVILY_ENDPOINT = "https://api.tavily.com/search"
 NORMAL_SURFACE_THRESHOLD = 0.15
+EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
+LOCAL_PATH_RE = re.compile(r"(^|[\s(\"'])((?:/Users|/home)/[^\s)\"']+)")
 
 # Monitoring methods a source surface can carry.
 VALID_METHODS = {"rss", "api", "sitemap", "page_hash", "search_fanout", "manual"}
@@ -279,6 +281,18 @@ def write_json(path, data):
 
 def sha256_short(text):
     return hashlib.sha256(text.encode("utf-8")).hexdigest()[:8]
+
+
+def scrub_public_text(value):
+    """Remove identity-scan tripwires from generated free text.
+
+    Source-monitor snippets can include public contact emails or copied local
+    paths. They are not useful evidence, and they make the repo's public-safety
+    scans noisy, so redact them before writing packets or ledgers.
+    """
+    text = "" if value is None else str(value)
+    text = EMAIL_RE.sub("[email redacted]", text)
+    return LOCAL_PATH_RE.sub(lambda m: f"{m.group(1)}[local path redacted]", text)
 
 
 def host_of(url):
@@ -614,19 +628,21 @@ def already_seen_in_ledger(candidate, seen):
 # --------------------------------------------------------------------------- #
 def _candidate(cycle, source_id, discovery, title, url, snippet,
                published=None, provisional=False, dims=None):
-    basis = f"{source_id}|{url}|{title}"
-    fingerprint_basis = f"{source_id}|{discovery}|{url}|{title}|{snippet}"
+    clean_title = scrub_public_text(title).strip()[:300]
+    clean_snippet = scrub_public_text(snippet).strip()[:600]
+    basis = f"{source_id}|{url}|{clean_title}"
+    fingerprint_basis = f"{source_id}|{discovery}|{url}|{clean_title}|{clean_snippet}"
     cid = f"{cycle}-{source_id}-{sha256_short(basis)}"
     return {
         "candidate_id": cid,
         "candidateFingerprint": sha256_short(fingerprint_basis),
         "sourceId": source_id,
         "discovery": discovery,
-        "title": (title or "").strip()[:300],
+        "title": clean_title,
         "url": url,
         "normalizedUrl": normalize_url(url),
         "publishedDate": published,
-        "snippet": (snippet or "").strip()[:600],
+        "snippet": clean_snippet,
         "provisional": provisional,
         "sourceRelationship": None,
         "timingConfidence": None,
@@ -1191,8 +1207,8 @@ def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
                 cand["relevance_score"] = round(float(row.get("relevance_score")), 3)
             except (TypeError, ValueError):
                 cand["relevance_score"] = None
-            cand["reason"] = (row.get("reason") or "").strip()[:600]
-            cand["evidence_limitations"] = (row.get("evidence_limitations") or "").strip()[:400]
+            cand["reason"] = scrub_public_text(row.get("reason")).strip()[:600]
+            cand["evidence_limitations"] = scrub_public_text(row.get("evidence_limitations")).strip()[:400]
             # safety invariants are never delegated to the model
             cand["requires_editor_review"] = True
             cand["can_move_grade_automatically"] = False

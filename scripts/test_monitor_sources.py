@@ -124,6 +124,15 @@ def main():
     check("candidate defaults to requires editor review", c1["requires_editor_review"] is True)
     check("candidate fingerprint is stable across cycles",
           c1["candidateFingerprint"] == m._candidate("2026-07", "s", "rss", "t", "https://u", "snip")["candidateFingerprint"])
+    sample_email = "accessible" + "@" + "parl.gc.ca"
+    sample_path = "/" + "Users/editor/private-note.md"
+    scrubbed = m._candidate(
+        "2026-06", "s", "rss", "Contact", "https://u",
+        f"Write {sample_email} or see {sample_path}")
+    check("candidate free text redacts emails before writing",
+          sample_email not in scrubbed["snippet"])
+    check("candidate free text redacts local paths before writing",
+          sample_path not in scrubbed["snippet"])
 
     start_date, end_date = m.search_window_dates({"sources": {}}, "surface-x")
     check("search fan-out emits Tavily date strings", len(start_date) == 10 and len(end_date) == 10)
