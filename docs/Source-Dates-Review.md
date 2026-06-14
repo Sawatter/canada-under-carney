@@ -1,10 +1,10 @@
 # Source Dates Review
 
-Generated: 2026-06-14T16:34:14+00:00
+Generated: 2026-06-14T17:42:42+00:00
 
 Phase 1 draft only. This file proposes dates for source-table review. It does not change `src/data/dimensions.json`, grades, thresholds, statuses, scoring, GPA math, or source order.
 
-Sources reviewed: 99. Manual-date flags: 42.
+Sources reviewed: 99. Manual-date flags: 38.
 
 Chris review gate: correct this table before any `date` / `dateKind` fields are added to `dimensions.json`.
 
@@ -36,7 +36,7 @@ Chris review gate: correct this table before any `date` / `dateKind` fields are 
 | [Finance Canada Fiscal Monitor (March 2026)](https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html) | Fiscal Health | 2026-05-29 | published | page-meta: dcterms.issued | medium |
 | [PBO Economic and Fiscal Outlook (June 2026)](https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026) | Fiscal Health | needs manual date | published | manual required: html exceeded 1500000 byte cap | manual |
 | [OECD Economic Surveys: Canada 2025](https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html) | Economic Policy Response | 2025-05 | published | url month | medium |
-| [StatsCan GDP, income and expenditure - Q1 2026](https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm) | Economic Policy Response | needs manual date | published | manual required: fetch failed: ConnectTimeout | manual |
+| [StatsCan GDP, income and expenditure - Q1 2026](https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm) | Economic Policy Response | 2026-05-29 | published | url statcan daily | high |
 | [ISED — Canadian Sovereign AI Compute Strategy](https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy) | Economic Policy Response | needs manual date | published | manual required: fetch failed: ConnectTimeout | manual |
 | [Budget 2025 — productivity super-deduction](https://budget.canada.ca/2025/report-rapport/intro-en.html) | Economic Policy Response | needs manual date | published | manual required: no page date found | manual |
 | [Treasury Board — 2024-25 regulatory management annual report](https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html) | Economic Policy Response | 2025-12-02 | published | page-meta: dcterms.issued | medium |
@@ -45,7 +45,7 @@ Chris review gate: correct this table before any `date` / `dateKind` fields are 
 | [NRCan — critical minerals partnerships](https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html) | Economic Policy Response | 2026-03 | published | url month | medium |
 | [Centre for the Study of Living Standards — Canadian Productivity Review](http://www.csls.ca/ipm.asp) | Economic Policy Response | needs manual date | published | manual required: no page date found | manual |
 | [Signal49 Research — business investment outlook](https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/) | Economic Policy Response | 2026-03 | published | <time datetime> | medium |
-| [StatsCan CPI Apr 2026](https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm) | Affordability Response | needs manual date | published | manual required: fetch failed: ConnectTimeout | manual |
+| [StatsCan CPI Apr 2026](https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm) | Affordability Response | 2026-05-19 | published | url statcan daily | high |
 | [Dalhousie Food Price Report](https://www.dal.ca/sites/agri-food/research/canada-s-food-price-report-2026.html) | Affordability Response | needs manual date | published | manual required: no page date found | manual |
 | [PROOF food insecurity 2025](https://proof.utoronto.ca/2026/new-data-on-household-food-insecurity-in-2025/) | Affordability Response | 2026-04 | published | page-meta: article:published_time | medium |
 | [PBO — Canada Groceries and Essentials Benefit](https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels) | Affordability Response | needs manual date | published | manual required: no page date found | manual |
@@ -72,7 +72,7 @@ Chris review gate: correct this table before any `date` / `dateKind` fields are 
 | [Macdonald-Laurier Institute — energy-superpower gap](https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/) | Climate & Environment | 2026-02 | published | page-meta: article:published_time | medium |
 | [Canada Energy Regulator — Canada's Energy Future 2023](https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/) | Climate & Environment | needs manual date | published | manual required: fetch failed: ConnectTimeout | manual |
 | [Office of the Auditor General — Shortcomings in implementation of financial measures for GHG emissions (2025)](https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html) | Climate & Environment | 2025-12-02 | published | page-meta: dcterms.issued | medium |
-| [StatsCan population Q4 2025](https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm) | Immigration | needs manual date | published | manual required: fetch failed: ConnectTimeout | manual |
+| [StatsCan population Q4 2025](https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm) | Immigration | 2026-03-18 | published | url statcan daily | high |
 | [IRCC 2026-2028 levels plan](https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) | Immigration | 2025-11-04 | published | page-meta: dcterms.issued | medium |
 | [IRCC open data — work permits](https://open.canada.ca/data/dataset/360024f2-17e9-4558-bfc1-3616485d65b9) | Immigration | 2026-06-14 | as-of | manual: living source | review |
 | [IRCC open data — study permits](https://open.canada.ca/data/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee) | Immigration | 2026-06-14 | as-of | manual: living source | review |
@@ -89,7 +89,7 @@ Chris review gate: correct this table before any `date` / `dateKind` fields are 
 | [PBO — housing program outlook](https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025) | Housing Supply | needs manual date | published | manual required: no page date found | manual |
 | [CMHC — housing supply gaps 2025](https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report) | Housing Supply | needs manual date | published | manual required: no page date found | manual |
 | [CHBA — Q1 2026 Housing Market Index](https://www.chba.ca/2026/04/21/low-builder-confidence-illustrates-need-for-sustained-federal-action-plan-focused-on-homeownership-housing/) | Housing Supply | 2026-04-21 | published | url full date | high |
-| [Scotiabank Economics — Canadian Home Sales (Housing News Flash, Feb 2026)](https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html) | Housing Supply | needs manual date | published | manual required: no page date found | manual |
+| [Scotiabank Economics — Canadian Home Sales (Housing News Flash, Feb 2026)](https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html) | Housing Supply | 2026-02-18 | published | url month-name | high |
 | [Globe and Mail — ethics filing](https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/) | Ethics & Transparency | 2025-07 | published | page-meta: article:published_time | medium |
 | [CBC — financial assets](https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443) | Ethics & Transparency | 2025-07 | published | <time datetime> | medium |
 | [Democracy Watch critique](https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/) | Ethics & Transparency | 2025-07 | published | <time datetime> | medium |

@@ -34,25 +34,38 @@ MAX_REDIRECTS = 5
 MAX_BYTES = 1_500_000
 DATE_KIND_VALUES = {"published", "updated", "as-of"}
 
-PUBLISHED_META = {
+PUBLISHED_META = (
     "article:published_time",
     "article:published",
     "datePublished",
-    "date",
-    "dc.date",
-    "dc.date.issued",
     "dcterms.issued",
+    "dc.date.issued",
+    "dc.date",
+    "date",
     "pubdate",
-}
-UPDATED_META = {
+)
+UPDATED_META = (
     "article:modified_time",
     "dateModified",
     "dc.date.modified",
     "dcterms.modified",
-}
+)
 LIVING_HOSTS = {
-    "ircc.canada.ca",
     "open.canada.ca",
+}
+MONTH_NAME_TO_NUMBER = {
+    "january": 1,
+    "february": 2,
+    "march": 3,
+    "april": 4,
+    "may": 5,
+    "june": 6,
+    "july": 7,
+    "august": 8,
+    "september": 9,
+    "october": 10,
+    "november": 11,
+    "december": 12,
 }
 
 
@@ -130,6 +143,21 @@ def parse_url_date(url):
     if match and valid_date_parts(match.group(1), match.group(2), match.group(3)):
         y, m, d = match.groups()
         return f"{int(y):04d}-{int(m):02d}-{int(d):02d}", "url full date"
+
+    match = re.search(r"/daily-quotidien/(\d{2})(\d{2})(\d{2})(?:/|$)", path)
+    if match:
+        yy, m, d = match.groups()
+        year = 2000 + int(yy)
+        if valid_date_parts(year, m, d):
+            return f"{year:04d}-{int(m):02d}-{int(d):02d}", "url statcan daily"
+
+    month_names = "|".join(MONTH_NAME_TO_NUMBER)
+    match = re.search(rf"(?:^|[./_-])({month_names})-(\d{{1,2}})--(20\d{{2}})(?:[./_-]|$)", path.lower())
+    if match:
+        month_name, d, y = match.groups()
+        month = MONTH_NAME_TO_NUMBER[month_name]
+        if valid_date_parts(y, month, d):
+            return f"{int(y):04d}-{month:02d}-{int(d):02d}", "url month-name"
 
     match = re.search(r"/(20\d{2})/([01]?\d)(?:/|$)", path)
     if match and valid_date_parts(match.group(1), match.group(2)):
