@@ -1703,7 +1703,8 @@
       {
         "label": "Retail Council of Canada — grocery and food",
         "url": "https://www.retailcouncil.org/topics/food-grocery/truth-of-canadian-grocery-price-inflation/",
-        "needsManualDate": true
+        "date": "2026-06-15",
+        "dateKind": "as-of"
       },
       {
         "label": "Fraser Institute — GST affordability strategy critique",
@@ -2595,8 +2596,9 @@
       },
       {
         "label": "Macdonald-Laurier Institute — immigration research",
-        "url": "https://macdonaldlaurier.ca/research/immigration/",
-        "needsManualDate": true
+        "url": "https://macdonaldlaurier.ca/category/issues/domestic-policy-program/immigration-2/",
+        "date": "2026-06-15",
+        "dateKind": "as-of"
       },
       {
         "label": "Maytree — immigration and refugee policy",
@@ -3162,7 +3164,8 @@
       {
         "label": "Office of the Ethics Commissioner — registry and reviews",
         "url": "https://ciec-ccie.parl.gc.ca/en/",
-        "needsManualDate": true
+        "date": "2026-06-15",
+        "dateKind": "as-of"
       },
       {
         "label": "PM blind-trust summary statement",
@@ -3173,7 +3176,8 @@
       {
         "label": "PM Annex A public declaration of agreed measure",
         "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
-        "needsManualDate": true
+        "date": "2025-07-11",
+        "dateKind": "published"
       },
       {
         "label": "Transparency International Canada — Canada's CPI ranking",

@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-15",
+    "version": "5.115",
+    "summary": "Closed the remaining source-date review rows and merged the June monitor candidate packet.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Source-date review closed",
+        "body": "The four remaining needs-review source rows now carry dates: three living pages are marked as-of June 15, 2026, and the PM Annex A filing is tied to the July 11, 2025 public-registry release. The Macdonald-Laurier immigration source link now points to the live immigration category instead of an image redirect. No grades, statuses, thresholds, source order, or scoring changed."
+      },
+      {
+        "type": "docs",
+        "headline": "June monitor packet recorded",
+        "body": "The June source-monitor candidate PR is merged as an editor-review artifact. It records the C-5 Royal Assent and Finance tax-cut report as items to look at, but it does not move dashboard data by itself."
+      },
+      {
+        "type": "docs",
+        "headline": "Roadmap reconciled",
+        "body": "Current-Roadmap now reflects v5.115, the closed source-date follow-up gate, the merged monitor packet, and the remaining work split between editor adjudication, rater feedback, scheduled checks, and the July cycle."
+      }
+    ]
+  },
+  {
     "date": "2026-06-14",
     "version": "5.114",
     "summary": "Hand-dated 34 more sources, cutting the needs-review count from 38 to 4.",

@@ -1,10 +1,10 @@
 {
-  "version": "5.114",
-  "lastUpdated": "2026-06-14",
+  "version": "5.115",
+  "lastUpdated": "2026-06-15",
   "nextUpdate": "2026-07-01",
   "coveragePeriod": {
     "start": "2025-03-14",
-    "end": "2026-06-14"
+    "end": "2026-06-15"
   },
   "rubricVersion": "1.1",
   "majorityDate": "2026-04-13",

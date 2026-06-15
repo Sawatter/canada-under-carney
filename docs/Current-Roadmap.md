@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-06-13
+**Last updated:** 2026-06-15
 
 ---
 
@@ -44,6 +44,7 @@
 - About page now opens with an editor disclosure (independent business and operations consultant), political affiliation, professional conflicts, funding, AI-assistance disclosure, and recusal policy. The "what this does not grade" list explicitly names Indigenous reconciliation, healthcare federal-provincial transfers, public-sector bargaining, pre-designation pipeline announcements, foreign policy beyond defence/trade, and specific defence procurement contracts, each with a published rationale for exclusion. Past Versions surface points readers to the Change Log, GitHub commit history, the data folder at any commit, and per-cycle closure memos.
 - Bundle generator (`npm run bundle`) builds a single-file 2.2 MB markdown bundle of every git-tracked text file in the repo for handing to external AI reviewers. Output writes to `tmp/perplexity-bundle.md` plus copies to `~/Downloads` and `~/Desktop`. The Claude Code `/bundle` slash command wraps this.
 - Monthly source monitor is live. `scripts/monitor_sources.py` reads the deterministic pullers in `fetch-data.py` (now via `--json-out`), adds a Tavily search fan-out over the feed-less and blocked surfaces, runs a `claude-opus-4-8` relevance pass that only routes candidates, and writes a candidate ledger plus an editor packet under `monitoring/` and `docs/Source-Monitoring-Candidates-YYYY-MM.md`. State lives in `monitoring/state.json` and `monitoring/sources.json` (registry built from the cited URLs). The Ethics diff cache moved from `tmp/` to `monitoring/`. The monthly workflow opens a `source-monitor/YYYY-MM` review PR and never pushes to main or moves a grade. Missing API keys skip a tier with an explicit packet note rather than reporting a clean cycle. Full design in [Source-Monitoring-System.md](Source-Monitoring-System.md). Offline checks: `npm run test:monitor`.
+- Dated source stacks are live. All 99 cited sources now carry `date` / `dateKind` metadata, and the source-date follow-up gate is closed with zero `needsManualDate` flags. Living pages use `as-of`; updated-only pages use `updated`; static releases and filings use `published`. The source-ordering metadata is display-only and does not move grades, statuses, thresholds, or source order. The review record is [Source-Dates-Review.md](Source-Dates-Review.md).
 - Repo-local Agent Skills for source workflows are live in `.claude/skills/`: `source-addition`, `source-audit`, `grade-evaluation`, `monthly-cycle`, `bias-resistance-check`, `scope-guard` (explicit-invocation only). Plus the Nate-inspired AI workflow layer: `project-room` (with the four-artifact discipline: source inventory table, conflict log, missing context list, duplicates report) and `ai-question-method`. The scope-guard runs against `origin/main...HEAD` for push-bound commits.
 - Perplexity / Comet / Claude Desktop MCP integration is shipped. The wrapper script `scripts/start-perplexity-filesystem-mcp.sh` pins `@modelcontextprotocol/server-filesystem@2026.1.14` and supports direct, read-only-snapshot, HTTP, SSE, and tunnel modes. Connector JSON templates use a `<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>` placeholder and the working `.mcp/*.json` files are gitignored. Setup is documented in [Perplexity-MCP-Setup.md](Perplexity-MCP-Setup.md).
 - May source-health recertification (v5.70) refreshed broken source URLs across the Signal49, IRCC Open Data, Maytree, The Narwhal, and ECCC climate-promise entries. June carry-forward freshness candidates logged in [Source-Recertification-2026-05-25.md](Source-Recertification-2026-05-25.md): April 2026 Food CPI, Q1 2026 population data, April 2026 housing starts, March 2026 trade data, PBO fuel-excise-tax note, new approval polling releases.
@@ -51,6 +52,8 @@
 ---
 
 ## Recently Completed
+
+- Source-date and monitor closeout - v5.113-v5.115 added newest-first source stacks, filled all 99 source dates, repaired the Macdonald-Laurier immigration source link that redirected to an image, and merged the June source-monitor candidate packet as an editor-review artifact. The monitor surfaced C-5 Royal Assent and the Finance tax-cut report for editor review, plus a short browser-pull list; no grade, threshold, source-order, status, or scoring change happened automatically.
 
 - June 2026 cycle complete and dimension-card redesign shipped — the source-to-trigger pass ran across v5.75–v5.99 (six carry-forward triggers evaluated, all holds; one documented Defence funded-pathway trigger-fire with the grade held A- per [Defence-Funded-Pathway-Memo-2026-05-25.md](Defence-Funded-Pathway-Memo-2026-05-25.md)), with Codex/Comet verification rounds ([Round2-Verification-2026-06.md](Round2-Verification-2026-06.md)) and an external-evidence re-check ([Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md)). Separately, the dimension card was rebuilt for concision and an app-style read: score-first card with folded disclosure (v5.100), then the desktop focused-detail view with sticky section nav and exact close-to-grid scroll restore (v5.106–v5.107). Maintenance guardrails landed alongside — the approval-poll aggregation validator and the monthly source-scout workflow (v5.104–v5.105). No grade, threshold, GPA-formula, POCKETBOOK_DIMS, or dimension-model change in the redesign or the re-check.
 
@@ -117,9 +120,13 @@
 
 ## Now
 
-Dashboard sits at v5.112. The June 2026 cycle is complete and has been re-checked against current public evidence (see [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md)): all six carry-forward triggers were evaluated across v5.75–v5.99, every hold corroborated, no grade moved. A 2026-06-13 freshness sprint then closed the next real data work that could be done before the scheduled July cycle: two new approval polls were added, the Promise Delivery stalled/abandoned metric was reconciled to 9 of 43, the current MPO Sisson project name was aligned, and a per-dimension evidence timeline was added to the card detail view (see [Data-Freshness-Sweep-2026-06-13.md](Data-Freshness-Sweep-2026-06-13.md)). The dimension-card redesign also shipped this window — the concise score-first card with folded disclosure plus the desktop focused-detail view (v5.100–v5.107). The bias-resistance audit now flags 7 of 12 (was 6); the extra flag is benign press-release drift from threading the May 15 Canada-Alberta MOU. v5.110–v5.111 closed two source-wording overclaims: EVAS is now framed as a repeal / replacement announcement, and 2 Billion Trees now follows Budget 2025's wind-down language. The next scheduled full cycle remains 2026-07-01 (`meta.json`).
+Dashboard sits at v5.115. The June 2026 source-to-trigger pass is complete and re-checked against public evidence (see [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md)): all six carry-forward triggers were evaluated across v5.75-v5.99, every hold was corroborated, and no grade moved. The June freshness sprint then closed the immediate data work that could be done before the scheduled July cycle: approval polling, the Promise Delivery stalled/abandoned summary, the MPO Sisson name, the per-dimension evidence timeline, and the dated source-stack display.
 
-The four queued editor adjudications were resolved 2026-06-12 and shipped as v5.109. Carbon Pricing: the effective-price triggers now adjudicate on the marginal compliance price (~$20/t today), with the economy-wide average cost and the Canada-Alberta scheduled price kept as labeled context metrics — the May 15 agreement was considered against the $15/t down-trigger and did not fire it. Climate: the May 14 CER weakening was considered, not fired (announced is not done, in both directions), and the trigger is armed with a pre-committed Canada Gazette condition. The quarterly recertification of the 11 stalled / abandoned promise statuses is done ([Promise-Status-Recertification-2026-06.md](Promise-Status-Recertification-2026-06.md)): nine statuses held, and the two flagged promises — Conserve biodiversity / freshwater and One Project, One Review — were adjudicated to In Progress under the coding rules, taking the tracker to 6 stalled. The inter-rater pilot has moved from recruitment to fieldwork: a Reddit rater has the packet, so the task is waiting on their worksheets, then comparing against the frozen grades. It remains the largest disclosure gap on About — the packet and the AI-QA pass are ready; a human rater is still needed.
+Source-date follow-up is now closed. v5.113 added source-date fields and newest-first source tables, v5.114 hand-dated most blocked rows, and v5.115 closed the final four rows: RCC grocery context, MLI immigration research, the Ethics Commissioner registry, and the PM Annex A disclosure. All 99 cited sources now carry date metadata. The MLI source URL was also repaired to the live immigration category after the old URL redirected to an image.
+
+The June source-monitor candidate packet is merged as a record artifact, not as dashboard data. It flagged C-5 Royal Assent and Finance's tax-cut report for editor review, plus a small browser-pull list. The monitor did not move any grade, promise status, threshold, source order, or metric. The packet is [Source-Monitoring-Candidates-2026-06.md](Source-Monitoring-Candidates-2026-06.md).
+
+The inter-rater pilot is in fieldwork: a Reddit rater has the packet, so the task is waiting on returned worksheets, then comparing against the frozen grades. It remains the largest disclosure gap on About until a human rater completes a blind pass.
 
 ---
 
@@ -127,38 +134,22 @@ The four queued editor adjudications were resolved 2026-06-12 and shipped as v5.
 
 These are on deck awaiting their triggers.
 
-1. June 2026 monthly cycle — DONE (shipped v5.75–v5.99; re-checked against public evidence 2026-06-09)
-   The source-to-trigger pass for the six deferred May triggers is complete; each was evaluated and held (see [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md)):
-   - Defence & Trade: 3.5% funded defence pathway after the 2026-03-26 NATO 2% confirmation
-   - Affordability Response: gas tax suspension (2026-04-14) vs the $500/household up-trigger threshold
-   - Housing Supply: Canada-Ontario Housing Partnership (2026-03-30) vs the 5%-of-shortfall up-trigger
-   - Climate & Environment: event-driven sources untouched since the 2026-04-19 D+ to D move (ECCC announcements, Climate Institute publications, Paris Agreement status)
-   - Carbon Pricing Policy: CCI industrial pricing + ECCC OBPS sources untouched in May
-   - Immigration: temporary-resident share vs the 5% target up-trigger (StatCan Q1 / Q2 2026 population)
-   Source-coverage freshness was refreshed in v5.99 (2026-06-05). The Carbon effective-price metric and Climate CER-weakening classification were adjudicated in v5.109. Two watch items land mid-June (June 17 StatCan Q1 population; June 19 the Canada-Ontario DCRP application window closes, with project selection and Bill C-26 Royal Assent status to follow).
+1. June monitor packet adjudication
+   Review the two surfaced editor-decision items before any data change: C-5 Royal Assent across Major Projects / Flagship / Promise Delivery / related triggers, and the Finance tax-cut report against the middle-class tax-cut promise. Also browser-pull the packet's blocked items before treating any search snippet as citation-ready. The packet is discovery only.
 
-2. Promise Delivery cleanup
-   Mostly resolved 2026-06 (see [Source-Capture-2026-06.md](Source-Capture-2026-06.md)). The three URLs flagged as 404 (Narwhal climate rollback, ECCC emissions-cap framework, ECCC clean-vehicles/EV standard) were verified live in a browser, so no replacement was needed; the May 404 call was stale (they return 403 only to the headless fetcher). The Emissions cap and EV mandate promises (Abandoned) had their `statusSourceUrl` repointed from the original program page to live independent abandonment evidence in v5.97. The three promises "missing" `statusSourceUrl` (Foreign Policy Review, Red Tape Review, Carbon Border Adjustment Mechanism) are all status Too Early, so a status link is appropriate only once each launches. Done 2026-06-12: the 11 stalled / abandoned statuses were recertified ([Promise-Status-Recertification-2026-06.md](Promise-Status-Recertification-2026-06.md)) — nine hold, two carried editor flags that were adjudicated in v5.109, and the two maintenance-label candidates were closed in v5.110–v5.111.
+2. June 17 and June 19 watch checks
+   June 17: pull the StatCan Q1 2026 population release and read the temporary-resident share against the Immigration 5% trigger. June 19: check the DCRP application-window close, project-selection status, and Bill C-26 Royal Assent against the Housing disbursement condition. These checks report evidence; they do not auto-move a grade.
 
-3. Inter-rater pilot launch
-   Use the prepared May 2026 packet. Optional first step is a Claude / AI packet-QA pass for leakage, completeness, and confusing wording; it must not count as the reliability test. The first real pilot result should come from a human rater using the redacted packet without opening the live dashboard. This remains the single largest disclosure gap on the live About page.
+3. Inter-rater pilot return
+   When the rater sends worksheets back, compare their grades against the frozen packet snapshot and classify each mismatch as rubric clarity, source ambiguity, arithmetic/application error, or genuine disagreement. Do not revise the packet mid-run unless the rater has not started and Chris explicitly resends it.
 
 4. Source-band ceiling decisions
-   Economic Policy Response, Affordability Response, Climate & Environment, and Housing Supply are all at 10 sources (CLAUDE.md ceiling). Adding the deferred candidates (Pembina for Climate, Business Council for Economic Policy, Smart Prosperity / National Bank for Housing) requires either a trim-before-add or an explicit relaxation of the ceiling rule. June should make that call.
+   Economic Policy Response, Affordability Response, Climate & Environment, and Housing Supply are all at 10 sources (CLAUDE.md ceiling). Adding the deferred candidates (Pembina for Climate, Business Council for Economic Policy, Smart Prosperity / National Bank for Housing) requires either a trim-before-add or an explicit relaxation of the ceiling rule.
 
-5. Next-cycle readiness pass
-   Focus on operational discipline, not redesign:
-   - Economic Policy Response: no movement on announcements alone
-   - Affordability Response: scope boundary holds
-   - Carbon Pricing / Climate: deconfliction holds
-   - Housing Supply: announced != started != completed
-   - Major Projects: credit-claiming penalty remains explicit
-   This item is cycle-triggered — runs when the next monthly update is being assembled.
+5. July 1 monthly cycle
+   The next full cycle remains 2026-07-01 (`meta.json`). Pick up the Defence split-shadow clock, the Flagship probation call, monthly freshness pulls, and any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
 
-6. Roadmap and parking lot reconciliation
-   This roadmap was 12 days stale before the 2026-05-25 refresh. Drift like that should be caught earlier. Future cycles should refresh the roadmap as the last step of the cycle, not the first step of the next one.
 ---
-
 ## Later
 
 These are valid, but not active now.
