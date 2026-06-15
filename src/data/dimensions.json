@@ -104,7 +104,8 @@
       {
         "label": "Budget 2025 Ch.4",
         "url": "https://budget.canada.ca/2025/report-rapport/chap4-en.html",
-        "needsManualDate": true
+        "date": "2025-11-04",
+        "dateKind": "published"
       },
       {
         "label": "Building Canada Act (Bill C-5)",
@@ -127,7 +128,8 @@
       {
         "label": "PBO — Spring Economic Update Major Capital Priorities",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans",
-        "needsManualDate": true
+        "date": "2026-05-04",
+        "dateKind": "published"
       },
       {
         "label": "Global Affairs Canada Monthly Trade Report (March 2026)",
@@ -476,7 +478,8 @@
       {
         "label": "Fraser Institute — MPO assessment",
         "url": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration",
-        "needsManualDate": true
+        "date": "2025-09-15",
+        "dateKind": "published"
       },
       {
         "label": "Angus Reid — major projects reaction",
@@ -933,22 +936,26 @@
       {
         "label": "Budget 2025",
         "url": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "needsManualDate": true
+        "date": "2025-11-04",
+        "dateKind": "published"
       },
       {
         "label": "Spring Economic Update 2026",
         "url": "https://budget.canada.ca/update-miseajour/2026/report-rapport/anx1-en.html",
-        "needsManualDate": true
+        "date": "2026-04-28",
+        "dateKind": "published"
       },
       {
         "label": "PBO — SEU economic and fiscal track",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere",
-        "needsManualDate": true
+        "date": "2026-05-04",
+        "dateKind": "published"
       },
       {
         "label": "PBO — SEU fiscal anchors and sustainability",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
-        "needsManualDate": true
+        "date": "2026-05-04",
+        "dateKind": "published"
       },
       {
         "label": "C.D. Howe analysis",
@@ -977,7 +984,8 @@
       {
         "label": "PBO Economic and Fiscal Outlook (June 2026)",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026",
-        "needsManualDate": true
+        "date": "2026-06-04",
+        "dateKind": "published"
       }
     ],
     "lastUpdated": "2026-06-05",
@@ -1312,12 +1320,14 @@
       {
         "label": "ISED — Canadian Sovereign AI Compute Strategy",
         "url": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
-        "needsManualDate": true
+        "date": "2024-12-05",
+        "dateKind": "published"
       },
       {
         "label": "Budget 2025 — productivity super-deduction",
         "url": "https://budget.canada.ca/2025/report-rapport/intro-en.html",
-        "needsManualDate": true
+        "date": "2025-11-04",
+        "dateKind": "published"
       },
       {
         "label": "Treasury Board — 2024-25 regulatory management annual report",
@@ -1346,7 +1356,8 @@
       {
         "label": "Centre for the Study of Living Standards — Canadian Productivity Review",
         "url": "http://www.csls.ca/ipm.asp",
-        "needsManualDate": true
+        "date": "2025-11",
+        "dateKind": "published"
       },
       {
         "label": "Signal49 Research — business investment outlook",
@@ -1662,7 +1673,8 @@
       {
         "label": "Dalhousie Food Price Report",
         "url": "https://www.dal.ca/sites/agri-food/research/canada-s-food-price-report-2026.html",
-        "needsManualDate": true
+        "date": "2025-12-04",
+        "dateKind": "published"
       },
       {
         "label": "PROOF food insecurity 2025",
@@ -1673,7 +1685,8 @@
       {
         "label": "PBO — Canada Groceries and Essentials Benefit",
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels",
-        "needsManualDate": true
+        "date": "2026-02-02",
+        "dateKind": "published"
       },
       {
         "label": "CRA — Canada Groceries and Essentials Benefit",
@@ -1695,7 +1708,8 @@
       {
         "label": "Fraser Institute — GST affordability strategy critique",
         "url": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy",
-        "needsManualDate": true
+        "date": "2026-02-04",
+        "dateKind": "published"
       },
       {
         "label": "Food Banks Canada — Hunger Count",
@@ -1945,12 +1959,14 @@
       {
         "label": "IISD — Canadian Carbon Pricing Systems: 2025 Review",
         "url": "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review",
-        "needsManualDate": true
+        "date": "2026-03-04",
+        "dateKind": "published"
       },
       {
         "label": "PBO carbon GST revenue",
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone",
-        "needsManualDate": true
+        "date": "2024-01-23",
+        "dateKind": "published"
       },
       {
         "label": "Canada.ca - updated industrial carbon price trajectory",
@@ -2199,12 +2215,14 @@
       {
         "label": "CCI — Canada off course",
         "url": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
-        "needsManualDate": true
+        "date": "2026-02-13",
+        "dateKind": "published"
       },
       {
         "label": "IISD — Canada's 2030 climate target",
         "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target",
-        "needsManualDate": true
+        "date": "2024-01-22",
+        "dateKind": "published"
       },
       {
         "label": "ECCC 2026-27 Departmental Plan",
@@ -2233,7 +2251,8 @@
       {
         "label": "Fraser Institute — EV mandate critique",
         "url": "https://www.fraserinstitute.org/commentary/ottawa-should-finally-end-costly-push-evs-canada",
-        "needsManualDate": true
+        "date": "2026-02-05",
+        "dateKind": "published"
       },
       {
         "label": "Macdonald-Laurier Institute — energy-superpower gap",
@@ -2244,7 +2263,8 @@
       {
         "label": "Canada Energy Regulator — Canada's Energy Future 2023",
         "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/",
-        "needsManualDate": true
+        "date": "2023-06-20",
+        "dateKind": "published"
       },
       {
         "label": "Office of the Auditor General — Shortcomings in implementation of financial measures for GHG emissions (2025)",
@@ -2570,7 +2590,8 @@
       {
         "label": "PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028",
-        "needsManualDate": true
+        "date": "2026-02-26",
+        "dateKind": "published"
       },
       {
         "label": "Macdonald-Laurier Institute — immigration research",
@@ -2580,7 +2601,8 @@
       {
         "label": "Maytree — immigration and refugee policy",
         "url": "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/",
-        "needsManualDate": true
+        "date": "2025-08-28",
+        "dateKind": "published"
       }
     ],
     "lastUpdated": "2026-05-23",
@@ -2799,17 +2821,20 @@
       {
         "label": "PBO — BCH 26,000 units",
         "url": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
-        "needsManualDate": true
+        "date": "2025-12-02",
+        "dateKind": "published"
       },
       {
         "label": "CMHC 2025 starts",
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
-        "needsManualDate": true
+        "date": "2026-01-16",
+        "dateKind": "published"
       },
       {
         "label": "CMHC April 2026 starts",
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-april-2026",
-        "needsManualDate": true
+        "date": "2026-05-15",
+        "dateKind": "published"
       },
       {
         "label": "Canada-Ontario Partnership",
@@ -2832,12 +2857,14 @@
       {
         "label": "PBO — housing program outlook",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025",
-        "needsManualDate": true
+        "date": "2025-12-02",
+        "dateKind": "published"
       },
       {
         "label": "CMHC — housing supply gaps 2025",
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report",
-        "needsManualDate": true
+        "date": "2025-06-19",
+        "dateKind": "published"
       },
       {
         "label": "CHBA — Q1 2026 Housing Market Index",
@@ -3129,7 +3156,8 @@
       {
         "label": "House ETHI report — Review of the Conflict of Interest Act",
         "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96",
-        "needsManualDate": true
+        "date": "2026-04",
+        "dateKind": "published"
       },
       {
         "label": "Office of the Ethics Commissioner — registry and reviews",
@@ -3139,7 +3167,8 @@
       {
         "label": "PM blind-trust summary statement",
         "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
-        "needsManualDate": true
+        "date": "2025-07-11",
+        "dateKind": "published"
       },
       {
         "label": "PM Annex A public declaration of agreed measure",
@@ -3463,12 +3492,14 @@
       {
         "label": "PBO — $94B investment gap",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires",
-        "needsManualDate": true
+        "date": "2025-11-14",
+        "dateKind": "published"
       },
       {
         "label": "C.D. Howe — public service ratio",
         "url": "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/",
-        "needsManualDate": true
+        "date": "2025-11-13",
+        "dateKind": "published"
       },
       {
         "label": "The Hub — $94B gap",
@@ -3632,7 +3663,8 @@
       {
         "label": "Canada Strong — Liberal Party 2025 platform",
         "url": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "needsManualDate": true
+        "date": "2025-04-19",
+        "dateKind": "published"
       },
       {
         "label": "NATO Secretary General Annual Report 2025",
@@ -3643,7 +3675,8 @@
       {
         "label": "CMHC 2025 starts",
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
-        "needsManualDate": true
+        "date": "2026-01-16",
+        "dateKind": "published"
       },
       {
         "label": "Angus Reid — Carney government report card",
@@ -3660,7 +3693,8 @@
       {
         "label": "PBO — SEU fiscal anchors and sustainability",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
-        "needsManualDate": true
+        "date": "2026-05-04",
+        "dateKind": "published"
       }
     ],
     "lastUpdated": "2026-06-13",
