@@ -1,0 +1,1589 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026-06",
+  "generatedAt": "2026-06-14T01:34:47+00:00",
+  "tiers": {
+    "deterministic": "run (fetch-results.json)",
+    "search_fanout": "run (69 hits)",
+    "classification": "run (model claude-opus-4-8)"
+  },
+  "noChangeStatement": "No grades, statuses, thresholds, scoring, or dashboard data were changed by this run. Everything below is a candidate for the editor to look at.",
+  "counts": {
+    "surfaced": 37,
+    "suppressed": 40,
+    "accessFailures": 2
+  },
+  "candidates": [
+    {
+      "candidate_id": "2026-06-democracywatch-ca-5e504c6c",
+      "candidateFingerprint": "2ff05d24",
+      "sourceId": "democracywatch-ca",
+      "discovery": "rss",
+      "title": "House Ethics Committee must recommend many key changes to close secret, unethical lobbying loopholes, and to require effective enforcement",
+      "url": "https://democracywatch.ca/house-ethics-committee-must-recommend-many-key-changes-to-close-secret-unethical-lobbying-loopholes-and-to-require-effective-enforcement/",
+      "publishedDate": "Mon, 08 Jun 2026 12:30:32 +0000",
+      "snippet": "Democracy Watch post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": "context",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.45,
+      "reason": "Democracy Watch advocacy piece calling for House Ethics Committee lobbying-rule changes. Relevant background to the ethics dimension but it is an advocacy call, not new evidence on the PM's disclosure/screening triggers. Conservative route to context.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-democracywatch-ca-cc813635",
+      "candidateFingerprint": "8c966132",
+      "sourceId": "democracywatch-ca",
+      "discovery": "rss",
+      "title": "Liberals vote against changes to Bill C-25 to stop secret, undemocratic influence of wealthy interests, lobbyists and foreigners in federal elections and policy-making processes",
+      "url": "https://democracywatch.ca/liberals-vote-against-changes-to-bill-c-25-to-stop-secret-undemocratic-influence-of-wealthy-interests-lobbyists-and-foreigners-in-federal-elections-and-policy-making-processes/",
+      "publishedDate": "Thu, 04 Jun 2026 12:36:14 +0000",
+      "snippet": "Democracy Watch post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": "context",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Advocacy post about a Bill C-25 vote on election/policy influence rules. General governance/ethics background; does not directly bear on the PM's disclosure or the Ethics Commissioner screening triggers. Route to context.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-democracywatch-ca-7b33bba0",
+      "candidateFingerprint": "7feaf3e2",
+      "sourceId": "democracywatch-ca",
+      "discovery": "rss",
+      "title": "Commissioner of Lobbying has let off 98% of the lobbyists she has found violating the lobbying law or code since 2018",
+      "url": "https://democracywatch.ca/commissioner-of-lobbying-has-let-off-98-of-the-lobbyists-she-has-found-violating-the-lobbying-law-or-code-since-2018/",
+      "publishedDate": "Wed, 20 May 2026 12:42:23 +0000",
+      "snippet": "Democracy Watch post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": "context",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Stat about the Commissioner of Lobbying's enforcement record. Background on the broader ethics-enforcement environment but not a disclosure/screening finding about the PM. Route to context.",
+      "evidence_limitations": "Aggregate enforcement statistic, not a PM-specific disclosure finding.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-democracywatch-ca-7cf16791",
+      "candidateFingerprint": "4933c04d",
+      "sourceId": "democracywatch-ca",
+      "discovery": "rss",
+      "title": "Trudeau’s Senate appointment process was as partisan as ever – will PM Carney make it actually independent?",
+      "url": "https://democracywatch.ca/trudeaus-senate-appointment-process-was-as-partisan-as-ever-will-pm-carney-make-it-actually-independent/",
+      "publishedDate": "Thu, 07 May 2026 12:45:57 +0000",
+      "snippet": "Democracy Watch post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": "context",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.3,
+      "reason": "Senate appointment process partisanship piece. Tangential governance/ethics background; not a finding on the PM's financial disclosure or conflict screening. Route to context.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-parl-ca-0b182bb4",
+      "candidateFingerprint": "1df609a2",
+      "sourceId": "parl-ca",
+      "discovery": "legisinfo",
+      "title": "C-5: Royal assent received",
+      "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5/json",
+      "publishedDate": null,
+      "snippet": "Latest stage: Royal assent. Ongoing: Royal assent.",
+      "provisional": false,
+      "classification": "trigger_watch",
+      "affected_dimensions": [
+        "defence-trade",
+        "economic-policy",
+        "execution-delivery",
+        "major-projects",
+        "promise-delivery"
+      ],
+      "relevance_score": 0.85,
+      "reason": "Bill C-5 received Royal assent. C-5 is the major-projects/one-review framework legislation; this bears on 'Bills passed', the national-interest designation and MPO triggers, flagship delivery, and related promise-delivery counts. Routed to editor for verification of which trigger conditions/metrics it touches; no grade implied.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-auditor-general-1d7d82b5",
+      "candidateFingerprint": "2bc4aeff",
+      "sourceId": "canada-ca-auditor-general",
+      "discovery": "search_fanout",
+      "title": "PFAS guidance for reporting to the National Pollutant Release Inventory - Canada.ca",
+      "url": "https://www.canada.ca/en/environment-climate-change/services/national-pollutant-release-inventory/report/pfas.html",
+      "publishedDate": null,
+      "snippet": "# PFAS guidance for reporting to the National Pollutant Release Inventory. The National Pollutant Release Inventory (NPRI) is Canada’s legislated, publicly accessible inventory of pollutant releases to air, water and land, as well as disposals and transfers for recycling. The list of PFAS added to the NPRI is provided in Table 1. Reporting of releases, disposals and transfers for an individual PFAS will be required by any facility that meets the employee threshold and that manufactures, processes, or otherwise uses 1 kilogram or more of that individual PFAS at a concentration of ≥ 0.1%. For ea",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.3,
+      "reason": "PFAS reporting guidance for the National Pollutant Release Inventory. Provisional snippet; environmental-regulation background but not a mover on the emissions cap, EV mandate, CER reductions, or low-carbon electricity metrics/triggers. Route to context.",
+      "evidence_limitations": "Provisional search-fanout snippet; reporting-guidance page, not a policy change.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-auditor-general-475eb98b",
+      "candidateFingerprint": "0b691591",
+      "sourceId": "canada-ca-auditor-general",
+      "discovery": "search_fanout",
+      "title": "Canada tables legislation to strengthen prohibition on goods ...",
+      "url": "https://www.canada.ca/en/global-affairs/news/2026/06/canada-tables-legislation-to-strengthen-prohibition-on-goods-produced-with-forced-labour.html",
+      "publishedDate": null,
+      "snippet": "# Canada tables legislation to strengthen prohibition on goods produced with forced labour. The Honourable Anita Anand, Minister of Foreign Affairs, today announced that the Government of Canada has tabled new legislation, An Act respecting the prohibition of the importation of goods produced by forced labour. The Honourable Anita Anand, Minister of Foreign Affairs, today announced that the Government of Canada has tabled new legislation, *An Act respecting the prohibition of the importation of goods produced by forced labour.* If adopted, the Act would reinforce Canada’s existing framework to",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade"
+      ],
+      "relevance_score": 0.4,
+      "reason": "New tabled legislation strengthening the forced-labour import prohibition (Global Affairs). Closer to trade policy than to climate; relevant background to the trade dimension but not a tracked metric/trigger/promise. Provisional snippet, so conservatively routed to context with a corrected dimension.",
+      "evidence_limitations": "Provisional search-fanout snippet; a_priori climate tag appears mis-assigned (this is a trade/foreign-affairs item).",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-campaign-5b019392",
+      "candidateFingerprint": "f7cf8ca3",
+      "sourceId": "canada-ca-campaign",
+      "discovery": "search_fanout",
+      "title": "President of the Treasury Board Appearance at the Standing Committee on Government Operations and Estimates (OGGO) – Bill C-15, Budget 2025 Implementation Act, No. 1 – February 2026 - Canada.ca",
+      "url": "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/briefing-documents-treasury-board-canada-secretariat/parliamentary-committee/president-appearance-oggo-bill-c-15-budget-2025-implementation-february-2026.html",
+      "publishedDate": null,
+      "snippet": "# President of the Treasury Board Appearance at the Standing Committee on Government Operations and Estimates (OGGO) – Bill C-15, Budget 2025 Implementation Act, No. 1 – February 2026. Can you provide an update on the Comprehensive Expenditure Review? The Government of Canada is committed to spending less on government operations to invest more in our country and grow our economy. These savings are being achieved by restructuring operations, consolidating internal services and right-sizing programs, while bringing the size of the federal public service to more sustainable levels. Savings are d",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "economic-policy",
+        "fiscal-health",
+        "promise-delivery"
+      ],
+      "relevance_score": 0.5,
+      "reason": "Treasury Board committee briefing touches on the Comprehensive Expenditure Review and right-sizing the public service, which relates to the civil-service reduction promise and spending path. Provisional snippet without verified figures, so route as background rather than a metric mover.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-campaign-ec687c13",
+      "candidateFingerprint": "94c8ed7b",
+      "sourceId": "canada-ca-campaign",
+      "discovery": "search_fanout",
+      "title": "Canada's National Artificial Intelligence Strategy: AI for All",
+      "url": "https://ised-isde.canada.ca/site/ised/en/canadas-national-artificial-intelligence-strategy-ai-all",
+      "publishedDate": null,
+      "snippet": "# Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All (PDF, 2.37 MB). The Government’s vision: AI for All. Key pillars of the strategy. And AI is the major driver of innovation in Canada and around the world. But to understand the potential of Canadian AI, you have to see how it is already working to improve the lives of people. Over 150,000 Canadian innovators employed by more than 3,500 Canadian companies are developing AI solutions that will build a stro",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "economic-policy",
+        "promise-delivery"
+      ],
+      "relevance_score": 0.45,
+      "reason": "National AI Strategy overview page is general background relevant to the sovereign AI compute strategy promise, but contains no disbursement confirmation or fund authorization data. Treat as context, not a trigger/metric mover.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-climateaction-d8c2e5cc",
+      "candidateFingerprint": "ab0f56ab",
+      "sourceId": "canada-ca-climateaction",
+      "discovery": "search_fanout",
+      "title": "Canada invests in its first national geothermal energy roadmap",
+      "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/06/canada-invests-in-its-first-national-geothermal-energy-roadmap.html",
+      "publishedDate": null,
+      "snippet": "EIP advances clean energy technologies that will help Canada maintain a competitive, reliable and affordable energy system while transitioning to a low-carbon",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.35,
+      "reason": "Geothermal energy roadmap investment is general clean-energy background. It does not map to a specific tracked metric, trigger, or promise in climate-environment, so route as context.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-climateaction-90699912",
+      "candidateFingerprint": "cb1fc545",
+      "sourceId": "canada-ca-climateaction",
+      "discovery": "search_fanout",
+      "title": "Canada Greener Homes Initiative",
+      "url": "https://natural-resources.canada.ca/energy-efficiency/home-energy-efficiency/canada-greener-homes-initiative/canada-greener-homes-initiative",
+      "publishedDate": null,
+      "snippet": "# Canada Greener Homes Initiative. * Canada Greener Homes Initiative: Highlights and program updates. ## Canada Greener Homes Affordability Program. This program, delivered through our partners in provinces and territories, will help low-to-median-income homeowners and tenants retrofit their homes to reduce monthly energy bills. Learn more about the Canada Greener Homes Affordability Program. ## Oil to Heat Pump Affordability Program. The program helps eligible homeowners with median income or less who are currently heating their homes with oil make the transition to an eligible heat pump syst",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "affordability-response",
+        "climate-environment"
+      ],
+      "relevance_score": 0.3,
+      "reason": "Greener Homes retrofit program page is background on energy-efficiency programs; no link to a specific tracked metric or trigger. Route as context.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-climateaction-1a188f5b",
+      "candidateFingerprint": "bd465cc0",
+      "sourceId": "canada-ca-climateaction",
+      "discovery": "search_fanout",
+      "title": "Comptroller General of Canada Appearance Before the Standing Committee on Public Accounts (PACP): the Public Accounts of Canada – February 9, 2026 - Canada.ca",
+      "url": "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/briefing-documents-treasury-board-canada-secretariat/briefing-books-comptroller-general-canada/comptroller-general-canada-appearance-before-standing-committee-public-accounts-pacp-february-9-2026.html",
+      "publishedDate": null,
+      "snippet": "# Comptroller General of Canada Appearance Before the Standing Committee on Public Accounts (PACP): the Public Accounts of Canada – February 9, 2026. As noted in the OAG Commentary on the 2024-2025 Financial Audits, improvements to the timeliness of tabling of the Public Accounts reflect the government’s continued efforts to improve the usefulness, quality and presentation of the Public Accounts. Notes for remarks by Annie Boudreau, Comptroller General of Canada, at the Standing Committee on Public Accounts regarding the 2024 Public Accounts and 2025 Public Accounts. The Public Accounts includ",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Comptroller General appearance on the Public Accounts is fiscal background relating to deficit/debt reporting, but the snippet covers tabling timeliness, not new deficit values. Route as context; carbon-pricing a_priori tag is unsupported.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-department-finance-3cbca68a",
+      "candidateFingerprint": "b01fe7f7",
+      "sourceId": "canada-ca-department-finance",
+      "discovery": "search_fanout",
+      "title": "Canada's National Artificial Intelligence Strategy: AI for All",
+      "url": "https://ised-isde.canada.ca/site/ised/en/canadas-national-artificial-intelligence-strategy-ai-all",
+      "publishedDate": null,
+      "snippet": "# Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All (PDF, 2.37 MB). The Government’s vision: AI for All. Key pillars of the strategy. And AI is the major driver of innovation in Canada and around the world. But to understand the potential of Canadian AI, you have to see how it is already working to improve the lives of people. Over 150,000 Canadian innovators employed by more than 3,500 Canadian companies are developing AI solutions that will build a stro",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "economic-policy",
+        "promise-delivery"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Same National AI Strategy overview page surfaced under a finance query. Relevant to the AI compute strategy promise as background but no Treasury Board disbursement confirmation. The carbon-pricing/fiscal-health a_priori tags are not supported by the content.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-housing-infrastructure-communities-79bdd5db",
+      "candidateFingerprint": "82ac6f64",
+      "sourceId": "canada-ca-housing-infrastructure-communities",
+      "discovery": "search_fanout",
+      "title": "Canada and Prince Edward Island invest in wastewater and ...",
+      "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-prince-edward-island-invest-in-wastewater-and-stormwater-infrastructure-to-support-more-housing-in-alberton.html",
+      "publishedDate": null,
+      "snippet": "# Canada and Prince Edward Island invest in wastewater and stormwater infrastructure to support more housing in Alberton. To that end, Member of Parliament for Egmont, Bobby Morrissey, Minister of Transportation, Infrastructure and Energy and Minister of Fisheries, Rural Development and Tourism Ernie Hudson, and Mayor Hector MacLeod announced a joint investment of more than $3.4 million through the Canada Housing Infrastructure Fund (CHIF) to help Alberton meet its growing housing demand and create a neighbourhood that integrates residential, commercial, and recreational uses for the benefit o",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "housing-supply"
+      ],
+      "relevance_score": 0.35,
+      "reason": "Wastewater/stormwater investment via the Canada Housing Infrastructure Fund to enable housing in Alberton is enabling-infrastructure background; small and local, not tied to a tracked starts metric or trigger threshold. Route as context.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-housing-infrastructure-communities-73b09d28",
+      "candidateFingerprint": "c618c826",
+      "sourceId": "canada-ca-housing-infrastructure-communities",
+      "discovery": "search_fanout",
+      "title": "Canada tables legislation to strengthen prohibition on goods ...",
+      "url": "https://www.canada.ca/en/global-affairs/news/2026/06/canada-tables-legislation-to-strengthen-prohibition-on-goods-produced-with-forced-labour.html",
+      "publishedDate": null,
+      "snippet": "# Canada tables legislation to strengthen prohibition on goods produced with forced labour. The Honourable Anita Anand, Minister of Foreign Affairs, today announced that the Government of Canada has tabled new legislation, An Act respecting the prohibition of the importation of goods produced by forced labour. The Honourable Anita Anand, Minister of Foreign Affairs, today announced that the Government of Canada has tabled new legislation, *An Act respecting the prohibition of the importation of goods produced by forced labour.* If adopted, the Act would reinforce Canada’s existing framework to",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade"
+      ],
+      "relevance_score": 0.3,
+      "reason": "Forced-labour import prohibition legislation is trade/foreign-policy background, loosely relevant to the trade dimension but not to a tracked metric, trigger, or listed promise. The housing-supply a_priori tag is unsupported. Route as context.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-immigration-refugees-citizenship-80cf63fb",
+      "candidateFingerprint": "5d173326",
+      "sourceId": "canada-ca-immigration-refugees-citizenship",
+      "discovery": "search_fanout",
+      "title": "President of the Treasury Board Appearance at the Standing Committee on Government Operations and Estimates (OGGO) – Bill C-15, Budget 2025 Implementation Act, No. 1 – February 2026 - Canada.ca",
+      "url": "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/briefing-documents-treasury-board-canada-secretariat/parliamentary-committee/president-appearance-oggo-bill-c-15-budget-2025-implementation-february-2026.html",
+      "publishedDate": null,
+      "snippet": "# President of the Treasury Board Appearance at the Standing Committee on Government Operations and Estimates (OGGO) – Bill C-15, Budget 2025 Implementation Act, No. 1 – February 2026. Can you provide an update on the Comprehensive Expenditure Review? The Government of Canada is committed to spending less on government operations to invest more in our country and grow our economy. These savings are being achieved by restructuring operations, consolidating internal services and right-sizing programs, while bringing the size of the federal public service to more sustainable levels. Savings are d",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.5,
+      "reason": "Treasury Board briefing on the Comprehensive Expenditure Review and right-sizing the federal public service. Bears on the 'Reduce civil service by ~40,000' promise and operating-balance trajectory, but the snippet is general commitment language without a confirmed metric value or status change. Conservatively routed as context. Mis-tagged a priori as immigration.",
+      "evidence_limitations": "Snippet is high-level commitment language; no specific headcount or savings figure stated, so not a verified metric_update or promise_status mover.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-immigration-refugees-citizenship-3ea5c4e6",
+      "candidateFingerprint": "c7f0b9dc",
+      "sourceId": "canada-ca-immigration-refugees-citizenship",
+      "discovery": "search_fanout",
+      "title": "Canada's National Artificial Intelligence Strategy: AI for All",
+      "url": "https://ised-isde.canada.ca/site/ised/en/canadas-national-artificial-intelligence-strategy-ai-all",
+      "publishedDate": null,
+      "snippet": "# Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All (PDF, 2.37 MB). The Government’s vision: AI for All. Key pillars of the strategy. And AI is the major driver of innovation in Canada and around the world. But to understand the potential of Canadian AI, you have to see how it is already working to improve the lives of people. Over 150,000 Canadian innovators employed by more than 3,500 Canadian companies are developing AI solutions that will build a stro",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Canada's National AI Strategy overview page. Relevant background to the economic-policy AI compute file but is an evergreen strategy page, not new evidence of disbursement or a tracked metric value. Mis-tagged a priori as immigration.",
+      "evidence_limitations": "Evergreen strategy page; no date-stamped disbursement or Treasury Board authorization that would bear on the AI compute fund trigger.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-intergovernmental-affairs-b50ba12a",
+      "candidateFingerprint": "8073f24d",
+      "sourceId": "canada-ca-intergovernmental-affairs",
+      "discovery": "search_fanout",
+      "title": "President of the Treasury Board Appearance at the Standing Committee on Government Operations and Estimates (OGGO) – Bill C-15, Budget 2025 Implementation Act, No. 1 – February 2026 - Canada.ca",
+      "url": "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/briefing-documents-treasury-board-canada-secretariat/parliamentary-committee/president-appearance-oggo-bill-c-15-budget-2025-implementation-february-2026.html",
+      "publishedDate": null,
+      "snippet": "# President of the Treasury Board Appearance at the Standing Committee on Government Operations and Estimates (OGGO) – Bill C-15, Budget 2025 Implementation Act, No. 1 – February 2026. Can you provide an update on the Comprehensive Expenditure Review? The Government of Canada is committed to spending less on government operations to invest more in our country and grow our economy. These savings are being achieved by restructuring operations, consolidating internal services and right-sizing programs, while bringing the size of the federal public service to more sustainable levels. Savings are d",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.5,
+      "reason": "Same Treasury Board OGGO briefing on the Comprehensive Expenditure Review and right-sizing the public service. Relevant to the civil-service-reduction promise and operating balance but only general commitment language, no confirmed figure or status. Routed as context.",
+      "evidence_limitations": "Same source as 80cf63fb; high-level language without a specific metric or confirmed delivery status.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-intergovernmental-affairs-a3fee437",
+      "candidateFingerprint": "49e12029",
+      "sourceId": "canada-ca-intergovernmental-affairs",
+      "discovery": "search_fanout",
+      "title": "Canada's National Artificial Intelligence Strategy: AI for All",
+      "url": "https://ised-isde.canada.ca/site/ised/en/canadas-national-artificial-intelligence-strategy-ai-all",
+      "publishedDate": null,
+      "snippet": "# Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All (PDF, 2.37 MB). The Government’s vision: AI for All. Key pillars of the strategy. And AI is the major driver of innovation in Canada and around the world. But to understand the potential of Canadian AI, you have to see how it is already working to improve the lives of people. Over 150,000 Canadian innovators employed by more than 3,500 Canadian companies are developing AI solutions that will build a stro",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Same evergreen National AI Strategy overview page. Background to the economic-policy AI compute file but not new evidence of disbursement or a tracked metric. Routed as context.",
+      "evidence_limitations": "Evergreen page; no disbursement confirmation relevant to the AI compute trigger.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-natural-resources-canada-be9a08e2",
+      "candidateFingerprint": "3c7483bb",
+      "sourceId": "canada-ca-natural-resources-canada",
+      "discovery": "search_fanout",
+      "title": "Minister Joly reinforces strategic ties with European Commission at Conference of Montreal - Canada.ca",
+      "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-joly-reinforces-strategic-ties-with-european-commission-at-conference-of-montreal.html",
+      "publishedDate": null,
+      "snippet": "**From: Innovation, Science and Economic Development Canada**. On the margins of the Conference of Montreal, the Honourable Mélanie Joly, Minister of Industry and Minister responsible for Canada Economic Development for Quebec Regions, met with Stéphane Séjourné, Executive Vice-President for Prosperity and Industrial Strategy at the European Commission. Through continued cooperation with our European partners and allies, Canada is building a more secure and resilient economy that will protect and create jobs and deliver new economic opportunities for Canadians. > “In a rapidly changing global ",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade",
+        "economic-policy"
+      ],
+      "relevance_score": 0.5,
+      "reason": "Minister Joly reinforcing strategic ties with the European Commission at the Conference of Montreal, framed around building a more secure and resilient economy and trade diversification with European partners. Relevant background to trade diversification but a meeting readout, not a confirmed export-share metric or funded promise milestone. Routed as context.",
+      "evidence_limitations": "Meeting readout with aspirational language; no quantified trade or export figure to update a metric.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-natural-resources-canada-07645cee",
+      "candidateFingerprint": "2b8e8ca2",
+      "sourceId": "canada-ca-natural-resources-canada",
+      "discovery": "search_fanout",
+      "title": "Minister Sidhu advances Canada’s trade and economic priorities at Organisation for Economic Co-operation and Development meeting - Canada.ca",
+      "url": "https://www.canada.ca/en/global-affairs/news/2026/06/minister-sidhu-advances-canadas-trade-and-economic-priorities-at-organisation-for-economic-co-operation-and-development-meeting.html",
+      "publishedDate": null,
+      "snippet": "# Minister Sidhu advances Canada’s trade and economic priorities at Organisation for Economic Co-operation and Development meeting. June 8, 2026 - Paris, France - Global Affairs Canada Last week, the Honourable Maninder Sidhu, Minister of International Trade, concluded a successful visit to Paris, France, where he participated in the 2026 Organisation for Economic Co-operation and Development (OECD) Ministerial Council Meeting (MCM) and the Informal Gathering of WTO Ministers. Last week, the Honourable Maninder Sidhu, Minister of International Trade, concluded a successful visit to Paris, Fran",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade",
+        "economic-policy"
+      ],
+      "relevance_score": 0.55,
+      "reason": "Minister Sidhu (International Trade) at the OECD Ministerial Council and informal WTO gathering advancing trade and economic priorities. Bears on trade diversification background but is a readout of participation, not a confirmed export-share metric value or funded promise milestone. Routed as context.",
+      "evidence_limitations": "Readout of meeting participation; no trade-diversification figures or Corridors Fund disbursement detail in snippet.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-revenue-agency-61efd75b",
+      "candidateFingerprint": "7ef6a3db",
+      "sourceId": "canada-ca-revenue-agency",
+      "discovery": "search_fanout",
+      "title": "Report on the Impact of Reducing the Lowest Marginal Personal ...",
+      "url": "https://www.canada.ca/en/department-finance/services/publications/report-impact-reducing-lowest-marginal-personal-income-tax-rate-non-refundable-tax-credits.html",
+      "publishedDate": null,
+      "snippet": "# Report on the Impact of Reducing the Lowest Marginal Personal Income Tax Rate on Non-Refundable Tax Credits. Pursuant to section 2.1 of the *Making Life More Affordable for Canadians Act*, this report has been prepared to examine the implications of reducing the lowest personal income tax rate under paragraph 117(2)(a) of the *Income Tax Act* on all tax credits calculated using the \"appropriate percentage\" as defined in the *Income Tax Act*. Bill C-4 reduced the lowest marginal personal income tax rate from 15 per cent to 14.5 per cent for the 2025 taxation year and to 14 per cent for the 20",
+      "provisional": true,
+      "classification": "promise_status",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.6,
+      "reason": "Bill C-4 reducing the lowest marginal personal income tax rate from 15% to 14.5%/14% bears on the 'Middle class income tax cut' promise tracked under fiscal-health. It is an official report describing the implemented measure, not a metric value refresh.",
+      "evidence_limitations": "Snippet is a provisional search-fanout result describing a report on credit impacts; the report itself would need a full read to confirm scope and dates.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-revenue-agency-eb0672b3",
+      "candidateFingerprint": "8cf86a2b",
+      "sourceId": "canada-ca-revenue-agency",
+      "discovery": "search_fanout",
+      "title": "Government of Canada introduces targeted support to help ...",
+      "url": "https://www.canada.ca/en/department-finance/news/2026/06/government-of-canada-introduces-targeted-support-to-help-canadas-airline-sector-weather-global-fuel-market-volatility.html",
+      "publishedDate": null,
+      "snippet": "# Government of Canada introduces targeted support to help Canada’s airline sector weather global fuel market volatility. The Minister of Finance and National Revenue, the Honourable François-Philippe Champagne, announced the launch of the Liquidity for Airline Sector Resilience facility, a new loan program through the Canada Enterprise Emergency Funding Corporation (CEEFC). To help address these pressures and support reliable and affordable air travel, the Government of Canada has temporarily removed the federal fuel excise tax from April 20 to September 7, 2026, reducing costs by 4 cents per",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "affordability-response"
+      ],
+      "relevance_score": 0.45,
+      "reason": "Temporary removal of the federal fuel excise tax and an airline liquidity facility relate to cost pressure but do not map to a tracked affordability metric, trigger, or promise (which focus on grocery/food benefits). Treating as relevant background.",
+      "evidence_limitations": "Provisional snippet; targeted at the airline sector rather than household grocery/food affordability dimensions tracked here.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-revenue-agency-5daeac2f",
+      "candidateFingerprint": "ac2d934e",
+      "sourceId": "canada-ca-revenue-agency",
+      "discovery": "search_fanout",
+      "title": "Canada and Prince Edward Island invest in wastewater and ...",
+      "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-prince-edward-island-invest-in-wastewater-and-stormwater-infrastructure-to-support-more-housing-in-alberton.html",
+      "publishedDate": null,
+      "snippet": "# Canada and Prince Edward Island invest in wastewater and stormwater infrastructure to support more housing in Alberton. To that end, Member of Parliament for Egmont, Bobby Morrissey, Minister of Transportation, Infrastructure and Energy and Minister of Fisheries, Rural Development and Tourism Ernie Hudson, and Mayor Hector MacLeod announced a joint investment of more than $3.4 million through the Canada Housing Infrastructure Fund (CHIF) to help Alberton meet its growing housing demand and create a neighbourhood that integrates residential, commercial, and recreational uses for the benefit o",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "housing-supply"
+      ],
+      "relevance_score": 0.4,
+      "reason": "A $3.4M wastewater/stormwater investment to enable housing in Alberton is housing-supply-relevant background but is a small local infrastructure item that does not move tracked housing-supply metrics, triggers, or named promises.",
+      "evidence_limitations": "Provisional snippet; local-scale funding without national starts data or Build Canada Homes linkage.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-services-12e63e56",
+      "candidateFingerprint": "2ff1d760",
+      "sourceId": "canada-ca-services",
+      "discovery": "search_fanout",
+      "title": "Canada's National Artificial Intelligence Strategy: AI for All",
+      "url": "https://ised-isde.canada.ca/site/ised/en/canadas-national-artificial-intelligence-strategy-ai-all",
+      "publishedDate": null,
+      "snippet": "# Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All. Canada’s National Artificial Intelligence Strategy: AI for All (PDF, 2.37 MB). The Government’s vision: AI for All. Key pillars of the strategy. And AI is the major driver of innovation in Canada and around the world. But to understand the potential of Canadian AI, you have to see how it is already working to improve the lives of people. Over 150,000 Canadian innovators employed by more than 3,500 Canadian companies are developing AI solutions that will build a stro",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.35,
+      "reason": "National AI Strategy overview relates to the '$2B sovereign AI compute strategy' promise and AI compute fund trigger under economic-policy, but as a general strategy page it provides background rather than evidence of Treasury Board disbursement.",
+      "evidence_limitations": "Provisional snippet; static strategy page, no disbursement confirmation; a priori tags (housing-supply) appear misapplied.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-treasury-board-secretariat-fbf1769b",
+      "candidateFingerprint": "453147af",
+      "sourceId": "canada-ca-treasury-board-secretariat",
+      "discovery": "search_fanout",
+      "title": "Minister Joly announces a $75 million investment in Canadian Blood Services and Canadian Armed Forces partnership - Canada.ca",
+      "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-joly-announces-a-75-million-investment-in-canadian-blood-services-and-canadian-armed-forces-partnership.html",
+      "publishedDate": null,
+      "snippet": "# **Minister Joly announces a $75 million investment in Canadian Blood Services and Canadian Armed Forces partnership**. Investing in Canada’s health and defence emergency readiness to keep Canadians safe at home and abroad. Today, the Honourable Mélanie Joly, Minister of Industry and Minister responsible for Canada Economic Development for Quebec Regions, in partnership with the Honourable David J. McGuinty, Minister of National Defence, announced a significant federal investment of $75 million to advance Canadian Blood Services’ (CBS) innovative initiative to strengthen Canada’s domestic blo",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade"
+      ],
+      "relevance_score": 0.3,
+      "reason": "A $75M Canadian Blood Services / CAF readiness investment touches defence readiness but does not map to tracked defence-trade metrics, NATO spending triggers, or named promises. Routed as background.",
+      "evidence_limitations": "Provisional snippet; health/defence partnership item, not defence spending pathway evidence.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-treasury-board-secretariat-88d3954c",
+      "candidateFingerprint": "4d5ae376",
+      "sourceId": "canada-ca-treasury-board-secretariat",
+      "discovery": "search_fanout",
+      "title": "Minister Joly reinforces strategic ties with European Commission at Conference of Montreal - Canada.ca",
+      "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-joly-reinforces-strategic-ties-with-european-commission-at-conference-of-montreal.html",
+      "publishedDate": null,
+      "snippet": "**From: Innovation, Science and Economic Development Canada**. On the margins of the Conference of Montreal, the Honourable Mélanie Joly, Minister of Industry and Minister responsible for Canada Economic Development for Quebec Regions, met with Stéphane Séjourné, Executive Vice-President for Prosperity and Industrial Strategy at the European Commission. Through continued cooperation with our European partners and allies, Canada is building a more secure and resilient economy that will protect and create jobs and deliver new economic opportunities for Canadians. > “In a rapidly changing global ",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Minister Joly strengthening ties with the European Commission relates to trade diversification away from U.S. reliance but is a diplomatic engagement, not evidence on tracked EU export metrics, triggers, or the named diversification fund/promises.",
+      "evidence_limitations": "Provisional snippet; meeting readout without export figures or fund/promise specifics.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-treasury-board-secretariat-d72c7694",
+      "candidateFingerprint": "25eac013",
+      "sourceId": "canada-ca-treasury-board-secretariat",
+      "discovery": "search_fanout",
+      "title": "Minister Sidhu advances Canada’s trade and economic priorities at Organisation for Economic Co-operation and Development meeting - Canada.ca",
+      "url": "https://www.canada.ca/en/global-affairs/news/2026/06/minister-sidhu-advances-canadas-trade-and-economic-priorities-at-organisation-for-economic-co-operation-and-development-meeting.html",
+      "publishedDate": null,
+      "snippet": "# Minister Sidhu advances Canada’s trade and economic priorities at Organisation for Economic Co-operation and Development meeting. June 8, 2026 - Paris, France - Global Affairs Canada Last week, the Honourable Maninder Sidhu, Minister of International Trade, concluded a successful visit to Paris, France, where he participated in the 2026 Organisation for Economic Co-operation and Development (OECD) Ministerial Council Meeting (MCM) and the Informal Gathering of WTO Ministers. Last week, the Honourable Maninder Sidhu, Minister of International Trade, concluded a successful visit to Paris, Fran",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade"
+      ],
+      "relevance_score": 0.4,
+      "reason": "Trade Minister's OECD/WTO engagement on trade priorities bears on trade diversification background but provides no tracked export-share metric value, trigger evidence, or named promise status.",
+      "evidence_limitations": "Provisional snippet; ministerial visit readout, no quantitative trade data.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-treasury-board-secretariat-7bcf9f9d",
+      "candidateFingerprint": "bfaf008d",
+      "sourceId": "canada-ca-treasury-board-secretariat",
+      "discovery": "search_fanout",
+      "title": "Government of Canada and partners invest over $10M to strengthen ...",
+      "url": "https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html",
+      "publishedDate": null,
+      "snippet": "*   [Skip to Invitation Manager Popup](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html#gc-im-popup). *   [Jobs and the workplace](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html#). *   [Most requested](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-syste",
+      "provisional": true,
+      "classification": "manual_browser_pull",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.2,
+      "reason": "Snippet is mostly site navigation chrome (skip links/menus) so the substantive content was not captured; a $10M public-health research investment is unlikely to be dimension-relevant but the readable text is insufficient to confirm and needs a human/browser pull.",
+      "evidence_limitations": "Snippet contains only navigation boilerplate, not article body; content unreadable as captured.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-international-canada-ca-09ffc931",
+      "candidateFingerprint": "fb5cd03d",
+      "sourceId": "international-canada-ca",
+      "discovery": "search_fanout",
+      "title": "The Minister responsible for Canada-U.S. Trade, Intergovernmental ...",
+      "url": "https://international.canada.ca/en/global-affairs/corporate/transparency/briefing-documents/parliamentary-committee/2026-04-16-ciit",
+      "publishedDate": null,
+      "snippet": "Government of Canada Government of Canada. # The Minister responsible for Canada-U.S. Trade, Intergovernmental Affairs, Internal Trade and One Canadian Economy appearance in front of Standing Committee on International Trade (CIIT) on Free Trade within Canada. * **Canada values its strategic partnership with Qatar grounded in mutual respect, close cooperation, and delivering practical results including deepening trade and investment and advancing security cooperation.**. * **Since the outset of the conflict, Canada has maintained consistent and high-level engagement with Qatari counterparts ac",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "defence-trade",
+        "economic-policy"
+      ],
+      "relevance_score": 0.45,
+      "reason": "Government of Canada briefing document for a minister appearance at the International Trade committee on free trade within Canada. Bears on internal/interprovincial trade and trade diversification themes, but the snippet is mixed (also Qatar engagement) and is background framing rather than a verified metric, trigger, or promise-status change. Conservatively routed as context.",
+      "evidence_limitations": "Provisional snippet mixes internal-trade committee topic with Qatar trade content; needs human read to confirm relevance to interprovincial barriers.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-ourcommons-ca-de70cce7",
+      "candidateFingerprint": "93f28341",
+      "sourceId": "ourcommons-ca",
+      "discovery": "search_fanout",
+      "title": "Debates (Hansard) No. 135 - June 12, 2026 (45-1) - House of Commons of Canada",
+      "url": "https://www.ourcommons.ca/documentviewer/en/house/latest/hansard",
+      "publishedDate": null,
+      "snippet": "# House Publications. The ***Debates*** are the report—transcribed, edited, and corrected—of what is said in the House. The ***Journals*** are the official record of the decisions and other transactions of the House. The ***Order Paper and Notice Paper*** contains the listing of all items that may be brought forward on a particular sitting day, and notices for upcoming items. If you have any questions or comments regarding the accessibility of this publication, please contact us at accessible@parl.gc.ca. Dates with dots provide a link to available publications. To access *Debates* and *Journal",
+      "provisional": true,
+      "classification": "source_balance",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.2,
+      "reason": "Generic Hansard documentviewer landing page, not a specific debate or evidence item. It is a navigation/index page; any actual ethics-relevant content would need a targeted pull. Routed as source_balance/index rather than a mover.",
+      "evidence_limitations": "Snippet is a boilerplate description of House publications with no substantive content; provisional search fan-out result, no verified evidence.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-ourcommons-ca-eec9fec0",
+      "candidateFingerprint": "f64f8a3f",
+      "sourceId": "ourcommons-ca",
+      "discovery": "search_fanout",
+      "title": "AGRI - Home - House of Commons of Canada - OurCommons.ca",
+      "url": "https://www.ourcommons.ca/committees/en/agri",
+      "publishedDate": null,
+      "snippet": "The Standing Committee on Agriculture and Agri-Food studies bills, government activities and expenditures, and issues related to Canada’s agriculture and agri-food industry. January 17, 1994 - February 2, 1996. September 22, 1997 - September 18, 1999. January 29, 2001 - September 16, 2002. September 30, 2002 - November 12, 2003. October 4, 2004 - November 29, 2005. October 16, 2007 - September 7, 2008. June 2, 2011 - September 13, 2013. October 16, 2013 - August 2, 2015. Last meeting: June 4, 2026 Business Risk Management Programs in Canada’s Agriculture Sector. Last meeting: June 2, 2026 Comm",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "affordability-response"
+      ],
+      "relevance_score": 0.25,
+      "reason": "AGRI committee home page references Business Risk Management Programs in the agriculture sector, which is background potentially touching food/affordability, but it is a committee index page, not new evidence on a tracked metric/promise. Conservatively routed as context.",
+      "evidence_limitations": "Committee landing page listing past meeting dates; no specific findings or values; provisional.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-scotiabank-com-cc25d41e",
+      "candidateFingerprint": "88da5024",
+      "sourceId": "scotiabank-com",
+      "discovery": "search_fanout",
+      "title": "Perspectives podcast: What's behind the Bank of Canada's fifth ...",
+      "url": "https://www.scotiabank.com/ca/en/about/perspectives.podcasts.perspectives.2026-06-bank-of-canada-interest-rate-hold-june.html",
+      "publishedDate": null,
+      "snippet": "What Scotiabank Economics predicts the Bank of Canada will do with interest rates. JF's assessment of the housing market",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "fiscal-health",
+        "housing-supply"
+      ],
+      "relevance_score": 0.35,
+      "reason": "Bank of Canada rate-hold podcast with a housing-market assessment is relevant background to housing/fiscal conditions but is commentary, not a refreshed tracked metric value. Routed as context.",
+      "evidence_limitations": "Podcast description only; analyst opinion rather than verified metric; provisional fan-out.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-scotiabank-com-6cd1c6e5",
+      "candidateFingerprint": "a366f971",
+      "sourceId": "scotiabank-com",
+      "discovery": "search_fanout",
+      "title": "[PDF] The Inflation Report that Warsh Was Dreaming About - Scotiabank",
+      "url": "https://www.scotiabank.com/content/dam/scotiabank/sub-brands/scotiabank-economics/english/documents/scotia-flash/scotiaflash20260610.pdf",
+      "publishedDate": null,
+      "snippet": "This was the inflation report that Chair Warsh was dreaming about. Soft underlying inflation and details motivated a slightly lower US 2-year Treasury yield.",
+      "provisional": true,
+      "classification": "manual_browser_pull",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.2,
+      "reason": "PDF inflation flash references US inflation/Treasury yields (US-focused, Chair Warsh) with limited direct Canadian dimension relevance. Content is a PDF needing a human pull to assess any relevance.",
+      "evidence_limitations": "PDF not readable from snippet; appears US-focused; provisional.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-scotiabank-com-d4aa9d80",
+      "candidateFingerprint": "9ec747d8",
+      "sourceId": "scotiabank-com",
+      "discovery": "search_fanout",
+      "title": "The Inflation Report that Warsh Was Dreaming About - Scotiabank",
+      "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.economic-indicators.scotia-flash.-june-10--2026-.html",
+      "publishedDate": null,
+      "snippet": "This was the inflation report that Chair Warsh was dreaming about. Soft underlying inflation and details motivated a slightly lower US 2-year Treasury yield",
+      "provisional": true,
+      "classification": "manual_browser_pull",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.2,
+      "reason": "Duplicate of the Scotia inflation flash, US-focused; HTML version may still need a pull to confirm any Canadian relevance. Conservatively routed for human read.",
+      "evidence_limitations": "Same US-centric content as the PDF; snippet insufficient to confirm dimension relevance; provisional.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-tc-canada-ca-3af394b0",
+      "candidateFingerprint": "e03b53c2",
+      "sourceId": "tc-canada-ca",
+      "discovery": "search_fanout",
+      "title": "Public consultation on the future of Billy Bishop Toronto City Airport",
+      "url": "https://tc.canada.ca/en/corporate-services/consultations/public-consultation-future-billy-bishop-toronto-city-airport",
+      "publishedDate": null,
+      "snippet": "## Language selection. ## WxT Language switcher. The Government of Canada wants to engage with the public on the future of Billy Bishop Toronto City Airport. Located on the Toronto Islands, Billy Bishop Toronto City Airport has a unique governance structure. In June 2026, the Province of Ontario passed legislation enabling the acquisition of City-owned airport lands. The Government of Canada recognizes the importance of consultations so members of the public can share their views to inform the future of the Billy Bishop Toronto City Airport. ## Who is the focus of this engagement? All Canadian",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "major-projects"
+      ],
+      "relevance_score": 0.3,
+      "reason": "Public consultation on the future of Billy Bishop airport, including Ontario legislation enabling acquisition of airport lands, is federal infrastructure-adjacent background. It is a consultation notice, not evidence of MPO cohort movement or a tracked trigger, so routed as context.",
+      "evidence_limitations": "Consultation announcement; no link to the MPO cohort or designated-project status; provisional fan-out.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-theconversation-com-eb76a05f",
+      "candidateFingerprint": "87ce5cb4",
+      "sourceId": "theconversation-com",
+      "discovery": "search_fanout",
+      "title": "Canada's 'AI for All' strategy has ambitious growth targets, but it falls ...",
+      "url": "https://theconversation.com/canadas-ai-for-all-strategy-has-ambitious-growth-targets-but-it-falls-short-on-workers-and-the-environment-284648",
+      "publishedDate": null,
+      "snippet": "Minister of Artificial Intelligence and Digital Innovation Evan Solomon arrives for a meeting of the federal cabinet on Parliament Hill in Ottawa, on June 2, 2026. # **Canada’s ‘AI for All’ strategy has ambitious growth targets, but it falls short on workers and the environment**. Prime Minister Mark Carney unveiled Canada’s AI for All strategy on June 4, committing over $2 billion in new spending and targeting $200 billion in additional GDP growth and 250,000 new jobs by 2031. But the strategy’s growth targets are much clearer than its accountability measures. Canada now has numerical goals f",
+      "provisional": true,
+      "classification": "context",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.55,
+      "reason": "Reports Carney unveiling the 'AI for All' strategy on June 4, 2026 committing over $2B in new spending — relevant background to the $2B sovereign AI compute strategy promise and AI compute fund triggers. Routed as context (not a verified metric/trigger mover) since it is a provisional search snippet, not confirmed Treasury Board disbursement evidence.",
+      "evidence_limitations": "Provisional search-fanout snippet; commentary article, not a primary funding/Treasury Board document. Does not confirm actual disbursement, which is what the relevant trigger requires.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    }
+  ],
+  "suppressed": [
+    {
+      "candidate_id": "2026-06-cdhowe-org-7f14ca03",
+      "candidateFingerprint": "f3fa6fe9",
+      "sourceId": "cdhowe-org",
+      "discovery": "rss",
+      "title": "Déconcerté par le budget de votre ville ? Vous n’êtes pas seul",
+      "url": "https://cdhowe.org/publication/deconcerte-par-le-budget-de-votre-ville-vous-netes-pas-seul/",
+      "publishedDate": "Thu, 11 Jun 2026 10:00:41 +0000",
+      "snippet": "C.D. Howe Institute post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "execution-delivery",
+        "fiscal-health"
+      ],
+      "relevance_score": 0.1,
+      "reason": "C.D. Howe French-language post about understanding your municipal/city budget. Municipal budget literacy is not federal fiscal trajectory or flagship delivery; no tracked federal metric, trigger, or promise is implicated.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-democracywatch-ca-52880237",
+      "candidateFingerprint": "26eb83c4",
+      "sourceId": "democracywatch-ca",
+      "discovery": "rss",
+      "title": "Groups call on Minister and Premier to end deficient IRAC investigation into PEI land purchases and activities of alleged CCP-connected organizations, and establish a fully independent public inquiry",
+      "url": "https://democracywatch.ca/groups-call-on-minister-to-end-deficient-irac-investigation-into-pei-land-purchases-and-activities-of-alleged-ccp-connected-organizations-and-establish-a-fully-independent-public-inquiry/",
+      "publishedDate": "Tue, 19 May 2026 11:59:41 +0000",
+      "snippet": "Democracy Watch post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.15,
+      "reason": "Call for a public inquiry into PEI land purchases and alleged CCP-connected organizations. Provincial/IRAC matter, not the sitting PM's ethics arrangements or any tracked federal dimension.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-democracywatch-ca-05867f95",
+      "candidateFingerprint": "f7b03c8b",
+      "sourceId": "democracywatch-ca",
+      "discovery": "rss",
+      "title": "Governor General must be independent – should not have been handpicked by PM through secretive, partisan process",
+      "url": "https://democracywatch.ca/governor-general-must-be-independent-should-not-have-been-handpicked-by-pm-through-secretive-partisan-process/",
+      "publishedDate": "Tue, 05 May 2026 13:22:10 +0000",
+      "snippet": "Democracy Watch post flagged dashboard-topic-relevant.",
+      "provisional": false,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.2,
+      "reason": "Governor General appointment independence advocacy. Not the PM's ethics arrangements or any tracked metric/trigger/promise.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-auditor-general-7462fb2e",
+      "candidateFingerprint": "7fff4701",
+      "sourceId": "canada-ca-auditor-general",
+      "discovery": "search_fanout",
+      "title": "Government of Canada and partners invest over $10M to strengthen public health systems through research",
+      "url": "https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html",
+      "publishedDate": null,
+      "snippet": "*   [Skip to Invitation Manager Popup](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html#gc-im-popup). *   [Jobs and the workplace](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html#). *   [Most requested](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-syste",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.15,
+      "reason": "CIHR public-health research investment ($10M). Provisional search snippet; health-research funding does not map to climate-environment or any tracked dimension's metrics/triggers/promises.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-auditor-general-4bc8ada8",
+      "candidateFingerprint": "5e36cc56",
+      "sourceId": "canada-ca-auditor-general",
+      "discovery": "search_fanout",
+      "title": "Environment Canada",
+      "url": "http://canada.ca/Weather",
+      "publishedDate": null,
+      "snippet": "Use this site to access weather information as layers on an interactive map. ## Weather Alerts for Canada. This table displays all active alerts for Canada, with the ability to view alerts by province or territory and searching by alert name, alert type or forecast location. ## Weather shortcuts. Weather alerts 24/7 from Environment and Climate Change Canada, your authoritative source. The latest alerts and forecasts for marine, sea state and ice conditions for regions across Canada. Find the latest local air quality forecasts and information. The Canadian Centre for Climate Services provides ",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.1,
+      "reason": "ECCC weather/alerts portal landing page. Provisional snippet with no policy content bearing on emissions, conservation, or climate targets.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-auditor-general-3c08da30",
+      "candidateFingerprint": "cf798758",
+      "sourceId": "canada-ca-auditor-general",
+      "discovery": "search_fanout",
+      "title": "Announcement of new diplomatic appointments - Canada.ca",
+      "url": "https://www.canada.ca/en/global-affairs/news/2026/06/announcement-of-new-diplomatic-appointments0.html",
+      "publishedDate": null,
+      "snippet": "The Honourable Anita Anand, Minister of Foreign Affairs, today announced the following diplomatic appointments:",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.05,
+      "reason": "Routine diplomatic appointments announcement. No bearing on any tracked metric, trigger, or promise. The a_priori climate-environment tag is unsupported by the content.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-climateaction-1de7b227",
+      "candidateFingerprint": "1d36c016",
+      "sourceId": "canada-ca-climateaction",
+      "discovery": "search_fanout",
+      "title": "[PDF] Study Guide For Exxon Mobil Oil - Canada.ca",
+      "url": "https://next.alpha.service.canada.ca/slide/MD/T79298A/T36370969A/study__guide-for__exxon-mobil_oil.pdf",
+      "publishedDate": null,
+      "snippet": "investments in lower-carbon energy technologies, and its adaptation to evolving government regulations (including carbon pricing) will be crucial factors in",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "carbon-pricing"
+      ],
+      "relevance_score": 0.05,
+      "reason": "An Exxon Mobil study guide PDF on an alpha service domain; not Canadian federal policy evidence. Mentions carbon pricing only generically. Not dimension-relevant.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-climateaction-0786c048",
+      "candidateFingerprint": "ebc47a4f",
+      "sourceId": "canada-ca-climateaction",
+      "discovery": "search_fanout",
+      "title": "PFAS guidance for reporting to the National Pollutant Release ...",
+      "url": "https://www.canada.ca/en/environment-climate-change/services/national-pollutant-release-inventory/report/pfas.html",
+      "publishedDate": null,
+      "snippet": "# PFAS guidance for reporting to the National Pollutant Release Inventory. The National Pollutant Release Inventory (NPRI) is Canada’s legislated, publicly accessible inventory of pollutant releases to air, water and land, as well as disposals and transfers for recycling. The list of PFAS added to the NPRI is provided in Table 1. Reporting of releases, disposals and transfers for an individual PFAS will be required by any facility that meets the employee threshold and that manufactures, processes, or otherwise uses 1 kilogram or more of that individual PFAS at a concentration of ≥ 0.1%. For ea",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "carbon-pricing"
+      ],
+      "relevance_score": 0.05,
+      "reason": "PFAS reporting guidance for the National Pollutant Release Inventory is unrelated to carbon pricing or any tracked climate metric/trigger/promise.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-housing-infrastructure-communities-dea8864a",
+      "candidateFingerprint": "503b776e",
+      "sourceId": "canada-ca-housing-infrastructure-communities",
+      "discovery": "search_fanout",
+      "title": "Federal government and the Government of Quebec invest in the stabilization of Route 138 in Tête-à-la-Baleine and announce that work will begin in June - Canada.ca",
+      "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/federal-government-and-the-government-of-quebec-invest-in-the-stabilization-of-route-138-in-tete-a-la-baleine-and-announce-that-work-will-begin-in-.html",
+      "publishedDate": null,
+      "snippet": "# Federal government and the Government of Quebec invest in the stabilization of Route 138 in Tête-à-la-Baleine and announce that work will begin in June. The Government of Canada and the Government of Quebec announce stabilization work on Route 138 in the wharf area of Tête-à-la-Baleine on the Côte-Nord. **Tête-à-la-Baleine, Quebec, June 9, 2026** — The Government of Canada and the Government of Quebec announce stabilization work on Route 138 in the wharf area of Tête-à-la-Baleine on the Côte-Nord. The Minister of Housing and Infrastructure, the Honourable Gregor Robertson, and the Minister o",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "housing-supply"
+      ],
+      "relevance_score": 0.1,
+      "reason": "Local road stabilization on Route 138 is transportation infrastructure, not housing supply or any tracked housing metric/trigger/promise.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-housing-infrastructure-communities-31807335",
+      "candidateFingerprint": "513b8f7e",
+      "sourceId": "canada-ca-housing-infrastructure-communities",
+      "discovery": "search_fanout",
+      "title": "Tender opportunities | CanadaBuys",
+      "url": "https://canadabuys.canada.ca/en/tender-opportunities",
+      "publishedDate": null,
+      "snippet": "| [Rations & Quarters](https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/cb-434-5821225) | Services | 2026/06/12 Amended | 2026/06/15 | Department of National Defence (DND) |. | [Cleaning Equipment](https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/ws5557194886-doc5557218085) | Goods | 2026/06/12 Amended | 2026/04/24 | Department of National Defence (DND) |. | [SWITCH, PRESSURE](https://canadabuys.canada.ca/en/tender-opportunities/tender-notice/cb-943-87591245) | Goods | 2026/06/12 Amended | 2026/06/25 | Department of National Defence (DND) |. | [Tractor-Trail",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "housing-supply"
+      ],
+      "relevance_score": 0.1,
+      "reason": "A generic CanadaBuys tender listings page showing routine DND procurement notices (rations, cleaning equipment, pressure switches). Tagged a priori as housing-supply but content is unrelated to housing or any tracked metric/trigger/promise. Routine procurement noise, not dimension-relevant evidence.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-housing-infrastructure-communities-25e8626a",
+      "candidateFingerprint": "7466fe5a",
+      "sourceId": "canada-ca-housing-infrastructure-communities",
+      "discovery": "search_fanout",
+      "title": "Minister Joly announces a $75 million investment in Canadian Blood Services and Canadian Armed Forces partnership - Canada.ca",
+      "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-joly-announces-a-75-million-investment-in-canadian-blood-services-and-canadian-armed-forces-partnership.html",
+      "publishedDate": null,
+      "snippet": "# **Minister Joly announces a $75 million investment in Canadian Blood Services and Canadian Armed Forces partnership**. Investing in Canada’s health and defence emergency readiness to keep Canadians safe at home and abroad. Today, the Honourable Mélanie Joly, Minister of Industry and Minister responsible for Canada Economic Development for Quebec Regions, in partnership with the Honourable David J. McGuinty, Minister of National Defence, announced a significant federal investment of $75 million to advance Canadian Blood Services’ (CBS) innovative initiative to strengthen Canada’s domestic blo",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "housing-supply"
+      ],
+      "relevance_score": 0.2,
+      "reason": "A $75M investment in Canadian Blood Services / CAF blood supply readiness. Though framed partly as 'defence emergency readiness,' it is a health-readiness initiative, not defence spending levels, trade diversification, or any tracked defence-trade metric/promise. Not a mover for any listed dimension.",
+      "evidence_limitations": "Snippet truncated; full release could clarify whether any tracked defence metric is touched, but on its face this is health-readiness, not defence-spending.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-immigration-refugees-citizenship-b63ffe56",
+      "candidateFingerprint": "4e5d271e",
+      "sourceId": "canada-ca-immigration-refugees-citizenship",
+      "discovery": "search_fanout",
+      "title": "Submission to the Standing Senate Committee on Legal and ...",
+      "url": "https://www.canada.ca/en/office-federal-ombudsperson-victims-crime/recommendations-recommandations/2026-27/20260610.html",
+      "publishedDate": null,
+      "snippet": "We make seven recommendations for amendments to the Canadian Victims Bill of Rights, the Criminal Code, and the Corrections and Conditional Release Act ( CVBR )",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "immigration",
+        "promise-delivery"
+      ],
+      "relevance_score": 0.1,
+      "reason": "Federal Ombudsperson for Victims of Crime submission recommending amendments to the Victims Bill of Rights, Criminal Code, and Corrections Act. Not related to immigration or any tracked dimension. Mis-tagged a priori.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-natural-resources-canada-264d8055",
+      "candidateFingerprint": "a0e29181",
+      "sourceId": "canada-ca-natural-resources-canada",
+      "discovery": "search_fanout",
+      "title": "Government of Canada to announce support for sport-tech innovation and entrepreneurship in southern Ontario - Canada.ca",
+      "url": "https://www.canada.ca/en/economic-development-southern-ontario/news/2026/06/government-of-canada-to-announce-support-for-sport-tech-innovation-and-entrepreneurship-in-southern-ontario.html",
+      "publishedDate": null,
+      "snippet": "# **Government of Canada to announce support for sport-tech innovation and entrepreneurship in southern Ontario**. **From: Federal Economic Development Agency for Southern Ontario**. The Honourable Rechie Valdez, Minister of Women and Gender Equality and Secretary of State (Small Business and Tourism), on behalf of the Honourable Evan Solomon, Minister of Artificial Intelligence and Digital Innovation and Minister responsible for the Federal Economic Development Agency for Southern Ontario (FedDev Ontario), will announce support for sport-tech innovation and entrepreneurship. A media availabil",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.2,
+      "reason": "Advisory of a FedDev Ontario announcement of support for sport-tech innovation/entrepreneurship in southern Ontario. A small regional program advisory with no tracked metric, trigger, or promise tie. Not a mover for economic-policy.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-natural-resources-canada-8a3f8f22",
+      "candidateFingerprint": "4dae3e3f",
+      "sourceId": "canada-ca-natural-resources-canada",
+      "discovery": "search_fanout",
+      "title": "Minister Joly announces a $75 million investment in Canadian Blood Services and Canadian Armed Forces partnership - Canada.ca",
+      "url": "https://www.canada.ca/en/innovation-science-economic-development/news/2026/06/minister-joly-announces-a-75-million-investment-in-canadian-blood-services-and-canadian-armed-forces-partnership.html",
+      "publishedDate": null,
+      "snippet": "# **Minister Joly announces a $75 million investment in Canadian Blood Services and Canadian Armed Forces partnership**. Investing in Canada’s health and defence emergency readiness to keep Canadians safe at home and abroad. Today, the Honourable Mélanie Joly, Minister of Industry and Minister responsible for Canada Economic Development for Quebec Regions, in partnership with the Honourable David J. McGuinty, Minister of National Defence, announced a significant federal investment of $75 million to advance Canadian Blood Services’ (CBS) innovative initiative to strengthen Canada’s domestic blo",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.2,
+      "reason": "Duplicate of the $75M Canadian Blood Services / CAF investment release, here tagged economic-policy. Health-readiness initiative, not a tracked economic-policy metric/trigger/promise. Not dimension-relevant.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-natural-resources-canada-5060de9e",
+      "candidateFingerprint": "9edebca1",
+      "sourceId": "canada-ca-natural-resources-canada",
+      "discovery": "search_fanout",
+      "title": "Government of Canada and partners invest over $10M to strengthen ...",
+      "url": "https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html",
+      "publishedDate": null,
+      "snippet": "*   [Skip to Invitation Manager Popup](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html#gc-im-popup). *   [Jobs and the workplace](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-systems-through-research.html#). *   [Most requested](https://www.canada.ca/en/institutes-health-research/news/2026/06/government-of-canada-and-partners-invest-over-10m-to-strengthen-public-health-syste",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.1,
+      "reason": "CIHR release on a $10M+ investment to strengthen public health systems through research. Health-research funding with no tie to the economic-policy metrics (productivity, business investment, R&D-as-tracked) or any other tracked dimension. The snippet is mostly site navigation boilerplate.",
+      "evidence_limitations": "Snippet is largely navigation/boilerplate; substantive content not visible but topic (public health research) is outside tracked dimensions.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-revenue-agency-471761d6",
+      "candidateFingerprint": "b7b30cfb",
+      "sourceId": "canada-ca-revenue-agency",
+      "discovery": "search_fanout",
+      "title": "Oil to Heat Pump Affordability program - Natural Resources Canada",
+      "url": "https://natural-resources.canada.ca/energy-efficiency/home-energy-efficiency/canada-greener-homes-initiative/oil-heat-pump-affordability-program",
+      "publishedDate": null,
+      "snippet": "Note: Your home must be connected to an integrated electricity grid to be eligible for the Oil to Heat Pump Affordability program. If you’re unsure if your location is eligible, contact us at OHPA-CAMT@nrcan-rncan.gc.ca. ## Is your home heated by oil? You may be eligible to receive an upfront payment of up to $10,000 to switch from oil heating to new, energy-efficient heat pumps if:. * you heat your home with oil. Available for the purchase and installation of eligible heat pump systems, and any of the following associated eligible costs related to the installation, if required:. Apply for the",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "affordability-response"
+      ],
+      "relevance_score": 0.15,
+      "reason": "Oil to Heat Pump Affordability program is an energy-efficiency retrofit program page; it does not map to the tracked affordability-response (grocery/food) metrics, triggers, or promises, nor clearly to other dimensions' tracked items.",
+      "evidence_limitations": "Provisional snippet; program description page, not new evidence on a tracked dimension.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-revenue-agency-debf13dc",
+      "candidateFingerprint": "23315bb4",
+      "sourceId": "canada-ca-revenue-agency",
+      "discovery": "search_fanout",
+      "title": "Canada Greener Homes Initiative",
+      "url": "https://natural-resources.canada.ca/energy-efficiency/home-energy-efficiency/canada-greener-homes-initiative/canada-greener-homes-initiative",
+      "publishedDate": null,
+      "snippet": "# Canada Greener Homes Initiative. * Canada Greener Homes Initiative: Highlights and program updates. ## Canada Greener Homes Affordability Program. This program, delivered through our partners in provinces and territories, will help low-to-median-income homeowners and tenants retrofit their homes to reduce monthly energy bills. Learn more about the Canada Greener Homes Affordability Program. ## Oil to Heat Pump Affordability Program. The program helps eligible homeowners with median income or less who are currently heating their homes with oil make the transition to an eligible heat pump syst",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "affordability-response"
+      ],
+      "relevance_score": 0.15,
+      "reason": "Canada Greener Homes Initiative landing page on retrofit/affordability programs does not map to the tracked grocery/food affordability items or other tracked metrics, triggers, or promises.",
+      "evidence_limitations": "Provisional snippet; general program overview page, not new evidence.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-canada-ca-treasury-board-secretariat-142a7d60",
+      "candidateFingerprint": "ec1c300b",
+      "sourceId": "canada-ca-treasury-board-secretariat",
+      "discovery": "search_fanout",
+      "title": "Government of Canada to announce support for sport-tech innovation and entrepreneurship in southern Ontario - Canada.ca",
+      "url": "https://www.canada.ca/en/economic-development-southern-ontario/news/2026/06/government-of-canada-to-announce-support-for-sport-tech-innovation-and-entrepreneurship-in-southern-ontario.html",
+      "publishedDate": null,
+      "snippet": "# **Government of Canada to announce support for sport-tech innovation and entrepreneurship in southern Ontario**. **From: Federal Economic Development Agency for Southern Ontario**. The Honourable Rechie Valdez, Minister of Women and Gender Equality and Secretary of State (Small Business and Tourism), on behalf of the Honourable Evan Solomon, Minister of Artificial Intelligence and Digital Innovation and Minister responsible for the Federal Economic Development Agency for Southern Ontario (FedDev Ontario), will announce support for sport-tech innovation and entrepreneurship. A media availabil",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.15,
+      "reason": "Regional sport-tech innovation funding announcement does not map to any tracked economic-policy metric, trigger, or named promise (AI compute, critical minerals, red tape).",
+      "evidence_limitations": "Provisional snippet; minor regional announcement.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-en-wikipedia-org-c7ec166f",
+      "candidateFingerprint": "8a649e3b",
+      "sourceId": "en-wikipedia-org",
+      "discovery": "search_fanout",
+      "title": "Neptune - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/Neptune",
+      "publishedDate": null,
+      "snippet": "# Neptune. | Neptune in true colour, taken by *Voyager 2* on August 25, 1989; at centre is the Great Dark Spot | |. | Discovered by | * Johann Galle * Urbain Le Verrier * John Couch Adams |. **Neptune** is the eighth and farthest known planet orbiting the Sun. It is the fourth-largest planet in the Solar System by diameter, the third-most-massive planet, and the densest giant planet. Neptune is not visible to the unaided eye and is the only planet in the Solar System that was not initially observed by direct empirical observation. At the time of the *Voyager 2* flyby in 1989, the planet's sout",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "approval-signal"
+      ],
+      "relevance_score": 0.0,
+      "reason": "Wikipedia article on the planet Neptune; no relevance to any tracked policy dimension. The a priori 'approval-signal' tag is not a dimension in the provided context.",
+      "evidence_limitations": "Clearly off-topic search result.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-en-wikipedia-org-9792ed4f",
+      "candidateFingerprint": "359d675f",
+      "sourceId": "en-wikipedia-org",
+      "discovery": "search_fanout",
+      "title": "LTE (telecommunication) - Wikipedia",
+      "url": "https://en.wikipedia.org/wiki/LTE_(telecommunication)",
+      "publishedDate": null,
+      "snippet": "* Edit&action=edit \"Edit this page [e]\"). Standard for wireless broadband communication for mobile devices. In telecommunications, **long-term evolution** (**LTE**) is a standard for wireless broadband communication for cellular mobile devices and data terminals. LTE is also called **3.95G** and has been marketed as **4G LTE** and **Advanced 4G**;*[citation needed*] but the original version did not meet the technical criteria of a 4G wireless service, as specified in the 3GPP Release 8 and 9 document series for LTE Advanced. The idea of LTE was first proposed in 1998, with the use of the COFDM",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "approval-signal"
+      ],
+      "relevance_score": 0.0,
+      "reason": "Wikipedia article on LTE telecommunications standard. No connection to any tracked Canadian federal policy dimension. The a_priori 'approval-signal' dimension does not exist in context.",
+      "evidence_limitations": "Provisional search snippet; content is clearly off-topic regardless.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-imf-org-90fb20dc",
+      "candidateFingerprint": "b8dc8c56",
+      "sourceId": "imf-org",
+      "discovery": "search_fanout",
+      "title": "IMF Executive Board Concludes 2026 Article IV Consultation with St ...",
+      "url": "https://www.imf.org/en/news/articles/2026/06/12/pr-26205-st-vincent-and-the-grenadines-imf-concludes-2026-art-iv-consult",
+      "publishedDate": null,
+      "snippet": "## IMF Executive Board Concludes 2026 Article IV Consultation with St. Vincent and the Grenadines. * Fiscal imbalances have widened sharply in the aftermath of repeated external shocks with public debt rising by 45 percentage points of GDP since 2019 to 113 percent of GDP in 2025. * Growth is expected to slow in 2026-27, reflecting higher oil prices, a weaker global outlook, and the normalization of construction activity, before stabilizing at 2.7 percent over the medium term. **Washington, DC:** The Executive Board of the International Monetary Fund (IMF) completed the Article IV Consultation",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.05,
+      "reason": "IMF Article IV consultation for St. Vincent and the Grenadines. Fiscal-health dimension here tracks Canadian federal fiscal trajectory, not another country's debt path. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; clearly a different country.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-imf-org-333bd5b8",
+      "candidateFingerprint": "daa5da0b",
+      "sourceId": "imf-org",
+      "discovery": "search_fanout",
+      "title": "Namibia: Selected Issues",
+      "url": "https://www.imf.org/en/publications/cr/issues/2026/06/11/namibia-selected-issues-576814",
+      "publishedDate": null,
+      "snippet": "International Monetary FundInternational Monetary Fund. #### Loading component... # IMF Staff Country Reports. ## Namibia: Selected Issues. book open iconMore Formats on IMF eLibrary. book iconOrder a Print Copy. More formats on IMF eLibrary. ### Summary. **Subject:** Education, Expenditure, Health, Health care, Health care spending. **Keywords:** Health care, Health care spending. Country Report No. 2026/136. ### You May Also Be Interested In... ### Setting Up Fiscal Rules in Lesotho: Kingdom of Lesotho. ### Reforming Energy Subsidies in the Arab Region. ### Tax Expenditures in Sub-Saharan Af",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.05,
+      "reason": "IMF Selected Issues report on Namibia (education/health spending). Not about Canadian federal fiscal health. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; different country.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-imf-org-4d0606ce",
+      "candidateFingerprint": "18f6c571",
+      "sourceId": "imf-org",
+      "discovery": "search_fanout",
+      "title": "Iceland: Staff Concluding Statement of the 2026 Article IV Mission",
+      "url": "https://www.imf.org/en/news/articles/2026/06/10/mcs-6112026-iceland-staff-concluding-statement-of-the-2026-article-iv-mission",
+      "publishedDate": null,
+      "snippet": "[News](https://www.imf.org/en/news). *   [About](https://www.imf.org/en/about). *   [Fiscal Policies](https://www.imf.org/en/topics/fiscal-policies). *   [World Economic Outlook](https://www.imf.org/en/publications/weo). *   [Global Financial Stability Report](https://www.imf.org/en/publications/gfsr). *   [Fiscal Monitor](https://www.imf.org/en/publications/fm). *   [External Sector Report](https://www.imf.org/en/publications/sprolls/external-sector-reports). *   [Countries](https://www.imf.org/en/countries). *   [A](https://www.imf.org/en/countries#A). *   [B](https://www.imf.org/en/countrie",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.05,
+      "reason": "IMF Article IV mission statement for Iceland. Not about Canada's fiscal trajectory. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; different country; mostly site navigation captured.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-imf-org-93d5565d",
+      "candidateFingerprint": "794aaeb6",
+      "sourceId": "imf-org",
+      "discovery": "search_fanout",
+      "title": "A Stronger Europe for Tougher Times - International Monetary Fund",
+      "url": "https://www.imf.org/en/news/articles/2026/06/09/sp060926-md-a-stronger-europe-for-tougher-times",
+      "publishedDate": null,
+      "snippet": "*   [About](https://www.imf.org/en/about). *   [Fiscal Policies](https://www.imf.org/en/topics/fiscal-policies). *   [World Economic Outlook](https://www.imf.org/en/publications/weo). *   [Fiscal Monitor](https://www.imf.org/en/publications/fm). *   [Countries](https://www.imf.org/en/countries). *   [A](https://www.imf.org/en/countries#A). *   [B](https://www.imf.org/en/countries#B). *   [C](https://www.imf.org/en/countries#C). *   [D](https://www.imf.org/en/countries#D). *   [E](https://www.imf.org/en/countries#E). *   [F](https://www.imf.org/en/countries#F). *   [G](https://www.imf.org/en/co",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.05,
+      "reason": "IMF managing director speech on Europe. Not specific to Canadian federal fiscal or economic policy. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; mostly site navigation, Europe-focused speech.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-imf-org-1daee76d",
+      "candidateFingerprint": "af8550bb",
+      "sourceId": "imf-org",
+      "discovery": "search_fanout",
+      "title": "[PDF] Georgia: 2026 Article IV Consultation-Press Release; Staff Report",
+      "url": "https://www.imf.org/-/media/files/publications/cr/2026/english/1geoea2026001.pdf",
+      "publishedDate": null,
+      "snippet": "Gross international reserves have reached the IMF's adequacy thresholds for the first time since 2022, while fiscal buffers and the financial sector remain",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "fiscal-health"
+      ],
+      "relevance_score": 0.05,
+      "reason": "IMF Article IV report for Georgia (reserves, fiscal buffers). Not about Canadian fiscal health. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; different country.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-macdonaldlaurier-ca-52eb8bda",
+      "candidateFingerprint": "9a60632f",
+      "sourceId": "macdonaldlaurier-ca",
+      "discovery": "search_fanout",
+      "title": "Domestic Policy - The Macdonald-Laurier Institute",
+      "url": "https://macdonaldlaurier.ca/category/issues/domestic-policy-program/page/329",
+      "publishedDate": null,
+      "snippet": "Support the Macdonald-Laurier Institute to help ensure that Canada is one of the best governed countries in the world. Click below to learn more or become a",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment",
+        "immigration"
+      ],
+      "relevance_score": 0.1,
+      "reason": "MLI domestic policy category page (deep pagination, page 329). A topic-index listing with no specific evidence on climate or immigration metrics, triggers, or promises. Not dimension-relevant as presented.",
+      "evidence_limitations": "Provisional snippet is a category landing page; no substantive content.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-macdonaldlaurier-ca-a0947215",
+      "candidateFingerprint": "96acfe1a",
+      "sourceId": "macdonaldlaurier-ca",
+      "discovery": "search_fanout",
+      "title": "Inside Policy - Macdonald-Laurier Institute",
+      "url": "https://macdonaldlaurier.ca/category/library/inside-policy",
+      "publishedDate": null,
+      "snippet": "+ Canada on top of the world. * COVID and after: A mandate for recovery. ## Inside Policy is the flagship publication of the Macdonald-Laurier Institute. The illiberal attack on the notwithstanding clause: Jeremy Geddert for Inside Policy. Canada must teach its national story: Christopher Dummitt and Ian Campbell for Inside Policy Talks. # Inside Policy. I. de Miranda and Michelle Abel for Inside Policy. Ottawa’s new hate crime bill can’t fix a deeply fractured society: Peter Copeland for Inside Policy. Senior Canadian officials seek to isolate Israel – and Canada’s Jewish community: Alan Kess",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment",
+        "immigration"
+      ],
+      "relevance_score": 0.1,
+      "reason": "MLI 'Inside Policy' publication listing page covering hate crime law, national story education, Israel/Jewish community topics. None map to tracked climate or immigration dimensions. Not dimension-relevant as presented.",
+      "evidence_limitations": "Provisional snippet is a publication index, not a specific evidence item.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-oecd-org-4eeb8012",
+      "candidateFingerprint": "dd2a0285",
+      "sourceId": "oecd-org",
+      "discovery": "search_fanout",
+      "title": "Austrian NCP leads the way for promoting responsible business ...",
+      "url": "https://www.oecd.org/en/about/news/announcements/2026/06/Austrian-NCP-leads-the-way-for-promoting-responsible-business-conduct-while-facing-calls-to-strengthen-resources-and-case-handling.html",
+      "publishedDate": null,
+      "snippet": "This latest OECD review finds that the Austrian NCP has shown strong commitment to carry out its principal missions, promoting the OECD Guidelines for",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.05,
+      "reason": "OECD review of the Austrian National Contact Point for responsible business conduct. Not about Canadian economic policy metrics, triggers, or promises. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; Austria-focused governance review.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-oecd-org-b1d703ca",
+      "candidateFingerprint": "0b8d2965",
+      "sourceId": "oecd-org",
+      "discovery": "search_fanout",
+      "title": "[PDF] Every Day Counts (EN) - OECD",
+      "url": "https://www.oecd.org/content/dam/oecd/en/publications/reports/2026/06/every-day-counts_a4a2e46b/7c6f6c3e-en.pdf",
+      "publishedDate": null,
+      "snippet": "Every Day Counts Understanding, Preventing and Responding to School Attendance Problems Every Day Counts UNDERSTANDING, PREVENTING AND RESPONDING TO SCHOOL ATTENDANCE PROBLEMS This work is issued under the responsibility of the Secretary-General of the OECD, and does not necessarily reflect the official views of OECD Member countries. This document, as well as any data and map included herein, are without prejudice to the status of or sovereignty over any territory, to the delimitation of international frontiers and boundaries and to the name of any territory, city or area. The use of such dat",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.0,
+      "reason": "OECD report on school attendance problems. Education-attendance topic unrelated to any tracked economic policy dimension. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; clearly off-topic.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-oecd-org-408430b8",
+      "candidateFingerprint": "adeb9870",
+      "sourceId": "oecd-org",
+      "discovery": "search_fanout",
+      "title": "Kazakhstan: Accelerating Sustainable Infrastructure Investments",
+      "url": "https://www.oecd.org/en/publications/accelerating-sustainable-infrastructure-investments_031d486e-en/full-report/kazakhstan_fff79dd5.html",
+      "publishedDate": null,
+      "snippet": "This report examines how countries in Central and Southeast Asia plan and finance energy, transport and industry-related infrastructure that supports economic",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "economic-policy"
+      ],
+      "relevance_score": 0.05,
+      "reason": "OECD report on sustainable infrastructure investment in Central/Southeast Asia (Kazakhstan focus). Not about Canadian major projects or economic policy. Not dimension-relevant.",
+      "evidence_limitations": "Provisional snippet; different region.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-ourcommons-ca-eb634f25",
+      "candidateFingerprint": "c60ce509",
+      "sourceId": "ourcommons-ca",
+      "discovery": "search_fanout",
+      "title": "Parliamentary Diplomacy - OurCommons.ca",
+      "url": "https://www.ourcommons.ca/en/parliamentary-business/2026-06-11%20-04%3A00",
+      "publishedDate": null,
+      "snippet": "Parliamentary Business Events, Calendar, and Publications - House of Commons of Canada.",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.05,
+      "reason": "Parliamentary diplomacy calendar landing page with no substantive content tied to any tracked metric, trigger, or promise.",
+      "evidence_limitations": "Snippet is a generic calendar description; provisional and non-substantive.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-ourcommons-ca-d098c7da",
+      "candidateFingerprint": "268f7918",
+      "sourceId": "ourcommons-ca",
+      "discovery": "search_fanout",
+      "title": "Parliamentary Business Events, Calendar, and Publications",
+      "url": "https://www.ourcommons.ca/en/parliamentary-business",
+      "publishedDate": null,
+      "snippet": "# Parliamentary Business Events, Calendar, and Publications - House of Commons of Canada. Image 1: House of Commons. *   A Member's Typical Week. *   A Typical Week at the House. *   Contact a Member of Parliament. *   Current Opportunities at the House of Commons. Working for a Member of Parliament. *   Current Listed Opportunities Working for a Member of Parliament. # Parliamentary Business. Members of Parliament participate in House of Commons sittings, committee meetings and diplomatic events. |  | 1 House Sitting Day Committee Meetings Parliamentary Diplomacy Events House Publications | 2",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "ethics-transparency"
+      ],
+      "relevance_score": 0.05,
+      "reason": "Top-level parliamentary business navigation page; no dimension-relevant evidence in the snippet.",
+      "evidence_limitations": "Boilerplate site navigation text only; provisional discovery.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-scotiabank-com-db5ad94b",
+      "candidateFingerprint": "7ec65e12",
+      "sourceId": "scotiabank-com",
+      "discovery": "search_fanout",
+      "title": "Scotiabank Announces Plans to Fully Acquire Scotia Group Jamaica ...",
+      "url": "https://www.scotiabank.com/content/scotiabank/corporate/en/home/media-centre/media-centre/news-release.html?id=4310&language=en",
+      "publishedDate": null,
+      "snippet": "Scotiabank announced today that it has made a proposal to acquire all of the shares of Scotia Group Jamaica Limited (SGJL) set out in the 2025 Annual Report",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "housing-supply"
+      ],
+      "relevance_score": 0.02,
+      "reason": "Corporate acquisition of Scotia Group Jamaica; no relevance to any tracked Canadian federal policy dimension.",
+      "evidence_limitations": "Clear corporate press release; no policy content.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-tc-canada-ca-9939cfa1",
+      "candidateFingerprint": "90f69217",
+      "sourceId": "tc-canada-ca",
+      "discovery": "search_fanout",
+      "title": "Advisory Circulars - Transports Canada",
+      "url": "https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars",
+      "publishedDate": null,
+      "snippet": "*   [Most requested](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars#). *   [Immigration and citizenship](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars#). *   [Most requested](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars#). *   [Most requested](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars#). *   [Most requested](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars#). *   [Benefits](https://tc.canada.ca/en/aviation/reference-centre/advisory-circulars#). *   [Most requested](https://tc.can",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "major-projects"
+      ],
+      "relevance_score": 0.03,
+      "reason": "Aviation advisory circulars reference page; no connection to Major Projects approval/delivery framework or any tracked metric.",
+      "evidence_limitations": "Navigation boilerplate only.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-tc-canada-ca-23a15cff",
+      "candidateFingerprint": "ba16e9ec",
+      "sourceId": "tc-canada-ca",
+      "discovery": "search_fanout",
+      "title": "[PDF] Safe Boating Guide - Transports Canada",
+      "url": "https://tc.canada.ca/sites/default/files/2026-06/tp-511-boating-guide-2026-en-acc.pdf",
+      "publishedDate": null,
+      "snippet": "TP 511E SAFE BOATING GUIDE Safety Tips and Requirements for Pleasure Craft www.tc.gc.ca/boatingsafety © His Majesty the King in Right of Canada, represented by the Minister of Transport, 2026. Transport Canada grants permission to copy and/or reproduce the contents of this publication for personal and public non-commercial use. Users must reproduce the materials accurately, identify Transport Canada as the source and not present theirs as an official version, or as having been produced with the help or the endorsement of Transport Canada. 3 Take a boating safety course - Learn the basics of bo",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "major-projects"
+      ],
+      "relevance_score": 0.02,
+      "reason": "Recreational boating safety guide; no dimension relevance.",
+      "evidence_limitations": "Safety guide content unrelated to policy dimensions.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-tc-canada-ca-156b439d",
+      "candidateFingerprint": "96c96f6a",
+      "sourceId": "tc-canada-ca",
+      "discovery": "search_fanout",
+      "title": "You are what you Eat - Transports Canada",
+      "url": "https://tc.canada.ca/en/aviation/publications/aviation-safety-letter/issue-2-2026/you-are-what-you-eat",
+      "publishedDate": null,
+      "snippet": "This article is based on four short, informative videos I put together on ensuring fuel quality, through regular testing and proper fuel handling techniques.",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "major-projects"
+      ],
+      "relevance_score": 0.02,
+      "reason": "Aviation safety article on fuel quality; no relevance to any tracked dimension.",
+      "evidence_limitations": "Topic clearly off-scope.",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-theconversation-com-e17c693c",
+      "candidateFingerprint": "bb67a1c2",
+      "sourceId": "theconversation-com",
+      "discovery": "search_fanout",
+      "title": "El Niño is back, and ocean temperatures are already near record ...",
+      "url": "https://theconversation.com/el-nino-is-back-and-ocean-temperatures-are-already-near-record-highs-that-can-spell-disaster-for-fish-and-corals-285097",
+      "publishedDate": null,
+      "snippet": "It's official: El Niño is back. By late fall 2026, forecast models give a 2-in-3 chance of a strong-to-very strong El Niño affecting the weather, climate",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.1,
+      "reason": "Global El Niño / ocean temperature science article. No federal policy action on emissions path, conservation, or targets; not dimension-relevant despite a_priori climate tag.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-theconversation-com-d5b7da28",
+      "candidateFingerprint": "a9efc109",
+      "sourceId": "theconversation-com",
+      "discovery": "search_fanout",
+      "title": "Life after death: From burned trees to bleached corals, how dead ...",
+      "url": "https://theconversation.com/life-after-death-from-burned-trees-to-bleached-corals-how-dead-organisms-live-on-as-the-building-blocks-of-new-life-283745",
+      "publishedDate": null,
+      "snippet": "The dead remains of foundation species can boost or deter how well future generations are able to grow and thrive.",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.05,
+      "reason": "Ecology science article on dead organisms as building blocks of new life. No federal policy content; not dimension-relevant.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-theconversation-com-8e4405f7",
+      "candidateFingerprint": "c422a16b",
+      "sourceId": "theconversation-com",
+      "discovery": "search_fanout",
+      "title": "AI in nature conservation: powerful tool or dangerous shortcut?",
+      "url": "https://theconversation.com/ai-in-nature-conservation-powerful-tool-or-dangerous-shortcut-283718",
+      "publishedDate": null,
+      "snippet": "For example, they might need to process decades of weather data or the movements of millions of insects. It’s been shown that they can confidently make up information and amplify hidden biases in their training data. AI featured among the top 10 emerging issues in biodiversity conservation in South Africa in a recent horizon scan that we undertook. As part of a group of 14 experts in biodiversity conservation, we drew on discussions within our diverse professional networks, literature and news trends to identify issues likely to emerge and intensify over the next 5-10 years. Our scan brought t",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.1,
+      "reason": "Article on AI in nature conservation focused on South Africa biodiversity horizon scan. No Canadian federal policy action; not dimension-relevant.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    },
+    {
+      "candidate_id": "2026-06-theconversation-com-08586322",
+      "candidateFingerprint": "fa5b789b",
+      "sourceId": "theconversation-com",
+      "discovery": "search_fanout",
+      "title": "AI companions – News, Research and Analysis – The Conversation – page 1",
+      "url": "https://theconversation.com/topics/ai-companions-152272",
+      "publishedDate": null,
+      "snippet": "# Articles on AI companions. Research shows that AI chatbots engage in deliberate emotional manipulation strategies, such as appealing to guilt, fear of missing out and a human tendency to follow the herd. ## Is your AI chatbot manipulating you? AI companions, such as those offered by Character.AI, are emerging in a context of widespread loneliness, where people are seek connection that feels reliable and low in emotional cost. Are you sure you could tell if an AI chatbot were trying to sell you something? Annabel Blake, *University of Sydney*; Eduardo Velloso, *University of Sydney*, and Marc",
+      "provisional": true,
+      "classification": "irrelevant",
+      "affected_dimensions": [
+        "climate-environment"
+      ],
+      "relevance_score": 0.02,
+      "reason": "Topic landing page on AI companions/chatbots and emotional manipulation. No policy or dimension relevance.",
+      "evidence_limitations": "",
+      "requires_editor_review": true,
+      "can_move_grade_automatically": false
+    }
+  ],
+  "accessFailures": [
+    {
+      "surface": "Fraser Institute",
+      "method": "rss",
+      "detail": "http_error"
+    },
+    {
+      "surface": "Conflict of Interest and Ethics Commissioner",
+      "method": "page_hash",
+      "detail": "http_error"
+    }
+  ]
+}
