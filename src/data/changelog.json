@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-06-15",
+    "version": "5.116",
+    "summary": "Closed the June monitor adjudication and tightened source-stack polish.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "June monitor packet adjudicated",
+        "body": "The June source-monitor candidates were opened and sorted. C-5 Royal Assent was already reflected in the live files, the Finance tax-cut report now backs the delivered Fiscal Health tax-cut promise, and the CIHR plus Scotiabank browser-pull items were left out because they do not map to live dashboard metrics."
+      },
+      {
+        "type": "product",
+        "headline": "Source tier labels clarified",
+        "body": "The Sources fold now explains T1, T2, and T3 in plain language on the legend and badges, so readers do not have to know the internal tier shorthand."
+      },
+      {
+        "type": "method",
+        "headline": "Source-date tail cleaned up",
+        "body": "Two living source pages that still showed page-origin dates are now marked as-of June 15, 2026. The source-date gate remains closed at 99 of 99 dated sources and zero needs-review flags."
+      },
+      {
+        "type": "docs",
+        "headline": "Source-band ceiling decision recorded",
+        "body": "At-ceiling dimensions keep the 10-source cap. New analytical source families now require trim-before-add unless the editor explicitly approves a one-off relaxation. No sources were added or removed in this pass."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-15",
     "version": "5.115",
     "summary": "Closed the remaining source-date review rows and merged the June monitor candidate packet.",
     "items": [

@@ -1,6 +1,6 @@
 # Source Dates Review
 
-Updated: 2026-06-15T01:45:00+00:00
+Updated: 2026-06-15T02:01:00+00:00
 
 Phase 1 plus follow-up review record. The dated rows from this table have been applied to `src/data/dimensions.json`. This review did not change grades, thresholds, statuses, scoring, GPA math, or source order.
 
@@ -40,7 +40,7 @@ Follow-up gate closed 2026-06-15: no `needsManualDate` flags remain in `src/data
 | [ISED — Canadian Sovereign AI Compute Strategy](https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy) | Economic Policy Response | 2024-12-05 | published | manual: applied v5.114 date review | review |
 | [Budget 2025 — productivity super-deduction](https://budget.canada.ca/2025/report-rapport/intro-en.html) | Economic Policy Response | 2025-11-04 | published | manual: applied v5.114 date review | review |
 | [Treasury Board — 2024-25 regulatory management annual report](https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html) | Economic Policy Response | 2025-12-02 | published | page-meta: dcterms.issued | medium |
-| [Government of Canada — Internal Trade Action Plan status](https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html) | Economic Policy Response | 2022-12-08 | published | page-meta: dcterms.issued | medium |
+| [Government of Canada — Internal Trade Action Plan status](https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html) | Economic Policy Response | 2026-06-15 | as-of | manual: living status page reclassified 2026-06-15 | review |
 | [Building Canada Act (Bill C-5)](https://www.parl.ca/legisinfo/en/bill/45-1/c-5) | Economic Policy Response | 2026-06-14 | as-of | manual: living source | review |
 | [NRCan — critical minerals partnerships](https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html) | Economic Policy Response | 2026-03 | published | url month | medium |
 | [Centre for the Study of Living Standards — Canadian Productivity Review](http://www.csls.ca/ipm.asp) | Economic Policy Response | 2025-11 | published | manual: applied v5.114 date review | review |
@@ -56,7 +56,7 @@ Follow-up gate closed 2026-06-15: no `needsManualDate` flags remain in `src/data
 | [Food Banks Canada — Hunger Count](https://foodbankscanada.ca/hungercount/) | Affordability Response | 2025-11 | updated | page-meta: article:modified_time | medium |
 | [Signal49 Research — consumer prices analysis](https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/) | Affordability Response | 2026-04 | published | <time datetime> | medium |
 | [Canada.ca — fuel charge removal](https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html) | Carbon Pricing Policy | 2025-03 | published | url month | medium |
-| [ECCC — Output-Based Pricing System](https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html) | Carbon Pricing Policy | 2018-10-31 | published | page-meta: dcterms.issued | medium |
+| [ECCC — Output-Based Pricing System](https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html) | Carbon Pricing Policy | 2026-06-15 | as-of | manual: living program page reclassified 2026-06-15 | review |
 | [CCI — industrial pricing](https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/) | Carbon Pricing Policy | 2026-02 | updated | page-meta: article:modified_time | medium |
 | [IISD — Canadian Carbon Pricing Systems: 2025 Review](https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review) | Carbon Pricing Policy | 2026-03-04 | published | manual: applied v5.114 date review | review |
 | [PBO carbon GST revenue](https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone) | Carbon Pricing Policy | 2024-01-23 | published | manual: applied v5.114 date review | review |

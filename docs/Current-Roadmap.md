@@ -16,7 +16,7 @@
 - Stale whole-letter scoring references have been cleaned up in current-state docs.
 - Cross-dimension drift audit of the 9 non-probationary graded dimensions passed with minor notes.
 - Source sufficiency audit across the 11 graded live dimensions is complete.
-- Source-band rebalance is complete: live dimension source arrays now sit inside the 5-8 target band.
+- Source-band rebalance is complete: live dimension source arrays now sit inside the 5-8 target band or the documented 10-source ceiling. At-ceiling dimensions use trim-before-add unless the editor explicitly approves a one-off relaxation.
 - Hard rule adopted for source edits: missing URL / source-chain fixes can be added directly, but any new analytical source family must go through a reflection pass and Claude review before it is treated as settled.
 - AI workflow efficiency protocol is now adopted to make reflection/review escalation explicit and reduce over-reflection on bounded tasks.
 - Source hardening pass for the weakest dimensions is complete.
@@ -53,7 +53,7 @@
 
 ## Recently Completed
 
-- Source-date and monitor closeout - v5.113-v5.115 added newest-first source stacks, filled all 99 source dates, repaired the Macdonald-Laurier immigration source link that redirected to an image, and merged the June source-monitor candidate packet as an editor-review artifact. The monitor surfaced C-5 Royal Assent and the Finance tax-cut report for editor review, plus a short browser-pull list; no grade, threshold, source-order, status, or scoring change happened automatically.
+- Source-date and monitor closeout - v5.113-v5.116 added newest-first source stacks, filled all 99 source dates, repaired the Macdonald-Laurier immigration source link that redirected to an image, adjudicated the June monitor candidate packet, and recorded the source-band ceiling decision. C-5 was already reflected in the live files; the Finance tax-cut report became the cleaner Fiscal Health promise source; no grade, threshold, source-order, status, or scoring change happened automatically.
 
 - June 2026 cycle complete and dimension-card redesign shipped — the source-to-trigger pass ran across v5.75–v5.99 (six carry-forward triggers evaluated, all holds; one documented Defence funded-pathway trigger-fire with the grade held A- per [Defence-Funded-Pathway-Memo-2026-05-25.md](Defence-Funded-Pathway-Memo-2026-05-25.md)), with Codex/Comet verification rounds ([Round2-Verification-2026-06.md](Round2-Verification-2026-06.md)) and an external-evidence re-check ([Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md)). Separately, the dimension card was rebuilt for concision and an app-style read: score-first card with folded disclosure (v5.100), then the desktop focused-detail view with sticky section nav and exact close-to-grid scroll restore (v5.106–v5.107). Maintenance guardrails landed alongside — the approval-poll aggregation validator and the monthly source-scout workflow (v5.104–v5.105). No grade, threshold, GPA-formula, POCKETBOOK_DIMS, or dimension-model change in the redesign or the re-check.
 
@@ -120,11 +120,13 @@
 
 ## Now
 
-Dashboard sits at v5.115. The June 2026 source-to-trigger pass is complete and re-checked against public evidence (see [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md)): all six carry-forward triggers were evaluated across v5.75-v5.99, every hold was corroborated, and no grade moved. The June freshness sprint then closed the immediate data work that could be done before the scheduled July cycle: approval polling, the Promise Delivery stalled/abandoned summary, the MPO Sisson name, the per-dimension evidence timeline, and the dated source-stack display.
+Dashboard sits at v5.116. The June 2026 source-to-trigger pass is complete and re-checked against public evidence (see [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md)): all six carry-forward triggers were evaluated across v5.75-v5.99, every hold was corroborated, and no grade moved. The June freshness sprint then closed the immediate data work that could be done before the scheduled July cycle: approval polling, the Promise Delivery stalled/abandoned summary, the MPO Sisson name, the per-dimension evidence timeline, dated source-stack display, June monitor adjudication, and the source-band ceiling decision.
 
-Source-date follow-up is now closed. v5.113 added source-date fields and newest-first source tables, v5.114 hand-dated most blocked rows, and v5.115 closed the final four rows: RCC grocery context, MLI immigration research, the Ethics Commissioner registry, and the PM Annex A disclosure. All 99 cited sources now carry date metadata. The MLI source URL was also repaired to the live immigration category after the old URL redirected to an image.
+Source-date follow-up is now closed. v5.113 added source-date fields and newest-first source tables, v5.114 hand-dated most blocked rows, v5.115 closed the final four rows, and v5.116 reclassified the two evergreen page-origin dates as live as-of rows. All 99 cited sources now carry date metadata. The MLI source URL was also repaired to the live immigration category after the old URL redirected to an image.
 
-The June source-monitor candidate packet is merged as a record artifact, not as dashboard data. It flagged C-5 Royal Assent and Finance's tax-cut report for editor review, plus a small browser-pull list. The monitor did not move any grade, promise status, threshold, source order, or metric. The packet is [Source-Monitoring-Candidates-2026-06.md](Source-Monitoring-Candidates-2026-06.md).
+The June source-monitor candidate packet is adjudicated. C-5 Royal Assent was already accounted for in the live files; Finance's tax-cut report was adopted as a better status source for the delivered Fiscal Health tax-cut promise; the CIHR and Scotiabank browser-pull items did not map to live dashboard metrics. The monitor did not move any grade, promise status, threshold, source order, or metric. The record is [Source-Monitoring-Adjudication-2026-06.md](Source-Monitoring-Adjudication-2026-06.md).
+
+Source-band ceiling decision is closed for June. Economic Policy Response, Affordability Response, Climate & Environment, and Housing Supply sit at the 10-source ceiling; deferred candidates require trim-before-add unless the editor explicitly approves a one-off relaxation. See [Source-Band-Ceiling-Decision-2026-06.md](Source-Band-Ceiling-Decision-2026-06.md).
 
 The inter-rater pilot is in fieldwork: a Reddit rater has the packet, so the task is waiting on returned worksheets, then comparing against the frozen grades. It remains the largest disclosure gap on About until a human rater completes a blind pass.
 
@@ -134,19 +136,13 @@ The inter-rater pilot is in fieldwork: a Reddit rater has the packet, so the tas
 
 These are on deck awaiting their triggers.
 
-1. June monitor packet adjudication
-   Review the two surfaced editor-decision items before any data change: C-5 Royal Assent across Major Projects / Flagship / Promise Delivery / related triggers, and the Finance tax-cut report against the middle-class tax-cut promise. Also browser-pull the packet's blocked items before treating any search snippet as citation-ready. The packet is discovery only.
-
-2. June 17 and June 19 watch checks
+1. June 17 and June 19 watch checks
    June 17: pull the StatCan Q1 2026 population release and read the temporary-resident share against the Immigration 5% trigger. June 19: check the DCRP application-window close, project-selection status, and Bill C-26 Royal Assent against the Housing disbursement condition. These checks report evidence; they do not auto-move a grade.
 
-3. Inter-rater pilot return
-   When the rater sends worksheets back, compare their grades against the frozen packet snapshot and classify each mismatch as rubric clarity, source ambiguity, arithmetic/application error, or genuine disagreement. Do not revise the packet mid-run unless the rater has not started and Chris explicitly resends it.
+2. Inter-rater pilot return
+   When the rater sends worksheets back, compare their grades against the frozen packet snapshot and classify each mismatch as rubric clarity, source ambiguity, arithmetic/application error, or genuine disagreement. Do not revise the packet mid-run unless the rater has not started and the editor explicitly resends it.
 
-4. Source-band ceiling decisions
-   Economic Policy Response, Affordability Response, Climate & Environment, and Housing Supply are all at 10 sources (CLAUDE.md ceiling). Adding the deferred candidates (Pembina for Climate, Business Council for Economic Policy, Smart Prosperity / National Bank for Housing) requires either a trim-before-add or an explicit relaxation of the ceiling rule.
-
-5. July 1 monthly cycle
+3. July 1 monthly cycle
    The next full cycle remains 2026-07-01 (`meta.json`). Pick up the Defence split-shadow clock, the Flagship probation call, monthly freshness pulls, and any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
 
 ---

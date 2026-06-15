@@ -1104,7 +1104,7 @@
         "text": "Middle class income tax cut",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "Implemented in Budget 2025.",
+        "evidence": "Budget 2025 booked the measure. Finance Canada's June 2026 report says Bill C-4 reduced the lowest marginal personal income tax rate to 14.5% for 2025 and 14% for 2026 and later years.",
         "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
         "originalSourceLabel": "Budget 2025 Annex 1",
         "durability": "Budget measure",
@@ -1115,8 +1115,8 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
+        "statusSourceUrl": "https://www.canada.ca/en/department-finance/services/publications/report-impact-reducing-lowest-marginal-personal-income-tax-rate-non-refundable-tax-credits.html",
+        "statusSourceLabel": "Finance Canada — personal income tax rate report"
       },
       {
         "text": "Cancel capital gains tax increase",
@@ -1338,8 +1338,8 @@
       {
         "label": "Government of Canada — Internal Trade Action Plan status",
         "url": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
-        "date": "2022-12-08",
-        "dateKind": "published"
+        "date": "2026-06-15",
+        "dateKind": "as-of"
       },
       {
         "label": "Building Canada Act (Bill C-5)",
@@ -1948,8 +1948,8 @@
       {
         "label": "ECCC — Output-Based Pricing System",
         "url": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
-        "date": "2018-10-31",
-        "dateKind": "published"
+        "date": "2026-06-15",
+        "dateKind": "as-of"
       },
       {
         "label": "CCI — industrial pricing",

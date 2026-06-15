@@ -90,39 +90,8 @@ jobs:
         if: env.BACKTEST_LABEL != ''
         run: |
           set -euo pipefail
-          if ! printf '%s' "$BACKTEST_LABEL" | grep -Eq '^[a-z0-9-]+$'; then
-            echo "::error::label must match ^[a-z0-9-]+$"
-            exit 1
-          fi
-          if ! printf '%s' "$WINDOW_START" | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
-            echo "::error::window_start is required and must be YYYY-MM-DD"
-            exit 1
-          fi
-          if ! printf '%s' "$WINDOW_END" | grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$'; then
-            echo "::error::window_end is required and must be YYYY-MM-DD"
-            exit 1
-          fi
-          if ! printf '%s' "$REGISTRY_REF" | grep -Eq '^[0-9a-f]{40}$'; then
-            echo "::error::registry_ref must be a full 40-character commit SHA"
-            exit 1
-          fi
+          python3 scripts/validate_monitor_inputs.py
           git cat-file -e "$REGISTRY_REF^{commit}"
-          case "$SEEN_LEDGER_PATH" in
-            ""|monitoring/candidates/*.json|monitoring/backtest/*.json) ;;
-            *)
-              echo "::error::seen_ledger_path must be empty or stay under monitoring/candidates/ or monitoring/backtest/"
-              exit 1
-              ;;
-          esac
-          python3 - <<'PY'
-          from datetime import date
-          import os
-          start = date.fromisoformat(os.environ["WINDOW_START"])
-          end = date.fromisoformat(os.environ["WINDOW_END"])
-          if start > end:
-              raise SystemExit("window_start must be on or before window_end")
-          float(os.environ["SURFACE_THRESHOLD"])
-          PY
 
       - name: Prepare review branch
         if: env.BACKTEST_LABEL == ''

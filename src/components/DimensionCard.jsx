@@ -40,6 +40,11 @@ const TIER2_DOMAINS = [
 ];
 
 const TIER_LABEL = { 1: "T1", 2: "T2", 3: "T3" };
+const TIER_DEFINITIONS = {
+  1: "T1: primary records, official data, officers of Parliament, or intergovernmental bodies.",
+  2: "T2: independent analysis, research bodies, policy institutes, professional associations, or established media.",
+  3: "T3: context, advocacy, commentary, or sources used mainly as challenge evidence.",
+};
 const TIER_STYLE = {
   1: { background: "#e3f2fd", color: "#0d47a1", border: "1px solid #90caf9" },
   2: { background: "#f3e5f5", color: "#4a148c", border: "1px solid #ce93d8" },
@@ -103,9 +108,11 @@ function SourceTierBadge({ url }) {
   const tier = getSourceTier(url);
   if (!tier) return null;
   const style = TIER_STYLE[tier] || TIER_STYLE[3];
+  const description = TIER_DEFINITIONS[tier] || TIER_DEFINITIONS[3];
   return (
     <span
-      title={tier === 1 ? "Tier 1 source" : tier === 2 ? "Tier 2 source" : "Tier 3 / other source"}
+      title={description}
+      aria-label={description}
       style={{
         display: "inline-flex",
         alignItems: "center",
@@ -475,9 +482,21 @@ function DisclosureSection({
 function SourceTierSummary({ counts }) {
   return (
     <span className="dim-source-tier-summary">
-      {counts.t1 > 0 && <span className="dim-tier-chip dim-tier-chip-1">{counts.t1} Tier-1</span>}
-      {counts.t2 > 0 && <span className="dim-tier-chip dim-tier-chip-2">{counts.t2} Tier-2</span>}
-      {counts.t3 > 0 && <span className="dim-tier-chip dim-tier-chip-3">{counts.t3} other</span>}
+      {counts.t1 > 0 && (
+        <span className="dim-tier-chip dim-tier-chip-1" title={TIER_DEFINITIONS[1]}>
+          {counts.t1} Tier-1
+        </span>
+      )}
+      {counts.t2 > 0 && (
+        <span className="dim-tier-chip dim-tier-chip-2" title={TIER_DEFINITIONS[2]}>
+          {counts.t2} Tier-2
+        </span>
+      )}
+      {counts.t3 > 0 && (
+        <span className="dim-tier-chip dim-tier-chip-3" title={TIER_DEFINITIONS[3]}>
+          {counts.t3} context
+        </span>
+      )}
     </span>
   );
 }
@@ -2112,9 +2131,9 @@ function SourceStackTable({ sources, gradeMovesBySource }) {
   return (
     <div className="dim-source-stack">
       <div className="dim-source-stack-legend">
-        <span><strong>T1</strong> official / institutional</span>
-        <span><strong>T2</strong> analysis / media</span>
-        <span><strong>T3</strong> other</span>
+        <span title={TIER_DEFINITIONS[1]}><strong>T1</strong> primary records / official data</span>
+        <span title={TIER_DEFINITIONS[2]}><strong>T2</strong> independent analysis / established media</span>
+        <span title={TIER_DEFINITIONS[3]}><strong>T3</strong> context / challenge evidence</span>
       </div>
       <div className="dim-table-wrap">
         <table className="dim-source-table">

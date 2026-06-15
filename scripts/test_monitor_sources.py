@@ -47,10 +47,19 @@ def load_fetch_data_module():
     return module
 
 
+def load_monitor_input_validator():
+    path = SCRIPT_DIR / "validate_monitor_inputs.py"
+    spec = importlib.util.spec_from_file_location("validate_monitor_inputs", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
 def main():
     dims = load(m.DIMENSIONS_FILE)
     approval = load(m.APPROVAL_POLLS_FILE)
     fetch_data = load_fetch_data_module()
+    monitor_inputs = load_monitor_input_validator()
 
     # --- registry build ---------------------------------------------------- #
     reg = m.build_registry(dims, approval)
@@ -257,6 +266,22 @@ def main():
     bp_section = packet.split("## Access failures and browser-pull list", 1)[1].split("## Suppressed", 1)[0]
     check("browser-pull list is sorted by score (high first)",
           bp_section.index("HIGH pull") < bp_section.index("LOW pull"))
+
+    # --- workflow manual-dispatch input guard ----------------------------- #
+    check("seen-ledger path allows candidate ledger",
+          monitor_inputs.valid_seen_ledger_path("monitoring/candidates/2026-06.json"))
+    check("seen-ledger path allows backtest ledger",
+          monitor_inputs.valid_seen_ledger_path("monitoring/backtest/2026-06-parity.json"))
+    check("seen-ledger path rejects traversal",
+          not monitor_inputs.valid_seen_ledger_path("monitoring/candidates/../state.json"))
+    check("seen-ledger path rejects nested files",
+          not monitor_inputs.valid_seen_ledger_path("monitoring/candidates/archive/2026-06.json"))
+    check("seen-ledger path rejects normalized separators",
+          not monitor_inputs.valid_seen_ledger_path("monitoring/candidates//2026-06.json"))
+    check("seen-ledger path rejects wrong extension",
+          not monitor_inputs.valid_seen_ledger_path("monitoring/candidates/2026-06.txt"))
+    check("seen-ledger path rejects absolute paths",
+          not monitor_inputs.valid_seen_ledger_path("/monitoring/candidates/2026-06.json"))
 
     failed = [n for n, ok in _results if not ok]
     print()
