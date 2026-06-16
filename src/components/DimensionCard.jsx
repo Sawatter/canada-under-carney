@@ -207,26 +207,12 @@ function isMethodologyUrl(value) {
 
 function buildGradeMovesBySource(dimId) {
   const moves = new Map();
-  const timelineRows = [];
 
   changelog.forEach((entry) => {
     (entry.items || []).forEach((item) => {
       if (item?.type !== "grade" || item.dimensionId !== dimId) return;
       const label = `${item.from} → ${item.to}`;
       const href = item.link?.href || null;
-      const source = {
-        label: item.link?.label || (isMethodologyUrl(href) ? "Methodology note" : "Grade-change source"),
-        url: href,
-      };
-      const row = {
-        date: entry.date,
-        source,
-        what: item.headline || item.body || `Grade moved ${label}`,
-        effect: isMethodologyUrl(href) ? "Methodology / rubric re-score" : `Moved ${label}`,
-        gradeMoveLabel: label,
-      };
-      timelineRows.push(row);
-
       const canonical = canonicalUrl(href);
       if (!canonical || isMethodologyUrl(href)) return;
       const existing = moves.get(canonical) || [];
@@ -239,7 +225,7 @@ function buildGradeMovesBySource(dimId) {
     });
   });
 
-  return { moves, timelineRows };
+  return { moves };
 }
 
 function sourceDateSortValue(source) {
@@ -313,6 +299,37 @@ function countPromisesByStatus(promises = []) {
     counts[key] = (counts[key] || 0) + 1;
     return counts;
   }, {});
+}
+
+function addSourceUsage(map, url, usage) {
+  const canonical = canonicalUrl(url);
+  if (!canonical) return;
+  const existing = map.get(canonical) || new Set();
+  existing.add(usage);
+  map.set(canonical, existing);
+}
+
+function buildSourceUsageByUrl(dim, metrics = []) {
+  const usage = new Map();
+
+  metrics.forEach((metric) => {
+    (metric.sourceRefs || []).forEach((sourceRef) => {
+      addSourceUsage(usage, sourceRef.url, "metric source");
+    });
+  });
+
+  ["up", "down"].forEach((direction) => {
+    (dim.gradeTriggers?.[direction] || []).forEach((trigger) => {
+      const item = normalizeTrigger(trigger);
+      if (!item) return;
+      addSourceUsage(usage, item.sourceUrl, "trigger source");
+      (item.additionalSources || []).forEach((source) => {
+        addSourceUsage(usage, source.url, "trigger source");
+      });
+    });
+  });
+
+  return usage;
 }
 
 function useDisclosureVisibility(isOpen, instantOpen = false) {
@@ -498,106 +515,6 @@ function SourceTierSummary({ counts }) {
   );
 }
 
-function normalizeDateForSort(date) {
-  if (!date) return "0000-00-00";
-  const match = String(date).match(/\d{4}-\d{2}-\d{2}/);
-  return match ? match[0] : String(date);
-}
-
-function sourceFromMetric(metric) {
-  const sourceRef = metric?.sourceRefs?.[0];
-  if (sourceRef) {
-    return {
-      label: sourceRef.label,
-      url: sourceRef.url,
-    };
-  }
-  if (metric?.source && metric.source !== "manual" && metric.source !== "editorial") {
-    return {
-      label: metric.source,
-      url: null,
-    };
-  }
-  return {
-    label: metric?.source === "editorial" ? "Editorial tally" : "Dashboard metric",
-    url: null,
-  };
-}
-
-function sourceFromTrigger(trigger) {
-  const item = normalizeTrigger(trigger);
-  if (!item) return null;
-  return {
-    label: item.sourceLabel || "Trigger condition",
-    url: item.sourceUrl || null,
-  };
-}
-
-function latestPromiseDate(promise, fallback) {
-  if (promise?.since) return promise.since;
-  if (Array.isArray(promise?.history) && promise.history.length > 0) {
-    return promise.history
-      .map((event) => event.date)
-      .filter(Boolean)
-      .sort()
-      .at(-1);
-  }
-  return fallback;
-}
-
-function buildEvidenceTimeline(dim, metrics, isTracker, gradeMoveRows = []) {
-  const rows = [...gradeMoveRows];
-  const reviewedDate = dim.lastUpdated || meta.lastUpdated;
-
-  if (!isTracker && dim.grade) {
-    rows.push({
-      date: reviewedDate,
-      source: { label: "Current grade read", url: null },
-      what: `${dim.grade} grade: ${dim.gradeBasis?.bandCriterion || dim.status}`,
-      effect: "Current grade",
-    });
-  }
-
-  metrics.forEach((metric) => {
-    rows.push({
-      date: metric.asOf || reviewedDate,
-      source: sourceFromMetric(metric),
-      what: `${metric.label}: ${metric.value}`,
-      effect: metric.automatable === false ? "Context / editorial metric" : "Metric evidence",
-    });
-  });
-
-  ["up", "down"].forEach((direction) => {
-    const triggers = dim.gradeTriggers?.[direction] || [];
-    triggers.forEach((trigger) => {
-      const item = normalizeTrigger(trigger);
-      if (!item) return;
-      rows.push({
-        date: item.setDate || reviewedDate,
-        source: sourceFromTrigger(item),
-        what: item.text,
-        effect: direction === "up" ? "Up-trigger watch" : "Down-trigger watch",
-      });
-    });
-  });
-
-  (dim.promises || []).forEach((promise) => {
-    rows.push({
-      date: latestPromiseDate(promise, reviewedDate),
-      source: {
-        label: promise.statusSourceLabel || promise.originalSourceLabel || "Promise evidence",
-        url: promise.statusSourceUrl || promise.originalSourceUrl || null,
-      },
-      what: `${promise.text}: ${promise.status}${promise.evidence ? ` - ${promise.evidence}` : ""}`,
-      effect: "Promise tracker evidence",
-    });
-  });
-
-  return rows
-    .filter((row) => row.what)
-    .sort((a, b) => normalizeDateForSort(b.date).localeCompare(normalizeDateForSort(a.date)));
-}
-
 export default function DimensionCard({
   dim,
   isExpanded,
@@ -671,11 +588,8 @@ export default function DimensionCard({
       return groups;
     }, []);
   }, [metrics]);
-  const evidenceTimelineRows = useMemo(
-    () => buildEvidenceTimeline(dim, metrics, isTracker, sourceGradeMoves.timelineRows),
-    [dim, isTracker, metrics, sourceGradeMoves.timelineRows]
-  );
   const topMetrics = useMemo(() => pickTopMetrics(metrics), [metrics]);
+  const sourceUsageByUrl = useMemo(() => buildSourceUsageByUrl(dim, metrics), [dim, metrics]);
   const promiseStatusCounts = useMemo(() => countPromisesByStatus(dim.promises || []), [dim.promises]);
 
   const scoringMetadata = [];
@@ -696,7 +610,7 @@ export default function DimensionCard({
   if (dim.tags?.lag) {
     keyContextItems.push({
       label: "Lag",
-      text: `Evidence moves on a ${dim.tags.lag.toLowerCase()} timeline.`,
+      text: `This file moves on a ${dim.tags.lag.toLowerCase()} timeline.`,
     });
   }
   if (modifierItems.length > 0) {
@@ -711,16 +625,16 @@ export default function DimensionCard({
 
   const hasRuleSection = !!(dim.construct || scoring || scoringMetadata.length > 0);
   const hasWhySection = !!(dim.gradeBasis || dim.rationale || dim.judgmentDetail || modifierItems.length > 0 || isTracker);
-  const hasEvidenceTimeline = evidenceTimelineRows.length > 0;
   const hasSubScores = !isTracker && !!dim.subScores;
   const hasProjects = !!(cohort && cohort.projects && cohort.projects.length > 0);
   const hasPromises = !!(dim.promises && dim.promises.length > 0);
   const hasTrackerTriggers = isTracker && !!dim.gradeTriggers;
+  const hasCaveats = keyContextItems.length > 0 || !!dim.perspectives || !!dim.scope || !!dim.inherited;
 
   const sectionDefinitions = useMemo(() => [
     {
       id: "summary",
-      label: "Summary",
+      label: "Verdict",
       anchor: `dim-${dim.id}-summary`,
       keys: [],
       available: true,
@@ -729,46 +643,14 @@ export default function DimensionCard({
       desktopOnly: true,
     },
     {
-      id: "skeptic",
-      label: "Skeptic path",
-      anchor: `dim-${dim.id}-skeptic-path`,
-      keys: ["skeptic"],
-      available: !isTracker,
-      targets: [`dim-${dim.id}-skeptic-path`],
-    },
-    {
-      id: "context",
-      label: "Context",
-      anchor: `dim-${dim.id}-context`,
-      keys: ["context"],
-      available: keyContextItems.length > 0,
-      targets: [`dim-${dim.id}-context`],
-    },
-    {
-      id: "rule",
-      label: "Rule",
-      anchor: `dim-${dim.id}-scoring`,
-      keys: ["rule"],
-      available: hasRuleSection,
-      targets: [`dim-${dim.id}-scoring`],
-      jump: !isTracker,
-    },
-    {
       id: "why",
       label: "Why",
       anchor: `dim-${dim.id}-why`,
       keys: ["why"],
       available: hasWhySection,
       targets: [`dim-${dim.id}-why`],
-    },
-    {
-      id: "timeline",
-      label: "Timeline",
-      anchor: `dim-${dim.id}-timeline`,
-      keys: ["timeline"],
-      available: hasEvidenceTimeline,
-      targets: [`dim-${dim.id}-timeline`],
-      jump: true,
+      nav: true,
+      desktopOnly: true,
     },
     {
       id: "subScores",
@@ -785,16 +667,15 @@ export default function DimensionCard({
       keys: ["triggers"],
       available: showTriggers && !hasTrackerTriggers,
       targets: [`dim-${dim.id}-triggers-section`],
-      jump: !isTracker,
+      nav: !isTracker,
     },
     {
       id: "metrics",
-      label: isTracker ? "Metrics" : "Evidence",
+      label: "Metrics",
       anchor: `dim-${dim.id}-metrics`,
       keys: ["metrics"],
       available: metrics.length > 0,
       targets: [`dim-${dim.id}-metrics`],
-      jump: true,
     },
     {
       id: "sources",
@@ -803,7 +684,16 @@ export default function DimensionCard({
       keys: ["sources"],
       available: sources.length > 0,
       targets: [`dim-${dim.id}-sources`],
-      jump: true,
+      nav: true,
+    },
+    {
+      id: "rule",
+      label: "Rule",
+      anchor: `dim-${dim.id}-scoring`,
+      keys: ["rule"],
+      available: hasRuleSection,
+      targets: [`dim-${dim.id}-scoring`],
+      nav: true,
     },
     {
       id: "projects",
@@ -812,7 +702,6 @@ export default function DimensionCard({
       keys: ["projects", "cohortList"],
       available: hasProjects,
       targets: [`dim-${dim.id}-cohort`, `dim-${dim.id}-cohort-list`, `dim-${dim.id}-cohort-table`],
-      jump: !isTracker,
     },
     {
       id: "promises",
@@ -821,7 +710,6 @@ export default function DimensionCard({
       keys: ["promises"],
       available: hasPromises,
       targets: [`dim-${dim.id}-promises`],
-      jump: isTracker,
     },
     {
       id: "trackerTriggers",
@@ -830,32 +718,21 @@ export default function DimensionCard({
       keys: ["trackerTriggers"],
       available: hasTrackerTriggers,
       targets: [`dim-${dim.id}-tracker-triggers`],
-      jump: isTracker,
+      nav: isTracker,
     },
     {
-      id: "perspectives",
-      label: "Views",
-      anchor: `dim-${dim.id}-perspectives-section`,
-      keys: ["perspectives"],
-      available: !!dim.perspectives,
-      targets: [`dim-${dim.id}-perspectives-section`],
-      jump: !isTracker,
-    },
-    {
-      id: "scope",
-      label: "Scope",
-      anchor: `dim-${dim.id}-scope`,
-      keys: ["scope"],
-      available: !!dim.scope,
-      targets: [`dim-${dim.id}-scope`],
-    },
-    {
-      id: "inherited",
-      label: "Inherited",
-      anchor: `dim-${dim.id}-inherited`,
-      keys: ["inherited"],
-      available: !!dim.inherited,
-      targets: [`dim-${dim.id}-inherited`],
+      id: "caveats",
+      label: "Caveats",
+      anchor: `dim-${dim.id}-caveats`,
+      keys: ["caveats"],
+      available: hasCaveats,
+      targets: [
+        `dim-${dim.id}-caveats`,
+        `dim-${dim.id}-context`,
+        `dim-${dim.id}-perspectives-section`,
+        `dim-${dim.id}-scope`,
+        `dim-${dim.id}-inherited`,
+      ],
     },
     {
       id: "glossary",
@@ -899,13 +776,12 @@ export default function DimensionCard({
     dim.scope,
     hasProjects,
     hasPromises,
-    hasEvidenceTimeline,
+    hasCaveats,
     hasRuleSection,
     hasSubScores,
     hasTrackerTriggers,
     hasWhySection,
     isTracker,
-    keyContextItems.length,
     metrics.length,
     scoringMetadata.length,
     showTriggers,
@@ -922,15 +798,28 @@ export default function DimensionCard({
 
   const jumpItems = useMemo(() => (
     sectionDefinitions
-      .filter((section) => section.available && section.jump)
+      .filter((section) => (
+        section.available
+        && ["rule", isTracker ? "trackerTriggers" : "triggers", "sources"].includes(section.id)
+      ))
+      .sort((a, b) => {
+        const order = isTracker ? ["rule", "trackerTriggers", "sources"] : ["rule", "triggers", "sources"];
+        return order.indexOf(a.id) - order.indexOf(b.id);
+      })
       .map(({ label, anchor, keys }) => ({ label, anchor, keys }))
-  ), [sectionDefinitions]);
+  ), [isTracker, sectionDefinitions]);
 
   const sectionNavItems = useMemo(() => (
     sectionDefinitions
       .filter((section) => section.available && (section.nav || section.jump))
+      .sort((a, b) => {
+        const order = isTracker
+          ? ["summary", "why", "trackerTriggers", "sources", "rule"]
+          : ["summary", "why", "triggers", "sources", "rule"];
+        return order.indexOf(a.id) - order.indexOf(b.id);
+      })
       .map(({ label, anchor, keys, desktopOnly }) => ({ label, anchor, keys, desktopOnly }))
-  ), [sectionDefinitions]);
+  ), [isTracker, sectionDefinitions]);
 
   const getSectionKeysForTarget = useCallback((target) => (
     sectionKeysForTargetFromDefinitions(target, sectionDefinitions)
@@ -951,7 +840,7 @@ export default function DimensionCard({
       });
       return next;
     });
-  }, []);
+  }, [setOpenSections]);
 
   const markInstantOpenSections = useCallback((sections, requestId) => {
     if (sections.length === 0) return;
@@ -962,7 +851,7 @@ export default function DimensionCard({
       });
       return next;
     });
-  }, []);
+  }, [setInstantOpenSections]);
 
   const openAllSections = () => {
     const next = {};
@@ -991,11 +880,13 @@ export default function DimensionCard({
       requestId,
     });
   }, [
-    anchorNavigation?.requestId,
-    anchorNavigation?.target,
+    anchorNavigation,
     getSectionKeysForTarget,
     markInstantOpenSections,
     openSectionKeys,
+    setActiveAnchorTarget,
+    setActiveNavAnchor,
+    setScrollIntent,
   ]);
 
   const handleHashLinkClick = (e, target, sections) => {
@@ -1267,9 +1158,19 @@ export default function DimensionCard({
         sections: scrollIntent.instantSections,
       };
     }
-    setScrollIntent(null);
-    return undefined;
-  }, [getSectionKeysForTarget, isExpanded, openSections, scrollIntent]);
+    let cancelled = false;
+    const clearIntent = () => {
+      if (!cancelled) setScrollIntent(null);
+    };
+    if (typeof queueMicrotask === "function") {
+      queueMicrotask(clearIntent);
+    } else {
+      window.setTimeout(clearIntent, 0);
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [getSectionKeysForTarget, isExpanded, openSections, scrollIntent, setScrollIntent]);
 
   useEffect(() => {
     if (scrollIntent) return;
@@ -1346,10 +1247,22 @@ export default function DimensionCard({
 
   useEffect(() => {
     if (isExpanded) return;
-    setActiveAnchorTarget(null);
-    setActiveNavAnchor(null);
-    setScrollIntent(null);
-  }, [isExpanded]);
+    let cancelled = false;
+    const clearClosedState = () => {
+      if (cancelled) return;
+      setActiveAnchorTarget(null);
+      setActiveNavAnchor(null);
+      setScrollIntent(null);
+    };
+    if (typeof window !== "undefined") {
+      window.setTimeout(clearClosedState, 0);
+    } else {
+      Promise.resolve().then(clearClosedState);
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, [isExpanded, setActiveAnchorTarget, setActiveNavAnchor, setScrollIntent]);
 
   if (!isTracker && !g) return null;
 
@@ -1757,6 +1670,23 @@ export default function DimensionCard({
                     />
                   </section>
                 )}
+                {jumpItems.length > 0 && (
+                  <p className="dim-challenge-cue">
+                    To challenge the read, start with{" "}
+                    {jumpItems.map((item, index) => (
+                      <span key={item.anchor}>
+                        <a
+                          href={`#${item.anchor}`}
+                          onClick={(e) => handleHashLinkClick(e, item.anchor, item.keys)}
+                          className="dim-inline-link"
+                        >
+                          {item.label.toLowerCase()}
+                        </a>
+                        {index < jumpItems.length - 1 ? ", " : "."}
+                      </span>
+                    ))}
+                  </p>
+                )}
                 {topMetrics.length > 0 && (
                   <div className="dim-top-metrics">
                     <div className="dim-mini-section-title">Top metrics</div>
@@ -1811,56 +1741,6 @@ export default function DimensionCard({
           </div>
 
           <div className="dim-fold-stack">
-            {!isTracker && (
-              <DisclosureSection
-                id={`dim-${dim.id}-skeptic-path`}
-                title="Skeptic path"
-                summary="walk the grade ingredients"
-                isOpen={!!openSections.skeptic}
-                onToggle={() => toggleSection("skeptic")}
-                active={activeSectionKeys.includes("skeptic")}
-                variant="blue"
-                instantOpen={isInstantOpenSection("skeptic")}
-              >
-                <p>
-                  To challenge this grade, walk the ingredients in order:{" "}
-                  {jumpItems.map((item, index) => (
-                    <span key={item.anchor}>
-                      <a
-                        href={`#${item.anchor}`}
-                        onClick={(e) => handleHashLinkClick(e, item.anchor, item.keys)}
-                        className="dim-inline-link"
-                      >
-                        {item.label.toLowerCase()}
-                      </a>
-                      {index < jumpItems.length - 1 ? ", " : "."}
-                    </span>
-                  ))}
-                </p>
-              </DisclosureSection>
-            )}
-
-            {keyContextItems.length > 0 && (
-              <DisclosureSection
-                id={`dim-${dim.id}-context`}
-                title="Key trade-offs and confounders"
-                summary={`${keyContextItems.length} notes`}
-                isOpen={!!openSections.context}
-                onToggle={() => toggleSection("context")}
-                active={activeSectionKeys.includes("context")}
-                variant="green"
-                instantOpen={isInstantOpenSection("context")}
-              >
-                <div className="dim-stack">
-                  {keyContextItems.map((item) => (
-                    <div key={item.label}>
-                      <strong>{item.label}:</strong> {item.text}
-                    </div>
-                  ))}
-                </div>
-              </DisclosureSection>
-            )}
-
             {hasRuleSection && (
               <DisclosureSection
                 id={`dim-${dim.id}-scoring`}
@@ -2051,22 +1931,6 @@ export default function DimensionCard({
               </DisclosureSection>
             )}
 
-            {hasEvidenceTimeline && (
-              <DisclosureSection
-                id={`dim-${dim.id}-timeline`}
-                title="Evidence timeline"
-                summary={`${evidenceTimelineRows.length} rows`}
-                isOpen={!!openSections.timeline}
-                onToggle={() => toggleSection("timeline")}
-                region
-                active={activeSectionKeys.includes("timeline")}
-                variant="green"
-                instantOpen={isInstantOpenSection("timeline")}
-              >
-                <EvidenceTimeline rows={evidenceTimelineRows} />
-              </DisclosureSection>
-            )}
-
             {metrics.length > 0 && (
               <DisclosureSection
                 id={`dim-${dim.id}-metrics`}
@@ -2154,6 +2018,7 @@ export default function DimensionCard({
                   <SourceStackTable
                     sources={sortedSources}
                     gradeMovesBySource={sourceGradeMoves.moves}
+                    usageBySource={sourceUsageByUrl}
                   />
                   <a
                     href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify({ id: dim.id, name: dim.name, ...(isTracker ? { informationalGrade: dim.informationalGrade } : { grade: dim.grade }), sources, metrics, lastUpdated: dim.lastUpdated }, null, 2))}`}
@@ -2167,71 +2032,67 @@ export default function DimensionCard({
               </DisclosureSection>
             )}
 
-            {dim.perspectives && (
+            {hasCaveats && (
               <DisclosureSection
-                id={`dim-${dim.id}-perspectives-section`}
-                title="Critics and defenders"
-                summary="named views"
-                isOpen={!!openSections.perspectives}
-                onToggle={() => toggleSection("perspectives")}
+                id={`dim-${dim.id}-caveats`}
+                title="Caveats"
+                summary="trade-offs and alternate reads"
+                isOpen={!!openSections.caveats}
+                onToggle={() => toggleSection("caveats")}
                 region
-                active={activeSectionKeys.includes("perspectives")}
+                active={activeSectionKeys.includes("caveats")}
                 variant="blue"
-                instantOpen={isInstantOpenSection("perspectives")}
+                instantOpen={isInstantOpenSection("caveats")}
               >
                 <div className="dim-stack">
-                  <div className="dim-perspective-card dim-perspective-critics">
-                    <strong>Critics say:</strong> {dim.perspectives.critics}
-                  </div>
-                  <div className="dim-perspective-card dim-perspective-defenders">
-                    <strong>Defenders say:</strong> {dim.perspectives.defenders}
-                  </div>
-                </div>
-              </DisclosureSection>
-            )}
-
-            {dim.scope && (
-              <DisclosureSection
-                id={`dim-${dim.id}-scope`}
-                title="Scope"
-                summary="in and out"
-                isOpen={!!openSections.scope}
-                onToggle={() => toggleSection("scope")}
-                active={activeSectionKeys.includes("scope")}
-                instantOpen={isInstantOpenSection("scope")}
-              >
-                <div className="dim-stack">
-                  <div>
-                    <strong>In scope:</strong>
-                    <div className="dim-stack dim-narrow-stack">
-                      {dim.scope.inScope.map((item, i) => (
-                        <div key={i}>{renderScopeItem(item)}</div>
+                  {keyContextItems.length > 0 && (
+                    <div id={`dim-${dim.id}-context`} tabIndex={-1} className="dim-stack">
+                      <strong>Trade-offs and confounders</strong>
+                      {keyContextItems.map((item) => (
+                        <div key={item.label}>
+                          <strong>{item.label}:</strong> {item.text}
+                        </div>
                       ))}
                     </div>
-                  </div>
-                  <div>
-                    <strong>Out of scope:</strong>
-                    <div className="dim-stack dim-narrow-stack">
-                      {dim.scope.outOfScope.map((item, i) => (
-                        <div key={i}>{renderScopeItem(item)}</div>
-                      ))}
+                  )}
+                  {dim.perspectives && (
+                    <div id={`dim-${dim.id}-perspectives-section`} tabIndex={-1} className="dim-stack">
+                      <strong>Alternate reads</strong>
+                      <div className="dim-perspective-card dim-perspective-critics">
+                        <strong>Critics say:</strong> {dim.perspectives.critics}
+                      </div>
+                      <div className="dim-perspective-card dim-perspective-defenders">
+                        <strong>Defenders say:</strong> {dim.perspectives.defenders}
+                      </div>
                     </div>
-                  </div>
+                  )}
+                  {dim.scope && (
+                    <div id={`dim-${dim.id}-scope`} tabIndex={-1} className="dim-stack">
+                      <strong>Scope</strong>
+                      <div>
+                        <strong>In scope:</strong>
+                        <div className="dim-stack dim-narrow-stack">
+                          {dim.scope.inScope.map((item, i) => (
+                            <div key={i}>{renderScopeItem(item)}</div>
+                          ))}
+                        </div>
+                      </div>
+                      <div>
+                        <strong>Out of scope:</strong>
+                        <div className="dim-stack dim-narrow-stack">
+                          {dim.scope.outOfScope.map((item, i) => (
+                            <div key={i}>{renderScopeItem(item)}</div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  {dim.inherited && (
+                    <div id={`dim-${dim.id}-inherited`} tabIndex={-1}>
+                      <strong>What was inherited:</strong> {dim.inherited}
+                    </div>
+                  )}
                 </div>
-              </DisclosureSection>
-            )}
-
-            {dim.inherited && (
-              <DisclosureSection
-                id={`dim-${dim.id}-inherited`}
-                title="What was inherited"
-                summary="starting context"
-                isOpen={!!openSections.inherited}
-                onToggle={() => toggleSection("inherited")}
-                active={activeSectionKeys.includes("inherited")}
-                instantOpen={isInstantOpenSection("inherited")}
-              >
-                <div>{dim.inherited}</div>
               </DisclosureSection>
             )}
           </div>
@@ -2271,62 +2132,30 @@ function TriggerColumns({ up, down, renderTriggerItem, keyPrefix, upLabel, downL
   );
 }
 
-function EvidenceTimeline({ rows }) {
+function SourceUseBadge({ label, moved = false }) {
   return (
-    <div className="dim-stack">
-      <div className="dim-note-box">
-        This is the evidence trail the grade reads against. It is not a
-        weighted formula.
-      </div>
-      <div className="dim-table-wrap">
-        <table className="dim-evidence-timeline-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Source</th>
-              <th>What it showed</th>
-              <th>Used as</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row, i) => (
-              <tr key={`${row.date || "undated"}-${row.effect}-${i}`}>
-                <td className="dim-evidence-date">{row.date || "Undated"}</td>
-                <td>
-                  {row.source?.url ? (
-                    <a
-                      href={row.source.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={(e) => e.stopPropagation()}
-                      className="dim-evidence-source-link"
-                    >
-                      {row.source.label}
-                      <SourceTierBadge url={row.source.url} />
-                      <span aria-hidden="true">↗</span>
-                    </a>
-                  ) : (
-                    <span className="dim-evidence-source-label">
-                      {row.source?.label || "Dashboard evidence"}
-                    </span>
-                  )}
-                </td>
-                <td>{row.what}</td>
-                <td>
-                  <span className="dim-evidence-effect">
-                    {row.effect}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
+    <span className={`dim-source-effect ${moved ? "dim-source-effect-moved" : "dim-source-effect-none"}`}>
+      {label}
+    </span>
   );
 }
 
-function SourceStackTable({ sources, gradeMovesBySource }) {
+function sourceUsageLabels(source, gradeMovesBySource, usageBySource) {
+  const canonical = canonicalUrl(source.url);
+  const moves = canonical ? gradeMovesBySource.get(canonical) || [] : [];
+  const labels = [];
+  if (moves.length > 0) labels.push({ label: "grade move", moved: true, title: moves.map((move) => move.title).join(" / ") });
+  if (canonical) {
+    const usage = usageBySource.get(canonical);
+    if (usage) {
+      usage.forEach((label) => labels.push({ label, moved: false }));
+    }
+  }
+  if (labels.length === 0) labels.push({ label: "citation", moved: false });
+  return labels;
+}
+
+function SourceStackTable({ sources, gradeMovesBySource, usageBySource }) {
   return (
     <div className="dim-source-stack">
       <div className="dim-source-stack-legend">
@@ -2334,33 +2163,59 @@ function SourceStackTable({ sources, gradeMovesBySource }) {
         <span title={TIER_DEFINITIONS[2]}><strong>T2</strong> independent analysis / established media</span>
         <span title={TIER_DEFINITIONS[3]}><strong>T3</strong> context / challenge evidence</span>
       </div>
+      <div className="dim-source-mobile-cards">
+        {sources.map((source, i) => {
+          const usageLabels = sourceUsageLabels(source, gradeMovesBySource, usageBySource);
+          return (
+            <article
+              key={`${source.url}-card-${i}`}
+              className="dim-source-mobile-card"
+              data-source-needs-review={source.needsManualDate ? "true" : undefined}
+            >
+              <div className="dim-source-mobile-head">
+                <a
+                  href={source.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="dim-source-table-link"
+                >
+                  {source.label}
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <SourceTierBadge url={source.url} />
+              </div>
+              <div className="dim-source-usage-row">
+                {usageLabels.map((usage) => (
+                  <SourceUseBadge key={`${source.url}-${usage.label}`} label={usage.label} moved={usage.moved} />
+                ))}
+              </div>
+              <div className="dim-source-date-cell">
+                <span className="dim-source-date">{formatSourceDate(source)}</span>
+                <span className={`dim-source-date-kind dim-source-date-kind-${sourceDateKindLabel(source)}`}>
+                  {sourceDateKindLabel(source)}
+                </span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
       <div className="dim-table-wrap">
         <table className="dim-source-table">
           <thead>
             <tr>
-              <th>Date</th>
               <th>Source</th>
               <th>Tier</th>
-              <th>Effect on grade</th>
+              <th>Used for</th>
+              <th>Date</th>
             </tr>
           </thead>
           <tbody>
             {sources.map((source, i) => {
-              const canonical = canonicalUrl(source.url);
-              const moves = canonical ? gradeMovesBySource.get(canonical) || [] : [];
-              const moved = moves.length > 0;
-              const effectTitle = moved
-                ? moves.map((move) => move.title).join(" / ")
-                : "This source is cited as evidence but is not linked to a recorded grade move.";
+              const usageLabels = sourceUsageLabels(source, gradeMovesBySource, usageBySource);
 
               return (
                 <tr key={`${source.url}-${i}`} data-source-needs-review={source.needsManualDate ? "true" : undefined}>
-                  <td className="dim-source-date-cell">
-                    <span className="dim-source-date">{formatSourceDate(source)}</span>
-                    <span className={`dim-source-date-kind dim-source-date-kind-${sourceDateKindLabel(source)}`}>
-                      {sourceDateKindLabel(source)}
-                    </span>
-                  </td>
                   <td>
                     <a
                       href={source.url}
@@ -2377,11 +2232,18 @@ function SourceStackTable({ sources, gradeMovesBySource }) {
                     <SourceTierBadge url={source.url} />
                   </td>
                   <td>
-                    <span
-                      className={`dim-source-effect ${moved ? "dim-source-effect-moved" : "dim-source-effect-none"}`}
-                      title={effectTitle}
-                    >
-                      {moved ? moves.map((move) => `moved ${move.label}`).join(" / ") : "no change"}
+                    <span className="dim-source-usage-row">
+                      {usageLabels.map((usage) => (
+                        <span key={`${source.url}-${usage.label}`} title={usage.title}>
+                          <SourceUseBadge label={usage.label} moved={usage.moved} />
+                        </span>
+                      ))}
+                    </span>
+                  </td>
+                  <td className="dim-source-date-cell">
+                    <span className="dim-source-date">{formatSourceDate(source)}</span>
+                    <span className={`dim-source-date-kind dim-source-date-kind-${sourceDateKindLabel(source)}`}>
+                      {sourceDateKindLabel(source)}
                     </span>
                   </td>
                 </tr>
@@ -2649,6 +2511,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active, instant
         </div>
         <div
           id={`dim-${dimId}-cohort-table`}
+          tabIndex={-1}
           role={active ? "region" : undefined}
           aria-labelledby={`dim-${dimId}-cohort-list-button`}
           className="cohort-table-wrap"
