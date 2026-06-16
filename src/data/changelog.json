@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-16",
+    "version": "5.117",
+    "summary": "Redesigned opened dimension cards around a verdict, why, and source trail.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Opened dimension cards redesigned",
+        "body": "Open cards now lead with a verdict, a merged why block, and an at-a-glance panel with triggers and top metrics. Desktop section navigation now uses Verdict, Why, Triggers or Moves, Sources, and Rule, while mobile keeps the shorter action set."
+      },
+      {
+        "type": "product",
+        "headline": "Sources become the main citation trail",
+        "body": "The Timeline and Skeptic Path folds are removed. Sources now lead with the citation, tier, used-for label, and date metadata, with stacked source cards on mobile."
+      },
+      {
+        "type": "product",
+        "headline": "Tracker and caveats cleaned up",
+        "body": "Promise Delivery now has tracker-specific Verdict, Why, Moves, and Rule anchors. Trade-offs, scope, inherited context, and alternate reads now live in one Caveats fold."
+      }
+    ]
+  },
+  {
     "date": "2026-06-15",
     "version": "5.116",
     "summary": "Closed the June monitor adjudication and tightened source-stack polish.",
