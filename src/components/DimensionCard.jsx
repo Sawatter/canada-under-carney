@@ -66,32 +66,6 @@ const GRADE_ORDER = [
   "F",
 ];
 
-const TOP_LEVEL_SECTIONS = [
-  "skeptic",
-  "context",
-  "rule",
-  "why",
-  "timeline",
-  "subScores",
-  "triggers",
-  "metrics",
-  "sources",
-  "projects",
-  "promises",
-  "trackerTriggers",
-  "perspectives",
-  "scope",
-  "inherited",
-];
-
-const NESTED_SECTIONS = [
-  "glossary",
-  "leverOperationalization",
-  "componentOperationalization",
-  "combinationRule",
-  "cohortList",
-];
-
 function getSourceTier(url) {
   if (!url) return null;
   try {
@@ -178,30 +152,10 @@ function findActiveThresholdRow(thresholds, grade) {
   return thresholds.find((row) => baseGrade(row.grade) === baseGrade(grade)) || null;
 }
 
-function sectionKeysForTarget(target, dimId) {
+function sectionKeysForTargetFromDefinitions(target, sectionDefinitions) {
   if (!target) return [];
-  if (target === `dim-${dimId}-scoring`) return ["rule"];
-  if (target === `dim-${dimId}-triggers-section`) return ["triggers"];
-  if (target === `dim-${dimId}-metrics`) return ["metrics"];
-  if (target === `dim-${dimId}-sources`) return ["sources"];
-  if (target === `dim-${dimId}-perspectives-section`) return ["perspectives"];
-  if (target === `dim-${dimId}-context`) return ["context"];
-  if (target === `dim-${dimId}-scope`) return ["scope"];
-  if (target === `dim-${dimId}-inherited`) return ["inherited"];
-  if (target === `dim-${dimId}-skeptic-path`) return ["skeptic"];
-  if (target === `dim-${dimId}-why`) return ["why"];
-  if (target === `dim-${dimId}-timeline`) return ["timeline"];
-  if (target === `dim-${dimId}-subscores`) return ["subScores"];
-  if (target === `dim-${dimId}-promises`) return ["promises"];
-  if (target === `dim-${dimId}-tracker-triggers`) return ["trackerTriggers"];
-  if (
-    target === `dim-${dimId}-cohort`
-    || target === `dim-${dimId}-cohort-list`
-    || target === `dim-${dimId}-cohort-table`
-  ) {
-    return ["projects", "cohortList"];
-  }
-  return [];
+  const match = sectionDefinitions.find((section) => section.targets.includes(target));
+  return match ? match.keys : [];
 }
 
 function targetBelongsToDimension(target, dimId) {
@@ -718,33 +672,183 @@ export default function DimensionCard({
   const hasPromises = !!(dim.promises && dim.promises.length > 0);
   const hasTrackerTriggers = isTracker && !!dim.gradeTriggers;
 
-  const availableSections = useMemo(() => {
-    const sections = [];
-    if (!isTracker) sections.push("skeptic");
-    if (keyContextItems.length > 0) sections.push("context");
-    if (hasRuleSection) sections.push("rule");
-    if (hasWhySection) sections.push("why");
-    if (hasEvidenceTimeline) sections.push("timeline");
-    if (hasSubScores) sections.push("subScores");
-    if (showTriggers && !hasTrackerTriggers) sections.push("triggers");
-    if (metrics.length > 0) sections.push("metrics");
-    if (sources.length > 0) sections.push("sources");
-    if (hasProjects) sections.push("projects");
-    if (hasPromises) sections.push("promises");
-    if (hasTrackerTriggers) sections.push("trackerTriggers");
-    if (dim.perspectives) sections.push("perspectives");
-    if (dim.scope) sections.push("scope");
-    if (dim.inherited) sections.push("inherited");
-    if (scoringMetadata.length > 0) sections.push("glossary");
-    if (dim.gradeBasis?.leverOperationalization) sections.push("leverOperationalization");
-    if (dim.gradeBasis?.componentOperationalization) sections.push("componentOperationalization");
-    if (dim.gradeBasis?.combinationRule) sections.push("combinationRule");
-    if (hasProjects) sections.push("cohortList");
-    return sections;
-  }, [
+  const sectionDefinitions = useMemo(() => [
+    {
+      id: "summary",
+      label: "Summary",
+      anchor: `dim-${dim.id}-summary`,
+      keys: [],
+      available: true,
+      targets: [`dim-${dim.id}`, `dim-${dim.id}-summary`],
+      nav: true,
+      desktopOnly: true,
+    },
+    {
+      id: "skeptic",
+      label: "Skeptic path",
+      anchor: `dim-${dim.id}-skeptic-path`,
+      keys: ["skeptic"],
+      available: !isTracker,
+      targets: [`dim-${dim.id}-skeptic-path`],
+    },
+    {
+      id: "context",
+      label: "Context",
+      anchor: `dim-${dim.id}-context`,
+      keys: ["context"],
+      available: keyContextItems.length > 0,
+      targets: [`dim-${dim.id}-context`],
+    },
+    {
+      id: "rule",
+      label: "Rule",
+      anchor: `dim-${dim.id}-scoring`,
+      keys: ["rule"],
+      available: hasRuleSection,
+      targets: [`dim-${dim.id}-scoring`],
+      jump: !isTracker,
+    },
+    {
+      id: "why",
+      label: "Why",
+      anchor: `dim-${dim.id}-why`,
+      keys: ["why"],
+      available: hasWhySection,
+      targets: [`dim-${dim.id}-why`],
+    },
+    {
+      id: "timeline",
+      label: "Timeline",
+      anchor: `dim-${dim.id}-timeline`,
+      keys: ["timeline"],
+      available: hasEvidenceTimeline,
+      targets: [`dim-${dim.id}-timeline`],
+      jump: true,
+    },
+    {
+      id: "subScores",
+      label: "Sub-scores",
+      anchor: `dim-${dim.id}-subscores`,
+      keys: ["subScores"],
+      available: hasSubScores,
+      targets: [`dim-${dim.id}-subscores`],
+    },
+    {
+      id: "triggers",
+      label: "Triggers",
+      anchor: `dim-${dim.id}-triggers-section`,
+      keys: ["triggers"],
+      available: showTriggers && !hasTrackerTriggers,
+      targets: [`dim-${dim.id}-triggers-section`],
+      jump: !isTracker,
+    },
+    {
+      id: "metrics",
+      label: isTracker ? "Metrics" : "Evidence",
+      anchor: `dim-${dim.id}-metrics`,
+      keys: ["metrics"],
+      available: metrics.length > 0,
+      targets: [`dim-${dim.id}-metrics`],
+      jump: true,
+    },
+    {
+      id: "sources",
+      label: "Sources",
+      anchor: `dim-${dim.id}-sources`,
+      keys: ["sources"],
+      available: sources.length > 0,
+      targets: [`dim-${dim.id}-sources`],
+      jump: true,
+    },
+    {
+      id: "projects",
+      label: "Projects",
+      anchor: `dim-${dim.id}-cohort`,
+      keys: ["projects", "cohortList"],
+      available: hasProjects,
+      targets: [`dim-${dim.id}-cohort`, `dim-${dim.id}-cohort-list`, `dim-${dim.id}-cohort-table`],
+      jump: !isTracker,
+    },
+    {
+      id: "promises",
+      label: "Promises",
+      anchor: `dim-${dim.id}-promises`,
+      keys: ["promises"],
+      available: hasPromises,
+      targets: [`dim-${dim.id}-promises`],
+      jump: isTracker,
+    },
+    {
+      id: "trackerTriggers",
+      label: "Moves",
+      anchor: `dim-${dim.id}-tracker-triggers`,
+      keys: ["trackerTriggers"],
+      available: hasTrackerTriggers,
+      targets: [`dim-${dim.id}-tracker-triggers`],
+      jump: isTracker,
+    },
+    {
+      id: "perspectives",
+      label: "Views",
+      anchor: `dim-${dim.id}-perspectives-section`,
+      keys: ["perspectives"],
+      available: !!dim.perspectives,
+      targets: [`dim-${dim.id}-perspectives-section`],
+      jump: !isTracker,
+    },
+    {
+      id: "scope",
+      label: "Scope",
+      anchor: `dim-${dim.id}-scope`,
+      keys: ["scope"],
+      available: !!dim.scope,
+      targets: [`dim-${dim.id}-scope`],
+    },
+    {
+      id: "inherited",
+      label: "Inherited",
+      anchor: `dim-${dim.id}-inherited`,
+      keys: ["inherited"],
+      available: !!dim.inherited,
+      targets: [`dim-${dim.id}-inherited`],
+    },
+    {
+      id: "glossary",
+      label: "Glossary",
+      anchor: `dim-${dim.id}-glossary`,
+      keys: ["glossary"],
+      available: scoringMetadata.length > 0,
+      targets: [`dim-${dim.id}-glossary`],
+    },
+    {
+      id: "leverOperationalization",
+      label: "Lever criteria",
+      anchor: `dim-${dim.id}-lever-operationalization`,
+      keys: ["leverOperationalization"],
+      available: !!dim.gradeBasis?.leverOperationalization,
+      targets: [`dim-${dim.id}-lever-operationalization`],
+    },
+    {
+      id: "componentOperationalization",
+      label: "Component checklist",
+      anchor: `dim-${dim.id}-component-operationalization`,
+      keys: ["componentOperationalization"],
+      available: !!dim.gradeBasis?.componentOperationalization,
+      targets: [`dim-${dim.id}-component-operationalization`],
+    },
+    {
+      id: "combinationRule",
+      label: "Combination rule",
+      anchor: `dim-${dim.id}-combination-rule`,
+      keys: ["combinationRule"],
+      available: !!dim.gradeBasis?.combinationRule,
+      targets: [`dim-${dim.id}-combination-rule`],
+    },
+  ], [
     dim.gradeBasis?.combinationRule,
     dim.gradeBasis?.componentOperationalization,
     dim.gradeBasis?.leverOperationalization,
+    dim.id,
     dim.inherited,
     dim.perspectives,
     dim.scope,
@@ -763,44 +867,29 @@ export default function DimensionCard({
     sources.length,
   ]);
 
-  const jumpItems = useMemo(() => {
-    if (isTracker) {
-      return [
-        metrics.length > 0 && { label: "Metrics", anchor: `dim-${dim.id}-metrics`, keys: ["metrics"] },
-        hasEvidenceTimeline && { label: "Timeline", anchor: `dim-${dim.id}-timeline`, keys: ["timeline"] },
-        sources.length > 0 && { label: "Sources", anchor: `dim-${dim.id}-sources`, keys: ["sources"] },
-        hasPromises && { label: "Promises", anchor: `dim-${dim.id}-promises`, keys: ["promises"] },
-        hasTrackerTriggers && { label: "Moves", anchor: `dim-${dim.id}-tracker-triggers`, keys: ["trackerTriggers"] },
-      ].filter(Boolean);
-    }
+  const availableSections = useMemo(() => (
+    Array.from(new Set(
+      sectionDefinitions
+        .filter((section) => section.available)
+        .flatMap((section) => section.keys)
+    ))
+  ), [sectionDefinitions]);
 
-    return [
-      hasRuleSection && { label: "Rule", anchor: `dim-${dim.id}-scoring`, keys: ["rule"] },
-      showTriggers && { label: "Triggers", anchor: `dim-${dim.id}-triggers-section`, keys: ["triggers"] },
-      hasEvidenceTimeline && { label: "Timeline", anchor: `dim-${dim.id}-timeline`, keys: ["timeline"] },
-      metrics.length > 0 && { label: "Evidence", anchor: `dim-${dim.id}-metrics`, keys: ["metrics"] },
-      sources.length > 0 && { label: "Sources", anchor: `dim-${dim.id}-sources`, keys: ["sources"] },
-      hasProjects && { label: "Projects", anchor: `dim-${dim.id}-cohort`, keys: ["projects", "cohortList"] },
-      dim.perspectives && { label: "Views", anchor: `dim-${dim.id}-perspectives-section`, keys: ["perspectives"] },
-    ].filter(Boolean);
-  }, [
-    dim.id,
-    dim.perspectives,
-    hasProjects,
-    hasPromises,
-    hasEvidenceTimeline,
-    hasRuleSection,
-    hasTrackerTriggers,
-    isTracker,
-    metrics.length,
-    showTriggers,
-    sources.length,
-  ]);
+  const jumpItems = useMemo(() => (
+    sectionDefinitions
+      .filter((section) => section.available && section.jump)
+      .map(({ label, anchor, keys }) => ({ label, anchor, keys }))
+  ), [sectionDefinitions]);
 
-  const sectionNavItems = useMemo(() => ([
-    { label: "Summary", anchor: `dim-${dim.id}-summary`, keys: [], desktopOnly: true },
-    ...jumpItems,
-  ]), [dim.id, jumpItems]);
+  const sectionNavItems = useMemo(() => (
+    sectionDefinitions
+      .filter((section) => section.available && (section.nav || section.jump))
+      .map(({ label, anchor, keys, desktopOnly }) => ({ label, anchor, keys, desktopOnly }))
+  ), [sectionDefinitions]);
+
+  const getSectionKeysForTarget = useCallback((target) => (
+    sectionKeysForTargetFromDefinitions(target, sectionDefinitions)
+  ), [sectionDefinitions]);
 
   const toggleSection = (section) => {
     setOpenSections((current) => ({
@@ -833,16 +922,14 @@ export default function DimensionCard({
   const openAllSections = () => {
     const next = {};
     availableSections.forEach((section) => {
-      if (TOP_LEVEL_SECTIONS.includes(section) || NESTED_SECTIONS.includes(section)) {
-        next[section] = true;
-      }
+      next[section] = true;
     });
     setOpenSections(next);
   };
 
-  const queueAnchorScroll = useCallback((target, sections = sectionKeysForTarget(target, dim.id)) => {
+  const queueAnchorScroll = useCallback((target, sections) => {
     if (!target) return;
-    const keys = sections.length > 0 ? sections : sectionKeysForTarget(target, dim.id);
+    const keys = Array.isArray(sections) ? sections : getSectionKeysForTarget(target);
     const currentOpenSections = openSectionsRef.current;
     const instantSections = keys.filter((section) => !currentOpenSections[section]);
     const requestId = anchorNavigation?.target === target
@@ -861,7 +948,7 @@ export default function DimensionCard({
   }, [
     anchorNavigation?.requestId,
     anchorNavigation?.target,
-    dim.id,
+    getSectionKeysForTarget,
     markInstantOpenSections,
     openSectionKeys,
   ]);
@@ -1032,7 +1119,7 @@ export default function DimensionCard({
     const anchorTarget = anchorTargetRef.current;
     const hasPendingSectionTarget = anchorTarget
       && targetBelongsToDimension(anchorTarget, dim.id)
-      && sectionKeysForTarget(anchorTarget, dim.id).length > 0;
+      && getSectionKeysForTarget(anchorTarget).length > 0;
     let frame = null;
 
     if (!hasPendingSectionTarget) {
@@ -1058,7 +1145,7 @@ export default function DimensionCard({
         headerButtonRef.current?.focus({ preventScroll: true });
       }
     };
-  }, [dim.id, isExpanded, isMobileDialog, onClick]);
+  }, [dim.id, getSectionKeysForTarget, isExpanded, isMobileDialog, onClick]);
 
   useLayoutEffect(() => {
     if (!isExpanded) return undefined;
@@ -1115,7 +1202,7 @@ export default function DimensionCard({
 
     const sections = scrollIntent.sections?.length
       ? scrollIntent.sections
-      : sectionKeysForTarget(targetId, dim.id);
+      : getSectionKeysForTarget(targetId);
     const sectionsOpen = sections.every((section) => openSections[section]);
     if (!sectionsOpen) return undefined;
 
@@ -1137,7 +1224,7 @@ export default function DimensionCard({
     }
     setScrollIntent(null);
     return undefined;
-  }, [dim.id, isExpanded, openSections, scrollIntent]);
+  }, [getSectionKeysForTarget, isExpanded, openSections, scrollIntent]);
 
   useEffect(() => {
     if (scrollIntent) return;
@@ -1237,7 +1324,7 @@ export default function DimensionCard({
     : null;
   const sourceSummary = `${sources.length} source${sources.length === 1 ? "" : "s"} · ${sourceCounts.t1} Tier-1 → open`;
   const metricsSummary = `${metrics.length} metric${metrics.length === 1 ? "" : "s"} tracked → open`;
-  const activeSectionKeys = sectionKeysForTarget(activeAnchorTarget, dim.id);
+  const activeSectionKeys = getSectionKeysForTarget(activeAnchorTarget);
   const isInstantOpenSection = (section) => !!instantOpenSections[section];
 
   return (
