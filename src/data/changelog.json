@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-20",
+    "version": "5.118",
+    "summary": "Added an optional public app-shell beta while keeping the classic dashboard as the default.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Public app-shell beta",
+        "body": "The app-style dashboard can now be opened with ?experience=app. The root and ?experience=classic continue to open the classic dashboard during the beta."
+      },
+      {
+        "type": "product",
+        "headline": "Production evidence retained",
+        "body": "The beta reuses the production dimension detail, score derivations, Approval drilldown, Change Log, Methodology, and About surfaces instead of maintaining reduced copies."
+      },
+      {
+        "type": "docs",
+        "headline": "Scoring boundary unchanged",
+        "body": "This release changes presentation and navigation only. No grade, threshold, formula, weight, promise status, approval data, or dimension model changed."
+      }
+    ]
+  },
+  {
     "date": "2026-06-16",
     "version": "5.117",
     "summary": "Redesigned opened dimension cards around a verdict, why, and source trail.",

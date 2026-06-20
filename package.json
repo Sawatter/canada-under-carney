@@ -7,6 +7,7 @@
     "dev": "vite",
     "prebuild": "node scripts/validate-dimensions.mjs && node scripts/validate-approval-polls.mjs && node scripts/test-gpa-frozen-surface.mjs && node scripts/generate-feed.mjs && node scripts/generate-visitor-count.mjs",
     "test:data": "node scripts/validate-dimensions.mjs && node scripts/validate-approval-polls.mjs && node scripts/test-gpa-frozen-surface.mjs",
+    "test:app-shell": "node scripts/test-app-shell.mjs",
     "test:monitor": "python3 scripts/test_monitor_sources.py && python3 scripts/validate_workflow_yaml.py",
     "source:ledger": "node scripts/generate-source-ledger.mjs",
     "monitor:registry": "python3 scripts/monitor_sources.py --rebuild-registry",

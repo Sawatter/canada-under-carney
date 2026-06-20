@@ -1,150 +1,138 @@
-# Prototype App Shell Parking Note
+# App Shell Staged Release Record
 
-**Date parked:** 2026-05-13
-**Reconciled:** 2026-06-16
-**Status:** dev-only experiment, not production
-**Public source of record:** the live dashboard at `https://sawatter.github.io/canada-under-carney/`
+**Originally parked:** 2026-05-13
+
+**Reconciled:** 2026-06-20
+
+**Status:** public beta approved at `?experience=app`. The classic dashboard remains the default.
+
+**Public source of record:** `https://sawatter.github.io/canada-under-carney/`
 
 ## Why This Exists
 
-The live dashboard is the public product. It has the complete evidence surface, source links, scoring drawers, project pipeline, promise tracker, changelog, About page, and production checks.
+The app shell tests whether the dashboard can feel more app-like on a phone while keeping its evidence and scoring rules visible. It is a presentation and interaction lane. It does not change grades, thresholds, formulas, weights, promise statuses, or the dimension model.
 
-The prototype exists for one narrower reason: to test whether the same evidence can feel more app-like without weakening traceability. It is a local interaction lane for layout ideas, not a scoring or methodology lane.
+The staged release keeps the current dashboard at the root while the app shell is reviewed on the same public data and hosting environment.
 
 ## Current State
 
-The original parking note described prototype files that were not present on `main`. The lane was restored on 2026-06-16 as a small dev-only shell behind `?prototype=app`.
+PR #11 completed the second prototype pass on June 20, 2026. It added:
 
-Current prototype files:
+- A compact scorecard and app-style mobile navigation.
+- Opened dimension views with Verdict, Why, Triggers, Metrics, Sources, and Rule sections.
+- A Promise Delivery tracker variant.
+- Promise search, filtering, sorting, grouping, sticky controls, and an empty state.
+- Expanded How it works and About panes.
 
-- `src/App.jsx` - dev-only prototype loader behind `?prototype=app`
-- `src/components/prototype/DashboardPrototype.jsx` - prototype shell and prototype Promises tab
-- `src/components/prototype/prototype.css` - prototype-only styles
+The v5.118 public-beta pass replaces reduced prototype evidence surfaces with production components where the dashboard already has the required behavior. The beta must keep the production dimension detail, score derivations, Approval drilldown, Change Log, Methodology, and About content reachable.
 
-The prototype imports live data from the real dashboard:
+## Public Routes
 
-- `src/data/dimensions.json`
-- `src/data/meta.json`
-- `src/data/approval-polls.json`
-- `src/utils.js`
-- `src/constants.js`
+After v5.118 is deployed:
 
-No scoring math, threshold, modifier, grade, promise-status, or dimension-data change belongs in this lane.
+```text
+https://sawatter.github.io/canada-under-carney/?experience=app
+```
 
-## How To Run It
+opens the public app-shell beta.
+
+```text
+https://sawatter.github.io/canada-under-carney/
+https://sawatter.github.io/canada-under-carney/?experience=classic
+```
+
+open the classic dashboard. The root stays unchanged during the beta.
+
+Local development uses the same query values:
 
 ```bash
 npm run dev -- --host 127.0.0.1
 ```
 
-Then open:
+## Locked Decisions
 
-```text
-http://127.0.0.1:5173/canada-under-carney/?prototype=app
+- **Release sequence:** public beta first. Root cutover is conditional.
+- **Classic fallback:** keep `?experience=classic` for the beta and for at least one release after a root cutover.
+- **Source of truth:** production data, evidence components, and scoring logic remain authoritative.
+- **Navigation:** browser Back, Forward, direct reload, and section links must work in the app shell.
+- **Accessibility:** keyboard focus, focus return, current-state semantics, live result counts, Escape behavior, reduced motion, and mobile safe areas are release gates.
+- **Visual direction:** civic, restrained, and readable. It should not feel like a campaign or marketing site.
+- **Approval Signal:** label it as public approval and outside the grades.
+
+## Deterministic Gate
+
+Run:
+
+```bash
+npm run test:app-shell
 ```
 
-If Vite picks another port, use that port with the same query string.
+The gate checks that:
 
-The prototype should not appear in production because the toggle is guarded by `import.meta.env.DEV`.
+- `?experience=app` is available in a production build.
+- The default route and `?experience=classic` use the classic dashboard.
+- The public app shell reuses the production evidence components.
+- The public path does not truncate metrics with a prototype-only slice.
+- URL history, focus handling, current-state semantics, live updates, Escape behavior, and reduced-motion handling are present.
 
-## What Is Built Now
+This source-level gate catches accidental contract removal. It does not replace browser or assistive-technology review.
 
-### App Shell
+## Beta Release Gates
 
-- Header with version and update date.
-- Four primary tabs: `Scorecard`, `Promises`, `How it works`, `About`.
-- Desktop and mobile responsive layout.
-- Clear local-only framing so it is not confused with the public dashboard.
+The public beta can merge when these checks pass:
 
-### Scorecard Sketch
+- `npm run test:app-shell`
+- `npm run test:data`
+- `npm run lint`
+- `npm run build`
+- Desktop review at 1280px.
+- Mobile review at 375px, 390px, and 320px.
+- No horizontal overflow at the reviewed widths.
+- Major Projects exposes the same evidence sections as its production detail view.
+- Promise Delivery remains an ungraded tracker.
+- Promise source and status-evidence links remain reachable.
+- Browser Back, Forward, direct reload, and scroll restoration work.
+- Keyboard focus enters and leaves dimension detail predictably.
+- Reduced-motion behavior and mobile safe areas are checked.
+- Claude finds no unresolved P0 or P1 issue in the scoped diff.
 
-- Compact cards for Household Impact, Full Policy Audit, Promises Delivered, and Approval Signal.
-- Compact list of graded dimensions.
-- Approval Signal explicitly says it is not part of the grades.
+## Conditional Root Cutover
 
-This is a sketch only. Production dimension cards remain the source of record.
+The editor approved this rule on June 20, 2026:
 
-### Promises Tab V1
+> Publish the app shell at `?experience=app` while the current root stays stable. Close the parity and accessibility gaps, run browser and Claude reviews, then run Perplexity against the public beta. Make the app shell the root only if the listed gates pass and no P0 or P1 issue remains. Keep `?experience=classic` for one release as rollback.
 
-The parked continuation task was to redesign the Promises tab first. That is now done as a prototype v1:
+Root cutover stops if:
 
-- Uses the production promise data via `countPromises(dimensions)`.
-- Preserves original-source links and status-evidence links on each promise card.
-- Shows status counts as filter controls.
-- Adds search, status filter, and dimension filter.
-- Uses mobile-friendly cards rather than a wide table.
-- Keeps the production statuses and counts unchanged.
+- A grade, threshold, formula, weight, promise status, or dimension-model change appears.
+- An evidence route or source link is lost.
+- A deterministic, browser, accessibility, Claude, or Perplexity gate fails.
+- A P0 or P1 issue remains open.
+- The deployed version or commit does not match the reviewed release.
 
-## What Is Not Done
+## Carried accessibility gaps (gate the root cutover)
 
-These block any production cutover:
+The 2026-06-20 Claude adversarial review (four axes: evidence parity, classic regression, frozen surface, accessibility) found no P0 and no P1 in the scoped beta diff. One net-new app-shell P1 was fixed in the same pass: the Promises status-count pills now carry `role="group"` so their group label is exposed.
 
-1. **Evidence parity for dimension detail**
-   The prototype does not recreate the full production dimension drawer, source stacks, evidence timeline, source roles, project-pipeline details, trigger links, or critic/defender views.
+Two P1 accessibility gaps remain. Both are pre-existing production `DimensionCard` behavior (that file is unchanged from origin/main), now surfaced by the app shell. They do not block the beta, but they must close before the root cutover, because cutover makes the app shell the default for every reader:
 
-2. **Production-grade routing**
-   Deep links and browser Back behavior are not specified for the prototype.
+- Desktop focused-detail view: no Escape-to-close and no focus move on open. Fix: on open, move focus to the drawer or its Close button, and add an Escape handler (extend the existing mobile-dialog handling to the desktop focused-detail path).
+- Mobile detail modal: does not trap focus or mark the background `inert` while open (Escape works and focus is managed, so it is not a keyboard trap). Fix: add a focus trap, or set the background `inert` while the dialog is open.
 
-3. **Approval Signal drilldown**
-   The production poll-source detail table is not recreated.
+Both are production `DimensionCard` work, so they ship as a separate scoped change with its own classic-mode verification, not inside this beta.
 
-4. **Score derivation panels**
-   The live dashboard's "How is this score built?" panels are not recreated.
+## Review Sequence
 
-5. **Change Log**
-   The real changelog is not integrated.
+1. Publish v5.118 at `?experience=app` with the classic root unchanged.
+2. Confirm the deployed version, commit, app chunk, and classic fallback.
+3. Run the browser matrix and Claude review against the public beta.
+4. Ask Perplexity to review the same public URL against cited responsive-dashboard and accessibility guidance.
+5. Address P0 and P1 findings and repeat affected gates.
+6. Prepare a separate root-cutover release with `?experience=classic` retained.
 
-6. **Accessibility pass**
-   The prototype needs a focused keyboard, focus-order, heading, and screen-reader pass before any cutover discussion.
+## Frozen During App-Shell Work
 
-7. **Final parity review**
-   Every production tab and expanded scoring file would need to be compared against the prototype so no trust/evidence surface disappears.
-
-## Locked Prototype Decisions
-
-- **Production rule:** the live dashboard remains source of record until cutover is explicit.
-- **Scope:** the prototype is a presentation and interaction experiment.
-- **Navigation:** four primary tabs are enough for this lane.
-- **Promises first:** keep improving the Promises tab before reopening the rest of the shell.
-- **Visual target:** civic, restrained, readable. It should not feel like a campaign site or marketing page.
-- **Approval Signal:** always label it as public approval and outside the grades.
-
-## Restart Point
-
-When this work resumes:
-
-1. Run the prototype locally with `?prototype=app`.
-2. Open the Promises tab on desktop and mobile.
-3. Compare every promise card against the production Promises tab for source-link parity.
-4. Decide whether the next prototype task is:
-   - a better dimension-detail sketch, or
-   - Approval Signal drilldown parity, or
-   - keyboard/accessibility cleanup on the promise cards.
-
-Good next task:
-
-```text
-Continue the parked app-shell prototype. Keep production unchanged. Do not touch grades or data. Start by checking the prototype Promises tab against the production Promises tab for source/status-evidence link parity, then pick the smallest missing interaction.
-```
-
-## Production Cutover Conditions
-
-Do not replace the live dashboard with the prototype until all of these are true:
-
-- `npm run test:data` passes.
-- `npm run lint` passes.
-- `npm run build` passes.
-- Desktop and mobile checks pass with no horizontal overflow.
-- Promises tab preserves all source and status-evidence links.
-- Approval Signal still says it is not part of the grades.
-- Household Impact and Full Policy Audit score derivations are reachable.
-- Every grade still has a one-click route to evidence.
-- The prototype has been checked against `docs/Beta-Feedback-Log.md`.
-- The editor explicitly approves a production cutover.
-
-## Do Not Change During Prototype Work
-
-Keep these frozen unless the user explicitly approves it in the current turn:
+Do not change these without explicit approval in the current turn:
 
 - GPA formulas
 - grade-point mapping
