@@ -30,11 +30,21 @@ jobs:
             exit 1
           fi
 
-          response=$(curl --silent --show-error \
+          # Retry transient API failures; capture HTTP status and body separately so a
+          # flaky, empty, or 5xx response cannot masquerade as the real subscriber-count alert.
+          http_status=$(curl --silent --show-error --retry 4 --retry-delay 5 --retry-all-errors --max-time 30 \
+            --write-out "%{http_code}" --output /tmp/buttondown-response.json \
             --header "Authorization: Token ${BUTTONDOWN_API_KEY}" \
-            "https://api.buttondown.com/v1/subscribers?type=regular")
+            "https://api.buttondown.com/v1/subscribers?type=regular") || http_status="000"
 
-          count=$(printf '%s' "$response" | python3 -c "import json,sys; print(json.load(sys.stdin).get('count',0))")
+          count=$(jq -er '.count' /tmp/buttondown-response.json 2>/dev/null || echo "NA")
+
+          # A transient API issue (timeout, 5xx, empty or non-JSON body) must NOT fire the
+          # alert email. Warn and exit 0 so only a genuine count at/above the threshold notifies.
+          if [ "$http_status" != "200" ] || ! printf '%s' "$count" | grep -qE '^[0-9]+$'; then
+            echo "::warning::Could not read a valid Buttondown subscriber count (http=${http_status}, value='${count}'). Transient API issue, skipping this run. The next scheduled run retries. This is NOT a subscriber-count alert."
+            exit 0
+          fi
 
           echo "Current Buttondown subscriber count: ${count}"
           echo "Alert threshold: ${ALERT_THRESHOLD}"
