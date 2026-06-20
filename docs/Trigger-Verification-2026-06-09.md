@@ -11,7 +11,7 @@
 
 ## Headline
 
-Of the six carry-forward triggers, external evidence **corroborates all six shipped holds** (for Defence & Trade, the A- hold stands under either reading of its funded-pathway trigger — see below). Two dimensions carry an open editor decision that pre-dates this re-check and is definitional, not factual. Two time-boxed watch items land within the next ~10 days.
+Of the six carry-forward triggers, external evidence **corroborates all six recorded holds**. For Defence & Trade, the A- hold stands under either reading of its funded-pathway trigger described below. The two earlier definitional editor decisions were adjudicated on June 12. The June 19 Housing watch is closed. The June 17 Immigration release remains queued for its separate trigger check.
 
 ---
 
@@ -34,8 +34,8 @@ Of the six carry-forward triggers, external evidence **corroborates all six ship
 ### 3. Housing Supply — D (hold corroborated)
 
 - **Trigger:** "Federal housing contribution rises above roughly 5% of the shortfall with live disbursement or construction underway" (up, setDate 2026-05-02).
-- **External evidence:** Canada-Ontario partnership = $4.4B federal DCRP share over 10 years + $875M HST-offset (conditional on Bill C-26) + $1.7B provincial transfers. DCRP is in application phase (applications close June 19, 2026); no disbursement yet. Build Canada Homes (the only program with verified construction underway) is ~26,000 units, ~0.7% of the CMHC 3.5M-unit shortfall.
-- **Read:** Up-trigger **not fired** — the disbursement/construction condition is unmet and the unit share is well under 5%. Hold at D corroborated.
+- **External evidence:** Canada-Ontario partnership = $4.4B federal DCRP share over 10 years + $875M HST-offset + $1.7B provincial transfers. Bill C-26 received Royal Assent on June 18, 2026, and Ontario closed the DCRP application intake on June 19. No official project-selection or award announcement, signed transfer-payment agreement, payment, or DCRP construction evidence was found on the Ontario and federal publisher surfaces checked on June 20. Build Canada Homes (the only program with verified construction underway) is ~26,000 units, ~0.7% of the CMHC 3.5M-unit shortfall.
+- **Read:** Up-trigger **not fired**. Royal Assent and the application-window close remove two preliminary gates, but the live disbursement/construction condition remains unmet and the unit share is well under 5%. Hold at D corroborated.
 
 ### 4. Immigration — C+ (hold corroborated)
 
@@ -59,10 +59,10 @@ Of the six carry-forward triggers, external evidence **corroborates all six ship
 
 ---
 
-## Two time-boxed watch items
+## Time-boxed watch items
 
 - **June 17, 2026** — StatCan Q1 2026 population estimates release. Refreshes the Immigration temporary-resident share (currently ~6.5%).
-- **June 19, 2026** — Canada-Ontario DCRP application window closes; project selection and transfer-agreement signing follow. Plus Bill C-26 Royal Assent status gates the $875M HST-offset and $1.7B provincial transfers (Housing).
+- **June 19, 2026 (follow-up completed June 20).** Ontario's live DCRP page confirms the application intake is closed, and LEGISinfo confirms Bill C-26 received Royal Assent on June 18. No official project-selection or award announcement was found. The next Housing checks are the federal-provincial funding agreement, project approvals, signed transfer-payment agreements, first payment, and construction evidence.
 
 ---
 
@@ -88,5 +88,6 @@ Of the six carry-forward triggers, external evidence **corroborates all six ship
 
 ## Verification record
 
+- **2026-06-20, Housing watch closeout (docs only, no grade move).** Ontario's [Development Charge Reduction Program page](https://www.ontario.ca/page/development-charge-reduction-program) states that applications are closed and shows an update date of June 19, 2026. [LEGISinfo for Bill C-26](https://www.parl.ca/legisinfo/en/bill/45-1/c-26) records Royal Assent on June 18, 2026 (Statutes of Canada 2026, c. 21). The federal [June 1 program release](https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-open-applications-for-new-development-charge-reduction-program0.html) still describes Canada's DCRP funding as pending an agreement under the Build Communities Strong Fund. No official DCRP project-selection or award announcement was found on the [Ontario DCRP page](https://www.ontario.ca/page/development-charge-reduction-program), [Ontario Newsroom](https://news.ontario.ca/en), or [Housing, Infrastructure and Communities Canada news listing](https://www.canada.ca/en/housing-infrastructure-communities/news.html) checked on June 20. Application close and Royal Assent do not establish a signed agreement, project approval, payment, or construction, so the Housing up-trigger remains not fired.
 - **2026-06-12 — Both open editor decisions adjudicated (v5.109).** Carbon Pricing: the effective-price triggers now name their metric — the marginal compliance price (market price of compliance credits, ~$20/t), with the economy-wide average cost and the published Canada-Alberta schedule kept as context metrics; the May 15 agreement was considered against the $15/t down-trigger and did not fire it. Climate: the May 14 CER weakening was considered, not fired (announced is not done, in both directions); the trigger is armed with a pre-committed condition — a materially weakening amendment in the Canada Gazette, or repeal, returns it for adjudication.
 - **2026-06-12 — Codex cross-model pass (read-only, visible browser): no findings.** Each of the six evidence chains was checked against its primary document and supports the recorded claim — including the three pages the headless fetcher could not read. Finance Canada's gas-tax backgrounder shows 10c/L gasoline and 4c/L diesel from April 20 to September 7 (~$2.4B total relief) with no per-household figure contradicting PBO's $124 average. The IRCC 2026-2028 levels supplementary page states the below-5% temporary-resident target lands at the end of 2027, with 385,000 TR arrivals planned for 2026. The PMO Canada-Alberta backgrounder states the industrial-carbon path directly: headline price $95 in 2026, $115 in 2030, $130 in 2035, $140 in 2040, with a TIER effective-price target of $130 in 2040 and a minimum credit transfer price rising from $60 in 2030 to $110 in 2040 — Claude separately re-fetched the backgrounder and matched those figures. The bias-audit delta was independently reproduced (12 audited / 7 flagged on live data; 12 / 6 on the v5.66 data with no Climate flag), and the StatCan temporary-resident share recomputed at ~6.45%. The 11-promise quarterly recert was re-checked as still open: the May ledger rows remain "not checked" with no later recertifying commit.

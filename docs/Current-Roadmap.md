@@ -127,6 +127,8 @@ Source-date follow-up is now closed. v5.113 added source-date fields and newest-
 
 The June source-monitor candidate packet is adjudicated. C-5 Royal Assent was already accounted for in the live files; Finance's tax-cut report was adopted as a better status source for the delivered Fiscal Health tax-cut promise; the CIHR and Scotiabank browser-pull items did not map to live dashboard metrics. The monitor did not move any grade, promise status, threshold, source order, or metric. The record is [Source-Monitoring-Adjudication-2026-06.md](Source-Monitoring-Adjudication-2026-06.md).
 
+The June 19 Housing watch is closed. Ontario's DCRP application intake closed on June 19, and Bill C-26 received Royal Assent on June 18. No official DCRP project selection, award, signed transfer-payment agreement, payment, or construction evidence was found on the Ontario and federal publisher surfaces checked on June 20. The Housing up-trigger remains not fired. No grade, threshold, source stack, promise status, or dashboard data changed. The evidence record is in [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md).
+
 Source-band ceiling decision is closed for June. Economic Policy Response, Affordability Response, Climate & Environment, and Housing Supply sit at the 10-source ceiling; deferred candidates require trim-before-add unless the editor explicitly approves a one-off relaxation. See [Source-Band-Ceiling-Decision-2026-06.md](Source-Band-Ceiling-Decision-2026-06.md).
 
 The inter-rater pilot is in fieldwork: a Reddit rater has the packet, so the task is waiting on returned worksheets, then comparing against the frozen grades. It remains the largest disclosure gap on About until a human rater completes a blind pass.
@@ -137,8 +139,8 @@ The inter-rater pilot is in fieldwork: a Reddit rater has the packet, so the tas
 
 These are on deck awaiting their triggers.
 
-1. June 17 and June 19 watch checks
-   June 17: pull the StatCan Q1 2026 population release and read the temporary-resident share against the Immigration 5% trigger. June 19: check the DCRP application-window close, project-selection status, and Bill C-26 Royal Assent against the Housing disbursement condition. These checks report evidence; they do not auto-move a grade.
+1. June 17 Immigration check and Housing disbursement watch
+   June 17: pull the StatCan Q1 2026 population release and read the temporary-resident share against the Immigration 5% trigger. Housing: watch for the federal-provincial funding agreement, official DCRP project approvals, signed transfer-payment agreements, first payment, and construction evidence. These checks report evidence. They do not auto-move a grade.
 
 2. Inter-rater pilot return
    When the rater sends worksheets back, compare their grades against the frozen packet snapshot and classify each mismatch as rubric clarity, source ambiguity, arithmetic/application error, or genuine disagreement. Do not revise the packet mid-run unless the rater has not started and the editor explicitly resends it.
