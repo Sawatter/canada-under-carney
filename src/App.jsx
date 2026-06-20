@@ -1,24 +1,19 @@
-import { lazy, Suspense } from "react";
 import Dashboard from "./components/Dashboard";
+import DashboardPrototype from "./components/prototype/DashboardPrototype";
 
-const DashboardPrototype = import.meta.env.DEV
-  ? lazy(() => import("./components/prototype/DashboardPrototype"))
-  : null;
+function getRequestedExperience() {
+  if (typeof window === "undefined") return "classic";
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("experience") === "app") return "app";
+  if (params.get("experience") === "classic") return "classic";
+  const isLocalPreview = ["localhost", "127.0.0.1", "::1"].includes(window.location.hostname);
+  if (isLocalPreview && params.get("prototype") === "app") return "app";
+  return "classic";
+}
 
 export default function App() {
-  const usePrototype =
-    import.meta.env.DEV &&
-    DashboardPrototype &&
-    typeof window !== "undefined" &&
-    new URLSearchParams(window.location.search).get("prototype") === "app";
-
-  if (usePrototype) {
-    return (
-      <Suspense fallback={<div style={{ padding: 24 }}>Loading prototype...</div>}>
-        <DashboardPrototype />
-      </Suspense>
-    );
-  }
-
+  const experience = getRequestedExperience();
+  if (experience === "app") return <DashboardPrototype />;
   return <Dashboard />;
 }

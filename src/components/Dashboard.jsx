@@ -18,6 +18,7 @@ import Methodology from "./Methodology";
 import About from "./About";
 import EmailSignup from "./EmailSignup";
 import VisitorCount from "./VisitorCount";
+import "./AppShell.css";
 
 function isMobileViewport() {
   return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
@@ -31,7 +32,8 @@ function getDimensionIdForHashTarget(target) {
   return match?.id || null;
 }
 
-export default function Dashboard() {
+export default function Dashboard({ experience = "classic" }) {
+  const appMode = experience === "app";
   const [expanded, setExpanded] = useState(null);
   const [view, setView] = useState("scorecard");
   const [approvalExpanded, setApprovalExpanded] = useState(false);
@@ -203,13 +205,20 @@ export default function Dashboard() {
 
     const handleHashChange = () => {
       const target = window.location.hash.replace(/^#/, "");
-      if (target) routeHashTarget(target);
+      if (target) {
+        routeHashTarget(target);
+      } else if (appMode) {
+        closeDimensionForInternalNavigation({ closeDesktop: true });
+        setView("scorecard");
+        requestAnchorNavigation("main-content");
+      }
     };
 
-    handleHashChange();
+    const initialTarget = window.location.hash.replace(/^#/, "");
+    if (initialTarget) routeHashTarget(initialTarget);
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [routeHashTarget]);
+  }, [appMode, closeDimensionForInternalNavigation, requestAnchorNavigation, routeHashTarget]);
 
   useEffect(() => {
     const target = anchorNavigation?.target;
@@ -362,8 +371,20 @@ export default function Dashboard() {
     { key: "about", label: "About" },
   ];
 
+  const selectView = (nextView) => {
+    if (nextView === view) return;
+    if (appMode && typeof window !== "undefined") {
+      closeDimensionForInternalNavigation({ closeDesktop: true });
+      window.history.pushState(window.history.state, "", `#view-${nextView}`);
+      requestAnchorNavigation(`view-${nextView}`);
+    }
+    setView(nextView);
+  };
+
   return (
     <div
+      className={`dashboard-shell ${appMode ? "app-shell" : "classic-shell"}`}
+      data-experience={experience}
       style={{
         fontFamily: "'DM Sans', sans-serif",
         maxWidth: "1040px",
@@ -410,7 +431,7 @@ export default function Dashboard() {
       </a>
       <VisitorCount />
       {/* Header */}
-      <div style={{ textAlign: "center", marginBottom: "32px" }}>
+      <header className="dashboard-header" style={{ textAlign: "center", marginBottom: "32px" }}>
         <div
           style={{
             fontSize: "14px",
@@ -471,7 +492,7 @@ export default function Dashboard() {
           </span>
           <span>v{meta.version}</span>
         </div>
-      </div>
+      </header>
 
       {/* Trust frame — global, sits between the title and the scoreboard so
           a reader sees what this dashboard is and is not for, regardless of
@@ -592,7 +613,10 @@ export default function Dashboard() {
         {tabs.map((t) => (
           <button
             key={t.key}
-            onClick={() => setView(t.key)}
+            type="button"
+            className="dashboard-tab"
+            onClick={() => selectView(t.key)}
+            aria-current={view === t.key ? "page" : undefined}
             style={{
               flex: "1 1 auto",
               minWidth: "fit-content",
@@ -615,6 +639,16 @@ export default function Dashboard() {
       </div>
       </div>
 
+      {appMode && (
+        <span className="app-view-announcer" aria-live="polite" aria-atomic="true">
+          {tabs.find((tab) => tab.key === view)?.label} view
+        </span>
+      )}
+      <div
+        id={appMode ? `view-${view}` : undefined}
+        className={appMode ? "app-shell-view" : undefined}
+        key={appMode ? view : undefined}
+      >
       {/* Scorecard View */}
       {view === "scorecard" && (
         <>
@@ -770,11 +804,12 @@ export default function Dashboard() {
 
       {/* Promise Tracker View */}
       {view === "promises" && (
-        <div id="view-promises" style={{ scrollMarginTop: "16px" }}>
+        <div id={appMode ? undefined : "view-promises"} style={{ scrollMarginTop: "16px" }}>
           <PromiseTracker
             allPromises={allPromises}
             promiseCounts={promiseCounts}
             totalPromises={totalPromises}
+            appMode={appMode}
           />
         </div>
       )}
@@ -787,12 +822,14 @@ export default function Dashboard() {
 
       {/* About View */}
       {view === "about" && <About />}
+      </div>
 
       {/* Email signup */}
       <EmailSignup />
 
       {/* Footer */}
-      <div
+      <footer
+        className="dashboard-footer"
         style={{
           textAlign: "center",
           marginTop: "32px",
@@ -815,7 +852,23 @@ export default function Dashboard() {
             Subscribe via RSS &rarr;
           </a>
         </div>
-      </div>
+      </footer>
+
+      {appMode && !expandedDimension && (
+        <nav className="app-bottom-nav" aria-label="Dashboard sections">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              className={view === tab.key ? "is-active" : undefined}
+              aria-current={view === tab.key ? "page" : undefined}
+              onClick={() => selectView(tab.key)}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </nav>
+      )}
     </div>
   );
 }
