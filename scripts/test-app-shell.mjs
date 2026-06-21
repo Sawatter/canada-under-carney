@@ -130,6 +130,19 @@ check(
   "Desktop and mobile app navigation must expose current-page semantics.",
 );
 check(
+  /<nav\s+[\s\S]*?className=["']dashboard-tabs dashboard-section-nav["'][\s\S]*?aria-label=["']Dashboard sections["']/.test(
+    sources.dashboard,
+  ),
+  "Non-behavioral source contract: dashboard section tabs must retain semantic navigation with an accessible label.",
+);
+const bottomNavContract = sourceAround(sources.dashboard, 'className="app-bottom-nav"', 0, 1800);
+check(
+  bottomNavContract.includes("dashboardSectionIcon(tab.key)") &&
+    bottomNavContract.includes('className="app-bottom-nav-label"') &&
+    /<svg[\s\S]*?aria-hidden=["']true["']/.test(sources.dashboard),
+  "Non-behavioral source contract: mobile navigation must retain decorative icons alongside visible text labels.",
+);
+check(
   sources.dashboard.includes('className="app-view-announcer"') &&
     sources.dashboard.includes('aria-live="polite"'),
   "App view changes must be announced through a polite live region.",
@@ -138,6 +151,26 @@ check(
   sources.promises.includes("app-promise-result-count") &&
     sources.promises.includes('aria-live="polite"'),
   "Filtered promise-result counts must be announced through a polite live region.",
+);
+const promiseFilterReturnContract = sourceAround(
+  sources.promises,
+  "const [isFilterSectionVisible",
+  0,
+  1200,
+);
+const promiseFilterReturnRenderContract = sourceAround(
+  sources.promises,
+  "hasActiveFilter && !isFilterSectionVisible",
+  0,
+  1200,
+);
+check(
+  promiseFilterReturnContract.includes("new IntersectionObserver") &&
+    promiseFilterReturnContract.includes("observer.observe(filterSection)") &&
+    promiseFilterReturnContract.includes("observer.disconnect()") &&
+    promiseFilterReturnRenderContract.includes('className="app-promise-filter-return-button"') &&
+    promiseFilterReturnRenderContract.includes("onClick={returnToFilters}"),
+  "Non-behavioral source contract: PromiseTracker must retain its observed off-screen filter-return affordance and observer cleanup.",
 );
 
 // These are coarse, non-behavioral source contracts. They catch removed focus
@@ -212,11 +245,45 @@ check(
     sources.dashboard.includes("tabIndex={-1}"),
   "Dashboard must retain a skip link and focusable main-content target.",
 );
+const bodyLockContract = sourceAround(
+  sources.dashboard,
+  "document.body.style.overflow = isMobile",
+  0,
+  400,
+);
+const modalEntryCleanupContract = sourceAround(
+  sources.dashboard,
+  "const closeDimension = useCallback",
+  0,
+  2600,
+);
+check(
+  bodyLockContract.includes('isMobile && expanded !== null ? "hidden" : ""') &&
+    /},\s*\[expanded,\s*isMobile\]\);/.test(bodyLockContract) &&
+    modalEntryCleanupContract.includes("const ownsModalEntry = mobileModalEntryRef.current") &&
+    /if\s*\(typeof window !== ["']undefined["'] && ownsModalEntry\)/.test(modalEntryCleanupContract) &&
+    /if\s*\(mobileModalEntryRef\.current\)/.test(modalEntryCleanupContract),
+  "Non-behavioral source contract: body lock must react to isMobile, while owned modal-entry cleanup must not depend on the current viewport.",
+);
 
 check(
   /@media\s*\(prefers-reduced-motion:\s*reduce\)/.test(sources.css) &&
     /\.app-shell-view\s*\{[\s\S]*?animation:\s*none/.test(sources.css),
   "App-shell motion must include a reduced-motion override.",
+);
+const reducedMotionContract = sourceAround(
+  sources.css,
+  "@media (prefers-reduced-motion: reduce)",
+  0,
+  600,
+);
+check(
+  /@keyframes\s+app-bottom-nav-in/.test(sources.css) &&
+    /\.app-bottom-nav\s*\{[\s\S]*?animation:\s*app-bottom-nav-in\b/.test(sources.css) &&
+    /\.app-shell-view,\s*\.app-bottom-nav\s*\{[\s\S]*?animation:\s*none/.test(
+      reducedMotionContract,
+    ),
+  "Non-behavioral source contract: bottom navigation must retain its entrance animation and reduced-motion suppression.",
 );
 check(
   /\.app-bottom-nav\s+button\s*\{[\s\S]*?min-height:\s*(?:4[4-9]|[5-9]\d)px/.test(sources.css),

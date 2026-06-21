@@ -32,6 +32,67 @@ function getDimensionIdForHashTarget(target) {
   return match?.id || null;
 }
 
+function dashboardSectionIcon(section) {
+  const paths = {
+    scorecard: (
+      <>
+        <rect x="3" y="3" width="6" height="6" rx="1" />
+        <rect x="15" y="3" width="6" height="6" rx="1" />
+        <rect x="3" y="15" width="6" height="6" rx="1" />
+        <rect x="15" y="15" width="6" height="6" rx="1" />
+      </>
+    ),
+    promises: (
+      <>
+        <path d="m4 6 2 2 3-4" />
+        <path d="M12 6h8" />
+        <path d="m4 14 2 2 3-4" />
+        <path d="M12 14h8" />
+        <path d="M4 21h16" />
+      </>
+    ),
+    changelog: (
+      <>
+        <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+        <path d="M3 3v5h5" />
+        <path d="M12 7v5l3 2" />
+      </>
+    ),
+    methodology: (
+      <>
+        <path d="M5 3h14v18H5z" />
+        <path d="M8 7h8" />
+        <path d="M8 11h8" />
+        <path d="M8 15h5" />
+      </>
+    ),
+    about: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <path d="M12 11v6" />
+        <path d="M12 7h.01" />
+      </>
+    ),
+  };
+
+  return (
+    <svg
+      className="app-bottom-nav-icon"
+      aria-hidden="true"
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      {paths[section]}
+    </svg>
+  );
+}
+
 export default function Dashboard({ experience = "classic" }) {
   const appMode = experience === "app";
   const [expanded, setExpanded] = useState(null);
@@ -102,16 +163,19 @@ export default function Dashboard({ experience = "classic" }) {
   }, [pushMobileModalEntry]);
 
   const closeDimension = useCallback((dimensionId) => {
-    if (typeof window !== "undefined" && isMobileViewport() && mobileModalEntryRef.current) {
+    const ownsModalEntry = mobileModalEntryRef.current;
+    if (typeof window !== "undefined" && !isMobileViewport()) {
+      pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
+      pendingDesktopFocusRef.current = dimensionId;
+    }
+
+    if (typeof window !== "undefined" && ownsModalEntry) {
       mobileModalEntryRef.current = false;
       setExpanded(null);
       window.history.back();
       return;
     }
-    if (typeof window !== "undefined" && !isMobileViewport()) {
-      pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
-      pendingDesktopFocusRef.current = dimensionId;
-    }
+
     mobileModalEntryRef.current = false;
     setExpanded(null);
   }, []);
@@ -128,7 +192,7 @@ export default function Dashboard({ experience = "classic" }) {
     if (!isMobile && !closeDesktop) return;
     if (!isMobile) pendingDesktopReturnRef.current = null;
 
-    if (isMobile && mobileModalEntryRef.current) {
+    if (mobileModalEntryRef.current) {
       mobileModalEntryRef.current = false;
       setExpanded(null);
       window.history.back();
@@ -303,13 +367,11 @@ export default function Dashboard({ experience = "classic" }) {
   // page does not scroll behind the fixed full-screen drawer.
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
-    if (window.matchMedia("(max-width: 767px)").matches) {
-      document.body.style.overflow = expanded !== null ? "hidden" : "";
-    }
+    document.body.style.overflow = isMobile && expanded !== null ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
-  }, [expanded]);
+  }, [expanded, isMobile]);
 
   useLayoutEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -597,13 +659,11 @@ export default function Dashboard({ experience = "classic" }) {
       />
       </div>
 
-      {/* Tab Navigation — horizontally scrollable rail on narrow screens so
-          longer labels like "Change Log" don't spill into their neighbours.
-          The wrapper carries the right-edge fade gradient so phones see a
-          visual cue that more tabs sit off-screen. */}
+      {/* Section navigation is a horizontally scrollable rail on narrow screens. */}
       <div className="dashboard-tabs-wrap">
-      <div
-        className="dashboard-tabs"
+      <nav
+        className="dashboard-tabs dashboard-section-nav"
+        aria-label="Dashboard sections"
         style={{
           display: "flex",
           gap: "4px",
@@ -642,7 +702,7 @@ export default function Dashboard({ experience = "classic" }) {
             {t.label}
           </button>
         ))}
-      </div>
+      </nav>
       </div>
 
       {appMode && (
@@ -866,11 +926,12 @@ export default function Dashboard({ experience = "classic" }) {
             <button
               key={tab.key}
               type="button"
-              className={view === tab.key ? "is-active" : undefined}
+              className={`app-bottom-nav-button${view === tab.key ? " is-active" : ""}`}
               aria-current={view === tab.key ? "page" : undefined}
               onClick={() => selectView(tab.key)}
             >
-              {tab.label}
+              {dashboardSectionIcon(tab.key)}
+              <span className="app-bottom-nav-label">{tab.label}</span>
             </button>
           ))}
         </nav>

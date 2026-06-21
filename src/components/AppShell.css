@@ -115,6 +115,15 @@
   display: none;
 }
 
+.app-promise-filter-return {
+  display: none;
+}
+
+.app-promise-filters:focus {
+  outline: 2px solid #1a73e8;
+  outline-offset: 3px;
+}
+
 .app-promise-tracker {
   border-color: var(--app-line) !important;
   background: transparent !important;
@@ -325,6 +334,11 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes app-bottom-nav-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (max-width: 960px) {
   .app-promise-hero,
   .app-promise-filters {
@@ -362,9 +376,15 @@
     background: rgba(255, 255, 255, 0.96);
     box-shadow: 0 -8px 24px rgba(32, 52, 44, 0.1);
     backdrop-filter: blur(14px);
+    animation: app-bottom-nav-in 140ms ease-out;
   }
 
   .app-bottom-nav button {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+    justify-content: center;
     min-width: 0;
     min-height: 48px;
     padding: 6px 2px;
@@ -377,6 +397,17 @@
     font-weight: 800;
     line-height: 1.1;
     cursor: pointer;
+  }
+
+  .app-bottom-nav-icon {
+    flex: 0 0 auto;
+  }
+
+  .app-bottom-nav-label {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .app-bottom-nav button[aria-current="page"] {
@@ -398,6 +429,43 @@
     padding: 12px;
   }
 
+  .app-promise-filter-return {
+    position: fixed;
+    right: 12px;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    z-index: 90;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid #b8c6bd;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(32, 52, 44, 0.18);
+  }
+
+  .app-promise-filter-return button {
+    min-height: 44px;
+    border: 0;
+    color: var(--app-accent);
+    background: transparent;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .app-promise-filter-return-button {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    padding: 8px 12px;
+  }
+
+  .app-promise-filter-return-clear {
+    padding: 8px 12px;
+    border-left: 1px solid #d4ddd7 !important;
+    background: var(--app-accent-soft) !important;
+  }
+
   .app-promise-search {
     grid-column: auto;
   }
@@ -413,7 +481,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .app-shell-view {
+  .app-shell-view,
+  .app-bottom-nav {
     animation: none;
   }
 
