@@ -563,6 +563,11 @@ export default function DimensionCard({
   const previousFocusRef = useRef(null);
   const wasExpandedRef = useRef(false);
   const anchorTargetRef = useRef(anchorNavigation?.target || null);
+  const closeCallbackRef = useRef(onClick);
+
+  useLayoutEffect(() => {
+    closeCallbackRef.current = onClick;
+  }, [onClick]);
 
   useEffect(() => {
     openSectionsRef.current = openSections;
@@ -824,6 +829,11 @@ export default function DimensionCard({
   const getSectionKeysForTarget = useCallback((target) => (
     sectionKeysForTargetFromDefinitions(target, sectionDefinitions)
   ), [sectionDefinitions]);
+  const getSectionKeysForTargetRef = useRef(getSectionKeysForTarget);
+
+  useLayoutEffect(() => {
+    getSectionKeysForTargetRef.current = getSectionKeysForTarget;
+  }, [getSectionKeysForTarget]);
 
   const toggleSection = (section) => {
     setOpenSections((current) => ({
@@ -1049,13 +1059,15 @@ export default function DimensionCard({
 
   useEffect(() => {
     if (!isExpanded) return undefined;
-    if (!isMobileDialog) return undefined;
+    if (!isMobileDialog && !isFocusedDesktop) return undefined;
 
-    previousFocusRef.current = document.activeElement;
+    if (isMobileDialog) previousFocusRef.current = document.activeElement;
+    const drawer = drawerRef.current;
+    const headerButton = headerButtonRef.current;
     const anchorTarget = anchorTargetRef.current;
     const hasPendingSectionTarget = anchorTarget
       && targetBelongsToDimension(anchorTarget, dim.id)
-      && getSectionKeysForTarget(anchorTarget).length > 0;
+      && getSectionKeysForTargetRef.current(anchorTarget).length > 0;
     let frame = null;
 
     if (!hasPendingSectionTarget) {
@@ -1065,23 +1077,79 @@ export default function DimensionCard({
     }
 
     const handleKeyDown = (event) => {
-      if (event.key !== "Escape") return;
-      event.preventDefault();
-      onClick?.(event);
+      const isEscape = event.key === "Escape";
+      if (event.key !== "Escape" && event.key !== "Tab") return;
+
+      if (isEscape) {
+        event.preventDefault();
+        closeCallbackRef.current?.(event);
+        return;
+      }
+
+      if (!isMobileDialog) return;
+
+      const currentDrawer = drawerRef.current;
+      if (!currentDrawer) return;
+
+      const tabbableElements = Array.from(currentDrawer.querySelectorAll(
+        'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), summary, [tabindex]'
+      )).filter((element) => {
+        if ("disabled" in element && element.disabled) return false;
+        if (element.tabIndex < 0 || element.getClientRects().length === 0) return false;
+        if (element.closest('[hidden], [aria-hidden="true"], [inert]')) return false;
+        const style = window.getComputedStyle(element);
+        return style.display !== "none"
+          && style.visibility !== "hidden"
+          && style.visibility !== "collapse";
+      });
+
+      if (tabbableElements.length === 0) {
+        event.preventDefault();
+        currentDrawer.focus({ preventScroll: true });
+        return;
+      }
+
+      const activeIndex = tabbableElements.indexOf(document.activeElement);
+      if (activeIndex === -1) {
+        event.preventDefault();
+        const target = event.shiftKey
+          ? tabbableElements[tabbableElements.length - 1]
+          : tabbableElements[0];
+        target.focus({ preventScroll: true });
+        return;
+      }
+
+      const shouldWrapBackward = event.shiftKey && activeIndex === 0;
+      const shouldWrapForward = !event.shiftKey && activeIndex === tabbableElements.length - 1;
+      if (shouldWrapBackward || shouldWrapForward) {
+        event.preventDefault();
+        const target = shouldWrapBackward
+          ? tabbableElements[tabbableElements.length - 1]
+          : tabbableElements[0];
+        target.focus({ preventScroll: true });
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       if (frame) window.cancelAnimationFrame(frame);
       window.removeEventListener("keydown", handleKeyDown);
+      if (!isMobileDialog) return;
+
       const previousFocus = previousFocusRef.current;
-      if (previousFocus && typeof previousFocus.focus === "function") {
+      const canRestorePreviousFocus = previousFocus
+        && previousFocus.isConnected
+        && previousFocus !== document.body
+        && previousFocus !== document.documentElement
+        && !drawer?.contains(previousFocus)
+        && typeof previousFocus.focus === "function";
+      if (canRestorePreviousFocus) {
         previousFocus.focus({ preventScroll: true });
       } else {
-        headerButtonRef.current?.focus({ preventScroll: true });
+        headerButton?.focus({ preventScroll: true });
       }
     };
-  }, [dim.id, getSectionKeysForTarget, isExpanded, isMobileDialog, onClick]);
+  }, [dim.id, isExpanded, isFocusedDesktop, isMobileDialog]);
 
   useLayoutEffect(() => {
     if (!isExpanded) return undefined;
@@ -1310,6 +1378,7 @@ export default function DimensionCard({
     >
       {!isFocusedDesktop && (
         <button
+          id={`dim-${dim.id}-header`}
           ref={headerButtonRef}
           type="button"
           className="dim-card-header-button"

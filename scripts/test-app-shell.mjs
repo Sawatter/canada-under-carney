@@ -24,6 +24,10 @@ const publicJsPath = [
   sources.promises,
   sources.dimension,
 ].join("\n");
+const experienceResolver = sources.app.slice(
+  sources.app.indexOf("function getRequestedExperience"),
+  sources.app.indexOf("export default function App"),
+);
 const failures = [];
 let assertionCount = 0;
 
@@ -38,6 +42,12 @@ function imports(source, moduleName) {
 
 function renders(source, componentName) {
   return new RegExp(`<${componentName}\\b`).test(source);
+}
+
+function sourceAround(source, marker, before = 0, after = 2000) {
+  const markerIndex = source.indexOf(marker);
+  if (markerIndex === -1) return "";
+  return source.slice(Math.max(0, markerIndex - before), markerIndex + marker.length + after);
 }
 
 check(
@@ -57,7 +67,13 @@ check(
 check(
   /get\(["']experience["']\)\s*===\s*["']classic["']/.test(sources.app) &&
     renders(sources.app, "Dashboard"),
-  "App.jsx must retain an explicit ?experience=classic route and classic fallback.",
+  "App.jsx must retain ?experience=classic as an explicit classic rollback.",
+);
+check(
+  /typeof\s+window\s*===\s*["']undefined["']\)\s*return\s+["']app["']/.test(
+    experienceResolver,
+  ) && /return\s+["']app["'];?\s*}$/.test(experienceResolver.trim()),
+  "App.jsx must default the bare root to the app shell.",
 );
 
 check(
@@ -124,16 +140,71 @@ check(
   "Filtered promise-result counts must be announced through a polite live region.",
 );
 
+// These are coarse, non-behavioral source contracts. They catch removed focus
+// plumbing, but only the keyboard walkthrough can assess focus behavior.
+const dimensionFocusContract = sourceAround(
+  sources.dimension,
+  "const handleKeyDown",
+  1800,
+  4200,
+);
+const tabbableQueryContract = sourceAround(
+  dimensionFocusContract,
+  "querySelectorAll",
+  0,
+  500,
+);
+const desktopReturnContract = sourceAround(
+  sources.dashboard,
+  "const target = pendingDesktopReturnRef.current",
+  100,
+  2400,
+);
+const gridScrollIndex = desktopReturnContract.indexOf("scrollIntoView");
+const savedScrollIndex = desktopReturnContract.indexOf("window.scrollTo");
+const headerLookupIndex = desktopReturnContract.search(
+  /getElementById\(\s*`dim-\$\{[^}]+\}-header`\s*\)/,
+);
+const desktopFocusIndex = headerLookupIndex === -1
+  ? -1
+  : desktopReturnContract.indexOf(".focus", headerLookupIndex);
+
 check(
   sources.dimension.includes("previousFocusRef") &&
     sources.dimension.includes("drawerRef.current?.focus") &&
     /previousFocus\.focus\s*\(/.test(sources.dimension),
-  "Dimension detail must move focus into the drawer and restore prior focus on close.",
+  "Non-behavioral source contract: dimension detail must retain focus-in and mobile focus-restore plumbing.",
 );
 check(
   /event\.key\s*!==\s*["']Escape["']/.test(sources.dimension) &&
     /role=\{isMobileDialog\s*\?\s*["']dialog["']/.test(sources.dimension),
-  "Mobile dimension detail must retain dialog semantics and Escape close behavior.",
+  "Non-behavioral source contract: dimension detail must retain dialog and Escape-close plumbing.",
+);
+check(
+  dimensionFocusContract.includes("isFocusedDesktop") &&
+    dimensionFocusContract.includes("isMobileDialog") &&
+    dimensionFocusContract.includes("drawerRef.current?.focus"),
+  "Non-behavioral source contract: the dimension focus effect must cover focused desktop detail.",
+);
+check(
+  /event\.key\s*(?:===|!==)\s*["']Tab["']/.test(dimensionFocusContract) &&
+    dimensionFocusContract.includes("isMobileDialog") &&
+    tabbableQueryContract.includes("summary"),
+  "Non-behavioral source contract: the mobile-only Tab-trap branch must query native summary controls.",
+);
+check(
+  /id=\{`dim-\$\{dim\.id\}-header`\}/.test(sources.dimension),
+  "Non-behavioral source contract: grid card headers must expose a stable dimension-specific id.",
+);
+check(
+  (sources.dashboard.match(/pendingDesktopFocusRef\.current\s*=/g) || []).length >= 2 &&
+    /pendingDesktopFocusRef\.current\s*=\s*(?!null\b)[A-Za-z_$]/.test(sources.dashboard) &&
+    gridScrollIndex !== -1 &&
+    savedScrollIndex !== -1 &&
+    desktopFocusIndex > gridScrollIndex &&
+    desktopFocusIndex > savedScrollIndex &&
+    !desktopReturnContract.slice(gridScrollIndex, desktopFocusIndex).includes("return undefined"),
+  "Non-behavioral source contract: Dashboard must restore pending desktop focus after either scroll path.",
 );
 check(
   sources.dashboard.includes('href="#main-content"') &&

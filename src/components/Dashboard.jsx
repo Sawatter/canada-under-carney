@@ -46,6 +46,7 @@ export default function Dashboard({ experience = "classic" }) {
   const mobileModalEntryRef = useRef(false);
   const desktopReturnScrollRef = useRef(null);
   const pendingDesktopReturnRef = useRef(null);
+  const pendingDesktopFocusRef = useRef(null);
   const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
   const expandedDimension = dimensions.find((d) => d.id === expanded) || null;
@@ -100,7 +101,7 @@ export default function Dashboard({ experience = "classic" }) {
     });
   }, [pushMobileModalEntry]);
 
-  const closeDimension = useCallback(() => {
+  const closeDimension = useCallback((dimensionId) => {
     if (typeof window !== "undefined" && isMobileViewport() && mobileModalEntryRef.current) {
       mobileModalEntryRef.current = false;
       setExpanded(null);
@@ -109,6 +110,7 @@ export default function Dashboard({ experience = "classic" }) {
     }
     if (typeof window !== "undefined" && !isMobileViewport()) {
       pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
+      pendingDesktopFocusRef.current = dimensionId;
     }
     mobileModalEntryRef.current = false;
     setExpanded(null);
@@ -145,7 +147,7 @@ export default function Dashboard({ experience = "classic" }) {
 
   const toggleDimension = useCallback((dimensionId) => {
     if (expandedRef.current === dimensionId) {
-      closeDimension();
+      closeDimension(dimensionId);
       return;
     }
     openDimension(dimensionId);
@@ -321,9 +323,13 @@ export default function Dashboard({ experience = "classic" }) {
         behavior: "auto",
         block: "start",
       });
-      return undefined;
+    } else {
+      window.scrollTo({ top: target, behavior: "auto" });
     }
-    window.scrollTo({ top: target, behavior: "auto" });
+
+    const dimensionId = pendingDesktopFocusRef.current;
+    pendingDesktopFocusRef.current = null;
+    document.getElementById(`dim-${dimensionId}-header`)?.focus({ preventScroll: true });
     return undefined;
   }, [expanded, isMobile, view]);
 

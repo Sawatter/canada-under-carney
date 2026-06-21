@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-06-20",
+    "version": "5.119",
+    "summary": "Made the app shell the default dashboard after closing the desktop and mobile focus blockers.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "App shell at the root",
+        "body": "The root now opens the app shell. Add ?experience=classic to use the previous dashboard during this release if a rollback is needed."
+      },
+      {
+        "type": "product",
+        "headline": "Keyboard focus blockers closed",
+        "body": "Desktop detail now receives keyboard focus and closes with Escape. Closing returns focus to the card that opened it. On mobile, Tab and Shift+Tab stay inside the open drawer, with Escape and focus return preserved."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores and evidence unchanged",
+        "body": "This release changes the default presentation and focus behavior only. Grades, scoring rules, policy data, approval data, promise statuses, thresholds, formulas, weights, and the 11-plus-1 dimension model are unchanged."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-20",
     "version": "5.118",
     "summary": "Added an optional public app-shell beta while keeping the classic dashboard as the default.",
     "items": [
