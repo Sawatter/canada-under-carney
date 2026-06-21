@@ -110,16 +110,16 @@ Root cutover stops if:
 - A P0 or P1 issue remains open.
 - The deployed version or commit does not match the reviewed release.
 
-## Carried accessibility gaps (gate the root cutover)
+## Carried accessibility gaps (closed on the cutover branch)
 
 The 2026-06-20 Claude adversarial review (four axes: evidence parity, classic regression, frozen surface, accessibility) found no P0 and no P1 in the scoped beta diff. One net-new app-shell P1 was fixed in the same pass: the Promises status-count pills now carry `role="group"` so their group label is exposed.
 
-Two P1 accessibility gaps remain. Both are pre-existing production `DimensionCard` behavior (that file is unchanged from origin/main), now surfaced by the app shell. They do not block the beta, but they must close before the root cutover, because cutover makes the app shell the default for every reader:
+The v5.118 beta carried two P1 accessibility gaps from the production `DimensionCard`. The cutover branch closes both without changing the root route. They remain root-cutover gates until the versioned release is merged and its behavioral checks pass:
 
-- Desktop focused-detail view: no Escape-to-close and no focus move on open. Fix: on open, move focus to the drawer or its Close button, and add an Escape handler (extend the existing mobile-dialog handling to the desktop focused-detail path).
-- Mobile detail modal: does not trap focus or mark the background `inert` while open (Escape works and focus is managed, so it is not a keyboard trap). Fix: add a focus trap, or set the background `inert` while the dialog is open.
+- Desktop focused-detail view: the branch moves focus into detail, closes on Escape, and returns focus to the originating card header.
+- Mobile detail modal: the branch contains Tab and Shift+Tab within the drawer while preserving Escape, deep-link focus, and return focus.
 
-Both are production `DimensionCard` work, so they ship as a separate scoped change with its own classic-mode verification, not inside this beta.
+Both fixes change the shared production `DimensionCard`, so the branch includes classic and app-mode verification. They are held for the versioned root-cutover release rather than a standalone merge.
 
 ## Review Sequence
 
@@ -143,3 +143,10 @@ Do not change these without explicit approval in the current turn:
 - dimension count
 - current grades
 - promise statuses
+
+## June 20 Perplexity/Codex Triage Backlog
+
+- P1-C icon treatment is P3 and is not a root-cutover blocker.
+- Deferred: P2-A tab-rail navigation semantics, P2-C mobile filter-pill clearing, P3-A bottom-nav fade, the viewport-flip body-lock/history bug, and behavioral focus automation. The repository has no browser test harness for the last item.
+- P2-B was not added because it would create an orphan tabpanel.
+- P3-B was refuted as a desktop-scroll claim. Only the 641-760px residual remains. P3-C was classified as a non-issue, and the reported contrast issue was refuted: muted-on-white is 5.74:1 and white-on-accent is 9.40:1.
