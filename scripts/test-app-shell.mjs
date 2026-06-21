@@ -24,6 +24,10 @@ const publicJsPath = [
   sources.promises,
   sources.dimension,
 ].join("\n");
+const experienceResolver = sources.app.slice(
+  sources.app.indexOf("function getRequestedExperience"),
+  sources.app.indexOf("export default function App"),
+);
 const failures = [];
 let assertionCount = 0;
 
@@ -63,7 +67,13 @@ check(
 check(
   /get\(["']experience["']\)\s*===\s*["']classic["']/.test(sources.app) &&
     renders(sources.app, "Dashboard"),
-  "App.jsx must retain an explicit ?experience=classic route and classic fallback.",
+  "App.jsx must retain ?experience=classic as an explicit classic rollback.",
+);
+check(
+  /typeof\s+window\s*===\s*["']undefined["']\)\s*return\s+["']app["']/.test(
+    experienceResolver,
+  ) && /return\s+["']app["'];?\s*}$/.test(experienceResolver.trim()),
+  "App.jsx must default the bare root to the app shell.",
 );
 
 check(
