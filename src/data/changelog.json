@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-06-21",
+    "version": "5.121",
+    "summary": "Reworked the opened-dimension view so the evidence that drives each grade leads, with the long-form reasoning moved into a check-this-grade layer.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Evidence leads the dimension view",
+        "body": "Opening a dimension now shows the grade once, then an evidence snapshot of headline metrics, sources, and promises tracked, with the verdict and full reasoning a tap below."
+      },
+      {
+        "type": "product",
+        "headline": "Reasoning moved to a check-this-grade layer",
+        "body": "Why this grade, the scoring rule and thresholds, triggers, perspectives, and scope notes are now disclosure sections you open to check the read or go deeper, instead of a wall of text on open."
+      },
+      {
+        "type": "product",
+        "headline": "Headline metrics are editor-selected",
+        "body": "Each graded dimension marks a few headline metrics for the evidence snapshot. These are a display choice, not a weighted input. The full metric list stays one tap away and unchanged."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores and data unchanged",
+        "body": "Presentation and navigation only. No grade, scoring rule, policy data, promise status, threshold, formula, weight, or dimension model changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-21",
     "version": "5.120",
     "summary": "Polished post-cutover navigation and fixed state handling when the viewport changes.",
     "items": [

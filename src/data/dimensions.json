@@ -142,6 +142,7 @@
     "metrics": [
       {
         "label": "NATO spending (2025e)",
+        "lead": true,
         "value": "2.01% of GDP",
         "source": "nato",
         "sourceNote": "NATO Defence Expenditures of NATO Countries (2014-2025), Table 3 (p.8) and Table 4 (p.9): Canada 2025e = 2.01% of GDP. Verified from Tier 1 PDF: nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf",
@@ -155,6 +156,7 @@
       },
       {
         "label": "US export share (2025 annual)",
+        "lead": true,
         "value": "71.7%",
         "source": "global-affairs-canada",
         "sourceId": "12-10-0176-01",
@@ -169,6 +171,7 @@
       },
       {
         "label": "Non-US exports (2025 annual)",
+        "lead": true,
         "value": "+17.2%",
         "source": "global-affairs-canada",
         "sourceId": "12-10-0176-01",
@@ -183,6 +186,7 @@
       },
       {
         "label": "EU exports growth (2025 YTD)",
+        "lead": true,
         "value": "+23.4%",
         "source": "global-affairs-canada",
         "sourceNote": "Global Affairs Canada Monthly Trade Report, December 2025: EU goods exports +23.4% year-to-date. The March 2026 monthly report shows EU goods exports +19.9% year-to-date, still positive but below the 2025 full-year pace.",
@@ -492,6 +496,7 @@
     "metrics": [
       {
         "label": "Projects in MPO cohort",
+        "lead": true,
         "value": "15 across 3 tranches",
         "source": "manual",
         "sourceNote": "The official Major Projects Office project page, date modified 2026-05-21, lists 15 referred projects. The dashboard counts projects in that official list and does not count separately listed transformative strategies in the project denominator. Full list with stage tracking lives in projectCohort.projects.",
@@ -499,6 +504,7 @@
       },
       {
         "label": "Projects currently above designated status",
+        "lead": true,
         "value": "4 of 15 (~27%)",
         "source": "manual",
         "sourceNote": "As of 2026-05-13, 4 projects carry a stage above designated in the live cohort: Contrecœur Terminal (under_construction), Darlington New Nuclear (approved), North Coast Transmission Line (approved), and Mackenzie Valley Highway (permitted). This is the stage distribution, not the threshold metric for advancement.",
@@ -506,6 +512,7 @@
       },
       {
         "label": "Projects with documented post-designation advancement",
+        "lead": true,
         "value": "2 of 15 (~13%)",
         "source": "manual",
         "sourceNote": "Only projects with a later-dated stage record after referral count toward the cohort-advancement threshold. As of 2026-05-13 that includes Contrecœur Terminal (referred Sept 11, 2025; under_construction Apr 9, 2026) and Darlington New Nuclear (referred Sept 11, 2025; approved Dec 1, 2025). North Coast Transmission Line and Mackenzie Valley Highway carry promoted-stage labels in same-day tranche-announcement sources, but not a later recorded transition, so they are not counted yet. This falls well below the 30% threshold required for a B grade.",
@@ -513,6 +520,7 @@
       },
       {
         "label": "Projects under construction",
+        "lead": true,
         "value": "1 (Contrecœur Terminal)",
         "source": "pmo",
         "sourceNote": "Contrecœur Container Terminal Project broke ground April 9, 2026 — first MPO-cohort project to enter under_construction stage. Phase 1 in-water works began October 2025. Source: PMO groundbreaking announcement (see projectCohort entry).",
@@ -992,6 +1000,7 @@
     "metrics": [
       {
         "label": "Deficit (FY 2025-26, latest reads)",
+        "lead": true,
         "value": "$55.3B prelim.; PBO projects $72.0B",
         "source": "finance-canada",
         "sourceNote": "Finance Canada's March 2026 Fiscal Monitor posts a preliminary $55.3B budgetary deficit for April 2025 to March 2026 before post-March accruals and other final adjustments. PBO's June 2026 Economic and Fiscal Outlook projects the FY 2025-26 deficit at $72.0B, or 2.2% of GDP, after accounting for Budget 2025 and Spring Economic Update 2026 measures. This refresh records the split between the latest actual/preliminary fiscal monitor and the latest PBO projection; no grade changes are made here.",
@@ -1009,6 +1018,7 @@
       },
       {
         "label": "Deficit-to-GDP path",
+        "lead": true,
         "value": "2.2%; deficits avg 1.8% over projection",
         "source": "pbo",
         "sourceNote": "PBO June 2026 EFO projects the budgetary deficit rising to $72.0B, or 2.2% of GDP, in 2025-26. Over the projection period, budgetary deficits average 1.8% of GDP and remain persistent. The latest projection is weaker than the earlier SEU anchor note, but still sits inside the dashboard's C-band deficit range.",
@@ -1022,6 +1032,7 @@
       },
       {
         "label": "Federal debt / debt-to-GDP",
+        "lead": true,
         "value": "$1.322T prelim.; 41.3% -> 42.5%",
         "source": "finance-canada",
         "sourceNote": "Finance Canada's March 2026 Fiscal Monitor reports federal debt, or accumulated deficit, of $1.322T for FY 2025-26. PBO's June 2026 EFO projects the federal debt-to-GDP ratio rising from 41.3% in 2025-26 to 42.5% in 2030-31, while describing the ratio as broadly flat over the medium term.",
@@ -1039,6 +1050,7 @@
       },
       {
         "label": "PBO fiscal-anchor assessment",
+        "lead": true,
         "value": "Broadly in line, higher-risk stress read",
         "source": "pbo",
         "sourceNote": "The earlier PBO Spring Economic Update fiscal-anchor note said the government was on track to respect both fiscal anchors, with caveats. PBO's June 2026 EFO says the baseline outlook is broadly in line with the SEU but projects weaker growth and higher deficits, with stress testing showing material uncertainty. This is flagged for editor review rather than converted into a grade move.",
@@ -1371,6 +1383,7 @@
       {
         "group": "Inherited baseline / context only",
         "label": "GDP per capita change (2020-24 baseline)",
+        "lead": true,
         "value": "-2.0%",
         "source": "statcan",
         "sourceId": "36-10-0104-01",
@@ -1379,6 +1392,7 @@
       {
         "group": "Inherited baseline / context only",
         "label": "Real GDP (Q1 2026)",
+        "lead": true,
         "value": "Flat q/q; -0.1% annualized (technical recession, contested)",
         "source": "statcan",
         "sourceRefs": [
@@ -1401,6 +1415,7 @@
       {
         "group": "Response metrics",
         "label": "Business investment (Q1 2026)",
+        "lead": true,
         "value": "-3% annualized (5th straight quarterly decline)",
         "source": "statcan",
         "sourceRefs": [
@@ -1438,6 +1453,7 @@
       {
         "group": "Policy breadth checks",
         "label": "Tax competitiveness on new business investment",
+        "lead": true,
         "value": "13.2% METR with super-deduction",
         "source": "finance-canada",
         "sourceNote": "Budget 2025 states that with the productivity super-deduction, Canada's marginal effective tax rate on new business investment would fall from 15.6% to 13.2%, remaining the lowest in the G7.",
@@ -1729,6 +1745,7 @@
     "metrics": [
       {
         "label": "Food CPI (stores, YoY, Apr 2026)",
+        "lead": true,
         "value": "3.8%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
@@ -1743,6 +1760,7 @@
       },
       {
         "label": "Family of 4 food cost (2026)",
+        "lead": true,
         "value": "$17,572/yr",
         "source": "dalhousie",
         "sourceRefs": [
@@ -1755,6 +1773,7 @@
       },
       {
         "label": "Grocery benefit",
+        "lead": true,
         "value": "~$307/household (incremental)",
         "source": "pbo",
         "sourceRefs": [
@@ -1772,6 +1791,7 @@
       },
       {
         "label": "Food insecure Canadians",
+        "lead": true,
         "value": "9.8M",
         "source": "proof",
         "sourceRefs": [
@@ -1986,6 +2006,7 @@
     "metrics": [
       {
         "label": "Consumer carbon tax",
+        "lead": true,
         "value": "Eliminated Apr 1, 2025",
         "source": "finance-canada",
         "sourceNote": "Finance Canada: fuel charge rate set to zero effective April 1, 2025. Source: canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
@@ -1993,6 +2014,7 @@
       },
       {
         "label": "Industrial OBPS (headline schedule)",
+        "lead": true,
         "value": "$95/tonne (2026); $115 by 2030",
         "source": "eccc",
         "sourceRefs": [
@@ -2010,6 +2032,7 @@
       },
       {
         "label": "Industrial OBPS (effective price, marginal)",
+        "lead": true,
         "value": "~$20/tonne",
         "source": "cci",
         "sourceRefs": [
@@ -2023,6 +2046,7 @@
       },
       {
         "label": "Industrial OBPS (avg cost on total emissions)",
+        "lead": true,
         "value": "~$10/tonne or less",
         "source": "cci",
         "sourceRefs": [
@@ -2278,6 +2302,7 @@
     "metrics": [
       {
         "label": "Emissions cap",
+        "lead": true,
         "value": "Scrapped",
         "source": "eccc",
         "sourceRefs": [
@@ -2315,6 +2340,7 @@
       },
       {
         "label": "EV mandate",
+        "lead": true,
         "value": "Scrapped / retooled",
         "source": "eccc",
         "sourceRefs": [
@@ -2328,6 +2354,7 @@
       },
       {
         "label": "ECCC CER reductions (2026-27 to 2028-29)",
+        "lead": true,
         "value": "$762.8M; ~837 FTE by 2028-29",
         "source": "eccc",
         "sourceRefs": [
@@ -2353,6 +2380,7 @@
       },
       {
         "label": "Low-carbon electricity",
+        "lead": true,
         "value": "79%",
         "source": "cer",
         "automatable": false
@@ -2611,6 +2639,7 @@
     "metrics": [
       {
         "label": "PR target (2026-2028)",
+        "lead": true,
         "value": "380,000",
         "source": "ircc",
         "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review — all citing 380,000.",
@@ -2637,6 +2666,7 @@
       },
       {
         "label": "Temp arrivals change (Jan-Sep 2025 vs 2024)",
+        "lead": true,
         "value": "-53%",
         "source": "ircc",
         "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal pages cover work permits and study permits. Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 — the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
@@ -2644,6 +2674,7 @@
       },
       {
         "label": "Student permits change (Jan-Sep 2025 vs 2024)",
+        "lead": true,
         "value": "-60%",
         "source": "ircc",
         "sourceNote": "IRCC data via media reporting (Dec 2025): 60% decline in new international student arrivals, Jan-Sep 2025 vs same period 2024 (150,220 fewer students). IRCC open data portal provides the study-permit series. Note: IRCC open data shows 76% decline for Jan-Jun period specifically; the 60% figure covers the longer Jan-Sep window.",
@@ -2651,6 +2682,7 @@
       },
       {
         "label": "Population change (2025)",
+        "lead": true,
         "value": "-102,436",
         "source": "statcan",
         "sourceId": "17-10-0009-01",
@@ -2885,6 +2917,7 @@
     "metrics": [
       {
         "label": "Housing starts (2025)",
+        "lead": true,
         "value": "259,028",
         "source": "cmhc",
         "sourceId": "34-10-0158-01",
@@ -2892,6 +2925,7 @@
       },
       {
         "label": "Housing starts (Apr 2026 trend / SAAR)",
+        "lead": true,
         "value": "256,777 trend; 279,317 monthly SAAR",
         "source": "cmhc",
         "sourceRefs": [
@@ -2913,6 +2947,7 @@
       },
       {
         "label": "CMHC annual need",
+        "lead": true,
         "value": "430,000-480,000/yr",
         "source": "cmhc",
         "sourceNote": "CMHC 'Canada's Housing Supply Shortages' series: 3.45 million additional units needed. Annual construction need: 430,000-480,000 units by 2035 to restore affordability. See cmhc-schl.gc.ca housing supply shortages reports.",
@@ -2920,6 +2955,7 @@
       },
       {
         "label": "BCH units (announced, not started, 6 federal sites)",
+        "lead": true,
         "value": "4,000",
         "source": "housing-infrastructure-canada",
         "sourceNote": "Housing Infrastructure Canada: 'Build Canada Homes aims to build 4,000 factory-built units in six select Canadian cities' (Dartmouth, Longueuil, Ottawa, Toronto, Winnipeg, Edmonton). Source: canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html. Construction expected to begin 2026. PBO independently projects BCH delivers about 26,000 units total over 5 years (RP-2526-020-S).",
@@ -3190,6 +3226,7 @@
     "metrics": [
       {
         "label": "Ethics Commissioner review",
+        "lead": true,
         "value": "Not published",
         "source": "manual",
         "automatable": false,
@@ -3203,6 +3240,7 @@
       },
       {
         "label": "Blind trust status",
+        "lead": true,
         "value": "Established",
         "source": "manual",
         "automatable": false,
@@ -3210,6 +3248,7 @@
       },
       {
         "label": "Agreed measure filing",
+        "lead": true,
         "value": "Filed",
         "source": "manual",
         "automatable": false,
@@ -3217,6 +3256,7 @@
       },
       {
         "label": "Conflict screening scope",
+        "lead": true,
         "value": "Declared in Annex A",
         "source": "manual",
         "automatable": false,
@@ -3516,6 +3556,7 @@
     "metrics": [
       {
         "label": "Flagship files delivering",
+        "lead": true,
         "value": "2 of 5 (defence, immigration)",
         "source": "editorial",
         "sourceNote": "Editorial assessment per Flagship-Delivery-Rules.md Combination Rule. Status derived from home dimension evidence, not an independent metric.",
@@ -3523,6 +3564,7 @@
       },
       {
         "label": "Flagship files stalled",
+        "lead": true,
         "value": "3 of 5 (housing, climate, projects)",
         "source": "editorial",
         "sourceNote": "Editorial assessment per Flagship-Delivery-Rules.md Combination Rule. Status derived from home dimension evidence, not an independent metric.",
@@ -3531,11 +3573,13 @@
       {
         "label": "Bills passed",
         "value": "11 of 26",
+        "lead": true,
         "source": "legisinfo",
         "automatable": false
       },
       {
         "label": "Federal-provincial coordination",
+        "lead": true,
         "value": "Weak (Policy Options)",
         "source": "policy-options",
         "sourceNote": "Policy Options / IRPP analysis of competitive federalism failures. Source URL in dimension sources array. Editorial characterization, not a quantitative metric.",

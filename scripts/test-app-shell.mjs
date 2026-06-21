@@ -257,6 +257,30 @@ const modalEntryCleanupContract = sourceAround(
   0,
   2600,
 );
+const dimensionToViewContract = sourceAround(
+  sources.dashboard,
+  "const routeDimensionToView = useCallback",
+  0,
+  2400,
+);
+const internalViewContract = sourceAround(
+  sources.dashboard,
+  'if (ref.type === "view")',
+  0,
+  500,
+).split('if (ref.type === "anchor")')[0];
+const viewFocusContract = sourceAround(
+  sources.dashboard,
+  "const target = pendingViewFocusRef.current",
+  200,
+  800,
+);
+const promiseViewRenderContract = sourceAround(
+  sources.dashboard,
+  'id={appMode || view === "promises" ? `view-${view}` : undefined}',
+  0,
+  7000,
+);
 check(
   bodyLockContract.includes('isMobile && expanded !== null ? "hidden" : ""') &&
     /},\s*\[expanded,\s*isMobile\]\);/.test(bodyLockContract) &&
@@ -264,6 +288,32 @@ check(
     /if\s*\(typeof window !== ["']undefined["'] && ownsModalEntry\)/.test(modalEntryCleanupContract) &&
     /if\s*\(mobileModalEntryRef\.current\)/.test(modalEntryCleanupContract),
   "Non-behavioral source contract: body lock must react to isMobile, while owned modal-entry cleanup must not depend on the current viewport.",
+);
+check(
+  dimensionToViewContract.includes(
+    "const owned = mobileModalEntryRef.current || window.history.state?.dimModal",
+  ) &&
+    dimensionToViewContract.includes("delete nextState.dimModal") &&
+    /if\s*\(owned\)\s*\{[\s\S]*?history\.replaceState[\s\S]*?\}\s*else\s*\{[\s\S]*?history\.pushState/.test(
+      dimensionToViewContract,
+    ),
+  "Non-behavioral source contract: tracker view routing must replace owned modal history and push non-owned app history, independent of viewport.",
+);
+check(
+  internalViewContract.includes("routeDimensionToView(ref.target)") &&
+    !internalViewContract.includes("closeDimensionForInternalNavigation") &&
+    !internalViewContract.includes("setView(ref.target)") &&
+    !dimensionToViewContract.includes("history.back"),
+  "Non-behavioral source contract: internal view routing must use the scoped transition without a history.back/setView race.",
+);
+check(
+  dimensionToViewContract.includes("requestAnchorNavigation(destination)") &&
+    viewFocusContract.includes("document.getElementById(target)") &&
+    viewFocusContract.includes("focus({ preventScroll: true })") &&
+    promiseViewRenderContract.includes('tabIndex={view === "promises" ? -1 : undefined}') &&
+    promiseViewRenderContract.includes('style={view === "promises" ? { scrollMarginTop: "16px" } : undefined}') &&
+    !promiseViewRenderContract.includes('id={appMode ? undefined : "view-promises"}'),
+  "Non-behavioral source contract: Promises must have one focusable destination that preserves anchor positioning.",
 );
 
 check(
