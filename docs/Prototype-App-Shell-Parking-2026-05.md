@@ -2,9 +2,9 @@
 
 **Originally parked:** 2026-05-13
 
-**Reconciled:** 2026-06-20
+**Reconciled:** 2026-06-21
 
-**Status:** v5.119 root cutover release. The app shell is the default, with `?experience=classic` retained as the rollback route for this release.
+**Status:** v5.119 and v5.120 are live at the root. The app shell stays under post-cutover observation through June 29, 2026, with `?experience=classic` retained as the rollback route. The classic-route decision is set for the observation exit.
 
 **Public source of record:** `https://sawatter.github.io/canada-under-carney/`
 
@@ -27,6 +27,8 @@ PR #11 completed the second prototype pass on June 20, 2026. It added:
 The v5.118 public-beta pass replaced reduced prototype evidence surfaces with production components where the dashboard already had the required behavior. The beta kept the production dimension detail, score derivations, Approval drilldown, Change Log, Methodology, and About content reachable.
 
 The v5.119 release makes that app shell the root experience. It also closes the carried desktop and mobile focus P1s in the shared production dimension detail. Grades, scoring rules, policy data, approval data, promise statuses, thresholds, formulas, weights, and the dimension model are unchanged.
+
+The v5.120 release shipped on 2026-06-21 with post-cutover polish for mobile navigation icons, an active-filter return affordance, bottom-navigation re-entry motion, and the viewport-flip body-lock and history fix. It retains semantic navigation with buttons and `aria-current` instead of adopting an APG tab widget. It keeps `?experience=classic` available while the post-cutover observation continues.
 
 ## Public Routes
 
@@ -53,8 +55,8 @@ npm run dev -- --host 127.0.0.1
 
 ## Locked Decisions
 
-- **Release sequence:** v5.118 public beta first, then the authorized v5.119 root cutover.
-- **Classic fallback:** keep `?experience=classic` through v5.119. Revisit removal only after the post-cutover observation period.
+- **Release sequence:** v5.118 public beta first, then the authorized v5.119 root cutover, then the v5.120 post-cutover polish on 2026-06-21.
+- **Classic fallback:** keep `?experience=classic` through the v5.119 observation period. Decide whether to retain or remove it only after the June 29 exit review.
 - **Source of truth:** production data, evidence components, and scoring logic remain authoritative.
 - **Navigation:** browser Back, Forward, direct reload, and section links must work in the app shell.
 - **Accessibility:** keyboard focus, focus return, current-state semantics, live result counts, Escape behavior, reduced motion, and mobile safe areas are release gates.
@@ -113,6 +115,18 @@ The v5.119 cutover was authorized after the beta and cutover gates closed with n
 - A P0 or P1 issue remains open.
 - The deployed version or commit does not match the reviewed release.
 
+## Post-Cutover Observation Period
+
+The live app shell (v5.119 cutover plus v5.120 polish) remains under observation through June 29, 2026. `?experience=classic` stays available as the rollback route until this period closes and the editor decides whether it remains.
+
+Exit requires:
+
+- Daily checks of the root and `?experience=classic` routes through June 29.
+- No open P0 or P1 issue.
+- No lost evidence route or source path.
+- The displayed version and deployed release match.
+- A final desktop and mobile matrix covering navigation, focus, responsive layout, history, and evidence access.
+
 ## Carried accessibility gaps (closed in v5.119)
 
 The 2026-06-20 Claude adversarial review (four axes: evidence parity, classic regression, frozen surface, accessibility) found no P0 and no P1 in the scoped beta diff. One net-new app-shell P1 was fixed in the same pass: the Promises status-count pills now carry `role="group"` so their group label is exposed.
@@ -132,6 +146,7 @@ Both fixes change the shared production `DimensionCard`, so the cutover review c
 4. Ran the Perplexity review against the same public URL and triaged the findings with Codex.
 5. Closed the app-shell status-count group-label P1 and the carried desktop and mobile focus P1s. No P0 or P1 issue remains open for cutover.
 6. Prepared v5.119 with the app shell at the root and `?experience=classic` retained as the one-release rollback route.
+7. Shipped v5.120 post-cutover polish on 2026-06-21. The classic-route decision is set for the post-cutover observation exit.
 
 ## Frozen During App-Shell Work
 
@@ -147,10 +162,10 @@ Do not change these without explicit approval in the current turn:
 - current grades
 - promise statuses
 
-## June 20 Perplexity/Codex Triage Backlog
+## June 21 Perplexity/Codex Triage Status
 
-- P1-C icon treatment is P3 and is not a root-cutover blocker.
-- Deferred: P2-A tab-rail navigation semantics, P2-C mobile filter-pill clearing, P3-A bottom-nav fade, the viewport-flip body-lock/history bug, and behavioral focus automation. The repository has no browser test harness for the last item.
-- P2-B was not added because it would create an orphan tabpanel.
+- Resolved in v5.120: mobile navigation icons, the active-filter return affordance, bottom-navigation re-entry motion, and the viewport-flip body-lock and history fix.
+- Decision closed: retain semantic navigation with buttons and `aria-current`. The APG tab-widget pattern was rejected because these views are navigation destinations, and adding tab semantics would create an orphan tabpanel model.
+- Deferred: behavioral browser automation. The repository still has no browser test harness for that work.
 - P3-B was refuted as a desktop-scroll claim. Only the 641-760px residual remains. P3-C was classified as a non-issue, and the reported contrast issue was refuted: muted-on-white is 5.74:1 and white-on-accent is 9.40:1.
 - A Comet keyboard smoke test flagged missing focus rings on the section-expand buttons (WCAG 2.4.7). Checked with a headed-browser keyboard pass: `.dim-section-button` inherits the global `:focus-visible` ring (2px solid #1a73e8) and shows it on keyboard focus, so this was a visual-method false negative, not a defect. No fix. The same smoke run's mobile-trap and focus-in failures were also false negatives (Comet ran at desktop width where the modal trap is off by design, and could not read `document.activeElement`); a Playwright pass with real viewport and native keys confirmed the focus behavior 6/6.

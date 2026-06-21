@@ -1,4 +1,4 @@
-import { useDeferredValue, useMemo, useState } from "react";
+import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import { STATUS_COLORS } from "../constants";
 
 const STATUS_ORDER = [
@@ -240,7 +240,23 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("status");
   const [groupBy, setGroupBy] = useState("status");
+  const [isFilterSectionVisible, setIsFilterSectionVisible] = useState(true);
+  const filterSectionRef = useRef(null);
   const deferredQuery = useDeferredValue(query);
+
+  useEffect(() => {
+    const filterSection = filterSectionRef.current;
+    if (!appMode || !filterSection || typeof IntersectionObserver === "undefined") {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsFilterSectionVisible(entry.isIntersecting);
+    });
+    observer.observe(filterSection);
+
+    return () => observer.disconnect();
+  }, [appMode]);
 
   const dimensionsWithPromises = useMemo(() => (
     ["All", ...new Set(allPromises.map((promise) => promise.dimension))]
@@ -309,7 +325,18 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
     setDimensionFilter("All");
     setQuery("");
   };
-  const hasActiveFilter = statusFilter !== "All" || dimensionFilter !== "All" || query;
+  const activeFilterCount = Number(statusFilter !== "All")
+    + Number(dimensionFilter !== "All")
+    + Number(Boolean(query));
+  const hasActiveFilter = activeFilterCount > 0;
+  const returnToFilters = () => {
+    const filterSection = filterSectionRef.current;
+    if (!filterSection) return;
+
+    const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+    filterSection.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    filterSection.focus({ preventScroll: true });
+  };
 
   return (
     <div className={appMode ? "app-promise-tracker" : undefined} style={{ background: "#fff", borderRadius: "12px", border: "1px solid #e0e0e0", overflow: appMode ? "visible" : "hidden" }}>
@@ -343,7 +370,12 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
             </div>
           </section>
 
-          <section className="app-promise-filters" aria-label="Promise filters">
+          <section
+            ref={filterSectionRef}
+            className="app-promise-filters"
+            aria-label="Promise filters"
+            tabIndex={-1}
+          >
             <label className="app-promise-search">
               Search
               <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Promise, evidence, or source" />
@@ -379,6 +411,27 @@ export default function PromiseTracker({ allPromises, promiseCounts, totalPromis
             </label>
             {hasActiveFilter && <button type="button" className="app-clear-filters" onClick={clearFilters}>Clear</button>}
           </section>
+          {hasActiveFilter && !isFilterSectionVisible && (
+            <div className="app-promise-filter-return" role="region" aria-label="Active promise filters">
+              <button
+                type="button"
+                className="app-promise-filter-return-button"
+                onClick={returnToFilters}
+              >
+                <span className="app-promise-filter-return-summary">
+                  {activeFilterCount} active {activeFilterCount === 1 ? "filter" : "filters"}
+                </span>
+                <span aria-hidden="true">View</span>
+              </button>
+              <button
+                type="button"
+                className="app-promise-filter-return-clear"
+                onClick={clearFilters}
+              >
+                Clear
+              </button>
+            </div>
+          )}
         </>
       ) : (
         <ClassicSummary promiseCounts={promiseCounts} />

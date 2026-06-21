@@ -1,5 +1,42 @@
 [
   {
+    "date": "2026-06-21",
+    "version": "5.120",
+    "summary": "Polished post-cutover navigation and fixed state handling when the viewport changes.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Mobile navigation icons added",
+        "body": "The bottom navigation now pairs each label with a distinct icon, making the main destinations easier to scan on a phone."
+      },
+      {
+        "type": "product",
+        "headline": "Active filters offer a return path",
+        "body": "When promise filters are active, the result state now includes a direct way back to the filter controls instead of leaving readers to find them again."
+      },
+      {
+        "type": "product",
+        "headline": "Bottom navigation re-entry motion",
+        "body": "The mobile bottom navigation now uses a short re-entry motion when it returns, with reduced-motion preferences still respected."
+      },
+      {
+        "type": "product",
+        "headline": "Semantic navigation retained",
+        "body": "The primary views remain semantic navigation with buttons and aria-current. An APG tab widget was considered and rejected because these destinations behave as navigation, not one tab-panel set."
+      },
+      {
+        "type": "product",
+        "headline": "Viewport state repaired",
+        "body": "Switching between mobile and desktop widths now clears stale body locking and keeps navigation history aligned with the visible view."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores and policy data unchanged",
+        "body": "This release changes presentation, navigation, and viewport state handling only. No grade, scoring rule, policy data, promise status, threshold, formula, weight, or dimension model changed."
+      }
+    ]
+  },
+  {
     "date": "2026-06-20",
     "version": "5.119",
     "summary": "Made the app shell the default dashboard after closing the desktop and mobile focus blockers.",

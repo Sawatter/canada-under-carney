@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-06-20
+**Last updated:** 2026-06-21
 
 ---
 
@@ -46,7 +46,7 @@
 - Monthly source monitor is live. `scripts/monitor_sources.py` reads the deterministic pullers in `fetch-data.py` (now via `--json-out`), adds a Tavily search fan-out over the feed-less and blocked surfaces, runs a `claude-opus-4-8` relevance pass that only routes candidates, and writes a candidate ledger plus an editor packet under `monitoring/` and `docs/Source-Monitoring-Candidates-YYYY-MM.md`. State lives in `monitoring/state.json` and `monitoring/sources.json` (registry built from the cited URLs). The Ethics diff cache moved from `tmp/` to `monitoring/`. The monthly workflow opens a `source-monitor/YYYY-MM` review PR and never pushes to main or moves a grade. Missing API keys skip a tier with an explicit packet note rather than reporting a clean cycle. Full design in [Source-Monitoring-System.md](Source-Monitoring-System.md). Offline checks: `npm run test:monitor`.
 - Dated source stacks are live. All 99 cited sources now carry `date` / `dateKind` metadata, and the source-date follow-up gate is closed with zero `needsManualDate` flags. Living pages use `as-of`; updated-only pages use `updated`; static releases and filings use `published`. The source-ordering metadata is display-only and does not move grades, statuses, thresholds, or source order. The review record is [Source-Dates-Review.md](Source-Dates-Review.md).
 - Opened-dimension redesign is live as v5.117. Expanded dimensions now lead with Verdict, Why this grade, and At a glance; richer methodology, source, timeline, and opposing-view material stays reachable through disclosure sections. The change is presentation-only: no grade, threshold, formula, source-order, promise-status, or dimension-model change.
-- The v5.119 app-shell root cutover makes the app shell the default, with `?experience=classic` available as the explicit rollback route for this release. The desktop and mobile focus P1s are closed. No grade, threshold, formula, weight, promise status, approval data, policy data, or dimension-model change is part of the cutover.
+- The v5.119 app-shell root cutover and the v5.120 post-cutover polish are both live, with `?experience=classic` retained as the rollback route during the post-cutover observation through June 29. v5.120 added mobile navigation icons, a promise active-filter return affordance, bottom-navigation re-entry motion, semantic section navigation, and the viewport-flip body-lock and history fix. No scoring or policy-data change is part of either release.
 - Repo-local Agent Skills for source workflows are live in `.claude/skills/`: `source-addition`, `source-audit`, `grade-evaluation`, `monthly-cycle`, `bias-resistance-check`, `scope-guard` (explicit-invocation only). Plus the Nate-inspired AI workflow layer: `project-room` (with the four-artifact discipline: source inventory table, conflict log, missing context list, duplicates report) and `ai-question-method`. The scope-guard runs against `origin/main...HEAD` for push-bound commits.
 - Perplexity / Comet / Claude Desktop MCP integration is shipped. The wrapper script `scripts/start-perplexity-filesystem-mcp.sh` pins `@modelcontextprotocol/server-filesystem@2026.1.14` and supports direct, read-only-snapshot, HTTP, SSE, and tunnel modes. Connector JSON templates use a `<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>` placeholder and the working `.mcp/*.json` files are gitignored. Setup is documented in [Perplexity-MCP-Setup.md](Perplexity-MCP-Setup.md).
 - May source-health recertification (v5.70) refreshed broken source URLs across the Signal49, IRCC Open Data, Maytree, The Narwhal, and ECCC climate-promise entries. June carry-forward freshness candidates logged in [Source-Recertification-2026-05-25.md](Source-Recertification-2026-05-25.md): April 2026 Food CPI, Q1 2026 population data, April 2026 housing starts, March 2026 trade data, PBO fuel-excise-tax note, new approval polling releases.
@@ -122,7 +122,9 @@
 
 ## Now
 
-Dashboard sits at v5.119 with the app shell at the root. The classic dashboard remains available at `?experience=classic` as the rollback route for this release. The desktop and mobile focus P1s are closed, and the June 2026 source-to-trigger pass remains closed with no grade move. No scoring or policy data changed for the cutover.
+Dashboard sits live at v5.120 with the app shell at the root. The classic dashboard remains available at `?experience=classic` as the rollback route while the post-cutover observation runs through June 29. v5.120 shipped on 2026-06-21 on top of the v5.119 cutover. No scoring or policy data changed for the cutover or polish pass.
+
+v5.120 resolves the mobile navigation icons, active-filter return affordance, bottom-navigation re-entry motion, and viewport-flip body-lock and history issue. The APG tab-widget proposal is rejected in favor of semantic navigation with buttons and `aria-current`. Behavioral browser automation remains deferred because the repository has no browser test harness.
 
 Source-date follow-up is now closed. v5.113 added source-date fields and newest-first source tables, v5.114 hand-dated most blocked rows, v5.115 closed the final four rows, and v5.116 reclassified the two evergreen page-origin dates as live as-of rows. All 99 cited sources now carry date metadata. The MLI source URL was also repaired to the live immigration category after the old URL redirected to an image.
 
@@ -152,7 +154,7 @@ These are on deck awaiting their triggers.
    The next full cycle remains 2026-07-01 (`meta.json`). Pick up the Defence split-shadow clock, the Flagship probation call, monthly freshness pulls, and any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
 
 4. App-shell post-cutover observation
-   Observe v5.119 at the root for navigation, focus, responsive-layout, or evidence-route regressions. Keep `?experience=classic` available through this release and use it if a rollback-level issue appears. Revisit long-term classic-route removal only after the observation period closes.
+   Observe the live app shell (v5.119 cutover plus v5.120 polish) through June 29. Exit requires daily root and `?experience=classic` checks, no open P0 or P1 issue, no evidence-route loss, a displayed-version and deploy match, and a final desktop and mobile matrix covering navigation, focus, responsive layout, history, and evidence access. At exit, decide whether `?experience=classic` remains available.
 
 ---
 ## Later
@@ -161,7 +163,7 @@ These are valid, but not active now.
 
 1. Decide whether Flagship Delivery stays on probation after one real cycle.
 2. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
-3. Revisit long-term classic-route removal only after the app shell has been the root for one release without a rollback-level issue.
+3. Revisit long-term classic-route removal at the June 29 observation exit after the final desktop and mobile matrix is finished.
 
 ---
 
