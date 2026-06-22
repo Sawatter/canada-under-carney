@@ -563,6 +563,114 @@ button.text-link-button {
   font-weight: 700;
 }
 
+/* Headline commitment — featured, non-interactive accountability row.
+   Spans the full evidence grid. Deliberately NOT grade-colored: the comparison
+   is conveyed by text, never by a red/green scale, so it never reads as a score. */
+.dim-headline-commitment {
+  grid-column: 1 / -1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 14px;
+  border: 1px solid #d4dae1;
+  border-radius: 10px;
+  background: #f7f9fb;
+}
+
+.dim-headline-commitment-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: #334155;
+}
+
+.dim-headline-commitment-sub {
+  margin: 0;
+  font-size: 12px;
+  color: #5b6470;
+}
+
+.dim-headline-commitment-pairs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  margin: 4px 0 0;
+}
+
+.dim-headline-commitment-pair {
+  min-width: 0;
+}
+
+.dim-headline-commitment-pair dt {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.dim-headline-commitment-pair dd {
+  margin: 2px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.dim-headline-commitment-pair dd > strong {
+  font-family: 'DM Mono', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  color: #1a1a1a;
+  overflow-wrap: anywhere;
+}
+
+.dim-headline-commitment-period {
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.dim-headline-commitment-relation {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: #1a1a1a;
+}
+
+.dim-headline-commitment-relation > strong {
+  font-weight: 800;
+}
+
+.dim-headline-commitment-note {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: #5b6470;
+}
+
+.dim-headline-commitment-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: 2px 0 0;
+}
+
+.dim-headline-commitment-links a {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1d4ed8;
+  overflow-wrap: anywhere;
+}
+
+.dim-headline-commitment-clarifier {
+  margin: 2px 0 0;
+  font-size: 11px;
+  font-style: italic;
+  color: #6b7280;
+}
+
 .dim-default-block-head {
   display: flex;
   align-items: center;

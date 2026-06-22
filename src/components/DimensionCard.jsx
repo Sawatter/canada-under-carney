@@ -4,6 +4,7 @@ import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
 import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
+import { formatValue, formatTarget, formatPeriod, deriveRelation } from "../dimensionTargets";
 
 // MED1: Heuristic tier classification from source URL domain.
 // Tier 1 = official government / international body / central bank / auditor.
@@ -593,10 +594,38 @@ export default function DimensionCard({
       return groups;
     }, []);
   }, [metrics]);
+  // Headline commitment (display-only): a durability:"Target" promise supplies
+  // the stated TARGET; an existing metric (by id) supplies the externally-reported
+  // ACTUAL. The comparison is derived by the shared dimensionTargets helpers so it
+  // cannot drift from the validator. Never read by GPA/grade math.
+  const headlineCommitment = useMemo(() => {
+    if (isTracker) return null;
+    const promise = (dim.promises || []).find((p) => p && p.headlineCommitment);
+    if (!promise) return null;
+    const hc = promise.headlineCommitment;
+    const metric = metrics.find((m) => m && m.id === hc.actualMetricId);
+    if (!metric) return null;
+    const primaryRef = (metric.sourceRefs || []).find((ref) => ref && ref.primary === true);
+    return {
+      metricId: hc.actualMetricId,
+      targetDisplay: formatTarget(hc.targetOperator, hc.targetNumeric, hc.unit),
+      targetPeriod: hc.targetPeriod,
+      targetSourceUrl: promise.originalSourceUrl,
+      targetSourceLabel: promise.originalSourceLabel,
+      actualDisplay: formatValue(metric.numericValue, metric.unit, metric.precision),
+      actualPeriod: formatPeriod(metric.actualPeriod, metric.actualQualifier),
+      actualSourceUrl: primaryRef?.url,
+      actualSourceLabel: primaryRef?.label,
+      relation: deriveRelation(metric.numericValue, hc.targetNumeric, hc.targetOperator, metric.precision),
+      comparabilityNote: hc.comparabilityNote,
+    };
+  }, [dim.promises, metrics, isTracker]);
   const headlineMetrics = useMemo(() => {
     const editorialLeads = metrics.filter((metric) => metric.lead === true);
-    return editorialLeads.length > 0 ? editorialLeads : pickTopMetrics(metrics);
-  }, [metrics]);
+    const base = editorialLeads.length > 0 ? editorialLeads : pickTopMetrics(metrics);
+    // The referenced actual metric renders inside the headline, not as a duplicate lead cell.
+    return headlineCommitment ? base.filter((m) => m.id !== headlineCommitment.metricId) : base;
+  }, [metrics, headlineCommitment]);
   const sourceUsageByUrl = useMemo(() => buildSourceUsageByUrl(dim, metrics), [dim, metrics]);
   const promiseStatusCounts = useMemo(() => countPromisesByStatus(dim.promises || []), [dim.promises]);
 
@@ -1655,6 +1684,75 @@ export default function DimensionCard({
                 </span>
               </div>
               <div className="dim-evidence-grid">
+                {headlineCommitment && (
+                  <article
+                    className="dim-headline-commitment"
+                    aria-labelledby={`dim-${dim.id}-headline-title`}
+                  >
+                    <h3
+                      id={`dim-${dim.id}-headline-title`}
+                      className="dim-headline-commitment-title"
+                    >
+                      Headline commitment
+                    </h3>
+                    <p className="dim-headline-commitment-sub">
+                      Stated commitment vs externally reported result
+                    </p>
+                    <dl className="dim-headline-commitment-pairs">
+                      <div className="dim-headline-commitment-pair">
+                        <dt>Target</dt>
+                        <dd>
+                          <strong>{headlineCommitment.targetDisplay}</strong>
+                          <span className="dim-headline-commitment-period">
+                            {headlineCommitment.targetPeriod}
+                          </span>
+                        </dd>
+                      </div>
+                      <div className="dim-headline-commitment-pair">
+                        <dt>Result</dt>
+                        <dd>
+                          <strong>{headlineCommitment.actualDisplay}</strong>
+                          <span className="dim-headline-commitment-period">
+                            {headlineCommitment.actualPeriod}
+                          </span>
+                        </dd>
+                      </div>
+                    </dl>
+                    <p className="dim-headline-commitment-relation">
+                      Comparison: <strong>{headlineCommitment.relation}</strong>
+                    </p>
+                    {headlineCommitment.comparabilityNote && (
+                      <p className="dim-headline-commitment-note">
+                        {headlineCommitment.comparabilityNote}
+                      </p>
+                    )}
+                    <p className="dim-headline-commitment-links">
+                      {headlineCommitment.targetSourceUrl && (
+                        <a
+                          href={headlineCommitment.targetSourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Target source: {headlineCommitment.targetSourceLabel}
+                        </a>
+                      )}
+                      {headlineCommitment.actualSourceUrl && (
+                        <a
+                          href={headlineCommitment.actualSourceUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          Result source: {headlineCommitment.actualSourceLabel}
+                        </a>
+                      )}
+                    </p>
+                    <p className="dim-headline-commitment-clarifier">
+                      Tracks a stated commitment. It is not the grade.
+                    </p>
+                  </article>
+                )}
                 {headlineMetrics.map((metric) => (
                   <button
                     key={`${metric.label}-${metric.value}`}
