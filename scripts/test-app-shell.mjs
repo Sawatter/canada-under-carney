@@ -300,11 +300,11 @@ check(
   "Non-behavioral source contract: tracker view routing must replace owned modal history and push non-owned app history, independent of viewport.",
 );
 check(
-  internalViewContract.includes("routeDimensionToView(ref.target)") &&
+  internalViewContract.includes("routeDimensionToView(ref.target, ref.dimension)") &&
     !internalViewContract.includes("closeDimensionForInternalNavigation") &&
     !internalViewContract.includes("setView(ref.target)") &&
     !dimensionToViewContract.includes("history.back"),
-  "Non-behavioral source contract: internal view routing must use the scoped transition without a history.back/setView race.",
+  "Non-behavioral source contract: internal view routing must use the scoped transition (with dimension filter) without a history.back/setView race.",
 );
 check(
   dimensionToViewContract.includes("requestAnchorNavigation(destination)") &&

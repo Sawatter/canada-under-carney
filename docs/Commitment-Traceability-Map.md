@@ -112,12 +112,12 @@ The CTM must **not**:
 
 ## 1. Housing Supply
 
-### HOUSING-001 — "500,000 homes/year over next decade"
+### HOUSING-001 — "Almost 500,000 new homes a year"
 
 - **commitment_id:** `HOUSING-001`
-- **commitment_text:** "500,000 homes/year over next decade"
+- **commitment_text:** "Almost 500,000 new homes a year"
 - **source_type:** campaign platform
-- **source_document:** Original Liberal platform commitment. The specific platform document is not currently cited in the live source stack; [src/data/dimensions.json](../src/data/dimensions.json) promise entry carries the commitment text but not a platform URL. **Residual:** source document reference needs to be resolved in a next-cycle research pass; CTM flags the gap rather than inventing a citation.
+- **source_document:** Liberal Party 2025 housing plan ([liberal.ca/housing-plan](https://liberal.ca/housing-plan/)), which states verbatim "double the pace of construction to almost 500,000 new homes a year." The [src/data/dimensions.json](../src/data/dimensions.json) promise entry carries this URL as its `originalSourceUrl`. *(Resolved 2026-06-21: prior text "500,000 homes/year over next decade" was a paraphrase that did not appear in the cited Canada Strong PDF; corrected to the platform's verbatim wording and repointed to the page that carries the figure.)*
 - **durability:** Target *(live tag matches PCR tier — PCR names "500K homes/year" as a Target example)*.
 - **home_dimension:** Housing Supply
 - **promise_tracker_entry:** [dimensions.json promises[0]](../src/data/dimensions.json) — text matches verbatim; current status Stalled.
@@ -1030,7 +1030,7 @@ The CTM must **not**:
 
 These are findings inside the CTM's own scope. None block future use of the artifact; they are normal operating residuals from the "flag gaps" discipline.
 
-- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-001, HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these; the remaining 22 gaps require external research for original platform URLs, program announcement pages, or specific policy framework documents not currently present anywhere in-repo. *(Previously included CARBON-002 — resolved 2026-04-18 by threading the ECCC Output-Based Pricing System URL. Previously included DEFTRADE-002 — resolved 2026-04-18 by threading the Bill C-5 LEGISinfo URL already cited in Major Projects.)*
+- **CTM-T2** — A number of commitments lack a specific source_document URL in the live dimension sources arrays (HOUSING-004, FISCAL-001, FISCAL-002, AFFORD-001, AFFORD-002, AFFORD-003, CARBON-003, CLIMATE-001, CLIMATE-002, CLIMATE-003, CLIMATE-004, IMMIG-002, IMMIG-003, MPROJ-002, MPROJ-003, MPROJ-004, ECONPOL-001, ECONPOL-003, ETHICS-002, FLAG-001, DEFTRADE-004, DEFTRADE-005). CTM flags each as residual. **Candidate:** source-hardening pass by dimension to resolve these; the remaining 22 gaps require external research for original platform URLs, program announcement pages, or specific policy framework documents not currently present anywhere in-repo. *(Previously included CARBON-002 — resolved 2026-04-18 by threading the ECCC Output-Based Pricing System URL. Previously included DEFTRADE-002 — resolved 2026-04-18 by threading the Bill C-5 LEGISinfo URL already cited in Major Projects. Previously included HOUSING-001 — resolved 2026-06-21 by repointing the promise originalSourceUrl to the Liberal housing-plan page that carries the "almost 500,000 new homes a year" figure.)*
 
 ### Upstream governance residuals surfaced during the build
 

@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-06-21",
+    "version": "5.123",
+    "summary": "Opening a dimension's promises now filters the Promises tab to that dimension, and corrected the housing 500,000-homes promise text and its source to match the platform.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Promises open filtered to the dimension",
+        "body": "From a dimension, tapping tracked promises and then Open the Promises tab now lands on the Promises view pre-filtered to that dimension, instead of the full list. The Promises nav tab still shows everything."
+      },
+      {
+        "type": "minor",
+        "headline": "Housing promise text and source corrected",
+        "body": "Changed the housing target promise to 'Almost 500,000 new homes a year' to match the Liberal housing plan wording, and pointed its source to the page that carries that figure. The old text added a 'next decade' framing the cited source did not contain."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores unchanged",
+        "body": "Display and data labelling only. No grade, scoring rule, threshold, formula, weight, GPA, promise status, or dimension model changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-21",
     "version": "5.122",
     "summary": "Added a headline commitment row to the dimension view that shows a stated target next to the externally reported result, starting with Defence and the NATO 2% target.",
     "items": [
