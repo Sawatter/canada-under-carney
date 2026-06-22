@@ -105,6 +105,7 @@ export default function Dashboard({ experience = "classic" }) {
   const anchorRequestIdRef = useRef(0);
   const expandedRef = useRef(null);
   const mobileModalEntryRef = useRef(false);
+  const pendingViewFocusRef = useRef(null);
   const desktopReturnScrollRef = useRef(null);
   const pendingDesktopReturnRef = useRef(null);
   const pendingDesktopFocusRef = useRef(null);
@@ -222,6 +223,36 @@ export default function Dashboard({ experience = "classic" }) {
     anchorRequestIdRef.current += 1;
     setAnchorNavigation({ target, requestId: anchorRequestIdRef.current });
   }, []);
+
+  const routeDimensionToView = useCallback((target) => {
+    if (!target) return;
+
+    const destination = `view-${target}`;
+    pendingDesktopReturnRef.current = null;
+    pendingDesktopFocusRef.current = null;
+    pendingViewFocusRef.current = destination;
+
+    if (typeof window !== "undefined") {
+      const owned = mobileModalEntryRef.current || window.history.state?.dimModal;
+      const nextState = { ...(window.history.state || {}) };
+      delete nextState.dimModal;
+
+      if (appMode) {
+        if (owned) {
+          window.history.replaceState(nextState, "", `#${destination}`);
+        } else {
+          window.history.pushState(nextState, "", `#${destination}`);
+        }
+      } else if (owned) {
+        window.history.replaceState(nextState, "", window.location.href);
+      }
+    }
+
+    mobileModalEntryRef.current = false;
+    setExpanded(null);
+    setView(target);
+    requestAnchorNavigation(destination);
+  }, [appMode, requestAnchorNavigation]);
 
   const routeHashTarget = useCallback((target) => {
     if (!target) return;
@@ -395,6 +426,18 @@ export default function Dashboard({ experience = "classic" }) {
     return undefined;
   }, [expanded, isMobile, view]);
 
+  useLayoutEffect(() => {
+    if (typeof window === "undefined" || expanded !== null) return undefined;
+    const target = pendingViewFocusRef.current;
+    if (!target || target !== `view-${view}`) return undefined;
+
+    const destination = document.getElementById(target);
+    if (!destination) return undefined;
+    pendingViewFocusRef.current = null;
+    destination.focus({ preventScroll: true });
+    return undefined;
+  }, [expanded, view]);
+
   const handleToggleDerivation = (variant) => {
     setDerivationOpen((curr) => (curr === variant ? null : variant));
   };
@@ -412,9 +455,7 @@ export default function Dashboard({ experience = "classic" }) {
     if (!ref) return;
 
     if (ref.type === "view") {
-      closeDimensionForInternalNavigation({ closeDesktop: true });
-      setView(ref.target);
-      requestAnchorNavigation(`view-${ref.target}`);
+      routeDimensionToView(ref.target);
       return;
     }
 
@@ -711,9 +752,11 @@ export default function Dashboard({ experience = "classic" }) {
         </span>
       )}
       <div
-        id={appMode ? `view-${view}` : undefined}
+        id={appMode || view === "promises" ? `view-${view}` : undefined}
+        tabIndex={view === "promises" ? -1 : undefined}
         className={appMode ? "app-shell-view" : undefined}
         key={appMode ? view : undefined}
+        style={view === "promises" ? { scrollMarginTop: "16px" } : undefined}
       >
       {/* Scorecard View */}
       {view === "scorecard" && (
@@ -870,7 +913,7 @@ export default function Dashboard({ experience = "classic" }) {
 
       {/* Promise Tracker View */}
       {view === "promises" && (
-        <div id={appMode ? undefined : "view-promises"} style={{ scrollMarginTop: "16px" }}>
+        <div>
           <PromiseTracker
             allPromises={allPromises}
             promiseCounts={promiseCounts}

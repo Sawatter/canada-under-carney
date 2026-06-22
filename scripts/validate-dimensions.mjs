@@ -232,11 +232,26 @@ for (const d of dimensions) {
   }
 
   // ─── Metric source-ref shape ──────────────────────────────────────────────
+  let leadMetricCount = 0;
   if (d.metrics !== undefined) {
     if (!Array.isArray(d.metrics)) {
       warn(name, `"metrics" is present but not an array`);
     } else {
       d.metrics.forEach((m, i) => {
+        const hasLead = m !== null
+          && typeof m === "object"
+          && Object.prototype.hasOwnProperty.call(m, "lead");
+        if (hasLead) {
+          if (typeof m.lead !== "boolean") {
+            err(name, `metrics[${i}].lead is present but not a boolean`);
+          }
+          if (isTracker) {
+            err(name, `tracker metrics[${i}] must not carry "lead"`);
+          } else if (m.lead === true) {
+            leadMetricCount += 1;
+          }
+        }
+
         if (m?.sourceRefs !== undefined) {
           if (!Array.isArray(m.sourceRefs)) {
             warn(name, `metrics[${i}].sourceRefs is present but not an array`);
@@ -252,6 +267,9 @@ for (const d of dimensions) {
         }
       });
     }
+  }
+  if (!isTracker && (leadMetricCount < 2 || leadMetricCount > 4)) {
+    err(name, `graded dimension must have 2-4 metrics with lead=true; found ${leadMetricCount}`);
   }
 
   // ─── Optional grade-basis operationalization shape ───────────────────────

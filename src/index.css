@@ -379,9 +379,10 @@ button.text-link-button {
 }
 
 .dim-verdict-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
   border-left: 4px solid #607d8b;
   background: #fbfcfd;
 }
@@ -418,10 +419,13 @@ button.text-link-button {
 }
 
 .dim-verdict-mark {
+  order: -1;
   display: flex;
   align-items: center;
   gap: 8px;
   flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eceff1;
 }
 
 .dim-tracker-count-large .dim-tracker-count-number {
@@ -498,6 +502,65 @@ button.text-link-button {
   color: #555;
   font-size: 13px;
   line-height: 1.45;
+}
+
+/* Evidence snapshot (Layer 2) — the data that drives the grade, value-bearing,
+   each item a button into its Check-this-grade disclosure. */
+.dim-evidence-panel {
+  scroll-margin-top: var(--dim-anchor-offset);
+}
+
+.dim-evidence-note {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  text-transform: none;
+  color: #6b7280;
+}
+
+.dim-evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.dim-evidence-item {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: flex-start;
+  text-align: left;
+  min-height: 44px;
+  padding: 9px 11px;
+  border: 1px solid #e1e5ea;
+  border-radius: 8px;
+  background: #fafbfc;
+  color: #1a1a1a;
+  cursor: pointer;
+  font: inherit;
+}
+
+.dim-evidence-item:hover {
+  border-color: #c7ced6;
+  background: #f4f6f8;
+}
+
+.dim-evidence-item > span {
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: #6b7280;
+}
+
+.dim-evidence-item > strong {
+  color: #1a1a1a;
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  font-weight: 700;
 }
 
 .dim-default-block-head {
@@ -1264,8 +1327,7 @@ button.text-link-button {
 
   .dim-focused-detail-root .dim-verdict-hero {
     grid-column: 1 / -1;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
+    align-items: stretch;
   }
 
   .dim-mini-nav-label-mobile {
