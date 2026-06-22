@@ -233,10 +233,13 @@ function ClassicSummary({ promiseCounts }) {
   );
 }
 
-export default function PromiseTracker({ allPromises, promiseCounts, totalPromises, appMode = false }) {
+export default function PromiseTracker({ allPromises, promiseCounts, totalPromises, appMode = false, initialDimensionFilter = "All" }) {
   const [expandedPromise, setExpandedPromise] = useState(null);
   const [statusFilter, setStatusFilter] = useState("All");
-  const [dimensionFilter, setDimensionFilter] = useState("All");
+  // Initialized from the route: a dimension's "Open the Promises tab" pre-filters
+  // to that dimension. The tracker remounts on each entry to the Promises view, so
+  // this applies per-navigation; the user can still change it locally afterward.
+  const [dimensionFilter, setDimensionFilter] = useState(initialDimensionFilter || "All");
   const [query, setQuery] = useState("");
   const [sortBy, setSortBy] = useState("status");
   const [groupBy, setGroupBy] = useState("status");

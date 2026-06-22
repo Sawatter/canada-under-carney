@@ -2142,7 +2142,7 @@ export default function DimensionCard({
                     className="dim-summary-open-button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      onInternalRef?.({ type: "view", target: "promises" });
+                      onInternalRef?.({ type: "view", target: "promises", dimension: dim.name });
                     }}
                   >
                     Open the Promises tab →

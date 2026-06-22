@@ -2990,7 +2990,7 @@
     ],
     "promises": [
       {
-        "text": "500,000 homes/year over next decade",
+        "text": "Almost 500,000 new homes a year",
         "status": "Stalled",
         "since": "2026-04-14",
         "evidence": "259,028 starts in 2025 vs. 450,000+ needed. PBO projects BCH delivers about 26,000 units over five years (a 2.1% increase in housing completions per PBO baseline).",
@@ -3004,8 +3004,8 @@
             "note": "Initial assessment"
           }
         ],
-        "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
+        "originalSourceUrl": "https://liberal.ca/housing-plan/",
+        "originalSourceLabel": "Liberal Party 2025 housing plan"
       },
       {
         "text": "Build Canada Homes",

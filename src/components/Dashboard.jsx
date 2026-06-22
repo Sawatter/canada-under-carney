@@ -97,6 +97,10 @@ export default function Dashboard({ experience = "classic" }) {
   const appMode = experience === "app";
   const [expanded, setExpanded] = useState(null);
   const [view, setView] = useState("scorecard");
+  // Pre-applied dimension filter for the Promises view. Set when the user
+  // routes in from a dimension's promises ("Open the Promises tab"); reset to
+  // "All" for the Promises nav tab and hash/back-forward navigation.
+  const [promiseDimensionFilter, setPromiseDimensionFilter] = useState("All");
   const [approvalExpanded, setApprovalExpanded] = useState(false);
   // Which headline-score derivation panel is open: "household", "overall", or null.
   const [derivationOpen, setDerivationOpen] = useState(null);
@@ -224,8 +228,9 @@ export default function Dashboard({ experience = "classic" }) {
     setAnchorNavigation({ target, requestId: anchorRequestIdRef.current });
   }, []);
 
-  const routeDimensionToView = useCallback((target) => {
+  const routeDimensionToView = useCallback((target, dimension) => {
     if (!target) return;
+    if (target === "promises") setPromiseDimensionFilter(dimension || "All");
 
     const destination = `view-${target}`;
     pendingDesktopReturnRef.current = null;
@@ -267,7 +272,9 @@ export default function Dashboard({ experience = "classic" }) {
 
     if (target.startsWith("view-")) {
       closeDimensionForInternalNavigation({ closeDesktop: true });
-      setView(target.replace(/^view-/, ""));
+      const nextHashView = target.replace(/^view-/, "");
+      if (nextHashView === "promises") setPromiseDimensionFilter("All");
+      setView(nextHashView);
       return;
     }
 
@@ -455,7 +462,7 @@ export default function Dashboard({ experience = "classic" }) {
     if (!ref) return;
 
     if (ref.type === "view") {
-      routeDimensionToView(ref.target);
+      routeDimensionToView(ref.target, ref.dimension);
       return;
     }
 
@@ -482,6 +489,7 @@ export default function Dashboard({ experience = "classic" }) {
 
   const selectView = (nextView) => {
     if (nextView === view) return;
+    if (nextView === "promises") setPromiseDimensionFilter("All");
     if (appMode && typeof window !== "undefined") {
       closeDimensionForInternalNavigation({ closeDesktop: true });
       window.history.pushState(window.history.state, "", `#view-${nextView}`);
@@ -919,6 +927,7 @@ export default function Dashboard({ experience = "classic" }) {
             promiseCounts={promiseCounts}
             totalPromises={totalPromises}
             appMode={appMode}
+            initialDimensionFilter={promiseDimensionFilter}
           />
         </div>
       )}
