@@ -1544,7 +1544,7 @@ export default function DimensionCard({
               aria-label={`${dim.name} section navigation`}
             >
               <span className="dim-mini-nav-label dim-mini-nav-label-mobile">Jump:</span>
-              <span className="dim-mini-nav-label dim-mini-nav-label-desktop">Sections:</span>
+              <span className="dim-mini-nav-label dim-mini-nav-label-desktop">Jump:</span>
               {sectionNavItems.map((item) => {
                 const isActive = activeNavAnchor === item.anchor
                   || (!activeNavAnchor && item.anchor === `dim-${dim.id}-summary`)

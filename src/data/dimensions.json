@@ -1557,7 +1557,7 @@
     "grade": "D-",
     "previousGrade": null,
     "trend": "down",
-    "status": "Grade reflects federal policy response, not global price levels. Government affordability measures cover <20% of household cost increases. Grocery Code voluntary. Tariff costs add $1,450-$2,000/yr per household.",
+    "status": "This grade reflects the federal policy response, not global price levels. Affordability measures offset only a small share of household cost increases, the Grocery Code is voluntary, and tariffs are adding to household costs.",
     "judgmentCall": "Low grade reflects federal relief versus measured household cost pressure, not a verdict on global prices.",
     "judgmentDetail": "The D- grade scores the adequacy of federal action against documented cost pressure. Judgment enters in matching relief scale to the identified annual burden, treating voluntary grocery measures as weaker than enforceable ones, and separating federal policy response from global price shocks that Ottawa does not fully control.",
     "construct": "Adequacy of the federal policy response to household cost pressure from groceries, tariffs, and targeted relief.",
@@ -1879,7 +1879,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Consumer carbon price eliminated (campaign promise delivered). Industrial OBPS preserved at $110/t 2026 headline but a weak effective price (~$20/t marginal; CCI puts the average cost on total emissions at ~$10/t or less). Grade assesses the pricing instrument only; the wider climate framework is graded under Climate & Environment.",
+    "status": "The consumer carbon price was eliminated, delivering a campaign promise. Industrial pricing was preserved on paper but its effective price is weak. This grade covers the pricing instrument only. The wider climate framework is graded under Climate & Environment.",
     "judgmentCall": "Middle grade credits the consumer-price promise while discounting the weak effective industrial price.",
     "judgmentDetail": "The C grade separates promise delivery from instrument strength. The consumer charge removal is credited as an executed campaign promise, but the industrial system is discounted because the effective price signal is far below the headline schedule. Judgment enters in treating the pricing instrument as partially intact but not clearly strong enough to merit a higher grade. Definition fixed by editor decision (2026-06-12): the effective-price triggers adjudicate on the marginal compliance price — the market price of compliance credits under the federal OBPS and equivalent provincial systems (currently ~$20/t) — not the economy-wide average cost per tonne, which is shown as a context metric and does not move the grade. Under that definition the May 15 Canada-Alberta agreement was considered against the $15/t down-trigger and did not fire it: the agreement weakens the forward price trajectory, not the current marginal price.",
     "surfaceTags": [
@@ -2764,7 +2764,7 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "stable",
-    "status": "4,000 BCH units announced, but construction is not yet underway. CMHC March starts trend is 248K, below the C band but above the 240K down-trigger floor; monthly SAAR was 236K.",
+    "status": "Federal housing programs are not yet scaling to the level of need. Announced units have not broken ground, and housing starts are running below the pace required to close the shortfall.",
     "judgmentCall": "Low grade reflects starts and scale, with announcements counted only after construction or binding delivery.",
     "judgmentDetail": "The D grade scores the federal share of housing supply response against actual starts, program scale, and binding delivery. Judgment enters in giving limited timing credit to Build Canada Homes while refusing to count announced units as built homes, and in separating federal contribution from provincial, municipal, and market constraints.",
     "surfaceTags": [
@@ -2924,9 +2924,9 @@
         "automatable": true
       },
       {
-        "label": "Housing starts (Apr 2026 trend / SAAR)",
+        "label": "Housing starts (Apr 2026 trend; SAAR = seasonally adjusted annual rate)",
         "lead": true,
-        "value": "256,777 trend; 279,317 monthly SAAR",
+        "value": "256,777 trend (279,317 SAAR)",
         "source": "cmhc",
         "sourceRefs": [
           {
