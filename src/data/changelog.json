@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-06-21",
+    "version": "5.122",
+    "summary": "Added a headline commitment row to the dimension view that shows a stated target next to the externally reported result, starting with Defence and the NATO 2% target.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Headline commitment: target vs result",
+        "body": "The evidence snapshot can now lead with a stated commitment and the measured result side by side. Defence shows the NATO 2% of GDP target against Canada's 2.01% (2025 estimate), with both sources one tap away. It reads as accountability, not the grade."
+      },
+      {
+        "type": "product",
+        "headline": "Comparison is derived, not typed",
+        "body": "The target and result are formatted from their numeric values, and the comparison word is computed from them and checked by a build test, so what you read cannot drift from the data."
+      },
+      {
+        "type": "minor",
+        "headline": "Defence NATO 2% promise reworded",
+        "body": "Changed the promise text from 'Exceed NATO 2% before 2030' to 'Meet NATO 2% (achieved 2025)'. The government's own wording is meet, and the 2% was reached in 2025, so the old before-2030 framing was stale."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores unchanged",
+        "body": "Display only. No grade, scoring rule, threshold, formula, weight, GPA, or dimension model changed. The new comparison is not a scored input."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-21",
     "version": "5.121",
     "summary": "Reworked the opened-dimension view so the evidence that drives each grade leads, with the long-form reasoning moved into a check-this-grade layer.",
     "items": [
