@@ -244,6 +244,12 @@ button.text-link-button {
   --dim-sticky-head: 52px;
   --dim-sticky-stack: 80px;
   --dim-anchor-offset: calc(var(--dim-sticky-stack) + 12px);
+  /* Drawer-scoped font tokens (do not touch the global :root --fs-*).
+     --dim-fs-micro is a deliberate non-prose badge size below the 12px prose
+     floor; prose stays >= 12px. */
+  --dim-fs-numeral: 13px;
+  --dim-fs-label: 13px;
+  --dim-fs-micro: 11px;
   outline: none;
 }
 
@@ -580,7 +586,7 @@ button.text-link-button {
 
 .dim-headline-commitment-title {
   margin: 0;
-  font-size: 12px;
+  font-size: var(--dim-fs-label);
   font-weight: 800;
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -622,7 +628,7 @@ button.text-link-button {
 
 .dim-headline-commitment-pair dd > strong {
   font-family: 'DM Mono', monospace;
-  font-size: 15px;
+  font-size: var(--dim-fs-numeral);
   font-weight: 700;
   color: #1a1a1a;
   overflow-wrap: anywhere;
@@ -1192,7 +1198,7 @@ button.text-link-button {
   color: #555;
   padding: 0 6px;
   font-family: 'DM Sans', sans-serif;
-  font-size: 10px;
+  font-size: var(--dim-fs-micro);
   font-weight: 800;
   line-height: 1.5;
   text-transform: uppercase;
