@@ -190,9 +190,9 @@
   corresponding URL exists; promises without links are unchanged. Initial pass
   seeded 22 of 43 promises from clean in-repo matches (CTM source_document URLs
   + live sources arrays); a later source-evidence closeout raised coverage to
-  41 of 43 promises with `statusSourceUrl`. Two status gaps remain intentionally
-  blank until a clean document appears: Foreign Policy Review and Carbon Border
-  Adjustment Mechanism. Original review notes preserved below.
+  42 of 43 promises with `statusSourceUrl`. One status gap remains intentionally
+  blank until a clean document appears: Carbon Border Adjustment Mechanism.
+  Original review notes preserved below.
   Review what an expanded promise item should link to so a reader can actually
   understand the promise, the current status, and why that status is justified.
   Questions to test:

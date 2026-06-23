@@ -308,7 +308,7 @@
         "text": "Full foreign policy review (first since 2005)",
         "status": "Too Early",
         "since": "2026-04-14",
-        "evidence": "Announced but not yet launched. No timeline confirmed.",
+        "evidence": "As of January 2026, Minister Anand said Global Affairs would launch the foreign-policy review only after the forthcoming national-security strategy; no formal launch, terms of reference, or scope has been published.",
         "durability": "Framework",
         "history": [
           {
@@ -318,7 +318,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "statusSourceUrl": "https://www.ckom.com/2026/01/28/union-questions-why-global-affairs-issuing-layoff-warnings-before-policy-review/",
+        "statusSourceLabel": "Canadian Press - review to follow national-security strategy (Jan 2026)"
       }
     ],
     "perspectives": {

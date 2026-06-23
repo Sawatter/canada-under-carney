@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-06-23",
+    "version": "5.125",
+    "summary": "Added status evidence for the Foreign Policy Review promise while keeping it Too Early.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Foreign Policy Review status evidence added",
+        "body": "Added a Canadian Press report carrying Minister Anand's sequencing statement: the national-security strategy comes first, then Global Affairs launches the foreign-policy review. That supports the current Too Early status because no formal launch, terms of reference, or scope has been published."
+      },
+      {
+        "type": "minor",
+        "headline": "One status-link gap remains",
+        "body": "Promise Tracker status-evidence coverage is now 42 of 43. The Carbon Border Adjustment Mechanism remains blank because the checked ECCC source is about EU and UK CBAM engagement, not Canada's own mechanism."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores unchanged",
+        "body": "Status evidence only. No promise status, grade, scoring rule, threshold, formula, weight, GPA, or dimension model changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-23",
     "version": "5.124",
     "summary": "Updated the Red Tape Review promise after official progress reports became available.",
     "items": [
