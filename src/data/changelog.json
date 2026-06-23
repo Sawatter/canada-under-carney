@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-23",
+    "version": "5.124",
+    "summary": "Updated the Red Tape Review promise after official progress reports became available.",
+    "items": [
+      {
+        "type": "event",
+        "headline": "Red Tape Review promise moved to In Progress",
+        "body": "Treasury Board now has an official Red Tape Review Progress Report, with department-level reports such as Transport Canada's showing completed, in-progress, and longer-term actions. The promise moved from Too Early to In Progress because reports are public, but the evidence still points to a regulatory pipeline rather than a completed result."
+      },
+      {
+        "type": "minor",
+        "headline": "Status evidence link added",
+        "body": "Added the Treasury Board progress report as the promise's status-evidence source. Foreign Policy Review and the Carbon Border Adjustment Mechanism remain without status-evidence links because no clean official launch or framework document surfaced in this pass."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores unchanged",
+        "body": "Promise status and evidence only. No grade, scoring rule, threshold, formula, weight, GPA, or dimension model changed."
+      }
+    ]
+  },
+  {
     "date": "2026-06-21",
     "version": "5.123",
     "summary": "Opening a dimension's promises now filters the Promises tab to that dimension, and corrected the housing 500,000-homes promise text and its source to match the platform.",
