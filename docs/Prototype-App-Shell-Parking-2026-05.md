@@ -127,6 +127,10 @@ Exit requires:
 - The displayed version and deployed release match.
 - A final desktop and mobile matrix covering navigation, focus, responsive layout, history, and evidence access.
 
+### Observation log
+
+- **2026-06-22:** Public root loads as `.app-shell`; `?experience=classic` loads as `.classic-shell`; both show deployed `v5.123` / updated `2026-06-21`. Major Projects `#dim-major-projects-sources` deep link opens Sources and focuses `dim-major-projects-sources-button` in both routes. Mobile 390px smoke check on root and classic shows header, score cards, active Scorecard navigation, and no page-level horizontal overflow. Note: local `v5.124` Red Tape Review promise update was staged but not deployed during this live check.
+
 ## Carried accessibility gaps (closed in v5.119)
 
 The 2026-06-20 Claude adversarial review (four axes: evidence parity, classic regression, frozen surface, accessibility) found no P0 and no P1 in the scoped beta diff. One net-new app-shell P1 was fixed in the same pass: the Promises status-count pills now carry `role="group"` so their group label is exposed.

@@ -1542,19 +1542,26 @@
       },
       {
         "text": "Red tape review: 60-day department reports",
-        "status": "Too Early",
-        "since": "2026-04-14",
-        "evidence": "Announced but reports not yet public.",
+        "status": "In Progress",
+        "since": "2026-06-23",
+        "evidence": "Official progress reports are now public. TBS has published its Red Tape Review Progress Report, and department-level examples such as Transport Canada's report list completed, in-progress, and longer-term actions. This supports In Progress rather than Delivered because the evidence shows a regulatory pipeline, not a completed government-wide burden-reduction result.",
         "durability": "Framework",
         "history": [
           {
             "date": "2026-04-14",
             "status": "Too Early",
             "note": "Initial assessment"
+          },
+          {
+            "date": "2026-06-23",
+            "status": "In Progress",
+            "note": "Official TBS and department progress-report pages are now public, so the promise is no longer only announced."
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "statusSourceUrl": "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/acts-regulations/red-tape-review-progress-report.html",
+        "statusSourceLabel": "TBS - Red Tape Review Progress Report"
       }
     ],
     "perspectives": {
