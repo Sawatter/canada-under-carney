@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-06-23",
+    "version": "5.126",
+    "summary": "Adjusted a few drawer-only type sizes so the opened dimension view reads more evenly.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Opened-dimension type polish",
+        "body": "Reduced the headline target/result value size, brought the headline label up to the evidence-label size, and raised the smallest source micro-labels from 10px to 11px. The change is limited to opened-dimension drawer typography."
+      },
+      {
+        "type": "docs",
+        "headline": "Scores unchanged",
+        "body": "Display only. No promise status, grade, policy data, scoring rule, threshold, formula, weight, GPA, or dimension model changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-23",
     "version": "5.125",
     "summary": "Added status evidence for the Foreign Policy Review promise while keeping it Too Early.",
     "items": [

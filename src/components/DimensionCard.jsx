@@ -91,7 +91,7 @@ function SourceTierBadge({ url }) {
       style={{
         display: "inline-flex",
         alignItems: "center",
-        fontSize: "10px",
+        fontSize: "var(--dim-fs-micro, 11px)",
         fontWeight: 800,
         padding: "1px 5px",
         borderRadius: "4px",
