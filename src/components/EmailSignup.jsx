@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const BUTTONDOWN_USERNAME = "sawatter";
-const ACTION_URL = `https://buttondown.com/api/emails/embed-subscribe/${BUTTONDOWN_USERNAME}`;
+const KIT_FORM_ID = "9608454";
+const ACTION_URL = `https://app.kit.com/forms/${KIT_FORM_ID}/subscriptions`;
 
 export default function EmailSignup() {
   const [email, setEmail] = useState("");
@@ -61,7 +61,7 @@ export default function EmailSignup() {
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
           <input
             type="email"
-            name="email"
+            name="email_address"
             placeholder="you@example.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -131,7 +131,7 @@ export default function EmailSignup() {
         )}
 
         <div style={{ fontSize: "13px", color: "#666", marginTop: "4px" }}>
-          Powered by Buttondown. Prefer RSS?{" "}
+          Powered by Kit. Prefer RSS?{" "}
           <a href="feed.xml" style={{ color: "#1565c0" }}>
             Subscribe via RSS instead &rarr;
           </a>

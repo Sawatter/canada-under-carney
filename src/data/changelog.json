@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-06-24",
+    "version": "5.127",
+    "summary": "Fixed the email signup, which had stopped accepting subscribers, by moving it from Buttondown to Kit.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Email signup works again",
+        "body": "The subscribe form had been failing (the old provider's free tier was full). It now posts to Kit with double opt-in, so you get a confirmation email before anything is sent. Same card, same consent checkbox, no third-party script added."
+      },
+      {
+        "type": "docs",
+        "headline": "Funding note updated",
+        "body": "The About page now reflects that email distribution runs on Kit's free tier."
+      }
+    ]
+  },
+  {
     "date": "2026-06-23",
     "version": "5.126",
     "summary": "Adjusted a few drawer-only type sizes so the opened dimension view reads more evenly.",
