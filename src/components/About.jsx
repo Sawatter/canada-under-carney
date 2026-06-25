@@ -85,8 +85,8 @@ export default function About() {
             <li>
               <strong>Funding:</strong> the dashboard is unfunded. No paid
               sponsorships, no advertising, no in-kind support tied to
-              editorial direction. Buttondown email distribution and
-              GoatCounter analytics are paid out of pocket by the editor.
+              editorial direction. Email distribution runs on Kit's free
+              tier, and GoatCounter analytics is paid out of pocket by the editor.
             </li>
             <li>
               <strong>AI assistance:</strong> Claude, Codex, ChatGPT, and
