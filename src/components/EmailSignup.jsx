@@ -128,7 +128,7 @@ export default function EmailSignup() {
               marginTop: "4px",
             }}
           >
-            Thanks &mdash; check your inbox (and your spam folder) to confirm your subscription.
+            Thanks. Check your inbox (and your spam folder) to confirm your subscription.
           </div>
         )}
 
