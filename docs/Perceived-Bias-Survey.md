@@ -45,10 +45,10 @@ Adapted from the LaunchSims simulation analog (per `docs/Bias-Resistance-Audit-2
 The survey is offered through the dashboard's About page and Methodology FAQ. Mechanism options:
 
 1. **GitHub Discussions** (preferred for openness). Each dimension gets a discussion thread where readers post their derivation description + self-ID. Public, inspectable, low-overhead. The dashboard repository will enable Discussions when this survey goes live.
-2. **Buttondown form** (preferred for privacy). The dashboard's existing Buttondown account hosts a survey form. Responses are private to the editor; aggregated results are published.
+2. **Kit form** (private-response fallback). The dashboard's existing Kit account can host a survey form. Responses are private to the editor; aggregated results are published.
 3. **Google Forms** (fallback). Free, well-tooled, but adds a third-party dependency.
 
-Initial cycle uses GitHub Discussions for transparency. If response volume warrants, switching to Buttondown gives more structured analysis.
+Initial cycle uses GitHub Discussions for transparency. If response volume warrants, switching to a Kit form gives more structured analysis.
 
 ## How results are published
 

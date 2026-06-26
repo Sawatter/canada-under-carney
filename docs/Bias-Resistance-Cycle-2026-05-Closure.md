@@ -163,7 +163,7 @@ Shipped before the bias-resistance arc began but tied to the same cycle. Five co
 | Accessibility audit | DONE (automated) | 0 axe-core violations on live deploy; manual assistive-tech testing pending |
 | Perceived-bias survey methodology | DONE | `docs/Perceived-Bias-Survey.md` + About / FAQ entry points |
 | Phase 2 foundational audit | SCAFFOLDED | `docs/Foundational-Methodology-Audit-2026.md`, annual cadence |
-| Perceived-bias survey activation | OPEN (editor-only) | Requires GitHub Discussions enable OR Buttondown form setup |
+| Perceived-bias survey activation | OPEN (editor-only) | Requires GitHub Discussions enable OR Kit form setup |
 | Phase 2 first substantive pass | OPEN (annual) | 2026 Q4 / 2027 Q1 |
 | Single-pane Skeptic Path UI restructure | OPEN (future) | Annotation approach (v5.36 + v5.44) is the minimum-viable closure |
 | Full WCAG-AA conformance statement doc | OPEN (Tier 3) | All actionable a11y items closed; statement doc deferred |
@@ -172,7 +172,7 @@ Shipped before the bias-resistance arc began but tied to the same cycle. Five co
 
 ## What requires editor action (cannot be shipped by Claude/Codex autonomously)
 
-1. **Perceived-bias survey activation.** Enable GitHub Discussions on the repo OR create a Buttondown survey form. Methodology + entry points are shipped (v5.37); the activation is repo-settings or external-service work.
+1. **Perceived-bias survey activation.** Enable GitHub Discussions on the repo OR create a Kit survey form. Methodology + entry points are shipped (v5.37); the activation is repo-settings or external-service work.
 2. **Phase 2 first foundational audit.** Annual cadence. Three questions need editor reflection with reference to original methodology design intent. Framework scaffolded (v5.39).
 3. **June 2026 monthly cycle.** Regular dashboard maintenance: run fetch script, run audit script, pull StatCan/IRCC values, review new PBO/policy/journalism RSS, apply pre-cycle checklist (now includes v5.41 drift-check and v5.42 viewport-check rules).
 

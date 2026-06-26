@@ -104,7 +104,7 @@ Status badges (`STATUS_COLORS` in constants.js) include text labels with each co
 - Status badges include text labels alongside color.
 - Headings appear to use semantic levels (h2, h3) in document order.
 - No inaccessible iframe content.
-- No missing form labels (the dashboard has no traditional forms beyond Buttondown signup).
+- No missing form labels (the dashboard has no traditional forms beyond the email signup).
 
 ## Recommended next moves
 

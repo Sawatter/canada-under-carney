@@ -34,7 +34,7 @@ These move alongside the audit because they give readers tools to challenge the 
 
 - **What:** Published contact route for graded subjects (departments, ministries, agencies, watchdogs, journalists) to submit critiques. Documented review process.
 - **Why it qualifies:** Enables the strongest form of challenge, from parties best positioned to challenge specific claims with internal information.
-- **Deliverable:** `docs/Right-Of-Reply.md` plus a contact mechanism (email or Buttondown form). Doc names the process. Mechanism choice is engineering.
+- **Deliverable:** `docs/Right-Of-Reply.md` plus a contact mechanism (email or Kit form). Doc names the process. Mechanism choice is engineering.
 - **Constraint:** Not a commitment to publish every reply. Process describes how submissions are evaluated and what gets reflected.
 - **Effort:** ~1-2 hours for the doc.
 

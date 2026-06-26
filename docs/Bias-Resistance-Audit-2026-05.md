@@ -357,7 +357,7 @@ Excluded-evidence log becomes recurring practice in monthly source-coverage ledg
 
 The May bias-resistance cycle now has the protocol, FAQ, challenge-enabling hygiene, full language audit, Skeptic Path orientation, survey methodology, accessibility audit, and Phase 2 scaffold in place. Remaining work is operational follow-through, not another methodology layer:
 
-1. **Activate the perceived-bias survey** (GitHub Discussions, Buttondown form, or other selected mechanism).
+1. **Activate the perceived-bias survey** (GitHub Discussions, Kit form, or other selected mechanism).
 2. **Run axe-core or Lighthouse** against the deployed site to quantify contrast and focus findings.
 3. **Continue accessibility fixes** from `docs/Accessibility-Audit-2026-05.md`: contrast verification, drawer focus management if testing shows confusion, and skip-to-content.
 4. **Run the first substantive Phase 2 foundational audit** on annual cadence, or if the rubric moves to a major new version.
