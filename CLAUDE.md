@@ -73,7 +73,7 @@ src/
     GradeChip.jsx          ← letter-grade pill
     Methodology.jsx        ← Rubric tab content
     About.jsx              ← About tab content
-    EmailSignup.jsx        ← Buttondown signup
+    EmailSignup.jsx        ← Kit signup
     VisitorCount.jsx       ← GoatCounter pill, same-origin fallback
     WhatsChanged.jsx       ← Change Log tab content
   data/

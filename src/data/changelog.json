@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-06-25",
+    "version": "5.128",
+    "summary": "Made the signup clearer about the confirmation email and where to find it if it lands in spam.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Spam-folder heads-up at signup",
+        "body": "The monthly-updates box now says you'll get a confirmation email to opt in, with a bolded reminder to check your spam folder if it's not in your inbox."
+      },
+      {
+        "type": "minor",
+        "headline": "Confirmation email names the dashboard",
+        "body": "The opt-in email now says Canada Under Carney in the subject and explains what you signed up for, instead of a generic confirmation."
+      }
+    ]
+  },
+  {
     "date": "2026-06-24",
     "version": "5.127",
     "summary": "Fixed the email signup, which had stopped accepting subscribers, by moving it from Buttondown to Kit.",

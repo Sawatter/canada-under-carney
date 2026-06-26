@@ -48,7 +48,9 @@ export default function EmailSignup() {
         }}
       >
         Roughly one email per month when grades change or new evidence
-        lands. No marketing, no resale, no sharing.
+        lands. No marketing, no resale, no sharing. You'll get a
+        confirmation email to opt in. If it's not in your inbox,{" "}
+        <strong>check your spam folder</strong>.
       </div>
 
       <form
@@ -126,7 +128,7 @@ export default function EmailSignup() {
               marginTop: "4px",
             }}
           >
-            Thanks &mdash; check your inbox to confirm your subscription.
+            Thanks. Check your inbox (and your spam folder) to confirm your subscription.
           </div>
         )}
 
