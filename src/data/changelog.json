@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-06-26",
+    "version": "5.129",
+    "summary": "The Promises summary card at the top now opens the Promises tab when you click it.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Promises card is now clickable",
+        "body": "The Promises Delivered card in the top row was the only summary card that did nothing when clicked. It now opens the full Promises tab, with a 'See all promises' cue so it's clear you can."
+      }
+    ]
+  },
+  {
     "date": "2026-06-25",
     "version": "5.128",
     "summary": "Made the signup clearer about the confirmation email and where to find it if it lands in spam.",

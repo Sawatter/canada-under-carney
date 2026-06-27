@@ -699,6 +699,7 @@ export default function Dashboard({ experience = "classic" }) {
         pocketbookGPA={pocketbookGPA}
         promiseCounts={promiseCounts}
         totalPromises={totalPromises}
+        onOpenPromises={() => selectView("promises")}
         approvalExpanded={approvalExpanded}
         onToggleApproval={handleToggleApproval}
         derivationOpen={derivationOpen}
