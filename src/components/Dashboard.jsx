@@ -573,6 +573,20 @@ export default function Dashboard({ experience = "classic" }) {
         >
           Canada Under Carney
         </h1>
+        <p
+          className="header-clarifier"
+          style={{
+            fontSize: "14px",
+            color: "#444",
+            lineHeight: 1.5,
+            margin: "0 auto 10px",
+            maxWidth: "560px",
+          }}
+        >
+          &ldquo;Canada Under Carney&rdquo; is a time-period label, like &ldquo;Canada
+          under Chr&eacute;tien&rdquo; or &ldquo;Canada under Diefenbaker.&rdquo; This
+          scorecard grades the Carney government&rsquo;s performance, not Canada itself.
+        </p>
         <div
           className="header-subtitle"
           style={{
@@ -611,6 +625,21 @@ export default function Dashboard({ experience = "classic" }) {
         </div>
       </header>
 
+      {/* One-line orientation, above the trust frame: what this does, plainly. */}
+      <p
+        style={{
+          textAlign: "center",
+          fontSize: "16px",
+          color: "#555",
+          lineHeight: 1.5,
+          margin: "0 auto 16px",
+          maxWidth: "720px",
+          fontWeight: 500,
+        }}
+      >
+        An evidence-based scorecard grading the Carney government on 11 policy areas. Open any card to see how it&rsquo;s graded, the sources, and the reasoning.
+      </p>
+
       {/* Trust frame — global, sits between the title and the scoreboard so
           a reader sees what this dashboard is and is not for, regardless of
           which tab they land on. Earlier it was scoped to the Scorecard tab
@@ -636,7 +665,7 @@ export default function Dashboard({ experience = "classic" }) {
           }}
         >
           <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
-            <strong>What this is:</strong> a public scorecard grading federal performance against published thresholds, source links, and review dates.
+            <strong>What this is:</strong> each grade is built from published thresholds, source links, and review dates.
           </div>
           <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
             <strong>What this isn&rsquo;t:</strong> a forecast, voting guide, popularity measure, or claim that only measurable files matter.
@@ -667,7 +696,7 @@ export default function Dashboard({ experience = "classic" }) {
             >
               read the safeguards
             </button>
-            <span> or open any card to walk the rule, evidence, sources, and critic /
+            <span> or open any card to walk the criteria, evidence, sources, and critic /
             defender views.
             </span>
           </div>
@@ -676,21 +705,6 @@ export default function Dashboard({ experience = "classic" }) {
 
       {/* Scoreboard header: overall grades + promise count + approval signal card */}
       <div id="main-content" tabIndex={-1} />
-      {/* QW4: one-sentence orientation headline above the scoreboard */}
-      <p
-        style={{
-          textAlign: "center",
-          fontSize: "16px",
-          color: "#555",
-          lineHeight: 1.5,
-          marginBottom: "16px",
-          marginLeft: "auto",
-          marginRight: "auto",
-          fontWeight: 500,
-        }}
-      >
-        An evidence-based scorecard grading Carney’s federal government on 11 policy files — open any card to see the rule, sources, and reasoning.
-      </p>
       <div id="scoreboard-row">
       <ScoreboardHeader
         overallGrade={gpaToGrade(parseFloat(overallGPA))}
