@@ -1,11 +1,11 @@
 // Renders the math behind a headline score so a reader can check how the
-// numeric value is built from the per-dimension grades. Mirrors the
+// numeric value is built from the per-policy-area grades. Mirrors the
 // ApprovalDetail pattern: lives below the scoreboard row, visible only when
 // the corresponding card's toggle is open.
 //
 // Two flavours via the `variant` prop:
-//   - "household"  → pocketbook-weighted (4 dims × 2 + 7 dims × 1 = 15)
-//   - "overall"    → equal-weight Full Policy Audit (11 dims × 1 = 11)
+//   - "household"  -> pocketbook-weighted (4 areas x 2 + 7 areas x 1 = 15)
+//   - "overall"    -> equal-weight Full Policy Audit (11 areas x 1 = 11)
 
 const TITLES = {
   household: "How Household Impact is built",
@@ -14,9 +14,9 @@ const TITLES = {
 
 const FORMULAS = {
   household:
-    "Household Impact = (sum of grade-points × weight) / sum of weights. Housing, cost of living, the economy, and government spending each count twice. The other seven dimensions count once.",
+    "Household Impact starts with each policy area's grade points. Housing, cost of living, the economy, and government spending each count twice. The other seven policy areas count once. The total is divided by the total weight.",
   overall:
-    "Full Policy Audit = (sum of grade-points) / number of graded dimensions. Each of the 11 graded dimensions counts equally. The Promise Delivery tracker is excluded.",
+    "Full Policy Audit gives each of the 11 graded policy areas equal weight. Add their grade points, then divide by 11. The Promise Delivery tracker is excluded.",
 };
 
 const DETAIL_ID_PREFIX = "score-derivation-";
@@ -80,7 +80,7 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
           {title}
         </div>
         <div style={{ fontSize: "13px", color: "#666" }}>
-          Built from dimension grades
+          Built from policy-area grades
         </div>
       </div>
 
@@ -97,7 +97,7 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
 
       {isHousehold && weighted.length > 0 && (
         <DerivationGroup
-          heading={`Household-weighted (×2 each, ${numWeighted} dimension${
+          heading={`Daily-life files (x2 each, ${numWeighted} policy area${
             numWeighted === 1 ? "" : "s"
           })`}
           rows={weighted}
@@ -111,10 +111,10 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
       <DerivationGroup
         heading={
           isHousehold
-            ? `Other dimensions (×1 each, ${numSingle} dimension${
+            ? `Other policy areas (x1 each, ${numSingle} policy area${
                 numSingle === 1 ? "" : "s"
               })`
-            : `All graded dimensions (×1 each, ${numSingle} dimension${
+            : `All graded policy areas (x1 each, ${numSingle} policy area${
                 numSingle === 1 ? "" : "s"
               })`
         }
@@ -139,30 +139,30 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
         {isHousehold ? (
           <>
             <div>
-              Weighted sum: {fmt(weightedSubtotal, 2)} (×2 group) +{" "}
-              {fmt(singleSubtotal, 2)} (×1 group) ={" "}
+              Weighted total: {fmt(weightedSubtotal, 2)} (x2 group) +{" "}
+              {fmt(singleSubtotal, 2)} (x1 group) ={" "}
               <strong>{fmt(derivation.weightedSum, 2)}</strong>
             </div>
             <div>
-              Total weights: {numWeighted}×2 + {numSingle}×1 ={" "}
+              Total weight: {numWeighted}x2 + {numSingle}x1 ={" "}
               <strong>{derivation.totalWeight}</strong>
             </div>
           </>
         ) : (
           <>
             <div>
-              Sum of grade-points:{" "}
+              Total grade points:{" "}
               <strong>{fmt(derivation.weightedSum, 2)}</strong>
             </div>
             <div>
-              Dimensions: <strong>{derivation.totalWeight}</strong>
+              Policy areas: <strong>{derivation.totalWeight}</strong>
             </div>
           </>
         )}
         <div>
           Score: {fmt(derivation.weightedSum, 2)} / {derivation.totalWeight} ={" "}
-          <strong>{fmt(exactScore, 2)}</strong> → rounded to{" "}
-          <strong>{fmt(exactScore, 1)}</strong> →{" "}
+          <strong>{fmt(exactScore, 2)}</strong>, rounded to{" "}
+          <strong>{fmt(exactScore, 1)}</strong>, which maps to{" "}
           <strong>{finalGrade}</strong>
         </div>
         {displayedScore && fmt(exactScore, 1) !== displayedScore && (
@@ -180,15 +180,15 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
           lineHeight: 1.5,
         }}
       >
-        Grade-point conversion follows the standard 4.0 scale (A = 4.0, A− =
-        3.7, B+ = 3.3, … D = 1.0, F = 0). Letter-grade bands at the bottom of
-        the calculation use the rubric's published cutoffs (see Methodology).
+        Grade points follow the standard 4.0 scale (A = 4.0, A- = 3.7, B+ =
+        3.3, down to D = 1.0 and F = 0). Letter-grade bands at the bottom of
+        the calculation use the published rubric cutoffs in the Rubric tab.
       </div>
     </div>
   );
 }
 
-// One section of the derivation table: heading, dimension rows, subtotal line.
+// One section of the score table: heading, policy-area rows, subtotal line.
 function DerivationGroup({ heading, rows, subtotalLabel }) {
   if (rows.length === 0) return null;
   return (
@@ -216,7 +216,7 @@ function DerivationGroup({ heading, rows, subtotalLabel }) {
         >
           <thead>
             <tr style={{ color: "#777", textAlign: "left" }}>
-              <th style={{ padding: "4px 6px", fontWeight: 700 }}>Dimension</th>
+              <th style={{ padding: "4px 6px", fontWeight: 700 }}>Policy area</th>
               <th style={{ padding: "4px 6px", fontWeight: 700 }}>Grade</th>
               <th style={{ padding: "4px 6px", fontWeight: 700 }}>Points</th>
               <th style={{ padding: "4px 6px", fontWeight: 700 }}>Weight</th>
@@ -238,7 +238,7 @@ function DerivationGroup({ heading, rows, subtotalLabel }) {
                   {r.grade}
                 </td>
                 <td style={{ padding: "4px 6px" }}>{fmt(r.gpa, 1)}</td>
-                <td style={{ padding: "4px 6px" }}>×{r.weight}</td>
+                <td style={{ padding: "4px 6px" }}>x{r.weight}</td>
                 <td style={{ padding: "4px 6px", fontWeight: 700 }}>
                   {fmt(r.contribution, 1)}
                 </td>
@@ -265,7 +265,7 @@ function DerivationGroup({ heading, rows, subtotalLabel }) {
 function formatRowMath(rows, weight) {
   const parts = rows.map((r) => fmt(r.gpa, 1));
   if (weight === 2) {
-    return `(${parts.join(" + ")}) × 2`;
+    return `(${parts.join(" + ")}) x 2`;
   }
   return parts.join(" + ");
 }

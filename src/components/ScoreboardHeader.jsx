@@ -163,7 +163,7 @@ export default function ScoreboardHeader({
           </div>
         )}
 
-        {/* Promises Delivered — clickable: navigates to the full Promises view */}
+        {/* Promises Delivered - clickable: navigates to the full Promises view */}
         <button
           type="button"
           onClick={onOpenPromises}
@@ -178,7 +178,7 @@ export default function ScoreboardHeader({
         >
           <div className="scoreboard-card-title" style={cardTitle}>Promises Delivered</div>
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
-            A running count of tracked government commitments across every dimension.
+            A running count of tracked government commitments across every policy area.
           </div>
           <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <div

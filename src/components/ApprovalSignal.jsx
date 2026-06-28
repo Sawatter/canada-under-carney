@@ -2,7 +2,7 @@ import data from "../data/approval-polls.json";
 import { computeApprovalSignal } from "../approvalAggregation";
 
 function formatPct(v) {
-  return v === null ? "—" : `${Math.round(v)}%`;
+  return v === null ? "n/a" : `${Math.round(v)}%`;
 }
 
 // Shared compute helper. Both the card and the drilldown call this so the
@@ -36,7 +36,7 @@ export function ApprovalCard({
   };
 
   const netText =
-    s.net == null ? "—" : s.net >= 0 ? `Net +${s.net}` : `Net ${s.net}`;
+    s.net == null ? "Net n/a" : s.net >= 0 ? `Net +${s.net}` : `Net ${s.net}`;
 
   return (
     <div
@@ -97,7 +97,7 @@ export function ApprovalCard({
           {netText}
         </div>
         <div style={{ fontSize: "13px", color: "#555", marginTop: "4px", fontWeight: 500 }}>
-          {s.recent.length} polls &middot; {s.windowDays}-day avg
+          {s.recent.length} polls &middot; {s.windowDays}-day average
         </div>
       </div>
       {/* Footer slot: matches the derivation toggles on the two grade cards
@@ -163,7 +163,7 @@ export function ApprovalDetail() {
           Approval Signal detail
         </div>
         <div style={{ fontSize: "13px", color: "#666" }}>
-          {s.windowDays}-day rolling avg &middot; as of {s.asOf}
+          {s.windowDays}-day rolling average &middot; as of {s.asOf}
         </div>
       </div>
 
@@ -193,7 +193,7 @@ export function ApprovalDetail() {
           </span>
           {s.approveDelta && (
             <span style={{ marginLeft: "6px", fontSize: "14px", color: "#666" }}>
-              ({s.approveDelta} vs prior {s.windowDays}d)
+              ({s.approveDelta} vs previous {s.windowDays} days)
             </span>
           )}
         </div>
@@ -214,7 +214,7 @@ export function ApprovalDetail() {
           </span>
           {s.disapproveDelta && (
             <span style={{ marginLeft: "6px", fontSize: "14px", color: "#666" }}>
-              ({s.disapproveDelta} vs prior {s.windowDays}d)
+              ({s.disapproveDelta} vs previous {s.windowDays} days)
             </span>
           )}
         </div>
@@ -242,12 +242,12 @@ export function ApprovalDetail() {
           marginBottom: "10px",
         }}
       >
-        {s.recent.length} polls in window ({s.pollstersInWindow.join(", ")}).
-        The average weights each poll by sample size and by recency, on a{" "}
-        {s.halfLifeDays}-day half-life, so a poll loses half its weight every{" "}
-        {s.halfLifeDays} days, within the {s.windowDays}-day window. Tracked as
-        an ungraded signal so popularity does not feed the 11-dimension
-        performance grades.
+        {s.recent.length} polls are inside the current window:{" "}
+        {s.pollstersInWindow.join(", ")}. Bigger and newer polls count more.
+        A poll loses half its weight after {s.halfLifeDays} days, and polls
+        older than {s.windowDays} days do not count in the current average.
+        This stays outside the grades so popularity does not affect the
+        performance score.
       </div>
 
       {data.preferredPM && data.preferredPM.polls && data.preferredPM.polls.length > 0 && (() => {
@@ -275,12 +275,12 @@ export function ApprovalDetail() {
             {prev && (
               <span style={{ color: "#666" }}>
                 {" "}
-                (prior week: {prev.carney}% / {prev.poilievre}%)
+                (previous week: {prev.carney}% / {prev.poilievre}%)
               </span>
             )}
             . This asks a different question than approval above: best choice,
-            not approve/disapprove. It is shown as secondary context and is
-            not averaged into the approval mean.
+            not approve or disapprove. It is shown as extra context and is
+            not averaged into the approval number.
           </div>
         );
       })()}
@@ -294,9 +294,8 @@ export function ApprovalDetail() {
             lineHeight: 1.5,
           }}
         >
-          All polls in the {s.windowDays}-day window. Older polls
-          are kept for the historical trend but not included in the current
-          aggregate.
+          All polls in the {s.windowDays}-day window. Older polls are kept for
+          the historical trend but are not included in the current average.
         </div>
         <div style={{ overflowX: "auto" }}>
           <table
@@ -327,7 +326,7 @@ export function ApprovalDetail() {
                   >
                     <td style={{ padding: "4px 6px" }}>{p.pollster}</td>
                     <td style={{ padding: "4px 6px", color: "#777" }}>
-                      {p.fieldStart}&nbsp;&ndash;&nbsp;{p.fieldEnd}
+                      {p.fieldStart}&nbsp;-&nbsp;{p.fieldEnd}
                     </td>
                     <td style={{ padding: "4px 6px", color: "#777" }}>
                       {p.sampleSize.toLocaleString()}
@@ -345,7 +344,7 @@ export function ApprovalDetail() {
                         rel="noopener noreferrer"
                         style={{ color: "#1a73e8" }}
                       >
-                        link &rarr;
+                        link
                       </a>
                     </td>
                   </tr>

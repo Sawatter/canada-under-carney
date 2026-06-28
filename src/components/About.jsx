@@ -22,7 +22,7 @@ export default function About() {
         <p style={{ marginBottom: "16px" }}>
           <strong>Canada Under Carney</strong> is a non-partisan performance
           dashboard tracking the federal government across 11 graded policy
-          dimensions, plus an ungraded Promise Tracker. It is updated monthly
+          areas, plus an ungraded Promise Tracker. It is updated monthly
           using official statistics, independent policy analysis, and
           documented journalism from multiple institution types and
           perspectives. All grading decisions are made by the human editor
@@ -75,12 +75,12 @@ export default function About() {
               <strong>Recusal policy:</strong> if a future conflict of
               interest arises (paid relationship with a graded entity, a
               federal-department contract, a board seat with a policy-
-              affected organization), the affected dimension will be
+              affected organization), the affected policy area will be
               flagged in the next changelog entry with the nature of the
               conflict and the editorial response (recusal from that
-              dimension's grading, transition of that dimension's grading
+              policy area's grading, transition of that policy area's grading
               to a documented external review, or both). The flag stays
-              on the dimension card until the conflict is resolved.
+              on the policy-area card until the conflict is resolved.
             </li>
             <li>
               <strong>Funding:</strong> the dashboard is unfunded. No paid
@@ -91,7 +91,7 @@ export default function About() {
             <li>
               <strong>AI assistance:</strong> Claude, Codex, ChatGPT, and
               Perplexity-class tools are used for drafting, code changes,
-              source research, and methodology audits. Grading decisions
+              source research, and methodology reviews. Grading decisions
               are made by the human editor against the published rubric,
               not by any AI. The AI verification methodology at{" "}
               <a
@@ -174,7 +174,7 @@ export default function About() {
               <ul style={{ margin: "6px 0 0", paddingLeft: "18px" }}>
                 <li>federal actions with sourceable evidence</li>
                 <li>documented commitments and delivery status</li>
-                <li>published policy thresholds and grade triggers</li>
+                <li>published policy thresholds and grade-move conditions</li>
                 <li>outcomes where federal levers are visible enough to assess</li>
               </ul>
             </div>
@@ -182,7 +182,7 @@ export default function About() {
               <strong>Not scored:</strong>
               <ul style={{ margin: "6px 0 0", paddingLeft: "18px" }}>
                 <li>leadership style, charisma, or political strategy</li>
-                <li>symbolic actions without durable policy artifacts</li>
+                <li>symbolic actions without durable policy records</li>
                 <li>popularity, vote choice, or campaign forecasting</li>
                 <li>valuable outcomes that lack enough public evidence to grade</li>
                 <li>
@@ -205,7 +205,7 @@ export default function About() {
           </p>
           <p style={{ margin: "8px 0 0", fontSize: "14px", color: "#555" }}>
             Some excluded files still appear as evidence inside a home
-            dimension when they have a direct paper trail: healthcare staffing
+            policy area when they have a direct paper trail: healthcare staffing
             pressure appears inside Immigration, an Indigenous loan guarantee
             appears inside Major Projects and Promise Delivery, and foreign
             policy review commitments appear inside Defence &amp; Trade. They
@@ -219,23 +219,23 @@ export default function About() {
             updates. Healthcare federal-provincial transfers sit inside the
             Fiscal Health file because the provincial side is outside the
             dashboard's federal scope. Public-sector bargaining touches
-            three current dimensions at once. It feeds Fiscal Health
+            three current policy areas at once. It feeds Fiscal Health
             through the workforce-reduction commitment, Economic Policy
             Response through wage dynamics, and Immigration through
             workforce planning, but the labour-relations file as a whole
             does not have its own grade because Treasury Board agreement
-            timing is intermittent and the cross-dimension footprint
+            timing is intermittent and the cross-file footprint
             would risk double-counting. Pre-designation pipeline
             announcements are intentionally excluded by the Major Projects
             scope rule that grades documented post-designation advancement
             rather than announcement count. Defence procurement (specific
             fighter jet, naval vessel, and Arctic surveillance contracts)
             is not graded as a separate file because the current Defence
-            & Trade dimension uses the NATO spending percentage and
+            & Trade file uses the NATO spending percentage and
             trade-diversification rate as its measurable outcomes. Specific
             procurement contracts would fit the Major Projects model
             better and may move there if the Defence & Trade tripwire
-            forces the dimension to split. Foreign policy beyond defence
+            forces that file to split. Foreign policy beyond defence
             and trade is excluded because the indicators that would
             distinguish performance from posture are not yet usable for a
             monthly rubric. A reader who wants any of these graded
@@ -290,8 +290,8 @@ export default function About() {
           <p style={{ margin: "0 0 10px" }}>
             These four areas count twice as much in Household Impact; the
             other seven still count, just not as heavily. Both grades use the
-            same 11 areas, the same sources, the same rubric, and the same QA
-            checks. Only the weighting changes.
+            same 11 areas, the same sources, the same rubric, and the same
+            review checks. Only the weighting changes.
           </p>
           <p style={{ margin: "0 0 10px" }}>
             <strong>Promises Delivered</strong> is a running tracker of
@@ -316,8 +316,8 @@ export default function About() {
           >
             Commitment Traceability Map
           </a>{" "}
-          that links each tracked commitment to its home dimension, construct,
-          evidence path, source requirements, duplicate-check notes, and how
+          that links each tracked commitment to its home policy area, what that
+          file is scoring, evidence path, source requirements, duplicate-check notes, and how
           repeated promises are handled. It is a reference layer, not a
           separate scoring system.
         </p>
@@ -337,7 +337,7 @@ export default function About() {
           <ul style={{ margin: "6px 0", paddingLeft: "18px" }}>
             <li>
               Grades reflect what the government chose to do and how well it
-              executed, not what it inherited
+              carried out, not what it inherited
             </li>
             <li>
               Primary data from official statistics (Statistics Canada,
@@ -356,7 +356,7 @@ export default function About() {
             </li>
             <li>
               Commitments are traceable from their original public source to
-              their home dimension, evidence path, and repeated-promise treatment
+              their home policy area, evidence path, and repeated-promise treatment
               through the published Commitment Traceability Map
             </li>
             <li>
@@ -368,9 +368,9 @@ export default function About() {
             <li>
               Outside reviewers have not yet tested whether they would reach
               the same grades. Subjectivity is reduced through published
-              rubric thresholds, canonical scoring sheets, the 5-tier source
-              hierarchy, QA gatekeeping with 6 blocking conditions,
-              duplicate-check rules, and documented modifier rules
+              rubric thresholds, standard scoring sheets, the 5-tier source
+              hierarchy, review gates with 6 blocking conditions,
+              duplicate-check rules, and documented grade-adjustment rules
             </li>
           </ul>
         </div>
@@ -388,9 +388,9 @@ export default function About() {
             Source Balance
           </div>
           <div style={{ fontSize: "13px", color: "#555", marginTop: "4px" }}>
-            This is a current source-type summary, not a full manifest and not
-            a formal left/right scorecard. Click any expanded dimension card
-            for the exact source URLs used on that file. For the canonical
+            This is a current source-type summary, not a full inventory and not
+            a formal left/right scorecard. Click any expanded policy-area card
+            for the exact source URLs used on that file. For the main
             per-source-family record (institution type, ownership / funding,
             editorial independence, tier, best-use boundary), see the{" "}
             <a
@@ -452,7 +452,7 @@ export default function About() {
             wins. This dashboard evaluates the period from March 2025 onward,
             with monthly updates. Files with realistic one-year improvement
             potential are graded on outcomes. Structural challenges built over
-            a decade are graded on direction of travel and adequacy of effort.
+            a decade are graded on whether the file is moving the right way and whether the response is big enough.
           </div>
         </div>
 
@@ -473,7 +473,7 @@ export default function About() {
             editorial direction. The rubric, evidence sources, and per-grade
             reasoning are all public so any grade can be checked against
             its evidence. Methodology stress-tested through simulated
-            adversarial review.
+            skeptical review.
             <br />
             Scoring Rubric v1.1 &middot; Open source on{" "}
             <a
@@ -509,9 +509,9 @@ export default function About() {
             </a>
             , accessed [date].
             <br />
-            For citing a specific dimension grade at a specific point in time,
+            For citing a specific policy-area grade at a specific point in time,
             include the dashboard version shown in the header (e.g., v5.59)
-            and the dimension name. Source data lives in{" "}
+            and the policy-area name. Source data lives in{" "}
             <code style={{ fontFamily: "monospace", fontSize: "12px" }}>
               src/data/dimensions.json
             </code>{" "}
@@ -594,7 +594,7 @@ export default function About() {
             >
               How To Challenge A Grade
             </a>
-            . It walks through the criteria, trigger, metric, source, and
+            . It walks through the criteria, grade-move condition, metric, source, and
             critic / defender checks.
             <br />
             Factual errors can be reported via{" "}
@@ -618,7 +618,7 @@ export default function About() {
             documents what gets corrected, how, and on what timeline.
             <br />
             Federal ministries, agencies, watchdogs, and named third-party
-            analysts cited in any dimension's evidence chain can submit
+            analysts cited in any policy area's evidence chain can submit
             critiques via the{" "}
             <a
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Right-Of-Reply.md"
@@ -629,9 +629,9 @@ export default function About() {
               right-of-reply process
             </a>
             . Disagreements with editor judgment are reviewed and reflected
-            transparently; grades do not move because a party disagrees.
+            transparently. Grades do not move because a party disagrees.
             <br />
-            Readers who want to test whether the derivation surface is
+            Readers who want to test whether the score-explanation surface is
             legible across political priors can participate in the{" "}
             <a
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Perceived-Bias-Survey.md"

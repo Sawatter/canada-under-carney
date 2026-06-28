@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-28",
+    "version": "5.140",
+    "summary": "Finished the plain-language pass across the non-dimension dashboard surfaces.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Plain-language dashboard surfaces",
+        "body": "The headline score cards, score-math panels, Approval Signal, Rubric tab, and About tab now use plainer wording for policy areas, grade-move conditions, source checks, polling averages, and score explanations. No grades, thresholds, source data, GPA formulas, or methodology rules changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
     "version": "5.139",
     "summary": "Tightened the plain-language wording in dimension details without changing any scores.",
     "items": [
