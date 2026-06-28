@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-27",
+    "version": "5.132",
+    "summary": "Made the close button on an opened dimension easier to spot.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Clearer close button on opened dimensions",
+        "body": "On desktop, the close button on an opened dimension was a faint outline that was easy to miss. It is now a solid dark button, so it is obvious how to close the card. Mobile matches."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-27",
     "version": "5.131",
     "summary": "Rewrote the dimension drawers and explainer copy so the grading logic is easier to follow without changing the scores.",
     "items": [
