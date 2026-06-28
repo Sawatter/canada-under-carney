@@ -545,8 +545,8 @@ export default function DimensionCard({
     [sortedSources]
   );
   const sourceFreshnessSummary = newestDatedSource
-    ? `newest source: ${formatSourceDate(newestDatedSource)}`
-    : "date review pending";
+    ? `newest dated source: ${formatSourceDate(newestDatedSource)}`
+    : "no dated source yet";
   const sourceGradeMoves = useMemo(() => buildGradeMovesBySource(dim.id), [dim.id]);
   const activeThresholdRow = useMemo(
     () => (isTracker ? null : findActiveThresholdRow(scoring?.thresholds, dim.grade)),
@@ -1514,7 +1514,7 @@ export default function DimensionCard({
                   </div>
                 ) : (
                   <span className="dim-info-grade-pill">
-                    {dim.informationalGrade} tracker read
+                    {dim.informationalGrade} tracker, outside GPA
                   </span>
                 )
               ) : (
@@ -1685,7 +1685,7 @@ export default function DimensionCard({
                     </div>
                   ) : (
                     <span className="dim-info-grade-pill">
-                      {dim.informationalGrade} tracker read
+                      {dim.informationalGrade} tracker, outside GPA
                     </span>
                   )
                 ) : (
@@ -2030,7 +2030,7 @@ export default function DimensionCard({
               <DisclosureSection
                 id={`dim-${dim.id}-scoring`}
                 title="How this grade is built"
-                summary="criteria and thresholds"
+                summary="grading criteria"
                 isOpen={!!openSections.rule}
                 onToggle={() => toggleSection("rule")}
                 region
@@ -2055,17 +2055,17 @@ export default function DimensionCard({
                   )}
                   {scoring?.scopeNote && (
                     <div>
-                      <strong>Scope note:</strong> {scoring.scopeNote}
+                      <strong>What this covers:</strong> {scoring.scopeNote}
                     </div>
                   )}
                   {scoring?.modifierExpiry && (
                     <div>
-                      <strong>Timing condition:</strong> {scoring.modifierExpiry}
+                      <strong>Timing note:</strong> {scoring.modifierExpiry}
                     </div>
                   )}
                   {scoring?.thresholds?.length > 0 && (
                     <div className="dim-stack">
-                      <strong>Threshold ladder</strong>
+                      <strong>Grade thresholds</strong>
                       {scoring.thresholds.map((threshold) => (
                         <div
                           key={threshold.grade}
@@ -2079,7 +2079,7 @@ export default function DimensionCard({
                   )}
                   {scoring?.guardrails?.length > 0 && (
                     <div className="dim-stack">
-                      <strong>Guardrails</strong>
+                      <strong>Rules that limit the grade</strong>
                       {scoring.guardrails.map((rule, i) => (
                         <div key={i} style={{ color: "#444" }}>
                           {rule}
@@ -2100,7 +2100,7 @@ export default function DimensionCard({
                   {dim.gradeBasis?.leverOperationalization && (
                     <DisclosureSection
                       id={`dim-${dim.id}-lever-operationalization`}
-                      title={`Per-lever status criteria (${dim.gradeBasis.leverOperationalization.length} levers)`}
+                      title={`Status checks for each lever (${dim.gradeBasis.leverOperationalization.length} levers)`}
                       isOpen={!!openSections.leverOperationalization}
                       onToggle={() => toggleSection("leverOperationalization")}
                       active={activeSectionKeys.includes("leverOperationalization")}
@@ -2694,10 +2694,10 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active, instant
       <div className="dim-cohort-summary">
         <div className="dim-cohort-asof">As of {cohort.asOf}</div>
         <div>
-          <strong>{total} projects in MPO cohort.</strong>{" "}
-          {aboveDesignatedCount} currently sit above designated status;{" "}
+          <strong>{total} projects in the MPO project list.</strong>{" "}
+          {aboveDesignatedCount} currently sit above designated status.{" "}
           {documentedAdvancedCount} of {total} ({documentedAdvancedPct}%) have
-          documented post-designation advancement.
+          documented progress after being added.
         </div>
         <div className="dim-stage-counts">
           {stageCounts.map((s) => (

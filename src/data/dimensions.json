@@ -66,7 +66,7 @@
           "sourceUrl": "https://budget.canada.ca/2025/report-rapport/chap4-en.html"
         },
         {
-          "text": "US export share drops below 68%",
+          "text": "U.S. export share drops below 68%",
           "setDate": "2026-04-17",
           "sourceLabel": "StatsCan trade data",
           "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
@@ -80,7 +80,7 @@
           "sourceUrl": "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada"
         },
         {
-          "text": "US export share reverses above 73%",
+          "text": "U.S. export share reverses above 73%",
           "setDate": "2026-04-17",
           "sourceLabel": "StatsCan trade data",
           "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
@@ -126,7 +126,7 @@
         "dateKind": "published"
       },
       {
-        "label": "PBO — Spring Economic Update Major Capital Priorities",
+        "label": "PBO - Spring Economic Update Major Capital Priorities",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans",
         "date": "2026-05-04",
         "dateKind": "published"
@@ -155,18 +155,18 @@
         "sourceRefs": [
           {
             "primary": true,
-            "label": "NATO — Defence Expenditure of NATO Countries (2014-2025), Table 3/4",
+            "label": "NATO - Defence Expenditure of NATO Countries (2014-2025), Table 3/4",
             "url": "https://www.nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf"
           },
           {
-            "label": "PBO — Spring Economic Update Major Capital Priorities",
+            "label": "PBO - Spring Economic Update Major Capital Priorities",
             "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans"
           }
         ],
         "automatable": false
       },
       {
-        "label": "US export share (2025 annual)",
+        "label": "U.S. export share (2025 annual)",
         "lead": true,
         "value": "71.7%",
         "source": "global-affairs-canada",
@@ -181,7 +181,7 @@
         ]
       },
       {
-        "label": "Non-US exports (2025 annual)",
+        "label": "Non-U.S. exports (2025 annual)",
         "lead": true,
         "value": "+17.2%",
         "source": "global-affairs-canada",
@@ -266,7 +266,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
-        "statusSourceLabel": "Government of Canada — Internal Trade Action Plan status"
+        "statusSourceLabel": "Government of Canada - Internal Trade Action Plan status"
       },
       {
         "text": "$5B Trade Diversification Corridors Fund",
@@ -284,7 +284,7 @@
           }
         ],
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
+        "statusSourceLabel": "Budget 2025 - Annex 1 Policy Measures"
       },
       {
         "text": "Buy Canadian procurement strategy",
@@ -300,9 +300,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.2 — Buy Canadian Policy"
+        "statusSourceLabel": "Budget 2025 Ch.2 - Buy Canadian Policy"
       },
       {
         "text": "Full foreign policy review (first since 2005)",
@@ -318,14 +318,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.ckom.com/2026/01/28/union-questions-why-global-affairs-issuing-layoff-warnings-before-policy-review/",
         "statusSourceLabel": "Canadian Press - review to follow national-security strategy (Jan 2026)"
       }
     ],
     "perspectives": {
       "critics": "Policy Options: the 3.5% GDP defence target cannot be financed without tax increases or structural deficits. NDP and labour groups: $81.8B for defence while housing, healthcare, and childcare remain underfunded is a priorities failure, not a win.",
-      "defenders": "Fraser Institute and NATO allies confirm this is the most significant Canadian defence achievement since the Cold War. Trade diversification is measurable: US export share fell from 75.9% (2024) to 71.7% (2025), and non-US goods exports rose 17.2% to an all-time high (Global Affairs Canada)."
+      "defenders": "Fraser Institute and NATO allies confirm this is the most significant Canadian defence achievement since the Cold War. Trade diversification is measurable: U.S. export share fell from 75.9% (2024) to 71.7% (2025), and non-U.S. goods exports rose 17.2% to an all-time high (Global Affairs Canada)."
     },
     "tags": {
       "confidence": "High",
@@ -343,7 +343,7 @@
       "trade": {
         "grade": "B+",
         "label": "Trade Diversification",
-        "rationale": "US export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s (Global Affairs Canada, December 2025 report). Non-US goods exports rose 17.2% to an all-time high. EU exports up 23.4% YTD. January 2026 monthly showed weakness (-6.5%) but single-month data is volatile."
+        "rationale": "U.S. export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s (Global Affairs Canada, December 2025 report). Non-U.S. goods exports rose 17.2% to an all-time high. EU exports up 23.4% YTD. January 2026 monthly showed weakness (-6.5%) but single-month data is volatile."
       }
     }
   },
@@ -402,7 +402,7 @@
           "criteria": "No functioning institutional reform is in place and the federal approval environment worsens versus the inherited baseline."
         }
       ],
-      "scopeNote": "This grade is about the federal approval process and project progress, not whether each project is good or bad. Progress is measured against the published stages (designated → reviewed → approved → permitted → under construction → completed), and only movement recorded after a project enters the list counts toward the grade thresholds.",
+      "scopeNote": "This grade is about the federal approval process and project progress, not whether each project is good or bad. Progress is measured against the published stages: designated, reviewed, approved, permitted, under construction, and completed. Only movement recorded after a project enters the list counts toward the grade thresholds.",
       "guardrails": [
         "Pre-existing pipeline value does not count as new federal delivery on its own.",
         "A referred project is not the same as a completed MPO review cycle or a verified timeline gain.",
@@ -431,7 +431,7 @@
           }
         },
         {
-          "text": "First use of national interest designation",
+          "text": "First use of the national-interest designation",
           "setDate": "2026-04-15",
           "sourceLabel": "Building Canada Act (Bill C-5)",
           "sourceUrl": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
@@ -447,7 +447,7 @@
           }
         },
         {
-          "text": "Cohort progress reverses (project moved back to designated from a higher stage)",
+          "text": "A project moves back to designated from a higher stage",
           "setDate": "2026-04-30",
           "sourceLabel": "Project pipeline table below",
           "internalRef": {
@@ -462,7 +462,7 @@
         }
       ]
     },
-    "rationale": "The Major Projects Office is a real institutional change with strong powers under the Building Canada Act (C-5). The official MPO project page now lists 15 referred projects, separate from transformative strategies that are not counted in the project denominator. Of those 15 projects, 4 currently sit above designated status as of May 2026. But only 2 of 15, about 13%, show documented progress after being added to the list: Contrecœur Terminal broke ground April 9, 2026, and Darlington New Nuclear has a later approval / financing milestone. North Coast Transmission Line and Mackenzie Valley Highway have higher stage labels in tranche-announcement sources, but not a later recorded transition after cohort entry, so they are not yet counted toward the B threshold. The remaining 11 projects sit in initial designated status. The national-interest power has never been used. The $126B headline figure mainly represents private-sector investment decisions that already existed. The Fraser Institute and Angus Reid both found the government overstated its role. Documented cohort progress therefore sits well below the 30% threshold for B, so the C grade holds. The credit-claiming penalty modifier (-0.3 GPA) is reflected in the current C grade. Without the penalty, the grade would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
+    "rationale": "The Major Projects Office is a real institutional change with strong powers under the Building Canada Act (C-5). The official MPO project page now lists 15 referred projects, separate from transformative strategies that are not counted in the project denominator. Of those 15 projects, 4 currently sit above designated status as of May 2026. But only 2 of 15, about 13%, show documented progress after being added to the list: Contrecœur Terminal broke ground April 9, 2026, and Darlington New Nuclear has a later approval / financing milestone. North Coast Transmission Line and Mackenzie Valley Highway have higher stage labels in tranche-announcement sources, but not a later recorded transition after entering the project list, so they are not yet counted toward the B threshold. The remaining 11 projects sit in initial designated status. The national-interest power has never been used. The $126B headline figure mainly represents private-sector investment decisions that already existed. The Fraser Institute and Angus Reid both found the government overstated its role. Documented project-list progress therefore sits well below the 30% threshold for B, so the C grade holds. The credit-claiming penalty scoring adjustment (-0.3 GPA) is reflected in the current C grade. Without the penalty, the grade would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
     "sources": [
       {
         "label": "MPO official referred projects list",
@@ -501,13 +501,13 @@
         "dateKind": "as-of"
       },
       {
-        "label": "Fraser Institute — MPO assessment",
+        "label": "Fraser Institute - MPO assessment",
         "url": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration",
         "date": "2025-09-15",
         "dateKind": "published"
       },
       {
-        "label": "Angus Reid — major projects reaction",
+        "label": "Angus Reid - major projects reaction",
         "url": "https://angusreid.org/major-projects-reaction-canada/",
         "date": "2025-09",
         "dateKind": "published"
@@ -568,7 +568,7 @@
         "label": "National interest designation uses",
         "value": "0",
         "source": "legisinfo",
-        "sourceNote": "Building Canada Act grants the national interest designation power. As of April 2026, it has not been used. Source: no designation orders found in LEGISinfo or government announcements.",
+        "sourceNote": "Building Canada Act grants the national-interest designation power. As of April 2026, it has not been used. Source: no designation orders found in LEGISinfo or government announcements.",
         "automatable": false
       },
       {
@@ -826,9 +826,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
-        "statusSourceLabel": "Bill C-5 — One Canadian Economy Act on LEGISinfo"
+        "statusSourceLabel": "Bill C-5 - One Canadian Economy Act on LEGISinfo"
       },
       {
         "text": "High-speed rail Windsor-Quebec City",
@@ -844,9 +844,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://tc.canada.ca/en/corporate-services/transparency/corporate-management-reporting/strategic-environmental-economic-assessment/public-statement-strategic-environmental-economic-assessment-co-development-phase-alto-s-high-speed-rail-initiative",
-        "statusSourceLabel": "Transport Canada — Alto co-development phase"
+        "statusSourceLabel": "Transport Canada - Alto co-development phase"
       },
       {
         "text": "$10B Indigenous Loan Guarantee Program",
@@ -862,21 +862,21 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 — Annex 1 Policy Measures"
+        "statusSourceLabel": "Budget 2025 - Annex 1 Policy Measures"
       }
     ],
     "perspectives": {
-      "critics": "Angus Reid and Fraser Institute: the $126B headline is mostly pre-existing investment rebranded. The national interest designation has never been used — the MPO's most powerful tool sits on the shelf. Environmental and Indigenous groups: fast-tracking without consent is not progress.",
-      "defenders": "The Building Canada Act is genuine institutional reform with bipartisan support. The $10B Indigenous Loan Guarantee is operational. The MPO is less than a year old — judging it on unused powers rather than institutional capacity is premature."
+      "critics": "Angus Reid and Fraser Institute: the $126B headline is mostly pre-existing investment rebranded. The national-interest designation has never been used, so the MPO's most powerful tool sits on the shelf. Environmental and Indigenous groups: fast-tracking without consent is not progress.",
+      "defenders": "The Building Canada Act is genuine institutional reform with bipartisan support. The $10B Indigenous Loan Guarantee is operational. The MPO is less than a year old, so judging it on unused powers rather than institutional capacity is premature."
     },
     "tags": {
       "confidence": "Medium",
       "attribution": "Mixed",
       "lag": "Long"
     },
-    "nextTrigger": "First use of national interest designation. MPO project completion or cancellation. Alto rail feasibility report.",
+    "nextTrigger": "First use of the national-interest designation. MPO project completion or cancellation. Alto rail feasibility report.",
     "inherited": "Regulatory assessments routinely exceeded 5 years. Bill C-69 was criticized across the spectrum. Private investment proceeded despite, not because of, the framework."
   },
   {
@@ -937,7 +937,7 @@
         {
           "text": "The deficit drops below 2% of the economy's size (GDP) while the Parliamentary Budget Officer (PBO) still sees the fiscal anchors (the self-set fiscal targets) as on track",
           "setDate": "2026-05-13",
-          "sourceLabel": "PBO — SEU fiscal anchors assessment",
+          "sourceLabel": "PBO - SEU fiscal anchors assessment",
           "sourceUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
         },
         {
@@ -950,7 +950,7 @@
         {
           "text": "The Parliamentary Budget Officer (PBO) no longer sees the deficit-to-GDP anchor (deficit measured against the economy's size) or the operating-balance anchor (covering day-to-day costs without borrowing) as on track",
           "setDate": "2026-05-13",
-          "sourceLabel": "PBO — SEU fiscal anchors assessment",
+          "sourceLabel": "PBO - SEU fiscal anchors assessment",
           "sourceUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere"
         },
         {
@@ -975,13 +975,13 @@
         "dateKind": "published"
       },
       {
-        "label": "PBO — SEU economic and fiscal track",
+        "label": "PBO - SEU economic and fiscal track",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-001-S--pbo-assessment-spring-economic-update-economic-fiscal-track--evaluation-dpb-mise-jour-economique-printemps-profil-evolution-economique-financiere",
         "date": "2026-05-04",
         "dateKind": "published"
       },
       {
-        "label": "PBO — SEU fiscal anchors and sustainability",
+        "label": "PBO - SEU fiscal anchors and sustainability",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
         "date": "2026-05-04",
         "dateKind": "published"
@@ -1087,7 +1087,7 @@
         "label": "Fitch rating",
         "value": "AA+ (stable outlook, fiscal concerns noted)",
         "source": "manual",
-        "sourceNote": "Fitch maintained AA+/stable after Budget 2025 (Nov 2025). Fitch warned that persistent fiscal expansion and rising debt burden could increase rating pressure over the medium term but did not change the outlook to negative. Event-driven — next check on any Fitch action or statement.",
+        "sourceNote": "Fitch maintained AA+/stable after Budget 2025 (Nov 2025). Fitch warned that persistent fiscal expansion and rising debt burden could increase rating pressure over the medium term but did not change the outlook to negative. Event-driven - next check on any Fitch action or statement.",
         "automatable": false
       }
     ],
@@ -1111,9 +1111,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
-        "statusSourceLabel": "PBO — SEU fiscal anchors and sustainability"
+        "statusSourceLabel": "PBO - SEU fiscal anchors and sustainability"
       },
       {
         "text": "Reduce civil service by ~40,000",
@@ -1129,9 +1129,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.5 — Workforce Renewal"
+        "statusSourceLabel": "Budget 2025 Ch.5 - Workforce Renewal"
       },
       {
         "text": "Middle class income tax cut",
@@ -1149,7 +1149,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/services/publications/report-impact-reducing-lowest-marginal-personal-income-tax-rate-non-refundable-tax-credits.html",
-        "statusSourceLabel": "Finance Canada — personal income tax rate report"
+        "statusSourceLabel": "Finance Canada - personal income tax rate report"
       },
       {
         "text": "Cancel capital gains tax increase",
@@ -1167,7 +1167,7 @@
           }
         ],
         "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/03/21/prime-minister-mark-carney-cancels-proposed-capital-gains-tax-increase",
-        "statusSourceLabel": "Prime Minister of Canada — capital gains tax cancellation"
+        "statusSourceLabel": "Prime Minister of Canada - capital gains tax cancellation"
       }
     ],
     "perspectives": {
@@ -1191,7 +1191,7 @@
     "trend": "down",
     "status": "Canada's weak productivity (how much it gets out of each hour of work) was inherited, not caused by this government. This grade now tracks four kinds of levers the government can pull: tax, trade, regulation, and funding. But fewer than two of the core levers have reached the authorized or executing stage, and business investment is still close to flat.",
     "judgmentCall": "The low grade is about how far the government's policy levers have actually been carried out, not about the inherited productivity weakness, which is treated as background.",
-    "judgmentDetail": "The grade is about the federal response, not Canada's inherited productivity level. Judgment enters in deciding which levers count as execution-ready: announced funds and frameworks are not treated the same as Treasury Board-authorized programs, live tax or regulatory changes, or measurable internal-trade and permitting movement. June 2026 review: the Q1 2026 technical recession and the fifth straight quarterly business-investment decline are recorded in the metrics, but the D→D- question is held until the actual April 2026 GDP (gross domestic product) figure lands. Statistics Canada's early estimate was +0.4%, which could revise the technical recession away. So a down-move here is data-gated, not judgment-gated.",
+    "judgmentDetail": "The grade is about the federal response, not Canada's inherited productivity level. Judgment enters in deciding which levers count as execution-ready: announced funds and frameworks are not treated the same as Treasury Board-authorized programs, live tax or regulatory changes, or measurable internal-trade and permitting movement. June 2026 review: the Q1 2026 technical recession and the fifth straight quarterly business-investment decline are recorded in the metrics, but the D to D- question is held until the actual April 2026 GDP (gross domestic product) figure lands. Statistics Canada's early estimate was +0.4%, which could revise the technical recession away. So any down-move here waits for the data, not a judgment call.",
     "surfaceTags": [
       "Mostly inherited baseline",
       "Long-lag area (slow to show results)"
@@ -1213,7 +1213,7 @@
           "announced": "Strategy or partnership signing announced",
           "authorized": "Treasury Board-funded program with named recipients, signed federal-provincial or federal-foreign agreements, and a deployment timeline",
           "executing": "Project advancement past partnership-signing stage into permitting, construction, or extraction phase with measurable milestones",
-          "currentStatus": "announced (boundary with authorized). NRCan announced 30 critical minerals partnerships in March 2026 with $121B in associated project capital, but partnership signings are pre-execution. Project-level advancement into permitting or construction has not been verified across the cohort."
+          "currentStatus": "announced (boundary with authorized). NRCan announced 30 critical minerals partnerships in March 2026 with $121B in associated project capital, but partnership signings are pre-execution. Project-level advancement into permitting or construction has not been verified across the project list."
         },
         {
           "name": "Interprovincial trade implementation",
@@ -1294,16 +1294,16 @@
         {
           "text": "Business investment turns positive for two or more quarters in a row",
           "setDate": "2026-04-17",
-          "sourceLabel": "StatsCan GDP, income and expenditure — Q4 2025",
+          "sourceLabel": "StatsCan GDP, income and expenditure - Q4 2025",
           "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
           "additionalSources": [
             {
-              "label": "CSLS — Canadian Productivity Review",
+              "label": "CSLS - Canadian Productivity Review",
               "url": "https://www.csls.ca/reports/csls2025-04.pdf",
               "role": "Independent productivity-trend analysis. CSLS publishes the reference Canadian productivity research and is cited across the political spectrum."
             },
             {
-              "label": "Signal49 Research — business investment outlook",
+              "label": "Signal49 Research - business investment outlook",
               "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
               "role": "Independent centrist economic research voice on business investment trajectory."
             }
@@ -1319,16 +1319,16 @@
         {
           "text": "Business investment falls even faster",
           "setDate": "2026-04-17",
-          "sourceLabel": "StatsCan GDP, income and expenditure — Q4 2025",
+          "sourceLabel": "StatsCan GDP, income and expenditure - Q4 2025",
           "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
           "additionalSources": [
             {
-              "label": "CSLS — Canadian Productivity Review",
+              "label": "CSLS - Canadian Productivity Review",
               "url": "https://www.csls.ca/reports/csls2025-04.pdf",
               "role": "Independent confirmation of productivity-trend deterioration."
             },
             {
-              "label": "Signal49 Research — business investment outlook",
+              "label": "Signal49 Research - business investment outlook",
               "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
               "role": "Centrist independent confirmation of business-investment decline acceleration."
             }
@@ -1351,25 +1351,25 @@
         "dateKind": "published"
       },
       {
-        "label": "ISED — Canadian Sovereign AI Compute Strategy",
+        "label": "ISED - Canadian Sovereign AI Compute Strategy",
         "url": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
         "date": "2024-12-05",
         "dateKind": "published"
       },
       {
-        "label": "Budget 2025 — productivity super-deduction",
+        "label": "Budget 2025 - productivity super-deduction",
         "url": "https://budget.canada.ca/2025/report-rapport/intro-en.html",
         "date": "2025-11-04",
         "dateKind": "published"
       },
       {
-        "label": "Treasury Board — 2024-25 regulatory management annual report",
+        "label": "Treasury Board - 2024-25 regulatory management annual report",
         "url": "https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html",
         "date": "2025-12-02",
         "dateKind": "published"
       },
       {
-        "label": "Government of Canada — Internal Trade Action Plan status",
+        "label": "Government of Canada - Internal Trade Action Plan status",
         "url": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
         "date": "2026-06-15",
         "dateKind": "as-of"
@@ -1381,19 +1381,19 @@
         "dateKind": "as-of"
       },
       {
-        "label": "NRCan — critical minerals partnerships",
+        "label": "NRCan - critical minerals partnerships",
         "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html",
         "date": "2026-03",
         "dateKind": "published"
       },
       {
-        "label": "Centre for the Study of Living Standards — Canadian Productivity Review",
+        "label": "Centre for the Study of Living Standards - Canadian Productivity Review",
         "url": "http://www.csls.ca/ipm.asp",
         "date": "2025-11",
         "dateKind": "published"
       },
       {
-        "label": "Signal49 Research — business investment outlook",
+        "label": "Signal49 Research - business investment outlook",
         "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
         "date": "2026-03",
         "dateKind": "published"
@@ -1418,11 +1418,11 @@
         "source": "statcan",
         "sourceRefs": [
           {
-            "label": "StatCan — GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
+            "label": "StatCan - GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
             "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
           }
         ],
-        "sourceNote": "StatsCan GDP release May 29, 2026: real GDP was unchanged quarter-over-quarter in Q1 2026 (-0.1% annualized), a second consecutive annualized decline after Q4 2025 (-0.2% q/q). This meets some definitions of a technical recession, but economists are split — BMO's Douglas Porter noted the Q1 dip is small enough it 'could be easily revised away,' and StatCan's early April 2026 estimate is +0.4% growth. Texture matters: real GDP per capita rose 0.2% (population fell for a second quarter) and household spending rose 1.5% annualized, so the contraction is concentrated in business investment and trade (gold imports), not consumer demand. Shown as context only — this dimension grades the policy response, not the level of GDP.",
+        "sourceNote": "StatsCan GDP release May 29, 2026: real GDP was unchanged quarter-over-quarter in Q1 2026 (-0.1% annualized), a second consecutive annualized decline after Q4 2025 (-0.2% q/q). This meets some definitions of a technical recession, but economists are split. BMO's Douglas Porter noted the Q1 dip is small enough it 'could be easily revised away,' and StatCan's early April 2026 estimate is +0.4% growth. Texture matters: real GDP per capita rose 0.2% (population fell for a second quarter) and household spending rose 1.5% annualized, so the contraction is concentrated in business investment and trade (gold imports), not consumer demand. Shown as context only. This dimension grades the policy response, not the level of GDP.",
         "automatable": false
       },
       {
@@ -1441,11 +1441,11 @@
         "source": "statcan",
         "sourceRefs": [
           {
-            "label": "StatCan — GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
+            "label": "StatCan - GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
             "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
           }
         ],
-        "sourceNote": "StatsCan GDP income-and-expenditure release for Q1 2026 (May 29, 2026): business capital investment fell 3% annualized, its fifth consecutive quarterly decline, driven by a 4.6% drop in engineering structures, largely attributed to U.S. tariff uncertainty. Full-year 2025 business investment was +0.3% (essentially flat), so the Q1 2026 reading is a clear deterioration. The decline is the load-bearing evidence for this dimension's grade and is cross-referenced against the down-trigger 'business investment decline accelerates' — see grade evaluation.",
+        "sourceNote": "StatsCan GDP income-and-expenditure release for Q1 2026 (May 29, 2026): business capital investment fell 3% annualized, its fifth consecutive quarterly decline, driven by a 4.6% drop in engineering structures, largely attributed to U.S. tariff uncertainty. Full-year 2025 business investment was +0.3% (essentially flat), so the Q1 2026 reading is a clear deterioration. The decline is the load-bearing evidence for this dimension's grade and is cross-referenced against the down condition 'business investment decline accelerates.' See grade evaluation.",
         "automatable": false
       },
       {
@@ -1520,9 +1520,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
-        "statusSourceLabel": "ISED — Canadian Sovereign AI Compute Strategy"
+        "statusSourceLabel": "ISED - Canadian Sovereign AI Compute Strategy"
       },
       {
         "text": "Critical minerals strategy",
@@ -1530,7 +1530,7 @@
         "since": "2026-04-14",
         "evidence": "NRCan states $18.5B mobilized across Canadian critical minerals projects (see dimension sources; March 2026 NRCan release consolidates the March and October rounds). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. This is policy/context evidence, not proof of federal disbursement. Canada produces 10 of 12 NATO defence-critical minerals.",
         "originalSourceUrl": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html",
-        "originalSourceLabel": "NRCan — critical minerals partnerships",
+        "originalSourceLabel": "NRCan - critical minerals partnerships",
         "durability": "Program",
         "history": [
           {
@@ -1540,7 +1540,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/campaign/critical-minerals-in-canada.html",
-        "statusSourceLabel": "Government of Canada — Critical Minerals Strategy"
+        "statusSourceLabel": "Government of Canada - Critical Minerals Strategy"
       },
       {
         "text": "Red tape review: 60-day department reports",
@@ -1561,13 +1561,13 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/acts-regulations/red-tape-review-progress-report.html",
         "statusSourceLabel": "TBS - Red Tape Review Progress Report"
       }
     ],
     "perspectives": {
-      "critics": "If Carney is the credibility candidate — the one markets trust — why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060 (Fraser Institute / BCBC analysis of OECD data).",
+      "critics": "If Carney is the credibility candidate, the one markets trust, why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060 (Fraser Institute / BCBC analysis of OECD data).",
       "defenders": "Department of Finance Budget 2025 adds a productivity super-deduction, broadening the corporate tax incentive base. Treasury Board Secretariat confirms internal-trade legislation is enacted, and the Red Tape Review is now producing a government-wide regulatory pipeline. OECD analysis treats productivity as a decade-long structural problem, so a 13-month score should focus on whether the response mix is broadening rather than expecting immediate GDP-per-capita reversal."
     },
     "tags": {
@@ -1597,7 +1597,7 @@
         {
           "name": "External Constraint",
           "status": "applicable, not applied",
-          "reason": "Tariffs add $1,450-$2,000/yr per household. Under the rubric, this modifier can lift the grade only when the government's response is adequate given that pressure. The response is judged inadequate, so the modifier was not applied."
+          "reason": "Tariffs add $1,450-$2,000/yr per household. Under the rubric, this adjustment can lift the grade only when the government's response is adequate given that pressure. The response is judged inadequate, so the adjustment was not applied."
         }
       ]
     },
@@ -1636,13 +1636,13 @@
         {
           "text": "A new federal benefit of more than $500 per household is announced and funded",
           "setDate": "2026-04-17",
-          "sourceLabel": "PBO — Canada Groceries and Essentials Benefit",
+          "sourceLabel": "PBO - Canada Groceries and Essentials Benefit",
           "sourceUrl": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels"
         },
         {
           "text": "A required grocery competition measure is passed into law",
           "setDate": "2026-04-17",
-          "sourceLabel": "Canada Grocery Code — official site",
+          "sourceLabel": "Canada Grocery Code - official site",
           "sourceUrl": "https://canadacode.org/"
         }
       ],
@@ -1654,7 +1654,7 @@
           "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
           "additionalSources": [
             {
-              "label": "Signal49 Research — consumer prices analysis",
+              "label": "Signal49 Research - consumer prices analysis",
               "url": "https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/",
               "role": "Centrist independent confirmation of consumer-price trajectory beyond the StatCan headline."
             }
@@ -1663,7 +1663,7 @@
         {
           "text": "The grocery benefit ends and nothing replaces it",
           "setDate": "2026-04-17",
-          "sourceLabel": "CRA — Canada Groceries and Essentials Benefit",
+          "sourceLabel": "CRA - Canada Groceries and Essentials Benefit",
           "sourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html"
         },
         {
@@ -1673,7 +1673,7 @@
           "sourceUrl": "https://proof.utoronto.ca/2025/new-data-on-household-food-insecurity-in-2024/",
           "additionalSources": [
             {
-              "label": "Food Banks Canada — Hunger Count",
+              "label": "Food Banks Canada - Hunger Count",
               "url": "https://foodbankscanada.ca/hungercount/",
               "role": "Floor-level affordability evidence. Hunger Count is parallel independent ground-truth on whether households can afford food, politically undismissable, used in 2-of-2 trigger confirmation with PROOF."
             }
@@ -1727,43 +1727,43 @@
         "dateKind": "published"
       },
       {
-        "label": "PBO — Canada Groceries and Essentials Benefit",
+        "label": "PBO - Canada Groceries and Essentials Benefit",
         "url": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels",
         "date": "2026-02-02",
         "dateKind": "published"
       },
       {
-        "label": "CRA — Canada Groceries and Essentials Benefit",
+        "label": "CRA - Canada Groceries and Essentials Benefit",
         "url": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html",
         "date": "2026-04-07",
         "dateKind": "published"
       },
       {
-        "label": "Canada Grocery Code — official site",
+        "label": "Canada Grocery Code - official site",
         "url": "https://canadacode.org/",
         "date": "2026-05",
         "dateKind": "updated"
       },
       {
-        "label": "Retail Council of Canada — grocery and food",
+        "label": "Retail Council of Canada - grocery and food",
         "url": "https://www.retailcouncil.org/topics/food-grocery/truth-of-canadian-grocery-price-inflation/",
         "date": "2026-06-15",
         "dateKind": "as-of"
       },
       {
-        "label": "Fraser Institute — GST affordability strategy critique",
+        "label": "Fraser Institute - GST affordability strategy critique",
         "url": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy",
         "date": "2026-02-04",
         "dateKind": "published"
       },
       {
-        "label": "Food Banks Canada — Hunger Count",
+        "label": "Food Banks Canada - Hunger Count",
         "url": "https://foodbankscanada.ca/hungercount/",
         "date": "2025-11",
         "dateKind": "updated"
       },
       {
-        "label": "Signal49 Research — consumer prices analysis",
+        "label": "Signal49 Research - consumer prices analysis",
         "url": "https://www.signal49.ca/insights/higher-oil-prices-ignite-canadian-cpi-growth/",
         "date": "2026-04",
         "dateKind": "published"
@@ -1847,9 +1847,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html",
-        "statusSourceLabel": "CRA — Canada Groceries and Essentials Benefit"
+        "statusSourceLabel": "CRA - Canada Groceries and Essentials Benefit"
       },
       {
         "text": "Grocery Code of Conduct",
@@ -1865,9 +1865,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://canadacode.org/",
-        "statusSourceLabel": "Canada Grocery Code — official site"
+        "statusSourceLabel": "Canada Grocery Code - official site"
       },
       {
         "text": "Buy Canadian food labelling",
@@ -1883,14 +1883,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.2 — Buy Canadian food standards"
+        "statusSourceLabel": "Budget 2025 Ch.2 - Buy Canadian food standards"
       }
     ],
     "perspectives": {
-      "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design — the government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies.",
-      "defenders": "PBO and OECD analyses identify global food markets, exchange rates, and retaliatory tariffs as drivers of most of the price increase — these are largely outside federal control. PBO's Canada Groceries and Essentials Benefit costing notes the benefit reaches the lowest-income households first."
+      "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design. The government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies.",
+      "defenders": "PBO and OECD analyses identify global food markets, exchange rates, and retaliatory tariffs as drivers of most of the price increase. These are largely outside federal control. PBO's Canada Groceries and Essentials Benefit costing notes the benefit reaches the lowest-income households first."
     },
     "tags": {
       "confidence": "High",
@@ -1909,7 +1909,7 @@
     "trend": "stable",
     "status": "The consumer carbon price was eliminated, which delivered a campaign promise. Industrial pricing was kept on paper, but the price it actually puts on a tonne of pollution (its effective price) is weak. This grade covers the pricing tool only. The wider climate framework is graded under Climate & Environment.",
     "judgmentCall": "The middle grade gives credit for keeping the consumer-price promise, but marks the grade down for the weak industrial price (the price it actually charges per tonne).",
-    "judgmentDetail": "The C grade keeps two things separate: whether a promise was kept, and how strong the pricing tool is. Removing the consumer charge gets credit as a campaign promise that was carried out. The industrial system gets marked down because the price it actually charges (the effective price signal) is far below the official posted schedule. Judgment comes in by treating the pricing tool as partly intact, but not clearly strong enough to earn a higher grade. The editor fixed the definition on 2026-06-12: the effective-price triggers are decided on the marginal compliance price. That is the market price of the compliance credits big emitters buy under the federal Output-Based Pricing System (OBPS) and matching provincial systems, currently about $20 per tonne. It is not the average cost per tonne across the whole economy, which is shown only as background and does not move the grade. Under that definition, the May 15 Canada-Alberta agreement was checked against the $15/t down-trigger and did not set it off. The agreement weakens the future price path, not the current marginal price.",
+    "judgmentDetail": "The C grade keeps two things separate: whether a promise was kept, and how strong the pricing tool is. Removing the consumer charge gets credit as a campaign promise that was carried out. The industrial system gets marked down because the price it actually charges (the effective price signal) is far below the official posted schedule. Judgment comes in by treating the pricing tool as partly intact, but not clearly strong enough to earn a higher grade. The editor fixed the definition on 2026-06-12: the effective-price checks are decided on the marginal compliance price. That is the market price of the compliance credits big emitters buy under the federal Output-Based Pricing System (OBPS) and matching provincial systems, currently about $20 per tonne. It is not the average cost per tonne across the whole economy, which is shown only as background and does not move the grade. Under that definition, the May 15 Canada-Alberta agreement was checked against the $15/t down condition and did not set it off. The agreement weakens the future price path, not the current marginal price.",
     "surfaceTags": [
       "Pricing-tool-only grade"
     ],
@@ -1922,7 +1922,7 @@
         {
           "name": "External Constraint",
           "status": "not applied",
-          "reason": "A U.S. border carbon adjustment could eventually justify tighter industrial pricing, but that proposal is still too early to apply as a modifier."
+          "reason": "A U.S. border carbon adjustment could eventually justify tighter industrial pricing, but that proposal is still too early to apply as a scoring adjustment."
         }
       ]
     },
@@ -1961,7 +1961,7 @@
         {
           "text": "OBPS (Output-Based Pricing System) is tightened and the effective marginal price rises above $40/t",
           "setDate": "2026-04-17",
-          "sourceLabel": "CCI — industrial pricing",
+          "sourceLabel": "CCI - industrial pricing",
           "sourceUrl": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
         },
         {
@@ -1974,13 +1974,13 @@
         {
           "text": "OBPS is weakened further and the effective marginal price drops below $15/t",
           "setDate": "2026-04-17",
-          "sourceLabel": "CCI — industrial pricing",
+          "sourceLabel": "CCI - industrial pricing",
           "sourceUrl": "https://climateinstitute.ca/reports/the-state-of-carbon-pricing-in-canada-2024/"
         },
         {
           "text": "The government announces it intends to eliminate industrial pricing",
           "setDate": "2026-04-17",
-          "sourceLabel": "ECCC — Output-Based Pricing System",
+          "sourceLabel": "ECCC - Output-Based Pricing System",
           "sourceUrl": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
         }
       ]
@@ -1988,25 +1988,25 @@
     "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument. That covers the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a delivered Day 1 commitment with documented affordability effects that are graded separately under Affordability Response. Defenders argue the industrial system's preservation is justified on competitiveness grounds. CCI and IISD argue that credit oversupply can pull the effective compliance price far below the $95 (2026) headline schedule, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
     "sources": [
       {
-        "label": "Canada.ca — fuel charge removal",
+        "label": "Canada.ca - fuel charge removal",
         "url": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
         "date": "2025-03",
         "dateKind": "published"
       },
       {
-        "label": "ECCC — Output-Based Pricing System",
+        "label": "ECCC - Output-Based Pricing System",
         "url": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
         "date": "2026-06-15",
         "dateKind": "as-of"
       },
       {
-        "label": "CCI — industrial pricing",
+        "label": "CCI - industrial pricing",
         "url": "https://climateinstitute.ca/news/federal-proposal-fix-industrial-carbon-pricing-not-effective-without-improvement/",
         "date": "2026-02",
         "dateKind": "updated"
       },
       {
-        "label": "IISD — Canadian Carbon Pricing Systems: 2025 Review",
+        "label": "IISD - Canadian Carbon Pricing Systems: 2025 Review",
         "url": "https://www.iisd.org/publications/report/canadian-carbon-pricing-systems-2025-review",
         "date": "2026-03-04",
         "dateKind": "published"
@@ -2079,11 +2079,11 @@
         "source": "cci",
         "sourceRefs": [
           {
-            "label": "CCI — Fact Sheet: Industrial carbon pricing in Canada",
+            "label": "CCI - Fact Sheet: Industrial carbon pricing in Canada",
             "url": "https://climateinstitute.ca/news/fact-sheet-canada-industrial-carbon-pricing-systems/"
           }
         ],
-        "sourceNote": "CCI's March 6, 2026 fact sheet: industrial carbon pricing imposes around $10 or less per tonne of total emissions against a $95/t carbon price (CCI's analysis base; since the May 15 benchmark update the 2026 headline is also $95/t). This is an AVERAGE cost across all emissions — distinct from the marginal effective price the grade triggers track (the ~$20 figure above) and from CCI's $130/t EMCP benchmark. Shown so readers see how little carbon cost the average tonne bears; it is not the trigger measure.",
+        "sourceNote": "CCI's March 6, 2026 fact sheet: industrial carbon pricing imposes around $10 or less per tonne of total emissions against a $95/t carbon price (CCI's analysis base; since the May 15 benchmark update the 2026 headline is also $95/t). This is an average cost across all emissions. It is distinct from the marginal effective price the grade triggers track (the ~$20 figure above) and from CCI's $130/t EMCP benchmark. Shown so readers see how little carbon cost the average tonne bears. It is not the trigger measure.",
         "automatable": false
       },
       {
@@ -2113,7 +2113,7 @@
         "since": "2025-04-01",
         "evidence": "Fuel charge rate set to zero effective April 1, 2025. Signed by PM on March 14, 2025.",
         "originalSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
-        "originalSourceLabel": "Canada.ca — fuel charge removal",
+        "originalSourceLabel": "Canada.ca - fuel charge removal",
         "durability": "Budget measure",
         "history": [
           {
@@ -2123,7 +2123,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
-        "statusSourceLabel": "Department of Finance — consumer fuel charge eliminated announcement"
+        "statusSourceLabel": "Department of Finance - consumer fuel charge eliminated announcement"
       },
       {
         "text": "Preserve industrial carbon pricing",
@@ -2131,7 +2131,7 @@
         "since": "2025-04-01",
         "evidence": "OBPS maintained and extended to 2035 under Made-in-Canada Competitiveness Strategy.",
         "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
-        "originalSourceLabel": "ECCC — Output-Based Pricing System",
+        "originalSourceLabel": "ECCC - Output-Based Pricing System",
         "durability": "Legislated",
         "history": [
           {
@@ -2141,7 +2141,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html",
-        "statusSourceLabel": "ECCC — Output-Based Pricing System"
+        "statusSourceLabel": "ECCC - Output-Based Pricing System"
       },
       {
         "text": "Carbon border adjustment mechanism",
@@ -2157,7 +2157,7 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform"
       }
     ],
     "perspectives": {
@@ -2181,7 +2181,7 @@
     "trend": "down",
     "status": "Big environmental rules have been rolled back, with nothing new put in their place. The Canadian Climate Institute (CCI) says Canada is on track to hit only about half the emissions cut its 2030 target requires. For the carbon price on big industrial emitters, see the Carbon Pricing Policy grade.",
     "judgmentCall": "The low grade is about the missing replacement strategy after the rollbacks, not about how emissions moved in any one month.",
-    "judgmentDetail": "The D grade comes from the whole policy framework. Big rules were rolled back, no funded replacement strategy exists, the department doing the work is shrinking, and the government admits the 2030 targets are out of reach. The editor's judgment shows up in two places: keeping this grade from overlapping with Carbon Pricing Policy, and weighing how believable the framework is more heavily than month-to-month emissions noise. Editor decision (June 12, 2026): on May 14 the government said it intends to weaken the Clean Electricity Regulations (CER), the rules pushing the power grid toward clean electricity. That was checked against the down-trigger for cutting climate programs and did not set it off. Announced is not done, in both directions: the same rule that refuses credit for an announcement refuses to dock points for one. The trigger stays armed (ready): if a CER amendment that materially weakens the rules is published in the Canada Gazette (the government's official record of new law), or the CER is repealed, the trigger comes back to be decided.",
+    "judgmentDetail": "The D grade comes from the whole policy framework. Big rules were rolled back, no funded replacement strategy exists, the department doing the work is shrinking, and the government admits the 2030 targets are out of reach. The editor's judgment shows up in two places: keeping this grade from overlapping with Carbon Pricing Policy, and weighing how believable the framework is more heavily than month-to-month emissions noise. Editor decision (June 12, 2026): on May 14 the government said it intends to weaken the Clean Electricity Regulations (CER), the rules pushing the power grid toward clean electricity. That was checked against the down condition for cutting climate programs and did not set it off. Announced is not done, in both directions: the same rule that refuses credit for an announcement refuses to dock points for one. The condition stays active: if a CER amendment that materially weakens the rules is published in the Canada Gazette (the government's official record of new law), or the CER is repealed, the condition comes back to be decided.",
     "surfaceTags": [
       "Framework grade"
     ],
@@ -2255,9 +2255,9 @@
           "sourceUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html",
           "additionalSources": [
             {
-              "label": "PMO — National Electricity Strategy / CER adjustment announcement (2026-05-14)",
+              "label": "PMO - National Electricity Strategy / CER adjustment announcement (2026-05-14)",
               "url": "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity",
-              "role": "Armed watch evidence (editor decision 2026-06-12): the announced intention to weaken the Clean Electricity Regulations does not fire this trigger on its own — announced is not done, in both directions. The trigger comes back for adjudication when a materially weakening CER amendment is published in the Canada Gazette or the CER is repealed."
+              "role": "Active watch evidence (editor decision 2026-06-12): the announced intention to weaken the Clean Electricity Regulations does not fire this trigger on its own. Announced is not done, in both directions. The trigger comes back for adjudication when a materially weakening CER amendment is published in the Canada Gazette or the CER is repealed."
             }
           ]
         }
@@ -2266,13 +2266,13 @@
     "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was scrapped via the Carney-Smith MOU (Nov 27, 2025), the EV mandate was scrapped and retooled through tailpipe rules, and the Greener Homes Grant and tree-planting program were eliminated or wound down. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
-        "label": "CCI — Canada off course",
+        "label": "CCI - Canada off course",
         "url": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
         "date": "2026-02-13",
         "dateKind": "published"
       },
       {
-        "label": "IISD — Canada's 2030 climate target",
+        "label": "IISD - Canada's 2030 climate target",
         "url": "https://www.iisd.org/articles/insight/critical-next-step-canadas-2030-climate-target",
         "date": "2024-01-22",
         "dateKind": "published"
@@ -2284,7 +2284,7 @@
         "dateKind": "published"
       },
       {
-        "label": "National Observer — fossil fuel course",
+        "label": "National Observer - fossil fuel course",
         "url": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy",
         "date": "2026-03-17",
         "dateKind": "published"
@@ -2296,31 +2296,31 @@
         "dateKind": "published"
       },
       {
-        "label": "CBC — ECCC job and budget cuts",
+        "label": "CBC - ECCC job and budget cuts",
         "url": "https://www.cbc.ca/radio/whatonearth/environment-canada-cuts-9.7073623",
         "date": "2026-02",
         "dateKind": "published"
       },
       {
-        "label": "Fraser Institute — EV mandate critique",
+        "label": "Fraser Institute - EV mandate critique",
         "url": "https://www.fraserinstitute.org/commentary/ottawa-should-finally-end-costly-push-evs-canada",
         "date": "2026-02-05",
         "dateKind": "published"
       },
       {
-        "label": "Macdonald-Laurier Institute — energy-superpower gap",
+        "label": "Macdonald-Laurier Institute - energy-superpower gap",
         "url": "https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/",
         "date": "2026-02",
         "dateKind": "published"
       },
       {
-        "label": "Canada Energy Regulator — Canada's Energy Future 2023",
+        "label": "Canada Energy Regulator - Canada's Energy Future 2023",
         "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/",
         "date": "2023-06-20",
         "dateKind": "published"
       },
       {
-        "label": "Office of the Auditor General — Shortcomings in implementation of financial measures for GHG emissions (2025)",
+        "label": "Office of the Auditor General - Shortcomings in implementation of financial measures for GHG emissions (2025)",
         "url": "https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html",
         "date": "2025-12-02",
         "dateKind": "published"
@@ -2355,11 +2355,11 @@
             "url": "https://www.cer-rec.gc.ca/en/data-analysis/canada-energy-future/2023/"
           },
           {
-            "label": "National Observer — Carney abandoning the oil and gas emissions cap",
+            "label": "National Observer - Carney abandoning the oil and gas emissions cap",
             "url": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy"
           },
           {
-            "label": "CBC — Goodbye oil and gas cap?",
+            "label": "CBC - Goodbye oil and gas cap?",
             "url": "https://www.cbc.ca/news/politics/oil-and-gas-cap-budget-9.6966588"
           }
         ],
@@ -2429,9 +2429,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap1-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.1 — electricity grid interties"
+        "statusSourceLabel": "Budget 2025 Ch.1 - electricity grid interties"
       },
       {
         "text": "Conserve biodiversity / freshwater",
@@ -2452,9 +2452,9 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/31/prime-minister-carney-launches-new-nature-strategy-protect-canadas",
-        "statusSourceLabel": "PMO — A Force of Nature strategy launch"
+        "statusSourceLabel": "PMO - A Force of Nature strategy launch"
       },
       {
         "text": "Net-zero commitment",
@@ -2472,7 +2472,7 @@
         "originalSourceUrl": "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/",
         "originalSourceLabel": "Canadian Net-Zero Emissions Accountability Act",
         "statusSourceUrl": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
-        "statusSourceLabel": "CCI — Canada off course"
+        "statusSourceLabel": "CCI - Canada off course"
       },
       {
         "text": "2030/2035 climate targets",
@@ -2480,7 +2480,7 @@
         "since": "2025-11-27",
         "evidence": "PM publicly acknowledged to Radio-Canada that Canada will miss both targets. CCI projects roughly half of required reduction. Targets not formally withdrawn but acknowledged as unachievable under current policy.",
         "statusSourceUrl": "https://climateinstitute.ca/news/canada-off-course-for-climate-targets/",
-        "statusSourceLabel": "CCI — Canada off course",
+        "statusSourceLabel": "CCI - Canada off course",
         "durability": "Target",
         "history": [
           {
@@ -2495,7 +2495,7 @@
     ],
     "perspectives": {
       "critics": "Canadian Climate Institute: Canada is on track for half the required 2030 emissions reduction. PM himself acknowledged targets will be missed. ECCC losing 840+ positions. No replacement strategy exists. National Observer: \"the fight against climate crisis has disappeared from Ottawa's radar.\"",
-      "defenders": "Per PBO Spring Economic Update assessment, the trade-war context constrains broader policy expansion — maintaining the full climate framework during tariff escalation would have compounded economic pressure. The 30x30 conservation commitment ($3.8B) is genuine ECCC policy. CER reports 79% of electricity is already low-carbon, and industrial carbon pricing is preserved."
+      "defenders": "Per PBO Spring Economic Update assessment, the trade-war context constrains broader policy expansion. Maintaining the full climate framework during tariff escalation would have compounded economic pressure. The 30x30 conservation commitment ($3.8B) is genuine ECCC policy. CER reports 79% of electricity is already low-carbon, and industrial carbon pricing is preserved."
     },
     "tags": {
       "confidence": "High",
@@ -2568,12 +2568,12 @@
           "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
           "additionalSources": [
             {
-              "label": "Macdonald-Laurier Institute — immigration research",
+              "label": "Macdonald-Laurier Institute - immigration research",
               "url": "https://macdonaldlaurier.ca/fixing-canadas-broken-immigration-system-presenting-more-data-to-parliament-michael-barutciski/",
               "role": "Restrictionist independent challenge. Evaluates whether the long-term model is correctly calibrated to absorption capacity."
             },
             {
-              "label": "Maytree — immigration and refugee policy",
+              "label": "Maytree - immigration and refugee policy",
               "url": "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/",
               "role": "Pro-immigration advocacy independent challenge. Evaluates whether the long-term model preserves humanitarian and economic-integration commitments."
             }
@@ -2599,12 +2599,12 @@
           "sourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
           "additionalSources": [
             {
-              "label": "Macdonald-Laurier Institute — immigration research",
+              "label": "Macdonald-Laurier Institute - immigration research",
               "url": "https://macdonaldlaurier.ca/fixing-canadas-broken-immigration-system-presenting-more-data-to-parliament-michael-barutciski/",
               "role": "Restrictionist independent challenge on whether a contraction reversal is methodologically sound."
             },
             {
-              "label": "Maytree — immigration and refugee policy",
+              "label": "Maytree - immigration and refugee policy",
               "url": "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/",
               "role": "Pro-immigration advocacy independent challenge on whether contraction reversal is humanitarian-aligned."
             }
@@ -2627,13 +2627,13 @@
         "dateKind": "published"
       },
       {
-        "label": "IRCC open data — work permits",
+        "label": "IRCC open data - work permits",
         "url": "https://open.canada.ca/data/dataset/360024f2-17e9-4558-bfc1-3616485d65b9",
         "date": "2026-06-14",
         "dateKind": "as-of"
       },
       {
-        "label": "IRCC open data — study permits",
+        "label": "IRCC open data - study permits",
         "url": "https://open.canada.ca/data/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee",
         "date": "2026-06-14",
         "dateKind": "as-of"
@@ -2645,19 +2645,19 @@
         "dateKind": "published"
       },
       {
-        "label": "PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
+        "label": "PBO - Demographic Implications of the 2026-2028 Immigration Levels Plan",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028",
         "date": "2026-02-26",
         "dateKind": "published"
       },
       {
-        "label": "Macdonald-Laurier Institute — immigration research",
+        "label": "Macdonald-Laurier Institute - immigration research",
         "url": "https://macdonaldlaurier.ca/category/issues/domestic-policy-program/immigration-2/",
         "date": "2026-06-15",
         "dateKind": "as-of"
       },
       {
-        "label": "Maytree — immigration and refugee policy",
+        "label": "Maytree - immigration and refugee policy",
         "url": "https://maytree.com/publications/canada-and-ontario-can-afford-dignified-shelter-for-refugees-our-reputation-cant-afford-our-failure/",
         "date": "2025-08-28",
         "dateKind": "published"
@@ -2670,10 +2670,10 @@
         "lead": true,
         "value": "380,000",
         "source": "ircc",
-        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review — all citing 380,000.",
+        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review - all citing 380,000.",
         "sourceRefs": [
           {
-            "label": "PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
+            "label": "PBO - Demographic Implications of the 2026-2028 Immigration Levels Plan",
             "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028"
           }
         ],
@@ -2683,10 +2683,10 @@
         "label": "TR new arrivals target (2026)",
         "value": "385,000 (annual flow)",
         "source": "ircc",
-        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan: temporary-resident new-arrivals target of 385,000 in 2026 (370,000 in 2027 and 2028). This is an annual FLOW, not the total TR stock, so it is NOT directly comparable to the up-trigger's '5% of population' (a stock measure) — it is forward-looking policy-path evidence. The trigger tracks total TR share of population (6.5% as of Jan 1, 2026; trajectory downward). Confirmed via the IRCC plan and PBO RP-2526-025-S.",
+        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan: temporary-resident new-arrivals target of 385,000 in 2026 (370,000 in 2027 and 2028). This is an annual FLOW, not the total TR stock, so it is NOT directly comparable to the up condition's '5% of population' (a stock measure) - it is forward-looking policy-path evidence. The trigger tracks total TR share of population (6.5% as of Jan 1, 2026; trajectory downward). Confirmed via the IRCC plan and PBO RP-2526-025-S.",
         "sourceRefs": [
           {
-            "label": "PBO — Demographic Implications of the 2026-2028 Immigration Levels Plan",
+            "label": "PBO - Demographic Implications of the 2026-2028 Immigration Levels Plan",
             "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-025-S--demographic-implications-2026-2028-immigration-levels-plan--implications-demographiques-plan-niveaux-immigration-2026-2028"
           }
         ],
@@ -2697,7 +2697,7 @@
         "lead": true,
         "value": "-53%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal pages cover work permits and study permits. Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 — the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal pages cover work permits and study permits. Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 - the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
         "automatable": true
       },
       {
@@ -2722,7 +2722,7 @@
         "text": "PR below 1% of population/year",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "380,000 PR target for 2026-2028 (per IRCC levels plan, November 2025). IRCC source page could not be directly verified in baseline pass — figure widely reported but primary URL returned 403.",
+        "evidence": "380,000 PR target for 2026-2028 (per IRCC levels plan, November 2025). IRCC source page could not be directly verified in baseline pass - figure widely reported but primary URL returned 403.",
         "originalSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
         "originalSourceLabel": "IRCC 2026-2028 levels plan",
         "durability": "Commitment",
@@ -2768,14 +2768,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html",
-        "statusSourceLabel": "IRCC — Temporary Resident Targets"
+        "statusSourceLabel": "IRCC - Temporary Resident Targets"
       }
     ],
     "perspectives": {
-      "critics": "Toronto Star and healthcare groups: the sharp pullback creates real staffing shortfalls in hospitals, long-term care, and agriculture. Higher education faces revenue collapse. NDP: temporary workers were exploited under the old system — the fix should protect workers, not just cut numbers.",
-      "defenders": "The Bank of Canada found the surge suppressed wages by 0.7% and widened the wage gap to -22.6%. Housing and healthcare were overwhelmed. Even the Fraser Institute acknowledges the correction was necessary. StatsCan reports population declined by 102,436 in 2025 (preliminary) — the pressure valve is working."
+      "critics": "Toronto Star and healthcare groups: the sharp pullback creates real staffing shortfalls in hospitals, long-term care, and agriculture. Higher education faces revenue collapse. NDP: temporary workers were exploited under the old system, and the fix should protect workers, not just cut numbers.",
+      "defenders": "The Bank of Canada found the surge suppressed wages by 0.7% and widened the wage gap to -22.6%. Housing and healthcare were overwhelmed. Even the Fraser Institute acknowledges the correction was necessary. StatsCan reports population declined by 102,436 in 2025 (preliminary), so the pressure valve is working."
     },
     "tags": {
       "confidence": "High",
@@ -2853,13 +2853,13 @@
         {
           "text": "Build Canada Homes construction actually begins and housing starts top 300,000 a year",
           "setDate": "2026-04-17",
-          "sourceLabel": "Housing Infrastructure Canada — Build Canada Homes",
+          "sourceLabel": "Housing Infrastructure Canada - Build Canada Homes",
           "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html"
         },
         {
           "text": "Federal housing contribution rises above about 5% of the gap (the shortfall), with money actually going out (disbursement) or construction underway",
           "setDate": "2026-05-02",
-          "sourceLabel": "PBO — housing program outlook",
+          "sourceLabel": "PBO - housing program outlook",
           "sourceUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025"
         }
       ],
@@ -2873,15 +2873,15 @@
         {
           "text": "Federal spending drops further with nothing to make up for it",
           "setDate": "2026-04-17",
-          "sourceLabel": "PBO — housing program outlook",
+          "sourceLabel": "PBO - housing program outlook",
           "sourceUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025"
         }
       ]
     },
-    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. CMHC's March 2026 release shows the six-month starts trend at 248,378 and the monthly SAAR (seasonally adjusted annual rate) at 235,852. Because CMHC uses the trend measure to smooth volatile monthly SAAR readings, the monthly dip below 240K is not treated as a standalone down-trigger while the trend remains above 240K. Federal housing spending still declines 56% by 2028-29, and Policy Options notes supply alone will not solve the structural affordability problem.",
+    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. CMHC's March 2026 release shows the six-month starts trend at 248,378 and the monthly SAAR (seasonally adjusted annual rate) at 235,852. Because CMHC uses the trend measure to smooth volatile monthly SAAR readings, the monthly dip below 240K is not treated as a standalone down condition while the trend remains above 240K. Federal housing spending still declines 56% by 2028-29, and Policy Options notes supply alone will not solve the structural affordability problem.",
     "sources": [
       {
-        "label": "PBO — BCH 26,000 units",
+        "label": "PBO - BCH 26,000 units",
         "url": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
         "date": "2025-12-02",
         "dateKind": "published"
@@ -2905,37 +2905,37 @@
         "dateKind": "published"
       },
       {
-        "label": "Policy Options — real estate trap",
+        "label": "Policy Options - real estate trap",
         "url": "https://policyoptions.irpp.org/2026/01/canadian-real-estate-trap/",
         "date": "2026-01",
         "dateKind": "published"
       },
       {
-        "label": "Housing Infrastructure Canada — Build Canada Homes",
+        "label": "Housing Infrastructure Canada - Build Canada Homes",
         "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
         "date": "2026-01",
         "dateKind": "published"
       },
       {
-        "label": "PBO — housing program outlook",
+        "label": "PBO - housing program outlook",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025",
         "date": "2025-12-02",
         "dateKind": "published"
       },
       {
-        "label": "CMHC — housing supply gaps 2025",
+        "label": "CMHC - housing supply gaps 2025",
         "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report",
         "date": "2025-06-19",
         "dateKind": "published"
       },
       {
-        "label": "CHBA — Q1 2026 Housing Market Index",
+        "label": "CHBA - Q1 2026 Housing Market Index",
         "url": "https://www.chba.ca/2026/04/21/low-builder-confidence-illustrates-need-for-sustained-federal-action-plan-focused-on-homeownership-housing/",
         "date": "2026-04-21",
         "dateKind": "published"
       },
       {
-        "label": "Scotiabank Economics — Canadian Home Sales (Housing News Flash, Feb 2026)",
+        "label": "Scotiabank Economics - Canadian Home Sales (Housing News Flash, Feb 2026)",
         "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html",
         "date": "2026-02-18",
         "dateKind": "published"
@@ -3022,9 +3022,9 @@
         "since": "2025-09-14",
         "evidence": "4,000 units announced across 6 sites. Construction not yet underway as of April 2026.",
         "originalSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
-        "originalSourceLabel": "Canada.ca — Build Canada Homes",
+        "originalSourceLabel": "Canada.ca - Build Canada Homes",
         "statusSourceUrl": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
-        "statusSourceLabel": "PBO — BCH 26,000 units",
+        "statusSourceLabel": "PBO - BCH 26,000 units",
         "durability": "Program",
         "history": [
           {
@@ -3050,7 +3050,7 @@
           }
         ],
         "statusSourceUrl": "https://www.pm.gc.ca/en/news/speeches/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes-housing",
-        "statusSourceLabel": "Government of Canada — Canada-Ontario Housing Partnership announcement"
+        "statusSourceLabel": "Government of Canada - Canada-Ontario Housing Partnership announcement"
       },
       {
         "text": "Apprenticeship training up to $8,000",
@@ -3066,14 +3066,14 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform",
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/services/jobs/training/support-skilled-trades-apprentices/grants.html",
-        "statusSourceLabel": "ESDC — Apprenticeship supports"
+        "statusSourceLabel": "ESDC - Apprenticeship supports"
       }
     ],
     "perspectives": {
-      "critics": "NDP: where is the public housing? PBO projects Build Canada Homes delivers about 26,000 units over five years — a 2.1% increase in completions. Federal spending declines 56% by 2028-29 (PBO). The Tyee: Vancouver increased housing stock 200% while prices soared — supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
-      "defenders": "The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Smart Prosperity Institute housing analyst Mike Moffatt called it meaningful. CMHC's own housing data publishes both the current starts trend and the required pace, so the federal contribution-versus-need gap is transparently reported. Housing is a shared-jurisdiction problem — the federal government cannot unilaterally override municipal zoning or provincial building codes."
+      "critics": "NDP: where is the public housing? PBO projects Build Canada Homes delivers about 26,000 units over five years, a 2.1% increase in completions. Federal spending declines 56% by 2028-29 (PBO). The Tyee: Vancouver increased housing stock 200% while prices soared. Supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
+      "defenders": "The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Smart Prosperity Institute housing analyst Mike Moffatt called it meaningful. CMHC's own housing data publishes both the current starts trend and the required pace, so the federal contribution-versus-need gap is transparently reported. Housing is a shared-jurisdiction problem. The federal government cannot unilaterally override municipal zoning or provincial building codes."
     },
     "tags": {
       "confidence": "Medium",
@@ -3169,7 +3169,7 @@
         {
           "text": "The Ethics Commissioner publishes a detailed review that finds his disclosure good enough",
           "setDate": "2026-04-17",
-          "sourceLabel": "Office of the Ethics Commissioner — registry and reviews",
+          "sourceLabel": "Office of the Ethics Commissioner - registry and reviews",
           "sourceUrl": "https://ciec-ccie.parl.gc.ca/"
         },
         {
@@ -3183,13 +3183,13 @@
         {
           "text": "New evidence turns up of financial interests he did not disclose",
           "setDate": "2026-04-17",
-          "sourceLabel": "Office of the Ethics Commissioner — registry and reviews",
+          "sourceLabel": "Office of the Ethics Commissioner - registry and reviews",
           "sourceUrl": "https://ciec-ccie.parl.gc.ca/"
         },
         {
           "text": "The Ethics Commissioner finds the recusal screen is not good enough",
           "setDate": "2026-04-17",
-          "sourceLabel": "Office of the Ethics Commissioner — registry and reviews",
+          "sourceLabel": "Office of the Ethics Commissioner - registry and reviews",
           "sourceUrl": "https://ciec-ccie.parl.gc.ca/"
         },
         {
@@ -3202,13 +3202,13 @@
     "rationale": "No public evidence shows he steered decisions to benefit himself. This dimension grades whether the Prime Minister's ethics setup is good enough when his money and career background calls for more disclosure than usual. The setup is judged as one whole thing: how complete the disclosure is, the recusal screen, and independent review. Carney held about $6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch calls the ethics screen \"loophole-filled,\" and the House Ethics Committee (ETHI) review of the Conflict of Interest Act in 2026 recommended stronger public reporting and binding directions for conflict-of-interest screens. For a Prime Minister with a background like his, the standard should include a full public accounting reviewed by an independent body.",
     "sources": [
       {
-        "label": "Globe and Mail — ethics filing",
+        "label": "Globe and Mail - ethics filing",
         "url": "https://www.theglobeandmail.com/politics/article-ethics-screen-carney-brookfield/",
         "date": "2025-07",
         "dateKind": "published"
       },
       {
-        "label": "CBC — financial assets",
+        "label": "CBC - financial assets",
         "url": "https://www.cbc.ca/news/politics/mark-carney-financial-assets-1.7583443",
         "date": "2025-07",
         "dateKind": "published"
@@ -3220,13 +3220,13 @@
         "dateKind": "published"
       },
       {
-        "label": "House ETHI report — Review of the Conflict of Interest Act",
+        "label": "House ETHI report - Review of the Conflict of Interest Act",
         "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96",
         "date": "2026-04",
         "dateKind": "published"
       },
       {
-        "label": "Office of the Ethics Commissioner — registry and reviews",
+        "label": "Office of the Ethics Commissioner - registry and reviews",
         "url": "https://ciec-ccie.parl.gc.ca/en/",
         "date": "2026-06-15",
         "dateKind": "as-of"
@@ -3244,7 +3244,7 @@
         "dateKind": "published"
       },
       {
-        "label": "Transparency International Canada — Canada's CPI ranking",
+        "label": "Transparency International Canada - Canada's CPI ranking",
         "url": "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption",
         "date": "2025-02",
         "dateKind": "published"
@@ -3312,7 +3312,7 @@
             "role": "International benchmark. The Corruption Perceptions Index ranks 180 countries on perceived public-sector corruption; Canada's drop to its lowest-ever 15th-place rank gives an international point of comparison for federal governance quality."
           }
         ],
-        "sourceNote": "The House ETHI committee's 2025 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review. Democracy Watch carries the independent watchdog critique on the same screen. Transparency International Canada's CPI ranking gives the international benchmark for federal governance quality. The ETHI committee report is family-6 parliamentary critique (independent challenge), not family-5 procedural — note that the dashboard's source schema does not currently carry a per-source family field; the bias-audit script infers family from labels and URLs."
+        "sourceNote": "The House ETHI committee's 2025 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review. Democracy Watch carries the independent watchdog critique on the same screen. Transparency International Canada's CPI ranking gives the international benchmark for federal governance quality. The ETHI committee report is family-6 parliamentary critique (independent challenge), not family-5 procedural - note that the dashboard's source schema does not currently carry a per-source family field; the bias-audit script infers family from labels and URLs."
       }
     ],
     "promises": [
@@ -3340,7 +3340,7 @@
         "since": "2026-04-14",
         "evidence": "No published independent review of the structural conflict between career path and policy decisions.",
         "statusSourceUrl": "https://ciec-ccie.parl.gc.ca/en/",
-        "statusSourceLabel": "Office of the Ethics Commissioner — registry",
+        "statusSourceLabel": "Office of the Ethics Commissioner - registry",
         "durability": "Framework",
         "history": [
           {
@@ -3350,7 +3350,7 @@
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
-        "originalSourceLabel": "Canada Strong — Liberal Party 2025 platform"
+        "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform"
       }
     ],
     "perspectives": {
@@ -3369,7 +3369,7 @@
   {
     "id": "execution-delivery",
     "name": "Flagship Delivery",
-    "whatThisGrades": "A combined delivery score pulled from five of the government's biggest areas: defence, housing, major projects, climate, and immigration. (Rollup means this grade is built from those five, not judged on its own.)",
+    "whatThisGrades": "A combined delivery score pulled from five of the government's biggest areas: defence, housing, major projects, climate, and immigration. This grade is built from those five, not judged on its own.",
     "grade": "C",
     "previousGrade": null,
     "trend": "down",
@@ -3512,7 +3512,7 @@
           "criteria": "Zero flagship areas are delivering and three or more are failing."
         }
       ],
-      "scopeNote": "This is a derived rollup. It uses the Combination Rule to score delivery capacity only. Each area's status comes from its home dimension rather than being re-argued here.",
+      "scopeNote": "This is a combined score. It uses the Combination Rule to score delivery capacity only. Each area's status comes from its home dimension rather than being re-argued here.",
       "guardrails": [
         "Each flagship area's status should be taken from its own home dimension, not re-argued from scratch in this grade.",
         "This is not the math average of the five home grades. It is a rule based on how the five areas split across delivery statuses.",
@@ -3550,31 +3550,31 @@
     "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile areas: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow. It grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic areas. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions, a concern reinforced by C.D. Howe's analysis of a worsening executive-to-rank-and-file ratio.",
     "sources": [
       {
-        "label": "Policy Options — federalism failure",
+        "label": "Policy Options - federalism failure",
         "url": "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
         "date": "2026-02",
         "dateKind": "published"
       },
       {
-        "label": "Policy Options — DM shuffle",
+        "label": "Policy Options - DM shuffle",
         "url": "https://policyoptions.irpp.org/2026/03/carney-national-security-dms/",
         "date": "2026-03",
         "dateKind": "published"
       },
       {
-        "label": "PBO — $94B investment gap",
+        "label": "PBO - $94B investment gap",
         "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-017-S--budget-2025-issues-parliamentarians--budget-2025-enjeux-parlementaires",
         "date": "2025-11-14",
         "dateKind": "published"
       },
       {
-        "label": "C.D. Howe — public service ratio",
+        "label": "C.D. Howe - public service ratio",
         "url": "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/",
         "date": "2025-11-13",
         "dateKind": "published"
       },
       {
-        "label": "The Hub — $94B gap",
+        "label": "The Hub - $94B gap",
         "url": "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/",
         "date": "2025-11-17",
         "dateKind": "published"
@@ -3621,7 +3621,7 @@
         "since": "2026-04-14",
         "evidence": "National interest designation unused. Most referred projects were already in motion. Federalism coordination gaps documented by Policy Options.",
         "statusSourceUrl": "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
-        "statusSourceLabel": "Policy Options — federalism failure",
+        "statusSourceLabel": "Policy Options - federalism failure",
         "durability": "Commitment",
         "history": [
           {
@@ -3631,12 +3631,12 @@
           }
         ],
         "originalSourceUrl": "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
-        "originalSourceLabel": "Bill C-5 — One Canadian Economy Act on LEGISinfo"
+        "originalSourceLabel": "Bill C-5 - One Canadian Economy Act on LEGISinfo"
       }
     ],
     "perspectives": {
-      "critics": "Policy Options: cooperative federalism is failing — BC's Premier was blindsided by a pipeline deal, Ontario got hours of notice. NDP and PSAC: you cannot cut 40,000 public service positions while pursuing the most ambitious delivery agenda in years; C.D. Howe notes Budget 2025 also worsens the public-service executive-to-rank-and-file ratio. The state literally cannot execute what the government announces.",
-      "defenders": "Defence and trade show genuine follow-through — NATO 2%, trade diversification, One Canadian Economy Act. The government has demonstrated it can execute when focused. 11 of 26 bills passed in 13 months under minority conditions. The majority secured April 13 should accelerate the domestic agenda."
+      "critics": "Policy Options: cooperative federalism is failing. BC's Premier was blindsided by a pipeline deal, and Ontario got hours of notice. NDP and PSAC: you cannot cut 40,000 public service positions while pursuing the most ambitious delivery agenda in years. C.D. Howe notes Budget 2025 also worsens the public-service executive-to-rank-and-file ratio. The state literally cannot execute what the government announces.",
+      "defenders": "Defence and trade show genuine follow-through: NATO 2%, trade diversification, and the One Canadian Economy Act. The government has demonstrated it can execute when focused. 11 of 26 bills passed in 13 months under minority conditions. The majority secured April 13 should accelerate the domestic agenda."
     },
     "tags": {
       "confidence": "Medium",
@@ -3662,7 +3662,7 @@
     "gradeBasis": {
       "band": "C",
       "bandCriterion": "Delivery is mixed. Some promises are genuinely kept, while others stay stalled or abandoned. And the pattern is not separate from the home dimensions that already feed it.",
-      "plusMinusRationale": "The C+ reflects real delivery on several high-profile promises. But two things hold it back from a stronger score: housing and climate keep falling short, and this tracker is derivative (it only re-sums what the home dimensions already measure, so it does not earn an independent grade on its own).",
+      "plusMinusRationale": "The C+ reflects real delivery on several high-profile promises. But two things hold it back from a stronger score: housing and climate keep falling short, and this tracker is built from the home dimensions. It re-sums what those files already measure, so it does not earn an independent grade on its own.",
       "activeModifiers": [
         {
           "name": "Timing Fairness",
@@ -3694,7 +3694,7 @@
           "criteria": "Fewer than 10% of promises are delivered and most are abandoned."
         }
       ],
-      "scopeNote": "This is a derivative accountability tracker. It re-sums promise-keeping from the home dimensions, so do not read it as its own policy-performance signal on par with those graded dimensions.",
+      "scopeNote": "This is an accountability tracker built from the home dimensions. It re-sums promise-keeping, so do not read it as its own policy-performance signal on par with those graded dimensions.",
       "guardrails": [
         "If a promise moving already shows up in a home dimension, do not count it again as separate evidence here.",
         "The 'Too Early' bucket is still needed while promises that take years are still inside the time they were given to finish.",
@@ -3737,7 +3737,7 @@
     "rationale": "This tracker counts specific promises, not whether the same policy choices were wise. Several are delivered or now back in progress after the Spring Economic Update and the Parliamentary Budget Officer's (PBO) fiscal-anchor assessment. But housing targets have been scaled back, climate promises were mostly reversed instead of delivered, and the pattern across domestic areas stays mixed.",
     "sources": [
       {
-        "label": "Canada Strong — Liberal Party 2025 platform",
+        "label": "Canada Strong - Liberal Party 2025 platform",
         "url": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "date": "2025-04-19",
         "dateKind": "published"
@@ -3755,19 +3755,19 @@
         "dateKind": "published"
       },
       {
-        "label": "Angus Reid — Carney government report card",
+        "label": "Angus Reid - Carney government report card",
         "url": "https://angusreid.org/carney-one-year-approval-campaign-promises-liberals/",
         "date": "2026-04",
         "dateKind": "published"
       },
       {
-        "label": "The Narwhal — climate rollback analysis",
+        "label": "The Narwhal - climate rollback analysis",
         "url": "https://thenarwhal.ca/mark-carney-climate-change-explainer/",
         "date": "2025-10",
         "dateKind": "published"
       },
       {
-        "label": "PBO — SEU fiscal anchors and sustainability",
+        "label": "PBO - SEU fiscal anchors and sustainability",
         "url": "https://www.pbo-dpb.ca/en/publications/NT-2627-002-S--pbo-assessment-spring-economic-update-fiscal-anchors-fiscal-sustainability--evaluation-dpb-mise-jour-economique-printemps-cibles-budgetaires-viabilite-financiere",
         "date": "2026-05-04",
         "dateKind": "published"
@@ -3779,7 +3779,7 @@
         "label": "Key commitments delivered",
         "value": "14 of 43",
         "source": "editorial",
-        "sourceNote": "Editorial tally based on promise-by-promise status assessment. Each promise status is documented with evidence in the promises array. Derivative of home dimension evidence. Data-freshness sweep on 2026-06-05 found no automatic count change; carbon-pricing trajectory remains an editor-review item, not a count move here.",
+        "sourceNote": "Editorial tally based on promise-by-promise status assessment. Each promise status is documented with evidence in the promises array. Built from home-dimension evidence. Data-freshness sweep on 2026-06-05 found no automatic count change; carbon-pricing trajectory remains an editor-review item, not a count move here.",
         "automatable": false
       },
       {
@@ -3793,14 +3793,14 @@
         "label": "Housing target",
         "value": "Scaled back from 500K/yr",
         "source": "editorial",
-        "sourceNote": "Editorial characterization based on Housing Supply dimension evidence. Derivative of home dimension assessment.",
+        "sourceNote": "Editorial characterization based on Housing Supply dimension evidence. Built from the home-dimension assessment.",
         "automatable": false
       },
       {
         "label": "Climate commitments",
         "value": "Largely reversed",
         "source": "editorial",
-        "sourceNote": "Editorial characterization based on Climate & Environment dimension evidence. Derivative of home dimension assessment.",
+        "sourceNote": "Editorial characterization based on Climate & Environment dimension evidence. Built from the home-dimension assessment.",
         "automatable": false
       }
     ],
@@ -3811,7 +3811,7 @@
         "since": "2025-04-01",
         "evidence": "Day 1 commitment. Fuel charge set to zero April 1, 2025.",
         "originalSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
-        "originalSourceLabel": "Canada.ca — fuel charge removal",
+        "originalSourceLabel": "Canada.ca - fuel charge removal",
         "durability": "Budget measure",
         "history": [
           {
@@ -3821,7 +3821,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
-        "statusSourceLabel": "Department of Finance — consumer fuel charge eliminated announcement"
+        "statusSourceLabel": "Department of Finance - consumer fuel charge eliminated announcement"
       },
       {
         "text": "Capital gains reversal",
@@ -3839,7 +3839,7 @@
           }
         ],
         "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2025/03/21/prime-minister-mark-carney-cancels-proposed-capital-gains-tax-increase",
-        "statusSourceLabel": "Prime Minister of Canada — capital gains tax cancellation"
+        "statusSourceLabel": "Prime Minister of Canada - capital gains tax cancellation"
       },
       {
         "text": "Immigration reduction",
@@ -3875,7 +3875,7 @@
           }
         ],
         "statusSourceUrl": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
-        "statusSourceLabel": "Government of Canada — Internal Trade Action Plan status"
+        "statusSourceLabel": "Government of Canada - Internal Trade Action Plan status"
       },
       {
         "text": "Emissions cap",
@@ -3891,9 +3891,9 @@
           }
         ],
         "originalSourceUrl": "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan/oil-gas-emissions-cap/regulatory-framework.html",
-        "originalSourceLabel": "ECCC — Regulatory Framework for an Oil and Gas Sector GHG Emissions Cap",
+        "originalSourceLabel": "ECCC - Regulatory Framework for an Oil and Gas Sector GHG Emissions Cap",
         "statusSourceUrl": "https://www.nationalobserver.com/2026/03/17/news/mark-carney-fossil-fuels-climate-policy",
-        "statusSourceLabel": "National Observer — Carney abandoning the oil and gas emissions cap"
+        "statusSourceLabel": "National Observer - Carney abandoning the oil and gas emissions cap"
       },
       {
         "text": "EV mandate",
@@ -3909,9 +3909,9 @@
           }
         ],
         "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/news/2023/12/canadas-electric-vehicle-availability-standard-regulated-targets-for-zero-emission-vehicles.html",
-        "originalSourceLabel": "ECCC — Electric Vehicle Availability Standard",
+        "originalSourceLabel": "ECCC - Electric Vehicle Availability Standard",
         "statusSourceUrl": "https://electricautonomy.ca/policy-regulations/2026-02-05/canada-repeals-ev-availability-standard-restores-5000-vehicle-incentives-with-new-automotive-policy/",
-        "statusSourceLabel": "Electric Autonomy — EVAS repeal announced (2026-02-05)"
+        "statusSourceLabel": "Electric Autonomy - EVAS repeal announced (2026-02-05)"
       },
       {
         "text": "2 Billion Trees (wound down)",
@@ -3927,9 +3927,9 @@
           }
         ],
         "originalSourceUrl": "https://www.canada.ca/en/campaign/2-billion-trees.html",
-        "originalSourceLabel": "NRCan — 2 Billion Trees program page",
+        "originalSourceLabel": "NRCan - 2 Billion Trees program page",
         "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
-        "statusSourceLabel": "Budget 2025 Ch.5 — 2 Billion Trees wind-down"
+        "statusSourceLabel": "Budget 2025 Ch.5 - 2 Billion Trees wind-down"
       }
     ],
     "perspectives": {

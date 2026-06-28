@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-06-28",
+    "version": "5.139",
+    "summary": "Tightened the plain-language wording in dimension details without changing any scores.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Plain-language dimension detail pass",
+        "body": "Dimension detail copy now uses plainer labels for the tracker pill, source freshness, project-list progress, scoring adjustments, and grade limits. Major Projects and Defence & Trade carry the calibration standard for the pass, and the same wording cleanup was scaled across the remaining dimension detail copy. No grades, thresholds, dates, source URLs, source counts, or GPA formulas changed."
+      },
+      {
+        "type": "docs",
+        "headline": "Calibration record",
+        "body": "Added a short calibration pack that maps the rendered drawer order and records the Major Projects and Defence & Trade meaning-preservation checks used for the plain-language pass."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
     "version": "5.138",
     "summary": "Added a source freshness cue to the dimension detail drawer.",
     "items": [

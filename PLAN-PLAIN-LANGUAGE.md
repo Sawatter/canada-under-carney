@@ -53,13 +53,13 @@ Make every reader-facing string on the dashboard understandable at roughly grade
 
 ### Shared source freshness copy
 - **Location:** Dimension drawer -> Sources affordance.
-- **Current text pattern from v5.138:** `Sources`; `{sources.length} cited`; `newest source: {formatSourceDate(newestDatedSource)}`. Fallback when no dated source exists: `date review pending`.
+- **Current text pattern from v5.139:** `Sources`; `{sources.length} cited`; `newest dated source: {formatSourceDate(newestDatedSource)}`. Fallback when no dated source exists: `no dated source yet`.
 - **Review goal:** Make sure the cue is plain-language and clearly means "most recently dated cited source," not "most important source" or "most recently added source."
 - **Frozen surface:** No, but wording must not change counts, dates, source ordering, or scoring meaning.
 
 ### Expanded Sources section helper text
 - **Location:** Dimension drawer -> expanded Sources section.
-- **Current text pattern from v5.138:** disclosure summary `{sources.length} total · newest source: {formatSourceDate(newestDatedSource)}`; helper row `{sources.length} cited source(s)`; `Newest dated source: {formatSourceDate(newestDatedSource)}`; `Full source table is newest-first.`
+- **Current text pattern from v5.139:** disclosure summary `{sources.length} total · newest dated source: {formatSourceDate(newestDatedSource)}`; helper row `{sources.length} cited source(s)`; `Newest dated source: {formatSourceDate(newestDatedSource)}`; `Full source table is newest-first.`
 - **Review goal:** Confirm "newest source," "newest dated source," and "newest-first" are plain, explicit, and consistent with each other.
 - **Frozen surface:** No, but the rewrite must keep the source count, date, and newest-first table-order meaning.
 
