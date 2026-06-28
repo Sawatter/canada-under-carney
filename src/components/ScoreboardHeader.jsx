@@ -78,6 +78,7 @@ export default function ScoreboardHeader({
   pocketbookGPA,
   promiseCounts,
   totalPromises,
+  onOpenPromises,
   approvalExpanded,
   onToggleApproval,
   derivationOpen,
@@ -161,8 +162,19 @@ export default function ScoreboardHeader({
           </div>
         )}
 
-        {/* Promises Delivered */}
-        <div className="scoreboard-card scoreboard-card-promises" style={cardBase}>
+        {/* Promises Delivered — clickable: navigates to the full Promises view */}
+        <button
+          type="button"
+          onClick={onOpenPromises}
+          className="scoreboard-card scoreboard-card-promises"
+          style={{
+            ...cardBase,
+            cursor: onOpenPromises ? "pointer" : "default",
+            font: "inherit",
+            color: "inherit",
+            width: "100%",
+          }}
+        >
           <div className="scoreboard-card-title" style={cardTitle}>Promises Delivered</div>
           <div className="scoreboard-card-subtitle" style={cardSubtitle}>
             A running count of tracked government commitments across every dimension.
@@ -185,7 +197,10 @@ export default function ScoreboardHeader({
               {promiseCounts["Stalled"] || 0} stalled
             </div>
           </div>
-        </div>
+          <div className="scoreboard-card-footer">
+            <span style={derivationToggleBase}>&#9656; See all promises</span>
+          </div>
+        </button>
 
         {/* Approval Signal card (shares cardBase + title styles via props) */}
         <ApprovalCard

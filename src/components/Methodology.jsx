@@ -70,7 +70,7 @@ export default function Methodology() {
   const modifiers = [
     {
       name: "Timing fairness",
-      desc: "Grades trajectory rather than current outcomes on long-lag files. Expires after 24 months.",
+      desc: "Grades the direction of travel rather than current outcomes in areas where results take years to show. Expires after 24 months.",
       effect: "Grade reflects trajectory, not current outcomes",
       color: "#1565c0",
     },
@@ -139,10 +139,10 @@ export default function Methodology() {
             Methodology &amp; safeguards
           </div>
           <p style={{ margin: "0 0 12px", fontSize: "14px", color: "#444" }}>
-            The short version: each grade should be traceable from published
-            rule, to trigger, to metric, to source, with the judgment layer
-            named rather than hidden. These are the main documents behind that
-            check.
+            The short version: each grade should be traceable from the
+            published criteria, to the trigger, to the metric, to the source.
+            Where judgment enters, it should be named rather than hidden.
+            These are the main documents behind that check.
           </p>
           <div
             style={{
@@ -239,8 +239,8 @@ export default function Methodology() {
         </p>
         <p style={{ fontSize: "14px", color: "#444" }}>
           <strong>Weighting:</strong> Both headline scores are built from the
-          same 11 graded dimensions, with different weightings — Full Policy
-          Audit treats them equally, Household Impact doubles the four
+          same 11 graded dimensions, with different weightings. Full Policy
+          Audit treats them equally. Household Impact doubles the four
           household-facing files. See the About tab for the plain-language
           breakdown.
         </p>
@@ -257,8 +257,9 @@ export default function Methodology() {
             Commitment Traceability Map
           </a>
           . It shows the path from commitment source to home dimension,
-          construct, indicators, source roles, deconfliction notes, and
-          derivative handling without creating a separate scoring layer.
+          construct, indicators, source requirements, duplicate-check notes,
+          and how repeated promises are handled without creating a separate
+          scoring layer.
         </p>
 
         <div
@@ -282,14 +283,14 @@ export default function Methodology() {
           }}
         >
           <li style={{ marginBottom: "6px" }}>
-            This is a rule-governed accountability scorecard, not a
-            statistically-validated measurement instrument. Grades are
-            editor judgments bound by a published rubric.
+            This is an accountability scorecard with published criteria. It
+            is not a statistical measurement tool. Grades are editor judgments
+            bound by the rubric.
           </li>
           <li style={{ marginBottom: "6px" }}>
-            Aggregate scores use equal-weight averaging of ordinal letter
-            grades converted to a 4.0 scale. That conversion is a disclosed
-            editorial convention, not a latent-variable model.
+            Aggregate scores convert letter grades to a 4.0 scale, then
+            average them with the stated weights. That conversion is a
+            disclosed editorial convention, not a hidden statistical model.
           </li>
           <li style={{ marginBottom: "6px" }}>
             Plus/minus precision reflects editor judgment under the rubric.
@@ -297,10 +298,9 @@ export default function Methodology() {
             Delivery) are held to whole letters to prevent false precision.
           </li>
           <li style={{ marginBottom: "6px" }}>
-            External inter-rater reliability has not been tested. The
-            three-lane QA (Analyst {"→"} Red Team {"→"} Referee) is an
-            internal discipline, not a substitute for independent
-            replication.
+            Outside reviewers have not yet tested whether they would reach
+            the same grades. The three-lane QA (Analyst {"→"} Red Team {"→"} Referee)
+            is an internal check, not a substitute for independent replication.
           </li>
           <li style={{ marginBottom: "6px" }}>
             The model can only score what can be inspected through public
@@ -333,7 +333,7 @@ export default function Methodology() {
           >
             Approval Signal decision memo
           </a>{" "}
-          for the full rule set.
+          for the criteria set.
         </p>
 
         <h2
@@ -349,8 +349,8 @@ export default function Methodology() {
         </h2>
         <p style={{ fontSize: "14px", color: "#444", marginBottom: "16px" }}>
           Preempts the questions a skeptical reader most often raises. Each
-          answer points at the published rule, not at editor judgment. If an
-          answer feels like editor judgment, that is itself documented in
+          answer points at the published criteria, not at editor judgment. If
+          an answer feels like editor judgment, that is itself documented in
           the relevant{" "}
           <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
             judgmentDetail
@@ -376,13 +376,13 @@ export default function Methodology() {
             <code style={{ fontFamily: "monospace", fontSize: "13px" }}>
               gradeTriggers.down[]
             </code>
-            . A grade reflects performance against the rule for that
+            . A grade reflects performance against the criteria for that
             dimension, not against an absolute scale. Defence &amp; Trade is
             A- because NATO 2.01% met the published 2% threshold and trade
             diversification crossed published triggers. Affordability Response
             is D- because federal relief measures cover less than 20% of
             household cost pressure relative to its published criterion.
-            Different rules, different grades.
+            Different criteria, different grades.
           </p>
         </div>
 
@@ -481,11 +481,11 @@ export default function Methodology() {
             How does source diversity affect confidence in a grade?
           </div>
           <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
-            A grade whose grade-moving claim rests on a single source family
-            (e.g., 100% government press releases) is less defensible than
-            one whose grade-moving claim is corroborated by independent
-            challenge sources (PBO, Auditor General, policy institutes,
-            journalism). The May 2026 bias-resistance audit (
+            A grade-moving claim that rests on one type of source, for
+            example only government press releases, is less defensible than
+            one backed up by independent challenge sources such as the PBO,
+            Auditor General, policy institutes, or journalism. The May 2026
+            bias-resistance audit (
             <a
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Audit-2026-05.md"
               target="_blank"
@@ -511,12 +511,12 @@ export default function Methodology() {
           <p style={{ fontSize: "14px", color: "#444", marginTop: "6px" }}>
             That is the question the bias-resistance audit and the
             forthcoming Phase 2 foundational audit are designed to test. The
-            Phase 1 audit (operational) tests whether the methodology is
-            applied consistently across dimensions. The Phase 2 audit
+            Phase 1 audit tests whether the methodology is applied
+            consistently across dimensions. The Phase 2 audit
             (annual cadence) will examine whether the dimension set,
-            household-impact weighting, and promise-selection rules
-            themselves encode preferences. Findings produce fixes that ship
-            as commits with named approval per the{" "}
+            household-impact weighting, and promise-selection criteria
+            themselves encode preferences. Findings produce fixes that are
+            recorded as commits with named approval per the{" "}
             <a
               href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Bias-Resistance-Protocol.md"
               target="_blank"

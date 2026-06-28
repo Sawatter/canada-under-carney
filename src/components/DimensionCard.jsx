@@ -647,7 +647,7 @@ export default function DimensionCard({
   if (dim.tags?.lag) {
     keyContextItems.push({
       label: "Lag",
-      text: `This file moves on a ${dim.tags.lag.toLowerCase()} timeline.`,
+      text: `This dimension moves on a ${dim.tags.lag.toLowerCase()} timeline.`,
     });
   }
   if (modifierItems.length > 0) {
@@ -725,7 +725,7 @@ export default function DimensionCard({
     },
     {
       id: "rule",
-      label: "Rule",
+      label: "Criteria",
       anchor: `dim-${dim.id}-scoring`,
       keys: ["rule"],
       available: hasRuleSection,
@@ -812,7 +812,7 @@ export default function DimensionCard({
     },
     {
       id: "combinationRule",
-      label: "Combination rule",
+      label: "How pieces combine",
       anchor: `dim-${dim.id}-combination-rule`,
       keys: ["rule", "combinationRule"],
       available: !!dim.gradeBasis?.combinationRule,
@@ -1503,7 +1503,7 @@ export default function DimensionCard({
                   </div>
                 ) : (
                   <span className="dim-info-grade-pill">
-                    {dim.informationalGrade} informational
+                    {dim.informationalGrade} tracker read
                   </span>
                 )
               ) : (
@@ -1659,7 +1659,7 @@ export default function DimensionCard({
                     </div>
                   ) : (
                     <span className="dim-info-grade-pill">
-                      {dim.informationalGrade} informational
+                      {dim.informationalGrade} tracker read
                     </span>
                   )
                 ) : (
@@ -1868,7 +1868,7 @@ export default function DimensionCard({
               <DisclosureSection
                 id={`dim-${dim.id}-why`}
                 title={isTracker ? "Why this tracker reads this way" : "Why this grade"}
-                summary={isTracker ? "method and current read" : "judgment and rationale"}
+                summary={isTracker ? "how it is counted" : "judgment and rationale"}
                 isOpen={!!openSections.why}
                 onToggle={() => toggleSection("why")}
                 region
@@ -1881,7 +1881,7 @@ export default function DimensionCard({
                     <p><strong>Judgment call:</strong> {dim.judgmentCall}</p>
                   )}
                   {dim.judgmentDetail && (
-                    <p><strong>Where judgment enters:</strong> {dim.judgmentDetail}</p>
+                    <p><strong>Where editor judgment enters:</strong> {dim.judgmentDetail}</p>
                   )}
                   {dim.rationale && <p>{dim.rationale}</p>}
                   {isTracker && trackerStat && (
@@ -1891,13 +1891,13 @@ export default function DimensionCard({
                     </p>
                   )}
                   {isTracker && (
-                    <p>This tracker is derivative: movement comes from the underlying promise evidence, not from the GPA rules.</p>
+                    <p>This tracker moves when the underlying promise evidence changes. It stays outside the GPA.</p>
                   )}
                   {!isTracker && dim.gradeBasis?.plusMinusRationale && (
                     <p>{dim.gradeBasis.plusMinusRationale}</p>
                   )}
                   {dim.gradeBasis?.band && (
-                    <p><strong>{dim.gradeBasis.band}</strong> means: {dim.gradeBasis.bandCriterion}</p>
+                    <p><strong>{dim.gradeBasis.band}</strong> band means: {dim.gradeBasis.bandCriterion}</p>
                   )}
                   {subScoreSummary && (
                     <p className="dim-subscore-summary"><strong>Sub-scores:</strong> {subScoreSummary}</p>
@@ -1909,8 +1909,8 @@ export default function DimensionCard({
             {hasRuleSection && (
               <DisclosureSection
                 id={`dim-${dim.id}-scoring`}
-                title="How this file is scored"
-                summary="rule and thresholds"
+                title="How this grade is built"
+                summary="criteria and thresholds"
                 isOpen={!!openSections.rule}
                 onToggle={() => toggleSection("rule")}
                 region
@@ -1940,7 +1940,7 @@ export default function DimensionCard({
                   )}
                   {scoring?.modifierExpiry && (
                     <div>
-                      <strong>Timing rule:</strong> {scoring.modifierExpiry}
+                      <strong>Timing condition:</strong> {scoring.modifierExpiry}
                     </div>
                   )}
                   {scoring?.thresholds?.length > 0 && (
@@ -2032,7 +2032,7 @@ export default function DimensionCard({
                   {dim.gradeBasis?.combinationRule && (
                     <DisclosureSection
                       id={`dim-${dim.id}-combination-rule`}
-                      title="Combination rule"
+                      title="How the pieces combine"
                       isOpen={!!openSections.combinationRule}
                       onToggle={() => toggleSection("combinationRule")}
                       active={activeSectionKeys.includes("combinationRule")}
@@ -2134,7 +2134,7 @@ export default function DimensionCard({
               >
                 <div className="dim-stack">
                   <div>
-                    {dim.promises.length} promise{dim.promises.length === 1 ? "" : "s"} tracked on this file.
+                    {dim.promises.length} promise{dim.promises.length === 1 ? "" : "s"} tracked in this dimension.
                     {promiseStatusSummary ? ` Current pattern: ${promiseStatusSummary}.` : ""}
                   </div>
                   <button
@@ -2270,7 +2270,7 @@ export default function DimensionCard({
                     <strong>Attribution</strong> - what share of the outcome the federal government actually controls. <em>Direct</em> = at least 60% federal levers. <em>Mixed</em> = 30 to 60%. <em>Mostly inherited</em> = less than 30%.
                   </div>
                   <div>
-                    <strong>Lag</strong> - how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1 to 2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = the file moves on discrete disclosures or rulings rather than a fixed cadence.
+                    <strong>Lag</strong> - how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1 to 2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = this area moves on specific disclosures or rulings rather than a fixed schedule.
                   </div>
                 </div>
               </DisclosureSection>
@@ -2486,7 +2486,7 @@ function CombinationRule({ rule }) {
   return (
     <div className="dim-stack">
       <div>
-        <div className="dim-nested-rule-title">The five flagship files</div>
+        <div className="dim-nested-rule-title">The five flagship areas</div>
         <ul className="dim-plain-list">
           {rule.flagshipFiles.map((f, i) => (
             <li key={i}>{f}</li>
