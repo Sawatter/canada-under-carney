@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-06-28",
+  "lastSourceScanAt": "2026-06-14",
+  "nextScheduledSourceScanAt": "2026-07-01",
+  "lastEditorReviewedScoreCycleAt": "2026-06-15",
+  "coverageThrough": "2026-06-15",
+  "watchItemsAwaitingReviewCount": 0,
+  "disclaimerKey": "scan_vs_review_v1"
+}

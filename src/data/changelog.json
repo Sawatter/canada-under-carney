@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-06-28",
+    "version": "5.136",
+    "summary": "Added a quiet dashboard status card that separates source checking from editor-reviewed score cycles.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Dashboard status card",
+        "body": "A new card below the headline score row shows the latest evidence scan, the next scheduled scan, the editor-reviewed score cycle, coverage date, and monitor items awaiting review. It keeps source freshness separate from score review so the dashboard does not read like a live feed."
+      },
+      {
+        "type": "method",
+        "headline": "Status metadata guardrails",
+        "body": "The status card now reads from src/data/status.json, with a prebuild validator that checks date alignment, schedule direction, the coverage date, and blocked urgency language. No grade, threshold, GPA formula, source stack, or dimension-model change is part of this release."
+      }
+    ]
+  },
+  {
     "date": "2026-06-27",
     "version": "5.135",
     "summary": "Added a dark theme with a header toggle, and recolored the top label so it no longer matches the failing-grade red.",

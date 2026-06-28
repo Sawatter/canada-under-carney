@@ -18,6 +18,7 @@ import Methodology from "./Methodology";
 import About from "./About";
 import EmailSignup from "./EmailSignup";
 import VisitorCount from "./VisitorCount";
+import DashboardStatus from "./DashboardStatus";
 import "./AppShell.css";
 
 function isMobileViewport() {
@@ -767,6 +768,8 @@ export default function Dashboard({ experience = "classic" }) {
         pocketbookDerivation={pocketbookDerivation}
       />
       </div>
+
+      <DashboardStatus />
 
       {/* Section navigation is a horizontally scrollable rail on narrow screens. */}
       <div className="dashboard-tabs-wrap">
