@@ -1872,6 +1872,82 @@ a:hover { text-decoration: underline; }
   line-height: var(--lh-body);
 }
 
+.dashboard-status-next {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dashboard-status-next h3 {
+  margin: 0 0 var(--space-2);
+  color: var(--text-primary);
+  font-size: var(--fs-small);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: var(--lh-snug);
+  text-transform: uppercase;
+}
+
+.dashboard-status-next-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dashboard-status-next-item {
+  min-width: 0;
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--surface-raised) 92%, transparent);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+}
+
+.dashboard-status-next-item > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.dashboard-status-next-item strong {
+  color: var(--text-primary);
+  font-size: var(--fs-small);
+  line-height: var(--lh-snug);
+}
+
+.dashboard-status-next-item span {
+  flex: 0 0 auto;
+  color: var(--text-muted);
+  font-family: 'DM Mono', monospace;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  line-height: var(--lh-snug);
+}
+
+.dashboard-status-next-item p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+}
+
+.dashboard-status-next-item a {
+  display: inline-flex;
+  margin-top: var(--space-2);
+  color: var(--accent);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.dashboard-status-next-item a:hover,
+.dashboard-status-next-item a:focus-visible {
+  text-decoration: underline;
+}
+
 /* Scoreboard columns: 4-up on desktop (set inline), 2x2 on tablets, single
    column on phones (set in the 640px block below). !important beats the
    inline grid template. */
@@ -1882,6 +1958,10 @@ a:hover { text-decoration: underline; }
 
   .dashboard-status-list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboard-status-next-list {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1913,6 +1993,20 @@ a:hover { text-decoration: underline; }
   .dashboard-status-list {
     grid-template-columns: 1fr;
     gap: var(--space-2);
+  }
+
+  .dashboard-status-next-list {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+
+  .dashboard-status-next-item > div {
+    display: block;
+  }
+
+  .dashboard-status-next-item span {
+    display: block;
+    margin-top: var(--space-1);
   }
 
   /* Card padding tightens on phones — each card's content area gains ~16px

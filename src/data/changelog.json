@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-06-28",
+    "version": "5.141",
+    "summary": "Added a data-driven next-checks strip and a manual browser smoke test for the app shell.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Next checks in dashboard status",
+        "body": "The dashboard status card now shows the next evidence checks from status metadata: Housing disbursement, the classic-route exit, and the July monthly cycle. The validator checks the new schema and blocks urgency language or personalized watch-item fields."
+      },
+      {
+        "type": "docs",
+        "headline": "Manual browser smoke harness",
+        "body": "Added a Playwright browser smoke test that covers root and classic routes, desktop and mobile widths, the five dashboard destinations, Major Projects source deep links, console errors, overflow, and reduced motion. It is a manual gate for one stable release before any CI promotion."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
     "version": "5.140",
     "summary": "Finished the plain-language pass across the non-dimension dashboard surfaces.",
     "items": [

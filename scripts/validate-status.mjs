@@ -51,12 +51,73 @@ function dateValue(value) {
 }
 
 function scanForbiddenWords(path, value) {
-  if (typeof value !== "string") return;
-  const lower = value.toLowerCase();
-  for (const word of FORBIDDEN_URGENCY_WORDS) {
-    if (lower.includes(word)) {
-      err(`${path} contains forbidden urgency/freshness wording "${word}"`);
+  if (typeof value === "string") {
+    const lower = value.toLowerCase();
+    for (const word of FORBIDDEN_URGENCY_WORDS) {
+      if (lower.includes(word)) {
+        err(`${path} contains forbidden urgency/freshness wording "${word}"`);
+      }
     }
+    return;
+  }
+
+  if (Array.isArray(value)) {
+    value.forEach((item, index) => scanForbiddenWords(`${path}[${index}]`, item));
+    return;
+  }
+
+  if (isPlainObject(value)) {
+    for (const [key, child] of Object.entries(value)) {
+      scanForbiddenWords(`${path}.${key}`, child);
+    }
+  }
+}
+
+function validNextCheckId(value) {
+  return typeof value === "string" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
+}
+
+function validStatusHref(value) {
+  return typeof value === "string"
+    && (
+      value.startsWith("#")
+      || value.startsWith("?experience=classic#")
+      || value.startsWith("https://github.com/Sawatter/canada-under-carney/")
+    );
+}
+
+function validateNextCheck(check, index) {
+  const prefix = `nextChecks[${index}]`;
+  if (!isPlainObject(check)) {
+    err(`${prefix} must be an object`);
+    return;
+  }
+
+  if (!validNextCheckId(check.id)) {
+    err(`${prefix}.id must be a kebab-case identifier`);
+  }
+
+  for (const field of ["label", "status"]) {
+    if (typeof check[field] !== "string" || check[field].trim().length < 3) {
+      err(`${prefix}.${field} must be a non-empty string`);
+    }
+  }
+
+  const timingFields = ["date", "dateSource", "timingLabel"].filter((field) => field in check);
+  if (timingFields.length !== 1) {
+    err(`${prefix} must include exactly one of date, dateSource, or timingLabel`);
+  } else if ("date" in check && !validIsoDate(check.date)) {
+    err(`${prefix}.date must be an ISO date (YYYY-MM-DD)`);
+  } else if ("dateSource" in check && check.dateSource !== "nextScheduledSourceScanAt") {
+    err(`${prefix}.dateSource must be nextScheduledSourceScanAt`);
+  } else if ("dateSource" in check && !validIsoDate(status[check.dateSource])) {
+    err(`${prefix}.dateSource must resolve to an ISO date`);
+  } else if ("timingLabel" in check && check.timingLabel !== "Event-driven") {
+    err(`${prefix}.timingLabel must be Event-driven`);
+  }
+
+  if ("href" in check && !validStatusHref(check.href)) {
+    err(`${prefix}.href must be an in-app hash, classic-route hash, or repo GitHub URL`);
   }
 }
 
@@ -64,8 +125,8 @@ if (!isPlainObject(status)) {
   err("root must be an object");
 }
 
-if (status.schemaVersion !== 1) {
-  err('schemaVersion must be 1');
+if (status.schemaVersion !== 2) {
+  err('schemaVersion must be 2');
 }
 
 for (const field of [
@@ -108,12 +169,23 @@ if (validIsoDate(status.nextScheduledSourceScanAt) && validIsoDate(status.lastSo
 }
 
 if ("newSinceLastVisit" in status || "materialChangesCount" in status || "watchItems" in status) {
-  err("v1 status schema must not include personalized, material-change, or public watch-list fields");
+  err("status schema must not include personalized, material-change, or visit-history watch-item fields");
 }
 
-for (const [key, value] of Object.entries(status)) {
-  scanForbiddenWords(key, value);
+if (!Array.isArray(status.nextChecks)) {
+  err("nextChecks must be an array");
+} else {
+  const ids = new Set();
+  status.nextChecks.forEach((check, index) => {
+    validateNextCheck(check, index);
+    if (isPlainObject(check) && ids.has(check.id)) {
+      err(`nextChecks[${index}].id must be unique`);
+    }
+    if (isPlainObject(check)) ids.add(check.id);
+  });
 }
+
+scanForbiddenWords("status", status);
 
 if (errors.length > 0) {
   console.error(errors.join("\n"));

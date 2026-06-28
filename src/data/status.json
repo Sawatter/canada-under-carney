@@ -1,10 +1,33 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "generatedAt": "2026-06-28",
   "lastSourceScanAt": "2026-06-14",
   "nextScheduledSourceScanAt": "2026-07-01",
   "lastEditorReviewedScoreCycleAt": "2026-06-15",
   "coverageThrough": "2026-06-15",
   "watchItemsAwaitingReviewCount": 0,
-  "disclaimerKey": "scan_vs_review_v1"
+  "disclaimerKey": "scan_vs_review_v1",
+  "nextChecks": [
+    {
+      "id": "housing-disbursement-watch",
+      "label": "Housing disbursement watch",
+      "timingLabel": "Event-driven",
+      "status": "Waiting for DCRP agreement, project approval, payment, or construction evidence.",
+      "href": "#dim-housing-supply-sources"
+    },
+    {
+      "id": "classic-route-exit",
+      "label": "Classic route exit",
+      "date": "2026-06-29",
+      "status": "Run the final root and classic route matrix before any routing decision.",
+      "href": "?experience=classic#view-scorecard"
+    },
+    {
+      "id": "july-monthly-cycle",
+      "label": "July monthly cycle",
+      "dateSource": "nextScheduledSourceScanAt",
+      "status": "Run freshness pulls, source monitor review, Defence split-shadow, and Flagship probation checks.",
+      "href": "#view-changelog"
+    }
+  ]
 }

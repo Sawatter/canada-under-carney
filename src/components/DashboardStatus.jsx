@@ -15,6 +15,12 @@ function formatDate(value) {
   return dateFormatter.format(new Date(`${value}T00:00:00Z`));
 }
 
+function formatNextCheckTiming(check) {
+  if (check.date) return formatDate(check.date);
+  if (check.dateSource && status[check.dateSource]) return formatDate(status[check.dateSource]);
+  return check.timingLabel || "Event-driven";
+}
+
 export default function DashboardStatus() {
   const facts = [
     ["Evidence scan", formatDate(status.lastSourceScanAt)],
@@ -44,6 +50,27 @@ export default function DashboardStatus() {
       <p className="dashboard-status-note">
         {STATUS_DISCLAIMERS[status.disclaimerKey]}
       </p>
+      {Array.isArray(status.nextChecks) && status.nextChecks.length > 0 && (
+        <div className="dashboard-status-next" aria-labelledby="dashboard-status-next-heading">
+          <h3 id="dashboard-status-next-heading">Next checks</h3>
+          <ul className="dashboard-status-next-list">
+            {status.nextChecks.map((check) => (
+              <li key={check.id} className="dashboard-status-next-item">
+                <div>
+                  <strong>{check.label}</strong>
+                  <span>{formatNextCheckTiming(check)}</span>
+                </div>
+                <p>{check.status}</p>
+                {check.href && (
+                  <a href={check.href} aria-label={`Open check path for ${check.label}`}>
+                    Open check path
+                  </a>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
     </section>
   );
 }
