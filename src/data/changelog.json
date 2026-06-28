@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-28",
+    "version": "5.138",
+    "summary": "Added a source freshness cue to the dimension detail drawer.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Source freshness in dimension detail",
+        "body": "The Sources affordance now shows the newest dated source before a reader opens the full source table, and the Sources section explains that the table is newest-first. This keeps count, freshness, and citation access together. No scores changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
     "version": "5.137",
     "summary": "Tightened the dimension detail drawer so grade movement and sources sit before longer rationale sections.",
     "items": [

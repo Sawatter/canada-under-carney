@@ -540,6 +540,13 @@ export default function DimensionCard({
   const cohort = dim.projectCohort || null;
   const sourceCounts = useMemo(() => getTierCounts(sources), [sources]);
   const sortedSources = useMemo(() => sortSourcesByDate(sources), [sources]);
+  const newestDatedSource = useMemo(
+    () => sortedSources.find((source) => source.date && !source.needsManualDate) || null,
+    [sortedSources]
+  );
+  const sourceFreshnessSummary = newestDatedSource
+    ? `newest source: ${formatSourceDate(newestDatedSource)}`
+    : "date review pending";
   const sourceGradeMoves = useMemo(() => buildGradeMovesBySource(dim.id), [dim.id]);
   const activeThresholdRow = useMemo(
     () => (isTracker ? null : findActiveThresholdRow(scoring?.thresholds, dim.grade)),
@@ -1831,6 +1838,9 @@ export default function DimensionCard({
                   >
                     <span>Sources</span>
                     <strong>{sources.length} cited</strong>
+                    <small className="dim-evidence-subnote">
+                      {sourceFreshnessSummary}
+                    </small>
                   </button>
                 )}
                 {!isTracker && hasPromises && (
@@ -1936,7 +1946,7 @@ export default function DimensionCard({
               <DisclosureSection
                 id={`dim-${dim.id}-sources`}
                 title="Sources"
-                summary={`${sources.length} total`}
+                summary={`${sources.length} total · ${sourceFreshnessSummary}`}
                 isOpen={!!openSections.sources}
                 onToggle={() => toggleSection("sources")}
                 region
@@ -1945,6 +1955,17 @@ export default function DimensionCard({
                 instantOpen={isInstantOpenSection("sources")}
               >
                 <div className="dim-stack">
+                  <div className="dim-source-overview" aria-label={`${dim.name} source freshness`}>
+                    <span>
+                      <strong>{sources.length}</strong> cited source{sources.length === 1 ? "" : "s"}
+                    </span>
+                    {newestDatedSource && (
+                      <span>
+                        Newest dated source: <strong>{formatSourceDate(newestDatedSource)}</strong>
+                      </span>
+                    )}
+                    <span>Full source table is newest-first.</span>
+                  </div>
                   <SourceTierSummary counts={sourceCounts} />
                   <SourceStackTable
                     sources={sortedSources}

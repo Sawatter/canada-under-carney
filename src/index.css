@@ -656,6 +656,13 @@ button.text-link-button {
   font-weight: 700;
 }
 
+.dim-evidence-subnote {
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 /* Headline commitment — featured, non-interactive accountability row.
    Spans the full evidence grid. Deliberately NOT grade-colored: the comparison
    is conveyed by text, never by a red/green scale, so it never reads as a score. */
@@ -1233,6 +1240,20 @@ button.text-link-button {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.dim-source-overview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.35;
+}
+
+.dim-source-overview strong {
+  color: var(--text-primary);
 }
 
 .dim-source-stack-legend {
