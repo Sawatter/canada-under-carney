@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-06-27",
+    "version": "5.131",
+    "summary": "Rewrote the dimension drawers and explainer copy so the grading logic is easier to follow without changing the scores.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Plainer dashboard explanations",
+        "body": "The policy drawers, score-math panels, About page, and Methodology page now explain more of the grading logic in plain language, especially acronyms, fiscal anchors, delivery status, and terms like material or binding delivery. The pass keeps the same grades, numbers, thresholds, source links, and trigger rules."
+      },
+      {
+        "type": "method",
+        "headline": "Precision guardrails kept",
+        "body": "The rewrite kept protected terms where they carry scoring meaning and added short glosses instead of swapping them for looser words. No grade, formula, weight, promise status, or dimension-model change is part of this release."
+      }
+    ]
+  },
+  {
     "date": "2026-06-26",
     "version": "5.130",
     "summary": "Added a one-line note under the title explaining what \"Canada Under Carney\" means, after a reader read it as loaded.",

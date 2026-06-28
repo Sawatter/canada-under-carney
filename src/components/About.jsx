@@ -215,10 +215,9 @@ export default function About() {
             <strong>Why these are not standalone grades yet:</strong>{" "}
             Indigenous reconciliation requires source coordination across
             multiple federal departments and nation-to-nation agreements
-            whose measurement frameworks have not yet matured to a
-            monthly-update cadence. Healthcare federal-provincial transfers
-            sit inside the Fiscal Health envelope as a fiscal line item
-            because the provincial side of the equation is outside the
+            whose measurement frameworks are not yet ready for monthly
+            updates. Healthcare federal-provincial transfers sit inside the
+            Fiscal Health file because the provincial side is outside the
             dashboard's federal scope. Public-sector bargaining touches
             three current dimensions at once. It feeds Fiscal Health
             through the workforce-reduction commitment, Economic Policy
@@ -232,14 +231,14 @@ export default function About() {
             rather than announcement count. Defence procurement (specific
             fighter jet, naval vessel, and Arctic surveillance contracts)
             is not graded as a separate file because the current Defence
-            & Trade construct uses the NATO spending percentage and
-            trade-diversification rate as its measurable outcomes; specific
+            & Trade dimension uses the NATO spending percentage and
+            trade-diversification rate as its measurable outcomes. Specific
             procurement contracts would fit the Major Projects model
             better and may move there if the Defence & Trade tripwire
             forces the dimension to split. Foreign policy beyond defence
             and trade is excluded because the indicators that would
-            distinguish performance from posture are not yet operational
-            for a monthly rubric. A reader who wants any of these graded
+            distinguish performance from posture are not yet usable for a
+            monthly rubric. A reader who wants any of these graded
             directly can{" "}
             <a
               href="https://github.com/Sawatter/canada-under-carney/issues"
@@ -255,12 +254,11 @@ export default function About() {
 
         <div style={{ marginBottom: "16px" }}>
           <p style={{ margin: "0 0 10px" }}>
-            <strong>Why two grades?</strong> Every policy area on this
-            dashboard gets its own letter grade across 11 areas — defence,
-            immigration, climate, housing, the cost of living, ethics, major
-            projects, and more. The two headline grades are different ways of
-            summarizing all 11, because one average can hide important
-            differences.
+            <strong>Why two grades?</strong> The dashboard grades 11 policy
+            areas, including defence, immigration, climate, housing, the cost
+            of living, ethics, major projects, and more. The two headline
+            grades are different ways of summarizing all 11, because one
+            average can hide important differences.
           </p>
           <p style={{ margin: "0 0 10px" }}>
             <strong>Full Policy Audit</strong> is how the Carney government is
@@ -274,18 +272,18 @@ export default function About() {
           </p>
           <ul style={{ margin: "0 0 10px", paddingLeft: "22px" }}>
             <li>
-              <strong>Housing</strong> — can you afford a place to live
+              <strong>Housing</strong> asks whether you can afford a place to live
             </li>
             <li>
-              <strong>Cost of living</strong> — are groceries and everyday
-              bills under control
+              <strong>Cost of living</strong> asks whether groceries and everyday
+              bills are under control
             </li>
             <li>
-              <strong>The economy</strong> — are jobs, wages, and productivity
-              going the right way
+              <strong>The economy</strong> asks whether jobs, wages, and productivity
+              are going the right way
             </li>
             <li>
-              <strong>Government spending</strong> — is the fiscal picture
+              <strong>Government spending</strong> asks whether the fiscal picture is
               under control
             </li>
           </ul>
@@ -293,7 +291,7 @@ export default function About() {
             These four areas count twice as much in Household Impact; the
             other seven still count, just not as heavily. Both grades use the
             same 11 areas, the same sources, the same rubric, and the same QA
-            rules — only the weighting changes.
+            checks. Only the weighting changes.
           </p>
           <p style={{ margin: "0 0 10px" }}>
             <strong>Promises Delivered</strong> is a running tracker of
@@ -319,9 +317,9 @@ export default function About() {
             Commitment Traceability Map
           </a>{" "}
           that links each tracked commitment to its home dimension, construct,
-          indicator path, source-role requirements, deconfliction notes, and
-          derivative handling. It is a reference layer, not a separate scoring
-          system.
+          evidence path, source requirements, duplicate-check notes, and how
+          repeated promises are handled. It is a reference layer, not a
+          separate scoring system.
         </p>
 
         <div
@@ -348,7 +346,7 @@ export default function About() {
             </li>
             <li>
               Non-official sources are drawn from multiple institution types
-              and perspectives — think tanks, policy institutes, journalism,
+              and perspectives. Think tanks, policy institutes, journalism,
               and academic research are all used, but no single editorial or
               analytical family is allowed to dominate the stack (see Source
               Balance below)
@@ -358,7 +356,7 @@ export default function About() {
             </li>
             <li>
               Commitments are traceable from their original public source to
-              their home dimension, indicator path, and derivative treatment
+              their home dimension, evidence path, and repeated-promise treatment
               through the published Commitment Traceability Map
             </li>
             <li>
@@ -368,11 +366,11 @@ export default function About() {
               their own conclusion.
             </li>
             <li>
-              External inter-rater reliability testing has not yet been
-              completed. Subjectivity is reduced through: published rubric
-              thresholds, canonical scoring sheets, 5-tier source hierarchy,
-              QA gatekeeping with 6 blocking conditions, deconfliction
-              matrix, and documented modifier rules
+              Outside reviewers have not yet tested whether they would reach
+              the same grades. Subjectivity is reduced through published
+              rubric thresholds, canonical scoring sheets, the 5-tier source
+              hierarchy, QA gatekeeping with 6 blocking conditions,
+              duplicate-check rules, and documented modifier rules
             </li>
           </ul>
         </div>
@@ -596,7 +594,7 @@ export default function About() {
             >
               How To Challenge A Grade
             </a>
-            . It walks through the rule, trigger, metric, source, and
+            . It walks through the criteria, trigger, metric, source, and
             critic / defender checks.
             <br />
             Factual errors can be reported via{" "}

@@ -725,7 +725,7 @@ export default function DimensionCard({
     },
     {
       id: "rule",
-      label: "Rule",
+      label: "Criteria",
       anchor: `dim-${dim.id}-scoring`,
       keys: ["rule"],
       available: hasRuleSection,
@@ -812,7 +812,7 @@ export default function DimensionCard({
     },
     {
       id: "combinationRule",
-      label: "Combination rule",
+      label: "How pieces combine",
       anchor: `dim-${dim.id}-combination-rule`,
       keys: ["rule", "combinationRule"],
       available: !!dim.gradeBasis?.combinationRule,
@@ -1503,7 +1503,7 @@ export default function DimensionCard({
                   </div>
                 ) : (
                   <span className="dim-info-grade-pill">
-                    {dim.informationalGrade} informational
+                    {dim.informationalGrade} tracker read
                   </span>
                 )
               ) : (
@@ -1659,7 +1659,7 @@ export default function DimensionCard({
                     </div>
                   ) : (
                     <span className="dim-info-grade-pill">
-                      {dim.informationalGrade} informational
+                      {dim.informationalGrade} tracker read
                     </span>
                   )
                 ) : (
@@ -1868,7 +1868,7 @@ export default function DimensionCard({
               <DisclosureSection
                 id={`dim-${dim.id}-why`}
                 title={isTracker ? "Why this tracker reads this way" : "Why this grade"}
-                summary={isTracker ? "method and current read" : "judgment and rationale"}
+                summary={isTracker ? "how it is counted" : "judgment and rationale"}
                 isOpen={!!openSections.why}
                 onToggle={() => toggleSection("why")}
                 region
@@ -1881,7 +1881,7 @@ export default function DimensionCard({
                     <p><strong>Judgment call:</strong> {dim.judgmentCall}</p>
                   )}
                   {dim.judgmentDetail && (
-                    <p><strong>Where judgment enters:</strong> {dim.judgmentDetail}</p>
+                    <p><strong>Where editor judgment enters:</strong> {dim.judgmentDetail}</p>
                   )}
                   {dim.rationale && <p>{dim.rationale}</p>}
                   {isTracker && trackerStat && (
@@ -1891,13 +1891,13 @@ export default function DimensionCard({
                     </p>
                   )}
                   {isTracker && (
-                    <p>This tracker is derivative: movement comes from the underlying promise evidence, not from the GPA rules.</p>
+                    <p>This tracker moves when the underlying promise evidence changes. It stays outside the GPA.</p>
                   )}
                   {!isTracker && dim.gradeBasis?.plusMinusRationale && (
                     <p>{dim.gradeBasis.plusMinusRationale}</p>
                   )}
                   {dim.gradeBasis?.band && (
-                    <p><strong>{dim.gradeBasis.band}</strong> means: {dim.gradeBasis.bandCriterion}</p>
+                    <p><strong>{dim.gradeBasis.band}</strong> band means: {dim.gradeBasis.bandCriterion}</p>
                   )}
                   {subScoreSummary && (
                     <p className="dim-subscore-summary"><strong>Sub-scores:</strong> {subScoreSummary}</p>
@@ -1909,8 +1909,8 @@ export default function DimensionCard({
             {hasRuleSection && (
               <DisclosureSection
                 id={`dim-${dim.id}-scoring`}
-                title="How this file is scored"
-                summary="rule and thresholds"
+                title="How this grade is built"
+                summary="criteria and thresholds"
                 isOpen={!!openSections.rule}
                 onToggle={() => toggleSection("rule")}
                 region
@@ -1940,7 +1940,7 @@ export default function DimensionCard({
                   )}
                   {scoring?.modifierExpiry && (
                     <div>
-                      <strong>Timing rule:</strong> {scoring.modifierExpiry}
+                      <strong>Timing condition:</strong> {scoring.modifierExpiry}
                     </div>
                   )}
                   {scoring?.thresholds?.length > 0 && (
@@ -2032,7 +2032,7 @@ export default function DimensionCard({
                   {dim.gradeBasis?.combinationRule && (
                     <DisclosureSection
                       id={`dim-${dim.id}-combination-rule`}
-                      title="Combination rule"
+                      title="How the pieces combine"
                       isOpen={!!openSections.combinationRule}
                       onToggle={() => toggleSection("combinationRule")}
                       active={activeSectionKeys.includes("combinationRule")}

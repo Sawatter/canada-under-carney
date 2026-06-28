@@ -1,4 +1,4 @@
-// Renders the math behind a headline score so a reader can verify how the
+// Renders the math behind a headline score so a reader can check how the
 // numeric value is built from the per-dimension grades. Mirrors the
 // ApprovalDetail pattern: lives below the scoreboard row, visible only when
 // the corresponding card's toggle is open.
@@ -8,15 +8,15 @@
 //   - "overall"    → equal-weight Full Policy Audit (11 dims × 1 = 11)
 
 const TITLES = {
-  household: "Household Impact — how the score is built",
-  overall: "Full Policy Audit — how the score is built",
+  household: "How Household Impact is built",
+  overall: "How Full Policy Audit is built",
 };
 
 const FORMULAS = {
   household:
-    "Household Impact = (sum of grade-points × weight) / sum of weights. Housing, cost of living, the economy, and government spending each count twice; the other seven dimensions count once.",
+    "Household Impact = (sum of grade-points × weight) / sum of weights. Housing, cost of living, the economy, and government spending each count twice. The other seven dimensions count once.",
   overall:
-    "Full Policy Audit = (sum of grade-points) / number of graded dimensions. Each of the 11 graded dimensions counts equally; the Promise Delivery tracker is excluded.",
+    "Full Policy Audit = (sum of grade-points) / number of graded dimensions. Each of the 11 graded dimensions counts equally. The Promise Delivery tracker is excluded.",
 };
 
 const DETAIL_ID_PREFIX = "score-derivation-";
@@ -80,7 +80,7 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
           {title}
         </div>
         <div style={{ fontSize: "13px", color: "#666" }}>
-          Reproducible from per-dim grades
+          Built from dimension grades
         </div>
       </div>
 
@@ -97,9 +97,9 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
 
       {isHousehold && weighted.length > 0 && (
         <DerivationGroup
-          heading={`Household-weighted (×2 each) — ${numWeighted} dimension${
+          heading={`Household-weighted (×2 each, ${numWeighted} dimension${
             numWeighted === 1 ? "" : "s"
-          }`}
+          })`}
           rows={weighted}
           subtotalLabel={`Subtotal: ${formatRowMath(weighted, 2)} = ${fmt(
             weightedSubtotal,
@@ -111,12 +111,12 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
       <DerivationGroup
         heading={
           isHousehold
-            ? `Other dimensions (×1 each) — ${numSingle} dimension${
+            ? `Other dimensions (×1 each, ${numSingle} dimension${
                 numSingle === 1 ? "" : "s"
-              }`
-            : `All graded dimensions (×1 each) — ${numSingle} dimension${
+              })`
+            : `All graded dimensions (×1 each, ${numSingle} dimension${
                 numSingle === 1 ? "" : "s"
-              }`
+              })`
         }
         rows={single}
         subtotalLabel={`Subtotal: ${formatRowMath(single, 1)} = ${fmt(
@@ -188,7 +188,7 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
   );
 }
 
-// One section of the derivation table — heading, per-dim rows, subtotal line.
+// One section of the derivation table: heading, dimension rows, subtotal line.
 function DerivationGroup({ heading, rows, subtotalLabel }) {
   if (rows.length === 0) return null;
   return (

@@ -5,7 +5,7 @@ function formatPct(v) {
   return v === null ? "—" : `${Math.round(v)}%`;
 }
 
-// Shared compute helper — both the card and the drilldown call this so the
+// Shared compute helper. Both the card and the drilldown call this so the
 // displayed numbers stay consistent. The aggregate weights each poll by sample
 // size and by recency (HALF_LIFE_DAYS half-life), within the rolling window.
 function computeApproval() {
@@ -118,7 +118,7 @@ export function ApprovalCard({
   );
 }
 
-// Drilldown panel — lives below the scoreboard row, visible only when the
+// Drilldown panel. Lives below the scoreboard row, visible only when the
 // card is toggled open. Carries the full detail the card can't fit:
 // delta-vs-prior-window breakdown, Nanos preferred-PM context, and the
 // per-poll table with source links.
@@ -160,7 +160,7 @@ export function ApprovalDetail() {
             letterSpacing: "0.5px",
           }}
         >
-          Approval Signal &mdash; drill-down
+          Approval Signal detail
         </div>
         <div style={{ fontSize: "13px", color: "#666" }}>
           {s.windowDays}-day rolling avg &middot; as of {s.asOf}
@@ -278,9 +278,9 @@ export function ApprovalDetail() {
                 (prior week: {prev.carney}% / {prev.poilievre}%)
               </span>
             )}
-            . Different construct from approval above &mdash; a best-choice
-            question, not approve/disapprove. Shown as secondary context; not
-            averaged into the approval mean.
+            . This asks a different question than approval above: best choice,
+            not approve/disapprove. It is shown as secondary context and is
+            not averaged into the approval mean.
           </div>
         );
       })()}
