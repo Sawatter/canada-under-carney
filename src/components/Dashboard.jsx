@@ -106,6 +106,32 @@ export default function Dashboard({ experience = "classic" }) {
   const [derivationOpen, setDerivationOpen] = useState(null);
   const [anchorNavigation, setAnchorNavigation] = useState(null);
   const [isMobile, setIsMobile] = useState(() => isMobileViewport());
+  // Theme: the no-flash script in index.html sets the initial data-theme on
+  // <html> before React mounts; we read it back, then keep the attribute and
+  // the saved choice in sync as the user toggles.
+  const [theme, setTheme] = useState(() => (
+    typeof document !== "undefined" && document.documentElement.getAttribute("data-theme") === "dark"
+      ? "dark"
+      : "light"
+  ));
+  // Keep <html data-theme> in lockstep with state via an effect (idempotent, so
+  // the attribute and state can never drift). Persist to localStorage ONLY when
+  // the change came from an explicit user toggle (tracked by a ref set in
+  // toggleTheme), never on mount — so an OS-derived default is not locked in and
+  // keeps following the OS until the user toggles. Gating on the user-toggle ref
+  // (rather than "after first effect run") stays correct under StrictMode's
+  // development double-invocation of effects.
+  const userToggledThemeRef = useRef(false);
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    document.documentElement.setAttribute("data-theme", theme);
+    if (!userToggledThemeRef.current) return;
+    try { window.localStorage.setItem("ccc-theme", theme); } catch { /* storage blocked */ }
+  }, [theme]);
+  const toggleTheme = useCallback(() => {
+    userToggledThemeRef.current = true;
+    setTheme((current) => (current === "dark" ? "light" : "dark"));
+  }, []);
   const anchorRequestIdRef = useRef(0);
   const expandedRef = useRef(null);
   const mobileModalEntryRef = useRef(false);
@@ -549,11 +575,30 @@ export default function Dashboard({ experience = "classic" }) {
       <VisitorCount />
       {/* Header */}
       <header className="dashboard-header" style={{ textAlign: "center", marginBottom: "32px" }}>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={toggleTheme}
+          aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+        >
+          {theme === "dark" ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="4" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          ) : (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          )}
+        </button>
         <div
+          className="dashboard-kicker"
           style={{
             fontSize: "14px",
             fontWeight: 700,
-            color: "#c62828",
+            color: "#8a4f12",
             textTransform: "uppercase",
             letterSpacing: "2px",
             marginBottom: "8px",
@@ -858,7 +903,7 @@ export default function Dashboard({ experience = "classic" }) {
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
               gridAutoFlow: "dense",
-              gap: "12px",
+              gap: "var(--space-3)",
             }}
           >
             {scoredDimensions.map((d) => (

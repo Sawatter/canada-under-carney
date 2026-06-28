@@ -68,6 +68,15 @@
   display: none;
 }
 
+/* P4: When a dimension is opened on desktop, the grid is replaced by a
+   full-width focused-detail takeover that has its own sticky header (title +
+   close) and jump nav. Hide the page tab rail during that takeover so the
+   detail header owns the top of the viewport and the close control stays
+   reachable instead of sliding behind the rail on scroll. */
+.app-shell:has(.desktop-focused-detail-wrap) .dashboard-tabs-wrap {
+  display: none;
+}
+
 .app-shell .dashboard-tabs {
   margin: 0 !important;
   background: transparent !important;
@@ -76,7 +85,16 @@
 .app-shell .dashboard-tab {
   min-height: 44px;
   color: var(--app-muted) !important;
-  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease !important;
+  transition: background-color 160ms ease, color 160ms ease, box-shadow 160ms ease, transform 120ms ease !important;
+}
+
+.app-shell .dashboard-tab:hover:not([aria-current="page"]) {
+  background: var(--app-accent-soft) !important;
+  color: var(--app-ink) !important;
+}
+
+.app-shell .dashboard-tab:active {
+  transform: translateY(0.5px);
 }
 
 .app-shell .dashboard-tab[aria-current="page"] {
@@ -120,7 +138,7 @@
 }
 
 .app-promise-filters:focus {
-  outline: 2px solid #1a73e8;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -397,6 +415,11 @@
     font-weight: 800;
     line-height: 1.1;
     cursor: pointer;
+    transition: background-color 140ms ease, color 140ms ease, transform 120ms ease;
+  }
+
+  .app-bottom-nav button:active {
+    transform: translateY(0.5px);
   }
 
   .app-bottom-nav-icon {
@@ -489,5 +512,10 @@
   .app-shell .dashboard-tab,
   .app-shell .app-promise-row {
     transition: none !important;
+  }
+
+  .app-shell .dashboard-tab:active,
+  .app-bottom-nav button:active {
+    transform: none !important;
   }
 }

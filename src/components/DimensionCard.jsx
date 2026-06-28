@@ -1375,16 +1375,16 @@ export default function DimensionCard({
   if (!isTracker && !g) return null;
 
   const borderColor = isExpanded
-    ? (isTracker ? "#bfa86b" : g.color)
-    : (isTracker ? "#d9d4b8" : "#e0e0e0");
+    ? (isTracker ? "var(--accent-tracker)" : g.color)
+    : (isTracker ? "var(--border-tracker)" : "var(--border-subtle)");
   const raisedShadow = isTracker ? "0 2px 12px #bfa86b22" : `0 2px 12px ${g.color}22`;
-  const rootBackground = isFocusedDesktop ? "transparent" : (isTracker ? "#fcfcf7" : "#fff");
+  const rootBackground = isFocusedDesktop ? "transparent" : (isTracker ? "var(--surface-card-tracker)" : "var(--surface-card)");
   const rootBorder = isFocusedDesktop ? "0" : `1px solid ${borderColor}`;
   const rootPadding = isFocusedDesktop ? 0 : "16px";
-  const rootRadius = isFocusedDesktop ? 0 : "8px";
+  const rootRadius = isFocusedDesktop ? 0 : "var(--card-radius)";
   const rootShadow = isFocusedDesktop
     ? "none"
-    : (isExpanded ? raisedShadow : "0 1px 3px rgba(0,0,0,0.06)");
+    : (isExpanded ? raisedShadow : "var(--shadow-card)");
   const subScoreSummary = hasSubScores
     ? Object.values(dim.subScores).map((sub) => `${sub.label}: ${sub.grade}`).join(" / ")
     : null;
@@ -1406,7 +1406,7 @@ export default function DimensionCard({
         border: rootBorder,
         borderRadius: rootRadius,
         padding: rootPadding,
-        transition: "border-color 0.2s, box-shadow 0.2s",
+        transition: "border-color 0.18s ease, box-shadow 0.18s ease, transform 0.18s ease",
         boxShadow: rootShadow,
         gridColumn: isExpanded ? "1 / -1" : "auto",
       }}
@@ -1562,7 +1562,22 @@ export default function DimensionCard({
               }}
               aria-label="Close details"
             >
-              × Close
+              <svg
+                className="dim-drawer-close-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path
+                  d="M4 4 L12 12 M12 4 L4 12"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                />
+              </svg>
+              <span className="dim-drawer-close-label">Close</span>
             </button>
           </div>
 

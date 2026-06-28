@@ -27,6 +27,24 @@
     <meta name="twitter:image:alt" content="Canada Under Carney — Full Policy Audit: C minus. Household Impact: D plus." />
 
     <link rel="alternate" type="application/rss+xml" title="Canada Under Carney — Dashboard Updates" href="/canada-under-carney/feed.xml" />
+
+    <!-- Theme init runs before paint so there's no light-mode flash. Default to
+         the OS preference, then override only with a VALIDATED saved choice.
+         matchMedia and storage live in separate try blocks so a storage failure
+         still respects the OS instead of forcing light. -->
+    <script>
+      (function () {
+        var theme = "light";
+        try {
+          if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) theme = "dark";
+        } catch (e) {}
+        try {
+          var saved = localStorage.getItem("ccc-theme");
+          if (saved === "dark" || saved === "light") theme = saved;
+        } catch (e) {}
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

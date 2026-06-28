@@ -8,9 +8,10 @@ import { ApprovalCard, ApprovalDetail } from "./ApprovalSignal";
 // slot lands at the same y-position on every card no matter how many lines
 // its copy wraps to. Column counts per viewport live in index.css.
 const cardBase = {
-  background: "#fff",
-  border: "1px solid #e0e0e0",
-  borderRadius: "12px",
+  background: "var(--surface-card)",
+  border: "1px solid var(--border-subtle)",
+  borderRadius: "var(--card-radius)",
+  boxShadow: "var(--shadow-card)",
   padding: "20px 20px 18px",
   textAlign: "center",
   display: "grid",
@@ -92,14 +93,14 @@ export default function ScoreboardHeader({
     pct >= 0.6 ? "#1a7a3a" : pct >= 0.3 ? "#8d5a00" : "#c62828";
 
   return (
-    <div style={{ marginBottom: "24px" }}>
+    <div style={{ marginBottom: "var(--space-5)" }}>
       <div
         className="scoreboard-card-row"
         style={{
           display: "grid",
           gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-          gap: "16px",
-          marginBottom: "12px",
+          gap: "var(--space-4)",
+          marginBottom: "var(--space-3)",
         }}
       >
         {/* Household Impact */}

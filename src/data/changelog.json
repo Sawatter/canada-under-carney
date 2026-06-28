@@ -1,6 +1,55 @@
 [
   {
     "date": "2026-06-27",
+    "version": "5.135",
+    "summary": "Added a dark theme with a header toggle, and recolored the top label so it no longer matches the failing-grade red.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Dark mode",
+        "body": "There is now a dark theme. A sun and moon button in the top-left of the header switches it, your choice is remembered, and it follows your device setting by default. Each view was set up so text stays readable on the dark background. Grades keep their red-to-green colors as bright chips so they still read at a glance, and the dark-theme rules leave the existing light-theme colors alone."
+      },
+      {
+        "type": "product",
+        "headline": "Header label recolored",
+        "body": "The 'Performance Dashboard' label at the top used the same red as a failing grade, which could read as a signal. It is now a neutral amber so it does not look like a score."
+      },
+      {
+        "type": "minor",
+        "headline": "Color and spacing tokens tidied",
+        "body": "The two near-identical blues used for links and focus rings were merged into one, and some gaps were moved onto the shared spacing scale. No visible change in light mode."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-27",
+    "version": "5.134",
+    "summary": "Visual refresh so the dashboard reads more like an app: cards lift off the page, the close button is a standard icon control, and controls give a small press response. No scores changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Cards lift off the page",
+        "body": "Every card now sits on a soft shadow against the background instead of a flat hairline box, so the layout reads as layered surfaces. Corner rounding is consistent across all cards now. A new set of surface and shadow tokens drives this, and also lays the groundwork for a dark mode."
+      },
+      {
+        "type": "product",
+        "headline": "Standard close button on opened dimensions",
+        "body": "The opened-dimension close button changed from a solid dark Close pill to a standard top-right icon button. On desktop it is an X in a quiet rounded chip with a Close label. On mobile it is a 44px icon-only circle. It keeps the easy-to-find treatment from the last update without looking like a heavy main action."
+      },
+      {
+        "type": "product",
+        "headline": "Controls respond to taps",
+        "body": "Cards, the tab bar, the mobile bottom nav, and the section toggles now give a small, fast press and hover response, so the interface feels touchable. All of it is turned off for readers who prefer reduced motion."
+      },
+      {
+        "type": "product",
+        "headline": "Smoother opening, and the close stays put",
+        "body": "Opening a dimension now fades in instead of snapping. On desktop, the section tabs step aside while a dimension is open, so the title and Close button stay pinned at the top instead of sliding behind the tab bar when you scroll. On phones the open animation is a touch quicker. Reduced-motion settings are respected."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-27",
     "version": "5.133",
     "summary": "Corrected a stale industrial carbon price figure to match the May 2026 benchmark update.",
     "items": [

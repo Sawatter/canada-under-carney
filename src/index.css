@@ -33,9 +33,30 @@
   --card-radius: 12px;
   --card-padding: 20px;
   --card-padding-mobile: 14px;
-  --card-border: 1px solid #e0e0e0;
-  --card-shadow-rest: 0 1px 3px rgba(0, 0, 0, 0.05);
-  --card-shadow-raised: 0 2px 12px rgba(0, 0, 0, 0.08);
+
+  /* Semantic surface + elevation layer. These are the theme-swappable tokens:
+     dark mode redefines them under [data-theme="dark"] and every card, drawer,
+     and chrome surface reads from here, so a theme swap is one block instead of
+     a hunt through inline hex. Shadows use the app's green-charcoal (32,52,44)
+     so elevation reads warm/civic, not cold black. */
+  --surface-page:         #fafafa;  /* app background base (classic); the app shell paints its own gradient on top */
+  --surface-card:         #ffffff;  /* resting card fill */
+  --surface-card-tracker: #fcfcf7;  /* Promise Delivery tracker warm tint */
+  --surface-raised:       #ffffff;  /* hovered / lifted card */
+  --surface-modal:        #ffffff;  /* drawer / dialog surface */
+  --surface-sunken:       #f1f4f0;  /* inset tracks, table heads */
+  --border-subtle:        #e3e7e2;  /* hairline between a card and the page */
+  --border-strong:        #d4dad2;  /* stronger divider */
+  --border-tracker:       #d9d4b8;  /* tracker card border */
+  --accent-tracker:       #bfa86b;  /* tracker expanded accent */
+  --shadow-card:   0 1px 2px rgba(32, 52, 44, 0.05), 0 4px 12px rgba(32, 52, 44, 0.06);
+  --shadow-raised: 0 8px 24px rgba(32, 52, 44, 0.12);
+  --shadow-modal:  0 24px 60px rgba(32, 52, 44, 0.22);
+
+  /* Legacy aliases — kept so any stray reference still resolves; mapped onto the new layer */
+  --card-border: 1px solid var(--border-subtle);
+  --card-shadow-rest: var(--shadow-card);
+  --card-shadow-raised: var(--shadow-raised);
 
   /* Color tokens — contrast-tested against #fff and #fafafa backgrounds */
   --text-primary:   #1a1a1a;  /* 17:1 on white — AAA */
@@ -45,6 +66,14 @@
   --text-subtle:    #767676;  /* 4.5:1 on white — AA minimum for body */
   /* #888 ≈ 3.5:1 (fails AA for body). #999 ≈ 2.85:1 (fails even AA large).
      Use --text-subtle or darker for anything non-decorative. */
+
+  /* Interaction accent — one blue for links/affordances, one for the focus
+     ring. Tokenized so dark mode can lift them for contrast on charcoal.
+     These resolve to the same hexes the app already used, so light mode is
+     unchanged. */
+  --accent: #1565c0;
+  --accent-strong: #174ea6;
+  --focus-ring: #1a73e8;
 }
 
 * {
@@ -61,7 +90,7 @@ body {
   font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   font-size: 17px;
   line-height: var(--lh-body);
-  background: #fafafa;
+  background: var(--surface-page);
   color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
@@ -167,6 +196,36 @@ button.text-link-button {
   gap: 12px;
 }
 
+/* P3: Tactile micro-interactions — quiet, fast feedback so controls feel
+   touchable, not inert. Hover lift is pointer-only; a press settles the card
+   back down. The box-shadow override needs !important because the resting
+   shadow is an inline style. All motion here is disabled under
+   prefers-reduced-motion (see that block lower in this file). */
+@media (hover: hover) {
+  .dimension-card-root:not(.dim-focused-detail-root):hover {
+    box-shadow: var(--shadow-raised) !important;
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+}
+
+.dimension-card-root:not(.dim-focused-detail-root):has(.dim-card-header-button:active) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-card) !important;
+}
+
+.dim-section-button {
+  transition: filter 140ms ease, transform 110ms ease;
+}
+
+.dim-section-button:hover {
+  filter: brightness(0.975);
+}
+
+.dim-section-button:active {
+  transform: translateY(0.5px);
+}
+
 .dim-tracker-pill {
   display: inline-flex;
   align-items: center;
@@ -208,7 +267,7 @@ button.text-link-button {
 
 .dim-open-hint {
   font-size: 14px;
-  color: #555;
+  color: var(--text-secondary);
   font-weight: 600;
 }
 
@@ -227,13 +286,13 @@ button.text-link-button {
 
 .dim-tracker-count-number span {
   font-size: 16px;
-  color: #666;
+  color: var(--text-muted);
   font-weight: 600;
 }
 
 .dim-tracker-count-label {
   font-size: 13px;
-  color: #666;
+  color: var(--text-muted);
   margin-top: 3px;
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -269,7 +328,7 @@ button.text-link-button {
 .dim-drawer-title {
   font-weight: 700;
   font-size: 14px;
-  color: #1a1a1a;
+  color: var(--text-primary);
   line-height: 1.3;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -291,31 +350,48 @@ button.text-link-button {
   white-space: nowrap;
 }
 
+/* Drawer close control — a standard top-right dismiss button. Quiet bordered
+   chip (icon + "Close" label on desktop, icon-only circle on mobile) with a
+   clearly-visible dark glyph and a real hover/active fill, so it keeps the
+   v5.132 "easy to find" win without reading as a heavy primary action. */
 .dim-drawer-close {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  background: #1f1f1f;
-  border: 1px solid #1f1f1f;
-  border-radius: 6px;
-  padding: 6px 14px;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 16px;
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
   cursor: pointer;
   font-size: 13px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-body);
   font-family: inherit;
   line-height: 1;
   flex-shrink: 0;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+}
+
+.dim-drawer-close-icon {
+  display: block;
+  flex: 0 0 auto;
 }
 
 .dim-drawer-close:hover {
-  background: #000;
+  background: var(--border-subtle);
+  border-color: var(--text-subtle);
+  color: var(--text-primary);
+}
+
+.dim-drawer-close:active {
+  transform: translateY(0.5px);
+  background: var(--border-strong);
 }
 
 .dim-drawer-close:focus-visible {
-  outline: 2px solid #1565c0;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 
@@ -384,10 +460,10 @@ button.text-link-button {
 }
 
 .dim-default-block {
-  border: 1px solid #e4e7ec;
+  border: 1px solid var(--border-subtle);
   border-radius: 8px;
   padding: 12px 14px;
-  background: #fff;
+  background: var(--surface-card);
 }
 
 .dim-score-block {
@@ -416,21 +492,21 @@ button.text-link-button {
 }
 
 .dim-verdict-kicker {
-  color: #555;
+  color: var(--text-secondary);
   font-style: italic;
   font-size: 14px;
   line-height: 1.45;
 }
 
 .dim-verdict-status {
-  color: #222;
+  color: var(--text-primary);
   font-size: 16px;
   line-height: 1.45;
   font-weight: 700;
 }
 
 .dim-verdict-note {
-  color: #444;
+  color: var(--text-body);
   font-size: 14px;
   line-height: 1.5;
 }
@@ -450,7 +526,7 @@ button.text-link-button {
 }
 
 .dim-previous-grade-note {
-  color: #777;
+  color: var(--text-subtle);
   font-size: 12px;
   font-weight: 800;
   text-transform: uppercase;
@@ -479,7 +555,7 @@ button.text-link-button {
 .dim-change-card-title,
 .dim-mini-section-title {
   margin-bottom: 8px;
-  color: #1a1a1a;
+  color: var(--text-primary);
   font-size: 13px;
   font-weight: 800;
   letter-spacing: 0.35px;
@@ -503,12 +579,12 @@ button.text-link-button {
 }
 
 .dim-top-metric-row span {
-  color: #555;
+  color: var(--text-secondary);
   min-width: 0;
 }
 
 .dim-top-metric-row strong {
-  color: #1a1a1a;
+  color: var(--text-primary);
   text-align: right;
   font-family: 'DM Mono', monospace;
   font-size: 12px;
@@ -516,7 +592,7 @@ button.text-link-button {
 
 .dim-challenge-cue {
   margin: 0;
-  color: #555;
+  color: var(--text-secondary);
   font-size: 13px;
   line-height: 1.45;
 }
@@ -532,7 +608,7 @@ button.text-link-button {
   font-weight: 600;
   letter-spacing: 0.2px;
   text-transform: none;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .dim-evidence-grid {
@@ -552,7 +628,7 @@ button.text-link-button {
   border: 1px solid #e1e5ea;
   border-radius: 8px;
   background: #fafbfc;
-  color: #1a1a1a;
+  color: var(--text-primary);
   cursor: pointer;
   font: inherit;
 }
@@ -570,11 +646,11 @@ button.text-link-button {
   font-weight: 700;
   letter-spacing: 0.3px;
   text-transform: uppercase;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .dim-evidence-item > strong {
-  color: #1a1a1a;
+  color: var(--text-primary);
   font-family: 'DM Mono', monospace;
   font-size: 13px;
   font-weight: 700;
@@ -626,7 +702,7 @@ button.text-link-button {
   font-weight: 700;
   letter-spacing: 0.3px;
   text-transform: uppercase;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .dim-headline-commitment-pair dd {
@@ -641,19 +717,19 @@ button.text-link-button {
   font-family: 'DM Mono', monospace;
   font-size: var(--dim-fs-numeral);
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-primary);
   overflow-wrap: anywhere;
 }
 
 .dim-headline-commitment-period {
   font-size: 11px;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .dim-headline-commitment-relation {
   margin: 2px 0 0;
   font-size: 13px;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .dim-headline-commitment-relation > strong {
@@ -685,7 +761,7 @@ button.text-link-button {
   margin: 2px 0 0;
   font-size: 11px;
   font-style: italic;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .dim-default-block-head {
@@ -697,7 +773,7 @@ button.text-link-button {
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.45px;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 8px;
 }
 
@@ -706,7 +782,7 @@ button.text-link-button {
   flex-direction: column;
   gap: 8px;
   font-size: 14px;
-  color: #333;
+  color: var(--text-body);
   line-height: 1.55;
 }
 
@@ -748,7 +824,7 @@ button.text-link-button {
 .dim-threshold-row span {
   font-family: 'DM Mono', monospace;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--text-primary);
 }
 
 .dim-live-threshold-row p,
@@ -769,7 +845,7 @@ button.text-link-button {
   min-width: 0;
   border: 0;
   background: none;
-  color: #1565c0;
+  color: var(--accent);
   font: inherit;
   font-size: 14px;
   font-weight: 800;
@@ -806,7 +882,7 @@ button.text-link-button {
 
 .dim-tier-chip-3 {
   background: #fafafa;
-  color: #555;
+  color: var(--text-secondary);
   border: 1px solid #ccc;
 }
 
@@ -836,7 +912,7 @@ button.text-link-button {
   border-left: 3px solid #9e9e9e;
   border-radius: 7px;
   background: #fafafa;
-  color: #1a1a1a;
+  color: var(--text-primary);
   cursor: pointer;
   padding: 8px 10px;
   font-family: inherit;
@@ -847,7 +923,7 @@ button.text-link-button {
   letter-spacing: 0.45px;
 }
 
-.dim-disclosure-blue .dim-section-button { border-left-color: #1565c0; background: #f7faff; }
+.dim-disclosure-blue .dim-section-button { border-left-color: var(--accent); background: #f7faff; }
 .dim-disclosure-green .dim-section-button { border-left-color: #558b2f; background: #f7fbf8; }
 .dim-disclosure-rule .dim-section-button { border-left-color: #607d8b; background: #f7f8fa; }
 .dim-disclosure-why .dim-section-button { border-left-color: #6b4a00; background: #fffaf0; }
@@ -861,7 +937,7 @@ button.text-link-button {
 .dim-section-summary {
   margin-left: auto;
   font-size: 12px;
-  color: #666;
+  color: var(--text-muted);
   text-transform: none;
   letter-spacing: 0;
   font-weight: 700;
@@ -884,7 +960,7 @@ button.text-link-button {
   overflow: hidden;
   min-height: 0;
   font-size: 14px;
-  color: #333;
+  color: var(--text-body);
   line-height: 1.55;
   padding: 0 10px;
 }
@@ -906,7 +982,7 @@ button.text-link-button {
 }
 
 .dim-inline-link {
-  color: #1565c0;
+  color: var(--accent);
   font-weight: 700;
   text-decoration: none;
 }
@@ -951,7 +1027,7 @@ button.text-link-button {
 .dim-subscore-card-title {
   font-size: 14px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-primary);
   text-transform: uppercase;
   margin-bottom: 4px;
 }
@@ -964,7 +1040,7 @@ button.text-link-button {
 
 .dim-subscore-card-body span {
   font-size: 14px;
-  color: #666;
+  color: var(--text-muted);
   line-height: 1.3;
 }
 
@@ -998,14 +1074,14 @@ button.text-link-button {
 .dim-metric-group-title {
   font-size: 12px;
   font-weight: 700;
-  color: #666;
+  color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.4px;
 }
 
 .dim-metric-row {
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   padding: 2px 0;
   display: flex;
   flex-direction: column;
@@ -1026,7 +1102,7 @@ button.text-link-button {
 }
 
 .dim-metric-source-list a {
-  color: #1565c0;
+  color: var(--accent);
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;
@@ -1042,7 +1118,7 @@ button.text-link-button {
 
 .dim-source-chip {
   font-size: 14px;
-  color: #1565c0;
+  color: var(--accent);
   text-decoration: none;
   background: #e8f0fe;
   padding: 3px 8px;
@@ -1056,7 +1132,7 @@ button.text-link-button {
 .dim-download-link {
   width: fit-content;
   font-size: 12px;
-  color: #555;
+  color: var(--text-secondary);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -1072,7 +1148,7 @@ button.text-link-button {
   line-height: 1.5;
   padding: 8px 10px;
   border-radius: 6px;
-  color: #333;
+  color: var(--text-body);
 }
 
 .dim-perspective-critics {
@@ -1086,11 +1162,11 @@ button.text-link-button {
 
 .dim-perspective-defenders {
   background: #f0f4ff;
-  border-left: 3px solid #1565c0;
+  border-left: 3px solid var(--accent);
 }
 
 .dim-perspective-defenders strong {
-  color: #1565c0;
+  color: var(--accent);
 }
 
 .dim-nested-rule-card {
@@ -1100,7 +1176,7 @@ button.text-link-button {
 
 .dim-nested-rule-title {
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-primary);
   margin-bottom: 4px;
 }
 
@@ -1149,7 +1225,7 @@ button.text-link-button {
 .dim-cohort-table th,
 .dim-source-table th {
   background: #f6f9fc;
-  color: #777;
+  color: var(--text-subtle);
   font-weight: 700;
 }
 
@@ -1163,7 +1239,7 @@ button.text-link-button {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 12px;
-  color: #555;
+  color: var(--text-secondary);
   font-size: 12px;
   line-height: 1.35;
 }
@@ -1190,7 +1266,7 @@ button.text-link-button {
 
 .dim-source-date-cell {
   font-family: 'DM Mono', monospace;
-  color: #555;
+  color: var(--text-secondary);
   white-space: nowrap;
 }
 
@@ -1206,7 +1282,7 @@ button.text-link-button {
   border-radius: 999px;
   border: 1px solid #d9dde1;
   background: #fafafa;
-  color: #555;
+  color: var(--text-secondary);
   padding: 0 6px;
   font-family: 'DM Sans', sans-serif;
   font-size: var(--dim-fs-micro);
@@ -1235,7 +1311,7 @@ button.text-link-button {
 }
 
 .dim-source-table-link {
-  color: #1565c0;
+  color: var(--accent);
   font-weight: 700;
   text-decoration: none;
   display: inline-flex;
@@ -1248,7 +1324,7 @@ button.text-link-button {
   border-radius: 999px;
   border: 1px solid #d9dde1;
   background: #fafafa;
-  color: #555;
+  color: var(--text-secondary);
   padding: 1px 7px;
   font-size: 11px;
   font-weight: 800;
@@ -1294,12 +1370,12 @@ button.text-link-button {
 }
 
 .dim-cohort-table tr {
-  color: #333;
+  color: var(--text-body);
 }
 
 .dim-cohort-summary {
   font-size: 14px;
-  color: #333;
+  color: var(--text-body);
   line-height: 1.5;
   background: #fafafa;
   padding: 10px 12px;
@@ -1308,7 +1384,7 @@ button.text-link-button {
 }
 
 .dim-cohort-asof {
-  color: #666;
+  color: var(--text-muted);
   font-size: 13px;
   font-weight: 700;
   margin-bottom: 4px;
@@ -1329,7 +1405,7 @@ button.text-link-button {
 
 .dim-stage-count > span:last-child {
   font-size: 13px;
-  color: #444;
+  color: var(--text-body);
   font-weight: 600;
 }
 
@@ -1339,7 +1415,7 @@ button.text-link-button {
 
 .dim-cohort-location {
   font-size: 12px;
-  color: #777;
+  color: var(--text-subtle);
 }
 
 .dim-tracker-score-line {
@@ -1365,13 +1441,13 @@ button.text-link-button {
   }
   .cohort-mobile-project-head strong {
     display: block;
-    color: #222;
+    color: var(--text-primary);
     font-size: 13px;
     line-height: 1.35;
   }
   .cohort-mobile-project-head span {
     display: block;
-    color: #777;
+    color: var(--text-subtle);
     font-size: 12px;
     line-height: 1.35;
     margin-top: 2px;
@@ -1388,7 +1464,7 @@ button.text-link-button {
     gap: 8px;
   }
   .cohort-mobile-project-facts dt {
-    color: #777;
+    color: var(--text-subtle);
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.4px;
@@ -1396,13 +1472,13 @@ button.text-link-button {
     text-transform: uppercase;
   }
   .cohort-mobile-project-facts dd {
-    color: #333;
+    color: var(--text-body);
     font-size: 13px;
     line-height: 1.35;
     margin: 0;
   }
   .cohort-mobile-project-facts a {
-    color: #1a73e8;
+    color: var(--focus-ring);
     font-weight: 700;
     text-decoration: none;
   }
@@ -1467,7 +1543,7 @@ button.text-link-button {
     position: sticky;
     top: 0;
     z-index: 20;
-    background: #fff;
+    background: var(--surface-modal);
     box-shadow: 0 1px 0 #e6e6e6;
   }
 
@@ -1490,22 +1566,22 @@ button.text-link-button {
     position: fixed;
     inset: 0;
     z-index: 200;
-    background: #fff;
+    background: var(--surface-modal);
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     padding: 0 16px 80px;
     border-top: none;
     margin-top: 0;
-    animation: dimDialogIn 280ms cubic-bezier(0.16, 1, 0.3, 1);
+    animation: dimDialogIn 220ms cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  /* Sticky header gets white background so it doesn't bleed through */
+  /* Sticky header gets an opaque surface so it doesn't bleed through */
   .dim-drawer-sticky-head {
     position: sticky;
     top: 0;
     z-index: 10;
-    background: #fff !important;
-    border-bottom: 1px solid #e0e0e0 !important;
+    background: var(--surface-modal) !important;
+    border-bottom: 1px solid var(--border-subtle) !important;
   }
 
   .dim-mini-nav {
@@ -1524,17 +1600,17 @@ button.text-link-button {
     gap: 8px;
   }
 
-  /* Show prominent close button on mobile full-screen drawer */
+  /* Mobile full-screen drawer: icon-only circular close, top-right. The label
+     collapses so the 44px target stays a clean circle; the dark glyph on the
+     bordered chip keeps it obvious to tap. */
   .dim-drawer-close {
-    display: inline-flex !important;
-    align-items: center;
-    min-height: 36px;
-    min-width: 64px;
-    justify-content: center;
-    font-size: 14px !important;
-    border: 1px solid #1f1f1f !important;
-    background: #1f1f1f !important;
-    color: #fff !important;
+    min-width: 44px;
+    padding: 0;
+    gap: 0;
+  }
+
+  .dim-drawer-close .dim-drawer-close-label {
+    display: none;
   }
 
   .dim-desktop-only-nav-item {
@@ -1557,13 +1633,33 @@ button.text-link-button {
   }
 }
 
+/* P4: Desktop focused-detail entrance — a quick fade-and-rise so opening a
+   dimension feels like a surface arriving rather than a hard snap. The
+   transform only runs during the open (when the reader is at the detail top),
+   so it never interferes with the sticky drawer header once settled. Disabled
+   under reduced motion below. */
+.desktop-focused-detail-wrap {
+  animation: dimFocusIn 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes dimFocusIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* QW8: :target flash animation — gives users a visual confirmation that
    the anchor-link jump landed in the right place. Runs once for 1.2s
    then fades. Using outline flash (not background) so it works on both
    white and tinted card backgrounds. */
 @keyframes targetFlash {
-  0%   { outline: 3px solid #1a73e8; outline-offset: 3px; }
-  60%  { outline: 3px solid #1a73e8; outline-offset: 3px; }
+  0%   { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
+  60%  { outline: 3px solid var(--focus-ring); outline-offset: 3px; }
   100% { outline: 3px solid transparent; outline-offset: 3px; }
 }
 
@@ -1581,8 +1677,26 @@ button.text-link-button {
     animation: none !important;
   }
 
+  .desktop-focused-detail-wrap {
+    animation: none;
+  }
+
   [id]:target {
     animation: none;
+  }
+
+  /* P3: kill the tactile transforms for motion-sensitive users (the quiet
+     shadow/colour feedback can stay — it conveys state without movement). */
+  .dimension-card-root {
+    transition: border-color 0.18s ease, box-shadow 0.18s ease !important;
+  }
+
+  .dimension-card-root:not(.dim-focused-detail-root):hover,
+  .dimension-card-root:not(.dim-focused-detail-root):has(.dim-card-header-button:active),
+  .dim-section-button:active,
+  .theme-toggle:active,
+  .dim-drawer-close:active {
+    transform: none !important;
   }
 }
 
@@ -1590,12 +1704,12 @@ button.text-link-button {
    users. Applied to any element that's actionable via Tab navigation.
    WCAG 2.4.7 (Focus Visible) requires this for AA conformance. */
 :focus-visible {
-  outline: 2px solid #1a73e8;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
   border-radius: 4px;
 }
 button:focus-visible, [role="button"]:focus-visible {
-  outline: 2px solid #1a73e8;
+  outline: 2px solid var(--focus-ring);
   outline-offset: 3px;
 }
 
@@ -1792,4 +1906,362 @@ a:hover { text-decoration: underline; }
     flex: unset !important;
     padding: 10px 6px !important;
   }
+}
+
+/* ============================================================
+   THEME TOGGLE  (Phase 7)
+   ============================================================ */
+.dashboard-header { position: relative; }
+
+.theme-toggle {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 1px solid var(--border-strong);
+  border-radius: 999px;
+  background: var(--surface-card);
+  color: var(--text-secondary);
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.theme-toggle:hover {
+  color: var(--text-primary);
+  border-color: var(--text-subtle);
+}
+
+.theme-toggle:active {
+  transform: translateY(0.5px);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
+/* ============================================================
+   DARK THEME  (Phase 7)
+   Everything below is gated on [data-theme="dark"] (set pre-paint by the
+   script in index.html, toggled by the header control), so light mode is
+   byte-for-byte untouched. Strategy: flip the semantic tokens, re-skin the
+   app-shell chrome whose colors are hardcoded, and flip inline-hardcoded
+   colors via the rgb() forms the browser serializes them to (the same
+   attribute-selector technique the mobile font scaler uses). Grade/status
+   chips are intentionally left alone — they read as bright pills on the dark
+   page, which preserves their meaning and keeps frozen colors untouched.
+   ============================================================ */
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  --surface-page:         #11161a;
+  --surface-card:         #1b232a;
+  --surface-card-tracker: #20251d;
+  --surface-raised:       #243039;
+  --surface-modal:        #1b232a;
+  --surface-sunken:       #161d23;
+  --border-subtle:        #2b343d;
+  --border-strong:        #3a4751;
+  --border-tracker:       #4c4733;
+  --accent-tracker:       #cdb978;
+
+  --shadow-card:   0 1px 2px rgba(0, 0, 0, 0.5), 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-raised: 0 10px 26px rgba(0, 0, 0, 0.62);
+  --shadow-modal:  0 24px 60px rgba(0, 0, 0, 0.78);
+
+  --text-primary:   #eef2f4;
+  --text-body:      #d4dde2;
+  --text-secondary: #adb8bf;
+  --text-muted:     #94a1a9;
+  --text-subtle:    #828f97;
+
+  --accent:        #69b0ff;
+  --accent-strong: #8cc6ff;
+  --focus-ring:    #69b0ff;
+}
+
+[data-theme="dark"] body {
+  background: var(--surface-page);
+}
+
+/* App-shell chrome: background, header banner, sticky rail, and bottom nav
+   are hardcoded (some with !important), so each needs a dark value. The
+   --app-* token block is re-pointed so everything that reads it flips too. */
+[data-theme="dark"] .app-shell {
+  --app-ink: #e9eef0;
+  --app-muted: #9aa6ad;
+  --app-line: #2c353c;
+  --app-paper: #1b232a;
+  --app-surface: #161d23;
+  --app-accent: #4f9e7e;
+  --app-accent-fill: #2c7d5b;
+  --app-accent-soft: #20302a;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(48, 74, 62, 0.42), transparent 28rem),
+    linear-gradient(180deg, #11161a 0%, #0e1316 100%) !important;
+  color: var(--app-ink);
+}
+
+[data-theme="dark"] .app-shell .dashboard-header {
+  border-color: var(--border-subtle);
+  background:
+    linear-gradient(120deg, rgba(28, 36, 42, 0.96), rgba(22, 30, 30, 0.92)),
+    repeating-linear-gradient(135deg, transparent 0 18px, rgba(120, 170, 145, 0.05) 18px 19px);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+[data-theme="dark"] .app-shell .dashboard-header::after {
+  border-color: rgba(120, 170, 145, 0.08);
+}
+
+[data-theme="dark"] .app-shell .scorecard-trust-frame {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+[data-theme="dark"] .app-shell .dashboard-tabs-wrap {
+  border-color: rgba(120, 170, 145, 0.16);
+  background: rgba(24, 31, 35, 0.82);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="dark"] .app-bottom-nav {
+  background: rgba(20, 26, 30, 0.95) !important;
+  border-top-color: var(--border-subtle) !important;
+  box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.55) !important;
+}
+
+[data-theme="dark"] .app-promise-filters {
+  background: rgba(24, 31, 35, 0.92) !important;
+}
+
+[data-theme="dark"] .app-promise-filters input,
+[data-theme="dark"] .app-promise-filters select {
+  background: var(--surface-sunken);
+  border-color: var(--border-strong);
+  color: var(--text-body);
+}
+
+[data-theme="dark"] .app-promise-group,
+[data-theme="dark"] .app-promise-hero,
+[data-theme="dark"] .app-promise-empty {
+  background-color: var(--surface-card);
+}
+
+/* Inline-hardcoded TEXT colors → light. We only set `color`, so incidentally
+   matching a background/border rgb just lightens that element's text, which
+   is the correct direction on dark. */
+[data-theme="dark"] [style*="color: rgb(26, 26, 26)"],
+[data-theme="dark"] [style*="color: rgb(34, 34, 34)"] { color: var(--text-primary) !important; }
+[data-theme="dark"] [style*="color: rgb(51, 51, 51)"],
+[data-theme="dark"] [style*="color: rgb(68, 68, 68)"] { color: var(--text-body) !important; }
+[data-theme="dark"] [style*="color: rgb(85, 85, 85)"],
+[data-theme="dark"] [style*="color: rgb(63, 74, 85)"],
+[data-theme="dark"] [style*="color: rgb(69, 82, 77)"] { color: var(--text-secondary) !important; }
+[data-theme="dark"] [style*="color: rgb(102, 102, 102)"],
+[data-theme="dark"] [style*="color: rgb(107, 114, 128)"],
+[data-theme="dark"] [style*="color: rgb(118, 118, 118)"] { color: var(--text-muted) !important; }
+[data-theme="dark"] [style*="color: rgb(119, 119, 119)"],
+[data-theme="dark"] [style*="color: rgb(136, 136, 136)"],
+[data-theme="dark"] [style*="color: rgb(153, 153, 153)"],
+[data-theme="dark"] [style*="color: rgb(187, 187, 187)"] { color: var(--text-subtle) !important; }
+[data-theme="dark"] [style*="color: rgb(21, 101, 192)"] { color: var(--accent) !important; }
+
+/* Inline white / near-white backgrounds → dark surface. */
+[data-theme="dark"] [style*="background: rgb(255, 255, 255)"],
+[data-theme="dark"] [style*="background-color: rgb(255, 255, 255)"],
+[data-theme="dark"] [style*="background: rgb(250, 250, 250)"],
+[data-theme="dark"] [style*="background-color: rgb(250, 250, 250)"] { background-color: var(--surface-card) !important; }
+
+/* Drawer & content panels whose light tints are set in CSS rules. */
+[data-theme="dark"] .dim-score-block,
+[data-theme="dark"] .dim-verdict-hero {
+  background: var(--surface-sunken);
+  border-left-color: #5b7689;
+}
+
+[data-theme="dark"] .dim-section-button {
+  background: var(--surface-sunken);
+  border-color: var(--border-subtle);
+  color: var(--text-primary);
+}
+
+/* Reassert the semantic left rails (the generic .dim-section-button rule above
+   sets border-color on all sides, which would otherwise flatten them). */
+[data-theme="dark"] .dim-disclosure-blue .dim-section-button { background: #16222e; border-left-color: #5b8fd6; }
+[data-theme="dark"] .dim-disclosure-green .dim-section-button { background: #16241b; border-left-color: #6fae4f; }
+[data-theme="dark"] .dim-disclosure-rule .dim-section-button { background: #1a2127; border-left-color: #7e97a6; }
+[data-theme="dark"] .dim-disclosure-why .dim-section-button { background: #241f12; border-left-color: #c8a24a; }
+[data-theme="dark"] .dim-disclosure-yellow .dim-section-button { background: #221f10; border-left-color: #d9a93a; }
+
+/* Tier-3 (context) badge keeps a quiet neutral on dark. */
+[data-theme="dark"] .dim-tier-chip-3 {
+  background: var(--surface-sunken);
+  color: var(--text-muted);
+  border-color: var(--border-strong);
+}
+
+/* ----- Dark theme straggler fixes (driven by the coverage audit) ----- */
+
+/* Inline borders are never reached by the color/background attribute flips,
+   so catch the common hardcoded hairline values by their serialized rgb form
+   and retone them. We set border-color (sides with 0 width simply don't show). */
+[data-theme="dark"] [style*="solid rgb(224, 224, 224)"],
+[data-theme="dark"] [style*="solid rgb(238, 238, 238)"],
+[data-theme="dark"] [style*="solid rgb(229, 229, 229)"],
+[data-theme="dark"] [style*="solid rgb(217, 217, 217)"],
+[data-theme="dark"] [style*="solid rgb(208, 208, 208)"],
+[data-theme="dark"] [style*="solid rgb(240, 240, 240)"],
+[data-theme="dark"] [style*="solid rgb(240, 242, 239)"],
+[data-theme="dark"] [style*="solid rgb(245, 245, 245)"],
+[data-theme="dark"] [style*="dashed rgb(200, 200, 200)"],
+[data-theme="dark"] [style*="dashed rgb(212, 212, 212)"],
+[data-theme="dark"] [style*="dashed rgb(154, 184, 216)"] {
+  border-color: var(--border-subtle) !important;
+}
+
+/* Inline text colors outside the neutral ramp flip block. */
+[data-theme="dark"] [style*="color: rgb(26, 60, 94)"],
+[data-theme="dark"] [style*="color: rgb(55, 65, 81)"],
+[data-theme="dark"] [style*="color: rgb(51, 65, 85)"],
+[data-theme="dark"] [style*="color: rgb(69, 90, 100)"] { color: var(--text-body) !important; }
+[data-theme="dark"] [style*="color: rgb(90, 122, 155)"] { color: #8fb3d6 !important; }
+[data-theme="dark"] [style*="color: rgb(26, 115, 232)"] { color: var(--accent) !important; }
+[data-theme="dark"] [style*="color: rgb(117, 117, 117)"] { color: var(--text-muted) !important; }
+[data-theme="dark"] [style*="color: rgb(178, 106, 0)"] { color: #e0a85a !important; }
+[data-theme="dark"] [style*="color: rgb(23, 79, 61)"] { color: var(--accent-tracker) !important; }
+/* Grade-colored text used DECORATIVELY (trend arrows, legend, rubric range
+   headings, net caption, "was X") brightened for legibility on charcoal. The
+   :not(.grade-chip) guard keeps the actual GradeChip pills untouched, so the
+   frozen grade colors render authentically as bright light pills on dark. */
+[data-theme="dark"] [style*="color: rgb(26, 122, 58)"]:not(.grade-chip),
+[data-theme="dark"] [style*="color: rgb(46, 125, 50)"]:not(.grade-chip) { color: #54c06f !important; }
+[data-theme="dark"] [style*="color: rgb(198, 40, 40)"]:not(.grade-chip),
+[data-theme="dark"] [style*="color: rgb(136, 14, 14)"]:not(.grade-chip) { color: #f0736f !important; }
+[data-theme="dark"] [style*="color: rgb(141, 90, 0)"]:not(.grade-chip),
+[data-theme="dark"] [style*="color: rgb(154, 99, 0)"]:not(.grade-chip) { color: #d4a437 !important; }
+[data-theme="dark"] [style*="color: rgb(165, 44, 12)"]:not(.grade-chip) { color: #ef8a66 !important; }
+
+/* Inline tinted backgrounds that don't match the #fff/#fafafa flip. */
+[data-theme="dark"] [style*="background: rgb(247, 251, 255)"] { background-color: var(--surface-card) !important; }
+[data-theme="dark"] [style*="background: rgb(246, 249, 252)"],
+[data-theme="dark"] [style*="background: rgb(247, 248, 250)"],
+[data-theme="dark"] [style*="background: rgb(246, 248, 245)"],
+[data-theme="dark"] [style*="background: rgb(245, 245, 245)"] { background-color: var(--surface-sunken) !important; }
+[data-theme="dark"] [style*="background: rgb(232, 240, 254)"] { background-color: #16222e !important; }
+[data-theme="dark"] [style*="background: rgb(255, 243, 224)"]:not(.grade-chip) { background-color: #2a1f10 !important; }
+[data-theme="dark"] [style*="background: rgb(187, 187, 187)"] { background-color: var(--border-strong) !important; }
+/* Header "Updated" date badge (cream pill #fff7e6 / border #f0d49a / text #6b4a00). */
+[data-theme="dark"] [style*="background: rgb(255, 247, 230)"] { background-color: #2a2410 !important; border-color: #5a4a1a !important; }
+[data-theme="dark"] [style*="color: rgb(107, 74, 0)"] { color: var(--accent-tracker) !important; }
+
+/* --- Drawer & content panels (CSS-rule light surfaces) --- */
+/* Light-on-light traps: panel bg stays light while var(--text-*) flips light. */
+[data-theme="dark"] .dim-change-card { background: #241f12; border-color: #4c4733; }
+[data-theme="dark"] .dim-evidence-item { background: var(--surface-sunken); border-color: var(--border-subtle); }
+[data-theme="dark"] .dim-evidence-item:hover { background: var(--surface-raised); border-color: var(--border-strong); }
+[data-theme="dark"] .dim-headline-commitment { background: var(--surface-sunken); border-color: var(--border-subtle); }
+[data-theme="dark"] .dim-headline-commitment-title { color: var(--text-secondary); }
+[data-theme="dark"] .dim-headline-commitment-sub,
+[data-theme="dark"] .dim-headline-commitment-note { color: var(--text-muted); }
+[data-theme="dark"] .dim-live-threshold-row { background: var(--surface-sunken); border-color: var(--border-strong); }
+[data-theme="dark"] .dim-threshold-row-active { background: #172230; }
+[data-theme="dark"] .dim-subscore-card { background: var(--surface-sunken); border-color: var(--border-subtle); }
+[data-theme="dark"] .dim-subscore-summary { color: var(--accent-strong); }
+[data-theme="dark"] .dim-cohort-summary { background: var(--surface-sunken); border-left-color: #5b7689; }
+[data-theme="dark"] .dim-note-box { background: var(--surface-sunken); color: var(--text-body); }
+[data-theme="dark"] .dim-perspective-critics { background: #2a1b17; border-left-color: #e2613a; }
+[data-theme="dark"] .dim-perspective-critics strong { color: #ef8a66; }
+[data-theme="dark"] .dim-perspective-defenders { background: #16222e; }
+[data-theme="dark"] .dim-source-mobile-card { background: var(--surface-card); border-color: var(--border-subtle); }
+[data-theme="dark"] .cohort-mobile-project-card { background: var(--surface-card); border-color: var(--border-subtle); }
+[data-theme="dark"] .dim-source-table tr[data-source-needs-review="true"],
+[data-theme="dark"] .dim-source-mobile-card[data-source-needs-review="true"] { background: #241f12; }
+/* Desktop focused-detail drawer — the main reading surface. */
+[data-theme="dark"] .dim-focused-detail-root .dim-drawer { background: var(--surface-modal); border-color: var(--border-subtle); }
+
+/* Drawer tables. */
+[data-theme="dark"] .dim-rule-table th,
+[data-theme="dark"] .dim-rule-table td,
+[data-theme="dark"] .dim-cohort-table th,
+[data-theme="dark"] .dim-cohort-table td,
+[data-theme="dark"] .dim-source-table th,
+[data-theme="dark"] .dim-source-table td { border-color: var(--border-subtle); }
+[data-theme="dark"] .dim-rule-table th,
+[data-theme="dark"] .dim-cohort-table th,
+[data-theme="dark"] .dim-source-table th { background: var(--surface-sunken); }
+
+/* Drawer pills / chips (bright light pills -> muted dark tints). */
+[data-theme="dark"] .dim-tracker-pill { background: #2a2616; border-color: #4c4733; color: var(--accent-tracker); }
+[data-theme="dark"] .dim-last-reviewed-pill { background: var(--surface-sunken); border-color: var(--border-strong); color: var(--text-secondary); }
+[data-theme="dark"] .dim-drawer-info-grade,
+[data-theme="dark"] .dim-info-grade-pill { background: #2a2410; border-color: #4c4733; color: var(--accent-tracker); }
+[data-theme="dark"] .dim-meta-chip { background: var(--surface-raised); border-color: var(--border-strong); color: var(--text-muted); }
+[data-theme="dark"] .dim-event-chip { background: #172230; border-color: #2f4763; color: #9cc2e8; }
+[data-theme="dark"] .dim-source-chip { background: #172230; }
+[data-theme="dark"] .dim-download-link { background: var(--surface-sunken); border-color: var(--border-strong); }
+[data-theme="dark"] .dim-tracker-score-line { color: var(--accent-tracker); }
+[data-theme="dark"] .dim-source-date-kind,
+[data-theme="dark"] .dim-source-effect { background: var(--surface-sunken); border-color: var(--border-strong); color: var(--text-secondary); }
+[data-theme="dark"] .dim-source-date-kind-live { background: #16241b; border-color: #3a5a2a; color: #9ccc65; }
+[data-theme="dark"] .dim-source-date-kind-updated { background: #241f10; border-color: #5a4a1a; color: #e0b85a; }
+[data-theme="dark"] .dim-source-date-kind-manual { background: #241f12; border-color: #5a4a2a; color: var(--accent-tracker); }
+[data-theme="dark"] .dim-source-effect-moved { background: #172230; border-color: #2f4763; color: #9cc2e8; }
+
+/* Drawer mini-nav band + chips. */
+[data-theme="dark"] .dim-mini-nav { background: #16222e; border-bottom-color: var(--border-subtle); box-shadow: 0 1px 0 var(--border-subtle); }
+[data-theme="dark"] .dim-mini-nav-label { color: #9fa8da; }
+[data-theme="dark"] .dim-mini-nav a,
+[data-theme="dark"] .dim-show-all-button { background: var(--surface-raised); border-color: var(--border-strong); color: var(--accent-strong); }
+
+/* Drawer hairline borders. */
+[data-theme="dark"] .dim-drawer-sticky-head { border-bottom-color: var(--border-subtle) !important; }
+[data-theme="dark"] .dim-top-metric-row { border-top-color: var(--border-subtle); }
+[data-theme="dark"] .dim-verdict-mark { border-bottom-color: var(--border-subtle); }
+[data-theme="dark"] .dim-nested-rule-card { border-left-color: #3a4a7a; }
+
+/* Tab-rail overflow fade. */
+[data-theme="dark"] .dashboard-tabs-wrap::after { background: linear-gradient(to right, rgba(24, 31, 35, 0), #181f23); }
+
+/* --- App-shell chrome text + pills (AppShell.css hardcoded values) --- */
+[data-theme="dark"] .app-section-kicker { color: #d9a566; }
+[data-theme="dark"] .app-promise-filters label { color: var(--text-secondary); }
+[data-theme="dark"] .app-bottom-nav button:not([aria-current="page"]) { color: var(--text-muted); }
+[data-theme="dark"] .app-promise-link-source { background: #16222e; color: var(--accent); }
+[data-theme="dark"] .app-promise-link-status { background: #2a1f10; color: #e0a96d; }
+[data-theme="dark"] .app-promise-empty { border-color: var(--border-strong); }
+[data-theme="dark"] .app-promise-counts button {
+  border-color: color-mix(in srgb, var(--status-color) 45%, var(--border-strong));
+  background: color-mix(in srgb, var(--status-color) 14%, var(--surface-card));
+  color: color-mix(in srgb, var(--status-color) 48%, #ffffff);
+}
+/* Pressed (selected) filter keeps the full status fill + white text — the
+   authentic "active" indicator, like the grade/status chip carve-out. */
+[data-theme="dark"] .app-promise-counts button[aria-pressed="true"] {
+  color: #ffffff;
+}
+/* White-text filled controls need a darker green than the decorative
+   --app-accent so white text passes WCAG AA. white on #2c7d5b ~= 5:1;
+   #4f9e7e was 3.22:1. Decorative/text uses keep the brighter --app-accent. */
+[data-theme="dark"] .app-shell .dashboard-tab[aria-current="page"],
+[data-theme="dark"] .app-bottom-nav button[aria-current="page"],
+[data-theme="dark"] .app-clear-filters { background: var(--app-accent-fill) !important; }
+/* Tier-1/2 summary chips, toned for dark to match tier-3. */
+[data-theme="dark"] .dim-tier-chip-1 { background: #16222e; color: #9cc2e8; border-color: #2f4763; }
+[data-theme="dark"] .dim-tier-chip-2 { background: #211a2b; color: #cba8e0; border-color: #4a3a5e; }
+[data-theme="dark"] .app-promise-filter-return { background: var(--surface-raised); border-color: var(--border-strong); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5); }
+[data-theme="dark"] .app-promise-filter-return-clear { border-left-color: var(--border-strong) !important; }
+
+/* Mobile-only !important rules need an equally-specific dark override. */
+@media (max-width: 640px) {
+  [data-theme="dark"] .scorecard-trust-frame { background: rgba(255, 255, 255, 0.03) !important; border-color: var(--border-subtle) !important; }
+  [data-theme="dark"] .last-reviewed-pill { background: #172230 !important; border-color: var(--border-strong) !important; color: var(--accent-strong) !important; }
 }
