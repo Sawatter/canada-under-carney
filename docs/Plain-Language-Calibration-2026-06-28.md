@@ -1,8 +1,8 @@
 # Plain-Language Calibration Pack - 2026-06-28
 
-Target version: v5.139
+Target versions: v5.139 for dimension detail, v5.140 for non-dimension dashboard surfaces.
 
-Scope: reader-facing plain-language cleanup for the current dimension drawer. No grade, threshold, date, source URL, source count, GPA math, modifier effect, or dimension-model change.
+Scope: reader-facing plain-language cleanup for the current dimension drawer, then the headline score cards, score-math panels, Approval Signal, Rubric tab, and About tab. No grade, threshold, date, source URL, source count, GPA math, modifier effect, source stack, promise status, or dimension-model change.
 
 ## Rendered Order Map
 
@@ -76,3 +76,15 @@ Hard-case review:
 | Sources affordance | newest source: date | newest dated source: date | Makes clear the date is attached to a cited source. Does not imply importance or score movement. |
 | Sources affordance fallback | date review pending | no dated source yet | Clearer fallback. Same state: no dated source exists. |
 | Expanded Sources helper | newest-first | newest-first | Kept. The full source table remains ordered by source date. |
+
+## Non-Dimension Surface Closeout
+
+v5.140 extended the same plain-language standard outside the dimension drawer.
+
+| Surface | v5.140 wording direction | Meaning-preservation check |
+|---|---|---|
+| Headline score cards | "policy areas" instead of "dimensions" where the reader-facing meaning is general. | Same 11 graded files and same Promise Delivery tracker. Label only. |
+| Score-math panels | Plain step descriptions replace compact formula language. | Same Household and Full Policy Audit calculations. No formula, weight, rounding, or threshold change. |
+| Approval Signal | "60-day average," "previous 60 days," and "Bigger and newer polls count more." | Same approval-poll data and aggregation method. Copy only. |
+| Rubric tab | "grade-move condition," "policy area," "review," and "score-explanation" replace denser internal labels where possible. | Same rubric, grade bands, safeguards, limits, and linked methodology docs. |
+| About tab | The disclosure and correction-policy copy now says "policy area," "review checks," and "score-explanation surface." | Same project scope, exclusions, correction path, and scoring boundary. |

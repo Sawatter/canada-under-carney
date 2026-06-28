@@ -4,7 +4,7 @@
 
 **Reconciled:** 2026-06-25
 
-**Status:** The app shell is live at the root, currently at v5.128. The app-shell release lane is the v5.119 cutover and v5.120 polish, then the v5.121-v5.126 opened-dimension drawer rework. The later v5.127-v5.128 email-signup changes are layered on the same live bundle and do not change routing, evidence, grades, thresholds, formulas, weights, promise statuses, or the dimension model. The app shell stays under post-cutover observation through June 29, 2026, with `?experience=classic` retained as the rollback route. The classic-route decision is set for the observation exit.
+**Status:** The app shell is live at the root, currently at v5.140. The app-shell release lane is the v5.119 cutover and v5.120 polish, then the v5.121-v5.126 opened-dimension drawer rework. Later releases layered on the same shell include the Kit signup move, clickable Promises card, title clarifier, dark theme, app-card polish, dashboard status card, source-freshness cue, dimension-detail reading-order work, and the v5.139-v5.140 plain-language passes. None of those releases changed routing, evidence, grades, thresholds, formulas, weights, promise statuses, or the dimension model. The app shell stays under post-cutover observation through June 29, 2026, with `?experience=classic` retained as the rollback route. The classic-route decision is set for the observation exit.
 
 **Public source of record:** `https://sawatter.github.io/canada-under-carney/`
 
@@ -63,6 +63,22 @@ npm run dev -- --host 127.0.0.1
 - **Visual direction:** civic, restrained, and readable. It should not feel like a campaign or marketing site.
 - **Approval Signal:** label it as public approval and outside the grades.
 
+## Benchmark Pattern Trace
+
+The app-shell and drawer work considered a broad consumer-app and public-interest benchmark set. The implementation did not copy any one app. It translated patterns that fit a calm, inspectable civic scorecard and rejected patterns that would add pressure, clutter, or casino energy.
+
+| Reference set | Pattern used here |
+|---|---|
+| ChatGPT / Gemini | Calm, low-friction shell, quiet status, and less visual noise around the main task. |
+| Apple Weather / Apple Stocks | Glanceable hierarchy for headline score cards, dashboard status, source freshness, and quick evidence cues. |
+| WhatsApp / Telegram | Trust through obvious state, direct labels, and low-surprise navigation. |
+| TikTok / Instagram / Snapchat / CapCut | Thumb-first ergonomics, touch comfort, and restrained motion. Dark-pattern loops, fake urgency, and addictive pressure were rejected. |
+| Google Maps | Layered disclosure: top-level score, then Verdict, Evidence, Triggers, Sources, Why, and Criteria. |
+| NYT / The Economist / CBC / Bloomberg | Editorial and data hierarchy. The drawer should feel inspectable, not gamified. |
+| GOV.UK / Canada.ca / Bank of Canada / StatsCan | Public-interest trust, plain language, accessibility, and careful separation of source freshness from score review. |
+| Linear | Modern product polish, clean cards, clear controls, and interaction states that stay out of the way. |
+| Temu | Anti-reference. No clutter, countdowns, fake scarcity, pressure copy, or dense promotional surface. |
+
 ## Deterministic Gate
 
 Run:
@@ -117,7 +133,7 @@ The v5.119 cutover was authorized after the beta and cutover gates closed with n
 
 ## Post-Cutover Observation Period
 
-The live app shell remains under observation through June 29, 2026. The version under observation is now v5.128. The app-shell changes under observation are still the v5.119 cutover and v5.120 polish plus the v5.121-v5.126 drawer rework. The v5.127-v5.128 email-signup changes are unrelated product/docs updates layered on top. `?experience=classic` stays available as the rollback route until this period closes and the editor decides whether it remains. The standalone daily observation heartbeat was retired on 2026-06-24 because it was pinned to the stale v5.119 release state. The active checks now run against the current live version.
+The live app shell remains under observation through June 29, 2026. The version under observation is now v5.140. The app-shell changes under observation are still the v5.119 cutover and v5.120 polish plus the v5.121-v5.126 drawer rework. v5.127-v5.140 are product, copy, status, source-freshness, visual-polish, and docs updates layered on top. `?experience=classic` stays available as the rollback route until this period closes and the editor decides whether it remains. The standalone daily observation heartbeat was retired on 2026-06-24 because it was pinned to the stale v5.119 release state. The active checks now run against the current live version.
 
 Exit requires:
 
@@ -132,6 +148,7 @@ Exit requires:
 - **2026-06-22:** Public root loads as `.app-shell`; `?experience=classic` loads as `.classic-shell`; both show deployed `v5.123` / updated `2026-06-21`. Major Projects `#dim-major-projects-sources` deep link opens Sources and focuses `dim-major-projects-sources-button` in both routes. Mobile 390px smoke check on root and classic shows header, score cards, active Scorecard navigation, and no page-level horizontal overflow. Note: local `v5.124` Red Tape Review promise update was staged but not deployed during this live check.
 - **2026-06-24:** Post-merge `v5.126` smoke. Live deploy confirmed: root returns HTTP 200 and the served bundle (`assets/index-D7NLdnQH.js`) contains `"5.126"`. Interactive matrix run against the local dev server on the same `main` (HEAD `52bb80b`) that produced the deploy. App shell and `?experience=classic` both render `v5.126` / updated `2026-06-23`; the five nav destinations (Scorecard, Promises, Changes, Rubric, About) each navigate and set `aria-current` to the active destination. Major Projects `#dim-major-projects-sources` deep link opens the drawer, shows Sources, and focuses `dim-major-projects-sources-button` in the app shell, the classic route, and mobile. Zero console errors in both routes (only the expected `goatcounter: not counting because of: localhost` dev-only warnings). No page-level horizontal overflow at 835px desktop or 375px mobile. Deterministic gates green: `test:data` (56 GPA frozen-surface assertions, 12 dimensions validated), `test:app-shell` (39 checks across 6 source files), `lint` (0 errors; 323 pre-existing inline-hex warnings only). No open P0 or P1. No evidence-route loss. Displayed version matches deploy.
 - **2026-06-25:** Pre-exit live route matrix on deployed `v5.128`. Root and `?experience=classic` both render `v5.128` / updated `2026-06-25`. The app shell and classic route were checked at 1280x900 and 375x812 across `#view-scorecard`, `#view-promises`, `#view-changelog`, `#view-methodology`, and `#view-about`. Active navigation matched each destination, horizontal overflow was 0, and console errors were 0. Major Projects `#dim-major-projects-sources` opened Sources and focused `dim-major-projects-sources-button` in both routes and both widths. Mobile drawers exposed `role="dialog"` and `aria-modal="true"`. App-shell click/Back smoke returned Promises to Scorecard at desktop and mobile. Classic tab clicks switch the visible tab without changing the URL, which is legacy behavior. Direct classic hash routes remain clean. No returned inter-rater worksheets were present. Because June 29 has not arrived, this is a clean pre-exit observation rather than the final retain/retire decision.
+- **2026-06-28:** Live route matrix on deployed `v5.140`. Root and `?experience=classic` both render the expected shell and visible `v5.140`. The app shell and classic route were checked at 1280x900 and 375x812 across `#view-scorecard`, `#view-promises`, `#view-changelog`, `#view-methodology`, and `#view-about`. Active navigation matched each destination, horizontal overflow was 0, and console errors were 0. Major Projects `#dim-major-projects-sources` opened Sources and focused `dim-major-projects-sources-button` in both routes and both widths. Mobile drawers exposed `role="dialog"` and `aria-modal="true"`. No returned inter-rater worksheets or spreadsheet files were present in the workspace. Because June 29 has not arrived, this is a clean observation rather than the final retain/retire decision.
 
 ## Carried accessibility gaps (closed in v5.119)
 
