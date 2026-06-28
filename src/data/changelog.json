@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-28",
+    "version": "5.137",
+    "summary": "Tightened the dimension detail drawer so grade movement and sources sit before longer rationale sections.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Dimension detail reading order",
+        "body": "The dimension drawer now exposes grade movement from the evidence snapshot and orders the detail path as verdict, evidence, triggers, sources, then rationale and criteria. Existing anchors and drawer controls stay in place. No scores changed."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-28",
     "version": "5.136",
     "summary": "Added a quiet dashboard status card that separates source checking from editor-reviewed score cycles.",
     "items": [

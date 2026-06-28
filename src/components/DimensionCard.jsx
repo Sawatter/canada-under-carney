@@ -533,6 +533,10 @@ export default function DimensionCard({
   const sources = dim.sources || [];
   const scoring = dim.scoring || null;
   const showTriggers = !!(dim.gradeTriggers || dim.nextTrigger);
+  const triggerCount = (dim.gradeTriggers?.up?.length || 0) + (dim.gradeTriggers?.down?.length || 0);
+  const triggerSummary = dim.gradeTriggers
+    ? `${triggerCount} trigger${triggerCount === 1 ? "" : "s"}`
+    : "next condition";
   const cohort = dim.projectCohort || null;
   const sourceCounts = useMemo(() => getTierCounts(sources), [sources]);
   const sortedSources = useMemo(() => sortSourcesByDate(sources), [sources]);
@@ -855,8 +859,8 @@ export default function DimensionCard({
       .filter((section) => section.available && section.nav)
       .sort((a, b) => {
         const order = isTracker
-          ? ["summary", "why", "trackerTriggers", "sources", "rule", "perspectives", "scopeContext"]
-          : ["summary", "why", "triggers", "sources", "rule", "perspectives", "scopeContext"];
+          ? ["summary", "trackerTriggers", "sources", "why", "rule", "perspectives", "scopeContext"]
+          : ["summary", "triggers", "sources", "why", "rule", "perspectives", "scopeContext"];
         return order.indexOf(a.id) - order.indexOf(b.id);
       })
       .map(({ label, anchor, keys, desktopOnly }) => ({ label, anchor, keys, desktopOnly }))
@@ -1784,6 +1788,36 @@ export default function DimensionCard({
                     <strong>{metric.value}</strong>
                   </button>
                 ))}
+                {showTriggers && !hasTrackerTriggers && (
+                  <button
+                    type="button"
+                    className="dim-evidence-item"
+                    aria-expanded={!!openSections.triggers}
+                    aria-controls={`dim-${dim.id}-triggers-section-panel`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      queueAnchorScroll(`dim-${dim.id}-triggers-section`, ["triggers"]);
+                    }}
+                  >
+                    <span>Grade movement</span>
+                    <strong>{triggerSummary}</strong>
+                  </button>
+                )}
+                {hasTrackerTriggers && (
+                  <button
+                    type="button"
+                    className="dim-evidence-item"
+                    aria-expanded={!!openSections.trackerTriggers}
+                    aria-controls={`dim-${dim.id}-tracker-triggers-panel`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      queueAnchorScroll(`dim-${dim.id}-tracker-triggers`, ["trackerTriggers"]);
+                    }}
+                  >
+                    <span>Tracker movement</span>
+                    <strong>{triggerSummary}</strong>
+                  </button>
+                )}
                 {sources.length > 0 && (
                   <button
                     type="button"
@@ -1845,6 +1879,56 @@ export default function DimensionCard({
                 instantOpen={isInstantOpenSection("metrics")}
               >
                 <MetricsList metricGroups={metricGroups} />
+              </DisclosureSection>
+            )}
+
+            {showTriggers && !hasTrackerTriggers && (
+              <DisclosureSection
+                id={`dim-${dim.id}-triggers-section`}
+                title="What would change this grade"
+                summary="up and down triggers"
+                isOpen={!!openSections.triggers}
+                onToggle={() => toggleSection("triggers")}
+                region
+                active={activeSectionKeys.includes("triggers")}
+                variant="yellow"
+                instantOpen={isInstantOpenSection("triggers")}
+              >
+                {dim.gradeTriggers ? (
+                  <TriggerColumns
+                    up={dim.gradeTriggers.up}
+                    down={dim.gradeTriggers.down}
+                    renderTriggerItem={renderTriggerItem}
+                    keyPrefix="grade"
+                    upLabel="Up one step"
+                    downLabel="Down one step"
+                  />
+                ) : (
+                  <div>{dim.nextTrigger}</div>
+                )}
+              </DisclosureSection>
+            )}
+
+            {hasTrackerTriggers && (
+              <DisclosureSection
+                id={`dim-${dim.id}-tracker-triggers`}
+                title="What changes this tracker"
+                summary="movement conditions"
+                isOpen={!!openSections.trackerTriggers}
+                onToggle={() => toggleSection("trackerTriggers")}
+                region
+                active={activeSectionKeys.includes("trackerTriggers")}
+                variant="yellow"
+                instantOpen={isInstantOpenSection("trackerTriggers")}
+              >
+                <TriggerColumns
+                  up={dim.gradeTriggers.up}
+                  down={dim.gradeTriggers.down}
+                  renderTriggerItem={renderTriggerItem}
+                  keyPrefix="tracker"
+                  upLabel="Upward trigger"
+                  downLabel="Downward triggers"
+                />
               </DisclosureSection>
             )}
 
@@ -2057,56 +2141,6 @@ export default function DimensionCard({
                     </DisclosureSection>
                   )}
                 </div>
-              </DisclosureSection>
-            )}
-
-            {showTriggers && !hasTrackerTriggers && (
-              <DisclosureSection
-                id={`dim-${dim.id}-triggers-section`}
-                title="What would change this grade"
-                summary="up and down triggers"
-                isOpen={!!openSections.triggers}
-                onToggle={() => toggleSection("triggers")}
-                region
-                active={activeSectionKeys.includes("triggers")}
-                variant="yellow"
-                instantOpen={isInstantOpenSection("triggers")}
-              >
-                {dim.gradeTriggers ? (
-                  <TriggerColumns
-                    up={dim.gradeTriggers.up}
-                    down={dim.gradeTriggers.down}
-                    renderTriggerItem={renderTriggerItem}
-                    keyPrefix="grade"
-                    upLabel="Up one step"
-                    downLabel="Down one step"
-                  />
-                ) : (
-                  <div>{dim.nextTrigger}</div>
-                )}
-              </DisclosureSection>
-            )}
-
-            {hasTrackerTriggers && (
-              <DisclosureSection
-                id={`dim-${dim.id}-tracker-triggers`}
-                title="What changes this tracker"
-                summary="movement conditions"
-                isOpen={!!openSections.trackerTriggers}
-                onToggle={() => toggleSection("trackerTriggers")}
-                region
-                active={activeSectionKeys.includes("trackerTriggers")}
-                variant="yellow"
-                instantOpen={isInstantOpenSection("trackerTriggers")}
-              >
-                <TriggerColumns
-                  up={dim.gradeTriggers.up}
-                  down={dim.gradeTriggers.down}
-                  renderTriggerItem={renderTriggerItem}
-                  keyPrefix="tracker"
-                  upLabel="Upward trigger"
-                  downLabel="Downward triggers"
-                />
               </DisclosureSection>
             )}
 
