@@ -70,7 +70,7 @@ export default function Methodology() {
   const modifiers = [
     {
       name: "Timing fairness",
-      desc: "Grades trajectory rather than current outcomes on long-lag files. Expires after 24 months.",
+      desc: "Grades the direction of travel rather than current outcomes in areas where results take years to show. Expires after 24 months.",
       effect: "Grade reflects trajectory, not current outcomes",
       color: "#1565c0",
     },

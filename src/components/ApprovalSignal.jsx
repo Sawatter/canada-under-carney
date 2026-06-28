@@ -294,8 +294,8 @@ export function ApprovalDetail() {
             lineHeight: 1.5,
           }}
         >
-          All polls in the {s.windowDays}-day window. Older polls in the file
-          are retained for historical trend but not included in the current
+          All polls in the {s.windowDays}-day window. Older polls
+          are kept for the historical trend but not included in the current
           aggregate.
         </div>
         <div style={{ overflowX: "auto" }}>

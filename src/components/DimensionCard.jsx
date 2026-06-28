@@ -647,7 +647,7 @@ export default function DimensionCard({
   if (dim.tags?.lag) {
     keyContextItems.push({
       label: "Lag",
-      text: `This file moves on a ${dim.tags.lag.toLowerCase()} timeline.`,
+      text: `This dimension moves on a ${dim.tags.lag.toLowerCase()} timeline.`,
     });
   }
   if (modifierItems.length > 0) {
@@ -2134,7 +2134,7 @@ export default function DimensionCard({
               >
                 <div className="dim-stack">
                   <div>
-                    {dim.promises.length} promise{dim.promises.length === 1 ? "" : "s"} tracked on this file.
+                    {dim.promises.length} promise{dim.promises.length === 1 ? "" : "s"} tracked in this dimension.
                     {promiseStatusSummary ? ` Current pattern: ${promiseStatusSummary}.` : ""}
                   </div>
                   <button
@@ -2270,7 +2270,7 @@ export default function DimensionCard({
                     <strong>Attribution</strong> - what share of the outcome the federal government actually controls. <em>Direct</em> = at least 60% federal levers. <em>Mixed</em> = 30 to 60%. <em>Mostly inherited</em> = less than 30%.
                   </div>
                   <div>
-                    <strong>Lag</strong> - how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1 to 2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = the file moves on discrete disclosures or rulings rather than a fixed cadence.
+                    <strong>Lag</strong> - how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1 to 2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = this area moves on specific disclosures or rulings rather than a fixed schedule.
                   </div>
                 </div>
               </DisclosureSection>
@@ -2486,7 +2486,7 @@ function CombinationRule({ rule }) {
   return (
     <div className="dim-stack">
       <div>
-        <div className="dim-nested-rule-title">The five flagship files</div>
+        <div className="dim-nested-rule-title">The five flagship areas</div>
         <ul className="dim-plain-list">
           {rule.flagshipFiles.map((f, i) => (
             <li key={i}>{f}</li>
