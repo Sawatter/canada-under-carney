@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-27",
+    "version": "5.133",
+    "summary": "Corrected a stale industrial carbon price figure to match the May 2026 benchmark update.",
+    "items": [
+      {
+        "type": "minor",
+        "headline": "Industrial carbon price corrected to $95 (2026)",
+        "body": "The Carbon Pricing rationale and a critics note still cited the old $110/tonne 2026 headline. The federal benchmark was updated on May 15, 2026 to $95/tonne for 2026 (per Canada.ca, matching the dimension's own metric). Both now read $95. The grade is unchanged, since it scores the effective market price, not the headline figure."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-27",
     "version": "5.132",
     "summary": "Made the close button on an opened dimension easier to spot.",
     "items": [
