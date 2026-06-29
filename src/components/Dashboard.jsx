@@ -94,8 +94,8 @@ function dashboardSectionIcon(section) {
   );
 }
 
-export default function Dashboard({ experience = "classic" }) {
-  const appMode = experience === "app";
+export default function Dashboard() {
+  const appMode = true;
   const [expanded, setExpanded] = useState(null);
   const [view, setView] = useState("scorecard");
   // Pre-applied dimension filter for the Promises view. Set when the user
@@ -269,14 +269,10 @@ export default function Dashboard({ experience = "classic" }) {
       const nextState = { ...(window.history.state || {}) };
       delete nextState.dimModal;
 
-      if (appMode) {
-        if (owned) {
-          window.history.replaceState(nextState, "", `#${destination}`);
-        } else {
-          window.history.pushState(nextState, "", `#${destination}`);
-        }
-      } else if (owned) {
-        window.history.replaceState(nextState, "", window.location.href);
+      if (owned) {
+        window.history.replaceState(nextState, "", `#${destination}`);
+      } else {
+        window.history.pushState(nextState, "", `#${destination}`);
       }
     }
 
@@ -284,7 +280,7 @@ export default function Dashboard({ experience = "classic" }) {
     setExpanded(null);
     setView(target);
     requestAnchorNavigation(destination);
-  }, [appMode, requestAnchorNavigation]);
+  }, [requestAnchorNavigation]);
 
   const routeHashTarget = useCallback((target) => {
     if (!target) return;
@@ -338,7 +334,7 @@ export default function Dashboard({ experience = "classic" }) {
       const target = window.location.hash.replace(/^#/, "");
       if (target) {
         routeHashTarget(target);
-      } else if (appMode) {
+      } else {
         closeDimensionForInternalNavigation({ closeDesktop: true });
         setView("scorecard");
         requestAnchorNavigation("main-content");
@@ -349,7 +345,7 @@ export default function Dashboard({ experience = "classic" }) {
     if (initialTarget) routeHashTarget(initialTarget);
     window.addEventListener("hashchange", handleHashChange);
     return () => window.removeEventListener("hashchange", handleHashChange);
-  }, [appMode, closeDimensionForInternalNavigation, requestAnchorNavigation, routeHashTarget]);
+  }, [closeDimensionForInternalNavigation, requestAnchorNavigation, routeHashTarget]);
 
   useEffect(() => {
     const target = anchorNavigation?.target;
@@ -517,7 +513,7 @@ export default function Dashboard({ experience = "classic" }) {
   const selectView = (nextView) => {
     if (nextView === view) return;
     if (nextView === "promises") setPromiseDimensionFilter("All");
-    if (appMode && typeof window !== "undefined") {
+    if (typeof window !== "undefined") {
       closeDimensionForInternalNavigation({ closeDesktop: true });
       window.history.pushState(window.history.state, "", `#view-${nextView}`);
       requestAnchorNavigation(`view-${nextView}`);
@@ -527,8 +523,8 @@ export default function Dashboard({ experience = "classic" }) {
 
   return (
     <div
-      className={`dashboard-shell ${appMode ? "app-shell" : "classic-shell"}`}
-      data-experience={experience}
+      className="dashboard-shell app-shell"
+      data-experience="app"
       style={{
         fontFamily: "'DM Sans', sans-serif",
         maxWidth: "1040px",
@@ -817,16 +813,14 @@ export default function Dashboard({ experience = "classic" }) {
       </nav>
       </div>
 
-      {appMode && (
-        <span className="app-view-announcer" aria-live="polite" aria-atomic="true">
-          {tabs.find((tab) => tab.key === view)?.label} view
-        </span>
-      )}
+      <span className="app-view-announcer" aria-live="polite" aria-atomic="true">
+        {tabs.find((tab) => tab.key === view)?.label} view
+      </span>
       <div
-        id={appMode || view === "promises" ? `view-${view}` : undefined}
+        id={`view-${view}`}
         tabIndex={view === "promises" ? -1 : undefined}
-        className={appMode ? "app-shell-view" : undefined}
-        key={appMode ? view : undefined}
+        className="app-shell-view"
+        key={view}
         style={view === "promises" ? { scrollMarginTop: "16px" } : undefined}
       >
       {/* Scorecard View */}
@@ -1035,7 +1029,7 @@ export default function Dashboard({ experience = "classic" }) {
         </div>
       </footer>
 
-      {appMode && !expandedDimension && (
+      {!expandedDimension && (
         <nav className="app-bottom-nav" aria-label="Dashboard sections">
           {tabs.map((tab) => (
             <button

@@ -19,8 +19,12 @@ const viewports = [
   ["mobile", { width: 375, height: 812 }],
 ];
 
-function routePath({ classic = false, hash = "" } = {}) {
-  return `${classic ? "?experience=classic" : ""}${hash}`;
+function routePath({ hash = "" } = {}) {
+  return hash;
+}
+
+function staleClassicPath(hash = "") {
+  return `?experience=classic${hash}`;
 }
 
 async function installConsoleGuards(page) {
@@ -50,71 +54,84 @@ async function expectActiveNav(page, label) {
   ))).toContain(label);
 }
 
-async function expectShell(page, shell) {
-  await expect(page.locator(shell === "app" ? ".app-shell" : ".classic-shell")).toHaveCount(1);
+async function expectAppShell(page) {
+  await expect(page.locator(".app-shell")).toHaveCount(1);
+  await expect(page.locator(".classic-shell")).toHaveCount(0);
 }
 
 test.describe("dashboard route matrix", () => {
   for (const [viewportName, viewport] of viewports) {
-    for (const classic of [false, true]) {
-      test(`${classic ? "classic" : "root"} ${viewportName} routes stay clean`, async ({ page }, testInfo) => {
-        const consoleErrors = await installConsoleGuards(page);
-        await page.setViewportSize(viewport);
+    test(`root ${viewportName} routes stay clean`, async ({ page }, testInfo) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      if (testInfo.project.name.includes("reduced-motion")) {
+        await page.emulateMedia({ reducedMotion: "reduce" });
+      }
+
+      for (const [key, label] of views) {
+        await page.goto(routePath({ hash: `#view-${key}` }));
+        await expectAppShell(page);
+        await expectVisibleVersion(page);
+        await expect(page.getByRole("heading", { name: "Next checks" })).toBeVisible();
+        await expect(page.getByText("Housing disbursement watch", { exact: true })).toBeVisible();
+        await expectActiveNav(page, label);
+        await expectNoOverflow(page);
+
         if (testInfo.project.name.includes("reduced-motion")) {
-          await page.emulateMedia({ reducedMotion: "reduce" });
+          await expect.poll(async () => page.evaluate(() => (
+            window.matchMedia("(prefers-reduced-motion: reduce)").matches
+          ))).toBe(true);
+          await expect(page.locator(".app-shell-view")).toHaveCSS("animation-name", "none");
         }
+      }
 
-        for (const [key, label] of views) {
-          await page.goto(routePath({ classic, hash: `#view-${key}` }));
-          await expectShell(page, classic ? "classic" : "app");
-          await expectVisibleVersion(page);
-          await expect(page.getByRole("heading", { name: "Next checks" })).toBeVisible();
-          await expect(page.getByText("Housing disbursement watch", { exact: true })).toBeVisible();
-          await expectActiveNav(page, label);
-          await expectNoOverflow(page);
-
-          if (testInfo.project.name.includes("reduced-motion") && !classic) {
-            await expect.poll(async () => page.evaluate(() => (
-              window.matchMedia("(prefers-reduced-motion: reduce)").matches
-            ))).toBe(true);
-            await expect(page.locator(".app-shell-view")).toHaveCSS("animation-name", "none");
-          }
-        }
-
-        expect(consoleErrors).toEqual([]);
-      });
-    }
+      expect(consoleErrors).toEqual([]);
+    });
   }
 });
 
 test.describe("dimension evidence deep links", () => {
   for (const [viewportName, viewport] of viewports) {
-    for (const classic of [false, true]) {
-      test(`${classic ? "classic" : "root"} ${viewportName} Major Projects sources link opens and focuses`, async ({ page }, testInfo) => {
-        const consoleErrors = await installConsoleGuards(page);
-        await page.setViewportSize(viewport);
-        if (testInfo.project.name.includes("reduced-motion")) {
-          await page.emulateMedia({ reducedMotion: "reduce" });
-        }
-        await page.goto(routePath({ classic, hash: "#dim-major-projects-sources" }));
+    test(`root ${viewportName} Major Projects sources link opens and focuses`, async ({ page }, testInfo) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      if (testInfo.project.name.includes("reduced-motion")) {
+        await page.emulateMedia({ reducedMotion: "reduce" });
+      }
+      await page.goto(routePath({ hash: "#dim-major-projects-sources" }));
 
-        await expectShell(page, classic ? "classic" : "app");
-        await expectVisibleVersion(page);
-        await expect(page.locator("#dim-major-projects-sources-button")).toBeVisible();
-        await expect.poll(async () => page.evaluate(() => document.activeElement?.id || "")).toBe(
-          "dim-major-projects-sources-button",
-        );
-        await expect(page.locator("#dim-major-projects-title")).toBeVisible();
-        await expect(page.locator("#dim-major-projects-sources-button")).toContainText("Sources");
-        await expectNoOverflow(page);
+      await expectAppShell(page);
+      await expectVisibleVersion(page);
+      await expect(page.locator("#dim-major-projects-sources-button")).toBeVisible();
+      await expect.poll(async () => page.evaluate(() => document.activeElement?.id || "")).toBe(
+        "dim-major-projects-sources-button",
+      );
+      await expect(page.locator("#dim-major-projects-title")).toBeVisible();
+      await expect(page.locator("#dim-major-projects-sources-button")).toContainText("Sources");
+      await expectNoOverflow(page);
 
-        if (viewportName === "mobile") {
-          await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
-        }
+      if (viewportName === "mobile") {
+        await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
+      }
 
-        expect(consoleErrors).toEqual([]);
-      });
-    }
+      expect(consoleErrors).toEqual([]);
+    });
+  }
+});
+
+test.describe("retired classic route", () => {
+  for (const [viewportName, viewport] of viewports) {
+    test(`stale classic query renders app shell on ${viewportName}`, async ({ page }) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      await page.goto(staleClassicPath("#view-scorecard"));
+
+      await expectAppShell(page);
+      await expectVisibleVersion(page);
+      await expectActiveNav(page, "Scorecard");
+      await expectNoOverflow(page);
+      expect(consoleErrors).toEqual([]);
+    });
   }
 });
 

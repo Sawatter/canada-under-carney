@@ -4,7 +4,7 @@
 
 **Reconciled:** 2026-06-25
 
-**Status:** The app shell is live at the root, currently at v5.141. The app-shell release lane is the v5.119 cutover and v5.120 polish, then the v5.121-v5.126 opened-dimension drawer rework. Later releases layered on the same shell include the Kit signup move, clickable Promises card, title clarifier, dark theme, app-card polish, dashboard status card, source-freshness cue, dimension-detail reading-order work, the v5.139-v5.140 plain-language passes, and the v5.141 data-driven next-checks strip plus manual Playwright browser smoke. None of those releases changed routing, evidence, grades, thresholds, formulas, weights, promise statuses, or the dimension model. The app shell stays under post-cutover observation through June 29, 2026, with `?experience=classic` retained as the rollback route. The classic-route decision is set for the observation exit.
+**Status:** The app shell is live at the root, currently at v5.142. The app-shell release lane is the v5.119 cutover and v5.120 polish, then the v5.121-v5.126 opened-dimension drawer rework. Later releases layered on the same shell include the Kit signup move, clickable Promises card, title clarifier, dark theme, app-card polish, dashboard status card, source-freshness cue, dimension-detail reading-order work, the v5.139-v5.140 plain-language passes, the v5.141 data-driven next-checks strip plus manual Playwright browser smoke, and the v5.142 classic-route retirement plus browser-smoke CI gate. None of those releases changed evidence, grades, thresholds, formulas, weights, promise statuses, or the dimension model. The classic rollback route ended after the June 29, 2026 exit audit passed cleanly; old `?experience=classic` links now open the app shell.
 
 **Public source of record:** `https://sawatter.github.io/canada-under-carney/`
 
@@ -28,26 +28,21 @@ The v5.118 public-beta pass replaced reduced prototype evidence surfaces with pr
 
 The v5.119 release makes that app shell the root experience. It also closes the carried desktop and mobile focus P1s in the shared production dimension detail. Grades, scoring rules, policy data, approval data, promise statuses, thresholds, formulas, weights, and the dimension model are unchanged.
 
-The v5.120 release shipped on 2026-06-21 with post-cutover polish for mobile navigation icons, an active-filter return affordance, bottom-navigation re-entry motion, and the viewport-flip body-lock and history fix. It retains semantic navigation with buttons and `aria-current` instead of adopting an APG tab widget. It keeps `?experience=classic` available while the post-cutover observation continues.
+The v5.120 release shipped on 2026-06-21 with post-cutover polish for mobile navigation icons, an active-filter return affordance, bottom-navigation re-entry motion, and the viewport-flip body-lock and history fix. It retains semantic navigation with buttons and `aria-current` instead of adopting an APG tab widget. v5.142 ended the classic rollback route after the post-cutover observation passed.
 
 ## Public Routes
 
-As of v5.119:
+As of v5.142:
 
 ```text
 https://sawatter.github.io/canada-under-carney/
 https://sawatter.github.io/canada-under-carney/?experience=app
+https://sawatter.github.io/canada-under-carney/?experience=classic
 ```
 
 open the app shell.
 
-```text
-https://sawatter.github.io/canada-under-carney/?experience=classic
-```
-
-opens the classic dashboard as the explicit rollback route for this release.
-
-Local development uses the same query values:
+Local development uses the same app route:
 
 ```bash
 npm run dev -- --host 127.0.0.1
@@ -56,7 +51,7 @@ npm run dev -- --host 127.0.0.1
 ## Locked Decisions
 
 - **Release sequence:** v5.118 public beta first, then the authorized v5.119 root cutover, then the v5.120 post-cutover polish on 2026-06-21.
-- **Classic fallback:** keep `?experience=classic` through the v5.119 observation period. Decide whether to retain or remove it only after the June 29 exit review.
+- **Classic fallback:** retained through the v5.119 observation period, then retired in v5.142 after the June 29 exit review passed.
 - **Source of truth:** production data, evidence components, and scoring logic remain authoritative.
 - **Navigation:** browser Back, Forward, direct reload, and section links must work in the app shell.
 - **Accessibility:** keyboard focus, focus return, current-state semantics, live result counts, Escape behavior, reduced motion, and mobile safe areas are release gates.
@@ -89,9 +84,8 @@ npm run test:app-shell
 
 The gate checks that:
 
-- `?experience=app` is available in a production build.
-- The default route and `?experience=app` use the app shell.
-- `?experience=classic` uses the classic dashboard.
+- The default route uses the app shell.
+- Old `?experience=classic` links use the app shell rather than a separate classic branch.
 - The public app shell reuses the production evidence components.
 - The public path does not truncate metrics with a prototype-only slice.
 - URL history, focus handling, current-state semantics, live updates, Escape behavior, and reduced-motion handling are present.
@@ -133,7 +127,7 @@ The v5.119 cutover was authorized after the beta and cutover gates closed with n
 
 ## Post-Cutover Observation Period
 
-The live app shell completed its June 29, 2026 route-exit audit on v5.141 with no rollback-level finding. The app-shell changes under observation are still the v5.119 cutover and v5.120 polish plus the v5.121-v5.126 drawer rework. v5.127-v5.141 are product, copy, status, source-freshness, visual-polish, docs, and browser-smoke updates layered on top. `?experience=classic` stays available until the editor answers the post-exit retain/retire question. The standalone daily observation heartbeat was retired on 2026-06-24 because it was pinned to the stale v5.119 release state.
+The live app shell completed its June 29, 2026 route-exit audit on v5.141 with no rollback-level finding. v5.142 retires `?experience=classic` and promotes the Playwright browser smoke into the Pages deploy workflow. The app-shell changes under observation are still the v5.119 cutover and v5.120 polish plus the v5.121-v5.126 drawer rework. v5.127-v5.142 are product, copy, status, source-freshness, visual-polish, docs, browser-smoke, and CI updates layered on top. The standalone daily observation heartbeat was retired on 2026-06-24 because it was pinned to the stale v5.119 release state.
 
 Exit status:
 
@@ -142,6 +136,7 @@ Exit status:
 - No lost evidence route or source path.
 - The displayed version and deployed release match.
 - The final desktop and mobile matrix covered navigation, focus, responsive layout, history, and evidence access.
+- The browser-smoke CI gate now runs before Pages deploy.
 
 ### Observation log
 
@@ -172,6 +167,7 @@ Both fixes change the shared production `DimensionCard`, so the cutover review c
 5. Closed the app-shell status-count group-label P1 and the carried desktop and mobile focus P1s. No P0 or P1 issue remains open for cutover.
 6. Prepared v5.119 with the app shell at the root and `?experience=classic` retained as the one-release rollback route.
 7. Shipped v5.120 post-cutover polish on 2026-06-21. The classic-route decision is set for the post-cutover observation exit.
+8. Retired the classic route in v5.142 after the route-exit audit passed and added the Playwright browser smoke to the Pages deploy workflow.
 
 ## Frozen During App-Shell Work
 

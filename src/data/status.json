@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-06-28",
+  "generatedAt": "2026-06-29",
   "lastSourceScanAt": "2026-06-14",
   "nextScheduledSourceScanAt": "2026-07-01",
   "lastEditorReviewedScoreCycleAt": "2026-06-15",
@@ -14,13 +14,6 @@
       "timingLabel": "Event-driven",
       "status": "Waiting for DCRP agreement, project approval, payment, or construction evidence.",
       "href": "#dim-housing-supply-sources"
-    },
-    {
-      "id": "classic-route-exit",
-      "label": "Classic route exit",
-      "date": "2026-06-29",
-      "status": "Run the final root and classic route matrix before any routing decision.",
-      "href": "?experience=classic#view-scorecard"
     },
     {
       "id": "july-monthly-cycle",

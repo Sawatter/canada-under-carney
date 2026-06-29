@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-06-29",
+    "version": "5.142",
+    "summary": "Retired the classic rollback route and moved the browser smoke into Pages CI.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "App shell as the only public route",
+        "body": "The root and old ?experience=classic links now open the app shell after the clean June 29 route-exit audit. The completed classic-route check was removed from the public next-checks strip. No grades, thresholds, source data, promise statuses, or scoring rules changed."
+      },
+      {
+        "type": "docs",
+        "headline": "Browser smoke in Pages CI",
+        "body": "The GitHub Pages workflow now runs the Playwright browser smoke before deploy. The job covers navigation, Major Projects source deep links, console errors, overflow, reduced motion, and stale classic links."
+      }
+    ]
+  },
+  {
     "date": "2026-06-28",
     "version": "5.141",
     "summary": "Added a data-driven next-checks strip and a manual browser smoke test for the app shell.",

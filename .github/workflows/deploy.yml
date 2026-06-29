@@ -28,8 +28,20 @@ jobs:
         with:
           path: dist
 
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+
   deploy:
-    needs: build
+    needs: [build, browser]
     runs-on: ubuntu-latest
     environment:
       name: github-pages

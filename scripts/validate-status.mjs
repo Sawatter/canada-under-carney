@@ -81,7 +81,6 @@ function validStatusHref(value) {
   return typeof value === "string"
     && (
       value.startsWith("#")
-      || value.startsWith("?experience=classic#")
       || value.startsWith("https://github.com/Sawatter/canada-under-carney/")
     );
 }
@@ -117,7 +116,7 @@ function validateNextCheck(check, index) {
   }
 
   if ("href" in check && !validStatusHref(check.href)) {
-    err(`${prefix}.href must be an in-app hash, classic-route hash, or repo GitHub URL`);
+    err(`${prefix}.href must be an in-app hash or repo GitHub URL`);
   }
 }
 

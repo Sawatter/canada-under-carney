@@ -11,7 +11,6 @@ function read(relativePath) {
 
 const sources = {
   app: read("src/App.jsx"),
-  prototype: read("src/components/prototype/DashboardPrototype.jsx"),
   dashboard: read("src/components/Dashboard.jsx"),
   promises: read("src/components/PromiseTracker.jsx"),
   dimension: read("src/components/DimensionCard.jsx"),
@@ -19,15 +18,10 @@ const sources = {
 };
 const publicJsPath = [
   sources.app,
-  sources.prototype,
   sources.dashboard,
   sources.promises,
   sources.dimension,
 ].join("\n");
-const experienceResolver = sources.app.slice(
-  sources.app.indexOf("function getRequestedExperience"),
-  sources.app.indexOf("export default function App"),
-);
 const failures = [];
 let assertionCount = 0;
 
@@ -51,44 +45,33 @@ function sourceAround(source, marker, before = 0, after = 2000) {
 }
 
 check(
-  imports(sources.app, "components/prototype/DashboardPrototype"),
-  "App.jsx must import the public app-shell entry.",
+  imports(sources.app, "Dashboard") && renders(sources.app, "Dashboard"),
+  "App.jsx must render the production Dashboard as the public app-shell entry.",
 );
 check(
-  !sources.app.includes("import.meta.env.DEV") && !sources.prototype.includes("import.meta.env.DEV"),
+  !sources.app.includes("import.meta.env.DEV"),
   "The app-shell route must not be guarded by import.meta.env.DEV.",
 );
 check(
-  /get\(["']experience["']\)\s*===\s*["']app["']/.test(sources.app) &&
-    /experience\s*===\s*["']app["']/.test(sources.app) &&
-    renders(sources.app, "DashboardPrototype"),
-  "App.jsx must select DashboardPrototype for ?experience=app.",
+  !sources.app.includes("DashboardPrototype") &&
+    !/get\(["']experience["']\)/.test(sources.app) &&
+    !sources.app.includes("experience=classic"),
+  "App.jsx must not retain public experience-query routing or the classic rollback branch.",
 );
 check(
-  /get\(["']experience["']\)\s*===\s*["']classic["']/.test(sources.app) &&
-    renders(sources.app, "Dashboard"),
-  "App.jsx must retain ?experience=classic as an explicit classic rollback.",
+  !sources.dashboard.includes("classic-shell") &&
+    sources.dashboard.includes('className="dashboard-shell app-shell"') &&
+    sources.dashboard.includes('data-experience="app"'),
+  "Dashboard must expose only the app shell, not a classic-shell branch.",
 );
 check(
-  /typeof\s+window\s*===\s*["']undefined["']\)\s*return\s+["']app["']/.test(
-    experienceResolver,
-  ) && /return\s+["']app["'];?\s*}$/.test(experienceResolver.trim()),
-  "App.jsx must default the bare root to the app shell.",
-);
-
-check(
-  imports(sources.prototype, "Dashboard") &&
-    /<Dashboard\s+experience=["']app["']\s*\/>/.test(sources.prototype),
-  "DashboardPrototype must delegate to the production Dashboard in app mode.",
-);
-check(
-  /function\s+Dashboard\s*\(\s*\{\s*experience\s*=\s*["']classic["']/.test(sources.dashboard) &&
-    /experience\s*===\s*["']app["']/.test(sources.dashboard),
-  "Dashboard must keep classic as its default and derive an explicit app mode.",
+  /function\s+Dashboard\s*\(\s*\)/.test(sources.dashboard) &&
+    /const\s+appMode\s*=\s*true/.test(sources.dashboard),
+  "Dashboard must use the app shell as its only public mode.",
 );
 check(
   /import\s+["']\.\/AppShell\.css["']/.test(sources.dashboard) &&
-    sources.dashboard.includes('data-experience={experience}'),
+    sources.dashboard.includes('data-experience="app"'),
   "Dashboard must load app-shell styles and expose the active experience.",
 );
 check(
@@ -277,7 +260,7 @@ const viewFocusContract = sourceAround(
 );
 const promiseViewRenderContract = sourceAround(
   sources.dashboard,
-  'id={appMode || view === "promises" ? `view-${view}` : undefined}',
+  'id={`view-${view}`}',
   0,
   7000,
 );
