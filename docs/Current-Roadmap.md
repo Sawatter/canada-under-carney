@@ -126,7 +126,7 @@
 
 ## Now
 
-Dashboard sits live at v5.141 with the app shell at the root. The classic dashboard remains available at `?experience=classic` as the rollback route while the post-cutover observation runs through June 29. The app shell became the root at the v5.119 cutover, with v5.120 post-cutover polish on 2026-06-21, then the v5.121-v5.126 opened-dimension drawer rework landed on top. v5.127-v5.141 layered signup repair, status, source-freshness, visual-polish, dark-theme, plain-language work, the data-driven next-checks strip, and the manual Playwright browser smoke onto the same shell. No scoring or policy data changed for the cutover, the polish pass, the drawer rework, or the follow-on product/copy/status lane. A v5.141 live matrix on 2026-06-28 passed. App shell and `?experience=classic` both render v5.141. The five hash destinations, the Major Projects sources deep link and sources-button focus, console-clean output, no horizontal overflow, and the Next checks status module all check out at desktop and 375px mobile. The record is in the [App Shell Staged Release Record](Prototype-App-Shell-Parking-2026-05.md) observation log.
+Dashboard sits live at v5.141 with the app shell at the root. The classic dashboard remains available at `?experience=classic` pending the editor's post-exit route decision. The app shell became the root at the v5.119 cutover, with v5.120 post-cutover polish on 2026-06-21, then the v5.121-v5.126 opened-dimension drawer rework landed on top. v5.127-v5.141 layered signup repair, status, source-freshness, visual-polish, dark-theme, plain-language work, the data-driven next-checks strip, and the manual Playwright browser smoke onto the same shell. No scoring or policy data changed for the cutover, the polish pass, the drawer rework, or the follow-on product/copy/status lane. The June 29 route-exit audit passed on v5.141: app shell and `?experience=classic` both render the expected shell, the five hash destinations work, the Major Projects sources deep link opens and focuses the sources button, app-mode Back returns Promises to Scorecard, console errors and horizontal overflow are 0, the latest Pages deploy succeeded, and the local Playwright browser smoke passed 18/18. The record is in the [App Shell Staged Release Record](Prototype-App-Shell-Parking-2026-05.md) observation log.
 
 v5.120 resolved the mobile navigation icons, active-filter return affordance, bottom-navigation re-entry motion, and viewport-flip body-lock and history issue. The APG tab-widget proposal is rejected in favor of semantic navigation with buttons and `aria-current`. The opened-dimension drawer was then restructured to lead with the evidence that drives each grade (v5.121), given a target-vs-result headline commitment row (v5.122), wired so opening a dimension's promises filters the Promises tab to that dimension (v5.123), and finished with a display-only drawer typography consolidation that converged through four Codex rounds before build (v5.126).
 
@@ -154,11 +154,11 @@ These are on deck awaiting their triggers.
 2. Inter-rater pilot return
    When the rater sends worksheets back, compare their grades against the frozen packet snapshot and classify each mismatch as rubric clarity, source ambiguity, arithmetic/application error, or genuine disagreement. Do not revise the packet mid-run unless the rater has not started and the editor explicitly resends it.
 
-3. July 1 monthly cycle
-   The next full cycle remains 2026-07-01 (`meta.json`). Pick up the Defence split-shadow clock, the Flagship probation call, monthly freshness pulls, and any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
+3. Classic-route decision
+   The June 29 route-exit audit is clean. Decide whether to retain or retire `?experience=classic` in the next version. Recommendation: retire it in the next version unless the editor wants a long-term comparison route. Do not change routing before that answer.
 
-4. App-shell post-cutover observation
-   Observe the live app shell through June 29. The version under observation is now v5.141. The app-shell release lane remains the v5.119 cutover and v5.120 polish plus the v5.121-v5.126 drawer rework, with v5.127-v5.141 layered on top. Exit requires root and `?experience=classic` checks, no open P0 or P1 issue, no evidence-route loss, a displayed-version and deploy match, and a final desktop and mobile matrix covering navigation, focus, responsive layout, history, and evidence access. At exit, decide whether `?experience=classic` remains available. Note: the standalone daily observation heartbeat was retired on 2026-06-24 because it was pinned to the stale v5.119 release state. Checks now run against the current live version until the June 29 exit.
+4. July 1 monthly cycle
+   The next full cycle remains 2026-07-01 (`meta.json`). Pick up the Defence split-shadow clock, the Flagship probation call, monthly freshness pulls, and any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
 
 ---
 ## Later
@@ -167,7 +167,7 @@ These are valid, but not active now.
 
 1. Decide whether Flagship Delivery stays on probation after one real cycle.
 2. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
-3. Revisit long-term classic-route removal at the June 29 observation exit after the final desktop and mobile matrix is finished.
+3. Promote the Playwright browser smoke to CI after the route decision and one stable post-decision release.
 
 ---
 
