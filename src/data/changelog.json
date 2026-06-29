@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-29",
+    "version": "5.146",
+    "summary": "Fixed the mobile header badge layout after the civic identity pass.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Mobile header badge fix",
+        "body": "The Performance Dashboard badge now reserves space for its accent dots and sits below the theme button on phones, so the badge text no longer overlaps or wraps awkwardly. Scores, grades, thresholds, source data, and evidence wording are unchanged."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-29",
     "version": "5.145",
     "summary": "Fixed the mobile dimension drawer containment after the identity pass.",
     "items": [

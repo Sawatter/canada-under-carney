@@ -63,6 +63,11 @@
   z-index: 1;
 }
 
+.app-shell .dashboard-header > .theme-toggle {
+  position: absolute;
+  z-index: 2;
+}
+
 .app-shell .dashboard-kicker {
   display: inline-flex;
   align-items: center;
@@ -77,11 +82,13 @@
 
 .app-shell .dashboard-kicker::before {
   content: "";
-  width: 7px;
+  flex: 0 0 29px;
+  width: 29px;
   height: 7px;
-  border-radius: 999px;
-  background: var(--app-maple);
-  box-shadow: 11px 0 0 var(--app-gold), 22px 0 0 var(--app-accent);
+  background:
+    radial-gradient(circle at 3.5px 50%, var(--app-maple) 0 3.5px, transparent 3.6px),
+    radial-gradient(circle at 14.5px 50%, var(--app-gold) 0 3.5px, transparent 3.6px),
+    radial-gradient(circle at 25.5px 50%, var(--app-accent) 0 3.5px, transparent 3.6px);
 }
 
 .app-shell .dashboard-title {
@@ -551,8 +558,17 @@
   }
 
   .app-shell .dashboard-header {
-    padding: 26px 18px !important;
+    padding: 70px 18px 26px !important;
     border-radius: 20px;
+  }
+
+  .app-shell .dashboard-kicker {
+    max-width: 100%;
+    margin: 0 auto 10px !important;
+    box-sizing: border-box;
+    font-size: 12px !important;
+    letter-spacing: 1.45px !important;
+    white-space: nowrap;
   }
 
   .app-shell .dashboard-header::before {

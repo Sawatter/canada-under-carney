@@ -4,7 +4,7 @@
 
 **Reconciled:** 2026-06-25
 
-**Status:** The app shell is live at the root, currently at v5.145. The app-shell release lane is the v5.119 cutover and v5.120 polish, then the v5.121-v5.126 opened-dimension drawer rework. Later releases layered on the same shell include the Kit signup move, clickable Promises card, title clarifier, dark theme, app-card polish, dashboard status card, source-freshness cue, dimension-detail reading-order work, the v5.139-v5.140 plain-language passes, the v5.141 data-driven next-checks strip plus manual Playwright browser smoke, the v5.142 classic-route retirement plus browser-smoke CI gate, the v5.143 sourced grade-move evidence loop, the v5.144 beauty / identity pass, and the v5.145 mobile drawer containment fix. None of those releases changed evidence, grades, thresholds, formulas, weights, promise statuses, or the dimension model. The classic rollback route ended after the June 29, 2026 exit audit passed cleanly; old `?experience=classic` links now open the app shell.
+**Status:** The app shell is live at the root, currently at v5.146. The app-shell release lane is the v5.119 cutover and v5.120 polish, then the v5.121-v5.126 opened-dimension drawer rework. Later releases layered on the same shell include the Kit signup move, clickable Promises card, title clarifier, dark theme, app-card polish, dashboard status card, source-freshness cue, dimension-detail reading-order work, the v5.139-v5.140 plain-language passes, the v5.141 data-driven next-checks strip plus manual Playwright browser smoke, the v5.142 classic-route retirement plus browser-smoke CI gate, the v5.143 sourced grade-move evidence loop, the v5.144 beauty / identity pass, the v5.145 mobile drawer containment fix, and the v5.146 mobile header badge fix. None of those releases changed evidence, grades, thresholds, formulas, weights, promise statuses, or the dimension model. The classic rollback route ended after the June 29, 2026 exit audit passed cleanly; old `?experience=classic` links now open the app shell.
 
 **Public source of record:** `https://sawatter.github.io/canada-under-carney/`
 
@@ -32,7 +32,7 @@ The v5.120 release shipped on 2026-06-21 with post-cutover polish for mobile nav
 
 ## Public Routes
 
-As of v5.145:
+As of v5.146:
 
 ```text
 https://sawatter.github.io/canada-under-carney/
@@ -127,7 +127,7 @@ The v5.119 cutover was authorized after the beta and cutover gates closed with n
 
 ## Post-Cutover Observation Period
 
-The live app shell completed its June 29, 2026 route-exit audit on v5.141 with no rollback-level finding. v5.142 retires `?experience=classic` and promotes the Playwright browser smoke into the Pages deploy workflow. v5.143 adds a sourced grade-move evidence loop that reports current-release grade moves only from matching latest-changelog grade items. v5.144 adds the first beauty / identity pass: a richer civic masthead, maple-red accent rails, warmer score and status cards, and mobile bottom-nav polish. v5.145 fixes the mobile drawer containment edge case found during live verification, where route-transition motion could make a fixed drawer size against the scorecard page instead of the viewport. The app-shell changes under observation are still the v5.119 cutover and v5.120 polish plus the v5.121-v5.126 drawer rework. v5.127-v5.145 are product, copy, status, source-freshness, visual-polish, docs, browser-smoke, CI, evidence-loop, identity, and containment updates layered on top. The standalone daily observation heartbeat was retired on 2026-06-24 because it was pinned to the stale v5.119 release state.
+The live app shell completed its June 29, 2026 route-exit audit on v5.141 with no rollback-level finding. v5.142 retires `?experience=classic` and promotes the Playwright browser smoke into the Pages deploy workflow. v5.143 adds a sourced grade-move evidence loop that reports current-release grade moves only from matching latest-changelog grade items. v5.144 adds the first beauty / identity pass: a richer civic masthead, maple-red accent rails, warmer score and status cards, and mobile bottom-nav polish. v5.145 fixes the mobile drawer containment edge case found during live verification, where route-transition motion could make a fixed drawer size against the scorecard page instead of the viewport. v5.146 fixes the mobile Performance Dashboard badge collision by reserving space for the accent dots and moving the badge below the theme button on phones. The app-shell changes under observation are still the v5.119 cutover and v5.120 polish plus the v5.121-v5.126 drawer rework. v5.127-v5.146 are product, copy, status, source-freshness, visual-polish, docs, browser-smoke, CI, evidence-loop, identity, containment, and mobile-header updates layered on top. The standalone daily observation heartbeat was retired on 2026-06-24 because it was pinned to the stale v5.119 release state.
 
 Exit status:
 
