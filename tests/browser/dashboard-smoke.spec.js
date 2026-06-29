@@ -24,6 +24,16 @@ const viewports = [
   ["mobile", { width: 375, height: 812 }],
 ];
 
+test.beforeEach(async ({ page }) => {
+  await page.route("https://carneydashboard.goatcounter.com/**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ count_unique: 133 }),
+    });
+  });
+});
+
 function routePath({ hash = "" } = {}) {
   return hash;
 }
