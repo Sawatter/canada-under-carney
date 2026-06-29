@@ -20,8 +20,10 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const dataPath = resolve(__dirname, "../src/data/dimensions.json");
 const changelogPath = resolve(__dirname, "../src/data/changelog.json");
+const metaPath = resolve(__dirname, "../src/data/meta.json");
 const dimensions = JSON.parse(readFileSync(dataPath, "utf-8"));
 const changelog = JSON.parse(readFileSync(changelogPath, "utf-8"));
+const meta = JSON.parse(readFileSync(metaPath, "utf-8"));
 
 const VALID_GRADES = new Set([
   "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F",
@@ -121,6 +123,7 @@ const totalCount = dimensions.length;
 const trackerCount = dimensions.filter((d) => d.excludeFromGPA).length;
 const gradedCount = totalCount - trackerCount;
 const canonicalUrlsByDimension = new Map();
+const dimensionsById = new Map();
 
 if (totalCount !== 12) err("[root]", `expected 12 dimensions, found ${totalCount}`);
 if (gradedCount !== 11) err("[root]", `expected 11 graded dimensions, found ${gradedCount}`);
@@ -143,6 +146,10 @@ for (const d of dimensions) {
 for (const d of dimensions) {
   const name = d.name || "[unnamed]";
   const isTracker = !!d.excludeFromGPA;
+  if (hasText(d.id)) {
+    if (dimensionsById.has(d.id)) err(name, `duplicate dimension id "${d.id}"`);
+    dimensionsById.set(d.id, d);
+  }
 
   // Required-on-every-dim fields
   for (const field of ["id", "name", "whatThisGrades", "scoring", "gradeTriggers", "sources", "lastUpdated"]) {
@@ -509,30 +516,83 @@ for (const d of dimensions) {
   canonicalUrlsByDimension.set(d.id, canonicalUrls);
 }
 
-// ─── Grade-change link shape ───────────────────────────────────────────────
+// ─── Grade-change link and current-cycle evidence-loop shape ───────────────
+
+const currentChangelogEntry = changelog[0];
+if (!currentChangelogEntry || typeof currentChangelogEntry !== "object") {
+  err("[changelog]", "entries[0] must exist");
+} else {
+  if (currentChangelogEntry.date !== meta.lastUpdated) {
+    err("[changelog]", `entries[0].date (${currentChangelogEntry.date}) must equal meta.lastUpdated (${meta.lastUpdated})`);
+  }
+  if (currentChangelogEntry.version !== meta.version) {
+    err("[changelog]", `entries[0].version (${currentChangelogEntry.version}) must equal meta.version (${meta.version})`);
+  }
+}
+
+function validateGradeItem(item, entryIndex, itemIndex, currentCycle = false) {
+  const prefix = `entries[${entryIndex}].items[${itemIndex}]`;
+  if (!item.dimensionId) {
+    err("[changelog]", `${prefix} grade item is missing dimensionId`);
+    return;
+  }
+
+  const dim = dimensionsById.get(item.dimensionId);
+  if (!dim) {
+    err("[changelog]", `${prefix} references unknown dimensionId "${item.dimensionId}"`);
+    return;
+  }
+
+  if (dim.excludeFromGPA) {
+    err("[changelog]", `${prefix} references tracker dimension "${item.dimensionId}"`);
+  }
+
+  const href = item.link?.href;
+  if (!hasText(href)) {
+    err("[changelog]", `${prefix} grade item is missing link.href`);
+    return;
+  }
+
+  if (!isMethodologyLink(href)) {
+    const dimUrls = canonicalUrlsByDimension.get(item.dimensionId);
+    const canonical = canonicalUrl(href);
+    if (!canonical || !dimUrls?.has(canonical)) {
+      err("[changelog]", `${prefix} grade link does not resolve to a source/metric/trigger URL for ${item.dimensionId}`);
+    }
+  }
+
+  if (!currentCycle) return;
+
+  for (const field of ["dimensionName", "from", "to", "deltaLabel", "headline", "body"]) {
+    if (!hasText(item[field])) {
+      err("[changelog]", `${prefix}.${field} must be a non-empty string for current-cycle grade moves`);
+    }
+  }
+
+  if (item.dimensionName !== dim.name) {
+    err("[changelog]", `${prefix}.dimensionName (${item.dimensionName}) must match dimension name (${dim.name})`);
+  }
+  if (item.from !== dim.previousGrade) {
+    err("[changelog]", `${prefix}.from (${item.from}) must match dimension.previousGrade (${dim.previousGrade || "missing"})`);
+  }
+  if (item.to !== dim.grade) {
+    err("[changelog]", `${prefix}.to (${item.to}) must match current dimension grade (${dim.grade})`);
+  }
+  if (item.from === item.to) {
+    err("[changelog]", `${prefix} must move between two different grades`);
+  }
+  if (!Array.isArray(item.drivers) || item.drivers.length === 0 || item.drivers.some((driver) => !hasText(driver))) {
+    err("[changelog]", `${prefix}.drivers must be a non-empty list of strings for current-cycle grade moves`);
+  }
+  if (!hasText(item.link?.label)) {
+    err("[changelog]", `${prefix}.link.label must be a non-empty string for current-cycle grade moves`);
+  }
+}
 
 changelog.forEach((entry, entryIndex) => {
   (entry.items || []).forEach((item, itemIndex) => {
     if (item?.type !== "grade") return;
-    if (!item.dimensionId) {
-      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] grade item is missing dimensionId`);
-      return;
-    }
-    const href = item.link?.href;
-    if (!hasText(href)) {
-      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] grade item is missing link.href`);
-      return;
-    }
-    if (isMethodologyLink(href)) return;
-    const dimUrls = canonicalUrlsByDimension.get(item.dimensionId);
-    if (!dimUrls) {
-      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] references unknown dimensionId "${item.dimensionId}"`);
-      return;
-    }
-    const canonical = canonicalUrl(href);
-    if (!canonical || !dimUrls.has(canonical)) {
-      err("[changelog]", `entries[${entryIndex}].items[${itemIndex}] grade link does not resolve to a source/metric/trigger URL for ${item.dimensionId}`);
-    }
+    validateGradeItem(item, entryIndex, itemIndex, entryIndex === 0);
   });
 });
 

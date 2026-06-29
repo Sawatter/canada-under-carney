@@ -21,12 +21,13 @@ function formatNextCheckTiming(check) {
   return check.timingLabel || "Event-driven";
 }
 
-export default function DashboardStatus() {
+export default function DashboardStatus({ gradeMoves = [] }) {
   const facts = [
     ["Evidence scan", formatDate(status.lastSourceScanAt)],
     ["Next scheduled scan", formatDate(status.nextScheduledSourceScanAt)],
     ["Editor-reviewed score cycle", formatDate(status.lastEditorReviewedScoreCycleAt)],
     ["Coverage through", formatDate(status.coverageThrough)],
+    ["Grade moves this release", gradeMoves.length === 0 ? "None" : String(gradeMoves.length)],
     ["Monitor items awaiting review", String(status.watchItemsAwaitingReviewCount)],
   ];
 

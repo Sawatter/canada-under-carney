@@ -23,6 +23,13 @@ const FORBIDDEN_URGENCY_WORDS = [
   "live",
   "real-time",
   "biweekly",
+  "come back",
+  "check back",
+  "don't miss",
+  "dont miss",
+  "return visit",
+  "new since",
+  "last visit",
 ];
 
 function err(message) {
@@ -167,7 +174,13 @@ if (validIsoDate(status.nextScheduledSourceScanAt) && validIsoDate(status.lastSo
   err("nextScheduledSourceScanAt must be after lastSourceScanAt");
 }
 
-if ("newSinceLastVisit" in status || "materialChangesCount" in status || "watchItems" in status) {
+if (
+  "newSinceLastVisit" in status
+  || "materialChangesCount" in status
+  || "changedDimensions" in status
+  || "lastSeenAt" in status
+  || "watchItems" in status
+) {
   err("status schema must not include personalized, material-change, or visit-history watch-item fields");
 }
 

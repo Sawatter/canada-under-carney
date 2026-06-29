@@ -525,6 +525,7 @@ export default function DimensionCard({
   onInternalRef,
   anchorNavigation,
   onHashTarget,
+  gradeMoves = [],
 }) {
   const isTracker = !!dim.excludeFromGPA;
   const g = isTracker ? null : GRADES[dim.grade];
@@ -1406,12 +1407,16 @@ export default function DimensionCard({
       .map(([status, count]) => `${count} ${status}`)
       .join(" / ")
     : null;
+  const latestGradeMove = Array.isArray(gradeMoves) && gradeMoves.length > 0
+    ? gradeMoves[0]
+    : null;
 
   return (
     <div
       id={`dim-${dim.id}`}
       ref={rootRef}
       className={`dimension-card-root${isFocusedDesktop ? " dim-focused-detail-root" : ""}`}
+      data-grade-moved-this-release={latestGradeMove ? "true" : "false"}
       style={{
         background: rootBackground,
         border: rootBorder,
@@ -1500,6 +1505,11 @@ export default function DimensionCard({
                     </>
                   )}
                 </div>
+              )}
+              {latestGradeMove && (
+                <span className="dim-current-grade-move-marker">
+                  Grade moved this release
+                </span>
               )}
             </div>
             <div className="dim-card-grade-stack">
@@ -1670,6 +1680,20 @@ export default function DimensionCard({
                         <span style={{ color: "#5a7a9b" }}>{meta.nextUpdate}</span>
                       </>
                     )}
+                  </div>
+                )}
+                {latestGradeMove && (
+                  <div className="dim-change-card dim-current-grade-move-callout">
+                    <div className="dim-change-card-title">Grade moved this release</div>
+                    <p>
+                      {latestGradeMove.headline || `${dim.name} moved ${latestGradeMove.from} to ${latestGradeMove.to}`}.
+                    </p>
+                    <a
+                      href={`#${latestGradeMove.anchorId}`}
+                      onClick={(e) => handleHashLinkClick(e, latestGradeMove.anchorId, [])}
+                    >
+                      Open the change note
+                    </a>
                   </div>
                 )}
               </div>

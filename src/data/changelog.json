@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-06-29",
+    "version": "5.143",
+    "summary": "Added a sourced grade-move evidence loop without changing any scores.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Grade moves tied to changelog evidence",
+        "body": "The dashboard status card now reports grade moves for the current release, and dimension cards can show a calm grade-move marker only when the latest changelog entry has a matching grade item. This release has no grade move, so the marker renders empty by design."
+      },
+      {
+        "type": "method",
+        "headline": "Change markers guarded by data checks",
+        "body": "The data validator now checks current-release grade moves against the dimension's current grade, previous grade, dimension name, drivers, and evidence link. The browser smoke checks that card markers match the current changelog and that no personalized visit tracking was added."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-29",
     "version": "5.142",
     "summary": "Retired the classic rollback route and moved the browser smoke into Pages CI.",
     "items": [

@@ -50,7 +50,17 @@ function GradeItem({ item }) {
   const dir = gradeDelta(item.from, item.to);
   const deltaColor = dir < 0 ? "#c62828" : dir > 0 ? "#1a7a3a" : "#555";
   return (
-    <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
+    <div
+      id={item.anchorId}
+      data-change-type="grade"
+      tabIndex={item.anchorId ? -1 : undefined}
+      style={{
+        display: "flex",
+        gap: "12px",
+        alignItems: "flex-start",
+        scrollMarginTop: "16px",
+      }}
+    >
       <div style={{ paddingTop: "2px" }}>
         <Chip type="grade" />
       </div>
@@ -177,7 +187,12 @@ export default function WhatsChanged({ changelog }) {
 
   const latest = changelog[0];
   if (!latest) return null;
-  const items = latest.items || [];
+  const items = (latest.items || []).map((item, index) => ({
+    ...item,
+    anchorId: item.type === "grade" && item.dimensionId
+      ? `change-${latest.date}-${item.dimensionId}-${index}`
+      : undefined,
+  }));
 
   const filterMatch = (t) => {
     if (filter === "all") return true;

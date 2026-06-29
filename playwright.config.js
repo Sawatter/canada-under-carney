@@ -34,5 +34,11 @@ export default defineConfig({
         reducedMotion: "reduce",
       },
     },
+    {
+      name: "chromium-dark",
+      use: {
+        colorScheme: "dark",
+      },
+    },
   ],
 });

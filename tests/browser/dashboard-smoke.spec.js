@@ -2,9 +2,14 @@ import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { getCurrentGradeMoves } from "../../src/gradeMoves.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const meta = JSON.parse(readFileSync(path.join(repoRoot, "src/data/meta.json"), "utf8"));
+const changelog = JSON.parse(readFileSync(path.join(repoRoot, "src/data/changelog.json"), "utf8"));
+const dimensions = JSON.parse(readFileSync(path.join(repoRoot, "src/data/dimensions.json"), "utf8"));
+const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
+const movedDimensionIds = new Set(currentGradeMoves.map((item) => item.dimensionId));
 
 const views = [
   ["scorecard", "Scorecard"],
@@ -73,9 +78,16 @@ test.describe("dashboard route matrix", () => {
         await expectAppShell(page);
         await expectVisibleVersion(page);
         await expect(page.getByRole("heading", { name: "Next checks" })).toBeVisible();
+        await expect(page.locator(".dashboard-status-row").filter({
+          has: page.locator("dt", { hasText: "Grade moves this release" }),
+        }).locator("dd")).toHaveText(currentGradeMoves.length === 0 ? "None" : String(currentGradeMoves.length));
         await expect(page.getByText("Housing disbursement watch", { exact: true })).toBeVisible();
         await expectActiveNav(page, label);
         await expectNoOverflow(page);
+
+        if (testInfo.project.name.includes("dark")) {
+          await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+        }
 
         if (testInfo.project.name.includes("reduced-motion")) {
           await expect.poll(async () => page.evaluate(() => (
@@ -88,6 +100,52 @@ test.describe("dashboard route matrix", () => {
       expect(consoleErrors).toEqual([]);
     });
   }
+});
+
+test.describe("current release grade-move evidence loop", () => {
+  for (const [viewportName, viewport] of viewports) {
+    test(`scorecard ${viewportName} grade-move markers match current changelog`, async ({ page }, testInfo) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+
+      await expectAppShell(page);
+      await expect(page.locator(".dim-card-header-button a, .dim-card-header-button button")).toHaveCount(0);
+
+      for (const dim of dimensions) {
+        const expected = movedDimensionIds.has(dim.id) ? "true" : "false";
+        await expect(page.locator(`#dim-${dim.id}`)).toHaveAttribute("data-grade-moved-this-release", expected);
+      }
+
+      await expect(page.locator('[data-grade-moved-this-release="true"] .dim-current-grade-move-marker'))
+        .toHaveCount(currentGradeMoves.length);
+      await expectNoOverflow(page);
+
+      if (testInfo.project.name.includes("dark")) {
+        await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+      }
+
+      expect(consoleErrors).toEqual([]);
+    });
+  }
+});
+
+test("grade-move callout routes to the exact change note when a current grade move exists", async ({ page }) => {
+  if (currentGradeMoves.length === 0) return;
+
+  const consoleErrors = await installConsoleGuards(page);
+  const [move] = currentGradeMoves;
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto(routePath({ hash: "#view-scorecard" }));
+  await page.locator(`#dim-${move.dimensionId}-header`).click();
+  await page.locator(`#dim-${move.dimensionId} .dim-current-grade-move-callout a`).click();
+
+  await expect(page).toHaveURL(new RegExp(`#${move.anchorId}$`));
+  await expectActiveNav(page, "Changes");
+  await expect(page.locator(`#${move.anchorId}`)).toBeVisible();
+  await expect(page.locator(`#${move.anchorId}`)).toHaveAttribute("data-change-type", "grade");
+  await expectNoOverflow(page);
+  expect(consoleErrors).toEqual([]);
 });
 
 test.describe("dimension evidence deep links", () => {

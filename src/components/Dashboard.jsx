@@ -19,6 +19,7 @@ import About from "./About";
 import EmailSignup from "./EmailSignup";
 import VisitorCount from "./VisitorCount";
 import DashboardStatus from "./DashboardStatus";
+import { getCurrentGradeMoves, getCurrentGradeMovesByDimension } from "../gradeMoves";
 import "./AppShell.css";
 
 function isMobileViewport() {
@@ -151,6 +152,8 @@ export default function Dashboard() {
   const overallDerivation = getOverallDerivation(dimensions);
   const pocketbookDerivation = getPocketbookDerivation(dimensions);
   const { all: allPromises, counts: promiseCounts, total: totalPromises } = countPromises(dimensions);
+  const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
+  const currentGradeMovesByDimension = getCurrentGradeMovesByDimension(changelog, dimensions, meta);
 
   useEffect(() => {
     expandedRef.current = expanded;
@@ -293,6 +296,20 @@ export default function Dashboard() {
       return;
     }
 
+    if (target.startsWith("change-")) {
+      if (typeof window !== "undefined") {
+        const nextState = { ...(window.history.state || {}) };
+        delete nextState.dimModal;
+        window.history.replaceState(nextState, "", `#${target}`);
+      }
+      mobileModalEntryRef.current = false;
+      pendingDesktopReturnRef.current = null;
+      pendingDesktopFocusRef.current = null;
+      setExpanded(null);
+      setView("changelog");
+      return;
+    }
+
     if (target.startsWith("view-")) {
       closeDimensionForInternalNavigation({ closeDesktop: true });
       const nextHashView = target.replace(/^view-/, "");
@@ -306,6 +323,10 @@ export default function Dashboard() {
 
   const handleHashTargetNavigation = useCallback((target) => {
     if (!target) return;
+    if (target.startsWith("change-")) {
+      routeHashTarget(target);
+      return;
+    }
     if (typeof window !== "undefined") {
       window.history.replaceState(window.history.state, "", `#${target}`);
     }
@@ -765,7 +786,7 @@ export default function Dashboard() {
       />
       </div>
 
-      <DashboardStatus />
+      <DashboardStatus gradeMoves={currentGradeMoves} />
 
       {/* Section navigation is a horizontally scrollable rail on narrow screens. */}
       <div className="dashboard-tabs-wrap">
@@ -867,6 +888,9 @@ export default function Dashboard() {
             <span><span style={{ color: "#757575", fontWeight: 700 }}>{"\u25AC"}</span> Stable</span>
             <span><span style={{ color: "#c62828", fontWeight: 700 }}>{"\u25BC"}</span> Declining</span>
             <span><span style={{ color: "#c62828", fontSize: "12px", fontWeight: 600 }}>(was X)</span> Grade changed</span>
+            {currentGradeMoves.length > 0 && (
+              <span><span className="dim-current-grade-move-marker">Grade moved this release</span></span>
+            )}
             <span style={{ color: "#666", fontWeight: 500, fontStyle: "italic" }}>
               Click any card for the reasoning.
             </span>
@@ -886,6 +910,7 @@ export default function Dashboard() {
               onInternalRef={handleInternalRef}
               anchorNavigation={anchorNavigation}
               onHashTarget={handleHashTargetNavigation}
+              gradeMoves={currentGradeMovesByDimension.get(expandedDimension.id) || []}
               trackerStat={expandedDimension.excludeFromGPA ? {
                 delivered: promiseCounts["Delivered"] || 0,
                 total: totalPromises,
@@ -912,6 +937,7 @@ export default function Dashboard() {
                 onInternalRef={handleInternalRef}
                 anchorNavigation={anchorNavigation}
                 onHashTarget={handleHashTargetNavigation}
+                gradeMoves={currentGradeMovesByDimension.get(d.id) || []}
               />
             ))}
           </div>
@@ -962,6 +988,7 @@ export default function Dashboard() {
                   onInternalRef={handleInternalRef}
                   anchorNavigation={anchorNavigation}
                   onHashTarget={handleHashTargetNavigation}
+                  gradeMoves={currentGradeMovesByDimension.get(d.id) || []}
                   trackerStat={{
                     delivered: promiseCounts["Delivered"] || 0,
                     total: totalPromises,

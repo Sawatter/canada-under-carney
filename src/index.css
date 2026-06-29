@@ -533,6 +533,24 @@ button.text-link-button {
   letter-spacing: 0.35px;
 }
 
+.dim-current-grade-move-marker {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: 8px;
+  padding: 3px 8px;
+  border: 1px solid #d8c27a;
+  border-radius: 999px;
+  background: #fff9e8;
+  color: #5e4a09;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.35px;
+  line-height: var(--lh-snug);
+  text-transform: uppercase;
+}
+
 .dim-why-panel,
 .dim-at-glance-panel {
   scroll-margin-top: var(--dim-anchor-offset);
@@ -550,6 +568,31 @@ button.text-link-button {
 
 .dim-change-card-active {
   box-shadow: 0 0 0 2px rgba(249, 168, 37, 0.22);
+}
+
+.dim-current-grade-move-callout {
+  margin-top: 10px;
+}
+
+.dim-current-grade-move-callout p {
+  margin: 0;
+  color: var(--text-body);
+  font-size: 14px;
+  line-height: var(--lh-body);
+}
+
+.dim-current-grade-move-callout a {
+  display: inline-flex;
+  margin-top: 8px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.dim-current-grade-move-callout a:hover,
+.dim-current-grade-move-callout a:focus-visible {
+  text-decoration: underline;
 }
 
 .dim-change-card-title,
@@ -1832,7 +1875,7 @@ a:hover { text-decoration: underline; }
 
 .dashboard-status-list {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: var(--space-3);
   margin: 0;
 }
@@ -2382,6 +2425,11 @@ a:hover { text-decoration: underline; }
 /* --- Drawer & content panels (CSS-rule light surfaces) --- */
 /* Light-on-light traps: panel bg stays light while var(--text-*) flips light. */
 [data-theme="dark"] .dim-change-card { background: #241f12; border-color: #4c4733; }
+[data-theme="dark"] .dim-current-grade-move-marker {
+  background: #2a2410;
+  border-color: #6d5b21;
+  color: var(--accent-tracker);
+}
 [data-theme="dark"] .dim-evidence-item { background: var(--surface-sunken); border-color: var(--border-subtle); }
 [data-theme="dark"] .dim-evidence-item:hover { background: var(--surface-raised); border-color: var(--border-strong); }
 [data-theme="dark"] .dim-headline-commitment { background: var(--surface-sunken); border-color: var(--border-subtle); }

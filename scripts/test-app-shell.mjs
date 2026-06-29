@@ -14,6 +14,7 @@ const sources = {
   dashboard: read("src/components/Dashboard.jsx"),
   promises: read("src/components/PromiseTracker.jsx"),
   dimension: read("src/components/DimensionCard.jsx"),
+  gradeMoves: read("src/gradeMoves.js"),
   css: read("src/components/AppShell.css"),
 };
 const publicJsPath = [
@@ -21,6 +22,7 @@ const publicJsPath = [
   sources.dashboard,
   sources.promises,
   sources.dimension,
+  sources.gradeMoves,
 ].join("\n");
 const failures = [];
 let assertionCount = 0;
@@ -79,6 +81,11 @@ check(
     !/slice\s*\(\s*0\s*,\s*6\s*\)/.test(publicJsPath),
   "The public app path must not retain the prototype six-metric truncation.",
 );
+check(
+  !/sessionStorage|document\.cookie|newSinceLastVisit|lastSeenAt|changedDimensions/.test(publicJsPath) &&
+    !/localStorage\.setItem\(\s*["'](?!ccc-theme["'])/.test(publicJsPath),
+  "The public app path must not add personalized visit tracking or storage beyond the explicit ccc-theme preference.",
+);
 
 for (const componentName of [
   "ScoreboardHeader",
@@ -96,6 +103,14 @@ for (const componentName of [
 check(
   /<PromiseTracker\b[\s\S]*?appMode=\{appMode\}/.test(sources.dashboard),
   "Dashboard must pass app mode into the production PromiseTracker.",
+);
+check(
+  imports(sources.dashboard, "gradeMoves") &&
+    sources.dashboard.includes("getCurrentGradeMoves(changelog, dimensions, meta)") &&
+    sources.dashboard.includes("getCurrentGradeMovesByDimension(changelog, dimensions, meta)") &&
+    /<DashboardStatus\s+gradeMoves=\{currentGradeMoves\}/.test(sources.dashboard) &&
+    /gradeMoves=\{currentGradeMovesByDimension\.get\(d\.id\) \|\| \[\]\}/.test(sources.dashboard),
+  "Dashboard must derive current-release grade moves from changelog grade items and pass them into status/card surfaces.",
 );
 
 check(
@@ -289,6 +304,27 @@ check(
     !dimensionToViewContract.includes("history.back"),
   "Non-behavioral source contract: internal view routing must use the scoped transition (with dimension filter) without a history.back/setView race.",
 );
+const changeAnchorContract = sourceAround(
+  sources.dashboard,
+  'target.startsWith("change-")',
+  0,
+  900,
+);
+check(
+  changeAnchorContract.includes("delete nextState.dimModal") &&
+    changeAnchorContract.includes("history.replaceState") &&
+    changeAnchorContract.includes('setView("changelog")') &&
+    !changeAnchorContract.includes("history.back"),
+  "Non-behavioral source contract: grade-move changelog anchors must replace owned modal history and land on the Changes view.",
+);
+check(
+  sources.dimension.includes("data-grade-moved-this-release") &&
+    sources.dimension.includes("dim-current-grade-move-marker") &&
+    sources.dimension.includes("dim-current-grade-move-callout") &&
+    sources.dimension.includes("latestGradeMove.anchorId") &&
+    !sourceAround(sources.dimension, 'className="dim-card-header-button"', 0, 2600).includes("<a"),
+  "Dimension cards must expose a non-interactive collapsed grade-move marker and keep the actual changelog link in expanded detail.",
+);
 check(
   dimensionToViewContract.includes("requestAnchorNavigation(destination)") &&
     viewFocusContract.includes("document.getElementById(target)") &&
@@ -334,4 +370,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`App-shell contract test passed (${assertionCount} checks across 6 source files).`);
+console.log(`App-shell contract test passed (${assertionCount} checks across ${Object.keys(sources).length} source files).`);
