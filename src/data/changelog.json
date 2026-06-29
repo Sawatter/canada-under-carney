@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-29",
+    "version": "5.144",
+    "summary": "Gave the app shell a calmer civic identity pass without changing any scores.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Civic identity polish",
+        "body": "The header, score cards, status card, dimension cards, and mobile bottom navigation now use a more distinctive editorial Canada treatment: forest ink, quiet maple-red accents, warmer paper surfaces, and softer depth. The evidence path, routes, scores, grades, thresholds, and source data are unchanged."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-29",
     "version": "5.143",
     "summary": "Added a sourced grade-move evidence loop without changing any scores.",
     "items": [

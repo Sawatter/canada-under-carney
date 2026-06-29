@@ -6,49 +6,125 @@
   --app-surface: #f1f4f0;
   --app-accent: #234e3f;
   --app-accent-soft: #e5eee9;
+  --app-maple: #9f2d2d;
+  --app-maple-soft: #f5e8e4;
+  --app-gold: #b8892f;
+  --app-blue-ink: #183553;
   max-width: 1180px !important;
   padding: 28px clamp(16px, 3vw, 36px) 40px !important;
   color: var(--app-ink);
   background:
-    radial-gradient(circle at 10% 0%, rgba(214, 226, 215, 0.72), transparent 28rem),
-    linear-gradient(180deg, #f8f9f6 0%, #f4f6f3 100%) !important;
+    radial-gradient(circle at 8% -6%, rgba(159, 45, 45, 0.12), transparent 22rem),
+    radial-gradient(circle at 92% 0%, rgba(24, 53, 83, 0.11), transparent 24rem),
+    radial-gradient(circle at 14% 30%, rgba(214, 226, 215, 0.74), transparent 28rem),
+    linear-gradient(180deg, #fbfaf6 0%, #f3f6f1 50%, #eef3ef 100%) !important;
 }
 
 .app-shell .dashboard-header {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   margin-bottom: 20px !important;
   padding: clamp(24px, 4vw, 44px);
-  border: 1px solid #ccd8d0;
-  border-radius: 18px;
+  border: 1px solid rgba(152, 172, 160, 0.9);
+  border-radius: 24px;
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.94), rgba(235, 242, 237, 0.9)),
-    repeating-linear-gradient(135deg, transparent 0 18px, rgba(35, 78, 63, 0.04) 18px 19px);
-  box-shadow: 0 18px 50px rgba(32, 52, 44, 0.08);
+    linear-gradient(120deg, rgba(255, 255, 255, 0.95), rgba(242, 247, 241, 0.9) 58%, rgba(250, 239, 235, 0.84)),
+    repeating-linear-gradient(135deg, transparent 0 18px, rgba(35, 78, 63, 0.045) 18px 19px);
+  box-shadow: 0 18px 56px rgba(31, 45, 40, 0.12);
+}
+
+.app-shell .dashboard-header::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 7px;
+  background: linear-gradient(180deg, var(--app-maple), #c96b3e 52%, var(--app-accent));
+  pointer-events: none;
+  z-index: 0;
 }
 
 .app-shell .dashboard-header::after {
   content: "";
   position: absolute;
-  right: -54px;
-  bottom: -78px;
-  width: 210px;
-  height: 210px;
-  border: 28px solid rgba(35, 78, 63, 0.08);
-  border-radius: 50%;
+  right: clamp(-80px, -6vw, -36px);
+  bottom: -92px;
+  width: 260px;
+  height: 260px;
+  border: 34px solid rgba(35, 78, 63, 0.08);
+  border-radius: 40% 60% 48% 52%;
+  transform: rotate(-18deg);
   pointer-events: none;
+  z-index: 0;
+}
+
+.app-shell .dashboard-header > * {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell .dashboard-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border: 1px solid rgba(159, 45, 45, 0.18);
+  border-radius: 999px;
+  color: var(--app-maple) !important;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+}
+
+.app-shell .dashboard-kicker::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: var(--app-maple);
+  box-shadow: 11px 0 0 var(--app-gold), 22px 0 0 var(--app-accent);
 }
 
 .app-shell .dashboard-title {
   color: var(--app-ink) !important;
-  letter-spacing: -0.02em;
+  font-size: clamp(2rem, 1.35rem + 2.8vw, 3rem) !important;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.app-shell .header-clarifier {
+  color: var(--app-muted) !important;
+  text-wrap: pretty;
+}
+
+.app-shell .header-subtitle span:last-child {
+  color: var(--app-blue-ink);
+  font-family: "DM Mono", monospace;
+  font-weight: 700;
+}
+
+.app-shell .dashboard-orientation {
+  margin-top: -4px !important;
+  color: var(--app-ink) !important;
+  font-size: clamp(1rem, 0.96rem + 0.2vw, 1.12rem) !important;
+  text-wrap: balance;
+}
+
+.app-shell .scorecard-trust-wrap {
+  max-width: 940px !important;
 }
 
 .app-shell .scorecard-trust-frame {
-  padding: 18px !important;
-  border: 1px solid var(--app-line) !important;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.72);
+  padding: 16px !important;
+  border: 1px solid rgba(198, 209, 201, 0.92) !important;
+  border-radius: 16px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(247, 249, 246, 0.72));
+  box-shadow: 0 10px 30px rgba(31, 45, 40, 0.07);
+}
+
+.app-shell .scorecard-trust-item {
+  padding-left: 12px;
+  border-left: 2px solid rgba(159, 45, 45, 0.34);
 }
 
 .app-shell .dashboard-tabs-wrap {
@@ -99,8 +175,8 @@
 
 .app-shell .dashboard-tab[aria-current="page"] {
   color: #fff !important;
-  background: var(--app-accent) !important;
-  box-shadow: 0 4px 12px rgba(35, 78, 63, 0.22);
+  background: linear-gradient(135deg, var(--app-accent), #183553) !important;
+  box-shadow: 0 4px 14px rgba(24, 53, 83, 0.24);
 }
 
 .app-shell-view {
@@ -127,6 +203,107 @@
 .app-shell .app-promise-tracker,
 .app-shell .dashboard-footer {
   box-shadow: 0 1px 2px rgba(32, 52, 44, 0.03);
+}
+
+.app-shell .scoreboard-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border: 1px solid rgba(207, 216, 209, 0.96) !important;
+  border-radius: 18px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(248, 250, 247, 0.94)) !important;
+  box-shadow: 0 14px 36px rgba(31, 45, 40, 0.08) !important;
+  transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
+}
+
+.app-shell .scoreboard-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--app-maple), var(--app-gold), var(--app-accent));
+  opacity: 0.82;
+  z-index: 0;
+}
+
+.app-shell .scoreboard-card::after {
+  content: "";
+  position: absolute;
+  right: -44px;
+  bottom: -54px;
+  width: 128px;
+  height: 128px;
+  border: 18px solid rgba(35, 78, 63, 0.055);
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.app-shell .scoreboard-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.app-shell .scoreboard-card-title {
+  color: var(--app-blue-ink) !important;
+}
+
+.app-shell .scoreboard-card-subtitle {
+  color: var(--app-muted) !important;
+}
+
+.app-shell .scoreboard-card-promises::before {
+  background: linear-gradient(90deg, var(--app-maple), #c16f28, var(--app-gold));
+}
+
+.app-shell .scoreboard-card-approval::before {
+  background: linear-gradient(90deg, #315d7d, var(--app-accent), #69836d);
+}
+
+.app-shell .scoreboard-card-approval {
+  border-style: dashed !important;
+  border-color: color-mix(in srgb, var(--app-blue-ink) 42%, var(--app-line)) !important;
+}
+
+@media (hover: hover) {
+  .app-shell .scoreboard-card:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 44px rgba(31, 45, 40, 0.12) !important;
+  }
+}
+
+.app-shell .dimension-card-root:not(.dim-focused-detail-root) {
+  border-radius: 16px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(249, 250, 247, 0.96)) !important;
+  box-shadow: 0 7px 20px rgba(31, 45, 40, 0.055) !important;
+}
+
+.app-shell .dimension-card-root:not(.dim-focused-detail-root)::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  border-radius: 16px 0 0 16px;
+  background: linear-gradient(180deg, rgba(159, 45, 45, 0.62), rgba(35, 78, 63, 0.42));
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.app-shell .dashboard-status {
+  border-color: rgba(195, 205, 197, 0.95);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(159, 45, 45, 0.08), rgba(24, 53, 83, 0.05) 46%, rgba(35, 78, 63, 0.08)),
+    rgba(255, 255, 255, 0.88);
+  box-shadow: 0 14px 38px rgba(31, 45, 40, 0.08);
+}
+
+.app-shell .dashboard-status-row,
+.app-shell .dashboard-status-next-item {
+  border-color: rgba(207, 216, 209, 0.9);
+  background: rgba(255, 255, 255, 0.74);
 }
 
 .app-bottom-nav {
@@ -374,8 +551,25 @@
   }
 
   .app-shell .dashboard-header {
-    padding: 24px 16px !important;
-    border-radius: 14px;
+    padding: 26px 18px !important;
+    border-radius: 20px;
+  }
+
+  .app-shell .dashboard-header::before {
+    width: 5px;
+  }
+
+  .app-shell .dashboard-header::after {
+    right: -96px;
+    bottom: -110px;
+  }
+
+  .app-shell .scorecard-trust-frame {
+    padding: 14px !important;
+  }
+
+  .app-shell .scorecard-trust-item {
+    padding-left: 10px;
   }
 
   .app-shell .dashboard-tabs-wrap {
@@ -389,10 +583,11 @@
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 3px;
-    padding: 7px 8px calc(7px + env(safe-area-inset-bottom, 0px));
-    border-top: 1px solid #cfd8d1;
-    background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 -8px 24px rgba(32, 52, 44, 0.1);
+    padding: 8px 10px calc(8px + env(safe-area-inset-bottom, 0px));
+    border-top: 1px solid rgba(188, 202, 193, 0.92);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(246, 249, 246, 0.96));
+    box-shadow: 0 -10px 30px rgba(31, 45, 40, 0.14);
     backdrop-filter: blur(14px);
     animation: app-bottom-nav-in 140ms ease-out;
   }
@@ -435,7 +630,8 @@
 
   .app-bottom-nav button[aria-current="page"] {
     color: #fff;
-    background: var(--app-accent);
+    background: linear-gradient(135deg, var(--app-maple), var(--app-accent));
+    box-shadow: 0 5px 14px rgba(31, 45, 40, 0.18);
   }
 
   .app-promise-hero,
@@ -515,7 +711,8 @@
   }
 
   .app-shell .dashboard-tab:active,
-  .app-bottom-nav button:active {
+  .app-bottom-nav button:active,
+  .app-shell .scoreboard-card:hover {
     transform: none !important;
   }
 }

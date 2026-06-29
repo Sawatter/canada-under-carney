@@ -690,6 +690,7 @@ export default function Dashboard() {
 
       {/* One-line orientation, above the trust frame: what this does, plainly. */}
       <p
+        className="dashboard-orientation"
         style={{
           textAlign: "center",
           fontSize: "16px",
@@ -708,6 +709,7 @@ export default function Dashboard() {
           which tab they land on. Earlier it was scoped to the Scorecard tab
           only; moving it up makes the framing tab-agnostic. */}
       <div
+        className="scorecard-trust-wrap"
         style={{
           maxWidth: "820px",
           margin: "0 auto 20px",

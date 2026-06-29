@@ -1626,6 +1626,10 @@ button.text-link-button {
    The outer card root is given position:relative so the overlay uses its
    stacking context. */
 @media (max-width: 767px) {
+  .dimension-card-root:has(.dim-drawer) {
+    transform: none !important;
+  }
+
   .dim-drawer {
     position: fixed;
     inset: 0;
@@ -2462,6 +2466,71 @@ a:hover { text-decoration: underline; }
 [data-theme="dark"] .dim-rule-table th,
 [data-theme="dark"] .dim-cohort-table th,
 [data-theme="dark"] .dim-source-table th { background: var(--surface-sunken); }
+
+[data-theme="dark"] .app-shell {
+  --app-ink: var(--text-primary);
+  --app-muted: var(--text-secondary);
+  --app-line: var(--border-subtle);
+  --app-paper: var(--surface-card);
+  --app-surface: var(--surface-sunken);
+  --app-accent: #6fb18f;
+  --app-accent-soft: #17241d;
+  --app-maple: #f07a72;
+  --app-maple-soft: #2a1716;
+  --app-gold: #d7ac58;
+  --app-blue-ink: #8fb3d6;
+  background:
+    radial-gradient(circle at 8% -6%, rgba(240, 122, 114, 0.11), transparent 22rem),
+    radial-gradient(circle at 92% 0%, rgba(143, 179, 214, 0.12), transparent 24rem),
+    linear-gradient(180deg, var(--surface-page) 0%, #0f1714 100%) !important;
+}
+
+[data-theme="dark"] .app-shell .dashboard-header {
+  border-color: var(--border-subtle);
+  background:
+    linear-gradient(120deg, rgba(28, 38, 34, 0.96), rgba(18, 31, 25, 0.94) 58%, rgba(40, 25, 23, 0.88)),
+    repeating-linear-gradient(135deg, transparent 0 18px, rgba(255, 255, 255, 0.035) 18px 19px);
+  box-shadow: var(--shadow-modal);
+}
+
+[data-theme="dark"] .app-shell .dashboard-kicker,
+[data-theme="dark"] .app-shell .scorecard-trust-frame,
+[data-theme="dark"] .app-shell .scoreboard-card,
+[data-theme="dark"] .app-shell .dashboard-status,
+[data-theme="dark"] .app-shell .dashboard-status-row,
+[data-theme="dark"] .app-shell .dashboard-status-next-item {
+  border-color: var(--border-subtle) !important;
+  background-color: var(--surface-card) !important;
+}
+
+[data-theme="dark"] .app-shell .scorecard-trust-frame {
+  background:
+    linear-gradient(180deg, rgba(23, 33, 29, 0.9), rgba(18, 27, 23, 0.86)) !important;
+}
+
+[data-theme="dark"] .app-shell .scoreboard-card,
+[data-theme="dark"] .app-shell .dimension-card-root:not(.dim-focused-detail-root) {
+  background:
+    linear-gradient(180deg, rgba(24, 34, 30, 0.98), rgba(19, 29, 25, 0.96)) !important;
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.24) !important;
+}
+
+[data-theme="dark"] .app-shell .dashboard-status {
+  background:
+    linear-gradient(135deg, rgba(240, 122, 114, 0.08), rgba(143, 179, 214, 0.06), rgba(111, 177, 143, 0.08)),
+    var(--surface-card) !important;
+}
+
+[data-theme="dark"] .app-bottom-nav {
+  border-color: var(--border-subtle);
+  background:
+    linear-gradient(180deg, rgba(27, 37, 33, 0.98), rgba(16, 24, 21, 0.98));
+  box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.32);
+}
+
+[data-theme="dark"] .app-bottom-nav button {
+  color: var(--text-muted);
+}
 
 /* Drawer pills / chips (bright light pills -> muted dark tints). */
 [data-theme="dark"] .dim-tracker-pill { background: #2a2616; border-color: #4c4733; color: var(--accent-tracker); }
