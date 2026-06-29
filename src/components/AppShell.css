@@ -25,7 +25,7 @@
   isolation: isolate;
   overflow: hidden;
   margin-bottom: 20px !important;
-  padding: clamp(24px, 4vw, 44px);
+  padding: 76px clamp(24px, 4vw, 44px) clamp(24px, 4vw, 44px);
   border: 1px solid rgba(152, 172, 160, 0.9);
   border-radius: 24px;
   background:

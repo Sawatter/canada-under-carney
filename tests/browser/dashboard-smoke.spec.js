@@ -63,6 +63,41 @@ async function expectVisibleVersion(page) {
   await expect(page.getByText(`v${meta.version}`, { exact: false })).toBeVisible();
 }
 
+async function expectHeaderBadgeClear(page) {
+  await expect.poll(async () => page.evaluate(() => {
+    const rectOf = (selector) => {
+      const node = document.querySelector(selector);
+      if (!node) return null;
+      const rect = node.getBoundingClientRect();
+      return {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+      };
+    };
+    const header = rectOf(".dashboard-header");
+    const toggle = rectOf(".theme-toggle");
+    const kicker = rectOf(".dashboard-kicker");
+    const title = rectOf(".dashboard-title");
+    const kickerNode = document.querySelector(".dashboard-kicker");
+    if (!header || !toggle || !kicker || !title || !kickerNode) return false;
+    const before = getComputedStyle(kickerNode, "::before");
+    return (
+      getComputedStyle(document.querySelector(".theme-toggle")).position === "absolute"
+      && kicker.top >= toggle.bottom + 8
+      && kicker.left >= header.left
+      && kicker.right <= header.right
+      && title.top >= kicker.bottom + 6
+      && Number.parseFloat(before.width) >= 28
+      && Number.parseFloat(before.flexBasis) >= 28
+      && before.backgroundImage.includes("radial-gradient")
+    );
+  })).toBe(true);
+}
+
 async function expectActiveNav(page, label) {
   await expect.poll(async () => page.locator('[aria-current="page"]').evaluateAll((nodes) => (
     nodes.map((node) => node.textContent?.trim()).filter(Boolean)
@@ -92,6 +127,9 @@ test.describe("dashboard route matrix", () => {
           has: page.locator("dt", { hasText: "Grade moves this release" }),
         }).locator("dd")).toHaveText(currentGradeMoves.length === 0 ? "None" : String(currentGradeMoves.length));
         await expect(page.getByText("Housing disbursement watch", { exact: true })).toBeVisible();
+        if (key === "scorecard") {
+          await expectHeaderBadgeClear(page);
+        }
         await expectActiveNav(page, label);
         await expectNoOverflow(page);
 

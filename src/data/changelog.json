@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-29",
+    "version": "5.147",
+    "summary": "Fixed the header badge spacing across desktop and mobile.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Header badge spacing fix",
+        "body": "The Performance Dashboard badge now sits below the theme button on all screen sizes, not just phones, and the browser smoke test checks the badge geometry so the collision cannot slip through again. Scores, grades, thresholds, source data, and evidence wording are unchanged."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-29",
     "version": "5.146",
     "summary": "Fixed the mobile header badge layout after the civic identity pass.",
     "items": [
