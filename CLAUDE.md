@@ -150,6 +150,7 @@ These rules are action checks, not vibes. If a future agent cannot produce the c
 - Before asking another agent to review a diff, commit or stash unrelated work so the reviewer sees a coherent state. If the review must run on a dirty tree, name the dirty files and which ones are in scope.
 - Start review passes by confirming the current branch, `HEAD`, `meta.json` version, and whether the live site is expected to match that version.
 - Codex can plan, read, patch, and run deterministic checks. It cannot be the final verifier for browser-only UI behavior unless it has working browser access in that session. A browser-capable agent or human must verify scroll, focus, responsive layout, and interactive states.
+- Claude bridge reviews from Codex must use `bash scripts/claude-bridge.sh -f <prompt-file>` or a piped prompt. Never run bare `claude`: it opens an interactive session and can hang in non-interactive Codex shells. The wrapper runs headless, read-only, and self-times-out. Exit 0 means the review is on stdout; any non-zero exit, especially 124, means no review was produced and must be reported rather than treated as approval.
 
 **Before any `git push`:**
 - Run `git diff --cached --check`.
