@@ -1626,6 +1626,11 @@ button.text-link-button {
    The outer card root is given position:relative so the overlay uses its
    stacking context. */
 @media (max-width: 767px) {
+  .app-shell-view:has(.dim-drawer) {
+    animation: none !important;
+    transform: none !important;
+  }
+
   .dimension-card-root:has(.dim-drawer) {
     transform: none !important;
   }

@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-06-29",
+    "version": "5.145",
+    "summary": "Fixed the mobile dimension drawer containment after the identity pass.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Mobile drawer containment fix",
+        "body": "Mobile dimension drawers now drop the app-shell route-transition transform while open, so the drawer stays tied to the viewport instead of inheriting the height of the scorecard page. Scores, grades, thresholds, source data, routes, and evidence wording are unchanged."
+      }
+    ]
+  },
+  {
+    "date": "2026-06-29",
     "version": "5.144",
     "summary": "Gave the app shell a calmer civic identity pass without changing any scores.",
     "items": [
