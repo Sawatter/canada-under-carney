@@ -44,6 +44,13 @@ const cardScoreCaption = {
   fontWeight: 600,
 };
 
+const cardScoreNote = {
+  fontSize: "12px",
+  color: "#666",
+  marginTop: "6px",
+  lineHeight: 1.35,
+};
+
 const derivationToggleBase = {
   fontSize: "13px",
   color: "#1565c0",
@@ -112,6 +119,7 @@ export default function ScoreboardHeader({
           <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <GradeChip grade={pocketbookGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {pocketbookGPA}</div>
+            <div style={cardScoreNote}>Depends on weighting choices. Score math is below.</div>
           </div>
           {onToggleDerivation && (
             <div className="scoreboard-card-footer">
@@ -142,6 +150,7 @@ export default function ScoreboardHeader({
           <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
             <GradeChip grade={overallGrade} size="lg" />
             <div style={cardScoreCaption}>Score: {overallGPA}</div>
+            <div style={cardScoreNote}>Depends on weighting choices. Score math is below.</div>
           </div>
           {onToggleDerivation && (
             <div className="scoreboard-card-footer">

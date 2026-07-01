@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-06-30",
+    "version": "5.148",
+    "summary": "Made the score weighting caveat and two methodology cleanup items visible without changing any grades.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Composite score caveat and affordability inspectability",
+        "body": "The Household Impact and Full Policy Audit cards now say that their averages depend on weighting choices and point readers to the score math below. Affordability Response also now shows a bounded why-not-higher and why-not-lower explanation inside the drawer. No grades, thresholds, or GPA formulas changed."
+      },
+      {
+        "type": "method",
+        "headline": "Defence and Flagship rules reconciled",
+        "body": "Defence & Trade now uses one canonical split-tripwire across the live data and methodology docs: opposite sub-score movement or a gap above 1.0 GPA points for two consecutive monthly review cycles queues the split. Flagship Delivery's probation now has an explicit July 2026 exit test instead of open-ended rollover."
+      },
+      {
+        "type": "docs",
+        "headline": "Review follow-through docs added",
+        "body": "Added a practical Comet execution list and a continuity quickstart so the June 30 review stack turns into an actionable work queue instead of living only in pasted notes."
+      }
+    ]
+  },
+  {
     "date": "2026-06-29",
     "version": "5.147",
     "summary": "Fixed the header badge spacing across desktop and mobile.",

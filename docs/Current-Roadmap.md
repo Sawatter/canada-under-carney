@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-06-28
+**Last updated:** 2026-06-30
 
 ---
 
@@ -155,14 +155,14 @@ These are on deck awaiting their triggers.
    When the rater sends worksheets back, compare their grades against the frozen packet snapshot and classify each mismatch as rubric clarity, source ambiguity, arithmetic/application error, or genuine disagreement. Do not revise the packet mid-run unless the rater has not started and the editor explicitly resends it.
 
 3. July 1 monthly cycle
-   The next full cycle remains 2026-07-01 (`meta.json`). Pick up the Defence split-shadow clock, the Flagship probation call, monthly freshness pulls, and any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
+   The next full cycle remains 2026-07-01 (`meta.json`). Pick up the Defence split-shadow clock, apply the Flagship probation exit test, run the monthly freshness pulls, and check any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
 
 ---
 ## Later
 
 These are valid, but not active now.
 
-1. Decide whether Flagship Delivery stays on probation after one real cycle.
+1. Apply the Flagship Delivery probation exit test after its first full monthly review cycle. If any required check fails, demote it in v2 instead of extending probation.
 2. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
 3. Watch the first few Pages deploys with the browser-smoke CI gate for flake or runtime cost.
 
@@ -174,7 +174,7 @@ Do not reopen these unless a later audit forces it.
 
 - Full rubric rewrite
 - v2 architecture redesign
-- Defence & Trade full split
+- Defence & Trade full split unless the canonical tripwire fires: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version
 - Carbon Pricing / Climate merge
 - Promise Delivery redesign
 - New governance/process docs unless they solve a concrete active problem

@@ -76,7 +76,7 @@ The sub-score test was promoted before the May 2026 cycle. Defence & Trade remai
 - The headline grade is still the GPA entry for Defence & Trade
 - Sub-scores explain the headline but do not independently contribute to aggregate-score math
 - The combination rule: headline = average of sub-score GPAs, rounded to nearest standard grade
-- If the defence and trade sub-scores move in opposite directions, or diverge by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, promote the split shadow into live separate files
+- If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version
 
 ### Current monthly workflow
 

@@ -219,9 +219,15 @@
 
 **Deconfliction rule:** Per Combination Rule and Deconfliction Matrix. Evidence from flagship files appears here as DELIVERY indicators (did the government execute?), not OUTCOME indicators (is the policy good?). The test: "Would this metric still matter if the policy direction were reversed?" If yes, it belongs in Flagship Delivery. If no, it belongs in the home dimension.
 
-**Rater note:** This dimension is on probation. If the Combination Rule produces a grade that contradicts the home dimension grades or creates more confusion than clarity, it should be demoted in v2. Grade delivery capacity, not policy quality. The government can deliver bad policy efficiently (that scores well here) or fail to deliver good policy (that scores poorly here).
+**Rater note:** This dimension is on probation. Grade delivery capacity, not policy quality. The government can deliver bad policy efficiently (that scores well here) or fail to deliver good policy (that scores poorly here). The probation question is now explicit: does the mechanical Combination Rule add a real cross-file execution read, or is this just an echo of the five home dimensions?
 
-**Probation condition:** Must prove value through one real cycle using the Combination Rule mechanically. If it passes, keep. If it fails, demote in v2.
+**Probation exit test:** Run one full monthly review cycle with the Combination Rule frozen at cycle start. Flagship Delivery exits probation only if all four checks pass in the cycle closeout:
+1. The published Combination Rule produces the grade mechanically, with no ad hoc override, status-category rewrite, or mid-cycle table change.
+2. The resulting direction does not contradict the underlying file-status movement. Flagship cannot upgrade if the only status-category changes across the five flagship files are net negative, and cannot downgrade if the only status-category changes are net positive.
+3. The cycle yields at least one cross-file execution insight spanning two or more flagship files that is not already obvious from any single home-dimension card.
+4. No unresolved deconfliction breach is found. No metric can do double duty as both primary outcome evidence in a home dimension and independent grade-moving outcome evidence here.
+
+If any check fails, probation ends by demoting the dimension in v2 rather than extending probation.
 
 ---
 
@@ -572,7 +578,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 **Deconfliction rule:** Defence is clean — nothing else grades it. Trade diversification partially overlaps with Economic Policy Response (interprovincial trade, Buy Canadian). Trade metrics are primary-homed HERE. Economic Policy Response may reference trade context but cannot grade-credit export diversification.
 
-**Rater note:** Defence is the anchor. Trade is the modifier. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch the live tripwire: if one sub-score rises while the other falls, or the gap between them widens by one full notch, for two consecutive monthly review cycles, promote the split shadow into live separate files.
+**Rater note:** Defence is the anchor. Trade is the modifier. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch the live tripwire: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version.
 
 **v2 status:** Sub-scores are implemented. Keep combined unless the split-promotion tripwire fires.
 

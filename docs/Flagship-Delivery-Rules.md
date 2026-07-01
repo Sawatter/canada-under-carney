@@ -95,12 +95,13 @@ Flagship Delivery uses evidence from the 5 flagship files but does NOT duplicate
 
 ## Probationary Status
 
-Flagship Delivery is on **probation** through the May 2026 cycle. It will be retained if:
-1. The combination rule produces grades that do not contradict the individual dimension grades
-2. The deconfliction matrix successfully prevents double-counting
-3. The dimension adds analytical value beyond what the individual dimensions already capture
+Flagship Delivery stays on **probation** until it clears one full monthly review cycle with the Combination Rule frozen at cycle start. It exits probation only if all four checks pass in the cycle closeout:
+1. The published Combination Rule produces the grade mechanically, with no ad hoc override, status-category rewrite, or mid-cycle table change.
+2. The resulting direction does not contradict the underlying file-status movement. Flagship cannot upgrade if the only status-category changes across the five flagship files are net negative, and cannot downgrade if the only status-category changes are net positive.
+3. The cycle yields at least one cross-file execution insight spanning two or more flagship files that is not already obvious from any single home-dimension card.
+4. The deconfliction matrix holds with no unresolved breach. No metric can do double duty as both primary outcome evidence in a home dimension and independent grade-moving outcome evidence in Flagship Delivery.
 
-If any of these conditions fail, Flagship Delivery becomes the leading candidate for removal in v2.0.
+If any check fails, probation does not roll forward. Flagship Delivery is demoted in v2.0 rather than kept in open-ended limbo.
 
 ---
 

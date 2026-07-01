@@ -6,9 +6,9 @@
     "grade": "A-",
     "previousGrade": null,
     "trend": "stable",
-    "status": "NATO's 2% target was met, at 2.01%. Trade is measurably more diversified. The U.S. share of Canadian exports fell from 75.9% to 71.7%.",
-    "judgmentCall": "The high grade rests on defence delivery. The trade gains get partial credit, because some of the improvement came from market forces rather than federal policy.",
-    "judgmentDetail": "The A- is not an endorsement of everything here. Defence spending meets the NATO 2% target, and trade diversification helps the grade. The editor's judgment enters in two ways. First, the trade gain gets only partial credit because the U.S. trade shock itself drove some of the diversification. Second, the grade stops short of an A even though the 3.5% defence-spending path is now funded (Budget 2025, $81.8B over five years). A condition the editor set in advance for raising the defence side was met in the June 2026 review, so that is no longer a reason to hold back. But the grade stayed at A- for two other reasons, and because the trade side is mixed: diversification improved while Canada's overall goods deficit grew to $31.3B in 2025, the largest since 2020. A watch is on for next cycle. Defence is getting stronger while the trade balance is getting worse. This has been recorded as the first cycle of divergence. If that split continues next cycle, the editor will separate this dimension into two grades, one for defence and one for trade.",
+    "status": "NATO's 2% target was met, at 2.01%. Trade is measurably more diversified. The U.S. share of Canadian exports fell from 75.9% to 71.7%. The headline grade is driven mainly by the defence side, with trade tracked separately in the sub-scores below.",
+    "judgmentCall": "The high grade rests mainly on defence delivery. The trade gains get partial credit, because some of the improvement came from market forces rather than federal policy.",
+    "judgmentDetail": "The A- is not an endorsement of everything here. Defence spending meets the NATO 2% target, and trade diversification helps the grade. The editor's judgment enters in two ways. First, the trade gain gets only partial credit because the U.S. trade shock itself drove some of the diversification. Second, the grade stops short of an A even though the 3.5% defence-spending path is now funded (Budget 2025, $81.8B over five years). A condition the editor set in advance for raising the defence side was met in the June 2026 review, so that is no longer a reason to hold back. But the grade stayed at A- for two other reasons, and because the trade side is mixed: diversification improved while Canada's overall goods deficit grew to $31.3B in 2025, the largest since 2020. Defence is carrying most of the headline. Trade is tracked separately in the sub-scores below. This review records the first cycle of divergence. If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one letter grade), for two consecutive monthly review cycles, the file splits into separate defence and trade grades.",
     "surfaceTags": [
       "Has sub-scores",
       "Trade partly driven by market forces"
@@ -54,7 +54,7 @@
         "Confirm defence spending from NATO or equivalent official tables, not from domestic political claims alone.",
         "Use annual trade-share movement rather than single-month export volatility when judging diversification.",
         "The defence sub-score anchors the file; trade modifies the headline and should not hide a widening divergence between the two.",
-        "If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one letter grade), for two reviews in a row, the editor will split them into two separate dimensions."
+        "If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one letter grade), for two consecutive monthly review cycles, the editor will split them into two separate dimensions."
       ]
     },
     "gradeTriggers": {
@@ -138,7 +138,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-21",
+    "lastUpdated": "2026-06-30",
     "metrics": [
       {
         "label": "NATO spending (2025e)",
@@ -1589,6 +1589,8 @@
     "judgmentCall": "The low grade compares federal relief to the measured rise in household costs. It is not a judgment on world prices.",
     "judgmentDetail": "The D- grade rates how well federal action measures up against documented cost increases. The editor's judgment comes in three places. First, matching the size of the relief to the yearly cost burden it is meant to ease. Second, counting voluntary grocery measures as weaker than ones the government can enforce. Third, separating Ottawa's policy response from world price spikes that Ottawa does not fully control.",
     "construct": "How well the federal response measures up against rising household costs from groceries, tariffs (taxes on imported goods), and relief aimed at specific groups.",
+    "whyNotHigher": "At C, relief would cover 20% to 40% of the cost increase. The current estimate is about 15%.",
+    "whyNotLower": "At F, there would be no material federal relief or competition response. The Grocery Benefit and Grocery Code exist, even if they are weak.",
     "gradeBasis": {
       "band": "D",
       "bandCriterion": "Federal relief covers less than 20% of the estimated yearly cost increase.",
@@ -1769,7 +1771,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-05",
+    "lastUpdated": "2026-06-30",
     "metrics": [
       {
         "label": "Food CPI (stores, YoY, Apr 2026)",
@@ -3375,7 +3377,7 @@
     "trend": "down",
     "status": "Defence and immigration are clearly getting done. Housing, major projects, and climate are stalled, meaning no measurable progress yet or progress has stopped after initial action.",
     "judgmentCall": "The middle grade comes from counting how the five flagship areas split across delivery statuses. It is not a fresh opinion on whether each policy is good.",
-    "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivered, partial, stalled, or deteriorating. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies.",
+    "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivered, partial, stalled, or deteriorating. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies. It stays on probation only if the rule runs cleanly through a real cycle, does not contradict the file-status movement underneath it, adds a cross-file execution read beyond any one home card, and clears deconfliction.",
     "surfaceTags": [
       "On probation",
       "Combination rule"
@@ -3517,9 +3519,9 @@
         "Each flagship area's status should be taken from its own home dimension, not re-argued from scratch in this grade.",
         "This is not the math average of the five home grades. It is a rule based on how the five areas split across delivery statuses.",
         "The grade only moves if at least one flagship area changes its status category.",
-        "This stays a probationary dimension through the May 2026 cycle, meaning it is on trial. It earns its place only if it shows something the home dimensions do not already show."
+        "Probation ends after the July 2026 cycle. Keep this dimension only if the Combination Rule runs unchanged, does not contradict the underlying file-status movement, yields at least one cross-file execution insight beyond any single home card, and clears deconfliction."
       ],
-      "modifierExpiry": "Probation remains active through the May 2026 cycle. If the Combination Rule adds little beyond the home dimensions, this dimension can still be removed in v2."
+      "modifierExpiry": "Probation remains active through the July 2026 cycle. If the rule needs an ad hoc override, contradicts the underlying file-status movement, adds no cross-file execution insight, or fails deconfliction, remove this dimension in v2 instead of extending probation."
     },
     "gradeTriggers": {
       "up": [
@@ -3580,7 +3582,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-04-30",
+    "lastUpdated": "2026-06-30",
     "metrics": [
       {
         "label": "Flagship files delivering",

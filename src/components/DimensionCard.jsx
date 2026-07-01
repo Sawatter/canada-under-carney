@@ -669,7 +669,15 @@ export default function DimensionCard({
     });
   }
   const hasRuleSection = !!(dim.construct || scoring || scoringMetadata.length > 0);
-  const hasWhySection = !!(dim.gradeBasis || dim.rationale || dim.judgmentDetail || modifierItems.length > 0 || isTracker);
+  const hasWhySection = !!(
+    dim.gradeBasis
+    || dim.rationale
+    || dim.judgmentDetail
+    || dim.whyNotHigher
+    || dim.whyNotLower
+    || modifierItems.length > 0
+    || isTracker
+  );
   const hasSubScores = !isTracker && !!dim.subScores;
   const hasProjects = !!(cohort && cohort.projects && cohort.projects.length > 0);
   const hasPromises = !!(dim.promises && dim.promises.length > 0);
@@ -2042,6 +2050,12 @@ export default function DimensionCard({
                   )}
                   {dim.gradeBasis?.band && (
                     <p><strong>{dim.gradeBasis.band}</strong> band means: {dim.gradeBasis.bandCriterion}</p>
+                  )}
+                  {dim.whyNotHigher && (
+                    <p><strong>Why not higher:</strong> {dim.whyNotHigher}</p>
+                  )}
+                  {dim.whyNotLower && (
+                    <p><strong>Why not lower:</strong> {dim.whyNotLower}</p>
                   )}
                   {subScoreSummary && (
                     <p className="dim-subscore-summary"><strong>Sub-scores:</strong> {subScoreSummary}</p>

@@ -74,7 +74,7 @@ If these five constructs produce stable, defensible shadow scores through one re
 - Remains on probation.
 - The Combination Rule (5-file mechanical scoring) continues to produce its v1 grade.
 - Does NOT receive independent tri-lens scoring. The Combination Rule already functions as a synthetic execution lens.
-- If Flagship Delivery passes probation after the May 2026 cycle, its relationship to v2 can be reassessed. That decision is parked in Open-Design-Decisions.md.
+- If Flagship Delivery clears its July 2026 probation exit test, its relationship to v2 can be reassessed. If it fails that test, demote it in v2 instead of extending probation.
 
 ### Promise Delivery
 

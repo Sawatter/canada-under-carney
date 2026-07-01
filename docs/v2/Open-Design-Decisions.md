@@ -177,7 +177,7 @@
 **Scenario B — Flagship retains independent value.** If the Combination Rule captures something the individual Execution lenses miss (cross-cutting delivery capacity, patterns across files), Flagship retains value as a synthetic indicator.
 - Action: Keep Flagship Delivery in v1 but do not give it tri-lens treatment. It remains a bounded whole-letter grade.
 
-**Current status:** Deferred until Flagship Delivery's probation test in the May 2026 cycle. If the Combination Rule contradicts individual dimension grades, Scenario A is likely. If it adds independent insight, Scenario B is likely.
+**Current status:** Deferred until Flagship Delivery's July 2026 probation exit test. If the Combination Rule cannot run unchanged, contradicts the file-status movement underneath it, adds no cross-file execution insight, or fails deconfliction, Scenario A is likely. If it clears those checks and adds independent insight, Scenario B is likely.
 
 ---
 

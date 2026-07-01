@@ -134,11 +134,11 @@ The counter-argument is that sub-scoring is a half-measure. It makes the dual-co
 
 ### Response to the counter-argument
 
-True, but the alternative (full split) breaks the historical series and adds complexity. The sub-scoring approach makes the compromise explicit. If a future cycle shows the sub-scores diverging by more than one full letter grade, that should trigger a formal review of whether the split is now warranted. The sub-scoring is the monitoring mechanism for the decision to split later.
+True, but the alternative (full split) breaks the historical series and adds complexity. The sub-scoring approach makes the compromise explicit. The live gate is now tighter and fully specified: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version. The sub-scoring is the monitoring mechanism for that escalation decision.
 
 ### Timing
 
-**Implement sub-scoring in the next cycle (May 2026).** This requires only a data model change (add `subScores` to the Defence & Trade dimension in dimensions.json) and a display change in the expanded card. No structural dashboard change. No GPA calculation change. Shadow-test a full split alongside for one cycle. If the sub-scores move in opposite directions, or diverge by more than 1.0 GPA points, promote the full split to v2.
+**Implement sub-scoring in the next cycle (May 2026).** This requires only a data model change (add `subScores` to the Defence & Trade dimension in dimensions.json) and a display change in the expanded card. No structural dashboard change. No GPA calculation change. Shadow-test a full split alongside for one cycle. If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version.
 
 ---
 
@@ -146,7 +146,7 @@ True, but the alternative (full split) breaks the historical series and adds com
 
 The sub-scoring approach includes a built-in decision gate:
 
-**If the defence and trade sub-scores move in opposite directions, or diverge by more than 1.0 GPA points (approximately one full letter grade), for two consecutive monthly cycles, the dimension is automatically queued for a full split in the next version.** (Updated 2026-06: the opposite-direction clause was added so the canonical gate matches the live guardrail in dimensions.json.)
+**If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version.** (Updated 2026-06: the opposite-direction clause was added so the canonical gate matches the live guardrail in dimensions.json.)
 
 This means the sub-scoring is not a permanent compromise — it is a monitoring mechanism with a defined trigger for escalation.
 
