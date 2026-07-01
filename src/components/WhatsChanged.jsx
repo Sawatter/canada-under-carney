@@ -368,9 +368,9 @@ export default function WhatsChanged({ changelog }) {
         style={{
           marginTop: "16px",
           paddingTop: "12px",
-          borderTop: "1px solid #f0f0f0",
+          borderTop: "1px solid var(--border-subtle)",
           fontSize: "13px",
-          color: "#555",
+          color: "var(--text-secondary)",
           lineHeight: 1.5,
         }}
       >
@@ -379,7 +379,7 @@ export default function WhatsChanged({ changelog }) {
           href="https://github.com/Sawatter/canada-under-carney/blob/main/src/data/changelog.json"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#1565c0", fontWeight: 700 }}
+          style={{ color: "var(--accent)", fontWeight: 700 }}
         >
           full changelog on GitHub &rarr;
         </a>
