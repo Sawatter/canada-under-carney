@@ -10,6 +10,8 @@
     "test:app-shell": "node scripts/test-app-shell.mjs",
     "test:browser": "playwright test",
     "test:monitor": "python3 scripts/test_monitor_sources.py && python3 scripts/validate_workflow_yaml.py",
+    "audit:live": "node scripts/audit-live-dashboard-coverage.mjs",
+    "review:evidence": "node scripts/generate-review-evidence.mjs",
     "source:ledger": "node scripts/generate-source-ledger.mjs",
     "monitor:registry": "python3 scripts/monitor_sources.py --rebuild-registry",
     "monitor:dryrun": "python3 scripts/monitor_sources.py --dry-run --out-suffix=-dryrun --fetch-results scripts/fixtures/fetch-results-sample.json",

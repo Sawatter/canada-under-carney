@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-07-01",
+    "version": "5.149",
+    "summary": "Added a visible full-changelog link after the live coverage audit found older history was not reachable from the Changes tab.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Full changelog link",
+        "body": "The Changes tab now links to the full changelog file on GitHub so readers can reach older update history from the live dashboard. No grades, thresholds, formulas, source data, promise statuses, or methodology rules changed."
+      }
+    ]
+  },
+  {
     "date": "2026-06-30",
     "version": "5.148",
     "summary": "Made the score weighting caveat and two methodology cleanup items visible without changing any grades.",

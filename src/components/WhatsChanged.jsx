@@ -363,6 +363,27 @@ export default function WhatsChanged({ changelog }) {
           No items match that filter for this update.
         </div>
       )}
+
+      <div
+        style={{
+          marginTop: "16px",
+          paddingTop: "12px",
+          borderTop: "1px solid #f0f0f0",
+          fontSize: "13px",
+          color: "#555",
+          lineHeight: 1.5,
+        }}
+      >
+        Older entries live in the{" "}
+        <a
+          href="https://github.com/Sawatter/canada-under-carney/blob/main/src/data/changelog.json"
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ color: "#1565c0", fontWeight: 700 }}
+        >
+          full changelog on GitHub &rarr;
+        </a>
+      </div>
     </div>
   );
 }

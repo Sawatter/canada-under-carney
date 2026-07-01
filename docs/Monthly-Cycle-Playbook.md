@@ -96,6 +96,7 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] One commit per logical concern or one bundled cycle commit — your choice, but keep changelog + meta + dimensions together in a single commit so a reader looking at `git log` sees the whole cycle as one movement.
 - [ ] Push to `main` after editor-approved data, source, and grade decisions are reflected. The deploy workflow fires automatically.
 - [ ] Watch the Pages deploy — ~30 seconds. Live URL should reflect the update within a minute.
+- [ ] Confirm the live header version matches `src/data/meta.json` before trusting live-tab, bundle, evidence-pack, or `audit:live` findings.
 
 ### 9. Final live desktop/mobile sanity pass
 
@@ -115,6 +116,7 @@ Check both desktop and mobile widths:
 - [ ] About / Methodology: scoring-boundary and model-limit language is readable on mobile.
 - [ ] Change Log: newest entry appears first and is legible on mobile.
 - [ ] No horizontal page-level scroll appears except inside intentional scroll containers like the project pipeline table.
+- [ ] Run `npm run audit:live` after the Pages deploy and version match. Review `tmp/live-coverage-audit/<stamp>/report.md`; treat failures as release-review evidence, not automatic pre-deploy blockers. The post-deploy GitHub Action also runs this check and saves the report as an artifact.
 
 If any item fails, fix it before treating the cycle as shipped.
 
