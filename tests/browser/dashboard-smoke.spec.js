@@ -25,6 +25,22 @@ const viewports = [
 ];
 
 test.beforeEach(async ({ page }) => {
+  const analyticsStub = async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "application/javascript",
+      body: "/* goatcounter stub for deterministic browser smoke */",
+    });
+  };
+  await page.route("http://gc.zgo.at/**", analyticsStub);
+  await page.route("https://gc.zgo.at/**", analyticsStub);
+  await page.route("https://fonts.googleapis.com/**", async (route) => {
+    await route.fulfill({
+      status: 200,
+      contentType: "text/css",
+      body: "/* font stub for deterministic browser smoke */",
+    });
+  });
   await page.route("https://carneydashboard.goatcounter.com/**", async (route) => {
     await route.fulfill({
       status: 200,
