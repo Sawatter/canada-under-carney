@@ -80,19 +80,22 @@ Canadian polling firm · publishes a direct PM or government approval question �
 - **Ipsos Canada** — CRIC accredited. Included.
 - **Angus Reid Institute** — *Not* CRIC accredited (the Institute is a non-profit public-interest polling arm; CRIC accreditation covers commercial research agencies). Included under the equivalent-transparency exception: the Institute publishes full methodology, cross-tabs, and sample details for every release.
 - **Innovative Research Group** — *Not* CRIC accredited per the current member directory, but a well-established Canadian public-affairs research firm publishing full methodology. Included under the equivalent-transparency exception. Worth rechecking CRIC status next cycle.
+- **Research Co.** — *Not* CRIC accredited. Excluded for now. A June 2026 public table surfaced a clean approve/disapprove pair with disclosed methodology and sample size, but the question asked about Carney's handling of U.S. tariffs rather than overall PM or government job approval. Revisit if a broad direct-approval pair surfaces.
 - **Nanos Research Corporation** — CRIC accredited but *excluded from the approval mean* because Nanos publicly tracks "preferred PM" (best-choice question), not direct approve/disapprove. Different construct; shown as secondary context only.
 - **Pollara Strategic Insights** — CRIC accredited. No direct Carney approve/disapprove release surfaced in v1 research. Revisit on next cycle.
-- **Mainstreet Research** — CRIC accredited. No recent direct Carney approval release surfaced in v1 research. Revisit on next cycle.
+- **Mainstreet Research** — CRIC accredited. A June 2026 public post surfaced an approve figure for Carney, but the accessed public snippet did not expose a clean full approve/disapprove pair. Remains excluded for now.
 - **Ekos Research Associates** — CRIC accredited. No recent direct Carney approval release surfaced in v1 research. Revisit on next cycle.
 
 ### v1 included (5 firms)
 Léger, Abacus Data, Ipsos Canada, Angus Reid Institute, Innovative Research Group.
 
-### v1 excluded (with reason)
+### Current included set (5 firms, as of 2026-07-01)
+Léger, Abacus Data, Ipsos Canada, Angus Reid Institute, Innovative Research Group.
+
+### Current excluded set (with reason)
 - **Nanos Research** — different construct (preferred-PM, not approval). Shown as secondary context only; not averaged into the approval mean.
 - **Spark Insights** — *confirmed not* CRIC accredited (2026-04-19 check against the CRIC member directory). Additionally, Spark's house numbers are 6–10 points higher than the CRIC-accredited firms in the same weeks, suggesting either a different question wording or a house-effect worth isolating. Remains excluded pending independent methodology review.
-- **Research Co. / Mario Canseco** — not CRIC accredited. Publishes approve% but disapprove% is frequently omitted from the public release, which makes the poll unusable for a consistent approve–disapprove pair. Revisit when a consistent pair is available.
-- **Pollara, Mainstreet, EKOS** — CRIC accredited, no recent direct Carney approval release surfaced in v1 research window. Revisit on next cycle.
+- **Pollara, Mainstreet, EKOS, Research Co.** — still outside the mean. Pollara and EKOS have not surfaced a direct Carney approve/disapprove pair in the current window. Mainstreet surfaced an approve figure in June 2026, but not a clean full public pair in the accessed material. Research Co.'s June 2026 public pair was narrower issue approval, not broad job approval.
 
 ### New analytical source family treatment
 Per QA Rule 8, polling firms constitute a new analytical source family on this dashboard. This memo IS the reflection pass. Each of the five v1 pollsters receives a row in the Source Characterization Register covering institution type, ownership/funding, editorial independence, grounded ideological tendency (where sourced), best-use boundary, strongest SAM-role fit, and trust flags. The signal is live-shipping with this governance layer, not ahead of it.
@@ -104,7 +107,7 @@ Per QA Rule 8, polling firms constitute a new analytical source family on this d
 Single construct: direct job-approval of the Prime Minister (or the government led by the Prime Minister, where the pollster's question is phrased that way). Approve vs. disapprove.
 
 ### Known imperfection
-Pollsters use slightly different wordings — "Do you approve/disapprove of the job Mark Carney is doing as Prime Minister?" vs. "Do you approve/disapprove of the performance of the Liberal government led by Mark Carney?" The signal treats these as comparable because (a) the answers track tightly in practice, (b) separating them would halve the sample of pollsters per window and lose signal, and (c) the disclosed aggregate rule names this mixing explicitly. If the two sub-constructs drift in v2, revisit.
+Pollsters use slightly different wordings — "Do you approve/disapprove of the job Mark Carney is doing as Prime Minister?" vs. "Do you approve/disapprove of the performance of the Liberal government led by Mark Carney?" The signal treats these as comparable because (a) the answers track tightly in practice, (b) separating them would halve the sample of pollsters per window and lose signal, and (c) the disclosed aggregate rule names this mixing explicitly.
 
 ---
 
@@ -123,7 +126,7 @@ Neither the Full Policy Audit nor the Household Impact grade includes approval. 
 ## What could go wrong
 
 - **House-effect drift.** If one pollster's house average diverges materially from the others (as Spark currently does), even the sample-size-weighted mean can mislead. Current mitigation: diversified pollster set plus exclusion of extreme outliers.
-- **Construct drift.** If the PM-approval and government-approval answers drift apart in v2, the mixed aggregate stops being comparable across pollsters. v1 mitigation: this is disclosed in the memo. v2 action: split into two signals or pick one construct.
+- **Construct drift.** If the PM-approval and government-approval answers drift apart in v2, the mixed aggregate stops being comparable across pollsters. v1 mitigation: this is disclosed in the memo. v2 action: split the constructs or pick one construct. Narrower issue-approval questions should stay out unless the rule is deliberately widened.
 - **Sample recency drops.** If the included pollster set slows publication cadence, the 60-day window can shrink to 1–2 polls and the signal becomes noisy. v1 mitigation: the component displays the actual poll count in the window so a reader can tell. v2 option: widen to 90 days if the count drops under 3.
 - **Politicization of the signal.** If the approval number is mistaken for a "pass/fail" on the government, the page has failed the Product Thesis. v1 mitigation: explicit "Not part of the grades" card copy, an expandable methodology drill-down, and Methodology-tab disclosure that approval does not feed either headline score.
 
@@ -131,7 +134,7 @@ Neither the Full Policy Audit nor the Household Impact grade includes approval. 
 
 ## Followups
 
-- Add Research Co. once a reliable approve/disapprove pair is published consistently.
+- Re-check Research Co. only if it surfaces a broad PM/government job-approval pair rather than another issue-approval item.
 - Keep Nanos preferred-PM as secondary context only; do not average it into the approval mean.
 - Consider a sparkline on the approval signal if 6+ months of in-file polls accumulate and the trend is the more interesting story than the level.
 - Consider explicit house-effect adjustment if inter-pollster dispersion widens.

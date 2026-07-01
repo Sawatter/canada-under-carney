@@ -189,7 +189,7 @@
 
 ---
 
-## 5. Flagship Delivery (C) — PROBATION
+## 5. Flagship Delivery (C)
 
 **Construct:** The federal government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile policy files.
 
@@ -219,15 +219,15 @@
 
 **Deconfliction rule:** Per Combination Rule and Deconfliction Matrix. Evidence from flagship files appears here as DELIVERY indicators (did the government execute?), not OUTCOME indicators (is the policy good?). The test: "Would this metric still matter if the policy direction were reversed?" If yes, it belongs in Flagship Delivery. If no, it belongs in the home dimension.
 
-**Rater note:** This dimension is on probation. Grade delivery capacity, not policy quality. The government can deliver bad policy efficiently (that scores well here) or fail to deliver good policy (that scores poorly here). The probation question is now explicit: does the mechanical Combination Rule add a real cross-file execution read, or is this just an echo of the five home dimensions?
+**Rater note:** Grade delivery capacity, not policy quality. The government can deliver bad policy efficiently (that scores well here) or fail to deliver good policy (that scores poorly here). The July 2026 review kept this dimension live with no grade move because the mechanical Combination Rule still adds a real cross-file execution read without breaking deconfliction.
 
-**Probation exit test:** Run one full monthly review cycle with the Combination Rule frozen at cycle start. Flagship Delivery exits probation only if all four checks pass in the cycle closeout:
+**Retention rule:** Keep this dimension only while all four checks continue to pass in cycle closeout:
 1. The published Combination Rule produces the grade mechanically, with no ad hoc override, status-category rewrite, or mid-cycle table change.
 2. The resulting direction does not contradict the underlying file-status movement. Flagship cannot upgrade if the only status-category changes across the five flagship files are net negative, and cannot downgrade if the only status-category changes are net positive.
 3. The cycle yields at least one cross-file execution insight spanning two or more flagship files that is not already obvious from any single home-dimension card.
 4. No unresolved deconfliction breach is found. No metric can do double duty as both primary outcome evidence in a home dimension and independent grade-moving outcome evidence here.
 
-If any check fails, probation ends by demoting the dimension in v2 rather than extending probation.
+If any check fails, demote the dimension in v2 rather than extend the exception.
 
 ---
 

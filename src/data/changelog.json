@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-07-01",
+    "version": "5.150",
+    "summary": "Applied the July monthly factual refreshes, refreshed Approval Signal, and closed the Flagship probation check with no grade moves.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "July monthly data refresh",
+        "body": "Affordability Response now reflects May 2026 food CPI at 4.3%. Immigration now reflects the Q1 2026 temporary-resident share at 6.18%. Housing Supply now reflects May 2026 CMHC starts plus the latest Build Canada Homes and Ontario DCRP execution context. Major Projects now notes the June 24 Building Canada Act listing-process launch. All four files hold their grades."
+      },
+      {
+        "type": "method",
+        "headline": "Approval Signal refreshed",
+        "body": "Approval Signal now includes the latest Abacus and Leger approval waves plus June 19 and June 26 Nanos preferred-PM context. Research Co.'s June tariff-handling pair was reviewed but kept out because it does not match the broad PM/government job-approval construct used by the included pollsters."
+      },
+      {
+        "type": "method",
+        "headline": "Flagship probation exit",
+        "body": "Flagship Delivery passed its first full monthly retention check, so the probation label and July-only expiry language were removed from the live data and methodology docs. This was a rules cleanup only, not a grade move."
+      },
+      {
+        "type": "method",
+        "headline": "Every cited source re-checked",
+        "body": "The July cycle re-checked all 153 cited source links across every surface that carries one: source lists, trigger evidence and challenge sources, metric references, project and promise links, and Approval Signal polls. Each publisher site was also searched for June releases, with negative results logged rather than skipped. Every live cited link resolved. A new build check now blocks a monthly cycle from closing while any cited link is missing from the coverage ledger or any row is left unchecked."
+      },
+      {
+        "type": "minor",
+        "headline": "Separate v5.150 monthly-cycle release",
+        "body": "Cut the July monthly cycle as v5.150 instead of folding it into the unpublished v5.149 UI draft. Coverage now runs through June 30, 2026, the next scheduled cycle moves to August 1, 2026, and history records the unchanged July score snapshot."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-01",
     "version": "5.149",
     "summary": "Added a visible full-changelog link after the live coverage audit found older history was not reachable from the Changes tab.",
     "items": [

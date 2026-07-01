@@ -354,7 +354,7 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "The Major Projects Office (MPO) is tracking 15 projects in three groups. Four have moved beyond the initial 'designated' stage, but only 2 show documented progress after being added to the list. The government has not yet used its power to declare any project a national-interest project.",
+    "status": "The Major Projects Office (MPO) is tracking 15 projects in three groups. Four have moved beyond the initial 'designated' stage, and Canada has now initiated the process to list projects under the Building Canada Act. But only 2 show documented progress after being added to the list, and the government has not yet used its power to declare any project a national-interest project.",
     "judgmentCall": "The grade rests on documented progress after a project is added to the list, not on how many projects were announced or whether any project is a good idea.",
     "judgmentDetail": "This grade does not judge whether each project is good policy. It judges the federal delivery process: the 15 projects the Major Projects Office (MPO) is tracking, whether they reached a higher stage on a date after they were added, and whether the government used its national-interest power. The editor's judgment enters in two places. A stage label added on the same day a project joins the list does not count as progress. And a credit-claiming penalty applies where the government overstates its role in projects that were already moving before it stepped in.",
     "surfaceTags": [
@@ -501,6 +501,12 @@
         "dateKind": "as-of"
       },
       {
+        "label": "Building Canada Act listing-process launch",
+        "url": "https://www.canada.ca/en/one-canadian-economy/news/2026/06/canada-initiates-process-to-list-major-projects-under-the-building-canada-act.html",
+        "date": "2026-06-24",
+        "dateKind": "published"
+      },
+      {
         "label": "Fraser Institute - MPO assessment",
         "url": "https://www.fraserinstitute.org/commentary/carneys-major-projects-list-no-cause-celebration",
         "date": "2025-09-15",
@@ -513,7 +519,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-05",
+    "lastUpdated": "2026-07-01",
     "metrics": [
       {
         "label": "Projects in the MPO list",
@@ -568,7 +574,7 @@
         "label": "National interest designation uses",
         "value": "0",
         "source": "legisinfo",
-        "sourceNote": "Building Canada Act grants the national-interest designation power. As of April 2026, it has not been used. Source: no designation orders found in LEGISinfo or government announcements.",
+        "sourceNote": "Canada initiated the process to list major projects under the Building Canada Act on June 24, 2026, but there is still no published use of the national-interest designation power. Source: no designation orders found in LEGISinfo or government announcements.",
         "automatable": false
       },
       {
@@ -811,7 +817,7 @@
         "text": "One Project, One Review within 6 months",
         "status": "In Progress",
         "since": "2026-06-12",
-        "evidence": "C-5 in force since 2025-06-26 and seven provincial cooperation agreements signed (Alberta 2026-04-02, Ontario 2025-12-18, plus BC, MB, NB, NS, PEI). The platform's 6-month deadline lapsed unmet, and no project has yet completed a single-assessment cycle under the new regime. Meets the In Progress bar (legislation in force, partial implementation documented).",
+        "evidence": "C-5 has been in force since 2025-06-26, seven provincial cooperation agreements have been signed, and Canada initiated the process to list major projects under the Building Canada Act on June 24, 2026. The platform's 6-month deadline lapsed unmet, and no project has yet completed a single-assessment cycle under the new regime. Meets the In Progress bar (legislation in force, partial implementation documented).",
         "durability": "Framework",
         "history": [
           {
@@ -827,8 +833,8 @@
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
-        "statusSourceUrl": "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
-        "statusSourceLabel": "Bill C-5 - One Canadian Economy Act on LEGISinfo"
+        "statusSourceUrl": "https://www.canada.ca/en/one-canadian-economy/news/2026/06/canada-initiates-process-to-list-major-projects-under-the-building-canada-act.html",
+        "statusSourceLabel": "Building Canada Act listing-process launch"
       },
       {
         "text": "High-speed rail Windsor-Quebec City",
@@ -1711,9 +1717,9 @@
     "rationale": "This dimension grades how well the federal government's policy response handles rising household costs, not price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs (taxes on imported goods imposed in trade disputes) add to the burden. The grade reflects what the government chose to do about affordability, and whether its actions match the scale of the problem.",
     "sources": [
       {
-        "label": "StatsCan CPI Apr 2026",
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm",
-        "date": "2026-05-19",
+        "label": "StatsCan CPI May 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260622/dq260622a-eng.htm",
+        "date": "2026-06-22",
         "dateKind": "published"
       },
       {
@@ -1771,21 +1777,21 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-30",
+    "lastUpdated": "2026-07-01",
     "metrics": [
       {
-        "label": "Food CPI (stores, YoY, Apr 2026)",
+        "label": "Food CPI (stores, YoY, May 2026)",
         "lead": true,
-        "value": "3.8%",
+        "value": "4.3%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
         "sourceRefs": [
           {
-            "label": "StatsCan CPI Apr 2026",
-            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm"
+            "label": "StatsCan CPI May 2026",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260622/dq260622a-eng.htm"
           }
         ],
-        "sourceNote": "StatsCan CPI daily release, May 19, 2026: food purchased from stores rose 3.8% year over year in April. This replaces the March 2026 food-store CPI row (4.4%). May CPI is scheduled for release on June 22.",
+        "sourceNote": "StatsCan CPI daily release, June 22, 2026: food purchased from stores rose 4.3% year over year in May. This replaces the April 2026 food-store CPI row (3.8%). The monthly reading worsened, but it remains well below the dashboard's greater-than-7% down-trigger.",
         "automatable": true
       },
       {
@@ -2514,7 +2520,7 @@
     "grade": "C+",
     "previousGrade": null,
     "trend": "up",
-    "status": "Immigration has been cut sharply. The correction is big and was needed. But there is still no long-term plan for how the system should run. That plan is the main thing being watched for the next grade move.",
+    "status": "Immigration has been cut sharply. The correction is big and was needed, and the temporary-resident share is now down to about 6.18% of the population. But there is still no long-term plan for how the system should run. That plan is the main thing being watched for the next grade move.",
     "judgmentCall": "The plus on the grade gives credit for a real cut to immigration levels. The grade is held back because there is still no settled plan for the right long-term level.",
     "judgmentDetail": "The C+ gives credit for a big correction to a system that was overloaded. It stops short of a B because there is no durable long-term plan yet. Editor judgment shows up in two places. First, treating the correction as needed rather than as punishment. Second, weighing the open risks (to specific industries, public services, and long-term planning) against the fact that the lower levels were clearly carried out. No External Constraint adjustment is applied. The absorption strain (the system taking in more people than housing, health care, and the job market could handle) that triggered the correction was left over from earlier policy choices. But this grade is about how the current government responded, not the strain itself, so the inherited conditions do not ease the read on what the government did.",
     "surfaceTags": [
@@ -2617,6 +2623,12 @@
     "rationale": "The government made a sharp cut to immigration, the largest reduction in temporary resident intake in recent decades. IRCC data shows new temporary-resident arrivals down 53% for January to September 2025 versus the same months in 2024. This addresses a real absorption failure. Housing, healthcare, and labour-market capacity were overwhelmed. However, the correction creates downside risks for healthcare staffing, agriculture, and higher education. The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than something that affects the grade right now. The Toronto Star frames this as cautious stabilization rather than bold reform.",
     "sources": [
       {
+        "label": "StatsCan population Q1 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260617/dq260617a-eng.htm",
+        "date": "2026-06-17",
+        "dateKind": "published"
+      },
+      {
         "label": "StatsCan population Q4 2025",
         "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
         "date": "2026-03-18",
@@ -2665,7 +2677,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-05-23",
+    "lastUpdated": "2026-07-01",
     "metrics": [
       {
         "label": "PR target (2026-2028)",
@@ -2685,7 +2697,7 @@
         "label": "TR new arrivals target (2026)",
         "value": "385,000 (annual flow)",
         "source": "ircc",
-        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan: temporary-resident new-arrivals target of 385,000 in 2026 (370,000 in 2027 and 2028). This is an annual FLOW, not the total TR stock, so it is NOT directly comparable to the up condition's '5% of population' (a stock measure) - it is forward-looking policy-path evidence. The trigger tracks total TR share of population (6.5% as of Jan 1, 2026; trajectory downward). Confirmed via the IRCC plan and PBO RP-2526-025-S.",
+        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan: temporary-resident new-arrivals target of 385,000 in 2026 (370,000 in 2027 and 2028). This is an annual FLOW, not the total TR stock, so it is NOT directly comparable to the up condition's '5% of population' (a stock measure) - it is forward-looking policy-path evidence. The trigger tracks total TR share of population (6.18% as of Apr. 1, 2026; trajectory downward). Confirmed via the IRCC plan and PBO RP-2526-025-S.",
         "sourceRefs": [
           {
             "label": "PBO - Demographic Implications of the 2026-2028 Immigration Levels Plan",
@@ -2742,9 +2754,9 @@
         "text": "Temp residents below 5% by end of 2027",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Non-permanent residents dropped from 3.15M (7.6%) to 2.68M. On track but not yet at 5%.",
-        "statusSourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
-        "statusSourceLabel": "StatsCan population Q4 2025",
+        "evidence": "Non-permanent residents dropped from 3.15M (7.6%) to 2.56M (6.18%). On track but not yet at 5%.",
+        "statusSourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260617/dq260617a-eng.htm",
+        "statusSourceLabel": "StatsCan population Q1 2026",
         "durability": "Commitment",
         "history": [
           {
@@ -2794,7 +2806,7 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Federal housing programs are not yet big enough to meet the need. Homes that have been announced have not started construction, and housing starts are running below the pace needed to close the gap (the shortfall).",
+    "status": "Federal housing programs are not yet big enough to meet the need. Build Canada Homes is now legislated, but announced homes have still not started construction, and housing starts are running below the pace needed to close the gap (the shortfall).",
     "judgmentCall": "The low grade is based on actual housing starts and program size. Announced homes count only once construction begins or there is binding delivery, meaning a signed or legally committed path to delivery, not just an announcement.",
     "judgmentDetail": "The D grade measures the federal part of the housing response against three things: actual housing starts, how big the programs are, and binding delivery (a signed or legally committed path to delivery). The editor's judgment comes in two places. First, it gives Build Canada Homes some early credit for being in motion but still will not count announced homes as built homes. Second, it separates what the federal government does from what provinces, cities, and the market do.",
     "surfaceTags": [
@@ -2880,7 +2892,7 @@
         }
       ]
     },
-    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes announced 4,000 units, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade. CMHC's March 2026 release shows the six-month starts trend at 248,378 and the monthly SAAR (seasonally adjusted annual rate) at 235,852. Because CMHC uses the trend measure to smooth volatile monthly SAAR readings, the monthly dip below 240K is not treated as a standalone down condition while the trend remains above 240K. Federal housing spending still declines 56% by 2028-29, and Policy Options notes supply alone will not solve the structural affordability problem.",
+    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes is on firmer legal footing after Royal Assent for the Build Canada Homes Act, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade, and the June DCRP application opening still leaves funding conditional on later agreements, approvals, and disbursement. CMHC's May 2026 release shows the six-month starts trend at 258,010 and the monthly SAAR (seasonally adjusted annual rate) at 261,377. Because CMHC uses the trend measure to smooth volatile monthly SAAR readings, the dashboard reads the trend rather than any one-month swing by itself. Federal housing spending still declines 56% by 2028-29, and Policy Options notes supply alone will not solve the structural affordability problem.",
     "sources": [
       {
         "label": "PBO - BCH 26,000 units",
@@ -2895,9 +2907,9 @@
         "dateKind": "published"
       },
       {
-        "label": "CMHC April 2026 starts",
-        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-april-2026",
-        "date": "2026-05-15",
+        "label": "CMHC May 2026 starts",
+        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-may-2026",
+        "date": "2026-06-16",
         "dateKind": "published"
       },
       {
@@ -2943,7 +2955,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-05",
+    "lastUpdated": "2026-07-01",
     "metrics": [
       {
         "label": "Housing starts (2025)",
@@ -2954,14 +2966,14 @@
         "automatable": true
       },
       {
-        "label": "Housing starts (Apr 2026 trend; SAAR = seasonally adjusted annual rate)",
+        "label": "Housing starts (May 2026 trend; SAAR = seasonally adjusted annual rate)",
         "lead": true,
-        "value": "256,777 trend (279,317 SAAR)",
+        "value": "258,010 trend (261,377 SAAR)",
         "source": "cmhc",
         "sourceRefs": [
           {
-            "label": "CMHC April 2026 starts",
-            "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-april-2026"
+            "label": "CMHC May 2026 starts",
+            "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-may-2026"
           },
           {
             "label": "CHBA - Q1 2026 Housing Market Index",
@@ -2972,7 +2984,7 @@
             "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
           }
         ],
-        "sourceNote": "CMHC April 2026 release: the six-month trend rose 3.2% to 256,777 units, while total monthly SAAR increased 17% to 279,317 units from 239,747 in March. CMHC cautions that month-to-month volatility remains high, especially in multi-unit markets. This refresh replaces the March row, improves the near-term starts read, and still leaves starts below the dashboard's C-band threshold.",
+        "sourceNote": "CMHC May 2026 release: the six-month trend rose to 258,010 units, the monthly SAAR was 261,377, actual starts in centres of 10,000 or more fell 5.2% year over year to 22,633, and year-to-date actual starts were up 3% to 93,644. The refresh improves the near-term starts read from April but still leaves the file below the dashboard's C-band threshold.",
         "automatable": false
       },
       {
@@ -3022,11 +3034,11 @@
         "text": "Build Canada Homes",
         "status": "In Progress",
         "since": "2025-09-14",
-        "evidence": "4,000 units announced across 6 sites. Construction not yet underway as of April 2026.",
+        "evidence": "Build Canada Homes Act received Royal Assent on June 19, 2026. 4,000 units remain announced across 6 sites, but construction had not started in the July review.",
         "originalSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
         "originalSourceLabel": "Canada.ca - Build Canada Homes",
-        "statusSourceUrl": "https://www.pbo-dpb.ca/en/news-releases--communiques-de-presse/build-canada-homes-forecast-to-build-26000-units-pbo-maisons-canada-prevoit-de-construire-26-000-unites-selon-le-dpb",
-        "statusSourceLabel": "PBO - BCH 26,000 units",
+        "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/government-of-canada-marks-royal-assent-of-the-build-canada-homes-act.html",
+        "statusSourceLabel": "Build Canada Homes Act Royal Assent",
         "durability": "Program",
         "history": [
           {
@@ -3040,7 +3052,7 @@
         "text": "Canada-Ontario Partnership ($8.8B)",
         "status": "In Progress",
         "since": "2026-03-30",
-        "evidence": "$8.8B over 10 years. Development charges cut up to 50% for 3 years. HST removed on homes under $1M for 1 year. Expert Mike Moffatt called it a meaningful step.",
+        "evidence": "$8.8B over 10 years. Ontario opened DCRP applications in June, but accessed federal evidence still says funding depends on the Build Communities Strong Fund agreement, project approval, and later transfer-payment execution.",
         "originalSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes",
         "originalSourceLabel": "Canada-Ontario Partnership",
         "durability": "Program",
@@ -3051,8 +3063,8 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://www.pm.gc.ca/en/news/speeches/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes-housing",
-        "statusSourceLabel": "Government of Canada - Canada-Ontario Housing Partnership announcement"
+        "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-open-applications-for-new-development-charge-reduction-program0.html",
+        "statusSourceLabel": "Canada-Ontario DCRP applications open"
       },
       {
         "text": "Apprenticeship training up to $8,000",
@@ -3082,7 +3094,7 @@
       "attribution": "Mixed",
       "lag": "Long"
     },
-    "nextTrigger": "Next CMHC monthly starts release. Actual Build Canada Homes construction commencement. Ontario partnership first results.",
+    "nextTrigger": "Next CMHC monthly starts release. Actual Build Canada Homes construction commencement. Signed Ontario BCSF / DCRP agreement, first payment, or construction evidence.",
     "inherited": "430-480K annual starts needed, ~245K actual. Construction insolvencies highest of any sector. Development charges up 1,000% in some municipalities."
   },
   {

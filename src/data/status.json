@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-06-29",
-  "lastSourceScanAt": "2026-06-14",
-  "nextScheduledSourceScanAt": "2026-07-01",
-  "lastEditorReviewedScoreCycleAt": "2026-06-15",
-  "coverageThrough": "2026-06-15",
+  "generatedAt": "2026-07-01",
+  "lastSourceScanAt": "2026-07-01",
+  "nextScheduledSourceScanAt": "2026-08-01",
+  "lastEditorReviewedScoreCycleAt": "2026-07-01",
+  "coverageThrough": "2026-06-30",
   "watchItemsAwaitingReviewCount": 0,
   "disclaimerKey": "scan_vs_review_v1",
   "nextChecks": [
@@ -16,10 +16,10 @@
       "href": "#dim-housing-supply-sources"
     },
     {
-      "id": "july-monthly-cycle",
-      "label": "July monthly cycle",
+      "id": "august-monthly-cycle",
+      "label": "August monthly cycle",
       "dateSource": "nextScheduledSourceScanAt",
-      "status": "Run freshness pulls, source monitor review, Defence split-shadow, and Flagship probation checks.",
+      "status": "Run freshness pulls, source monitor review, and any editor-approved watch items.",
       "href": "#view-changelog"
     }
   ]

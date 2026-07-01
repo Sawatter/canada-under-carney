@@ -123,11 +123,11 @@
 
 | Field | Value |
 |---|---|
-| **Status** | Probation |
-| **Unresolved issue** | Overlap with home dimensions. Weighting of 5 flagship files not codified until the Combination Rule was published. Must prove it adds value beyond what individual dimensions already show. |
-| **What needs doing** | Run one real cycle using the published Combination Rule and Deconfliction Matrix. If the grade produced by the combination rule matches the analyst's judgment and does not double-count, keep it. If it creates confusion or contradicts home dimension grades, demote or remove in v2. |
-| **Before next cycle?** | Apply Combination Rule mechanically: yes. Structural change: no (evaluate after one cycle). |
-| **Affects** | Live model (probation) + shadow model (removal test) |
+| **Status** | Decision landed |
+| **Unresolved issue** | Structural overlap risk remains. The July 1 exit test passed, but the dimension still has to keep adding a distinct cross-file execution read without double-counting home-dimension outcomes. |
+| **What needs doing** | Apply the published Combination Rule mechanically each cycle and keep the deconfliction check explicit. If a future cycle needs an ad hoc override, contradicts the underlying file-status movement, adds no cross-file execution insight, or breaks deconfliction, demote or remove in v2. |
+| **Before next cycle?** | Apply Combination Rule mechanically: yes. Structural change: no unless a future cycle fails the retention checks. |
+| **Affects** | Live model + v2 exception watch |
 
 ### 12. Promise Delivery (ungraded tracker)
 
@@ -168,7 +168,7 @@ Ideas that are valid but must NOT leak into the live cycle. These are queued for
 | Promise Delivery → ungraded tracker | Decision memo, ChatGPT consensus | Implemented |
 | Defence & Trade → full split | Decision memo, methods panel | Only if live split tripwire fires |
 | Carbon Pricing → merge into Climate | Methods panel shadow test A | Shadow only; merging buries a policy win |
-| Flagship Delivery → remove entirely | Methods panel shadow test B | Probation cycle first |
+| Flagship Delivery → remove entirely | Methods panel shadow test B | Revisit only if a future cycle fails the retention checks |
 | Attribution-adjusted weighting → headline | Methods panel shadow test C | Shadow only; negligible GPA impact |
 | Regional distribution (provincial breakdowns) | ChatGPT research | Future feature, not v2 |
 | Implementation burden dimension | ChatGPT methods panel | Future consideration |
@@ -180,7 +180,7 @@ Ideas that are valid but must NOT leak into the live cycle. These are queued for
 
 ## 3 Highest Risk Dimensions for Next Monthly Update
 
-1. **Flagship Delivery (C)** — First real test of the Combination Rule. If it produces a confusing or contradictory grade, the probation fails.
+1. **Flagship Delivery (C)** — July 1 exit test passed. Next risk is overlap drift or a future cycle where the Combination Rule stops adding a distinct cross-file execution read.
 
 2. **Carbon Pricing Policy (C)** — The Pack 4 drill blocked this dimension for double-counting. The deconfliction fix must hold under real evidence.
 

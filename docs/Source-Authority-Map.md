@@ -69,15 +69,15 @@ Role gaps are information, not defects. The map must never force a dimension to 
 
 ---
 
-### Probationary Dimension Guidance
+### Exception Dimension Guidance
 
-Probationary dimensions such as Ethics & Transparency and Flagship Delivery do not necessarily use the same role shape as stable dimensions.
+Exception dimensions such as Ethics & Transparency and Flagship Delivery do not necessarily use the same role shape as stable dimensions.
 
 - They may have fewer valid source roles in practice.
 - They may rely more heavily on qualitative or derivative evidence.
 - They may have structural red-flag gaps that cannot be solved by "more sources."
 
-The map should document those limits explicitly rather than pretending every probationary dimension can be made to look like a stable Action or Outcome file.
+The map should document those limits explicitly rather than pretending every exception dimension can be made to look like a stable Action or Outcome file.
 
 ---
 
@@ -93,7 +93,7 @@ The map should document those limits explicitly rather than pretending every pro
   Owns source tiers and process rules. This map inherits tier assignments by reference. It does not redefine Tier 1-5.
 
 - **Plus-Minus-Decision-Rules.md**
-  Owns whole-letter probationary mechanics and plus/minus precision rules. This map only notes how probationary constructs change role requirements.
+  Owns whole-letter exception and probation mechanics plus plus/minus precision rules. This map only notes how exception constructs change role requirements.
 
 - **Source-Verification-Protocol.md**
   Owns claim entailment and verification status. This map says what role a source should play; the verification protocol says whether the source actually supports the claim.
@@ -379,7 +379,7 @@ Source: [src/data/dimensions.json](../src/data/dimensions.json:1498)
 - Double-counting risk is structural: outcome evidence belongs in the home dimensions, while Flagship Delivery owns only the execution question.
   Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:210), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:214), and [docs/Deconfliction-Matrix.md](Deconfliction-Matrix.md:63)
 
-- This dimension remains on probation. If it stops adding analytical value beyond the home dimensions, stronger sourcing alone will not save the construct.
+- This dimension cleared the July 2026 exit test, but its analytical value is still conditional. If it stops adding a cross-file execution read beyond the home dimensions, stronger sourcing alone will not save the construct.
   Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:216), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:218), and [docs/Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md:96)
 
 ## 4. Defence & Trade

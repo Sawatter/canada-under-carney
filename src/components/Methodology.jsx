@@ -319,10 +319,11 @@ export default function Methodology() {
           public-opinion approval box above the grades is not part of the
           scoring model. It averages direct PM/government approval across
           the included pollster set (Léger, Abacus Data, Ipsos, Angus Reid
-          Institute, Innovative Research Group) over a rolling 60-day
-          window that gives bigger polls more weight. It is placed visibly so readers do not
-          mistake the grades for popularity, but it does not feed either
-          headline score. See
+          Institute, and Innovative Research Group) over a
+          rolling 60-day window that gives bigger polls more weight. Nanos
+          preferred-PM tracking sits beside it as separate context only. It
+          is placed visibly so readers do not mistake the grades for
+          popularity, but it does not feed either headline score. See
           the{" "}
           <a
             href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/v2-Decision-Memo-Approval-Signal.md"

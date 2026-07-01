@@ -35,7 +35,7 @@ Grouped by institution type. See SCR for per-family detail and trust flags. As o
 
 ### Approval Signal source stack (outside dimensions.json and outside the scores)
 
-The ungraded Approval Signal uses pollster data from `src/data/approval-polls.json`, not the graded dimension `sources` arrays. Current included approval pollsters: Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group. Nanos preferred-PM is shown as secondary context only and is not averaged into the approval mean. See [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md) and the Source Characterization Register's Approval Signal section for boundaries.
+The ungraded Approval Signal uses pollster data from `src/data/approval-polls.json`, not the graded dimension `sources` arrays. Current included approval pollsters: Léger, Abacus Data, Ipsos, Angus Reid Institute, and Innovative Research Group. Nanos preferred-PM is shown as secondary context only and is not averaged into the approval mean. Research Co.'s June 2026 public pair remains excluded because it is a tariff-handling approval question rather than a broad PM/government job-approval item; see [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md) for the construct boundary.
 
 ---
 
@@ -44,7 +44,7 @@ The ungraded Approval Signal uses pollster data from `src/data/approval-polls.js
 Families that may be consulted when a file moves, but do not currently carry a live citation in a `sources` array. Introducing any of these into the live stack requires a reflection + review pass per the hard source-edit rule in [docs/Parking-Lot.md](Parking-Lot.md) (traceability fix = direct; new analytical source family = reflect + Claude review first).
 
 - **Mainstream reporting:** La Presse, Toronto Star, National Post
-- **Other polling firms:** Pollara, Mainstreet, EKOS, Research Co. (approval signal watchlist); Nanos remains preferred-PM context only
+- **Other polling firms:** Pollara, Mainstreet, EKOS, Spark Insights (approval signal watchlist); Nanos remains preferred-PM context only
 - **Bank economics:** RBC Economics, BMO Economics, TD Economics, Scotiabank Economics
 - **Policy and fiscal institutes:** IFSD (Institute of Fiscal Studies and Democracy — referenced narratively in Fiscal Health rationale but not currently in the live `sources` array)
 - **Left-oriented policy organizations:** CCPA, Broadbent Institute, Parkland Institute, The Tyee

@@ -23,7 +23,7 @@
 | 9 | Immigration | **Yes** | **Yes** | **Yes** | Execution + Outcome | Strongest candidate for full tri-lens scoring. Definitions must stay consistent across StatsCan and IRCC sources. High federal attribution (90%). | **Now** |
 | 10 | Housing Supply | Partial | **Yes** | Partial | Execution | Federal attribution is lowest in framework (30%). Housing outcomes are shared-jurisdiction and lagged. Outcome scoring must use time-matched measures and carry attribution qualifier. Jurisdictional cap (C+) applies. | **Now** |
 | 11 | Ethics & Transparency | No | Partial | No | Bounded qualitative | Weakest candidate for KPI treatment. Evidence is qualitative, event-driven, and politically valenced. Two raters could disagree by one full letter. Confidence: Medium (lowest). | **Exception** |
-| 12 | Flagship Delivery | No | Partial | No | Execution (mechanical) | Synthetic dimension using Combination Rule across 5 home files. On probation — must prove independent value. Overlap risk with home dimensions. | **Exception** |
+| 12 | Flagship Delivery | No | Partial | No | Execution (mechanical) | Synthetic dimension using Combination Rule across 5 home files. July 2026 exit test passed. Overlap risk with home dimensions remains structural. | **Exception** |
 | — | Promise Delivery | **Yes** | No | No | Commitment (tracker, downstream only) | Leaving GPA. Derivative dimension. Strictly downstream of home-dimension scoring — does not feed back into any lens. Double-counting risk is the reason it left the composite. | **Exception** |
 
 ---
@@ -71,10 +71,10 @@ If these five constructs produce stable, defensible shadow scores through one re
 
 ### Flagship Delivery
 
-- Remains on probation.
+- Cleared the July 2026 exit test and no longer sits on probation.
 - The Combination Rule (5-file mechanical scoring) continues to produce its v1 grade.
 - Does NOT receive independent tri-lens scoring. The Combination Rule already functions as a synthetic execution lens.
-- If Flagship Delivery clears its July 2026 probation exit test, its relationship to v2 can be reassessed. If it fails that test, demote it in v2 instead of extending probation.
+- Its relationship to v2 can be reassessed later, but only if future cycles still show a distinct cross-file execution read and no deconfliction breach. If a future cycle fails those checks, demote it in v2 rather than extend the exception.
 
 ### Promise Delivery
 
