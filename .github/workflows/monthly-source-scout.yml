@@ -120,6 +120,10 @@ jobs:
         if: env.BACKTEST_LABEL == ''
         run: node scripts/generate-source-ledger.mjs "$CYCLE_MONTH" --force
 
+      - name: Validate source ledger coverage
+        if: env.BACKTEST_LABEL == ''
+        run: node scripts/validate-source-ledger.mjs "$CYCLE_MONTH"
+
       - name: Run source monitor (deterministic + search fan-out + relevance pass)
         if: env.BACKTEST_LABEL == ''
         env:

@@ -7,6 +7,7 @@
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { extractCitationEntries } from "./source-ledger-utils.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const repoRoot = resolve(__dirname, "..");
@@ -31,6 +32,8 @@ const approvalPolls = JSON.parse(
 const meta = JSON.parse(
   readFileSync(resolve(repoRoot, "src/data/meta.json"), "utf8")
 );
+
+const citationEntries = extractCitationEntries(repoRoot);
 
 // Publisher-grouping rules. Each rule is [regex, sort key]. Rows are
 // sorted within each section by sort key so all StatCan rows cluster
@@ -183,7 +186,7 @@ const POLLSTER_HOMES = {
   "Mainstreet Research": "https://www.mainstreetresearch.ca/",
   "Ekos Research Associates": "https://www.ekospolitics.com/",
   "Spark Insights": "",
-  "Research Co.": "",
+  "Research Co.": "https://researchco.ca/",
 };
 
 // excludedForNow uses short keys in approval-polls.json. Map them to the
@@ -191,10 +194,10 @@ const POLLSTER_HOMES = {
 const EXCLUDED_DISPLAY_NAMES = {
   nanos: "Nanos Research",
   sparkInsights: "Spark Insights",
-  researchCo: "Research Co.",
   pollara: "Pollara",
   mainstreet: "Mainstreet Research",
   ekos: "Ekos Research Associates",
+  researchCo: "Research Co.",
 };
 
 function includedPollsters() {
@@ -320,6 +323,29 @@ function triggerSourceRows() {
   return uniqueBy(rows, (row) => `${row.area}|${row.url}|${row.label}`).sort((a, b) =>
     a.area.localeCompare(b.area) || a.label.localeCompare(b.label)
   );
+}
+
+function supplementalCitationRows() {
+  const fields = new Set([
+    "metrics[].sourceRefs[].url",
+    "gradeTriggers.up[].additionalSources[].url",
+    "gradeTriggers.down[].additionalSources[].url",
+    "promises[].originalSourceUrl",
+    "approval.polls[].sourceUrl",
+    "approval.preferredPM.polls[].sourceUrl",
+  ]);
+
+  return uniqueBy(
+    citationEntries
+      .filter((entry) => fields.has(entry.field))
+      .map((entry) => ({
+        label: entry.label,
+        area: entry.area,
+        url: entry.url,
+        field: entry.field,
+      })),
+    (row) => `${row.area}|${row.field}|${row.url}|${row.label}`
+  ).sort((a, b) => a.area.localeCompare(b.area) || a.label.localeCompare(b.label));
 }
 
 function trackedBillRows() {
@@ -485,6 +511,16 @@ const quarterlyRows = [
 ];
 
 const twiceYearlyRows = [
+  ...supplementalCitationRows().map((source) => [
+    source.label,
+    source.area,
+    source.url,
+    "Twice-yearly citation recertification",
+    "",
+    "",
+    "",
+    `Citation field: ${source.field}. Confirm exact URL supports the dashboard claim and check publisher for June-period replacement evidence.`,
+  ]),
   ...majorProjectRows().map((project) => [
     project.label,
     project.area,

@@ -2,7 +2,7 @@
 
 - **Purpose:** Turn the monthly dashboard update from a "figure it out each time" exercise into a checklist. Every recurring task has a home here; cycle-specific notes go in the changelog entry.
 - **Status:** Active playbook.
-- **Next scheduled cycle:** first day of each month. Next cycle: 2026-07-01 (per `meta.nextUpdate` in [src/data/meta.json](../src/data/meta.json)).
+- **Next scheduled cycle:** first day of each month. Next cycle: 2026-08-01 (per `meta.nextUpdate` in [src/data/meta.json](../src/data/meta.json)).
 - **Depends on:** [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md), [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md).
 
 ---
@@ -10,7 +10,7 @@
 ## Cadence
 
 - **Regular cycle:** first day of each month, covering the full prior calendar month's available data.
-- **Monthly source scout:** `.github/workflows/monthly-source-scout.yml` runs on the first day of each month and prepares fetch/link-rot/source-ledger artifacts. It does not edit dashboard data, move grades, or push commits; the editor reviews the artifacts before any live update.
+- **Monthly source scout:** `.github/workflows/monthly-source-scout.yml` runs on the first day of each month and prepares fetch/link-rot/source-ledger artifacts. It does not edit dashboard data, move grades, or push to `main`; it commits monitoring artifacts to a `source-monitor/<cycle>` review branch and opens a draft PR, and the editor reviews before any live update.
 - **Ad-hoc updates:** triggered by major events (legislation passing, a major department release, a polling reversal, a grade-moving news story). Ad-hoc updates produce their own changelog entry outside the monthly cycle.
 - **Freeze window:** the source scout runs on the first day. The live update can land after editor review; always update `meta.json` to match reality after the cycle lands.
 
@@ -19,6 +19,15 @@
 ## Checklist
 
 Work the sections in order. Each checkbox is a discrete commit-worthy step.
+
+### 0. Full source recertification gate
+
+- [ ] Regenerate or update the monthly source ledger from the live data: `npm run source:ledger -- YYYY-MM --force` if starting a clean ledger, or manually migrate new rows into the in-progress ledger if preserving checked rows.
+- [ ] Run `npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md` before assigning review work. This must report zero cited URLs missing from the ledger. The URL universe includes `sources[]`, grade-trigger `sourceUrl`, grade-trigger `additionalSources`, metric `sourceRefs`, project cohort URLs, promise original/status URLs, and Approval Signal poll URLs.
+- [ ] Split the source work into two proofs. Exact-URL recertification confirms each cited URL still resolves and still supports the specific dashboard claim. Publisher-site search checks the relevant source website/index for new evidence in the prior-month window.
+- [ ] Log negative findings. Use the `Result` value `no event observed` for an actively-checked source with nothing new; it only counts when the row's Notes name the source site, the search/index checked, and the date window searched. (Free-text phrases like "no relevant update found" are not valid `Result` values and will fail the ledger check.)
+- [ ] Treat blocked rows as open until they name a fallback action, such as manual browser check, alternate official index, or editor source pull.
+- [ ] Before saying the monthly source cycle is complete, run `npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md --require-closed`. The cycle is not complete while any row has an empty `Result` (rows not due this month must carry the literal value `not due`), any row is still marked `not checked`, any closed row lacks `Date checked`, any cited URL is missing, any blocked row lacks a fallback action, or `Coverage level achieved` is still blank.
 
 ### 1. Data review (pre-grade)
 
@@ -62,7 +71,7 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] Web-check each of the five included pollsters (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group) for new releases since `asOf`.
 - [ ] For each new poll found: append an entry with `pollster`, `fieldStart`, `fieldEnd`, `approve`, `disapprove`, `sampleSize`, `methodology`, `marginOfErrorNote`, `construct`, `sourceUrl`, `sourceLabel`.
 - [ ] Update `asOf` to the cycle date.
-- [ ] Re-check CRIC membership on Research Co., Pollara, Mainstreet, EKOS — has any of them published a direct approve/disapprove pair since last cycle? If yes: add per the inclusion rule in [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
+- [ ] Re-check Pollara, Mainstreet, EKOS, Spark Insights, and Research Co. for any direct approve/disapprove release since last cycle. Research Co. stays excluded unless it surfaces a broad PM/government job-approval pair rather than a narrower issue-approval construct.
 - [ ] Update the `preferredPM.polls` array with new Nanos weekly entries.
 - [ ] Sanity-check the rolling aggregate after data is updated — should move with direction of the new polls.
 
