@@ -184,6 +184,19 @@ export default function ScoreDerivation({ variant, derivation, displayedScore })
         3.3, down to D = 1.0 and F = 0). Letter-grade bands at the bottom of
         the calculation use the published rubric cutoffs in the Rubric tab.
       </div>
+
+      <div
+        className="derivation-provenance-note"
+        style={{
+          marginTop: "12px",
+          fontSize: "13px",
+          color: "#777",
+          lineHeight: 1.5,
+        }}
+      >
+        Grade conditions are published in advance. Each trigger carries the
+        date it was set.
+      </div>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import GradeChip from "./GradeChip";
 
 // Type chip styles — text-only, one per type, following research synthesis:
@@ -16,6 +16,15 @@ const FILTERS = [
   { key: "event",    label: "Events" },
   { key: "product",  label: "Product" },
 ];
+
+// How many entries render before the reader asks for the rest. One explicit
+// button reveals everything older; no auto-load on scroll.
+const PAGE_SIZE = 12;
+
+// Item types that sit behind the per-entry "minor updates" expander when the
+// "All" filter is active. "fix" rides along so recorded fixes stay readable
+// instead of dropping out of the rendered history.
+const QUIET_TYPES = ["docs", "minor", "fix"];
 
 function Chip({ type }) {
   const s = CHIP_STYLES[type];
@@ -181,35 +190,201 @@ function GroupSection({ title, children }) {
   );
 }
 
-export default function WhatsChanged({ changelog }) {
-  const [filter, setFilter] = useState("all");
-  const [minorOpen, setMinorOpen] = useState(false);
-
-  const latest = changelog[0];
-  if (!latest) return null;
-  const items = (latest.items || []).map((item, index) => ({
+// Grade items carry stable anchor ids so DimensionCard / shared links can
+// deep-link to them. Format matches getCurrentGradeMoves in gradeMoves.js.
+function buildItems(entry) {
+  return (entry.items || []).map((item, index) => ({
     ...item,
     anchorId: item.type === "grade" && item.dimensionId
-      ? `change-${latest.date}-${item.dimensionId}-${index}`
+      ? `change-${entry.date}-${item.dimensionId}-${index}`
       : undefined,
   }));
+}
 
-  const filterMatch = (t) => {
+function filterMatchFor(filter) {
+  return (t) => {
     if (filter === "all") return true;
     if (filter === "product") return t === "product" || t === "method";
     return t === filter;
   };
+}
+
+function entryHasVisibleItems(entry, filter) {
+  if (filter === "all") return true;
+  const match = filterMatchFor(filter);
+  return (entry.items || []).some((i) => match(i.type));
+}
+
+// Which changelog entry (by index) holds the grade item a #change- hash
+// points at. -1 when the hash is absent or targets nothing here.
+function findEntryIndexForAnchor(changelog, target) {
+  if (!target || !target.startsWith("change-")) return -1;
+  for (let i = 0; i < changelog.length; i += 1) {
+    if (buildItems(changelog[i]).some((item) => item.anchorId === target)) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+// Items for one entry: major items grouped as before; docs / minor / fix
+// items sit behind one quiet expander per entry when the filter is "All".
+function EntryItems({ entry, filter }) {
+  const [minorOpen, setMinorOpen] = useState(false);
+  const items = buildItems(entry);
+  const match = filterMatchFor(filter);
 
   const grouped = {
-    grade:   items.filter(i => i.type === "grade"   && filterMatch("grade")),
-    event:   items.filter(i => i.type === "event"   && filterMatch("event")),
-    product: items.filter(i => (i.type === "product" || i.type === "method") && filterMatch("product")),
-    minor:   items.filter(i => i.type === "minor"),
+    grade:   items.filter(i => i.type === "grade"   && match("grade")),
+    event:   items.filter(i => i.type === "event"   && match("event")),
+    product: items.filter(i => (i.type === "product" || i.type === "method") && match("product")),
+    quiet:   filter === "all" ? items.filter(i => QUIET_TYPES.includes(i.type)) : [],
   };
 
-  const totalVisible =
-    grouped.grade.length + grouped.event.length +
-    grouped.product.length + (minorOpen ? grouped.minor.length : 0);
+  const hasMajor =
+    grouped.grade.length > 0 || grouped.event.length > 0 || grouped.product.length > 0;
+  const quietCount = grouped.quiet.length;
+
+  return (
+    <div>
+      {grouped.grade.length > 0 && (
+        <GroupSection title="Grade changes">
+          {grouped.grade.map((it, i) => <GradeItem key={i} item={it} />)}
+        </GroupSection>
+      )}
+
+      {grouped.event.length > 0 && (
+        <GroupSection title="Policy events">
+          {grouped.event.map((it, i) => <StandardItem key={i} item={it} chipType="event" />)}
+        </GroupSection>
+      )}
+
+      {grouped.product.length > 0 && (
+        <GroupSection title="Product & methodology">
+          {grouped.product.map((it, i) => (
+            <StandardItem key={i} item={it} chipType={it.type === "method" ? "method" : "product"} />
+          ))}
+        </GroupSection>
+      )}
+
+      {quietCount > 0 && (
+        <div style={{
+          marginTop: hasMajor ? "6px" : 0,
+          borderTop: hasMajor ? "1px solid #f0f0f0" : "none",
+          paddingTop: hasMajor ? "4px" : 0,
+        }}>
+          <button
+            onClick={() => setMinorOpen(!minorOpen)}
+            aria-expanded={minorOpen}
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              fontSize: "13px",
+              fontWeight: 600,
+              color: "#666",
+              background: "none",
+              border: "none",
+              padding: "6px 0",
+              cursor: "pointer",
+              fontFamily: "'DM Sans', sans-serif",
+              minHeight: "44px",
+              lineHeight: 1.3,
+              textAlign: "left",
+            }}
+          >
+            {minorOpen ? "▾ Hide" : "▸ Show"} {quietCount} minor update{quietCount === 1 ? "" : "s"}
+          </button>
+          {minorOpen && (
+            <ul style={{
+              margin: "0 0 6px 0",
+              paddingLeft: "18px",
+              fontSize: "13px",
+              color: "#444",
+              lineHeight: 1.5,
+              display: "flex",
+              flexDirection: "column",
+              gap: "6px",
+            }}>
+              {grouped.quiet.map((it, i) => (
+                <li key={i}>
+                  <strong style={{ color: "#333" }}>{it.headline}.</strong>
+                  {it.body && <> {it.body}</>}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function EarlierEntry({ entry, filter }) {
+  return (
+    <div style={{ padding: "14px 0 4px", borderTop: "1px solid #f0f0f0" }}>
+      <div style={{
+        fontSize: "13px",
+        fontWeight: 700,
+        color: "#333",
+        fontFamily: "'DM Mono', monospace",
+        marginBottom: "4px",
+      }}>
+        {entry.date}
+      </div>
+      {entry.summary && (
+        <div style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, marginBottom: "8px" }}>
+          {entry.summary}
+        </div>
+      )}
+      <EntryItems entry={entry} filter={filter} />
+    </div>
+  );
+}
+
+export default function WhatsChanged({ changelog }) {
+  const [filter, setFilter] = useState("all");
+
+  // Pagination is component-local. If the page arrives on a #change- hash
+  // that points past the first page, start expanded so the anchor can render
+  // and Dashboard's scroll-to-hash finds it.
+  const [showAllEntries, setShowAllEntries] = useState(() => {
+    if (typeof window === "undefined") return false;
+    const target = window.location.hash.replace(/^#/, "");
+    return findEntryIndexForAnchor(changelog, target) >= PAGE_SIZE;
+  });
+
+  // Same rule for hash changes while this view is already mounted. A deep link
+  // also resets an active named filter: the target entry might not render
+  // under it (e.g. a grade anchor while the Events filter is on).
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    const handleHashChange = () => {
+      const target = window.location.hash.replace(/^#/, "");
+      const targetIndex = findEntryIndexForAnchor(changelog, target);
+      if (targetIndex >= 0) setFilter("all");
+      if (targetIndex >= PAGE_SIZE) {
+        setShowAllEntries(true);
+      }
+    };
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [changelog]);
+
+  const latest = changelog[0];
+  if (!latest) return null;
+
+  // Earlier entries keep their changelog index as a stable key (dates repeat).
+  // Under a named filter, entries with no matching items are skipped, and the
+  // page counts run over the entries that would actually render.
+  const earlier = changelog
+    .map((entry, index) => ({ entry, index }))
+    .slice(1)
+    .filter(({ entry }) => entryHasVisibleItems(entry, filter));
+
+  const visibleEarlier = showAllEntries ? earlier : earlier.slice(0, PAGE_SIZE - 1);
+  const hiddenCount = earlier.length - visibleEarlier.length;
+
+  const latestHasMatches = entryHasVisibleItems(latest, filter);
 
   return (
     <div
@@ -293,75 +468,56 @@ export default function WhatsChanged({ changelog }) {
         ))}
       </div>
 
-      {/* Grouped items */}
-      {grouped.grade.length > 0 && (
-        <GroupSection title="Grade changes">
-          {grouped.grade.map((it, i) => <GradeItem key={i} item={it} />)}
-        </GroupSection>
-      )}
+      {/* Latest entry items */}
+      <EntryItems entry={latest} filter={filter} />
 
-      {grouped.event.length > 0 && (
-        <GroupSection title="Policy events">
-          {grouped.event.map((it, i) => <StandardItem key={i} item={it} chipType="event" />)}
-        </GroupSection>
-      )}
-
-      {grouped.product.length > 0 && (
-        <GroupSection title="Product & methodology">
-          {grouped.product.map((it, i) => (
-            <StandardItem key={i} item={it} chipType={it.type === "method" ? "method" : "product"} />
-          ))}
-        </GroupSection>
-      )}
-
-      {/* Minor updates: collapsible bucket */}
-      {grouped.minor.length > 0 && filter === "all" && (
-        <div style={{ marginTop: "6px", borderTop: "1px solid #f0f0f0", paddingTop: "10px" }}>
-          <button
-            onClick={() => setMinorOpen(!minorOpen)}
-            aria-expanded={minorOpen}
-            style={{
-              fontSize: "12px",
-              fontWeight: 700,
-              color: "#666",
-              textTransform: "uppercase",
-              letterSpacing: "0.8px",
-              background: "none",
-              border: "none",
-              padding: "6px 0",
-              cursor: "pointer",
-              fontFamily: "'DM Sans', sans-serif",
-              minHeight: "32px",
-            }}
-          >
-            {minorOpen ? "▾" : "▸"} Minor updates ({grouped.minor.length})
-          </button>
-          {minorOpen && (
-            <ul style={{
-              margin: "6px 0 0 0",
-              paddingLeft: "18px",
-              fontSize: "13px",
-              color: "#444",
-              lineHeight: 1.5,
-              display: "flex",
-              flexDirection: "column",
-              gap: "6px",
-            }}>
-              {grouped.minor.map((it, i) => (
-                <li key={i}>
-                  <strong style={{ color: "#333" }}>{it.headline}</strong>
-                  {it.body && <> — {it.body}</>}
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      )}
-
-      {totalVisible === 0 && (
+      {filter !== "all" && !latestHasMatches && (
         <div style={{ fontSize: "14px", color: "#666", fontStyle: "italic", padding: "12px 0" }}>
           No items match that filter for this update.
         </div>
+      )}
+
+      {/* Earlier entries */}
+      {visibleEarlier.length > 0 && (
+        <div style={{ marginTop: "18px", borderTop: "1px solid #e0e0e0", paddingTop: "14px" }}>
+          <div style={{
+            fontSize: "12px",
+            fontWeight: 700,
+            color: "#555",
+            textTransform: "uppercase",
+            letterSpacing: "0.8px",
+            marginBottom: "4px",
+          }}>
+            Earlier updates
+          </div>
+          {visibleEarlier.map(({ entry, index }) => (
+            <EarlierEntry key={index} entry={entry} filter={filter} />
+          ))}
+        </div>
+      )}
+
+      {hiddenCount > 0 && (
+        <button
+          onClick={() => setShowAllEntries(true)}
+          style={{
+            display: "block",
+            width: "100%",
+            marginTop: "14px",
+            minHeight: "44px",
+            padding: "10px 16px",
+            fontSize: "14px",
+            fontWeight: 600,
+            fontFamily: "'DM Sans', sans-serif",
+            color: "#444",
+            background: "#fafafa",
+            border: "1px solid #d0d0d0",
+            borderRadius: "8px",
+            cursor: "pointer",
+            lineHeight: 1.3,
+          }}
+        >
+          Show earlier changes ({hiddenCount} more)
+        </button>
       )}
 
       <div
@@ -374,7 +530,7 @@ export default function WhatsChanged({ changelog }) {
           lineHeight: 1.5,
         }}
       >
-        Older entries live in the{" "}
+        The raw data behind these entries is in the{" "}
         <a
           href="https://github.com/Sawatter/canada-under-carney/blob/main/src/data/changelog.json"
           target="_blank"

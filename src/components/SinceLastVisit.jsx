@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import meta from "../data/meta.json";
 import changelog from "../data/changelog.json";
-import { countGradeItemsSince, parseVersion } from "../sinceLastVisit.js";
+import { countGradeItemsSince, resolveNoticeState } from "../sinceLastVisit.js";
 import "./SinceLastVisit.css";
 
 // Re-exported so callers can import the pure helper from the component path.
@@ -36,38 +36,45 @@ function writeLastSeen(version) {
 
 // Decide once, before first paint, whether there is anything to say.
 // Read-only: the localStorage write happens in the sync effect below.
+// Branch logic lives in resolveNoticeState (pure, unit-tested); this maps
+// its "none" result to null so the render guard stays a simple falsy check.
 function computeNotice() {
-  const stored = readLastSeen();
-  // First visit, or a stored value that no longer parses.
-  if (!parseVersion(stored)) return null;
-  // Up to date.
-  if (stored === meta.version) return null;
-  const count = countGradeItemsSince(changelog, stored, meta.version);
-  // Versions moved but no grade changes landed. Also covers a stored
-  // version newer than current (count is 0), which self-heals below.
-  if (count === 0) return null;
-  return { sinceVersion: stored, count };
+  const state = resolveNoticeState(readLastSeen(), meta.version, changelog);
+  return state === "none" ? null : state;
 }
 
 /**
  * A quiet, dismissible one-line notice: how many grade changes landed since
- * the version the reader last saw. Renders nothing on a first visit, when
- * the reader is up to date, or when the versions in between carried no
- * grade changes. Not mounted anywhere yet.
+ * the version the reader last saw. Renders nothing on a first visit or when
+ * the reader is up to date. When the version moved but no grade changes
+ * landed, renders a one-line caught-up state instead: passive reassurance,
+ * no controls, shown once per version crossing.
  */
 export default function SinceLastVisit({ onOpenChangelog }) {
   const [notice, setNotice] = useState(computeNotice);
 
   // Sync the stored marker with what the reader has now seen. Whenever no
-  // notice is showing (first visit, no grade items since, or just
+  // grade-change notice is showing (first visit, caught-up, or just
   // dismissed), record the current version so the line stays quiet until
-  // the next grade change.
+  // the next version crossing. The caught-up line self-heals here too:
+  // it stays up for this page view (React state already holds it) and is
+  // gone on the next visit.
   useEffect(() => {
-    if (notice !== null) return;
+    if (notice !== null && notice !== "caught-up") return;
     if (readLastSeen() !== meta.version) writeLastSeen(meta.version);
   }, [notice]);
 
   if (!notice) return null;
+
+  if (notice === "caught-up") {
+    return (
+      <div className="since-last-visit since-last-visit-caught-up">
+        <p className="since-last-visit-text">
+          You&apos;re caught up. Next scheduled update: {meta.nextUpdate}.
+        </p>
+      </div>
+    );
+  }
 
   const dismiss = () => setNotice(null);
 

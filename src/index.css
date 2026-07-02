@@ -1121,6 +1121,23 @@ button.text-link-button {
   letter-spacing: 0.3px;
 }
 
+/* Trigger provenance: the date a condition was first published. Neutral
+   tokens flip with the theme, so no dark-mode override is needed. */
+.dim-trigger-setdate {
+  display: inline-flex;
+  align-items: center;
+  align-self: flex-start;
+  min-height: 18px;
+  padding: 1px 6px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-sunken);
+  color: var(--text-muted);
+  font-size: var(--dim-fs-micro, 11px);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
 .dim-metric-group-title {
   font-size: 12px;
   font-weight: 700;

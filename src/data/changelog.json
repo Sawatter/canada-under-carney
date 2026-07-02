@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-07-01",
+    "version": "5.152",
+    "summary": "Small trust and calm improvements: trigger dates now show when each grade condition was set, the Change Log opens on major items, returning readers get a quiet caught-up line, and the theme control gains a follow-your-device option. No scores changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Trigger conditions show their set date",
+        "body": "Every up and down trigger in an opened dimension now shows the date its condition was published. The point is checkable fairness: the rules that decide a grade move were written before the evidence they now judge, and the score-math panel says so in one line."
+      },
+      {
+        "type": "product",
+        "headline": "Change Log opens on the major items",
+        "body": "The Changes tab now shows the newest dozen entries with documentation and minor items folded behind a small expander per entry. An explicit button reveals earlier history. Nothing loads on scroll."
+      },
+      {
+        "type": "product",
+        "headline": "A quiet caught-up line for returning readers",
+        "body": "When nothing has changed in the grades since your last visit, the dashboard now says so once, with the next scheduled update date, instead of saying nothing. It stays on your device, has no buttons, and appears once per release."
+      },
+      {
+        "type": "product",
+        "headline": "Theme can follow your device",
+        "body": "The theme button now cycles light, dark, and system. System follows your device setting live, so the dashboard changes with it at sunset instead of trapping you in a one-time choice."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-01",
     "version": "5.151",
     "summary": "Made the dashboard read more like an app: a desktop sidebar, one-line verdicts on cards, a next-check line per dimension, a since-your-last-visit note, and a calendar file for the next update. No scores changed.",
     "items": [

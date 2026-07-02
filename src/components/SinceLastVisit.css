@@ -20,6 +20,14 @@
   margin: 0;
 }
 
+/* Caught-up variant: same sunken surface, but quieter. No border and muted
+   text, because there is nothing to act on (no controls, not dismissible).
+   Semantic tokens only, so dark mode needs no extra rules. No motion. */
+.since-last-visit-caught-up {
+  border: none;
+  color: var(--text-muted);
+}
+
 .since-last-visit-actions {
   display: flex;
   align-items: center;

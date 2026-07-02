@@ -110,31 +110,58 @@ export default function Dashboard() {
   const [derivationOpen, setDerivationOpen] = useState(null);
   const [anchorNavigation, setAnchorNavigation] = useState(null);
   const [isMobile, setIsMobile] = useState(() => isMobileViewport());
-  // Theme: the no-flash script in index.html sets the initial data-theme on
-  // <html> before React mounts; we read it back, then keep the attribute and
-  // the saved choice in sync as the user toggles.
-  const [theme, setTheme] = useState(() => (
-    typeof document !== "undefined" && document.documentElement.getAttribute("data-theme") === "dark"
-      ? "dark"
-      : "light"
-  ));
+  // Theme: tri-state, one of "light" | "dark" | "system". The no-flash script
+  // in index.html sets the initial data-theme on <html> before React mounts;
+  // here we resolve state from the same VALIDATED saved choice, defaulting to
+  // "system" (follow the OS) when nothing valid is saved.
+  const [theme, setTheme] = useState(() => {
+    if (typeof window === "undefined") return "system";
+    try {
+      const saved = window.localStorage.getItem("ccc-theme");
+      if (saved === "light" || saved === "dark" || saved === "system") return saved;
+    } catch { /* storage blocked */ }
+    return "system";
+  });
   // Keep <html data-theme> in lockstep with state via an effect (idempotent, so
-  // the attribute and state can never drift). Persist to localStorage ONLY when
-  // the change came from an explicit user toggle (tracked by a ref set in
-  // toggleTheme), never on mount — so an OS-derived default is not locked in and
-  // keeps following the OS until the user toggles. Gating on the user-toggle ref
-  // (rather than "after first effect run") stays correct under StrictMode's
-  // development double-invocation of effects.
+  // the attribute and state can never drift). In "system" mode the attribute
+  // mirrors the live OS preference through a matchMedia listener (removed on
+  // cleanup). Persist to localStorage ONLY when the change came from an
+  // explicit user toggle (tracked by a ref set in toggleTheme), never on mount
+  // — so a default is not locked in before the user chooses. Gating on the
+  // user-toggle ref (rather than "after first effect run") stays correct under
+  // StrictMode's development double-invocation of effects.
   const userToggledThemeRef = useRef(false);
   useEffect(() => {
-    if (typeof document === "undefined") return;
-    document.documentElement.setAttribute("data-theme", theme);
-    if (!userToggledThemeRef.current) return;
-    try { window.localStorage.setItem("ccc-theme", theme); } catch { /* storage blocked */ }
+    if (typeof document === "undefined") return undefined;
+    if (userToggledThemeRef.current) {
+      try { window.localStorage.setItem("ccc-theme", theme); } catch { /* storage blocked */ }
+    }
+    if (theme !== "system") {
+      document.documentElement.setAttribute("data-theme", theme);
+      return undefined;
+    }
+    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
+      document.documentElement.setAttribute("data-theme", "light");
+      return undefined;
+    }
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const applySystemTheme = () => {
+      document.documentElement.setAttribute("data-theme", media.matches ? "dark" : "light");
+    };
+    applySystemTheme();
+    // Older Safari exposes addListener/removeListener only.
+    if (typeof media.addEventListener === "function") {
+      media.addEventListener("change", applySystemTheme);
+      return () => media.removeEventListener("change", applySystemTheme);
+    }
+    media.addListener(applySystemTheme);
+    return () => media.removeListener(applySystemTheme);
   }, [theme]);
+  // Cycle order: light -> dark -> system -> light.
+  const nextTheme = theme === "light" ? "dark" : theme === "dark" ? "system" : "light";
   const toggleTheme = useCallback(() => {
     userToggledThemeRef.current = true;
-    setTheme((current) => (current === "dark" ? "light" : "dark"));
+    setTheme((current) => (current === "light" ? "dark" : current === "dark" ? "system" : "light"));
   }, []);
   const anchorRequestIdRef = useRef(0);
   const expandedRef = useRef(null);
@@ -630,13 +657,18 @@ export default function Dashboard() {
           type="button"
           className="theme-toggle"
           onClick={toggleTheme}
-          aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
-          title={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+          aria-label={`Theme: ${theme}. Switch to ${nextTheme}.`}
+          title={`Theme: ${theme}. Switch to ${nextTheme}.`}
         >
           {theme === "dark" ? (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <circle cx="12" cy="12" r="4" />
               <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          ) : theme === "system" ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="9" />
+              <path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor" stroke="none" />
             </svg>
           ) : (
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

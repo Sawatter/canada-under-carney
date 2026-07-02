@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { getCurrentGradeMoves } from "../../src/gradeMoves.js";
+import { resolveNoticeState } from "../../src/sinceLastVisit.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const meta = JSON.parse(readFileSync(path.join(repoRoot, "src/data/meta.json"), "utf8"));
@@ -168,6 +169,71 @@ test.describe("dashboard route matrix", () => {
       expect(consoleErrors).toEqual([]);
     });
   }
+});
+
+test.describe("v5.152 trust surfaces", () => {
+  test("trigger provenance badges render in the opened dimension", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath());
+    await page.locator(".dim-card-header-button").first().click();
+    // Open all sections so the triggers panel renders its rows.
+    await page.locator(".dim-show-all-button").click();
+    const badges = page.locator(".dim-trigger-setdate");
+    await expect(badges.first()).toBeVisible();
+    await expect(badges.first()).toContainText(/condition set \d{4}-\d{2}-\d{2}/);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("since-last-visit caught-up state matches the pure resolver", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    const seeded = "5.150";
+    // Data-driven oracle: the same resolver the component uses decides what
+    // this seeded reader must see, so a future grade item cannot flake this.
+    const expected = resolveNoticeState(seeded, meta.version, changelog);
+    await page.addInitScript((value) => {
+      window.localStorage.setItem("ccc-last-seen-version", value);
+    }, seeded);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath());
+    if (expected === "caught-up") {
+      await expect(page.locator(".since-last-visit-caught-up")).toBeVisible();
+      await expect(page.locator(".since-last-visit-caught-up"))
+        .toContainText(`Next scheduled update: ${meta.nextUpdate}`);
+    } else if (expected !== "none") {
+      await expect(page.locator(".since-last-visit"))
+        .toContainText(`${expected.count} grade change`);
+    }
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("change log throttles to twelve entries with an explicit reveal", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-changelog" }));
+    const reveal = page.getByRole("button", { name: /Show earlier changes/ });
+    await expect(reveal).toBeVisible();
+    await expect(reveal).toContainText(`(${changelog.length - 12} more)`);
+    await reveal.click();
+    await expect(reveal).toHaveCount(0);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("theme control cycles light, dark, and system", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath());
+    const toggle = page.locator(".theme-toggle");
+    const html = page.locator("html");
+    for (let i = 0; i < 3; i += 1) {
+      await toggle.click();
+      await expect(html).toHaveAttribute("data-theme", /^(light|dark)$/);
+    }
+    const saved = await page.evaluate(() => window.localStorage.getItem("ccc-theme"));
+    expect(["light", "dark", "system"]).toContain(saved);
+    await expect(toggle).toHaveAttribute("aria-label", /Switch to/);
+    expect(consoleErrors).toEqual([]);
+  });
 });
 
 test.describe("workspace chrome, verdict lines, and follow updates", () => {

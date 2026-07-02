@@ -44,3 +44,27 @@ export function countGradeItemsSince(changelog, storedVersion, currentVersion) {
   }
   return count;
 }
+
+/**
+ * Resolve what the since-last-visit line should show. Returns:
+ * - "none": first visit, unparsable stored value, or stored === current.
+ *   Nothing renders.
+ * - "caught-up": the version moved FORWARD but no grade items landed in
+ *   between. A quiet one-line reassurance renders once, then storage
+ *   self-heals to the current version. A stored version NEWER than current
+ *   (rollback, stale preview) returns "none" instead - claiming "caught up"
+ *   there would be false copy; the storage sync still self-heals.
+ * - { sinceVersion, count }: grade changes landed; the notice renders.
+ */
+export function resolveNoticeState(storedVersion, currentVersion, changelog) {
+  const stored = parseVersion(storedVersion);
+  const current = parseVersion(currentVersion);
+  if (!stored || !current) return "none";
+  if (storedVersion === currentVersion) return "none";
+  const storedIsNewer = stored[0] > current[0]
+    || (stored[0] === current[0] && stored[1] > current[1]);
+  if (storedIsNewer) return "none";
+  const count = countGradeItemsSince(changelog, storedVersion, currentVersion);
+  if (count === 0) return "caught-up";
+  return { sinceVersion: storedVersion, count };
+}

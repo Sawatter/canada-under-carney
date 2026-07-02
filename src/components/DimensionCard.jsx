@@ -1010,6 +1010,14 @@ export default function DimensionCard({
         style={{ display: "flex", flexDirection: "column", gap: "2px" }}
       >
         <span>{item.text}</span>
+        {item.setDate && (
+          <span
+            className="dim-trigger-setdate"
+            title={`This condition was published on ${item.setDate}, before the evidence it now judges.`}
+          >
+            condition set {item.setDate}
+          </span>
+        )}
         {item.sourceLabel && (
           item.internalRef ? (
             <button
