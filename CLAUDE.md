@@ -2,6 +2,19 @@
 
 Conventions for Claude / Codex sessions working on this repo. Read this before suggesting code, copy, or methodology changes.
 
+## Operating loop
+
+Every completed task or outcome runs through the same loop. Do not end at "done."
+
+1. **Tie back to goals.** After any outcome lands, name what it advanced in [docs/Current-Roadmap.md](docs/Current-Roadmap.md) (the goals ledger) and what it exposed or unblocked.
+2. **Plan.** Convert what it exposed into concrete next items, written into the roadmap's Now / Next / Later lanes with a one-line priority reason each. Nothing lives only in chat.
+3. **Prioritize by leverage.** Trust and correctness items outrank polish; anything blocking the monthly cycle outranks both.
+4. **Execute with agents.** Fan work out to as many sub-agents as the task honestly needs, on file-disjoint sets. Brief each agent on what the others are changing (file-disjoint is not claim-disjoint), and the integrator runs a cross-doc/cross-file consistency pass before commit.
+5. **Cross-AI review before it counts.** Every substantive output gets an adversarial review by a different AI before or immediately after landing: Codex (`codex exec`, read-only, resumable thread) for code and plans; Comet for live-site product reviews; Claude via `scripts/claude-bridge.sh` when Codex is the builder. A timeout or non-answer is never approval.
+6. **Feed the review back in.** Accepted findings become fixes now or roadmap items with an owner lane; rejected findings get a logged reason. Then the loop restarts at step 1.
+
+**Editor gates (the steps that genuinely need the human):** running external reviews under the editor's own accounts (Comet), grade / promise-status / methodology adjudication, frozen-surface changes, and any external publication beyond pushing this repo. Everything else defaults to autonomous execution under the checks in this file.
+
 ## What this is
 
 A public scoreboard that grades the Carney federal government across 11 policy areas plus one tracker (Promise Delivery). React 19 + Vite SPA, deploys to GitHub Pages from `main`. Live at https://sawatter.github.io/canada-under-carney/. Updated roughly monthly.
