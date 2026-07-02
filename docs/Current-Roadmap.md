@@ -159,7 +159,13 @@ These are on deck awaiting their triggers.
    When the rater sends worksheets back, compare their grades against the frozen packet snapshot and classify each mismatch as rubric clarity, source ambiguity, arithmetic/application error, or genuine disagreement. Do not revise the packet mid-run unless the rater has not started and the editor explicitly resends it.
 
 3. August 1 monthly cycle
-   The next full cycle is 2026-08-01 (`meta.json`). Re-run the monthly freshness pulls, check the open Housing watch items, and review any editor-approved monitor candidates. Refresh this roadmap as the last step of the cycle.
+   The next full cycle is 2026-08-01 (`meta.json`). It starts with the mandatory source-ledger recertification gate (Playbook section 0), then the monthly freshness pulls, the open Housing watch items, and any editor-approved monitor candidates. Queued governance chores for this cycle, all logged during the July recertification and doc sync: register Transparency International Canada and the House ETHI committee in the Source Characterization Register; repoint the $5B Trade Diversification Corridors Fund promise away from Budget 2025 Ch.4 (which does not contain it) to the correct chapter; fix the CSLS citation label ("Canadian Productivity Review" vs the actual report titles); replace the five dead legacy watch URLs with archive links. Refresh this roadmap as the last step of the cycle.
+
+4. Comet live app-feel review of v5.152
+   Editor-gated (runs under the editor's own account). The paste-ready prompt sits in the untracked `tmp/comet-review-prompt-2026-07.md`: version-gated to v5.152, evidence-labeled (TESTED / TOOL-CHECKED / UNTESTED / INFERENCE), with a defined verdict scale. When the review returns, it gets a claim-by-claim adjudication like the June 30 one, and accepted findings feed the v5.153 scope. Priority reason: it is the cheapest way to sharpen the next release before building it.
+
+5. v5.153 architectural release (after the Comet review)
+   The three structural moves the best-apps research put in dependency order: route-level code splitting plus a dynamic changelog import (the ~760KB single chunk is the ceiling on everything fast-feeling), self-hosted fonts (removes the render-blocking chain and the one remaining third-party request), and the URL/history contract for drawers (back and edge-swipe close the sheet, deep links restore, share button) with a Playwright assertion locking the back-gesture invariant. Deliberately sequenced after the Comet review because back-gesture findings land in the same files. Build multi-agent, cross-AI review before push, per the operating loop.
 
 ---
 ## Later
@@ -169,6 +175,8 @@ These are valid, but not active now.
 1. Keep Flagship Delivery only while future cycles continue to pass the published retention checks. If any required check fails, demote it in v2 instead of reviving probation.
 2. Revisit the need for small rubric maintenance only if later audits surface repeated failure patterns.
 3. Watch the next few Pages deploys with the browser-smoke CI gate after the third-party asset stubs landed, mainly for runtime cost rather than startup-network flake.
+4. v5.154 polish lane, gated on the v5.153 motion-token prerequisite: card-to-drawer shared-element morph via View Transitions (reduced-motion gated, plain crossfade fallback), mobile sheet drag-to-dismiss with overscroll containment, a standardized drawer spine with large-title condense, and a consolidated motion-token system with one reduced-motion source of truth.
+5. A generalized Comet review-prompt template in docs/ (version gate and new-since-last-review list as fill-in fields), added to the playbook's post-cycle section, if the live app-feel review becomes recurring monthly process.
 
 ---
 
