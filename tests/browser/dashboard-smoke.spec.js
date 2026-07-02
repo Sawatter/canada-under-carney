@@ -166,6 +166,57 @@ test.describe("dashboard route matrix", () => {
   }
 });
 
+test.describe("workspace chrome, verdict lines, and follow updates", () => {
+  for (const [viewportName, viewport] of viewports) {
+    test(`workspace surfaces render correctly on ${viewportName}`, async ({ page }, testInfo) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      if (testInfo.project.name.includes("reduced-motion")) {
+        await page.emulateMedia({ reducedMotion: "reduce" });
+      }
+      await page.goto(routePath());
+      await expectAppShell(page);
+
+      const sidebar = page.locator(".app-workspace-sidebar");
+      if (viewportName === "desktop") {
+        // Desktop >=1024px: sidebar owns navigation, top tab rail retires.
+        await expect(sidebar).toBeVisible();
+        await expect(page.locator(".dashboard-tabs-wrap")).toBeHidden();
+        await expect(sidebar.locator(".app-workspace-sidebar-link")).toHaveCount(views.length);
+        await sidebar.getByRole("button", { name: "Promises" }).click();
+        await expectActiveNav(page, "Promises");
+        await sidebar.getByRole("button", { name: "Scorecard" }).click();
+        await expectActiveNav(page, "Scorecard");
+        // Sidebar persists while a dimension is open (workspace behaviour).
+        await page.locator(".dim-card-header-button").first().click();
+        await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+        await expect(sidebar).toBeVisible();
+        await page.locator(".dim-drawer-close").click();
+        await expect(page.locator("#scorecard-dimension-grid")).toBeVisible();
+      } else {
+        await expect(sidebar).toBeHidden();
+      }
+
+      // Authored verdict lines render on collapsed cards (data-driven).
+      const verdictDims = dimensions.filter((d) => !d.excludeFromGPA && d.verdictLine);
+      if (verdictDims.length > 0) {
+        await expect(page.locator(`#dim-${verdictDims[0].id}`))
+          .toContainText(verdictDims[0].verdictLine.slice(0, 40));
+      }
+
+      // Next-check line sourced verbatim from nextTrigger.
+      await expect(page.locator(".dim-next-check-line").first()).toBeVisible();
+
+      // Follow-updates block: calendar file + RSS, no urgency framing.
+      await expect(page.locator(".follow-updates-link[href='next-update.ics']")).toBeVisible();
+      await expect(page.locator(".follow-updates-link[href='feed.xml']")).toBeVisible();
+
+      await expectNoOverflow(page);
+      expect(consoleErrors).toEqual([]);
+    });
+  }
+});
+
 test.describe("current release grade-move evidence loop", () => {
   for (const [viewportName, viewport] of viewports) {
     test(`scorecard ${viewportName} grade-move markers match current changelog`, async ({ page }, testInfo) => {

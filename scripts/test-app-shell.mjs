@@ -15,6 +15,8 @@ const sources = {
   promises: read("src/components/PromiseTracker.jsx"),
   dimension: read("src/components/DimensionCard.jsx"),
   gradeMoves: read("src/gradeMoves.js"),
+  sinceLastVisit: read("src/components/SinceLastVisit.jsx"),
+  sinceLastVisitHelpers: read("src/sinceLastVisit.js"),
   css: read("src/components/AppShell.css"),
 };
 const publicJsPath = [
@@ -23,6 +25,8 @@ const publicJsPath = [
   sources.promises,
   sources.dimension,
   sources.gradeMoves,
+  sources.sinceLastVisit,
+  sources.sinceLastVisitHelpers,
 ].join("\n");
 const failures = [];
 let assertionCount = 0;
@@ -83,8 +87,19 @@ check(
 );
 check(
   !/sessionStorage|document\.cookie|newSinceLastVisit|lastSeenAt|changedDimensions/.test(publicJsPath) &&
-    !/localStorage\.setItem\(\s*["'](?!ccc-theme["'])/.test(publicJsPath),
-  "The public app path must not add personalized visit tracking or storage beyond the explicit ccc-theme preference.",
+    !/localStorage\.setItem\(\s*["'](?!(?:ccc-theme|ccc-last-seen-version)["'])/.test(publicJsPath),
+  "The public app path must not add personalized visit tracking or storage beyond the two explicit client-only keys (ccc-theme, ccc-last-seen-version).",
+);
+// Variable-key writes would slip past the literal-key allowlist above, so pin
+// the SinceLastVisit constant to its approved value and require every setItem
+// in those files to go through it.
+check(
+  /const STORAGE_KEY = "ccc-last-seen-version";/.test(sources.sinceLastVisit) &&
+    [sources.sinceLastVisit, sources.sinceLastVisitHelpers].every((src) => (
+      (src.match(/localStorage\.setItem\(/g) || []).every(Boolean)
+      && !/localStorage\.setItem\(\s*(?!STORAGE_KEY\s*,)/.test(src)
+    )),
+  "SinceLastVisit must write only via the pinned STORAGE_KEY constant (ccc-last-seen-version).",
 );
 
 for (const componentName of [

@@ -19,6 +19,8 @@ import About from "./About";
 import EmailSignup from "./EmailSignup";
 import VisitorCount from "./VisitorCount";
 import DashboardStatus from "./DashboardStatus";
+import SinceLastVisit from "./SinceLastVisit";
+import FollowUpdates from "./FollowUpdates";
 import { getCurrentGradeMoves, getCurrentGradeMovesByDimension } from "../gradeMoves";
 import "./AppShell.css";
 
@@ -590,6 +592,37 @@ export default function Dashboard() {
       >
         Skip to main content
       </a>
+
+      {/* Desktop workspace sidebar (>=1024px only, hidden in CSS below that).
+          Same five destinations as the tab rail and bottom nav. Unlike the
+          tab rail, it stays visible while a dimension is open on desktop, so
+          navigation never disappears during the focused-detail takeover. */}
+      <aside className="app-workspace-sidebar">
+        <div className="app-workspace-sidebar-brand">
+          <span className="app-workspace-sidebar-title">Canada Under Carney</span>
+          <span className="app-workspace-sidebar-version">v{meta.version}</span>
+        </div>
+        <nav className="app-workspace-sidebar-nav" aria-label="Dashboard sections">
+          {tabs.map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              className={`app-workspace-sidebar-link${view === tab.key ? " is-active" : ""}`}
+              aria-current={view === tab.key ? "page" : undefined}
+              onClick={() => selectView(tab.key)}
+            >
+              {dashboardSectionIcon(tab.key)}
+              <span>{tab.label}</span>
+            </button>
+          ))}
+        </nav>
+        <div className="app-workspace-sidebar-foot">
+          <span>Next update: {meta.nextUpdate}</span>
+          <a href="next-update.ics">Add to calendar (.ics)</a>
+        </div>
+      </aside>
+
+      <div className="app-workspace-main">
       <VisitorCount />
       {/* Header */}
       <header className="dashboard-header" style={{ textAlign: "center", marginBottom: "32px" }}>
@@ -789,6 +822,8 @@ export default function Dashboard() {
       </div>
 
       <DashboardStatus gradeMoves={currentGradeMoves} />
+
+      <SinceLastVisit onOpenChangelog={() => selectView("changelog")} />
 
       {/* Section navigation is a horizontally scrollable rail on narrow screens. */}
       <div className="dashboard-tabs-wrap">
@@ -1048,15 +1083,9 @@ export default function Dashboard() {
           Monthly updates with ad-hoc revisions on major events &middot; Rubric
           v{meta.rubricVersion} &middot; Next scheduled update: {meta.nextUpdate}
         </div>
-        <div style={{ fontSize: "14px", color: "#555", marginTop: "8px" }}>
-          <a
-            href="feed.xml"
-            style={{ color: "#1565c0", textDecoration: "none" }}
-          >
-            Subscribe via RSS &rarr;
-          </a>
-        </div>
+        <FollowUpdates />
       </footer>
+      </div>
 
       {!expandedDimension && (
         <nav className="app-bottom-nav" aria-label="Dashboard sections">

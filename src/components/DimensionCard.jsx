@@ -1495,8 +1495,26 @@ export default function DimensionCard({
                 </div>
               )}
               <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
-                {dim.status}
+                {dim.verdictLine || dim.status}
               </div>
+              {!isTracker && dim.nextTrigger && (
+                <div
+                  className="dim-next-check-line"
+                  title={dim.nextTrigger}
+                  style={{
+                    fontSize: "12px",
+                    color: "#767676",
+                    lineHeight: 1.4,
+                    marginTop: "4px",
+                  }}
+                >
+                  Next check: {(() => {
+                    // Verbatim first sentence of the editor-authored nextTrigger.
+                    const first = String(dim.nextTrigger).split(". ")[0];
+                    return first.endsWith(".") ? first : `${first}.`;
+                  })()}
+                </div>
+              )}
               {dim.lastUpdated && (
                 <div className="last-reviewed-pill dim-last-reviewed-pill">
                   <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>

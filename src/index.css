@@ -2176,6 +2176,49 @@ a:hover { text-decoration: underline; }
   }
 }
 
+/* Follow-updates block (footer): the calm return channels - calendar file,
+   RSS, and a pointer at the email signup. Tokens only, themes for free. */
+.follow-updates {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.follow-updates-heading {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.follow-updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.follow-updates-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.follow-updates-email-note {
+  color: var(--text-muted);
+  font-size: 13px;
+}
+
 /* ============================================================
    THEME TOGGLE  (Phase 7)
    ============================================================ */
@@ -2591,6 +2634,7 @@ a:hover { text-decoration: underline; }
    #4f9e7e was 3.22:1. Decorative/text uses keep the brighter --app-accent. */
 [data-theme="dark"] .app-shell .dashboard-tab[aria-current="page"],
 [data-theme="dark"] .app-bottom-nav button[aria-current="page"],
+[data-theme="dark"] .app-workspace-sidebar-link.is-active,
 [data-theme="dark"] .app-clear-filters { background: var(--app-accent-fill) !important; }
 /* Tier-1/2 summary chips, toned for dark to match tier-3. */
 [data-theme="dark"] .dim-tier-chip-1 { background: #16222e; color: #9cc2e8; border-color: #2f4763; }

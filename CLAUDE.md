@@ -100,6 +100,7 @@ docs/
 
 - Every dimension has: `id`, `name`, `whatThisGrades`, `gradeBasis`, `scoring`, `gradeTriggers`, `sources`, `lastUpdated`
 - Graded dimensions also have: `judgmentCall`, `judgmentDetail`, `grade`, `previousGrade`, `trend`, `status`
+- Graded dimensions may carry an optional `verdictLine`: one authored plain-language sentence (110 chars max, validated by `validate-dimensions.mjs`) giving the verdict gist. No grade letters, no urgency wording, never on the tracker, never synthesized at render time.
 - Tracker dimensions have: `excludeFromGPA: true`, `informationalGrade` (NOT `grade`), and DO NOT need `judgmentCall` (the renderer suppresses it)
 - Promise Delivery is the only current tracker
 

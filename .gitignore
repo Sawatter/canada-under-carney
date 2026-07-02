@@ -43,3 +43,6 @@ tmp/
 
 # Local-only editor identity patterns for the pre-commit hook (never committed)
 .identity-patterns
+
+# Calendar file is regenerated on every build by scripts/generate-next-update-ics.mjs
+public/next-update.ics

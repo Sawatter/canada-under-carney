@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-07-01",
+    "version": "5.151",
+    "summary": "Made the dashboard read more like an app: a desktop sidebar, one-line verdicts on cards, a next-check line per dimension, a since-your-last-visit note, and a calendar file for the next update. No scores changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Desktop workspace sidebar",
+        "body": "On wide screens the five sections now live in a fixed left sidebar with the version and next update date, and it stays visible while a dimension is open. Phones keep the bottom navigation, and mid-size screens keep the top tabs."
+      },
+      {
+        "type": "product",
+        "headline": "One-line verdicts on cards",
+        "body": "Each graded card now opens with a single plain sentence giving the verdict gist, written by the editor and checked by the data validator so it can never contain a letter grade or urgency wording. The full status paragraph still lives inside the opened card."
+      },
+      {
+        "type": "product",
+        "headline": "Next check on every card",
+        "body": "Each graded card now shows the next scheduled evidence check for that file, taken word for word from the existing trigger data. It names what gets checked, never how close a grade is to moving."
+      },
+      {
+        "type": "product",
+        "headline": "Since-your-last-visit note",
+        "body": "Returning readers see one quiet, dismissible line counting grade changes since the version they last saw. It works entirely on your device with a single browser storage entry. The last-seen marker stays on your device and is not sent anywhere, and the build checks enforce that."
+      },
+      {
+        "type": "product",
+        "headline": "Calendar file for the next update",
+        "body": "The footer now offers a small calendar file (.ics) for the next scheduled update, alongside RSS and the email signup. It sets no reminder alarm. Real push notifications were considered and rejected: on a static site they would require a third-party push service, which fails the privacy bar."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-01",
     "version": "5.150",
     "summary": "Applied the July monthly factual refreshes, refreshed Approval Signal, and closed the Flagship probation check with no grade moves.",
     "items": [

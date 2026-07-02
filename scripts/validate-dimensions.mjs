@@ -43,6 +43,40 @@ const HEADLINE_KEYS = new Set([
 // Round 2 flagged in section 6.
 const POCKETBOOK_NAMES = new Set(POCKETBOOK_DIMS);
 
+// verdictLine guards: the one-liner is explicitly authored, never synthesized,
+// so it must not smuggle in a grade token or urgency/freshness wording.
+// Same list style as scripts/validate-status.mjs FORBIDDEN_URGENCY_WORDS, but
+// matched on word boundaries: a plain includes() would false-positive "live"
+// inside ordinary words like "delivered".
+// Grade-token note: a trailing \b after [+\-] would require a word char after
+// the sign, missing the real case ("held its A- footing") while flagging
+// hyphenated words ("E-mail"). (?!\w) catches the standalone token instead.
+// The third pattern catches BARE letter grades in grading phrases ("held at C",
+// "moved to D."): the letter must be uppercase (so "at a glance" passes) and
+// not followed by a word char or hyphen (so "C-5" and "to Act" pass).
+const VERDICT_GRADE_TOKEN_PATTERNS = [
+  /\b[A-F][+\-](?!\w)/,
+  /\bgrade\s+[A-F]\b/i,
+  /\b(?:[Gg]raded?|[Hh]eld|[Hh]olds?|[Mm]oved?|[Ss]tays?|at|to|from)\s+[A-F](?![\w-])/,
+];
+const VERDICT_FORBIDDEN_URGENCY_WORDS = [
+  "breaking",
+  "urgent",
+  "just in",
+  "live",
+  "real-time",
+  "don't miss",
+  "dont miss",
+  "come back",
+  "check back",
+];
+const VERDICT_FORBIDDEN_URGENCY_PATTERNS = VERDICT_FORBIDDEN_URGENCY_WORDS.map(
+  (word) => ({
+    word,
+    pattern: new RegExp(`\\b${word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i"),
+  }),
+);
+
 const errors = [];
 const warnings = [];
 
@@ -173,6 +207,27 @@ for (const d of dimensions) {
     if (d.informationalGrade) {
       err(name, `graded dimension should not have "informationalGrade" — use "grade"`);
     }
+
+    // Optional authored verdict one-liner (graded dims only)
+    if (d.verdictLine !== undefined) {
+      if (!hasText(d.verdictLine)) {
+        err(name, `"verdictLine" is present but not a non-empty string`);
+      } else {
+        if (d.verdictLine.length > 110) {
+          err(name, `"verdictLine" is ${d.verdictLine.length} chars — must be 110 or fewer`);
+        }
+        for (const pattern of VERDICT_GRADE_TOKEN_PATTERNS) {
+          if (pattern.test(d.verdictLine)) {
+            err(name, `"verdictLine" contains a grade token (matched ${pattern}) — verdict copy must not name grades`);
+          }
+        }
+        for (const { word, pattern } of VERDICT_FORBIDDEN_URGENCY_PATTERNS) {
+          if (pattern.test(d.verdictLine)) {
+            err(name, `"verdictLine" contains forbidden urgency/freshness wording "${word}"`);
+          }
+        }
+      }
+    }
   }
 
   // Tracker required fields
@@ -182,6 +237,9 @@ for (const d of dimensions) {
     }
     if (d.grade) {
       err(name, `tracker should not have "grade" field — use "informationalGrade"`);
+    }
+    if (d.verdictLine !== undefined) {
+      err(name, `tracker must not have "verdictLine" — verdict one-liners are for graded dimensions only`);
     }
   }
 
