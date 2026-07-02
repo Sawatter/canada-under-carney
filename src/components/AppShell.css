@@ -627,6 +627,14 @@
   background: var(--app-accent);
 }
 
+/* Explicit keyboard-focus ring for the primary desktop nav. A global button
+   rule exists in index.css, but the sidebar is the main desktop navigation,
+   so it gets its own rule that later resets cannot silently override. */
+.app-workspace-sidebar-link:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .app-workspace-sidebar-foot {
   display: flex;
   flex-direction: column;

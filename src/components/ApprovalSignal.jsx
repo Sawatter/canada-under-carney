@@ -342,9 +342,10 @@ export function ApprovalDetail() {
                         href={p.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        aria-label={`${p.pollster} poll report, fielded ${p.fieldStart} to ${p.fieldEnd}`}
                         style={{ color: "#1a73e8" }}
                       >
-                        link
+                        report
                       </a>
                     </td>
                   </tr>

@@ -236,7 +236,7 @@
         "statusSourceLabel": "NATO Secretary General Annual Report 2025",
         "durability": "Target",
         "headlineCommitment": {
-          "targetNumeric": 2.0,
+          "targetNumeric": 2,
           "targetOperator": ">=",
           "unit": "% of GDP",
           "targetPeriod": "FY2025-26",
@@ -1600,12 +1600,12 @@
     "judgmentCall": "The low grade compares federal relief to the measured rise in household costs. It is not a judgment on world prices.",
     "judgmentDetail": "The D- grade rates how well federal action measures up against documented cost increases. The editor's judgment comes in three places. First, matching the size of the relief to the yearly cost burden it is meant to ease. Second, counting voluntary grocery measures as weaker than ones the government can enforce. Third, separating Ottawa's policy response from world price spikes that Ottawa does not fully control.",
     "construct": "How well the federal response measures up against rising household costs from groceries, tariffs (taxes on imported goods), and relief aimed at specific groups.",
-    "whyNotHigher": "At C, relief would cover 20% to 40% of the cost increase. The current estimate is about 15%.",
-    "whyNotLower": "At F, there would be no material federal relief or competition response. The Grocery Benefit and Grocery Code exist, even if they are weak.",
     "gradeBasis": {
       "band": "D",
       "bandCriterion": "Federal relief covers less than 20% of the estimated yearly cost increase.",
       "plusMinusRationale": "D- per rubric, near-total failure. Relief covers a very small share of the identified cost, and the deeper causes of those costs are still not dealt with.",
+      "whyNotHigher": "The next band up would need relief covering 20% to 40% of the cost increase and programs aimed at specific groups running. Current relief covers less than 20%.",
+      "whyNotLower": "The band below would mean no material federal relief or competition response at all. The grocery benefit and the voluntary Grocery Code exist, even if they are weak.",
       "activeModifiers": [
         {
           "name": "External Constraint",
@@ -3400,9 +3400,8 @@
     "status": "Defence and immigration are clearly getting done. Housing, major projects, and climate are stalled, meaning no measurable progress yet or progress has stopped after initial action.",
     "verdictLine": "Defence and immigration are getting done, while housing, major projects, and climate are stalled.",
     "judgmentCall": "The middle grade comes from counting how the five flagship areas split across delivery statuses. It is not a fresh opinion on whether each policy is good.",
-    "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivered, partial, stalled, or deteriorating. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies. It stays on probation only if the rule runs cleanly through a real cycle, does not contradict the file-status movement underneath it, adds a cross-file execution read beyond any one home card, and clears deconfliction.",
+    "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivered, partial, stalled, or deteriorating. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies. It exited probation after the July 2026 retention check: the rule ran cleanly through a real cycle, did not contradict the file-status movement underneath it, added a cross-file execution read beyond any one home card, and cleared deconfliction.",
     "surfaceTags": [
-      "On probation",
       "Combination rule"
     ],
     "construct": "How well the federal government turns announcements into results you can measure, across its five most visible policy areas.",
@@ -3542,9 +3541,8 @@
         "Each flagship area's status should be taken from its own home dimension, not re-argued from scratch in this grade.",
         "This is not the math average of the five home grades. It is a rule based on how the five areas split across delivery statuses.",
         "The grade only moves if at least one flagship area changes its status category.",
-        "Probation ends after the July 2026 cycle. Keep this dimension only if the Combination Rule runs unchanged, does not contradict the underlying file-status movement, yields at least one cross-file execution insight beyond any single home card, and clears deconfliction."
-      ],
-      "modifierExpiry": "Probation remains active through the July 2026 cycle. If the rule needs an ad hoc override, contradicts the underlying file-status movement, adds no cross-file execution insight, or fails deconfliction, remove this dimension in v2 instead of extending probation."
+        "Probation ended after the July 2026 cycle: the Combination Rule ran unchanged, did not contradict the underlying file-status movement, yielded a cross-file execution insight beyond a single home card, and cleared deconfliction. The exit rule and result are documented in docs/Flagship-Delivery-Rules.md, and the dimension stays only while those checks keep holding."
+      ]
     },
     "gradeTriggers": {
       "up": [

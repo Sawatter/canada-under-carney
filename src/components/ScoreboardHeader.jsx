@@ -1,6 +1,12 @@
 import GradeChip from "./GradeChip";
 import ScoreDerivation from "./ScoreDerivation";
 import { ApprovalCard, ApprovalDetail } from "./ApprovalSignal";
+import { STATUS_COLORS } from "../constants";
+
+// Fixed leading order for the promise-status mini bar; any other status
+// present in the data follows in its data order. Zero-count statuses are
+// skipped so the bar never renders zero-width segments.
+const STATUS_BAR_ORDER = ["Delivered", "In Progress", "Stalled", "Abandoned"];
 
 // Shared card container style so the four scoreboard cards have identical
 // size, spacing, and alignment. Each card is a subgrid spanning the row's
@@ -98,6 +104,17 @@ export default function ScoreboardHeader({
   const pct = totalPromises > 0 ? delivered / totalPromises : 0;
   const promiseNumColor =
     pct >= 0.6 ? "#1a7a3a" : pct >= 0.3 ? "#8d5a00" : "#c62828";
+
+  // Statuses shown in the mini distribution bar, in fixed order first, then
+  // any remaining statuses in data order. barSummary states the same counts
+  // in words so the bar is never color-only.
+  const barStatuses = [
+    ...STATUS_BAR_ORDER,
+    ...Object.keys(promiseCounts).filter((s) => !STATUS_BAR_ORDER.includes(s)),
+  ].filter((s) => (promiseCounts[s] || 0) > 0);
+  const barSummary = barStatuses
+    .map((s) => `${promiseCounts[s]} ${s.toLowerCase()}`)
+    .join(", ");
 
   return (
     <div style={{ marginBottom: "var(--space-5)" }}>
@@ -202,6 +219,59 @@ export default function ScoreboardHeader({
               {delivered}
               <span style={{ fontSize: "20px", color: "#666" }}>/{totalPromises}</span>
             </div>
+            {/* Mini status distribution bar. Lives inside the stat-block
+                subgrid track, so the card still spans the same four shared
+                rows. Segment colors are the existing STATUS_COLORS foreground
+                values; like the .app-promise-status chips, they get no
+                dark-mode override and render as-is on the dark card. Counts
+                are restated in words via aria-label and title so the bar is
+                not color-only. Static by design: no animation. */}
+            {totalPromises > 0 && (
+              <div
+                aria-hidden="true"
+                title={barSummary}
+                style={{
+                  display: "flex",
+                  gap: "2px",
+                  width: "100%",
+                  height: "8px",
+                  marginTop: "10px",
+                  borderRadius: "4px",
+                  overflow: "hidden",
+                }}
+              >
+                {barStatuses.map((status) => (
+                  <div
+                    key={status}
+                    style={{
+                      flex: `${promiseCounts[status]} 0 0`,
+                      background: (STATUS_COLORS[status] || STATUS_COLORS.Unclear)
+                        .color,
+                    }}
+                  />
+                ))}
+              </div>
+            )}
+            {/* The bar itself is aria-hidden (child semantics inside a button
+                are unreliably exposed); this visually-hidden text carries the
+                same counts into the button's accessible name instead. */}
+            {totalPromises > 0 && (
+              <span
+                style={{
+                  position: "absolute",
+                  width: "1px",
+                  height: "1px",
+                  padding: 0,
+                  margin: "-1px",
+                  overflow: "hidden",
+                  clip: "rect(0, 0, 0, 0)",
+                  whiteSpace: "nowrap",
+                  border: 0,
+                }}
+              >
+                {barSummary}
+              </span>
+            )}
             <div style={{ ...cardScoreCaption, color: "#555" }}>
               {promiseCounts["Abandoned"] || 0} abandoned &middot;{" "}
               {promiseCounts["Stalled"] || 0} stalled

@@ -673,8 +673,6 @@ export default function DimensionCard({
     dim.gradeBasis
     || dim.rationale
     || dim.judgmentDetail
-    || dim.whyNotHigher
-    || dim.whyNotLower
     || modifierItems.length > 0
     || isTracker
   );
@@ -1502,7 +1500,10 @@ export default function DimensionCard({
                   {dim.whatThisGrades}
                 </div>
               )}
-              <div style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}>
+              <div
+                className="dim-verdict-line"
+                style={{ fontSize: "15px", color: "#333", lineHeight: 1.5 }}
+              >
                 {dim.verdictLine || dim.status}
               </div>
               {!isTracker && dim.nextTrigger && (
@@ -1697,6 +1698,34 @@ export default function DimensionCard({
                   <div className="dim-live-threshold-row">
                     <span>{activeThresholdRow.grade}</span>
                     <p>{activeThresholdRow.criteria}</p>
+                  </div>
+                )}
+                {dim.gradeBasis?.whyNotHigher && (
+                  <div
+                    className="dim-why-not"
+                    style={{
+                      margin: 0,
+                      color: "var(--text-body)",
+                      fontSize: "14px",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <span style={{ fontWeight: 700 }}>Why not higher:</span>{" "}
+                    {dim.gradeBasis.whyNotHigher}
+                  </div>
+                )}
+                {dim.gradeBasis?.whyNotLower && (
+                  <div
+                    className="dim-why-not"
+                    style={{
+                      margin: 0,
+                      color: "var(--text-body)",
+                      fontSize: "14px",
+                      lineHeight: 1.5,
+                    }}
+                  >
+                    <span style={{ fontWeight: 700 }}>Why not lower:</span>{" "}
+                    {dim.gradeBasis.whyNotLower}
                   </div>
                 )}
                 {dim.lastUpdated && (
@@ -2077,12 +2106,9 @@ export default function DimensionCard({
                   {dim.gradeBasis?.band && (
                     <p><strong>{dim.gradeBasis.band}</strong> band means: {dim.gradeBasis.bandCriterion}</p>
                   )}
-                  {dim.whyNotHigher && (
-                    <p><strong>Why not higher:</strong> {dim.whyNotHigher}</p>
-                  )}
-                  {dim.whyNotLower && (
-                    <p><strong>Why not lower:</strong> {dim.whyNotLower}</p>
-                  )}
+                  {/* Why-not lines live in gradeBasis and render in the verdict
+                      hero under the live threshold row (single source of truth;
+                      the old unvalidated top-level fields were retired). */}
                   {subScoreSummary && (
                     <p className="dim-subscore-summary"><strong>Sub-scores:</strong> {subScoreSummary}</p>
                   )}

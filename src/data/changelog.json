@@ -1,5 +1,42 @@
 [
   {
+    "date": "2026-07-02",
+    "version": "5.153",
+    "summary": "Follow-through on two outside reviews: a why-not-higher, why-not-lower explainer piloted on Affordability, a promise-status bar on the scoreboard, honest theme icons, and a set of small keyboard and text fixes. No scores changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Why not higher, why not lower",
+        "body": "The opened Affordability Response card now answers the two questions a skeptical reader asks first: what the next band up would require that the evidence does not show, and what the band below would require that existing measures contradict. The lines are written by the editor, checked by the data validator, and sit right under the live grade band. If the pilot reads well it extends to the other files."
+      },
+      {
+        "type": "product",
+        "headline": "Promise status at a glance",
+        "body": "The Promises Delivered card now carries a small bar showing how the 43 tracked commitments split across statuses, in the same colors as the Promises tab. The counts are spelled out in words for screen readers. It reports the mix. It does not celebrate it."
+      },
+      {
+        "type": "product",
+        "headline": "Theme icons match the mode",
+        "body": "The theme button now shows a sun in light mode, a moon in dark mode, and a half circle when following your device. Before this, light mode showed a moon and the light and system icons were easy to confuse."
+      },
+      {
+        "type": "minor",
+        "headline": "Keyboard and text fixes",
+        "body": "Sidebar links now show a clear focus ring for keyboard readers. Trigger set dates can no longer wrap mid-date. Card verdict lines cap at two lines and the next-check line at one, with full text inside the opened card. Poll links in the Approval table now name the pollster and field dates for screen readers."
+      },
+      {
+        "type": "method",
+        "headline": "Probation wording cleanup",
+        "body": "Flagship Delivery exited probation after the July retention check, but a few pre-exit wording leftovers were still in the live data. They now read as past tense. The grade, the combination rule, and the exit record are unchanged."
+      },
+      {
+        "type": "docs",
+        "headline": "Two outside reviews adjudicated",
+        "body": "A deep methods review and a live app-feel review were checked claim by claim. Several findings were already fixed in earlier releases, the real ones landed in this release, and the rest are queued with reasons in the review adjudication record."
+      }
+    ]
+  },
+  {
     "date": "2026-07-01",
     "version": "5.152",
     "summary": "Small trust and calm improvements: trigger dates now show when each grade condition was set, the Change Log opens on major items, returning readers get a quiet caught-up line, and the theme control gains a follow-your-device option. No scores changed.",

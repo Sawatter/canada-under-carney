@@ -171,6 +171,72 @@ test.describe("dashboard route matrix", () => {
   }
 });
 
+test.describe("v5.153 review follow-through", () => {
+  test("sidebar links show a keyboard focus ring", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath());
+    // DOM order: skip link, then the sidebar nav. Bounded Tab walk until a
+    // sidebar link holds focus, then assert :focus-visible paints an outline.
+    let focused = false;
+    for (let i = 0; i < 10 && !focused; i += 1) {
+      await page.keyboard.press("Tab");
+      focused = await page.evaluate(() => (
+        document.activeElement?.classList.contains("app-workspace-sidebar-link") ?? false
+      ));
+    }
+    expect(focused).toBe(true);
+    const ring = await page.evaluate(() => {
+      const el = document.activeElement;
+      const cs = getComputedStyle(el);
+      return { matches: el.matches(":focus-visible"), style: cs.outlineStyle, width: cs.outlineWidth };
+    });
+    expect(ring.matches).toBe(true);
+    expect(ring.style).not.toBe("none");
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("why-not lines render once, in the verdict hero only", async ({ page }) => {
+    const pilot = dimensions.find((d) => d.gradeBasis?.whyNotHigher);
+    test.skip(!pilot, "no dimension carries the why-not pilot fields");
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    // Deep-linking #dim-<id> auto-opens the focused desktop detail (which
+    // suppresses the collapsed header button), so assert against the
+    // already-open drawer instead of clicking.
+    await page.goto(routePath({ hash: `#dim-${pilot.id}` }));
+    await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+    await expect(page.getByText("Why not higher:", { exact: false })).toHaveCount(1);
+    await expect(page.getByText("Why not lower:", { exact: false })).toHaveCount(1);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("promise card carries the status distribution bar with a text summary", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath());
+    const bar = page.locator(".scoreboard-card-promises [aria-hidden='true'][title*='delivered']");
+    await expect(bar).toHaveCount(1);
+    // The counts-in-words summary reaches AT via the button's accessible name
+    // (visually-hidden span), not the aria-hidden visual bar.
+    await expect(page.locator("button.scoreboard-card-promises"))
+      .toHaveAccessibleName(/delivered/);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("provenance date chip never wraps on mobile", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath());
+    await page.locator(".dim-card-header-button").first().click();
+    await page.locator(".dim-show-all-button").click();
+    const chip = page.locator(".dim-trigger-setdate").first();
+    await expect(chip).toBeVisible();
+    await expect(chip).toHaveCSS("white-space", "nowrap");
+    expect(consoleErrors).toEqual([]);
+  });
+});
+
 test.describe("v5.152 trust surfaces", () => {
   test("trigger provenance badges render in the opened dimension", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);

@@ -92,12 +92,13 @@ function presenceStatus(missing) {
 }
 
 function hasWhySection(dim) {
+  // Mirrors DimensionCard's hasWhySection. The old top-level
+  // whyNotHigher/whyNotLower fields are retired (they live under gradeBasis
+  // now, which the first clause already covers).
   return !!(
     dim.gradeBasis
     || dim.rationale
     || dim.judgmentDetail
-    || dim.whyNotHigher
-    || dim.whyNotLower
     || dim.excludeFromGPA
   );
 }

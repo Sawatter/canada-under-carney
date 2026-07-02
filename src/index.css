@@ -196,6 +196,24 @@ button.text-link-button {
   gap: 12px;
 }
 
+/* Collapsed-card verdict sentence: clamp to two lines so uneven verdict
+   lengths cannot stretch one card past its row-mates. Full text is always
+   available in the expanded drawer. */
+.dim-verdict-line {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+/* Next-check line stays on one line; the full editor-authored sentence
+   lives in the element's title attribute. */
+.dim-next-check-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* P3: Tactile micro-interactions — quiet, fast feedback so controls feel
    touchable, not inert. Hover lift is pointer-only; a press settles the card
    back down. The box-shadow override needs !important because the resting
@@ -1136,6 +1154,7 @@ button.text-link-button {
   font-size: var(--dim-fs-micro, 11px);
   font-weight: 600;
   letter-spacing: 0.2px;
+  white-space: nowrap;
 }
 
 .dim-metric-group-title {

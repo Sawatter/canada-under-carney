@@ -458,6 +458,45 @@ for (const d of dimensions) {
 
   // ─── Optional grade-basis operationalization shape ───────────────────────
   const gradeBasis = d.gradeBasis || {};
+
+  // Optional authored band-boundary explainers (whyNotHigher / whyNotLower).
+  // Same authored-copy contract as verdictLine: explicitly written, never
+  // synthesized, so the same grade-token and urgency guards apply. Allowed
+  // only on graded dimensions; capped at 200 chars each.
+  // They live UNDER gradeBasis only. Top-level copies existed briefly (an
+  // early unvalidated pilot) and caused a duplicate render; forbid the
+  // retired location so the drift cannot come back.
+  for (const field of ["whyNotHigher", "whyNotLower"]) {
+    if (d[field] !== undefined) {
+      err(name, `top-level "${field}" is retired — move it under gradeBasis.${field}`);
+    }
+  }
+  for (const field of ["whyNotHigher", "whyNotLower"]) {
+    const value = gradeBasis[field];
+    if (value === undefined) continue;
+    if (isTracker) {
+      err(name, `tracker must not have gradeBasis.${field} — band explainers are for graded dimensions only`);
+      continue;
+    }
+    if (!hasText(value)) {
+      err(name, `gradeBasis.${field} is present but not a non-empty string`);
+      continue;
+    }
+    if (value.length > 200) {
+      err(name, `gradeBasis.${field} is ${value.length} chars — must be 200 or fewer`);
+    }
+    for (const pattern of VERDICT_GRADE_TOKEN_PATTERNS) {
+      if (pattern.test(value)) {
+        err(name, `gradeBasis.${field} contains a grade token (matched ${pattern}) — band explainer copy must not name grades`);
+      }
+    }
+    for (const { word, pattern } of VERDICT_FORBIDDEN_URGENCY_PATTERNS) {
+      if (pattern.test(value)) {
+        err(name, `gradeBasis.${field} contains forbidden urgency/freshness wording "${word}"`);
+      }
+    }
+  }
+
   if (gradeBasis.leverOperationalization !== undefined) {
     if (!Array.isArray(gradeBasis.leverOperationalization)) {
       warn(name, `gradeBasis.leverOperationalization is present but not an array`);
