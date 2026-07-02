@@ -2,7 +2,7 @@
 
 - **Purpose:** Canonical per-source-family record of institution type, ownership/funding, editorial independence, grounded ideological tendency (only where well-sourced), best-use boundary, and strongest SAM-role fit for every source family currently live in [src/data/dimensions.json](../src/data/dimensions.json). Replaces scattered ideological-lean labels with institutional description as the primary characterization.
 - **Status:** Active — governance artifact; sits alongside SAM (per-dimension role fit) and QA-Gatekeeping-Rules (admissibility / tier discipline).
-- **Last updated:** 2026-04-19
+- **Last updated:** 2026-07-02 (backfilled 10 families the July 2026 full-source recertification found missing from this register; see [July-Monthly-Cycle-Report-2026-07-01.md](July-Monthly-Cycle-Report-2026-07-01.md), editor finding 4, and the matching drift row in [Source-Coverage-Ledger-2026-06.md](Source-Coverage-Ledger-2026-06.md))
 - **Depends on:** [docs/Source-Authority-Map.md](Source-Authority-Map.md), [docs/QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [docs/Product-Thesis.md](Product-Thesis.md), [docs/v2/verification/Claude-House-Style.md](v2/verification/Claude-House-Style.md)
 - **Used by:** [src/components/About.jsx](../src/components/About.jsx) (Source Balance block), [README.md](../README.md) (Source Balance section), [docs/DATA-SOURCES.md](DATA-SOURCES.md) (monitoring-stack layer), SAM per-dimension Current State Deltas, QA Rule 1 per-source tier assignment.
 
@@ -35,8 +35,8 @@ Granularity rule:
 
 ## Category summary
 
-- **Total unique citation labels across all live `sources` arrays:** 57
-- **Total source families registered below for graded dimensions:** 30 (15 official / administrative / institutional; 15 non-official)
+- **Total unique citation labels across all live `sources` arrays:** 97 (recomputed from live [dimensions.json](../src/data/dimensions.json) on 2026-07-02)
+- **Total source families registered below for graded dimensions:** 40 (16 official / administrative / institutional; 24 non-official)
 - **Additional polling families registered for the Approval Signal (outside the GPA):** 5 (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group). See the dedicated *Approval Signal source families* section below and [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
 
 | Institution-type category | Count | Families |
@@ -50,11 +50,17 @@ Granularity rule:
 | Public broadcaster | 1 | CBC / Radio-Canada |
 | Mainstream newspaper | 1 | The Globe and Mail |
 | Independent research policy institutes | 4 | C.D. Howe Institute, IRPP / Policy Options, IISD, Canadian Climate Institute |
-| Market-oriented policy institute | 1 | Fraser Institute |
+| Market-oriented policy institutes | 2 | Fraser Institute, Macdonald-Laurier Institute |
 | Nonprofit policy commentary platform | 1 | The Hub |
 | Watchdog / advocacy | 1 | Democracy Watch |
 | Issue-focused nonprofit journalism | 2 | The Narwhal, Canada's National Observer |
 | Academic research | 3 | Dalhousie Agri-Food Analytics, PROOF (U of T), The Conversation Canada |
+| Independent nonprofit economic research | 2 | Centre for the Study of Living Standards, Signal49 Research |
+| Industry / trade associations | 2 | Retail Council of Canada, Canadian Home Builders' Association |
+| Industry code governance | 1 | Office of the Grocery Sector Code of Conduct |
+| Chartered bank economics department | 1 | Scotiabank Economics |
+| Charitable sector (network / foundation) | 2 | Food Banks Canada, Maytree |
+| Federal regulatory agency | 1 | Canada Energy Regulator |
 | Polling (dimensions) | 1 | Angus Reid |
 | Polling (Approval Signal, outside GPA) | 5 | Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group |
 
@@ -422,6 +428,126 @@ Granularity rule:
 - **Best-use boundary:** Grade-moving (Tier 2) **for public-opinion claims only**; Tier 3 for any editorial analysis Angus Reid publishes alongside polling data
 - **Strongest SAM-role fit:** Context truth (reader / public sentiment) — not measurement of government performance itself
 - **Trust flags:** Polling is evidence of public sentiment, not evidence of government performance. Should not be used to carry performance claims; in the current use (Major Projects reaction, Promise Delivery report card) it is appropriately positioned as public-sentiment context.
+
+### 31. Macdonald-Laurier Institute (MLI)
+
+- **Live labels:** `Macdonald-Laurier Institute - energy-superpower gap`, `Macdonald-Laurier Institute - immigration research`
+- **Dimensions used:** Climate & Environment, Immigration
+- **Institution type:** Independent nonprofit policy think tank; registered Canadian charity; Ottawa-based, founded 2010
+- **Ownership / funding:** Corporate and individual donors and private foundations. Reported donors and event sponsors in past disclosures (2017) included resource-sector organizations and the Charles Koch Foundation.
+- **Editorial independence / governance:** Independent nonprofit board; managing director Brian Lee Crowley; affiliated with the Atlas Network. Publishes both disclosed-method papers and commentary; weight travels with the named author and the document type.
+- **Grounded ideological tendency:** Conservative-leaning / market-oriented. Reference sources describe MLI as a conservative public policy think tank, and the Atlas Network affiliation is documented. The label is grounded, but per-publication assessment should still rest on author and method.
+- **Best-use boundary:** Corroborator / challenge voice (Tier 3) in current use. Both live citations are commentary or a topic index page, not disclosed-method studies. A disclosed-method MLI paper could be assessed at Tier 2 on a per-citation basis.
+- **Strongest SAM-role fit:** Independent challenge truth (market-oriented / energy-sector challenge in Climate & Environment; immigration-policy challenge in Immigration, per the SAM role assignments)
+- **Trust flags:** The Climate citation is an opinion piece republished from The Hub (Exner-Pirot, 2026-02). The July 2026 recertification noted that page does not mention the emissions cap, so the `Emissions cap = Scrapped` metric sourceRef it sits beside is not supported by that page. The Immigration `sources[]` citation is a category index page, not a single document; per-citation claims rest on the linked items.
+
+### 32. Centre for the Study of Living Standards (CSLS)
+
+- **Live labels:** `Centre for the Study of Living Standards - Canadian Productivity Review`, `CSLS - Canadian Productivity Review` (trigger challenge label)
+- **Dimensions used:** Economic Policy Response
+- **Institution type:** Independent nonprofit economic research organization; Ottawa-based, established 1995
+- **Ownership / funding:** Nonprofit; founded and directed by economist Andrew Sharpe. A specific funder breakdown was not established from sources opened for this entry; the CSLS site body is not machine-readable (the July 2026 ledger row hit the same fetch limit). Describe institutionally until a funding disclosure is read directly.
+- **Editorial independence / governance:** Independent research organization with a long publication record on productivity, living standards, and economic well-being; publishes the International Productivity Monitor and numbered CSLS research reports with disclosed methodology
+- **Grounded ideological tendency:** None established; non-partisan economic research mandate
+- **Best-use boundary:** Grade-moving (Tier 2) for its disclosed-method research reports
+- **Strongest SAM-role fit:** Measurement truth + independent challenge truth (productivity and business-investment analysis)
+- **Trust flags:** Label imprecision logged as July 2026 cycle finding 5: the live label says "Canadian Productivity Review" while the cited pages are the International Productivity Monitor index and CSLS Research Report 2025-04. The underlying documents support the claims; queue a label fix for the August cycle.
+
+### 33. Retail Council of Canada
+
+- **Live labels:** `Retail Council of Canada - grocery and food`
+- **Dimensions used:** Affordability Response
+- **Institution type:** Not-for-profit retail industry trade association, founded 1963; represents retail companies including major grocers
+- **Ownership / funding:** Member-funded (membership dues from retail companies); its federal lobby registration reports no government funding
+- **Editorial independence / governance:** Industry association governed by its membership; publishes sector analysis and advocacy positions on behalf of members
+- **Grounded ideological tendency:** Interest-driven rather than ideologically placed; positions track member retailers' commercial interests
+- **Best-use boundary:** Context only (Tier 3 ceiling). SAM records it as grocery-sector context, not trigger-level proof; no Retail Council source is threaded into a grade-moving metric or trigger.
+- **Strongest SAM-role fit:** Context truth (retail-sector perspective on grocery price inflation)
+- **Trust flags:** Represents grocers whose pricing conduct is part of what Affordability Response tracks; never grade-moving on grocery-price claims. retailcouncil.org also blocks automated fetches (403 in the July 2026 recertification), so its rows carry a manual browser-check fallback.
+
+### 34. Signal49 Research
+
+- **Live labels:** `Signal49 Research - business investment outlook`, `Signal49 Research - consumer prices analysis`
+- **Dimensions used:** Economic Policy Response, Affordability Response
+- **Institution type:** Independent not-for-profit applied research and economic forecasting organization; registered Canadian charity. Operating name of the former Conference Board of Canada since January 26, 2026; the organization traces to 1954.
+- **Ownership / funding:** Not-for-profit registered charity. A detailed funder mix was not established from sources opened for this entry; describe institutionally until a disclosure is read directly.
+- **Editorial independence / governance:** Independent governance continuing the Conference Board of Canada research program; publishes forecasts, indicators, and applied research with disclosed methodology across economics and related fields
+- **Grounded ideological tendency:** None established; long non-partisan applied-research record under the Conference Board name
+- **Best-use boundary:** Grade-moving (Tier 2) for disclosed-method forecasts and research
+- **Strongest SAM-role fit:** Measurement truth (forecast and indicator work) + independent challenge truth on economic-policy outcomes
+- **Trust flags:** The Economic Policy Response citation is a product landing page for the five-year business investment outlook, not the full report; the July 2026 recertification checked the claim against that page's own summary text. Rename note: live labels use "Signal49 Research"; any older reference to the Conference Board of Canada is the same family.
+
+### 35. Scotiabank Economics
+
+- **Live labels:** `Scotiabank Economics - Canadian Home Sales (Housing News Flash, Feb 2026)`
+- **Dimensions used:** Housing Supply
+- **Institution type:** In-house economics research department of a publicly traded Canadian chartered bank (The Bank of Nova Scotia)
+- **Ownership / funding:** The Bank of Nova Scotia; shareholder-owned, publicly traded
+- **Editorial independence / governance:** Commercial bank research desk publishing public commentary and forecasts. Its own disclaimer states the material is for information purposes and is not a representation the bank takes responsibility for.
+- **Grounded ideological tendency:** None; commercial research desk, not ideologically placed
+- **Best-use boundary:** Corroborator (Tier 3) for housing-market commentary; the Housing News Flash series summarizes market data (sales, prices, inventory)
+- **Strongest SAM-role fit:** Context truth + corroboration on housing-market conditions
+- **Trust flags:** The bank is a major mortgage lender, so it has a commercial stake in the housing market it comments on; treat as market commentary, not independent challenge. The July 2026 recertification noted the cited page covers sales, HPI, and inventory and does not carry the housing-starts figures threaded in the nearby metric sourceRefs.
+
+### 36. Canadian Home Builders' Association (CHBA)
+
+- **Live labels:** `CHBA - Q1 2026 Housing Market Index`
+- **Dimensions used:** Housing Supply
+- **Institution type:** Not-for-profit industry association for residential construction, founded 1943; roughly 8,500 member companies in a three-level (local / provincial / national) structure
+- **Ownership / funding:** Member-funded industry association
+- **Editorial independence / governance:** Industry association governed by its membership; publishes the quarterly Housing Market Index (HMI), a builder-sentiment survey, alongside advocacy positions
+- **Grounded ideological tendency:** Interest-driven rather than ideologically placed; positions track the residential construction industry's interests
+- **Best-use boundary:** Corroborator (Tier 3). The HMI is usable as builder-sentiment measurement with the advocacy frame named; not grade-moving alone on housing outcomes
+- **Strongest SAM-role fit:** Context truth + corroboration on housing-supply conditions (builder confidence)
+- **Trust flags:** The cited HMI release is packaged inside an advocacy headline calling for federal action; separate the survey reading from the policy ask. The July 2026 recertification noted the housing-starts figures (258,010 trend / 261,377 SAAR) are not on the HMI page; those are CMHC-style starts numbers, not HMI content.
+
+### 37. Office of the Grocery Sector Code of Conduct (OGSCC)
+
+- **Live labels:** `Canada Grocery Code - official site` (source and up-trigger), `Grocery Code of Conduct` (promise status link)
+- **Dimensions used:** Affordability Response
+- **Institution type:** Industry code governance body administering the voluntary Grocery Sector Code of Conduct (canadacode.org)
+- **Ownership / funding:** Startup funding of $1.2M over two years from federal-provincial-territorial agriculture ministers (Sustainable Canadian Agricultural Partnership regional collaboration program); designed to become industry self-financed through membership fees from retailers and suppliers
+- **Editorial independence / governance:** Interim board of directors during establishment, transitioning to a member-elected board; president and adjudicator Karen Proud; the code carries an adjudication and dispute-resolution process; Canada's five largest grocers are registered
+- **Grounded ideological tendency:** None; industry governance body
+- **Best-use boundary:** Primary record (Tier 1 treatment) for the code's own implementation status, membership, and reporting; not an independent evaluator of grocery-price outcomes
+- **Strongest SAM-role fit:** Policy truth + execution truth on the grocery-code framework (matches the SAM Affordability Response assignment)
+- **Trust flags:** The code is voluntary and industry-led, not legislation. The July 2026 recertification flagged that the up-trigger wording "passed into law" is not literally supported; the code took full effect January 1, 2026 as an industry code of conduct. Once industry fees replace the startup funding, treat its progress reporting as governed self-reporting.
+
+### 38. Food Banks Canada
+
+- **Live labels:** `Food Banks Canada - Hunger Count`
+- **Dimensions used:** Affordability Response
+- **Institution type:** National registered charity; network organization for food banks and community agencies across Canada
+- **Ownership / funding:** Charitable donations, cash and donated food, including corporate and foundation gifts; financials publicly reported
+- **Editorial independence / governance:** Independent charitable governance; publishes the annual HungerCount, a national survey of food bank use with published methodology
+- **Grounded ideological tendency:** Advocacy-oriented on hunger and poverty policy rather than ideologically placed
+- **Best-use boundary:** Grade-moving (Tier 2) for HungerCount usage data; Tier 3 for its policy recommendations
+- **Strongest SAM-role fit:** Measurement truth (food bank use) + independent challenge truth on affordability outcomes
+- **Trust flags:** HungerCount measures food bank visits, which is demand for food bank services, not a direct poverty rate; read alongside PROOF's food-insecurity measurement. The live URL now 301-redirects to the current HungerCount page (logged in the July 2026 ledger); pin the down-trigger's specific figure to the HungerCount edition it came from.
+
+### 39. Maytree
+
+- **Live labels:** `Maytree - immigration and refugee policy`
+- **Dimensions used:** Immigration
+- **Institution type:** Private charitable foundation; Toronto-based, registered federally in 1982
+- **Ownership / funding:** Founder-endowed private foundation (Judy and Alan Broadbent); grant-making plus in-house policy and research work
+- **Editorial independence / governance:** Foundation board; Alan Broadbent chairs. Publishes policy analysis and commentary under a human-rights-based anti-poverty mandate.
+- **Grounded ideological tendency:** Advocacy-oriented (rights-based approach to poverty and refugee policy) rather than externally rated; no rater coverage found this pass. Institutional descriptor is more precise than an ideological label.
+- **Best-use boundary:** Corroborator / context (Tier 3); the live citation is a commentary publication, not disclosed-method research
+- **Strongest SAM-role fit:** Independent challenge truth on immigration and refugee-settlement policy, with the advocacy frame named
+- **Trust flags:** The live piece is co-authored by the foundation's own chair (Broadbent & McIsaac, 2025-08), so it is institutional opinion. It serves as the settlement-capacity counterweight to MLI's system-management critique in the Immigration challenge stack; keep both frames present.
+
+### 40. Canada Energy Regulator (CER)
+
+- **Live labels:** `Canada Energy Regulator - Canada's Energy Future 2023`
+- **Dimensions used:** Climate & Environment
+- **Institution type:** Federal regulatory agency, established August 2019 under the Canadian Energy Regulator Act (replaced the National Energy Board)
+- **Ownership / funding:** Government of Canada appropriation; the CER states that roughly 99 percent of the appropriation is recovered from the companies it regulates under cost-recovery rules
+- **Editorial independence / governance:** Board of directors for governance and strategy; adjudicative decisions sit with a separate Commission of independent commissioners; publishes the Canada's Energy Future long-term outlook series with disclosed modelling
+- **Grounded ideological tendency:** None; federal regulator
+- **Best-use boundary:** Grade-moving (Tier 1) for published energy data and the Energy Future modelling series
+- **Strongest SAM-role fit:** Measurement truth (energy-system data and net-zero scenario modelling)
+- **Trust flags:** The live citation is the Energy Future 2023 landing page (last modified 2023-11-24). The July 2026 recertification noted it carries no emissions-cap content, so the `Emissions cap = Scrapped` metric sourceRef is not evaluable from that page; consider repointing to the newest Energy Future edition or a page that carries the specific claim.
 
 ---
 

@@ -1,6 +1,6 @@
 # Data Sources
 
-> **Status (2026-04-19):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) lives in the [Source Characterization Register](Source-Characterization-Register.md). Content below has been realigned to reflect the live stack in [src/data/dimensions.json](../src/data/dimensions.json) and to distinguish live sources from monitoring watchlist. Treat the SCR as authoritative for per-source characterization.
+> **Status (2026-07-02):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) lives in the [Source Characterization Register](Source-Characterization-Register.md). Counts below were recomputed 2026-07-02 from the live data files using `scripts/source-ledger-utils.mjs` (the same extraction the ledger check uses). Content reflects the live stack in [src/data/dimensions.json](../src/data/dimensions.json) and distinguishes live sources from the monitoring watchlist. Treat the SCR as authoritative for per-source characterization, with one caveat: the register was last updated 2026-04-19, and the July 2026 recertification found families cited since then that it does not yet cover (queued for the August cycle; see [July-Monthly-Cycle-Report-2026-07-01.md](July-Monthly-Cycle-Report-2026-07-01.md), editor finding 4).
 
 Every metric in the live dashboard is sourced to a specific citation in [src/data/dimensions.json](../src/data/dimensions.json). This file describes the monitoring and source-guide stack that sits around that live use: which families are currently cited in the live `sources` arrays, which are supplementary monitoring sources that may be consulted when a file moves, and which data pipelines feed specific metrics.
 
@@ -10,32 +10,43 @@ For the canonical per-source-family characterization (institution type, ownershi
 
 ## Live source stack (currently cited in dimensions.json)
 
-Grouped by institution type. See SCR for per-family detail and trust flags. As of 2026-04-19, 30 source families are live in [dimensions.json](../src/data/dimensions.json) across 12 dimensions.
+Grouped by institution type. See SCR for per-family detail and trust flags. As of 2026-07-02 (dashboard v5.152), machine extraction finds **153 unique cited URLs across 322 citation surfaces and 54 distinct domains** in [dimensions.json](../src/data/dimensions.json) plus the Approval Signal poll data. All 30 families registered in the SCR remain live. The 2026-07-01 recertification also flagged 10 newer `sources[]`-cited families missing from the register (Macdonald-Laurier Institute, CSLS, Retail Council of Canada, Signal49 Research, Scotiabank Economics, CHBA, the Grocery Code office, Food Banks Canada, Maytree, Canada Energy Regulator); the enumeration below also names other entrants the August register update should cover, marked *(not yet in SCR)*.
 
 ### Official / administrative / institutional
 
 - **Official statistics & Officers of Parliament:** Statistics Canada, Parliamentary Budget Officer (PBO), CMHC, Bank of Canada
-- **Federal departmental data & communications:** Environment and Climate Change Canada (ECCC), Immigration, Refugees and Citizenship Canada (IRCC), Finance Canada, Natural Resources Canada (NRCan), Global Affairs Canada
-- **Other federal institutional:** Office of the Ethics Commissioner
+- **Federal departmental data & communications:** Environment and Climate Change Canada (ECCC), Immigration, Refugees and Citizenship Canada (IRCC), Finance Canada, Natural Resources Canada (NRCan), Global Affairs Canada, Innovation, Science and Economic Development Canada (ISED), Treasury Board Secretariat, Canada Revenue Agency, Housing Infrastructure Canada, Privy Council Office (Major Projects Office and the internal-trade file)
+- **Other federal institutional:** Office of the Ethics Commissioner (including the public declarations registry), Office of the Auditor General, Canada Energy Regulator
 - **International official:** NATO, OECD, IMF
-- **Parliamentary / legislative record:** Parliament of Canada / LEGISinfo
-- **Context-only government communications (Tier 4):** Prime Minister's Office (pm.gc.ca) — never moves a grade alone per QA Rule 1
+- **Parliamentary / legislative record:** Parliament of Canada / LEGISinfo, House of Commons committee reports (ETHI)
+- **Context-only government communications (Tier 4):** Prime Minister's Office (pm.gc.ca) - never moves a grade alone per QA Rule 1
+- **Promise-record only:** Justice Laws consolidated statutes (laws-lois.justice.gc.ca) and Transport Canada appear only on promise original/status links, not in `sources[]` arrays
+
+The federal entrants that postdate the register's 2026-04-19 update (ISED, Treasury Board Secretariat, Canada Revenue Agency, Housing Infrastructure Canada, Privy Council Office / MPO, Office of the Auditor General, Canada Energy Regulator, House committee reports) are queued for SCR registration in the August cycle.
 
 ### Non-official
 
 - **Public broadcaster:** CBC / Radio-Canada *(federally chartered Crown corporation; statutory editorial independence under the Broadcasting Act)*
 - **Mainstream newspaper:** The Globe and Mail
-- **Independent research policy institutes:** C.D. Howe Institute, IRPP / Policy Options, IISD, Canadian Climate Institute *(federally arm's-length; ECCC is a major federal funder — see SCR entry 18 for disclosure)*
-- **Market-oriented policy institute:** Fraser Institute
+- **Independent research policy institutes:** C.D. Howe Institute, IRPP / Policy Options, IISD, Canadian Climate Institute *(federally arm's-length; ECCC is a major federal funder - see SCR entry 18 for disclosure)*
+- **Market-oriented policy institutes:** Fraser Institute, Macdonald-Laurier Institute *(not yet in SCR)*
 - **Nonprofit policy commentary platform:** The Hub *(right-of-centre orientation; see SCR entry 23)*
-- **Watchdog / advocacy:** Democracy Watch *(advocacy organization, not neutral research)*
+- **Watchdog / advocacy:** Democracy Watch *(advocacy organization, not neutral research)*, Transparency International Canada *(not yet in SCR)*
 - **Issue-focused nonprofit journalism:** The Narwhal, Canada's National Observer
-- **Academic research:** Dalhousie Agri-Food Analytics Lab, PROOF (University of Toronto), The Conversation Canada
+- **Academic / economic research:** Dalhousie Agri-Food Analytics Lab, PROOF (University of Toronto), The Conversation Canada, Centre for the Study of Living Standards (CSLS) *(not yet in SCR)*
+- **Nonprofit social-policy research:** Maytree *(not yet in SCR)*
+- **Private research firm:** Signal49 Research *(not yet in SCR)*
+- **Bank economics:** Scotiabank Economics *(moved from the watchlist; cited on Housing Supply; not yet in SCR)*
+- **Industry associations:** Canadian Home Builders' Association (CHBA), Retail Council of Canada *(both not yet in SCR)*
+- **Sector nonprofit:** Food Banks Canada (Hunger Count) *(not yet in SCR)*
+- **Industry code office:** Office of the Grocery Sector Code of Conduct (canadacode.org) *(not yet in SCR)*
 - **Polling (dimension stack):** Angus Reid
+- **Party platform (promise wording baseline):** Liberal Party of Canada 2025 platform (Canada Strong) - promise-text provenance in the Promise Delivery tracker, not grade evidence
+- **Promise-record only journalism:** CKOM (Saskatoon radio news) and Electric Autonomy Canada appear only on promise status links, not in `sources[]` arrays
 
 ### Approval Signal source stack (outside dimensions.json and outside the scores)
 
-The ungraded Approval Signal uses pollster data from `src/data/approval-polls.json`, not the graded dimension `sources` arrays. Current included approval pollsters: Léger, Abacus Data, Ipsos, Angus Reid Institute, and Innovative Research Group. Nanos preferred-PM is shown as secondary context only and is not averaged into the approval mean. Research Co.'s June 2026 public pair remains excluded because it is a tariff-handling approval question rather than a broad PM/government job-approval item; see [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md) for the construct boundary.
+The ungraded Approval Signal uses pollster data from `src/data/approval-polls.json`, not the graded dimension `sources` arrays. Current included approval pollsters: Léger, Abacus Data, Ipsos, Angus Reid Institute, and Innovative Research Group. Nanos preferred-PM is shown as secondary context only and is not averaged into the approval mean. Some earlier waves cite Wikipedia's 46th-federal-election opinion-polling aggregation page as the public pointer where no direct pollster release is linked; the included pollster set is unchanged by this. Research Co.'s June 2026 public pair remains excluded because it is a tariff-handling approval question rather than a broad PM/government job-approval item; see [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md) for the construct boundary.
 
 ---
 
@@ -45,7 +56,7 @@ Families that may be consulted when a file moves, but do not currently carry a l
 
 - **Mainstream reporting:** La Presse, Toronto Star, National Post
 - **Other polling firms:** Pollara, Mainstreet, EKOS, Spark Insights (approval signal watchlist); Nanos remains preferred-PM context only
-- **Bank economics:** RBC Economics, BMO Economics, TD Economics, Scotiabank Economics
+- **Bank economics:** RBC Economics, BMO Economics, TD Economics *(Scotiabank Economics moved to the live stack; see Housing Supply)*
 - **Policy and fiscal institutes:** IFSD (Institute of Fiscal Studies and Democracy — referenced narratively in Fiscal Health rationale but not currently in the live `sources` array)
 - **Left-oriented policy organizations:** CCPA, Broadbent Institute, Parkland Institute, The Tyee
 - **Rating agencies:** Fitch, Moody's, S&P (event-driven)
@@ -92,7 +103,7 @@ Inclusion here is not an endorsement; it is a record of families that have been 
 | Fitch/Moody's/S&P ratings | Agency websites | Event-driven | Changes are rare |
 | Ethics Commissioner review | Office of Ethics Commissioner | Event-driven | ciec-ccie.parl.gc.ca |
 | Carney approval ratings | `src/data/approval-polls.json` (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group); Nanos preferred-PM context | Monthly | No API |
-| OBPS carbon price | ECCC legislated schedule | Annual | $95/t in 2025, +$15/year |
+| OBPS carbon price | ECCC legislated schedule | Annual | $95/t in 2026; trajectory to $115 by 2030 |
 | Food insecurity | PROOF (U of T) | Annual | proof.utoronto.ca |
 | Dalhousie food cost | Canada Food Price Report | Annual | dal.ca/agri-food |
 | All grades | Editorial judgment per rubric | Monthly | Always human decision |

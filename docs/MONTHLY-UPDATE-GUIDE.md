@@ -1,166 +1,68 @@
 # Monthly Update Guide
 
-**Target time: 30 minutes**
+> **Read this first.** The canonical monthly process is the [Monthly Cycle Playbook](Monthly-Cycle-Playbook.md). Its section 0, the full-source recertification gate, is mandatory: a monthly cycle cannot close while `npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md --require-closed` fails. This file used to describe a 30-minute fetch / edit / copy flow that skipped that gate entirely. That flow is retired. What remains below is quick-reference helper material for specific playbook steps.
 
-This guide walks you through the monthly dashboard update process.
+## What changed
 
----
+The old guide walked from fetch script to `git push` without the source recertification gate, the grade-review protocol, or the ledger. Following it as written could close a cycle with unrecertified sources. Steps that contradicted the playbook were removed; the table at the bottom says where each one went. The two helpers kept below (the local fetch-script how-to and the history.json snapshot shape) are still accurate, and both sit inside the playbook flow, not instead of it.
 
-## Prerequisites (one-time setup)
+## Helper: running the data fetch script locally (playbook section 1)
+
+The playbook's data-review step reads `scripts/output/fetch-report.txt`, normally produced by the `monthly-source-scout` GitHub Actions artifact. To produce the same output locally:
+
+### One-time setup
 
 1. Python 3.9+ installed (`python3 --version`)
 2. Node.js 18+ installed (`node --version`)
-3. Git installed
-4. Repository cloned locally
-5. Run once: `pip3 install -r scripts/requirements.txt`
-6. Run once: `npm install`
+3. Git installed, repository cloned
+4. Run once: `pip3 install -r scripts/requirements.txt`
+5. Run once: `npm install`
 
----
-
-## Step 1: Run the data fetch script (2 minutes)
+### Run
 
 ```bash
 cd canada-under-carney
 python3 scripts/fetch-data.py
 ```
 
-This checks government data endpoints and produces three files in `scripts/output/`:
-- `fetch-report.txt` — human-readable summary of what's available
-- `draft-dimensions.json` — copy of current data (you'll edit this)
-- `draft-changelog-entry.json` — template for the changelog
+This checks government data endpoints and writes three files to `scripts/output/`:
 
----
+- `fetch-report.txt` - human-readable summary of which StatCan tables were reachable, which IRCC datasets downloaded, which metrics need manual checking, and the source URL for each data point
+- `draft-dimensions.json` - a copy of the current dimension data, useful as an editing scratch file
+- `draft-changelog-entry.json` - a changelog-entry template
 
-## Step 2: Review the fetch report (5 minutes)
+Treat the output as a scout, not a verdict (playbook section 1): confirm current values on the live source pages before editing dashboard data. Do not copy `draft-dimensions.json` over `src/data/dimensions.json` as a shortcut. Live-data edits go through the playbook's grade review, promise status review, changelog, and meta steps, and the cycle still has to pass the section 0 gate before it closes.
 
-Open `scripts/output/fetch-report.txt`. It tells you:
-- Which StatCan tables were reachable
-- Which IRCC datasets downloaded successfully
-- Which metrics need manual checking
-- Source URLs to visit for each data point
+## Helper: history.json snapshot shape
 
----
+The playbook checklist does not name this step, so it is recorded here. Alongside the changelog and meta edits (playbook sections 5-6), add a per-cycle snapshot at the TOP of `src/data/history.json`:
 
-## Step 3: Update the data (15 minutes)
-
-Open `scripts/output/draft-dimensions.json` in any text editor.
-
-**For auto-checked metrics:** Visit the source URLs listed in the fetch report. If the number changed, update the `"value"` field in the JSON.
-
-**For manual metrics:** Check these sources:
-- **Fitch/Moody's/S&P ratings:** Check agency websites (changes are rare)
-- **PBO reports:** Check [pbo-dpb.ca](https://www.pbo-dpb.ca/en/publications/)
-- **Approval Signal polling:** Check Léger, Abacus Data, Ipsos, Angus Reid Institute, and Innovative Research Group for direct approve/disapprove releases; check Nanos only for preferred-PM context.
-- **Ethics/Transparency:** Check news for Ethics Commissioner updates
-- **Climate policy status:** Check ECCC announcements
-
-**For grades, trends, and statuses (ALWAYS manual):**
-- Review each dimension against the [Scoring Rubric](Scoring-Rubric-v1.1.md)
-- If a grade changes, document: what new evidence triggered it, which rubric criterion applies
-- Update trend arrows (up/stable/down) based on direction of travel
-- Update status summaries if the narrative changed
-
----
-
-## Step 4: Copy to live data (3 minutes)
-
-```bash
-# Copy your reviewed draft to the live data
-cp scripts/output/draft-dimensions.json src/data/dimensions.json
-```
-
-Then edit these files:
-
-**`src/data/meta.json`** — Update dates:
 ```json
 {
-  "lastUpdated": "2026-07-01",
-  "nextUpdate": "2026-08-01"
+  "month": "YYYY-MM",
+  "date": "YYYY-MM-DD",
+  "overallGPA": 0.0,
+  "pocketbookGPA": 0.0,
+  "grades": { "...": "copy current grades by dimension id" },
+  "promiseCounts": { "...": "count current promises by status" }
 }
 ```
 
-**`src/data/changelog.json`** — Add a new entry at the TOP of the array:
-```json
-{
-  "date": "2026-07-01",
-  "summary": "July 2026 update: [what changed in one sentence]",
-  "items": [
-    {
-      "type": "event",
-      "headline": "Food inflation updated",
-      "body": "Food CPI moved from 5.4% to 5.1% in the April 2026 Statistics Canada release.",
-      "affects": ["Affordability Response"]
-    }
-  ]
-}
-```
+Read the GPA values and grades from the finished cycle's live data, never from memory. Then run `npm run test:data`.
 
-For grade changes, use this format:
-```json
-{
-  "type": "grade",
-  "dimensionId": "fiscal-health",
-  "dimensionName": "Fiscal Health",
-  "from": "D",
-  "to": "D-",
-  "deltaLabel": "−1 notch",
-  "headline": "Fiscal Health moved D → D-",
-  "body": "PBO's spring report projects a wider deficit path than previously expected.",
-  "drivers": ["PBO spring report", "Deficit path widened"]
-}
-```
+## Where the old steps live now
 
-**`src/data/history.json`** — Add a new snapshot at the TOP:
-```json
-{
-  "month": "2026-05",
-  "date": "2026-05-14",
-  "overallGPA": 1.75,
-  "pocketbookGPA": 1.54,
-  "grades": { ... copy current grades ... },
-  "promiseCounts": { ... count current promises by status ... }
-}
-```
-
----
-
-## Step 5: Preview locally (2 minutes)
-
-```bash
-npm run dev
-```
-
-Open http://localhost:5173/canada-under-carney/ and verify:
-- "Change Log" shows the right items
-- Grades and metrics look correct
-- Promise Tracker counts are right
-- No broken layouts
-
----
-
-## Step 6: Deploy (3 minutes)
-
-```bash
-git add src/data/
-git commit -m "May 2026 monthly update"
-git push
-```
-
-GitHub Actions will build and deploy automatically. The live site updates within 2-3 minutes.
-
----
-
-## Checklist
-
-- [ ] Ran fetch script
-- [ ] Reviewed fetch report
-- [ ] Updated metric values in draft
-- [ ] Checked manual metrics (ratings, polls, PBO)
-- [ ] Made grade decisions (if any)
-- [ ] Updated trend arrows (if any)
-- [ ] Copied draft to src/data/dimensions.json
-- [ ] Updated meta.json dates
-- [ ] Added changelog entry
-- [ ] Added history snapshot
-- [ ] Previewed locally
-- [ ] Committed and pushed
+| Old guide step | Canonical home |
+| --- | --- |
+| (was missing) Source recertification | Playbook section 0 - mandatory gate, run first |
+| Run fetch script, review report | Playbook section 1 (helper above) |
+| Update metric values | Playbook section 1 |
+| Grade / trend / status decisions | Playbook section 2 |
+| Promise statuses | Playbook section 3 |
+| Approval Signal polling | Playbook section 4 |
+| Changelog entry | Playbook section 5 |
+| meta.json version and dates | Playbook section 6 |
+| history.json snapshot | Helper above, alongside playbook sections 5-6 |
+| Local preview and build checks | Playbook section 7 |
+| Commit and push | Playbook section 8 (plus the pre-push identifier scan in CLAUDE.md) |
+| Confirm the live site | Playbook section 9 |

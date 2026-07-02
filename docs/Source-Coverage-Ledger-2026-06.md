@@ -3,10 +3,8 @@
 **Purpose:** Working checklist for the June 2026 source cycle. This file is generated from `docs/Recurring-Source-Checklist.md` and live dashboard data so bundled source families become auditable source-level rows.
 
 **Cycle month:** 2026-06
-**Generated:** 2026-05-16
-**Live dashboard version:** v5.27 (as of 2026-05-16)
-**Total source rows:** 330 (Monthly 32, Event-Driven 15, Quarterly 113, Twice-Yearly 170)
-**Automation split:** 38 automated by `scripts/fetch-data.py`, 292 manual
+**Originally generated:** 2026-05-16 at v5.27, with 330 source rows (Monthly 32, Event-Driven 15, Quarterly 113, Twice-Yearly 170; automation split at generation: 38 automated by `scripts/fetch-data.py`, 292 manual)
+**Migrated and closed:** 2026-07-01 under the full-source recertification: 153 unique cited URLs across 322 citation surfaces; 402 closed rows; validated by `npm run source:ledger:check -- docs/Source-Coverage-Ledger-2026-06.md --require-closed`
 **Coverage level achieved:** Full universe closed 2026-07-01. All 153 unique cited URLs (322 citation surfaces: sources, trigger evidence + challenges, metric refs, project cohort, promise links, Approval Signal polls) recertified by a 16-agent parallel audit (exact-URL pass + per-family June 1-30 publisher sweeps) plus the editor fetch script. Zero cited link-rot; 21 rows blocked by bot-walls carry named fallbacks; 5 legacy watch URLs dead and queued for archive replacement; negative findings logged per row.
 
 ## How To Use

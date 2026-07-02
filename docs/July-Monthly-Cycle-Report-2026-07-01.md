@@ -230,3 +230,9 @@ Browser-capable verification was run against local preview at `http://127.0.0.1:
   - Checked Scorecard, Promises, Change Log, Methodology, About, and an expanded Affordability card
   - Confirmed rendered version text includes `v5.150` on every checked view
   - Confirmed no page-level horizontal overflow
+
+---
+
+## Postscript (added 2026-07-02)
+
+The v5.150 cycle record above stands as written; nothing in the report body has been edited. The same evening (2026-07-01), the live dashboard continued past this cycle release. v5.151 landed the app-workspace release: a desktop sidebar on wide screens, authored one-line verdicts on graded cards, a verbatim next-check line per graded card, a client-only since-your-last-visit note, and a .ics calendar file in the footer follow block. Web push was considered for that release and rejected on privacy grounds, since a static site would need a third-party push service. v5.152 then landed the trust surfaces: set-date badges on every grade trigger plus a provenance line in the score-derivation panel, a Change Log that opens on the newest twelve entries, a quiet caught-up line for returning readers, and a light / dark / system theme control. Both are product and UI releases. Neither moved a grade, changed a promise status, or changed any scoring rule, threshold, formula, weight, or the dimension model. `src/data/changelog.json` (the entries dated 2026-07-01 for versions 5.151 and 5.152) is the authoritative record of what each release contains.
