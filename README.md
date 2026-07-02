@@ -89,15 +89,16 @@ We welcome feedback. You can:
 
 ## Monthly Updates
 
-See [docs/Monthly-Cycle-Playbook.md](docs/Monthly-Cycle-Playbook.md) for the full cycle checklist and [docs/MONTHLY-UPDATE-GUIDE.md](docs/MONTHLY-UPDATE-GUIDE.md) for the shorter step-by-step update guide.
+See [docs/Monthly-Cycle-Playbook.md](docs/Monthly-Cycle-Playbook.md) for the canonical cycle checklist and [docs/MONTHLY-UPDATE-GUIDE.md](docs/MONTHLY-UPDATE-GUIDE.md) for helper notes. The monthly cycle starts with the source-ledger gate, not with copying draft data into the live files.
 
 ```bash
-python3 scripts/fetch-data.py     # Check source endpoints and create review drafts
-# Review and edit scripts/output/draft-dimensions.json
-cp scripts/output/draft-dimensions.json src/data/dimensions.json
-npm run dev                        # Preview locally
-git add . && git commit && git push  # Deploy (auto-builds)
+npm run source:ledger -- YYYY-MM --force
+npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md
+# After exact-URL recertification, publisher sweeps, and editor review:
+npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md --require-closed
 ```
+
+`python3 scripts/fetch-data.py` is still useful as a scout for source endpoints, but its draft files are not a shortcut around the playbook.
 
 ## Data Sources
 
