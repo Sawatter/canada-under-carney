@@ -76,7 +76,11 @@ async function expectNoOverflow(page) {
 }
 
 async function expectVisibleVersion(page) {
-  await expect(page.getByText(`v${meta.version}`, { exact: false })).toBeVisible();
+  // Scoped to the header: the workspace sidebar also renders the version at
+  // >=1024px, so an unscoped getByText is a strict-mode violation.
+  await expect(
+    page.locator(".dashboard-header").getByText(`v${meta.version}`, { exact: false }),
+  ).toBeVisible();
 }
 
 async function expectHeaderBadgeClear(page) {
