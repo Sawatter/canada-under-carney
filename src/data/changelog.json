@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-07-02",
+    "version": "5.154",
+    "summary": "A legibility pass for first-time readers. The Rubric tab now opens with a plain-language summary of how scoring works, each graded area answers why not higher and why not lower, and a continuity plan is published. No scores changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Plain scoring explainer opens the Rubric tab",
+        "body": "The Rubric tab now starts with a short plain-language summary of how the scoring works: what gets graded, how the two headline scores are built, where judgment enters, and what would move a grade. The model-limits list moved up with it, so the limits come before the mechanics."
+      },
+      {
+        "type": "product",
+        "headline": "Why-not lines extend to the 10 other graded areas",
+        "body": "The why-not-higher and why-not-lower lines piloted on Affordability Response now appear on each of the 11 graded areas. Each line is written from that area’s own published thresholds, quotes nothing that is not already in its data, and the data validator rejects grade letters and urgency wording."
+      },
+      {
+        "type": "docs",
+        "headline": "Continuity plan published",
+        "body": "A new governance doc names the single-editor risk the July outside review flagged. It records where the canonical state lives, what one monthly cycle requires, what happens if updates stop, what is and is not transferable to a successor, and the orderly wind-down option."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-02",
     "version": "5.153",
     "summary": "Follow-through on two outside reviews: a why-not-higher, why-not-lower explainer piloted on Affordability, a promise-status bar on the scoreboard, honest theme icons, and a set of small keyboard and text fixes. No scores changed.",
     "items": [
@@ -1610,7 +1632,7 @@
       {
         "type": "product",
         "headline": "Approval Signal card visually distinguished",
-        "body": "The Approval Signal card now shows a dashed border, light-blue tint, and an \"External signal \u00b7 Ungraded\" badge so readers immediately see it is a separate, unscored data stream."
+        "body": "The Approval Signal card now shows a dashed border, light-blue tint, and an \"External signal · Ungraded\" badge so readers immediately see it is a separate, unscored data stream."
       },
       {
         "type": "product",
@@ -1620,12 +1642,12 @@
       {
         "type": "product",
         "headline": "Source tier badges and summary chips",
-        "body": "Every source link in an expanded drawer now shows a T1/T2/T3 tier badge derived from the domain. The Sources header shows a summary chip row (e.g. \"5 Tier-1 \u00b7 2 Tier-2\") so readers can gauge source quality before scrolling through the list."
+        "body": "Every source link in an expanded drawer now shows a T1/T2/T3 tier badge derived from the domain. The Sources header shows a summary chip row (e.g. \"5 Tier-1 · 2 Tier-2\") so readers can gauge source quality before scrolling through the list."
       },
       {
         "type": "product",
         "headline": "External-link icon on all source links",
-        "body": "All source citation links now display a \u2197 icon to signal they open in a new tab (target=_blank, rel=noopener)."
+        "body": "All source citation links now display a ↗ icon to signal they open in a new tab (target=_blank, rel=noopener)."
       },
       {
         "type": "product",

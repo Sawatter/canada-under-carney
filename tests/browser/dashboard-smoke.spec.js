@@ -458,3 +458,38 @@ test("app mode pushes Promises into history and Back returns to Scorecard", asyn
   await expectNoOverflow(page);
   expect(consoleErrors).toEqual([]);
 });
+
+test.describe("v5.154 legibility wave", () => {
+  test("Rubric tab opens with the plain explainer, then the limits block", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-methodology" }));
+
+    await expectAppShell(page);
+    const explainer = page.getByText("How the scoring works, in plain terms");
+    await expect(explainer).toBeVisible();
+    const limits = page.getByText("Limits of this model");
+    await expect(limits).toHaveCount(1);
+    // The explainer must sit above the limits block, and both above the
+    // grade-range mechanics that used to open the tab.
+    const explainerBox = await explainer.boundingBox();
+    const limitsBox = await limits.boundingBox();
+    expect(explainerBox.y).toBeLessThan(limitsBox.y);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("why-not lines render once on a non-pilot dimension", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-fiscal-health" }));
+
+    await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+    await expect(page.getByText("Why not higher:")).toHaveCount(1);
+    await expect(page.getByText("Why not lower:")).toHaveCount(1);
+    await expect(
+      page.getByText("The next band up needs the deficit below 2% of the economy's size"),
+    ).toHaveCount(1);
+    expect(consoleErrors).toEqual([]);
+  });
+});

@@ -103,6 +103,88 @@ export default function Methodology() {
         padding: "24px",
       }}
     >
+      <div
+        style={{
+          marginBottom: "20px",
+          padding: "14px",
+          background: "var(--surface-sunken)",
+          border: "1px solid var(--border-subtle)",
+          borderLeft: "4px solid var(--accent)",
+          borderRadius: "8px",
+        }}
+      >
+        <div style={{ fontSize: "15px", fontWeight: 800, color: "#1a1a1a", marginBottom: "6px" }}>
+          How the scoring works, in plain terms
+        </div>
+        <p style={{ margin: 0, fontSize: "14px", lineHeight: 1.6, color: "#444" }}>
+          This dashboard grades the federal government in 11 policy areas.
+          Each area gets a letter grade based on public evidence, checked
+          against published thresholds. The two headline scores convert the
+          letter grades into points and average them. The Household Impact
+          score counts the four money-related areas twice. A 12th card
+          tracks promises but does not get a grade. Where human judgment
+          enters, it is admitted on each graded card in the judgment call
+          fields. The conditions that would move a grade up or down are
+          published ahead of time, so readers can check them. This is not a
+          poll, not a forecast, and not a measure of popularity.
+        </p>
+      </div>
+
+      <div style={{ marginBottom: "24px" }}>
+        <div
+          style={{
+            marginTop: "20px",
+            marginBottom: "8px",
+            fontSize: "14px",
+            fontWeight: 700,
+            color: "#333",
+          }}
+        >
+          Limits of this model
+        </div>
+        <ul
+          style={{
+            fontSize: "14px",
+            color: "#444",
+            paddingLeft: "20px",
+            margin: 0,
+            lineHeight: 1.6,
+          }}
+        >
+          <li style={{ marginBottom: "6px" }}>
+            This is an accountability scorecard with published criteria. It
+            is not a statistical model. Grades are editor judgments
+            bound by the rubric.
+          </li>
+          <li style={{ marginBottom: "6px" }}>
+            Headline scores convert letter grades to a 4.0 scale, then
+            average them with the stated weights. That conversion is a
+            disclosed editorial convention, not a hidden statistical model.
+          </li>
+          <li style={{ marginBottom: "6px" }}>
+            Plus/minus marks reflect editor judgment under the rubric.
+            Evidence-thin files (Ethics &amp; Transparency, Flagship
+            Delivery) are held to whole letters to prevent false precision.
+          </li>
+          <li style={{ marginBottom: "6px" }}>
+            Outside reviewers have not yet tested whether they would reach
+            the same grades. The three-lane review path (Analyst, Red Team,
+            Referee) is an internal check, not a substitute for independent replication.
+          </li>
+          <li style={{ marginBottom: "6px" }}>
+            The model can only score what can be inspected through public
+            evidence. Leadership style, symbolic politics, unmeasured public
+            value, and other important but weakly evidenced qualities are
+            outside the score rather than estimated with a stand-in number.
+          </li>
+          <li>
+            The two headline scores (Full Policy Audit and Household
+            Impact) use the same 11 policy areas with different weights and
+            act as a built-in check on weighting choices.
+          </li>
+        </ul>
+      </div>
+
       <h2
         style={{
           fontFamily: "'DM Serif Display', serif",
@@ -260,59 +342,6 @@ export default function Methodology() {
           and how repeated promises are handled without creating a separate
           scoring layer.
         </p>
-
-        <div
-          style={{
-            marginTop: "20px",
-            marginBottom: "8px",
-            fontSize: "14px",
-            fontWeight: 700,
-            color: "#333",
-          }}
-        >
-          Limits of this model
-        </div>
-        <ul
-          style={{
-            fontSize: "14px",
-            color: "#444",
-            paddingLeft: "20px",
-            margin: 0,
-            lineHeight: 1.6,
-          }}
-        >
-          <li style={{ marginBottom: "6px" }}>
-            This is an accountability scorecard with published criteria. It
-            is not a statistical model. Grades are editor judgments
-            bound by the rubric.
-          </li>
-          <li style={{ marginBottom: "6px" }}>
-            Headline scores convert letter grades to a 4.0 scale, then
-            average them with the stated weights. That conversion is a
-            disclosed editorial convention, not a hidden statistical model.
-          </li>
-          <li style={{ marginBottom: "6px" }}>
-            Plus/minus marks reflect editor judgment under the rubric.
-            Evidence-thin files (Ethics &amp; Transparency, Flagship
-            Delivery) are held to whole letters to prevent false precision.
-          </li>
-          <li style={{ marginBottom: "6px" }}>
-            Outside reviewers have not yet tested whether they would reach
-            the same grades. The three-lane review path (Analyst, Red Team,
-            Referee) is an internal check, not a substitute for independent replication.
-          </li>
-          <li style={{ marginBottom: "6px" }}>
-            The model can only score what can be inspected through public
-            evidence. Leadership style, symbolic politics, unmeasured public
-            value, and other important but weakly evidenced qualities are
-            outside the score rather than estimated with a stand-in number.
-          </li>
-          <li>
-            The two headline scores (Full Policy Audit and Household
-            Impact) use the same 11 policy areas with different weights and
-            act as a built-in check on weighting choices.
-          </li>
-        </ul>
 
         <p style={{ marginTop: "16px", fontSize: "14px", color: "#444" }}>
           <strong>Approval Signal at the top of the dashboard:</strong> The
