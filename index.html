@@ -28,6 +28,11 @@
 
     <link rel="alternate" type="application/rss+xml" title="Canada Under Carney — Dashboard Updates" href="/canada-under-carney/feed.xml" />
 
+    <!-- Vite rewrites these source-asset URLs to the hashed production files.
+         DM Sans covers body copy and DM Serif Display covers the page title. -->
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/src/assets/fonts/dm-sans-latin.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin href="/src/assets/fonts/dm-serif-display-400-latin.woff2" />
+
     <!-- Theme init runs before paint so there's no light-mode flash. Default to
          the OS preference, then override only with a VALIDATED saved choice.
          A saved "system" keeps the OS-derived value. matchMedia and storage

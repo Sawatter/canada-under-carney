@@ -64,18 +64,20 @@ These four areas count twice as much in Household Impact. The other seven still 
 
 ## Source Balance
 
-This is a source-type summary, not a full manifest and not a formal left/right scorecard. For the canonical per-source-family record (institution type, ownership / funding, editorial independence, tier, best-use boundary), see the [Source Characterization Register](docs/Source-Characterization-Register.md).
+This is a source-type rollup, not a formal left/right scorecard. As of 2026-07-02 the register counts 40 source families across the graded dimensions (16 official / administrative / institutional, 24 non-official) plus 5 polling families tracked for the Approval Signal outside the grades. The canonical per-source-family record (institution type, ownership / funding, editorial independence, best-use boundary, trust flags) is the [Source Characterization Register](docs/Source-Characterization-Register.md); its category summary is the count of record, and the rollup below is derived from it.
 
-| Category | Sources |
+| Institution type | Families |
 |---|---|
-| **Official / administrative** | Statistics Canada, PBO, CMHC, Bank of Canada, IRCC, ECCC, Global Affairs Canada, NRCan, Finance Canada / Canada.ca, Office of the Ethics Commissioner, LEGISinfo / parl.ca, direct PM ethics filings, NATO, OECD, IMF |
-| **Public broadcaster** | CBC News |
-| **Mainstream reporting** | Globe and Mail |
-| **Analysis / commentary** | The Hub |
-| **Policy institutes / watchdogs** | C.D. Howe, Fraser Institute, IRPP / Policy Options, Canadian Climate Institute, IISD, Democracy Watch |
-| **Issue-focused reporting** | The Narwhal, National Observer |
-| **Academic** | The Conversation Canada, Dalhousie, PROOF (U of T) |
-| **Polling / public opinion** | Angus Reid; Approval Signal pollsters tracked outside the grades: Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group; Nanos preferred-PM context |
+| Official / administrative / institutional (statistical, departmental, parliamentary, regulatory, international) | 16 |
+| Policy institutes and commentary platforms | 7 |
+| News media (public broadcaster, mainstream newspaper, issue-focused nonprofit journalism) | 4 |
+| Industry (trade associations, code governance, bank economics) | 4 |
+| Academic research | 3 |
+| Independent nonprofit economic research | 2 |
+| Charitable sector | 2 |
+| Watchdog / advocacy | 1 |
+| Polling within the graded dimensions | 1 |
+| Approval Signal pollsters (tracked outside the grades) | 5 |
 
 ## Want to Review or Contribute?
 

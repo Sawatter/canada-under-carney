@@ -1,4 +1,10 @@
-export default function About() {
+import { useLayoutEffect } from "react";
+
+export default function About({ onReady }) {
+  useLayoutEffect(() => {
+    onReady?.();
+  }, [onReady]);
+
   return (
     <div
       style={{

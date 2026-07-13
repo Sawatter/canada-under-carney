@@ -493,3 +493,189 @@ test.describe("v5.154 legibility wave", () => {
     expect(consoleErrors).toEqual([]);
   });
 });
+
+test.describe("v5.155 drawer history contract", () => {
+  test("mobile card open pushes a #dim entry and Back closes the sheet", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    await page.locator(".dim-card-header-button").first().click();
+    await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+    await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
+
+    // The back-gesture invariant: browser Back (the same history traversal an
+    // iOS edge-swipe or Android back button produces) closes the sheet and
+    // rewinds the URL to what preceded the open.
+    await page.goBack();
+    await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expectActiveNav(page, "Scorecard");
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("desktop card open pushes a #dim entry and Back restores grid, URL, and focus", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    const firstHeader = page.locator(".dim-card-header-button").first();
+    const headerId = await firstHeader.getAttribute("id");
+    await firstHeader.click();
+    await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+    await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+
+    await page.goBack();
+    await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+    await expect(page.locator("#scorecard-dimension-grid")).toBeVisible();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
+      .toBe(headerId);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("deep-link arrival close stays on the site and lands on the scorecard URL", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-fiscal-health" }));
+
+    await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+    // No in-app entry precedes a deep-link arrival, so the close control must
+    // not call history.back() (that would leave the site). It replaces the
+    // URL so it no longer names a closed drawer.
+    await page.locator(".dim-drawer-close").click();
+    await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+    await expectAppShell(page);
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expectActiveNav(page, "Scorecard");
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("share falls back to the #dim clipboard link when Web Share fails", async ({ page, context }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    // A real Web Share failure should fall back to clipboard. AbortError is
+    // intentionally excluded because it means the reader dismissed the sheet.
+    await page.addInitScript(() => {
+      try {
+        Object.defineProperty(navigator, "share", {
+          configurable: true,
+          value: async () => {
+            const error = new Error("share unavailable");
+            error.name = "NotAllowedError";
+            throw error;
+          },
+        });
+      } catch { /* keep the native value if the property refuses override */ }
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    await page.locator(".dim-card-header-button").first().click();
+    await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+    const deepLink = page.url();
+
+    await page.getByRole("button", { name: "Share this card" }).click();
+    await expect(page.getByText("Link copied", { exact: true })).toBeVisible();
+    const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
+    expect(clipboardText).toBe(deepLink);
+    expect(clipboardText).toMatch(/#dim-[a-z-]+$/);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("a view click during drawer Back completes at the requested destination", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    await page.locator(".dim-card-header-button").first().click();
+    await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+    await page.locator(".dim-drawer-close").evaluate((button) => {
+      button.click();
+      const destination = [...document.querySelectorAll(".app-workspace-sidebar-link")]
+        .find((candidate) => candidate.textContent.trim() === "Promises");
+      destination?.click();
+    });
+
+    await expect(page).toHaveURL(/#view-promises$/);
+    await expectActiveNav(page, "Promises");
+    await expect(page.locator(".app-promise-tracker")).toBeVisible();
+    expect(consoleErrors).toEqual([]);
+  });
+});
+
+test.describe("v5.155 deferred route integrity", () => {
+  test("the full changelog stays off scorecard startup and loads with Changes", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    const requestedScripts = [];
+    page.on("request", (request) => {
+      if (request.resourceType() === "script") requestedScripts.push(request.url());
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await expectAppShell(page);
+    expect(requestedScripts.some((url) => url.includes("WhatsChangedRoute-"))).toBe(false);
+
+    const sidebar = page.locator(".app-workspace-sidebar");
+    await sidebar.getByRole("button", { name: "Changes" }).click();
+    await expect(page.getByText("What changed since last update", { exact: true })).toBeVisible();
+    expect(requestedScripts.some((url) => url.includes("WhatsChangedRoute-"))).toBe(true);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("a cold Change Log deep link scrolls after its lazy route mounts", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.route("**/assets/WhatsChangedRoute-*.js", async (route) => {
+      const response = await route.fetch();
+      await new Promise((resolve) => setTimeout(resolve, 750));
+      await route.fulfill({ response });
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#change-2026-05-13-fiscal-health-0" }));
+
+    const target = page.locator("#change-2026-05-13-fiscal-health-0");
+    await expect(target).toBeVisible();
+    await expect.poll(async () => target.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    })).toBe(true);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("the safeguards link reaches its target after the lazy Rubric route mounts", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.route("**/assets/Methodology-*.js", async (route) => {
+      const response = await route.fetch();
+      await new Promise((resolve) => setTimeout(resolve, 750));
+      await route.fulfill({ response });
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await page.getByRole("button", { name: "read the safeguards" }).click();
+
+    const target = page.locator("#methodology-safeguards");
+    await expect(target).toBeVisible();
+    await expect.poll(async () => target.evaluate((element) => {
+      const rect = element.getBoundingClientRect();
+      return rect.bottom > 0 && rect.top < window.innerHeight;
+    })).toBe(true);
+    await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
+      .toBe("methodology-safeguards");
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("a failed lazy route leaves the shell and a reload action available", async ({ page }) => {
+    await page.route("**/assets/PromiseTracker-*.js", async (route) => route.abort());
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    const sidebar = page.locator(".app-workspace-sidebar");
+    await sidebar.getByRole("button", { name: "Promises" }).click();
+    await expect(page.locator(".dashboard-shell")).toBeVisible();
+    await expect(page.getByRole("alert")).toContainText("This section did not load.");
+    await expect(page.getByRole("button", { name: "Reload this page" })).toBeVisible();
+  });
+});

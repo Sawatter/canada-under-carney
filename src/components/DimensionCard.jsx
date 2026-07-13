@@ -3,7 +3,7 @@ import { GRADES } from "../constants";
 import GradeChip from "./GradeChip";
 import TrendArrow from "./TrendArrow";
 import meta from "../data/meta.json";
-import changelog from "../data/changelog.json";
+import changelogSummary from "../data/changelog-summary.json";
 import { formatValue, formatTarget, formatPeriod, deriveRelation } from "../dimensionTargets";
 
 // MED1: Heuristic tier classification from source URL domain.
@@ -206,7 +206,9 @@ function isMethodologyUrl(value) {
     || String(value || "").toLowerCase().includes("scoring-rubric");
 }
 
-function buildGradeMovesBySource(dimId) {
+// Pure: takes the changelog array (lazily loaded by the caller) rather than
+// reading a module-level import, so the 220KB JSON stays out of this chunk.
+function buildGradeMovesBySource(changelog, dimId) {
   const moves = new Map();
 
   changelog.forEach((entry) => {
@@ -548,7 +550,10 @@ export default function DimensionCard({
   const sourceFreshnessSummary = newestDatedSource
     ? `newest dated source: ${formatSourceDate(newestDatedSource)}`
     : "no dated source yet";
-  const sourceGradeMoves = useMemo(() => buildGradeMovesBySource(dim.id), [dim.id]);
+  const sourceGradeMoves = useMemo(
+    () => buildGradeMovesBySource(changelogSummary, dim.id),
+    [dim.id]
+  );
   const activeThresholdRow = useMemo(
     () => (isTracker ? null : findActiveThresholdRow(scoring?.thresholds, dim.grade)),
     [dim.grade, isTracker, scoring?.thresholds]
@@ -577,10 +582,51 @@ export default function DimensionCard({
   const wasExpandedRef = useRef(false);
   const anchorTargetRef = useRef(anchorNavigation?.target || null);
   const closeCallbackRef = useRef(onClick);
+  // Transient "Link copied" confirmation for the drawer's copy-link control.
+  const [copyLinkFeedback, setCopyLinkFeedback] = useState(false);
+  const copyFeedbackTimerRef = useRef(null);
 
   useLayoutEffect(() => {
     closeCallbackRef.current = onClick;
   }, [onClick]);
+
+  useEffect(() => () => {
+    if (copyFeedbackTimerRef.current) window.clearTimeout(copyFeedbackTimerRef.current);
+  }, []);
+
+  // Render-phase reset (the React adjust-state-on-prop-change pattern): a
+  // drawer that closes and reopens within the 2s window must not show a
+  // stale "Link copied" confirmation.
+  if (!isExpanded && copyLinkFeedback) {
+    setCopyLinkFeedback(false);
+  }
+
+  const handleCopyLink = useCallback(async (event) => {
+    event.stopPropagation();
+    if (typeof window === "undefined") return;
+    const url = `${window.location.origin}${window.location.pathname}#dim-${dim.id}`;
+
+    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+      try {
+        await navigator.share({ title: document.title, url });
+        return;
+      } catch (error) {
+        // Dismissing the native share sheet is intentional. Other Web Share
+        // failures fall through to the clipboard path below.
+        if (error?.name === "AbortError") return;
+      }
+    }
+
+    try {
+      await navigator.clipboard.writeText(url);
+    } catch {
+      // Clipboard blocked by permissions: no confirmation, nothing broke.
+      return;
+    }
+    setCopyLinkFeedback(true);
+    if (copyFeedbackTimerRef.current) window.clearTimeout(copyFeedbackTimerRef.current);
+    copyFeedbackTimerRef.current = window.setTimeout(() => setCopyLinkFeedback(false), 2000);
+  }, [dim.id]);
 
   useEffect(() => {
     openSectionsRef.current = openSections;
@@ -1609,6 +1655,33 @@ export default function DimensionCard({
                 Tracker
               </span>
             )}
+            <span className="dim-drawer-copy-feedback" aria-live="polite">
+              {copyLinkFeedback ? "Link copied" : ""}
+            </span>
+            <button
+              type="button"
+              className="dim-drawer-copy-link"
+              onClick={handleCopyLink}
+              aria-label="Share this card"
+            >
+              <svg
+                className="dim-drawer-copy-icon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+              </svg>
+              <span className="dim-drawer-copy-link-label">Share</span>
+            </button>
             <button
               type="button"
               className="dim-drawer-close"

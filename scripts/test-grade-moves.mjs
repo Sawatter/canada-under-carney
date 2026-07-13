@@ -78,6 +78,16 @@ assert.equal(moves[0].dimensionId, "defence-trade");
 assert.equal(moves[0].anchorId, "change-2026-06-29-defence-trade-1");
 assert.equal(moves[0].releaseVersion, "5.fixture");
 
+const summarizedChangelog = changelog.map((entry) => ({
+  ...entry,
+  items: entry.items
+    .map((item, itemIndex) => ({ ...item, itemIndex }))
+    .filter((item) => item.type === "grade"),
+}));
+const summarizedMoves = getCurrentGradeMoves(summarizedChangelog, dimensions, meta);
+assert.equal(summarizedMoves[0].anchorId, "change-2026-06-29-defence-trade-1");
+assert.equal("itemIndex" in summarizedMoves[0], false);
+
 const byDimension = getCurrentGradeMovesByDimension(changelog, dimensions, meta);
 assert.deepEqual(byDimension.get("defence-trade")?.[0], moves[0]);
 assert.equal(byDimension.has("promise-delivery"), false);

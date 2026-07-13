@@ -13,6 +13,7 @@ const sources = {
   app: read("src/App.jsx"),
   dashboard: read("src/components/Dashboard.jsx"),
   promises: read("src/components/PromiseTracker.jsx"),
+  whatsChangedRoute: read("src/components/WhatsChangedRoute.jsx"),
   dimension: read("src/components/DimensionCard.jsx"),
   gradeMoves: read("src/gradeMoves.js"),
   sinceLastVisit: read("src/components/SinceLastVisit.jsx"),
@@ -37,7 +38,11 @@ function check(condition, message) {
 }
 
 function imports(source, moduleName) {
-  return new RegExp(`import\\s+[^;]+\\s+from\\s+["'][^"']*${moduleName}["']`).test(source);
+  // A static import or a route-level React.lazy dynamic import both bind the
+  // production module into the file; either satisfies the contract. The
+  // paired renders() check still requires the component to be used.
+  return new RegExp(`import\\s+[^;]+\\s+from\\s+["'][^"']*${moduleName}["']`).test(source)
+    || new RegExp(`lazy\\(\\(\\)\\s*=>\\s*import\\(["'][^"']*${moduleName}["']\\)\\)`).test(source);
 }
 
 function renders(source, componentName) {
@@ -106,7 +111,7 @@ for (const componentName of [
   "ScoreboardHeader",
   "DimensionCard",
   "PromiseTracker",
-  "WhatsChanged",
+  "WhatsChangedRoute",
   "Methodology",
   "About",
 ]) {
@@ -116,16 +121,35 @@ for (const componentName of [
   );
 }
 check(
+  imports(sources.whatsChangedRoute, "changelog.json")
+    && imports(sources.whatsChangedRoute, "WhatsChanged")
+    && renders(sources.whatsChangedRoute, "WhatsChanged"),
+  "The deferred Changes route must own the full changelog import and render WhatsChanged.",
+);
+check(
+  ["PromiseTracker", "WhatsChangedRoute", "Methodology", "About"].every((componentName) => (
+    new RegExp(`<${componentName}\\b[^>]*onReady=\\{handleLazyViewReady\\}`).test(sources.dashboard)
+  )),
+  "Every deferred route must signal readiness after mounting so inner anchor navigation can retry.",
+);
+check(
   /<PromiseTracker\b[\s\S]*?appMode=\{appMode\}/.test(sources.dashboard),
   "Dashboard must pass app mode into the production PromiseTracker.",
 );
 check(
   imports(sources.dashboard, "gradeMoves") &&
-    sources.dashboard.includes("getCurrentGradeMoves(changelog, dimensions, meta)") &&
-    sources.dashboard.includes("getCurrentGradeMovesByDimension(changelog, dimensions, meta)") &&
+    sources.dashboard.includes("getCurrentGradeMoves(changelogSummary, dimensions, meta)") &&
+    sources.dashboard.includes("getCurrentGradeMovesByDimension(") &&
+    sources.dashboard.includes("changelogSummary,") &&
     /<DashboardStatus\s+gradeMoves=\{currentGradeMoves\}/.test(sources.dashboard) &&
     /gradeMoves=\{currentGradeMovesByDimension\.get\(d\.id\) \|\| \[\]\}/.test(sources.dashboard),
   "Dashboard must derive current-release grade moves from changelog grade items and pass them into status/card surfaces.",
+);
+check(
+  !sources.dashboard.includes("../data/changelog.json")
+    && !sources.dimension.includes("../data/changelog.json")
+    && !sources.sinceLastVisit.includes("../data/changelog.json"),
+  "The scorecard path must use the small changelog summary instead of importing the full history.",
 );
 
 check(

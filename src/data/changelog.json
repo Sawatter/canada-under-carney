@@ -1,5 +1,42 @@
 [
   {
+    "date": "2026-07-13",
+    "version": "5.155",
+    "summary": "Made the dashboard faster to open and easier to link. Later sections now load only when opened, fonts stay on this site, and policy cards work with Back, deep links, and Share. Review-driven wording fixes also landed. No scores changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Smaller first load",
+        "body": "The first page now loads about 534 KB of JavaScript instead of the previous 781 KB single chunk. The 211 KB Change Log and the Promises, Rubric, and About sections wait until a reader opens them. A build gate checks the entry graph and keeps those routes separate."
+      },
+      {
+        "type": "product",
+        "headline": "Fonts stay on this site",
+        "body": "DM Sans, DM Mono, and DM Serif Display are now served with the dashboard instead of through Google Fonts. The browser no longer needs that outside font request, and the build checks the asset paths."
+      },
+      {
+        "type": "product",
+        "headline": "Policy cards have working URLs",
+        "body": "Opening a policy card now puts its link in the address bar. Browser Back closes it, a direct link restores it, and Share uses the device share sheet with a clipboard fallback. Desktop Back also returns focus to the card that opened the detail."
+      },
+      {
+        "type": "fix",
+        "headline": "Deferred sections fail inside the page",
+        "body": "If a later section cannot load, the dashboard shell stays available with a reload action instead of turning blank. Delayed Change Log links now wait for their target, and a section click made during drawer Back finishes at the requested destination."
+      },
+      {
+        "type": "fix",
+        "headline": "Review wording reconciled",
+        "body": "Defence's why-not explanation now follows its existing five-point trade marker, Ethics explains why the general ETHI report is not a second case-specific finding, and the Rubric tab describes the ungraded tracker and whole-letter files consistently. Economic Policy now states its two-lever count conflict honestly and leaves the binding-rule decision in the editor queue."
+      },
+      {
+        "type": "docs",
+        "headline": "Release and governance records synchronized",
+        "body": "The July 4 review record, source-family rollup, data-shape guidance, frozen app-shell record, and roadmap now match the release package. No grade, threshold, formula, weight, source-stack, promise-status, or dimension-model rule changed."
+      }
+    ]
+  },
+  {
     "date": "2026-07-02",
     "version": "5.154",
     "summary": "A legibility pass for first-time readers. The Rubric tab now opens with a plain-language summary of how scoring works, each graded area answers why not higher and why not lower, and a continuity plan is published. No scores changed.",

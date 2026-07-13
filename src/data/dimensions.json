@@ -18,9 +18,9 @@
     "gradeBasis": {
       "band": "A",
       "bandCriterion": "The defence target is sustained and trade diversification has materially improved, meaning enough to affect the grade, away from heavy reliance on one market.",
-      "plusMinusRationale": "A- rather than A reflects Canada meeting, but not clearly exceeding, the 2% defence floor, and trade diversification that remains partly driven by market forces. The 3.5% target now has a funded path (Budget 2025: $81.8B over five years for the Canadian Armed Forces, or CAF). A pre-set condition for raising the defence side was met in the June 2026 editor review, so that is no longer a discount reason. But the grade held at A- on the two remaining reasons and because the trade half is mixed: diversification improved while the overall goods deficit widened fourfold to $31.3B in 2025.",
-      "whyNotHigher": "The full top grade would need spending clearly above the 2% floor, not just at it. Spending sits at 2.01%, and part of the trade gain came from market forces rather than federal policy.",
-      "whyNotLower": "The band below covers a funded pathway to the target with trade execution still underway. NATO confirmed spending at 2.01% of GDP, and annual non-U.S. exports rose 17.2% to an all-time high.",
+      "plusMinusRationale": "A- rather than A reflects a mixed file. Defence clears its published 2.0% condition at 2.01%, while the non-U.S. export-share gain is 4.2 points, just under the roughly five-point A marker, and the overall goods deficit widened fourfold to $31.3B in 2025. The 3.5% target also has a funded path through Budget 2025's $81.8B over five years for the Canadian Armed Forces (CAF).",
+      "whyNotHigher": "The top grade needs the non-U.S. share gain at roughly five points or more, holding beyond one-month swings. Defence clears its condition at 2.01%, but the trade gain is 4.2 points.",
+      "whyNotLower": "The band below covers a share gain of roughly one to five points with execution underway. The recorded gain is 4.2 points, and the file treats that plus confirmed 2.01% spending as clearing the bar.",
       "activeModifiers": [
         {
           "name": "External Constraint",
@@ -1253,10 +1253,10 @@
           "currentStatus": "executing. Budget 2025 productivity super-deduction passed, with marginal effective tax rate on new business investment falling from 15.6% to 13.2% per Budget 2025 estimates."
         }
       ],
-      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), 3 announced (AI compute, critical minerals, regulatory review). Per the rubric's D criterion ('fewer than two of the five current core levers are clearly funded or authorized'), the threshold is met because only 2 levers sit at authorized or executing (the productivity-tax measure is the only executing lever, with interprovincial trade at authorized). The D band reflects that authorization alone is not enough to clear the executing bar across enough levers to move the file, plus business investment remains near-flat without a durable two-quarter turn. Where 'authorized' is judged to mean executing-in-substance rather than legislation-passed, the count drops to 1 executing + 0 authorized.",
+      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), 3 announced (AI compute, critical minerals, regulatory review). The literal authorized-or-executing count is two, so it does not cleanly satisfy the D band's 'fewer than two' lever leg. The current D instead rests on only one lever executing, no durable two-quarter investment turn, and a fifth straight quarterly investment decline. Which leg binds when those signals split remains queued for editor adjudication; this release does not change the criterion or grade.",
       "plusMinusRationale": "The current D reflects a real policy response that has not yet cleared the execution bar. Key funds are still more announced than actually running, business investment is close to flat, and the big barriers at home are still unresolved.",
       "whyNotHigher": "The next band up needs at least one lever funded or authorized while business investment stays flat or barely positive. Investment fell 3% annualized, a fifth straight quarterly decline.",
-      "whyNotLower": "The band below would mean no material federal response through funding, tax, regulation, or trade action. The productivity super-deduction is in force and internal trade legislation is enacted.",
+      "whyNotLower": "The band below means no material federal response at all through funding, tax, regulation, or trade. The super-deduction and internal trade law are real actions whose execution the card contests.",
       "activeModifiers": [
         {
           "name": "Timing Fairness",
@@ -1612,7 +1612,7 @@
       "band": "D",
       "bandCriterion": "Federal relief covers less than 20% of the estimated yearly cost increase.",
       "plusMinusRationale": "D- per rubric, near-total failure. Relief covers a very small share of the identified cost, and the deeper causes of those costs are still not dealt with.",
-      "whyNotHigher": "The next band up would need relief covering 20% to 40% of the cost increase and programs aimed at specific groups running. Current relief covers less than 20%.",
+      "whyNotHigher": "The next band up needs relief covering 20% to 40% of the cost increase and targeted programs running. The main relief is about $307 per household, while store food prices rose 4.3% in the year to May.",
       "whyNotLower": "The band below would mean no material federal relief or competition response at all. The grocery benefit and the voluntary Grocery Code exist, even if they are weak.",
       "activeModifiers": [
         {
@@ -2215,7 +2215,7 @@
       "band": "D",
       "bandCriterion": "Big environmental rules were rolled back with no believable replacement strategy, the government admits the targets are out of reach, and the department doing the work is shrinking.",
       "plusMinusRationale": "The current D comes from big rollbacks with no funded replacement framework, a shrinking Environment and Climate Change Canada (ECCC), and a path to the 2030 target that is openly getting worse.",
-      "whyNotHigher": "The next band up would need a funded replacement strategy and at least one major policy tool, or a stand-in for one, still in place. The rollbacks came with no funded replacement framework.",
+      "whyNotHigher": "The next band up needs a funded replacement strategy with at least one major policy tool, or a stand-in, still in place. Only a published strategy with funded measures counts, not announcements.",
       "whyNotLower": "The band below would mean the climate framework taken apart in all but name, or policies actively pushing emissions up. The clean electricity rules still stand, only a weakening was announced.",
       "activeModifiers": [
         {
@@ -2551,7 +2551,7 @@
       "band": "C+",
       "bandCriterion": "The correction was carried out sharply and at real size. But there is still no long-term plan, and the downside risks are only partly handled.",
       "plusMinusRationale": "The C+ reflects a big correction that fixes a real overload problem. It still leaves the long-term design unsettled and exposes service-heavy sectors like health care and education to downside risk.",
-      "whyNotHigher": "The next band up needs published safeguards for the sectors most exposed to the cuts. Right now the downside risks are only partly handled.",
+      "whyNotHigher": "The next band up needs published safeguards for the sectors most exposed to the cuts. This file names health care staffing, agriculture, and higher education as the sectors carrying that risk.",
       "whyNotLower": "The band below would mean only a partial correction, with the drop in temporary residents unfinished. This cut is sharp and real, and the temporary-resident share is down to about 6.18%.",
       "activeModifiers": []
     },
@@ -3170,8 +3170,8 @@
       ],
       "componentScoreSummary": "Five components assessed: 3 present (blind trust, agreed-measure filing, Annex A conflict-screen scope), 2 absent (full public accounting of holdings, published independent ethics review). The C band reflects the baseline disclosure framework being present (which differentiates from D) but unresolved on full accounting and independent review (which blocks progression toward B).",
       "plusMinusRationale": "The C sits at the low end of the C range. The ethics setup exists and produces basic disclosure, which is what keeps it above a D. But critics still have open complaints about it, and the Ethics Commissioner has not published a review, which is what keeps it from climbing toward a B.",
-      "whyNotHigher": "The next band up needs at least four of the five disclosure pieces, including a published Ethics Commissioner review of the recusal screen. Only three are in place and no review has been published.",
-      "whyNotLower": "The band below would mean fewer than three of the five disclosure pieces exist. The blind trust, the agreed-measure filing, and the Annex A conflict-screen scope are all in place.",
+      "whyNotHigher": "The next band up needs four of the five pieces, including an Ethics Commissioner review that finds the recusal screen good enough. A check of the Commissioner's registry found no review of his case.",
+      "whyNotLower": "The band below needs fewer than three pieces, an official concern, or two case-specific critiques. Three pieces exist; ETHI reviewed the law generally, not this PM's screen.",
       "activeModifiers": []
     },
     "scoring": {
@@ -3525,7 +3525,7 @@
         }
       },
       "plusMinusRationale": "C sits at the bottom edge of the C band. Defence and immigration are delivering, while housing, major projects, and climate are stalled. If those three stalled areas were instead rated failing or deteriorating, the rule would push this combined grade below C.",
-      "whyNotHigher": "The next band up needs three of the five flagship areas delivering. Right now only two are, defence and immigration, and the other three are stalled.",
+      "whyNotHigher": "The next band up needs three of the five flagship areas delivering. Per the move rules, a stalled file showing its first measurable delivery evidence is what moves the count.",
       "whyNotLower": "The band below would mean only one area delivering, or the stalled files failing outright. Two areas are delivering and the three stalled ones have not slipped into failing.",
       "activeModifiers": []
     },

@@ -1,7 +1,7 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import dimensions from "../data/dimensions.json";
 import meta from "../data/meta.json";
-import changelog from "../data/changelog.json";
+import changelogSummary from "../data/changelog-summary.json";
 import {
   gpaToGrade,
   calculateOverallGPA,
@@ -11,18 +11,24 @@ import {
   getPocketbookDerivation,
 } from "../utils";
 import ScoreboardHeader from "./ScoreboardHeader";
-import WhatsChanged from "./WhatsChanged";
 import DimensionCard from "./DimensionCard";
-import PromiseTracker from "./PromiseTracker";
-import Methodology from "./Methodology";
-import About from "./About";
 import EmailSignup from "./EmailSignup";
 import VisitorCount from "./VisitorCount";
 import DashboardStatus from "./DashboardStatus";
 import SinceLastVisit from "./SinceLastVisit";
 import FollowUpdates from "./FollowUpdates";
+import RouteErrorBoundary from "./RouteErrorBoundary";
 import { getCurrentGradeMoves, getCurrentGradeMovesByDimension } from "../gradeMoves";
 import "./AppShell.css";
+
+// Route-level code splitting: these views are not needed for first paint of
+// the scorecard, so each loads on demand as its own chunk. Chunks are
+// same-origin and small. The Changes wrapper owns the full changelog import,
+// so that large history stays off the scorecard's initial request path.
+const WhatsChangedRoute = lazy(() => import("./WhatsChangedRoute"));
+const PromiseTracker = lazy(() => import("./PromiseTracker"));
+const Methodology = lazy(() => import("./Methodology"));
+const About = lazy(() => import("./About"));
 
 function isMobileViewport() {
   return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
@@ -34,6 +40,16 @@ function getDimensionIdForHashTarget(target) {
     target === `dim-${dim.id}` || target.startsWith(`dim-${dim.id}-`)
   ));
   return match?.id || null;
+}
+
+function focusAndScrollToAnchor(target) {
+  const destination = document.getElementById(target);
+  if (!destination) return;
+  destination.focus({ preventScroll: true });
+  destination.scrollIntoView({
+    behavior: "auto",
+    block: "start",
+  });
 }
 
 function dashboardSectionIcon(section) {
@@ -109,6 +125,7 @@ export default function Dashboard() {
   // Which headline-score derivation panel is open: "household", "overall", or null.
   const [derivationOpen, setDerivationOpen] = useState(null);
   const [anchorNavigation, setAnchorNavigation] = useState(null);
+  const [lazyViewReadyVersion, setLazyViewReadyVersion] = useState(0);
   const [isMobile, setIsMobile] = useState(() => isMobileViewport());
   // Theme: tri-state, one of "light" | "dark" | "system". The no-flash script
   // in index.html sets the initial data-theme on <html> before React mounts;
@@ -164,8 +181,22 @@ export default function Dashboard() {
     setTheme((current) => (current === "light" ? "dark" : current === "dark" ? "system" : "light"));
   }, []);
   const anchorRequestIdRef = useRef(0);
+  const anchorTargetRef = useRef(null);
   const expandedRef = useRef(null);
+  // Ownership flag for the drawer's #dim-<id> history entry. Named for its
+  // mobile-only origin (the app-shell contract pins the identifier) but since
+  // v5.155 click-opens on BOTH viewports own an entry, so browser/OS Back
+  // closes the drawer everywhere.
   const mobileModalEntryRef = useRef(false);
+  // One-shot: a Back/Forward traversal that closes an owned drawer fires BOTH
+  // popstate and hashchange. The popstate handler does the close; this flag
+  // tells the hashchange handler to skip re-routing that same traversal.
+  const suppressHashRouteRef = useRef(false);
+  // Guards the owned-close history.back() against double activation (e.g.
+  // Escape plus a close-button click before the traversal lands), which
+  // would otherwise rewind two entries.
+  const drawerExitInFlightRef = useRef(false);
+  const pendingViewAfterDrawerExitRef = useRef(null);
   const pendingViewFocusRef = useRef(null);
   const desktopReturnScrollRef = useRef(null);
   const pendingDesktopReturnRef = useRef(null);
@@ -181,8 +212,12 @@ export default function Dashboard() {
   const overallDerivation = getOverallDerivation(dimensions);
   const pocketbookDerivation = getPocketbookDerivation(dimensions);
   const { all: allPromises, counts: promiseCounts, total: totalPromises } = countPromises(dimensions);
-  const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
-  const currentGradeMovesByDimension = getCurrentGradeMovesByDimension(changelog, dimensions, meta);
+  const currentGradeMoves = getCurrentGradeMoves(changelogSummary, dimensions, meta);
+  const currentGradeMovesByDimension = getCurrentGradeMovesByDimension(
+    changelogSummary,
+    dimensions,
+    meta,
+  );
 
   useEffect(() => {
     expandedRef.current = expanded;
@@ -197,16 +232,24 @@ export default function Dashboard() {
     return () => media.removeEventListener("change", update);
   }, []);
 
-  const pushMobileModalEntry = useCallback((dimensionId) => {
+  const pushModalHistoryEntry = useCallback((dimensionId) => {
     if (typeof window === "undefined") return;
-    if (!isMobileViewport()) return;
-    if (mobileModalEntryRef.current) return;
 
-    window.history.pushState(
-      { ...(window.history.state || {}), dimModal: dimensionId },
-      "",
-      window.location.href
-    );
+    const nextUrl = `#dim-${dimensionId}`;
+    const nextState = { ...(window.history.state || {}), dimModal: dimensionId };
+
+    // Click-opens on either viewport create exactly one owned history entry
+    // whose URL is the card's deep link, so Back closes the drawer and the
+    // address bar names what is on screen. If an entry is already owned
+    // (card-to-card switch, or StrictMode double-invoking the updater),
+    // retarget it instead of stacking a second entry. Deep-link arrivals
+    // (fromHash) never reach this helper.
+    if (mobileModalEntryRef.current) {
+      window.history.replaceState(nextState, "", nextUrl);
+      return;
+    }
+
+    window.history.pushState(nextState, "", nextUrl);
     mobileModalEntryRef.current = true;
   }, []);
 
@@ -221,23 +264,38 @@ export default function Dashboard() {
 
     setExpanded((current) => {
       if (current === dimensionId) return current;
-      if (!options.fromHash) pushMobileModalEntry(dimensionId);
+      if (!options.fromHash) pushModalHistoryEntry(dimensionId);
       return dimensionId;
     });
-  }, [pushMobileModalEntry]);
+  }, [pushModalHistoryEntry]);
 
   const closeDimension = useCallback((dimensionId) => {
     const ownsModalEntry = mobileModalEntryRef.current;
-    if (typeof window !== "undefined" && !isMobileViewport()) {
-      pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
-      pendingDesktopFocusRef.current = dimensionId;
-    }
 
     if (typeof window !== "undefined" && ownsModalEntry) {
-      mobileModalEntryRef.current = false;
-      setExpanded(null);
-      window.history.back();
+      // The drawer owns a #dim-<id> entry, so leave through history: the URL
+      // rewinds to whatever preceded the open. The popstate handler performs
+      // the actual close (shared with the browser-Back gesture) and, on
+      // desktop, queues the scroll restore and header re-focus.
+      if (!drawerExitInFlightRef.current) {
+        drawerExitInFlightRef.current = true;
+        window.history.back();
+      }
       return;
+    }
+
+    // No owned entry: the drawer arrived by deep link, so there is no prior
+    // in-app entry to rewind to and history.back() would leave the site.
+    // Close in place and point the URL at the scorecard instead, so it no
+    // longer names a closed drawer.
+    if (typeof window !== "undefined") {
+      if (!isMobileViewport()) {
+        pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
+        pendingDesktopFocusRef.current = dimensionId;
+      }
+      const nextState = { ...(window.history.state || {}) };
+      delete nextState.dimModal;
+      window.history.replaceState(nextState, "", "#view-scorecard");
     }
 
     mobileModalEntryRef.current = false;
@@ -257,13 +315,16 @@ export default function Dashboard() {
     if (!isMobile) pendingDesktopReturnRef.current = null;
 
     if (mobileModalEntryRef.current) {
-      mobileModalEntryRef.current = false;
-      setExpanded(null);
-      window.history.back();
+      // Owned drawer entry: rewind so the URL retreats with the drawer.
+      // The popstate handler completes the close.
+      if (!drawerExitInFlightRef.current) {
+        drawerExitInFlightRef.current = true;
+        window.history.back();
+      }
       return;
     }
 
-    if (isMobile && window.history.state?.dimModal) {
+    if (window.history.state?.dimModal) {
       const nextState = { ...(window.history.state || {}) };
       delete nextState.dimModal;
       window.history.replaceState(nextState, "", window.location.href);
@@ -283,6 +344,7 @@ export default function Dashboard() {
 
   const requestAnchorNavigation = useCallback((target) => {
     if (!target) return;
+    anchorTargetRef.current = target;
     anchorRequestIdRef.current += 1;
     setAnchorNavigation({ target, requestId: anchorRequestIdRef.current });
   }, []);
@@ -366,21 +428,60 @@ export default function Dashboard() {
     if (typeof window === "undefined") return undefined;
 
     const handlePopState = (event) => {
+      // Every traversal starts here, so clear any one-shot flags a previous
+      // traversal (or an owned close whose URL happened not to change) left.
+      drawerExitInFlightRef.current = false;
+      suppressHashRouteRef.current = false;
+
       const state = event.state || {};
-      if (mobileModalEntryRef.current && expandedRef.current && !state.dimModal) {
-        mobileModalEntryRef.current = false;
+      const hadOwnedEntry = mobileModalEntryRef.current;
+      // Landing ON an entry that carries a drawer (Forward into it) re-owns
+      // it, so a later close rewinds instead of piling replaceStates.
+      mobileModalEntryRef.current = !!state.dimModal;
+
+      if (hadOwnedEntry && expandedRef.current && !state.dimModal) {
+        // Backing out of an owned drawer entry: browser Back, edge swipe,
+        // or the close control's history.back(). Close on both viewports;
+        // desktop additionally restores scroll and re-focuses the origin
+        // card via the same pending refs the close-button path used before.
+        if (!isMobileViewport()) {
+          pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
+          pendingDesktopFocusRef.current = expandedRef.current;
+        }
+        // The same traversal fires hashchange (#dim-<id> vs the prior URL).
+        // The view is already correct, so routing it again would only
+        // scroll the view top over the restore — skip exactly one.
+        suppressHashRouteRef.current = true;
         setExpanded(null);
+
+        const queuedView = pendingViewAfterDrawerExitRef.current;
+        pendingViewAfterDrawerExitRef.current = null;
+        if (queuedView) {
+          const nextState = { ...(window.history.state || {}) };
+          delete nextState.dimModal;
+          window.history.replaceState(nextState, "", `#view-${queuedView}`);
+          if (queuedView === "promises") setPromiseDimensionFilter("All");
+          pendingDesktopReturnRef.current = null;
+          pendingDesktopFocusRef.current = null;
+          pendingViewFocusRef.current = `view-${queuedView}`;
+          setView(queuedView);
+          requestAnchorNavigation(`view-${queuedView}`);
+        }
       }
     };
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, []);
+  }, [requestAnchorNavigation]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
 
     const handleHashChange = () => {
+      if (suppressHashRouteRef.current) {
+        suppressHashRouteRef.current = false;
+        return;
+      }
       const target = window.location.hash.replace(/^#/, "");
       if (target) {
         routeHashTarget(target);
@@ -408,10 +509,7 @@ export default function Dashboard() {
 
     frameA = window.requestAnimationFrame(() => {
       frameB = window.requestAnimationFrame(() => {
-        document.getElementById(target)?.scrollIntoView({
-          behavior: "auto",
-          block: "start",
-        });
+        focusAndScrollToAnchor(target);
       });
     });
 
@@ -419,7 +517,17 @@ export default function Dashboard() {
       if (frameA) window.cancelAnimationFrame(frameA);
       if (frameB) window.cancelAnimationFrame(frameB);
     };
-  }, [anchorNavigation, expanded, view]);
+  }, [anchorNavigation, expanded, lazyViewReadyVersion, view]);
+
+  const handleLazyViewReady = useCallback(() => {
+    setLazyViewReadyVersion((current) => current + 1);
+    if (typeof window === "undefined") return;
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        focusAndScrollToAnchor(anchorTargetRef.current);
+      });
+    });
+  }, []);
 
   const scheduleMobileScroll = (targetId) => {
     if (typeof window === "undefined") return undefined;
@@ -502,8 +610,24 @@ export default function Dashboard() {
 
     const dimensionId = pendingDesktopFocusRef.current;
     pendingDesktopFocusRef.current = null;
-    document.getElementById(`dim-${dimensionId}-header`)?.focus({ preventScroll: true });
-    return undefined;
+    const focusHeader = () => {
+      document.getElementById(`dim-${dimensionId}-header`)?.focus({ preventScroll: true });
+    };
+    focusHeader();
+    // A Back/Forward-driven close applies this focus during the traversal's
+    // own task; Chromium then runs its same-document-navigation focus fixup
+    // (~1ms later) and resets focus to <body>. Re-apply on a double rAF,
+    // which lands after that fixup. Re-focusing an element that already
+    // holds focus is a no-op, so the non-traversal close path is unaffected.
+    let frameA = null;
+    let frameB = null;
+    frameA = window.requestAnimationFrame(() => {
+      frameB = window.requestAnimationFrame(focusHeader);
+    });
+    return () => {
+      if (frameA) window.cancelAnimationFrame(frameA);
+      if (frameB) window.cancelAnimationFrame(frameB);
+    };
   }, [expanded, isMobile, view]);
 
   useLayoutEffect(() => {
@@ -562,12 +686,30 @@ export default function Dashboard() {
 
   const selectView = (nextView) => {
     if (nextView === view) return;
+    if (drawerExitInFlightRef.current) {
+      pendingViewAfterDrawerExitRef.current = nextView;
+      return;
+    }
     if (nextView === "promises") setPromiseDimensionFilter("All");
     if (typeof window !== "undefined") {
-      closeDimensionForInternalNavigation({ closeDesktop: true });
-      window.history.pushState(window.history.state, "", `#view-${nextView}`);
+      // If a drawer owns the top history entry, collapse it into the view
+      // entry (replace) instead of pushing on top of a #dim-<id> URL —
+      // pairing a pushState with a pending history.back() would race the
+      // traversal. Same owned-entry rule routeDimensionToView applies.
+      const ownedModal = mobileModalEntryRef.current || window.history.state?.dimModal;
+      const nextState = { ...(window.history.state || {}) };
+      delete nextState.dimModal;
+      if (ownedModal) {
+        window.history.replaceState(nextState, "", `#view-${nextView}`);
+      } else {
+        window.history.pushState(nextState, "", `#view-${nextView}`);
+      }
+      mobileModalEntryRef.current = false;
+      pendingDesktopReturnRef.current = null;
+      pendingDesktopFocusRef.current = null;
       requestAnchorNavigation(`view-${nextView}`);
     }
+    setExpanded(null);
     setView(nextView);
   };
 
@@ -914,6 +1056,10 @@ export default function Dashboard() {
         key={view}
         style={view === "promises" ? { scrollMarginTop: "16px" } : undefined}
       >
+      {/* The scorecard is not lazy, so first paint never suspends. A route
+          failure stays inside this boundary instead of blanking the shell. */}
+      <RouteErrorBoundary key={view}>
+      <Suspense fallback={<div className="route-loading" role="status">Loading section...</div>}>
       {/* Scorecard View */}
       {view === "scorecard" && (
         <>
@@ -1073,7 +1219,8 @@ export default function Dashboard() {
         </>
       )}
 
-      {/* Promise Tracker View */}
+      {/* Each deferred component signals from inside its loaded chunk, so
+          anchor navigation can retry against content that now exists. */}
       {view === "promises" && (
         <div>
           <PromiseTracker
@@ -1082,18 +1229,18 @@ export default function Dashboard() {
             totalPromises={totalPromises}
             appMode={appMode}
             initialDimensionFilter={promiseDimensionFilter}
+            onReady={handleLazyViewReady}
           />
         </div>
       )}
 
-      {/* Change Log View */}
-      {view === "changelog" && <WhatsChanged changelog={changelog} />}
+      {view === "changelog" && <WhatsChangedRoute onReady={handleLazyViewReady} />}
 
-      {/* Methodology View */}
-      {view === "methodology" && <Methodology />}
+      {view === "methodology" && <Methodology onReady={handleLazyViewReady} />}
 
-      {/* About View */}
-      {view === "about" && <About />}
+      {view === "about" && <About onReady={handleLazyViewReady} />}
+      </Suspense>
+      </RouteErrorBoundary>
       </div>
 
       {/* Email signup */}

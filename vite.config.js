@@ -6,4 +6,8 @@ export default defineConfig({
   // Set base path for GitHub Pages deployment
   // Change 'canada-under-carney' to match your repo name
   base: '/canada-under-carney/',
+  build: {
+    manifest: true,
+    chunkSizeWarningLimit: 530,
+  },
 })

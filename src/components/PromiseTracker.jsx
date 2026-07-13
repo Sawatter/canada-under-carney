@@ -1,4 +1,4 @@
-import { useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
+import { useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { STATUS_COLORS } from "../constants";
 
 const STATUS_ORDER = [
@@ -233,7 +233,11 @@ function ClassicSummary({ promiseCounts }) {
   );
 }
 
-export default function PromiseTracker({ allPromises, promiseCounts, totalPromises, appMode = false, initialDimensionFilter = "All" }) {
+export default function PromiseTracker({ allPromises, promiseCounts, totalPromises, appMode = false, initialDimensionFilter = "All", onReady }) {
+  useLayoutEffect(() => {
+    onReady?.();
+  }, [onReady]);
+
   const [expandedPromise, setExpandedPromise] = useState(null);
   const [statusFilter, setStatusFilter] = useState("All");
   // Initialized from the route: a dimension's "Open the Promises tab" pre-filters

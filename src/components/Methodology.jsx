@@ -1,6 +1,11 @@
+import { useLayoutEffect } from "react";
 import meta from "../data/meta.json";
 
-export default function Methodology() {
+export default function Methodology({ onReady }) {
+  useLayoutEffect(() => {
+    onReady?.();
+  }, [onReady]);
+
   const docLinks = [
     {
       label: "Scoring rubric",
@@ -120,9 +125,10 @@ export default function Methodology() {
           This dashboard grades the federal government in 11 policy areas.
           Each area gets a letter grade based on public evidence, checked
           against published thresholds. The two headline scores convert the
-          letter grades into points and average them. The Household Impact
-          score counts the four money-related areas twice. A 12th card
-          tracks promises but does not get a grade. Where human judgment
+          letter grades into points. Full Policy Audit averages the 11 areas
+          equally, while Household Impact counts the four money-related
+          areas twice. A 12th card tracks promises without a public letter
+          grade and never feeds the scores. Where human judgment
           enters, it is admitted on each graded card in the judgment call
           fields. The conditions that would move a grade up or down are
           published ahead of time, so readers can check them. This is not a
@@ -207,6 +213,7 @@ export default function Methodology() {
 
         <div
           id="methodology-safeguards"
+          tabIndex={-1}
           style={{
             marginBottom: "20px",
             padding: "14px",
@@ -313,10 +320,11 @@ export default function Methodology() {
         ))}
 
         <p style={{ marginTop: "16px", fontSize: "14px", color: "#444" }}>
-          <strong>Whole-letter policy areas:</strong> Ethics &amp; Transparency
-          and Flagship Delivery are graded on whole letters only (A through F,
-          no plus/minus variants). Their score contribution matches the
-          displayed whole letter.
+          <strong>Whole-letter policy areas:</strong> The displayed grades for
+          Ethics &amp; Transparency and Flagship Delivery are held to whole
+          letters, with no plus or minus marks. They can move only from one
+          whole letter to the next, and the score contribution matches the
+          displayed letter.
         </p>
         <p style={{ fontSize: "14px", color: "#444" }}>
           <strong>Weighting:</strong> Both headline scores are built from the

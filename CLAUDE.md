@@ -114,6 +114,7 @@ docs/
 - Every dimension has: `id`, `name`, `whatThisGrades`, `gradeBasis`, `scoring`, `gradeTriggers`, `sources`, `lastUpdated`
 - Graded dimensions also have: `judgmentCall`, `judgmentDetail`, `grade`, `previousGrade`, `trend`, `status`
 - Graded dimensions may carry an optional `verdictLine`: one authored plain-language sentence (110 chars max, validated by `validate-dimensions.mjs`) giving the verdict gist. No grade letters, no urgency wording, never on the tracker, never synthesized at render time.
+- Graded dimensions may carry optional authored `gradeBasis.whyNotHigher` / `gradeBasis.whyNotLower`: one plain-language sentence each (200 chars max, validated by `validate-dimensions.mjs` with the same grade-token and urgency guards as `verdictLine`) explaining why the grade sits where it does. Never on the tracker, never synthesized at render time. The retired top-level `whyNotHigher` / `whyNotLower` fields are validator-rejected; the fields live under `gradeBasis` only.
 - Tracker dimensions have: `excludeFromGPA: true`, `informationalGrade` (NOT `grade`), and DO NOT need `judgmentCall` (the renderer suppresses it)
 - Promise Delivery is the only current tracker
 
@@ -144,7 +145,7 @@ The dashboard is non-partisan by construction. When in doubt:
 - **Paper-trail only.** Don't grade things without public evidence. Refuses to score: leadership style, vision, symbolic politics, popularity, character.
 - **Named exceptions are explicitly framed:**
   - Defence & Trade is mixed-construct (defence milestone + trade outcome under one grade) and carries a tripwire: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version.
-  - Flagship Delivery is a meta-rollup, not a peer dimension. Scoped explicitly in its `judgmentCall`. It exits probation after its first full monthly review cycle only if the Combination Rule runs unchanged, the resulting direction does not contradict the underlying file-status movement, the cycle yields at least one cross-file execution insight spanning two or more flagship files, and no unresolved deconfliction breach is found. If any part fails, demote it in v2 rather than extending probation.
+  - Flagship Delivery is a meta-rollup, not a peer dimension. Scoped explicitly in its `judgmentCall`. It exited probation after the July 2026 retention check (v5.150, recorded in `docs/Flagship-Delivery-Rules.md`): the Combination Rule ran unchanged, the direction did not contradict the underlying file-status movement, the cycle yielded a cross-file execution insight spanning two or more flagship files, and no unresolved deconfliction breach was found. Those four checks now act as retention conditions. If a future cycle fails one, demote it in v2 rather than reviving probation.
   - Promise Delivery is a tracker, not part of the GPA. Has `excludeFromGPA: true` and `informationalGrade` instead of `grade`.
 - **Consistency over absence-of-bias.** The credibility argument is "same rule applied across all 11 files" — not "no editor judgment exists." Judgment is admitted in `judgmentCall` and `judgmentDetail` on every graded card.
 - **Traceability.** Every grade-move trigger has a one-click path to its evidence — external URL, internal anchor, or honestly-labeled event-driven placeholder.
@@ -217,13 +218,14 @@ These rules are action checks, not vibes. If a future agent cannot produce the c
     "date": "YYYY-MM-DD",
     "summary": "One sentence on what landed.",
     "items": [
-      { "type": "product"|"method"|"docs"|"event"|"grade"|"minor",
+      { "type": "product"|"method"|"docs"|"event"|"grade"|"fix"|"minor",
         "headline": "Short noun-phrase headline",
         "body": "1-3 sentences." }
     ]
   }
   ```
 - Most recent entry sits at index 0.
+- `"fix"` marks bug-fix items; the Change Log folds them into the per-entry quiet bucket alongside `docs` and `minor` (see `QUIET_TYPES` in `WhatsChanged.jsx`).
 - Grade changes get `type: "grade"` items with `dimensionId`, `dimensionName`, `from`, `to`, `deltaLabel`, `headline`, `body`, `drivers`, `link`.
 
 ## Common mistakes to avoid

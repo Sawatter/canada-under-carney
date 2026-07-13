@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import meta from "../data/meta.json";
-import changelog from "../data/changelog.json";
+import changelogSummary from "../data/changelog-summary.json";
 import { countGradeItemsSince, resolveNoticeState } from "../sinceLastVisit.js";
 import "./SinceLastVisit.css";
 
@@ -34,12 +34,8 @@ function writeLastSeen(version) {
   }
 }
 
-// Decide once, before first paint, whether there is anything to say.
-// Read-only: the localStorage write happens in the sync effect below.
-// Branch logic lives in resolveNoticeState (pure, unit-tested); this maps
-// its "none" result to null so the render guard stays a simple falsy check.
 function computeNotice() {
-  const state = resolveNoticeState(readLastSeen(), meta.version, changelog);
+  const state = resolveNoticeState(readLastSeen(), meta.version, changelogSummary);
   return state === "none" ? null : state;
 }
 
@@ -54,7 +50,7 @@ export default function SinceLastVisit({ onOpenChangelog }) {
   const [notice, setNotice] = useState(computeNotice);
 
   // Sync the stored marker with what the reader has now seen. Whenever no
-  // grade-change notice is showing (first visit, caught-up, or just
+  // grade-change notice is showing (resolved: first visit, caught-up, or just
   // dismissed), record the current version so the line stays quiet until
   // the next version crossing. The caught-up line self-heals here too:
   // it stays up for this page view (React state already holds it) and is

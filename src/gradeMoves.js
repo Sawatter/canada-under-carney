@@ -18,7 +18,10 @@ export function getCurrentGradeMoves(changelog = [], dimensions = [], meta = {})
   );
 
   return (current.items || [])
-    .map((item, itemIndex) => ({ item, itemIndex }))
+    .map((item, summaryIndex) => ({
+      item,
+      itemIndex: Number.isInteger(item?.itemIndex) ? item.itemIndex : summaryIndex,
+    }))
     .filter(({ item }) => item?.type === "grade")
     .filter(({ item }) => {
       const dim = dimensionsById.get(item.dimensionId);
@@ -28,12 +31,16 @@ export function getCurrentGradeMoves(changelog = [], dimensions = [], meta = {})
         && item.to === dim.grade
         && item.from !== item.to;
     })
-    .map(({ item, itemIndex }) => ({
-      ...item,
-      releaseDate: current.date,
-      releaseVersion: current.version,
-      anchorId: `change-${current.date}-${item.dimensionId}-${itemIndex}`,
-    }));
+    .map(({ item, itemIndex }) => {
+      const gradeItem = { ...item };
+      delete gradeItem.itemIndex;
+      return {
+        ...gradeItem,
+        releaseDate: current.date,
+        releaseVersion: current.version,
+        anchorId: `change-${current.date}-${item.dimensionId}-${itemIndex}`,
+      };
+    });
 }
 
 export function getCurrentGradeMovesByDimension(changelog = [], dimensions = [], meta = {}) {
