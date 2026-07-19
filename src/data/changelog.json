@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-07-19",
+    "version": "5.156",
+    "summary": "Cut the first-load code by loading policy detail only when needed, repaired four Back and deep-link cases, and corrected wording that changed technical meaning. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Policy detail waits until it is needed",
+        "body": "The first JavaScript load fell from 535,131 bytes to 345,966 bytes without raising the build limits. The 241,544-byte policy-detail file now loads when a reader opens a card or the Promises section. A generated summary keeps the 12 cards, 43 promise totals, headline scores, and grade-move display aligned with the canonical policy data."
+      },
+      {
+        "type": "fix",
+        "headline": "Back and deep links keep their place",
+        "body": "The safeguards link now has a real browser-history entry. Back and Forward also work after a quick card-close and section change, an address-bar link change, or a card reload."
+      },
+      {
+        "type": "fix",
+        "headline": "Technical wording corrected",
+        "body": "A follow-up review restored the timing of the five-year defence commitment, the published Defence grade rationale, and the intended meaning of durable, material, and full-time-equivalent measures. It also corrected two lines that had overstated what affordability and carbon evidence showed."
+      },
+      {
+        "type": "docs",
+        "headline": "Review decisions recorded",
+        "body": "The July 19 review record separates accepted fixes from the Economic Policy wording decision and physical device checks that still need the editor. No grade, threshold, formula, weight, promise status, source stack, or dimension-model rule changed."
+      }
+    ]
+  },
+  {
     "date": "2026-07-13",
     "version": "5.155",
     "summary": "Made the dashboard faster to open and easier to link. Later sections now load only when opened, fonts stay on this site, and policy cards work with Back, deep links, and Share. Review-driven wording fixes also landed. No scores changed.",
@@ -37,7 +64,7 @@
       {
         "type": "product",
         "headline": "Plainer wording on the policy cards",
-        "body": "A readability pass rewrote 44 lines across eight policy cards to plainer, shorter sentences and removed internal jargon like source tiers. Every number and source stayed the same. Each rewrite was checked against the card’s own data so the meaning did not drift."
+        "body": "A readability pass changed 44 lines across nine policy cards, including Flagship Delivery, to use plainer and shorter sentences. A later review found that some lines changed technical or evidentiary meaning, and v5.156 corrected those cases."
       }
     ]
   },

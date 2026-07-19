@@ -13,8 +13,11 @@ const sources = {
   app: read("src/App.jsx"),
   dashboard: read("src/components/Dashboard.jsx"),
   promises: read("src/components/PromiseTracker.jsx"),
+  promisesRoute: read("src/components/PromiseTrackerRoute.jsx"),
   whatsChangedRoute: read("src/components/WhatsChangedRoute.jsx"),
   dimension: read("src/components/DimensionCard.jsx"),
+  dimensionData: read("src/dimensionData.js"),
+  dimensionsSummary: read("src/data/dimensions-summary.json"),
   gradeMoves: read("src/gradeMoves.js"),
   sinceLastVisit: read("src/components/SinceLastVisit.jsx"),
   sinceLastVisitHelpers: read("src/sinceLastVisit.js"),
@@ -110,7 +113,7 @@ check(
 for (const componentName of [
   "ScoreboardHeader",
   "DimensionCard",
-  "PromiseTracker",
+  "PromiseTrackerRoute",
   "WhatsChangedRoute",
   "Methodology",
   "About",
@@ -127,15 +130,61 @@ check(
   "The deferred Changes route must own the full changelog import and render WhatsChanged.",
 );
 check(
-  ["PromiseTracker", "WhatsChangedRoute", "Methodology", "About"].every((componentName) => (
+  ["PromiseTrackerRoute", "WhatsChangedRoute", "Methodology", "About"].every((componentName) => (
     new RegExp(`<${componentName}\\b[^>]*onReady=\\{handleLazyViewReady\\}`).test(sources.dashboard)
   )),
   "Every deferred route must signal readiness after mounting so inner anchor navigation can retry.",
 );
 check(
-  /<PromiseTracker\b[\s\S]*?appMode=\{appMode\}/.test(sources.dashboard),
-  "Dashboard must pass app mode into the production PromiseTracker.",
+  /<PromiseTrackerRoute\b[\s\S]*?appMode=\{appMode\}/.test(sources.dashboard)
+    && /<PromiseTracker\b[\s\S]*?appMode=\{appMode\}/.test(sources.promisesRoute),
+  "Dashboard must pass app mode through the deferred route into PromiseTracker.",
 );
+check(
+  imports(sources.dashboard, "dimensions-summary.json")
+    && !imports(sources.dashboard, "dimensions.json")
+    && imports(sources.dashboard, "dimensionData")
+    && sources.dashboard.includes("loadDimensions("),
+  "Dashboard must use the generated summary for first paint and load canonical dimensions on demand.",
+);
+check(
+  imports(sources.promisesRoute, "PromiseTracker")
+    && imports(sources.promisesRoute, "dimensionData")
+    && sources.promisesRoute.includes("loadDimensions(")
+    && sources.promisesRoute.includes("retryDimensionsLoad(")
+    && renders(sources.promisesRoute, "PromiseTracker"),
+  "The deferred Promises route must own canonical loading, retry, and PromiseTracker rendering.",
+);
+check(
+  sources.dimensionData.includes('dimensions.json?url')
+    && sources.dimensionData.includes("fetch(dimensionsAssetUrl")
+    && sources.dimensionData.includes("export function loadDimensions(")
+    && sources.dimensionData.includes("export function retryDimensionsLoad(")
+    && !/from\s+["']\.\/data\/dimensions\.json["']/.test(sources.dimensionData),
+  "Canonical dimensions must be a memoized, retriable same-origin JSON asset rather than a static JS import.",
+);
+check(
+  sources.promisesRoute.includes('role="status"')
+    && sources.promisesRoute.includes('role="alert"')
+    && sources.promisesRoute.includes("Try again")
+    && sources.promisesRoute.includes("onReady={onReady}"),
+  "The deferred Promises route must expose accessible loading, contained failure, retry, and readiness states.",
+);
+try {
+  const summary = JSON.parse(sources.dimensionsSummary);
+  check(
+    Array.isArray(summary.dimensions)
+      && summary.dimensions.length > 0
+      && Number.isInteger(summary.totalPromises)
+      && summary.promiseCounts
+      && summary.dimensions.every((dimension) => !(
+        "metrics" in dimension || "promises" in dimension || "sources" in dimension
+      )),
+    "The first-paint summary must contain dimensions and aggregate promise counts without detail collections.",
+  );
+} catch {
+  check(false, "The generated dimensions summary must be valid JSON.");
+}
 check(
   imports(sources.dashboard, "gradeMoves") &&
     sources.dashboard.includes("getCurrentGradeMoves(changelogSummary, dimensions, meta)") &&

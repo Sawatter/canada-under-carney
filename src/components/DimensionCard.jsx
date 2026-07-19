@@ -528,6 +528,8 @@ export default function DimensionCard({
   anchorNavigation,
   onHashTarget,
   gradeMoves = [],
+  detailStatus = "ready",
+  onRetryDetails,
 }) {
   const isTracker = !!dim.excludeFromGPA;
   const g = isTracker ? null : GRADES[dim.grade];
@@ -1619,7 +1621,58 @@ export default function DimensionCard({
         </button>
       )}
 
-      {isExpanded && (
+      {isExpanded && detailStatus !== "ready" ? (
+        <div
+          id={`dim-${dim.id}-drawer`}
+          ref={drawerRef}
+          tabIndex={-1}
+          role={isMobileDialog ? "dialog" : undefined}
+          aria-modal={isMobileDialog ? "true" : undefined}
+          aria-labelledby={`dim-${dim.id}-title`}
+          onClick={(e) => e.stopPropagation()}
+          className="dim-drawer"
+          style={{
+            "--dim-sticky-head": `${stickyHeadHeight}px`,
+            "--dim-sticky-stack": `${stickyStackHeight}px`,
+            ...(isMobileDialog || isFocusedDesktop ? {} : {
+              marginTop: "16px",
+              borderTop: "1px solid #eee",
+            }),
+            paddingTop: "0",
+          }}
+        >
+          <div ref={stickyHeadRef} className="dim-drawer-sticky-head">
+            <span
+              id={isFocusedDesktop ? `dim-${dim.id}-title` : undefined}
+              className="dim-drawer-title"
+            >
+              {dim.name}
+            </span>
+            <button
+              type="button"
+              className="dim-drawer-close"
+              onClick={(event) => {
+                event.stopPropagation();
+                onClick?.(event);
+              }}
+              aria-label="Close details"
+            >
+              <span className="dim-drawer-close-label">Close</span>
+            </button>
+          </div>
+          {detailStatus === "error" ? (
+            <div className="route-load-error" role="alert">
+              <strong>Policy details did not load.</strong>
+              <span>The scorecard is still available.</span>
+              <button type="button" onClick={onRetryDetails}>Try again</button>
+            </div>
+          ) : (
+            <div className="route-loading" role="status" aria-live="polite">
+              Loading policy details...
+            </div>
+          )}
+        </div>
+      ) : isExpanded && (
         <div
           id={`dim-${dim.id}-drawer`}
           ref={drawerRef}

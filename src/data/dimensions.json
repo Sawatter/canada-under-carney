@@ -90,7 +90,7 @@
         }
       ]
     },
-    "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline. NATO confirmed all allies met the 2% target for the first time in 2025, with Canada at 2.01% in NATO expenditure tables. Trade diversification produced measurable results: U.S. export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s, and non-U.S. goods exports rose 17.2% to an all-time high (Global Affairs Canada). The A- rather than A reflects Canada meeting, but not clearly exceeding, the 2% floor. Policy Options flags that the 3.5% GDP defence target is unfunded long term.",
+    "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline. NATO confirmed all allies met the 2% target for the first time in 2025, with Canada at 2.01% in NATO expenditure tables. Trade diversification produced measurable results: U.S. export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s, and non-U.S. goods exports rose 17.2% to an all-time high (Global Affairs Canada). The A- rather than A reflects a mixed file. Defence clears its published 2.0% condition at 2.01%, while the non-U.S. export-share gain is 4.2 points, just under the roughly five-point A marker, and the overall goods deficit widened fourfold to $31.3B in 2025. The 3.5% target also has a funded path through Budget 2025's $81.8B over five years for the Canadian Armed Forces (CAF).",
     "sources": [
       {
         "label": "NATO Secretary General Annual Report 2025",
@@ -216,7 +216,7 @@
         "label": "Overall goods trade deficit (2025)",
         "value": "$31.3B (4x 2024)",
         "source": "global-affairs-canada",
-        "sourceNote": "Global Affairs Canada's December 2025 Monthly Trade Report is still the latest full-year read. Canada's overall goods trade deficit widened from $7.2B in 2024 to $31.3B in 2025. The March 2026 monthly report adds current context. Goods exports were $72.8B, goods imports were $71.0B, and the monthly goods balance moved to a $1.8B surplus. The dashboard keeps the annual 2025 deficit as the headline value because the trade trigger uses annual share movement that lasts, not one-month swings.",
+        "sourceNote": "Global Affairs Canada's December 2025 Monthly Trade Report is still the latest full-year read. Canada's overall goods trade deficit widened from $7.2B in 2024 to $31.3B in 2025. The March 2026 monthly report adds current context. Goods exports were $72.8B, goods imports were $71.0B, and the monthly goods balance moved to a $1.8B surplus. The dashboard keeps the annual 2025 deficit as the headline value because the trade trigger uses durable annual share movement, not one-month volatility.",
         "automatable": true,
         "sourceRefs": [
           {
@@ -327,7 +327,7 @@
       }
     ],
     "perspectives": {
-      "critics": "Policy Options says the 3.5% GDP defence target cannot be paid for without raising taxes or running ongoing deficits. NDP and labour groups say $81.8B went to defence while housing, healthcare, and childcare stay underfunded. They call that a priorities failure, not a win.",
+      "critics": "Policy Options says the 3.5% GDP defence target cannot be paid for without raising taxes or running ongoing deficits. NDP and labour groups say committing $81.8B to defence over five years while housing, healthcare, and childcare stay underfunded is a priorities failure, not a win.",
       "defenders": "Fraser Institute and NATO allies confirm this is the most significant Canadian defence achievement since the Cold War. Trade diversification is measurable: U.S. export share fell from 75.9% (2024) to 71.7% (2025), and non-U.S. goods exports rose 17.2% to an all-time high (Global Affairs Canada)."
     },
     "tags": {
@@ -901,7 +901,7 @@
     "status": "The Spring Economic Update expects a $66.9B deficit for the 2025-26 fiscal year. The PBO (Parliamentary Budget Officer, Parliament's independent fiscal watchdog) says both fiscal anchors (the government's self-set fiscal targets) are on track. Three open worries hold the grade at C: rising interest costs on the debt, how capital spending is labelled, and defence costs that may not all be counted yet.",
     "verdictLine": "Both fiscal anchors are on track, but rising interest costs and other open worries remain.",
     "judgmentCall": "The C grade rests on the fiscal anchors (the government's self-set fiscal targets) now looking more believable. Worries stay open on rising interest costs, how capital spending is labelled, and defence costs that may not all be counted yet.",
-    "judgmentDetail": "The Spring Economic Update and the PBO reports improve the read on where the budget is headed, by enough to affect the grade. The deficit-to-GDP anchor is projected to decline and the operating-balance anchor is on track. Judgment still enters in how much weight to give the open worries. The PBO says the rules for what counts as capital spending are still not precise, interest costs keep rising, and not all expected defence spending appears in the projections yet.",
+    "judgmentDetail": "The Spring Economic Update and the PBO materially improve the read on where the budget is headed, meaning enough to affect the grade. The deficit-to-GDP anchor is projected to decline and the operating-balance anchor is on track. Judgment still enters in how much weight to give the open worries. The PBO says the rules for what counts as capital spending are still not precise, interest costs keep rising, and not all expected defence spending appears in the projections yet.",
     "construct": "Whether the federal budget path can keep going without becoming a problem, and whether the plan for the next several years is believable.",
     "gradeBasis": {
       "band": "C",
@@ -1089,7 +1089,7 @@
         "lead": true,
         "value": "Broadly in line, higher-risk stress read",
         "source": "pbo",
-        "sourceNote": "The earlier PBO note on the Spring Economic Update said the government was on track to respect both fiscal anchors, with caveats. PBO's June 2026 Economic and Fiscal Outlook says the baseline is broadly in line with that update. But it projects weaker growth and higher deficits, and its stress tests show uncertainty big enough to matter. This is flagged for editor review rather than converted into a grade move.",
+        "sourceNote": "The earlier PBO note on the Spring Economic Update said the government was on track to respect both fiscal anchors, with caveats. PBO's June 2026 Economic and Fiscal Outlook says the baseline is broadly in line with that update. But it projects weaker growth and higher deficits, and its stress tests show material uncertainty, meaning uncertainty big enough to matter to the assessment. This is flagged for editor review rather than converted into a grade move.",
         "automatable": false,
         "sourceRefs": [
           {
@@ -1253,7 +1253,7 @@
           "currentStatus": "executing. Budget 2025 productivity super-deduction passed, with marginal effective tax rate on new business investment falling from 15.6% to 13.2% per Budget 2025 estimates."
         }
       ],
-      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), 3 announced (AI compute, critical minerals, regulatory review). The literal authorized-or-executing count is two, so it does not cleanly satisfy the D band's 'fewer than two' lever leg. The current D instead rests on only one lever executing, no durable two-quarter investment turn, and a fifth straight quarterly investment decline. Which leg binds when those signals split remains queued for editor adjudication; this release does not change the criterion or grade.",
+      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), 3 announced (AI compute, critical minerals, regulatory review). The literal authorized-or-executing count is two, so it does not cleanly satisfy the D band's 'fewer than two' lever leg. The current D instead rests on only one lever executing, no durable two-quarter investment turn, and a fifth straight quarterly investment decline. Which leg binds when those signals split remains queued for editor adjudication. This release does not change the criterion or grade.",
       "plusMinusRationale": "The current D reflects a real policy response that has not yet cleared the execution bar. Key funds are still more announced than actually running, business investment is close to flat, and the big barriers at home are still unresolved.",
       "whyNotHigher": "The next band up needs at least one lever funded or authorized while business investment stays flat or barely positive. Investment fell at a 3% annual pace, a fifth straight quarterly decline.",
       "whyNotLower": "The band below means no material federal response at all through funding, tax, regulation, or trade. The super-deduction and internal trade law are real actions whose execution the card contests.",
@@ -1911,7 +1911,7 @@
     ],
     "perspectives": {
       "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design. The government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies (the few big companies that control the market).",
-      "defenders": "The Parliamentary Budget Officer (PBO) and the OECD looked at what is pushing food prices up. Both find that global food markets, exchange rates, and retaliatory tariffs cause most of the increase. These forces sit largely outside federal control. The PBO costing of the Canada Groceries and Essentials Benefit notes the benefit reaches the lowest-income households first."
+      "defenders": "Analyses from the Parliamentary Budget Officer (PBO) and the OECD identify global food markets, exchange rates, and retaliatory tariffs as drivers of most of the price increase. These forces sit largely outside federal control. The PBO costing of the Canada Groceries and Essentials Benefit notes the benefit reaches the lowest-income households first."
     },
     "tags": {
       "confidence": "High",
@@ -2186,7 +2186,7 @@
     ],
     "perspectives": {
       "critics": "Canadian Climate Institute: industrial credits trade at ~$20/tonne despite a $95 (2026) headline price. The \"preserved\" system is mostly for show. NDP: eliminating the consumer rebate hurt low-income households who received more in rebates than they paid in carbon costs.",
-      "defenders": "PBO costing notes that once the rebate was gone, the consumer charge affected different households in complicated ways. CCI says industrial pricing is the main lever for cutting emissions, and that lever was kept. The consumer tax had also grown so unpopular that it was wearing down public support for any climate action. Keeping the industrial system keeps a price signal in place for large emitters as they plan investments. It also takes the cost burden off households."
+      "defenders": "PBO costing notes the consumer charge had a redistributively complex profile after rebate elimination. CCI says industrial pricing is the main lever for cutting emissions, and that lever was kept. The consumer tax had also grown so unpopular that it was wearing down public support for any climate action. Keeping the industrial system keeps a price signal in place for large emitters as they plan investments. It also takes the cost burden off households."
     },
     "tags": {
       "confidence": "High",
@@ -2430,7 +2430,7 @@
             "url": "https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html"
           }
         ],
-        "sourceNote": "ECCC's 2026-27 Departmental Plan reports Comprehensive Expenditure Review reductions of $236.8M in 2026-27, $244.4M in 2027-28, and $282.6M in 2028-29. It also expects a cut of about 837 full-time equivalent positions by 2028-29. This note replaces the older 2025-26 plan reference with the current plan. CBC, The Conversation, and the Auditor General stay in the source chain as context on how the cuts land in practice.",
+        "sourceNote": "ECCC's 2026-27 Departmental Plan reports Comprehensive Expenditure Review reductions of $236.8M in 2026-27, $244.4M in 2027-28, and $282.6M in 2028-29. It also expects a reduction of about 837 full-time equivalents by 2028-29. This note replaces the older 2025-26 plan reference with the current plan. CBC, The Conversation, and the Auditor General stay in the source chain as context on how the cuts land in practice.",
         "automatable": false
       },
       {
@@ -3171,7 +3171,7 @@
       "componentScoreSummary": "Five components assessed: 3 present (blind trust, agreed-measure filing, Annex A conflict-screen scope), 2 absent (full public accounting of holdings, published independent ethics review). The C band reflects the baseline disclosure framework being present (which differentiates from D) but unresolved on full accounting and independent review (which blocks progression toward B).",
       "plusMinusRationale": "The C sits at the low end of the C range. The ethics setup exists and produces basic disclosure, which is what keeps it above a D. But critics still have open complaints about it, and the Ethics Commissioner has not published a review, which is what keeps it from climbing toward a B.",
       "whyNotHigher": "The next band up needs four of the five pieces, including an Ethics Commissioner review that finds the recusal screen good enough. A check of the Commissioner's registry found no review of his case.",
-      "whyNotLower": "The band below needs fewer than three pieces, an official concern, or two case-specific critiques. Three pieces exist; ETHI reviewed the law generally, not this PM's screen.",
+      "whyNotLower": "The band below needs fewer than three pieces, an official concern, or two case-specific critiques. Three pieces exist. ETHI reviewed the law generally, not this PM's screen.",
       "activeModifiers": []
     },
     "scoring": {

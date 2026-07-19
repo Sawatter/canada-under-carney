@@ -1,15 +1,19 @@
 import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import dimensions from "../data/dimensions.json";
+import dimensionsSummary from "../data/dimensions-summary.json";
 import meta from "../data/meta.json";
 import changelogSummary from "../data/changelog-summary.json";
 import {
   gpaToGrade,
   calculateOverallGPA,
   calculatePocketbookGPA,
-  countPromises,
   getOverallDerivation,
   getPocketbookDerivation,
 } from "../utils";
+import {
+  getLoadedDimensions,
+  loadDimensions,
+  retryDimensionsLoad,
+} from "../dimensionData";
 import ScoreboardHeader from "./ScoreboardHeader";
 import DimensionCard from "./DimensionCard";
 import EmailSignup from "./EmailSignup";
@@ -26,9 +30,11 @@ import "./AppShell.css";
 // same-origin and small. The Changes wrapper owns the full changelog import,
 // so that large history stays off the scorecard's initial request path.
 const WhatsChangedRoute = lazy(() => import("./WhatsChangedRoute"));
-const PromiseTracker = lazy(() => import("./PromiseTracker"));
+const PromiseTrackerRoute = lazy(() => import("./PromiseTrackerRoute"));
 const Methodology = lazy(() => import("./Methodology"));
 const About = lazy(() => import("./About"));
+
+const dimensions = dimensionsSummary.dimensions;
 
 function isMobileViewport() {
   return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
@@ -116,6 +122,10 @@ function dashboardSectionIcon(section) {
 export default function Dashboard() {
   const appMode = true;
   const [expanded, setExpanded] = useState(null);
+  const [fullDimensions, setFullDimensions] = useState(() => getLoadedDimensions());
+  const [detailLoadStatus, setDetailLoadStatus] = useState(() => (
+    getLoadedDimensions() ? "ready" : "idle"
+  ));
   const [view, setView] = useState("scorecard");
   // Pre-applied dimension filter for the Promises view. Set when the user
   // routes in from a dimension's promises ("Open the Promises tab"); reset to
@@ -187,7 +197,9 @@ export default function Dashboard() {
   // mobile-only origin (the app-shell contract pins the identifier) but since
   // v5.155 click-opens on BOTH viewports own an entry, so browser/OS Back
   // closes the drawer everywhere.
-  const mobileModalEntryRef = useRef(false);
+  const mobileModalEntryRef = useRef(
+    typeof window !== "undefined" && !!window.history.state?.dimModal,
+  );
   // One-shot: a Back/Forward traversal that closes an owned drawer fires BOTH
   // popstate and hashchange. The popstate handler does the close; this flag
   // tells the hashchange handler to skip re-routing that same traversal.
@@ -203,7 +215,8 @@ export default function Dashboard() {
   const pendingDesktopFocusRef = useRef(null);
   const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
   const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
-  const expandedDimension = dimensions.find((d) => d.id === expanded) || null;
+  const fullDimensionById = new Map((fullDimensions || []).map((d) => [d.id, d]));
+  const expandedDimension = (fullDimensions || dimensions).find((d) => d.id === expanded) || null;
   const isDesktopFocusedDetail = view === "scorecard" && !!expandedDimension && !isMobile;
 
   // Calculate grades and promises from the data
@@ -211,7 +224,8 @@ export default function Dashboard() {
   const pocketbookGPA = calculatePocketbookGPA(dimensions).toFixed(1);
   const overallDerivation = getOverallDerivation(dimensions);
   const pocketbookDerivation = getPocketbookDerivation(dimensions);
-  const { all: allPromises, counts: promiseCounts, total: totalPromises } = countPromises(dimensions);
+  const promiseCounts = dimensionsSummary.promiseCounts;
+  const totalPromises = dimensionsSummary.totalPromises;
   const currentGradeMoves = getCurrentGradeMoves(changelogSummary, dimensions, meta);
   const currentGradeMovesByDimension = getCurrentGradeMovesByDimension(
     changelogSummary,
@@ -349,6 +363,48 @@ export default function Dashboard() {
     setAnchorNavigation({ target, requestId: anchorRequestIdRef.current });
   }, []);
 
+  useEffect(() => {
+    if (!expanded || fullDimensions) return undefined;
+
+    let cancelled = false;
+    setDetailLoadStatus("loading");
+    loadDimensions().then(
+      (loadedDimensions) => {
+        if (cancelled) return;
+        setFullDimensions(loadedDimensions);
+        setDetailLoadStatus("ready");
+
+        const target = anchorTargetRef.current;
+        if (getDimensionIdForHashTarget(target) === expandedRef.current) {
+          requestAnchorNavigation(target);
+        }
+      },
+      () => {
+        if (!cancelled) setDetailLoadStatus("error");
+      },
+    );
+
+    return () => {
+      cancelled = true;
+    };
+  }, [expanded, fullDimensions, requestAnchorNavigation]);
+
+  const retryDimensionDetails = useCallback(() => {
+    setDetailLoadStatus("loading");
+    retryDimensionsLoad().then(
+      (loadedDimensions) => {
+        setFullDimensions(loadedDimensions);
+        setDetailLoadStatus("ready");
+
+        const target = anchorTargetRef.current;
+        if (getDimensionIdForHashTarget(target) === expandedRef.current) {
+          requestAnchorNavigation(target);
+        }
+      },
+      () => setDetailLoadStatus("error"),
+    );
+  }, [requestAnchorNavigation]);
+
   const routeDimensionToView = useCallback((target, dimension) => {
     if (!target) return;
     if (target === "promises") setPromiseDimensionFilter(dimension || "All");
@@ -376,7 +432,22 @@ export default function Dashboard() {
     requestAnchorNavigation(destination);
   }, [requestAnchorNavigation]);
 
-  const routeHashTarget = useCallback((target) => {
+  const leaveDrawerForHashDestination = useCallback((options = {}) => {
+    if (typeof window !== "undefined" && window.history.state?.dimModal) {
+      const nextState = { ...(window.history.state || {}) };
+      delete nextState.dimModal;
+      window.history.replaceState(nextState, "", window.location.href);
+    }
+
+    mobileModalEntryRef.current = false;
+    if (!options.preserveDesktopReturn) {
+      pendingDesktopReturnRef.current = null;
+      pendingDesktopFocusRef.current = null;
+    }
+    setExpanded(null);
+  }, []);
+
+  const routeHashTarget = useCallback((target, options = {}) => {
     if (!target) return;
     requestAnchorNavigation(target);
 
@@ -388,29 +459,39 @@ export default function Dashboard() {
     }
 
     if (target.startsWith("change-")) {
-      if (typeof window !== "undefined") {
+      if (typeof window !== "undefined" && window.history.state?.dimModal) {
         const nextState = { ...(window.history.state || {}) };
         delete nextState.dimModal;
         window.history.replaceState(nextState, "", `#${target}`);
       }
-      mobileModalEntryRef.current = false;
-      pendingDesktopReturnRef.current = null;
-      pendingDesktopFocusRef.current = null;
-      setExpanded(null);
+      leaveDrawerForHashDestination();
       setView("changelog");
       return;
     }
 
+    if (target === "methodology-safeguards") {
+      leaveDrawerForHashDestination();
+      setView("methodology");
+      return;
+    }
+
     if (target.startsWith("view-")) {
-      closeDimensionForInternalNavigation({ closeDesktop: true });
       const nextHashView = target.replace(/^view-/, "");
+      leaveDrawerForHashDestination({
+        preserveDesktopReturn: !!options.preserveDesktopReturn,
+      });
       if (nextHashView === "promises") setPromiseDimensionFilter("All");
       setView(nextHashView);
       return;
     }
 
     closeDimensionForInternalNavigation();
-  }, [closeDimensionForInternalNavigation, openDimension, requestAnchorNavigation]);
+  }, [
+    closeDimensionForInternalNavigation,
+    leaveDrawerForHashDestination,
+    openDimension,
+    requestAnchorNavigation,
+  ]);
 
   const handleHashTargetNavigation = useCallback((target) => {
     if (!target) return;
@@ -435,6 +516,7 @@ export default function Dashboard() {
 
       const state = event.state || {};
       const hadOwnedEntry = mobileModalEntryRef.current;
+      const destinationTarget = window.location.hash.replace(/^#/, "");
       // Landing ON an entry that carries a drawer (Forward into it) re-owns
       // it, so a later close rewinds instead of piling replaceStates.
       mobileModalEntryRef.current = !!state.dimModal;
@@ -444,35 +526,44 @@ export default function Dashboard() {
         // or the close control's history.back(). Close on both viewports;
         // desktop additionally restores scroll and re-focuses the origin
         // card via the same pending refs the close-button path used before.
-        if (!isMobileViewport()) {
+        const returnsToScorecard = !destinationTarget || destinationTarget === "view-scorecard";
+        if (!isMobileViewport() && returnsToScorecard) {
           pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
           pendingDesktopFocusRef.current = expandedRef.current;
+        } else {
+          pendingDesktopReturnRef.current = null;
+          pendingDesktopFocusRef.current = null;
         }
         // The same traversal fires hashchange (#dim-<id> vs the prior URL).
-        // The view is already correct, so routing it again would only
-        // scroll the view top over the restore — skip exactly one.
+        // Apply the destination here, while drawer ownership is still known,
+        // then skip the duplicate hashchange for this traversal.
         suppressHashRouteRef.current = true;
-        setExpanded(null);
 
         const queuedView = pendingViewAfterDrawerExitRef.current;
         pendingViewAfterDrawerExitRef.current = null;
         if (queuedView) {
           const nextState = { ...(window.history.state || {}) };
           delete nextState.dimModal;
-          window.history.replaceState(nextState, "", `#view-${queuedView}`);
+          window.history.pushState(nextState, "", `#view-${queuedView}`);
           if (queuedView === "promises") setPromiseDimensionFilter("All");
           pendingDesktopReturnRef.current = null;
           pendingDesktopFocusRef.current = null;
           pendingViewFocusRef.current = `view-${queuedView}`;
           setView(queuedView);
           requestAnchorNavigation(`view-${queuedView}`);
+        } else if (destinationTarget) {
+          routeHashTarget(destinationTarget, { preserveDesktopReturn: returnsToScorecard });
+        } else {
+          setExpanded(null);
+          setView("scorecard");
+          requestAnchorNavigation("main-content");
         }
       }
     };
 
     window.addEventListener("popstate", handlePopState);
     return () => window.removeEventListener("popstate", handlePopState);
-  }, [requestAnchorNavigation]);
+  }, [requestAnchorNavigation, routeHashTarget]);
 
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
@@ -651,8 +742,18 @@ export default function Dashboard() {
   };
 
   const handleShowSafeguards = () => {
-    setView("methodology");
-    requestAnchorNavigation("methodology-safeguards");
+    const target = "methodology-safeguards";
+    if (typeof window !== "undefined") {
+      const ownedModal = mobileModalEntryRef.current || window.history.state?.dimModal;
+      const nextState = { ...(window.history.state || {}) };
+      delete nextState.dimModal;
+      if (ownedModal) {
+        window.history.replaceState(nextState, "", `#${target}`);
+      } else {
+        window.history.pushState(nextState, "", `#${target}`);
+      }
+    }
+    routeHashTarget(target);
   };
 
   const handleInternalRef = (ref) => {
@@ -1121,6 +1222,8 @@ export default function Dashboard() {
               key={`focused-${expandedDimension.id}`}
               dim={expandedDimension}
               isExpanded
+              detailStatus={fullDimensions ? "ready" : detailLoadStatus}
+              onRetryDetails={retryDimensionDetails}
               focusedDesktop
               onClick={() => toggleDimension(expandedDimension.id)}
               onInternalRef={handleInternalRef}
@@ -1147,8 +1250,12 @@ export default function Dashboard() {
             {scoredDimensions.map((d) => (
               <DimensionCard
                 key={d.id}
-                dim={d}
+                dim={expanded === d.id ? (fullDimensionById.get(d.id) || d) : d}
                 isExpanded={expanded === d.id}
+                detailStatus={expanded === d.id && !fullDimensionById.has(d.id)
+                  ? detailLoadStatus
+                  : "ready"}
+                onRetryDetails={retryDimensionDetails}
                 onClick={() => toggleDimension(d.id)}
                 onInternalRef={handleInternalRef}
                 anchorNavigation={anchorNavigation}
@@ -1198,8 +1305,12 @@ export default function Dashboard() {
               {trackerDimensions.map((d) => (
                 <DimensionCard
                   key={d.id}
-                  dim={d}
+                  dim={expanded === d.id ? (fullDimensionById.get(d.id) || d) : d}
                   isExpanded={expanded === d.id}
+                  detailStatus={expanded === d.id && !fullDimensionById.has(d.id)
+                    ? detailLoadStatus
+                    : "ready"}
+                  onRetryDetails={retryDimensionDetails}
                   onClick={() => toggleDimension(d.id)}
                   onInternalRef={handleInternalRef}
                   anchorNavigation={anchorNavigation}
@@ -1223,10 +1334,7 @@ export default function Dashboard() {
           anchor navigation can retry against content that now exists. */}
       {view === "promises" && (
         <div>
-          <PromiseTracker
-            allPromises={allPromises}
-            promiseCounts={promiseCounts}
-            totalPromises={totalPromises}
+          <PromiseTrackerRoute
             appMode={appMode}
             initialDimensionFilter={promiseDimensionFilter}
             onReady={handleLazyViewReady}

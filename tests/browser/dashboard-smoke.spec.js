@@ -603,11 +603,145 @@ test.describe("v5.155 drawer history contract", () => {
     await expect(page).toHaveURL(/#view-promises$/);
     await expectActiveNav(page, "Promises");
     await expect(page.locator(".app-promise-tracker")).toBeVisible();
+
+    await page.goBack();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expectActiveNav(page, "Scorecard");
+    await page.goForward();
+    await expect(page).toHaveURL(/#view-promises$/);
+    await expectActiveNav(page, "Promises");
+    await expect(page.locator(".app-promise-tracker")).toBeVisible();
+    expect(consoleErrors).toEqual([]);
+  });
+
+  for (const destination of [
+    { hash: "#view-promises", nav: "Promises", selector: ".app-promise-tracker" },
+    { hash: "#dim-fiscal-health", nav: "Scorecard", selector: "#dim-fiscal-health-title" },
+    {
+      hash: "#change-2026-05-13-fiscal-health-0",
+      nav: "Changes",
+      selector: "#change-2026-05-13-fiscal-health-0",
+    },
+  ]) {
+    test(`a manual ${destination.hash} edit reconciles the drawer and survives Back and Forward`, async ({ page }) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize({ width: 1280, height: 900 });
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+
+      await page.locator(".dim-card-header-button").first().click();
+      const originalDrawerHash = new URL(page.url()).hash;
+      await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+
+      await page.evaluate((hash) => {
+        window.location.hash = hash;
+      }, destination.hash);
+      await expect(page).toHaveURL(new RegExp(`${destination.hash.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`));
+      await expectActiveNav(page, destination.nav);
+      await expect(page.locator(destination.selector)).toBeVisible();
+
+      await page.goBack();
+      await expect(page).toHaveURL(new RegExp(`${originalDrawerHash}$`));
+      await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+
+      await page.goForward();
+      await expect(page).toHaveURL(new RegExp(`${destination.hash.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}$`));
+      await expectActiveNav(page, destination.nav);
+      await expect(page.locator(destination.selector)).toBeVisible();
+      expect(consoleErrors).toEqual([]);
+    });
+  }
+
+  test("reload restores drawer ownership so close and Forward retain their history contract", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    await page.locator(".dim-card-header-button").first().click();
+    const drawerHash = new URL(page.url()).hash;
+    await page.reload();
+    await expect(page).toHaveURL(new RegExp(`${drawerHash}$`));
+    await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+
+    await page.locator(".dim-drawer-close").click();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+
+    await page.goForward();
+    await expect(page).toHaveURL(new RegExp(`${drawerHash}$`));
+    await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
     expect(consoleErrors).toEqual([]);
   });
 });
 
 test.describe("v5.155 deferred route integrity", () => {
+  test("canonical policy details stay off startup and load with the first drawer", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    const detailRequests = [];
+    page.on("request", (request) => {
+      if (/\/assets\/dimensions-[^/]+\.json$/.test(new URL(request.url()).pathname)) {
+        detailRequests.push(request.url());
+      }
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await expectAppShell(page);
+    expect(detailRequests).toHaveLength(0);
+
+    await page.locator(".dim-card-header-button").first().click();
+    await expect(page.locator(".dim-evidence-panel")).toBeVisible();
+    expect(detailRequests).toHaveLength(1);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("a delayed policy-detail deep link opens its section and restores focus", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.route("**/assets/dimensions-*.json", async (route) => {
+      const response = await route.fetch();
+      await new Promise((resolve) => setTimeout(resolve, 750));
+      await route.fulfill({ response });
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-major-projects-sources" }));
+
+    await expect(page.locator("#dim-major-projects-sources-button")).toBeVisible();
+    await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
+      .toBe("dim-major-projects-sources-button");
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("a failed policy-detail request stays contained and can retry", async ({ page }) => {
+    const dimensionsPattern = "**/assets/dimensions-*.json";
+    const failDetails = async (route) => route.abort();
+    await page.route(dimensionsPattern, failDetails);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    await page.locator(".dim-card-header-button").first().click();
+    await expect(page.locator(".dashboard-shell")).toBeVisible();
+    await expect(page.getByRole("alert")).toContainText("Policy details did not load.");
+
+    await page.unroute(dimensionsPattern, failDetails);
+    await page.getByRole("button", { name: "Try again" }).click();
+    await expect(page.locator(".dim-evidence-panel")).toBeVisible();
+  });
+
+  test("a failed Promises data request stays contained and can retry", async ({ page }) => {
+    const dimensionsPattern = "**/assets/dimensions-*.json";
+    const failDetails = async (route) => route.abort();
+    await page.route(dimensionsPattern, failDetails);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    const sidebar = page.locator(".app-workspace-sidebar");
+    await sidebar.getByRole("button", { name: "Promises" }).click();
+    await expect(page.locator(".dashboard-shell")).toBeVisible();
+    await expect(page.getByRole("alert")).toContainText("Promise details did not load.");
+
+    await page.unroute(dimensionsPattern, failDetails);
+    await page.getByRole("button", { name: "Try again" }).click();
+    await expect(page.locator(".app-promise-tracker")).toBeVisible();
+  });
+
   test("the full changelog stays off scorecard startup and loads with Changes", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     const requestedScripts = [];
@@ -657,6 +791,8 @@ test.describe("v5.155 deferred route integrity", () => {
     await page.getByRole("button", { name: "read the safeguards" }).click();
 
     const target = page.locator("#methodology-safeguards");
+    await expect(page).toHaveURL(/#methodology-safeguards$/);
+    await expectActiveNav(page, "Rubric");
     await expect(target).toBeVisible();
     await expect.poll(async () => target.evaluate((element) => {
       const rect = element.getBoundingClientRect();
@@ -664,11 +800,22 @@ test.describe("v5.155 deferred route integrity", () => {
     })).toBe(true);
     await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
       .toBe("methodology-safeguards");
+
+    await page.goBack();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expectActiveNav(page, "Scorecard");
+
+    await page.goForward();
+    await expect(page).toHaveURL(/#methodology-safeguards$/);
+    await expectActiveNav(page, "Rubric");
+    await expect(target).toBeVisible();
+    await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
+      .toBe("methodology-safeguards");
     expect(consoleErrors).toEqual([]);
   });
 
   test("a failed lazy route leaves the shell and a reload action available", async ({ page }) => {
-    await page.route("**/assets/PromiseTracker-*.js", async (route) => route.abort());
+    await page.route("**/assets/PromiseTrackerRoute-*.js", async (route) => route.abort());
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(routePath({ hash: "#view-scorecard" }));
 
