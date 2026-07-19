@@ -97,6 +97,8 @@ The full `d62e1ff..54e591f` release diff received a second read-only Claude revi
 
 Three optional notes were adjudicated. The source totals were independently recomputed as 154 unique URLs across 322 citation surfaces and 55 domains, so no change was needed. The About continuity link uses the same inline colour pattern as the surrounding links, and lint reports it within the existing warning class; token migration remains out of scope for this release. The Housing `verdictLine` and status use different wording with the same meaning, so no tonal-only rewrite was added.
 
+Production deployment followed through commit `faf1bab`. [GitHub Pages run 29708095551](https://github.com/Sawatter/canada-under-carney/actions/runs/29708095551) passed build, the 123-test browser job, and deploy. A fresh production browser check found v5.157 in the header, loaded the About route and direct continuity link, and found no application console errors.
+
 ## Frozen Editor Decisions
 
 ### Economic Policy
