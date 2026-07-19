@@ -2,7 +2,7 @@
 
 ## Status
 
-Accepted implementation is present in an unpushed v5.156 worktree dated 2026-07-19. v5.155 remains the expected live version. This record is not publication approval. Cross-AI review of the integrated diff and editor-only physical checks remain open gates.
+v5.156 was published to `main` as commit `bd01c46` on 2026-07-19 after an explicit editor instruction. GitHub Pages run `29704209449` passed its build, browser, and deploy jobs, and the production metadata reports v5.156. The blocked different-AI review and editor-only physical checks remain open post-publication gaps and are not treated as approvals.
 
 ## Scope
 
@@ -78,9 +78,9 @@ No grade, threshold, formula, weight, promise status, source stack, or dimension
 - Final runtime review: no actionable defect found. Its Promises retry coverage gap was accepted and closed with a direct browser test
 - Final standards review: its stale test count and restricted `full` wording findings were accepted, fixed, and covered by the final run
 - Different-AI bridge: `bash scripts/claude-bridge.sh -f tmp/v5156-claude-review-prompt.md` was attempted and blocked by the environment's external-data policy before a review ran. This is not approval
+- Production deployment: commit `bd01c46`. GitHub Pages run `29704209449` passed build, browser, and deploy jobs. Live metadata reports v5.156 dated 2026-07-19
 
 ## Remaining Gates
 
 1. A different AI must review the integrated v5.156 diff in an approved environment. The blocked July 19 bridge attempt is not approval.
 2. The editor must complete the listed physical checks or explicitly decide how to record an exception.
-3. Publication requires an explicit editor decision. Until then, v5.156 must not be described as live or published.
