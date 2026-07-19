@@ -33,6 +33,11 @@
         "type": "docs",
         "headline": "Release and governance records synchronized",
         "body": "The July 4 review record, source-family rollup, data-shape guidance, frozen app-shell record, and roadmap now match the release package. No grade, threshold, formula, weight, source-stack, promise-status, or dimension-model rule changed."
+      },
+      {
+        "type": "product",
+        "headline": "Plainer wording on the policy cards",
+        "body": "A readability pass rewrote 44 lines across eight policy cards to plainer, shorter sentences and removed internal jargon like source tiers. Every number and source stayed the same. Each rewrite was checked against the card’s own data so the meaning did not drift."
       }
     ]
   },

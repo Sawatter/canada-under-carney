@@ -154,7 +154,7 @@
         "actualPeriod": "2025",
         "actualQualifier": "estimate",
         "source": "nato",
-        "sourceNote": "NATO Defence Expenditures of NATO Countries (2014-2025), Table 3 (p.8) and Table 4 (p.9): Canada 2025e = 2.01% of GDP. Verified from Tier 1 PDF: nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf",
+        "sourceNote": "NATO Defence Expenditures of NATO Countries (2014-2025), Table 3 (p.8) and Table 4 (p.9). Canada 2025 estimate = 2.01% of GDP. Read from the NATO source PDF: nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf",
         "sourceRefs": [
           {
             "primary": true,
@@ -216,7 +216,7 @@
         "label": "Overall goods trade deficit (2025)",
         "value": "$31.3B (4x 2024)",
         "source": "global-affairs-canada",
-        "sourceNote": "Global Affairs Canada's December 2025 Monthly Trade Report remains the latest full-year read: Canada's overall goods trade deficit widened from $7.2B in 2024 to $31.3B in 2025. The March 2026 monthly report adds current context: goods exports were $72.8B, goods imports were $71.0B, and the monthly goods balance moved to a $1.8B surplus. The dashboard keeps the annual 2025 deficit as the headline value because the trade trigger uses durable annual share movement, not one-month volatility.",
+        "sourceNote": "Global Affairs Canada's December 2025 Monthly Trade Report is still the latest full-year read. Canada's overall goods trade deficit widened from $7.2B in 2024 to $31.3B in 2025. The March 2026 monthly report adds current context. Goods exports were $72.8B, goods imports were $71.0B, and the monthly goods balance moved to a $1.8B surplus. The dashboard keeps the annual 2025 deficit as the headline value because the trade trigger uses annual share movement that lasts, not one-month swings.",
         "automatable": true,
         "sourceRefs": [
           {
@@ -327,7 +327,7 @@
       }
     ],
     "perspectives": {
-      "critics": "Policy Options: the 3.5% GDP defence target cannot be financed without tax increases or structural deficits. NDP and labour groups: $81.8B for defence while housing, healthcare, and childcare remain underfunded is a priorities failure, not a win.",
+      "critics": "Policy Options says the 3.5% GDP defence target cannot be paid for without raising taxes or running ongoing deficits. NDP and labour groups say $81.8B went to defence while housing, healthcare, and childcare stay underfunded. They call that a priorities failure, not a win.",
       "defenders": "Fraser Institute and NATO allies confirm this is the most significant Canadian defence achievement since the Cold War. Trade diversification is measurable: U.S. export share fell from 75.9% (2024) to 71.7% (2025), and non-U.S. goods exports rose 17.2% to an all-time high (Global Affairs Canada)."
     },
     "tags": {
@@ -357,9 +357,9 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "The Major Projects Office (MPO) is tracking 15 projects in three groups. Four have moved beyond the initial 'designated' stage, and Canada has now initiated the process to list projects under the Building Canada Act. But only 2 show documented progress after being added to the list, and the government has not yet used its power to declare any project a national-interest project.",
+    "status": "The Major Projects Office (MPO) is tracking 15 projects in three groups. Four have moved beyond the first stage, called 'designated'. Canada has now started the process to list projects under the Building Canada Act. But only 2 show documented progress after being added to the list. And the government has not yet used its power to declare any project a national-interest project.",
     "verdictLine": "The Major Projects Office is tracking 15 projects, but only 2 show documented progress so far.",
-    "judgmentCall": "The grade rests on documented progress after a project is added to the list, not on how many projects were announced or whether any project is a good idea.",
+    "judgmentCall": "The grade rests on documented progress after a project is added to the list. It does not rest on how many projects were announced, or on whether any project is a good idea.",
     "judgmentDetail": "This grade does not judge whether each project is good policy. It judges the federal delivery process: the 15 projects the Major Projects Office (MPO) is tracking, whether they reached a higher stage on a date after they were added, and whether the government used its national-interest power. The editor's judgment enters in two places. A stage label added on the same day a project joins the list does not count as progress. And a credit-claiming penalty applies where the government overstates its role in projects that were already moving before it stepped in.",
     "surfaceTags": [
       "Credit-claiming penalty",
@@ -468,7 +468,7 @@
         }
       ]
     },
-    "rationale": "The Major Projects Office is a real institutional change with strong powers under the Building Canada Act (C-5). The official MPO project page now lists 15 referred projects, separate from transformative strategies that are not counted in the project denominator. Of those 15 projects, 4 currently sit above designated status as of May 2026. But only 2 of 15, about 13%, show documented progress after being added to the list: Contrecœur Terminal broke ground April 9, 2026, and Darlington New Nuclear has a later approval / financing milestone. North Coast Transmission Line and Mackenzie Valley Highway have higher stage labels in tranche-announcement sources, but not a later recorded transition after entering the project list, so they are not yet counted toward the B threshold. The remaining 11 projects sit in initial designated status. The national-interest power has never been used. The $126B headline figure mainly represents private-sector investment decisions that already existed. The Fraser Institute and Angus Reid both found the government overstated its role. Documented project-list progress therefore sits well below the 30% threshold for B, so the C grade holds. The credit-claiming penalty scoring adjustment (-0.3 GPA) is reflected in the current C grade. Without the penalty, the grade would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
+    "rationale": "The Major Projects Office is a real institutional change with strong powers under the Building Canada Act (C-5). The official MPO project page now lists 15 referred projects. The page's separately listed transformative strategies do not count toward that 15. Of those 15 projects, 4 currently sit above designated status as of May 2026. But only 2 of 15, about 13%, show documented progress after being added to the list: Contrecœur Terminal broke ground April 9, 2026, and Darlington New Nuclear has a later approval / financing milestone. North Coast Transmission Line and Mackenzie Valley Highway carry higher stage labels only from the group announcements that added them. Neither has a recorded stage change on a later date, so they do not yet count toward the B threshold. The remaining 11 projects sit in initial designated status. The national-interest power has never been used. The $126B headline figure mainly represents private-sector investment decisions that already existed. The Fraser Institute and Angus Reid both found the government overstated its role. Documented project-list progress therefore sits well below the 30% threshold for B, so the C grade holds. The credit-claiming penalty scoring adjustment (-0.3 GPA) is reflected in the current C grade. Without the penalty, the grade would be C+, reduced to C based on documented overclaiming of pre-existing projects by Fraser Institute and Angus Reid.",
     "sources": [
       {
         "label": "MPO official referred projects list",
@@ -900,8 +900,8 @@
     "trend": "up",
     "status": "The Spring Economic Update expects a $66.9B deficit for the 2025-26 fiscal year. The PBO (Parliamentary Budget Officer, Parliament's independent fiscal watchdog) says both fiscal anchors (the government's self-set fiscal targets) are on track. Three open worries hold the grade at C: rising interest costs on the debt, how capital spending is labelled, and defence costs that may not all be counted yet.",
     "verdictLine": "Both fiscal anchors are on track, but rising interest costs and other open worries remain.",
-    "judgmentCall": "The C grade rests on the fiscal anchors (the government's self-set fiscal targets) now looking more believable, with worries still open on the cost of interest, how capital spending is labelled, and defence costs left out so far.",
-    "judgmentDetail": "The Spring Economic Update and the PBO materially improve the read on where the budget is headed, meaning enough to affect the grade. The deficit-to-GDP anchor is projected to decline and the operating-balance anchor is on track. Judgment still enters in how much weight to give unresolved caveats. The PBO says the capital-budgeting definitions remain imprecise, interest burden keeps rising, and not all anticipated defence spending appears to be reflected.",
+    "judgmentCall": "The C grade rests on the fiscal anchors (the government's self-set fiscal targets) now looking more believable. Worries stay open on rising interest costs, how capital spending is labelled, and defence costs that may not all be counted yet.",
+    "judgmentDetail": "The Spring Economic Update and the PBO reports improve the read on where the budget is headed, by enough to affect the grade. The deficit-to-GDP anchor is projected to decline and the operating-balance anchor is on track. Judgment still enters in how much weight to give the open worries. The PBO says the rules for what counts as capital spending are still not precise, interest costs keep rising, and not all expected defence spending appears in the projections yet.",
     "construct": "Whether the federal budget path can keep going without becoming a problem, and whether the plan for the next several years is believable.",
     "gradeBasis": {
       "band": "C",
@@ -975,7 +975,7 @@
         }
       ]
     },
-    "rationale": "The Spring Economic Update lowers the projected FY 2025-26 deficit to $66.9B from Budget 2025's $78.3B, with PBO attributing the improvement mostly to stronger revenues and lower spending. PBO's fiscal-anchor note says the government is on track to respect both anchors: the deficit-to-GDP ratio is projected to decline from 2.1% in 2025-26 to 1.4% by 2030-31, and the operating-balance anchor is projected to be met by 2028-29. That moves this grade out of D. It does not move to B because the deficit remains above the <2% GDP threshold, PBO says the capital-budgeting framework still lacks precision, interest burden rises from 10.6% to 13.2% of revenues by 2030-31, and the projections do not include all anticipated defence spending. Fitch maintained AA+/stable but previously warned that persistent fiscal expansion could raise pressure on Canada's rating over the next several years.",
+    "rationale": "The Spring Economic Update lowers the projected deficit for the 2025-26 fiscal year to $66.9B, down from Budget 2025's $78.3B. PBO attributes the improvement mostly to stronger revenues and lower spending. PBO's fiscal-anchor note says the government is on track to respect both anchors: the deficit-to-GDP ratio is projected to decline from 2.1% in 2025-26 to 1.4% by 2030-31, and the operating-balance anchor is projected to be met by 2028-29. That moves this grade out of D. It does not move to B for four reasons. The deficit remains above 2% of GDP. PBO says the capital-budgeting framework still lacks precision. Interest burden rises from 10.6% to 13.2% of revenues by 2030-31. And the projections do not include all anticipated defence spending. Fitch maintained AA+/stable but previously warned that persistent fiscal expansion could raise pressure on Canada's rating over the next several years.",
     "sources": [
       {
         "label": "Budget 2025",
@@ -1039,7 +1039,7 @@
         "lead": true,
         "value": "$55.3B prelim.; PBO projects $72.0B",
         "source": "finance-canada",
-        "sourceNote": "Finance Canada's March 2026 Fiscal Monitor posts a preliminary $55.3B budgetary deficit for April 2025 to March 2026 before post-March accruals and other final adjustments. PBO's June 2026 Economic and Fiscal Outlook projects the FY 2025-26 deficit at $72.0B, or 2.2% of GDP, after accounting for Budget 2025 and Spring Economic Update 2026 measures. This refresh records the split between the latest actual/preliminary fiscal monitor and the latest PBO projection; no grade changes are made here.",
+        "sourceNote": "Finance Canada's March 2026 Fiscal Monitor posts a preliminary $55.3B budgetary deficit for April 2025 to March 2026, before the final year-end accounting adjustments are added. PBO's June 2026 Economic and Fiscal Outlook projects the deficit for the 2025-26 fiscal year at $72.0B, or 2.2% of GDP, after accounting for Budget 2025 and Spring Economic Update 2026 measures. This refresh records the split between the latest preliminary fiscal monitor read and the latest PBO projection. No grade changes are made here.",
         "automatable": false,
         "sourceRefs": [
           {
@@ -1057,7 +1057,7 @@
         "lead": true,
         "value": "2.2%; deficits avg 1.8% over projection",
         "source": "pbo",
-        "sourceNote": "PBO June 2026 EFO projects the budgetary deficit rising to $72.0B, or 2.2% of GDP, in 2025-26. Over the projection period, budgetary deficits average 1.8% of GDP and remain persistent. The latest projection is weaker than the earlier SEU anchor note, but still sits inside the dashboard's C-band deficit range.",
+        "sourceNote": "PBO June 2026 EFO projects the budgetary deficit rising to $72.0B, or 2.2% of GDP, in 2025-26. Over the projection period, budgetary deficits average 1.8% of GDP and remain persistent. The latest projection is weaker than the earlier Spring Economic Update anchor note, but it still sits inside the dashboard's C-band deficit range.",
         "automatable": false,
         "sourceRefs": [
           {
@@ -1089,7 +1089,7 @@
         "lead": true,
         "value": "Broadly in line, higher-risk stress read",
         "source": "pbo",
-        "sourceNote": "The earlier PBO Spring Economic Update fiscal-anchor note said the government was on track to respect both fiscal anchors, with caveats. PBO's June 2026 EFO says the baseline outlook is broadly in line with the SEU but projects weaker growth and higher deficits, with stress testing showing material uncertainty. This is flagged for editor review rather than converted into a grade move.",
+        "sourceNote": "The earlier PBO note on the Spring Economic Update said the government was on track to respect both fiscal anchors, with caveats. PBO's June 2026 Economic and Fiscal Outlook says the baseline is broadly in line with that update. But it projects weaker growth and higher deficits, and its stress tests show uncertainty big enough to matter. This is flagged for editor review rather than converted into a grade move.",
         "automatable": false,
         "sourceRefs": [
           {
@@ -1187,7 +1187,7 @@
     ],
     "perspectives": {
       "critics": "C.D. Howe and fiscal critics still warn that debt-service costs are crowding out fiscal room. PBO says new measures offset most of the extra fiscal space after 2025-26, capital-budgeting definitions remain imprecise, interest burden rises to 13.2% of revenues by 2030-31, and not all anticipated defence spending appears included.",
-      "defenders": "PBO now says the Spring Economic Update is on track for both fiscal anchors, with the deficit-to-GDP ratio declining and the operating-balance target projected to be met. IMF and IFSD note Canada's debt-to-GDP ratio remains manageable by international standards, and defence spending is strategically necessary during a trade war."
+      "defenders": "PBO now says the Spring Economic Update is on track for both fiscal anchors. The deficit-to-GDP ratio is projected to decline and the operating-balance target is projected to be met. IMF and IFSD note that Canada's debt, measured against GDP, is still manageable compared with other countries. Higher defence spending is strategically necessary during the trade war."
     },
     "tags": {
       "confidence": "High",
@@ -1206,8 +1206,8 @@
     "trend": "down",
     "status": "Canada's weak productivity (how much it gets out of each hour of work) was inherited, not caused by this government. This grade now tracks four kinds of levers the government can pull: tax, trade, regulation, and funding. But fewer than two of the core levers have reached the authorized or executing stage, and business investment is still close to flat.",
     "verdictLine": "Fewer than two of the core levers are executing, and business investment is still close to flat.",
-    "judgmentCall": "The low grade is about how far the government's policy levers have actually been carried out, not about the inherited productivity weakness, which is treated as background.",
-    "judgmentDetail": "The grade is about the federal response, not Canada's inherited productivity level. Judgment enters in deciding which levers count as execution-ready: announced funds and frameworks are not treated the same as Treasury Board-authorized programs, live tax or regulatory changes, or measurable internal-trade and permitting movement. June 2026 review: the Q1 2026 technical recession and the fifth straight quarterly business-investment decline are recorded in the metrics, but the D to D- question is held until the actual April 2026 GDP (gross domestic product) figure lands. Statistics Canada's early estimate was +0.4%, which could revise the technical recession away. So any down-move here waits for the data, not a judgment call.",
+    "judgmentCall": "The low grade is about how far the government's policy levers have actually been carried out. It is not about the inherited productivity weakness, which is treated as background.",
+    "judgmentDetail": "The grade is about the federal response, not Canada's inherited productivity level. Judgment enters in deciding which levers count as execution-ready. Announced funds and frameworks do not count the same as programs with Treasury Board sign-off, tax or regulatory changes already in force, or measurable movement on internal trade and permitting. June 2026 review: the Q1 2026 technical recession and the fifth straight quarterly business-investment decline are recorded in the metrics. But the D to D- question is held until the actual April 2026 GDP (gross domestic product) figure lands. Statistics Canada's early estimate was +0.4%, which could revise the technical recession away. So any down-move here waits for the data, not a judgment call.",
     "surfaceTags": [
       "Mostly inherited baseline",
       "Long-lag area (slow to show results)"
@@ -1255,7 +1255,7 @@
       ],
       "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), 3 announced (AI compute, critical minerals, regulatory review). The literal authorized-or-executing count is two, so it does not cleanly satisfy the D band's 'fewer than two' lever leg. The current D instead rests on only one lever executing, no durable two-quarter investment turn, and a fifth straight quarterly investment decline. Which leg binds when those signals split remains queued for editor adjudication; this release does not change the criterion or grade.",
       "plusMinusRationale": "The current D reflects a real policy response that has not yet cleared the execution bar. Key funds are still more announced than actually running, business investment is close to flat, and the big barriers at home are still unresolved.",
-      "whyNotHigher": "The next band up needs at least one lever funded or authorized while business investment stays flat or barely positive. Investment fell 3% annualized, a fifth straight quarterly decline.",
+      "whyNotHigher": "The next band up needs at least one lever funded or authorized while business investment stays flat or barely positive. Investment fell at a 3% annual pace, a fifth straight quarterly decline.",
       "whyNotLower": "The band below means no material federal response at all through funding, tax, regulation, or trade. The super-deduction and internal trade law are real actions whose execution the card contests.",
       "activeModifiers": [
         {
@@ -1354,7 +1354,7 @@
         }
       ]
     },
-    "rationale": "This dimension grades the government's productivity and competitiveness posture rather than the inherited GDP-per-capita (gross domestic product per person) level, which reflects a decade of underinvestment. The grade now tracks non-spending levers explicitly: Budget 2025's productivity super-deduction lowers the marginal effective tax rate on new business investment, Bill C-5 is the live internal-trade instrument, and Treasury Board's Red Tape Review has identified hundreds of regulatory initiatives. But fewer than two core levers have clearly cleared the authorization-or-execution bar, no permitting-acceleration tool has yet been used, and business investment rose only 0.3% in 2025 after repeated weak quarters. The grade reflects whether the policy mix is becoming broad and executable enough to change the trajectory, recognizing that outcomes will take time to move.",
+    "rationale": "This dimension grades the government's response on productivity and competitiveness. It does not grade the inherited GDP-per-capita (gross domestic product per person) level, which reflects a decade of underinvestment. The grade now tracks non-spending levers explicitly. Budget 2025's productivity super-deduction lowers the marginal effective tax rate on new business investment. Bill C-5 is the live internal-trade law. Treasury Board's Red Tape Review has identified hundreds of regulatory initiatives. But fewer than two core levers have clearly cleared the authorization-or-execution bar. No permitting-acceleration tool has been used yet. Business investment rose only 0.3% in 2025 after repeated weak quarters. The grade reflects whether the policy mix is getting broad enough, and far enough along, to change the trajectory. Outcomes will take time to move.",
     "sources": [
       {
         "label": "OECD Economic Surveys: Canada 2025",
@@ -1448,7 +1448,7 @@
         "label": "OECD per-capita growth rank (long-run context)",
         "value": "Last of 38",
         "source": "oecd",
-        "sourceNote": "OECD long-term baseline projections remain the primary reference point; OECD Economic Surveys: Canada 2025 summarizes the weak per-capita outlook, while Fraser Institute and BCBC analyses map those baseline projections into the 'last or near-last' framing used here. Canada's real GDP per capita is forecast at roughly 0.7%/yr in 2020-2030 and 0.8%/yr in 2030-2060. Note: ranking is 'last or near-last' depending on projection vintage; tied with Italy in some versions.",
+        "sourceNote": "OECD long-term baseline projections are the primary reference point. OECD Economic Surveys: Canada 2025 summarizes the weak per-capita outlook. Fraser Institute and BCBC analyses turn those projections into the 'last or near-last' framing used here. Canada's real GDP per capita is forecast to grow roughly 0.7% per year in 2020-2030 and 0.8% per year in 2030-2060. The exact rank is 'last or near-last' depending on the projection round, and Canada is tied with Italy in some versions.",
         "automatable": false
       },
       {
@@ -1495,7 +1495,7 @@
         "lead": true,
         "value": "13.2% METR with super-deduction",
         "source": "finance-canada",
-        "sourceNote": "Budget 2025 states that with the productivity super-deduction, Canada's marginal effective tax rate on new business investment would fall from 15.6% to 13.2%, remaining the lowest in the G7.",
+        "sourceNote": "Budget 2025 states that with the productivity super-deduction, Canada's marginal effective tax rate on new business investment would fall from 15.6% to 13.2%. That rate would stay the lowest in the G7.",
         "automatable": false
       },
       {
@@ -1503,7 +1503,7 @@
         "label": "Internal trade implementation",
         "value": "Bill C-5 enacted",
         "source": "government-of-canada",
-        "sourceNote": "The One Canadian Economy Act / Building Canada Act is the live interprovincial-trade lever in the file. The implementation question is now execution rather than legislative passage.",
+        "sourceNote": "The One Canadian Economy Act / Building Canada Act is the live interprovincial-trade lever in the file. The law has passed, so the open question is now whether it gets carried out.",
         "automatable": false
       },
       {
@@ -1511,7 +1511,7 @@
         "label": "Red Tape Review initiatives identified",
         "value": "~500",
         "source": "treasury-board-secretariat",
-        "sourceNote": "Treasury Board's 2024-25 annual report says the Red Tape Review has published progress reports identifying nearly 500 recent and forward-looking initiatives to reduce duplication, streamline services, and lower costs.",
+        "sourceNote": "Treasury Board's 2024-25 annual report says the Red Tape Review has published progress reports. They identify nearly 500 recent and planned initiatives to reduce duplication, streamline services, and lower costs.",
         "automatable": false
       },
       {
@@ -1519,7 +1519,7 @@
         "label": "Permitting acceleration tool uses",
         "value": "0",
         "source": "legisinfo",
-        "sourceNote": "The national-interest designation power under Bill C-5 has not yet been used. This is still a breadth check inside Economic Policy; primary grading of the approval machinery remains in Major Projects.",
+        "sourceNote": "The national-interest designation power under Bill C-5 has not been used yet. This is still a breadth check inside Economic Policy. Primary grading of the project-approval system stays in Major Projects.",
         "automatable": false
       }
     ],
@@ -1585,8 +1585,8 @@
       }
     ],
     "perspectives": {
-      "critics": "If Carney is the credibility candidate, the one markets trust, why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060 (Fraser Institute / BCBC analysis of OECD data).",
-      "defenders": "Department of Finance Budget 2025 adds a productivity super-deduction, broadening the corporate tax incentive base. Treasury Board Secretariat confirms internal-trade legislation is enacted, and the Red Tape Review is now producing a government-wide regulatory pipeline. OECD analysis treats productivity as a decade-long structural problem, so a 13-month score should focus on whether the response mix is broadening rather than expecting immediate GDP-per-capita reversal."
+      "critics": "If Carney is the credibility candidate, the one markets trust, why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060. That framing comes from Fraser Institute and BCBC analysis of OECD data.",
+      "defenders": "Department of Finance Budget 2025 adds a productivity super-deduction, which widens the tax incentive for new business investment. Treasury Board Secretariat confirms the internal-trade law is enacted. The Red Tape Review is now producing a government-wide pipeline of regulatory fixes. OECD analysis treats weak productivity as a problem that built up over a decade. So a 13-month score should ask whether the response mix is broadening, not expect GDP per capita to turn around right away."
     },
     "tags": {
       "confidence": "High",
@@ -1727,7 +1727,7 @@
         }
       ]
     },
-    "rationale": "This dimension grades how well the federal government's policy response handles rising household costs, not price levels themselves, which are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs (taxes on imported goods imposed in trade disputes) add to the burden. The grade reflects what the government chose to do about affordability, and whether its actions match the scale of the problem.",
+    "rationale": "This dimension grades how well the federal government's policy response handles rising household costs, not price levels themselves. Prices are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs (taxes on imported goods imposed in trade disputes) add to the burden. The grade reflects what the government chose to do about affordability, and whether its actions match the scale of the problem.",
     "sources": [
       {
         "label": "StatsCan CPI May 2026",
@@ -1793,7 +1793,7 @@
     "lastUpdated": "2026-07-01",
     "metrics": [
       {
-        "label": "Food CPI (stores, YoY, May 2026)",
+        "label": "Food CPI (stores, year over year, May 2026)",
         "lead": true,
         "value": "4.3%",
         "source": "statcan",
@@ -1835,7 +1835,7 @@
             "url": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy"
           }
         ],
-        "sourceNote": "PBO carries the incremental value estimate. Fraser Institute carries an independent market-oriented critique of the same GST / Canada Groceries and Essentials Benefit strategy, arguing the payment is poorly targeted even where the government is right to focus on cost of living.",
+        "sourceNote": "PBO carries the incremental value estimate. That is the added amount, not the full benefit. Fraser Institute carries an independent market-oriented critique of the same GST / Canada Groceries and Essentials Benefit strategy. It argues the payment is poorly targeted even where the government is right to focus on cost of living.",
         "automatable": false
       },
       {
@@ -1910,8 +1910,8 @@
       }
     ],
     "perspectives": {
-      "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design. The government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies.",
-      "defenders": "PBO and OECD analyses identify global food markets, exchange rates, and retaliatory tariffs as drivers of most of the price increase. These are largely outside federal control. PBO's Canada Groceries and Essentials Benefit costing notes the benefit reaches the lowest-income households first."
+      "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design. The government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies (the few big companies that control the market).",
+      "defenders": "The Parliamentary Budget Officer (PBO) and the OECD looked at what is pushing food prices up. Both find that global food markets, exchange rates, and retaliatory tariffs cause most of the increase. These forces sit largely outside federal control. The PBO costing of the Canada Groceries and Essentials Benefit notes the benefit reaches the lowest-income households first."
     },
     "tags": {
       "confidence": "High",
@@ -1930,7 +1930,7 @@
     "trend": "stable",
     "status": "The consumer carbon price was eliminated, which delivered a campaign promise. Industrial pricing was kept on paper, but the price it actually puts on a tonne of pollution (its effective price) is weak. This grade covers the pricing tool only. The wider climate framework is graded under Climate & Environment.",
     "verdictLine": "The consumer carbon price is gone as promised, but the industrial price is weak in practice.",
-    "judgmentCall": "The middle grade gives credit for keeping the consumer-price promise, but marks the grade down for the weak industrial price (the price it actually charges per tonne).",
+    "judgmentCall": "The middle grade gives credit for keeping the consumer-price promise. It also marks the grade down for the weak industrial price (the price it actually charges per tonne).",
     "judgmentDetail": "The C grade keeps two things separate: whether a promise was kept, and how strong the pricing tool is. Removing the consumer charge gets credit as a campaign promise that was carried out. The industrial system gets marked down because the price it actually charges (the effective price signal) is far below the official posted schedule. Judgment comes in by treating the pricing tool as partly intact, but not clearly strong enough to earn a higher grade. The editor fixed the definition on 2026-06-12: the effective-price checks are decided on the marginal compliance price. That is the market price of the compliance credits big emitters buy under the federal Output-Based Pricing System (OBPS) and matching provincial systems, currently about $20 per tonne. It is not the average cost per tonne across the whole economy, which is shown only as background and does not move the grade. Under that definition, the May 15 Canada-Alberta agreement was checked against the $15/t down condition and did not set it off. The agreement weakens the future price path, not the current marginal price.",
     "surfaceTags": [
       "Pricing-tool-only grade"
@@ -2009,7 +2009,7 @@
         }
       ]
     },
-    "rationale": "This dimension grades the government's handling of carbon pricing as a policy instrument. That covers the decision to eliminate the consumer levy, preserve the industrial system, and the coherence of that distinction. The consumer elimination was a delivered Day 1 commitment with documented affordability effects that are graded separately under Affordability Response. Defenders argue the industrial system's preservation is justified on competitiveness grounds. CCI and IISD argue that credit oversupply can pull the effective compliance price far below the $95 (2026) headline schedule, raising questions about whether the industrial system achieves its stated purpose. The grade reflects policy handling quality, not climate outcomes (which are graded under Climate & Environment).",
+    "rationale": "This dimension grades how the government has handled carbon pricing as a policy tool. That covers the choice to end the consumer charge, keep the industrial system, and whether that split makes sense. Ending the consumer charge was a Day 1 promise that was delivered. The effects on what households pay are documented, and they are graded separately under Affordability Response. Defenders argue that keeping the industrial system is justified to keep industry competitive. CCI (the Canadian Climate Institute) and IISD argue that too many credits on the market can pull the effective price far below the $95 (2026) posted schedule. That raises questions about whether the industrial system does what it was set up to do. The grade reflects how well the policy was handled, not climate outcomes. Those are graded under Climate & Environment.",
     "sources": [
       {
         "label": "Canada.ca - fuel charge removal",
@@ -2093,7 +2093,7 @@
             "url": "https://www.pm.gc.ca/en/news/backgrounders/2026/05/15/implementation-agreement-canada-alberta-memorandum-understanding"
           }
         ],
-        "sourceNote": "The dashboard's live effective-price estimate remains roughly $20/t pending a market-price source refresh. The May 15, 2026 Canada-Alberta implementation agreement sets a future design target for Alberta's TIER credit market to reach an effective price of $130 by 2040 and introduces a minimum transfer price starting at $60 in 2030, but that is a future floor/target rather than a current traded effective price.",
+        "sourceNote": "The dashboard's live estimate of the effective price is still roughly $20/t. A refresh from a market-price source is pending. The May 15, 2026 Canada-Alberta implementation agreement sets a future design target for Alberta's TIER credit market. The target is an effective price of $130 by 2040. It also brings in a minimum transfer price that starts at $60 in 2030. Both are future floors or targets, not the effective price traded today.",
         "automatable": false
       },
       {
@@ -2120,7 +2120,7 @@
             "url": "https://www.pbo-dpb.ca/en/publications/LEG-2324-019-S--eliminating-goods-services-tax-in-respect-carbon-pricing--elimination-taxe-produits-services-relativement-tarification-carbone"
           }
         ],
-        "sourceNote": "PBO's January 23, 2024 costing says eliminating GST in respect of carbon pricing would reduce federal GST revenues by $486 million in 2023-24, increasing to $1.015 billion in 2030-31. The dashboard's $5.7B is a rounded multi-year trajectory shorthand, not a direct PBO headline.",
+        "sourceNote": "PBO's January 23, 2024 costing says eliminating GST in respect of carbon pricing would reduce federal GST revenues by $486 million in 2023-24, increasing to $1.015 billion in 2030-31. The dashboard's $5.7B is a rounded shorthand for that multi-year path, not a figure PBO published directly.",
         "automatable": false
       },
       {
@@ -2186,7 +2186,7 @@
     ],
     "perspectives": {
       "critics": "Canadian Climate Institute: industrial credits trade at ~$20/tonne despite a $95 (2026) headline price. The \"preserved\" system is mostly for show. NDP: eliminating the consumer rebate hurt low-income households who received more in rebates than they paid in carbon costs.",
-      "defenders": "PBO costing notes the consumer charge had a redistributively complex profile after rebate elimination. CCI identifies industrial pricing as the primary emissions-reduction lever, which was preserved. The consumer tax had also become a political liability undermining public support for any climate action. Preserving the industrial system maintains the investment signal for large emitters while removing household burden."
+      "defenders": "PBO costing notes that once the rebate was gone, the consumer charge affected different households in complicated ways. CCI says industrial pricing is the main lever for cutting emissions, and that lever was kept. The consumer tax had also grown so unpopular that it was wearing down public support for any climate action. Keeping the industrial system keeps a price signal in place for large emitters as they plan investments. It also takes the cost burden off households."
     },
     "tags": {
       "confidence": "High",
@@ -2390,7 +2390,7 @@
             "url": "https://www.cbc.ca/news/politics/oil-and-gas-cap-budget-9.6966588"
           }
         ],
-        "sourceNote": "The May 15, 2026 Canada-Alberta MOU implementation agreement confirms that Canada honoured its commitment not to introduce the Oil and Gas Emissions Cap. Independent reporting from National Observer and CBC remains in the source chain for non-government confirmation. PM acknowledged 2030 and 2035 targets will be missed; CCI, IISD, Macdonald-Laurier, and CER sources continue to anchor the target and replacement-framework context.",
+        "sourceNote": "On May 15, 2026, Canada and Alberta signed an implementation agreement for their memorandum of understanding (MOU). It confirms that Canada honoured its commitment not to introduce the Oil and Gas Emissions Cap. Independent reporting from National Observer and CBC stays in the source chain for non-government confirmation. The PM acknowledged the 2030 and 2035 targets will be missed. The CCI, IISD, Macdonald-Laurier, and Canada Energy Regulator sources still carry the context on the targets and the replacement strategy.",
         "automatable": false
       },
       {
@@ -2404,11 +2404,11 @@
             "url": "https://www.fraserinstitute.org/commentary/ottawa-should-finally-end-costly-push-evs-canada"
           }
         ],
-        "sourceNote": "The federal EV sales mandate was scrapped and replaced with a tailpipe-emissions approach plus renewed EV supports. Fraser Institute carries the market-oriented critique that the policy pressure continues in retooled form, which is why this metric now reads 'scrapped / retooled' rather than a plain repeal.",
+        "sourceNote": "The federal EV sales mandate was scrapped and replaced with a tailpipe-emissions approach plus renewed EV supports. Fraser Institute makes the market-oriented case that the policy pressure carries on in retooled form. That is why this metric reads 'scrapped / retooled' rather than a plain repeal.",
         "automatable": false
       },
       {
-        "label": "ECCC CER reductions (2026-27 to 2028-29)",
+        "label": "ECCC spending review reductions (2026-27 to 2028-29)",
         "lead": true,
         "value": "$762.8M; ~837 FTE by 2028-29",
         "source": "eccc",
@@ -2430,7 +2430,7 @@
             "url": "https://www.canada.ca/en/auditor-general/our-work/audit-reports/implementing-canadian-net-zero-emissions-accountability-act-financial-measures.html"
           }
         ],
-        "sourceNote": "ECCC's 2026-27 Departmental Plan reports Comprehensive Expenditure Review reductions of $236.8M in 2026-27, $244.4M in 2027-28, and $282.6M in 2028-29, with an expected reduction of about 837 full-time equivalents by 2028-29. This replaces the older 2025-26 departmental-plan reference with the current plan horizon while keeping CBC, The Conversation, and the Auditor General as context on operational and implementation pressure.",
+        "sourceNote": "ECCC's 2026-27 Departmental Plan reports Comprehensive Expenditure Review reductions of $236.8M in 2026-27, $244.4M in 2027-28, and $282.6M in 2028-29. It also expects a cut of about 837 full-time equivalent positions by 2028-29. This note replaces the older 2025-26 plan reference with the current plan. CBC, The Conversation, and the Auditor General stay in the source chain as context on how the cuts land in practice.",
         "automatable": false
       },
       {
@@ -2522,7 +2522,7 @@
     ],
     "perspectives": {
       "critics": "Canadian Climate Institute: Canada is on track for half the required 2030 emissions reduction. PM himself acknowledged targets will be missed. ECCC losing 840+ positions. No replacement strategy exists. National Observer: \"the fight against climate crisis has disappeared from Ottawa's radar.\"",
-      "defenders": "Per PBO Spring Economic Update assessment, the trade-war context constrains broader policy expansion. Maintaining the full climate framework during tariff escalation would have compounded economic pressure. The 30x30 conservation commitment ($3.8B) is genuine ECCC policy. CER reports 79% of electricity is already low-carbon, and industrial carbon pricing is preserved."
+      "defenders": "The Parliamentary Budget Officer (PBO) weighed in through its Spring Economic Update. It says the trade war limits how much new policy the government can take on. Keeping the full climate framework during the tariff fight would have added to the economic pressure. The 30x30 conservation commitment ($3.8B) is genuine ECCC policy. The Canada Energy Regulator reports 79% of electricity is already low-carbon, and industrial carbon pricing is preserved."
     },
     "tags": {
       "confidence": "High",
@@ -2642,7 +2642,7 @@
         }
       ]
     },
-    "rationale": "The government made a sharp cut to immigration, the largest reduction in temporary resident intake in recent decades. IRCC data shows new temporary-resident arrivals down 53% for January to September 2025 versus the same months in 2024. This addresses a real absorption failure. Housing, healthcare, and labour-market capacity were overwhelmed. However, the correction creates downside risks for healthcare staffing, agriculture, and higher education. The right-sized long-term model has not been defined, which is tracked as the primary trigger for the next grade movement rather than something that affects the grade right now. The Toronto Star frames this as cautious stabilization rather than bold reform.",
+    "rationale": "The government made a sharp cut to immigration, the largest reduction in temporary resident intake in recent decades. IRCC data shows new temporary-resident arrivals down 53% for January to September 2025 versus the same months in 2024. This addresses a real absorption failure. Housing, healthcare, and labour-market capacity were overwhelmed. However, the correction creates downside risks for healthcare staffing, agriculture, and higher education. The right-sized long-term model has not been defined. That gap is tracked as the main trigger for the next grade move, not as something that affects the grade right now. The Toronto Star frames this as cautious stabilization rather than bold reform.",
     "sources": [
       {
         "label": "StatsCan population Q1 2026",
@@ -2706,7 +2706,7 @@
         "lead": true,
         "value": "380,000",
         "source": "ircc",
-        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. Primary IRCC URL (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) returned 403 during verification. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review - all citing 380,000.",
+        "sourceNote": "IRCC 2026-2028 Immigration Levels Plan (November 2025): 380,000 permanent residents annually for 2026-2028, range 350,000-420,000. The primary IRCC page (canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) was blocked with a 403 error when last checked. Figure independently confirmed by PBO 'Demographic Implications of the 2026-2028 Immigration Levels Plan' (RP-2526-025-S, pbo-dpb.ca), EY immigration analysis, and Clark Hill immigration law review - all citing 380,000.",
         "sourceRefs": [
           {
             "label": "PBO - Demographic Implications of the 2026-2028 Immigration Levels Plan",
@@ -2733,7 +2733,7 @@
         "lead": true,
         "value": "-53%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal pages cover work permits and study permits. Note: IRCC open data shows 55% work permit decline and 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024 - the 53% figure covers a broader population (students + workers combined) over a longer period (Jan-Sep).",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal pages cover work permits and study permits. Note: IRCC open data shows a 55% work permit decline and a 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024. The 53% figure covers a broader group (students and workers combined) over a longer period (Jan-Sep).",
         "automatable": true
       },
       {
@@ -2741,7 +2741,7 @@
         "lead": true,
         "value": "-60%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 60% decline in new international student arrivals, Jan-Sep 2025 vs same period 2024 (150,220 fewer students). IRCC open data portal provides the study-permit series. Note: IRCC open data shows 76% decline for Jan-Jun period specifically; the 60% figure covers the longer Jan-Sep window.",
+        "sourceNote": "IRCC data via media reporting (Dec 2025): 60% decline in new international student arrivals, Jan-Sep 2025 vs same period 2024 (150,220 fewer students). IRCC open data portal provides the study-permit series. Note: IRCC open data shows a 76% decline for the Jan-Jun period specifically. The 60% figure covers the longer Jan-Sep window.",
         "automatable": true
       },
       {
@@ -3418,7 +3418,7 @@
     "status": "Defence and immigration are clearly getting done. Housing, major projects, and climate are stalled, meaning no measurable progress yet or progress has stopped after initial action.",
     "verdictLine": "Defence and immigration are getting done, while housing, major projects, and climate are stalled.",
     "judgmentCall": "The middle grade comes from counting how the five flagship areas split across delivery statuses. It is not a fresh opinion on whether each policy is good.",
-    "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivered, partial, stalled, or deteriorating. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies. It exited probation after the July 2026 retention check: the rule ran cleanly through a real cycle, did not contradict the file-status movement underneath it, added a cross-file execution read beyond any one home card, and cleared deconfliction.",
+    "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivering, partially delivering, stalled, or failing. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies. It passed its July 2026 retention check and exited probation. The rule ran through a real cycle without changes. Its direction did not contradict the status moves in the five areas underneath. It showed a delivery pattern spanning two or more flagship areas that no single home card makes obvious. And no metric was counted twice, once in a home area and again here.",
     "surfaceTags": [
       "Combination rule"
     ],
