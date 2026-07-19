@@ -155,6 +155,8 @@ The inter-rater pilot is in fieldwork: a Reddit rater has the packet, so the tas
 
 These are on deck awaiting their triggers.
 
+0. Bundle-budget headroom before the August cycle (from the 2026-07-13 in-house review of v5.155; CONFIRMED HIGH). v5.155 deploys cleanly today, but the binding gate (initial JS graph, `scripts/check-bundle-budget.mjs`) has only about 4.9KB of headroom, while `dimensions.json` is a static import in the entry chunk and grows roughly 7 to 17KB per monthly cycle. The next data refresh will very likely trip the hard-fail gate and block the Pages deploy. The changelog split freed today's headroom but did not touch the file that actually grows. Fix before the August cycle adds data: either stop entry-bundling the full `dimensions.json` (lazy-load the per-dimension detail the scorecard grid does not need on first paint) or, as a stopgap, raise the two ceilings with a comment that names the real fix. Do not treat raising the ceiling as the fix. Two LOW history findings from the same review are also queued: a same-synchronous-task close-plus-navigate race corrupts the Back stack (not reachable by normal separate clicks; strengthen the test at `dashboard-smoke.spec.js:589` to assert the post-race Back target), and a manual `#view-*` hash edit while a drawer is open leaves the URL and rendered view disagreeing. Neither is reachable through ordinary use.
+
 1. Housing disbursement watch
    The July 1 cycle kept the file at D. Remaining Housing watch: signed Canada-Ontario BCSF agreement, official DCRP project approvals, signed transfer-payment agreements, first payment, and construction evidence. These checks report evidence. They do not auto-move a grade.
 
