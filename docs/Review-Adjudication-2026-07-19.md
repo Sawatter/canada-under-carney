@@ -91,6 +91,12 @@ The required different-AI review ran successfully on July 19 through `bash scrip
 
 This closes the different-AI gap. The automated browser matrix covers Chromium at 375px and 1280px, including delayed drawer focus. It does not convert the physical iOS edge-swipe and sheet-overscroll, Android pull-to-refresh, or Windows forced-colors checks into completed hardware checks.
 
+## v5.157 Final Integrated Review
+
+The full `d62e1ff..54e591f` release diff received a second read-only Claude review through `bash scripts/claude-bridge.sh -f tmp/v5157-final-claude-review.md`. The verdict was `APPROVED`: no blocking correctness, frozen-surface, factual, or release-integrity defect remained. The review confirmed the focus and retry fixes, frozen-surface boundary, exact 43-promise status counts, dated Housing hold, cross-document source corrections, generated summaries, and release metadata.
+
+Three optional notes were adjudicated. The source totals were independently recomputed as 154 unique URLs across 322 citation surfaces and 55 domains, so no change was needed. The About continuity link uses the same inline colour pattern as the surrounding links, and lint reports it within the existing warning class; token migration remains out of scope for this release. The Housing `verdictLine` and status use different wording with the same meaning, so no tonal-only rewrite was added.
+
 ## Frozen Editor Decisions
 
 ### Economic Policy
