@@ -1,6 +1,6 @@
 # Data Sources
 
-> **Status (2026-07-02):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) lives in the [Source Characterization Register](Source-Characterization-Register.md). Counts below were recomputed 2026-07-02 from the live data files using `scripts/source-ledger-utils.mjs` (the same extraction the ledger check uses). Content reflects the live stack in [src/data/dimensions.json](../src/data/dimensions.json) and distinguishes live sources from the monitoring watchlist. Treat the SCR as authoritative for per-source characterization. The July 2026 doc-sync backfilled the 10 `sources[]` families the full-source recertification found missing; remaining August register candidates are named below.
+> **Status (2026-07-19):** This file is a monitoring and source-guide document. The **canonical per-source-family characterization** (institution type, ownership/funding, editorial independence, tier, best-use boundary) lives in the [Source Characterization Register](Source-Characterization-Register.md). Counts below were recomputed from the live data files using `scripts/source-ledger-utils.mjs` (the same extraction the ledger check uses). Content reflects the live stack in [src/data/dimensions.json](../src/data/dimensions.json) and distinguishes live sources from the monitoring watchlist. Treat the SCR as authoritative for per-source characterization. The July doc-sync backfilled 10 families, and the July 19 pass added House ETHI and Transparency International Canada; the remaining federal candidates are named below.
 
 Every metric in the live dashboard is sourced to a specific citation in [src/data/dimensions.json](../src/data/dimensions.json). This file describes the monitoring and source-guide stack that sits around that live use: which families are currently cited in the live `sources` arrays, which are supplementary monitoring sources that may be consulted when a file moves, and which data pipelines feed specific metrics.
 
@@ -10,7 +10,7 @@ For the canonical per-source-family characterization (institution type, ownershi
 
 ## Live source stack (currently cited in dimensions.json)
 
-Grouped by institution type. See SCR for per-family detail and trust flags. As of 2026-07-02 (dashboard v5.152), machine extraction finds **153 unique cited URLs across 322 citation surfaces and 54 distinct domains** in [dimensions.json](../src/data/dimensions.json) plus the Approval Signal poll data. The SCR now registers 40 graded-dimension source families, including the 10 families backfilled after the July recertification. The enumeration below also names remaining entrants the August register update should cover, marked *(not yet in SCR)*.
+Grouped by institution type. See SCR for per-family detail and trust flags. As of 2026-07-19, machine extraction finds **154 unique cited URLs across 322 citation surfaces and 55 distinct domains** in [dimensions.json](../src/data/dimensions.json) plus the Approval Signal poll data. The SCR now registers 42 graded-dimension source families. The enumeration below also names the remaining entrants the August register update should cover.
 
 ### Official / administrative / institutional
 
@@ -22,7 +22,7 @@ Grouped by institution type. See SCR for per-family detail and trust flags. As o
 - **Context-only government communications (Tier 4):** Prime Minister's Office (pm.gc.ca) - never moves a grade alone per QA Rule 1
 - **Promise-record only:** Justice Laws consolidated statutes (laws-lois.justice.gc.ca) and Transport Canada appear only on promise original/status links, not in `sources[]` arrays
 
-The federal entrants that are visible in the July live stack but still need fuller SCR treatment (ISED, Treasury Board Secretariat, Canada Revenue Agency, Housing Infrastructure Canada, Privy Council Office / MPO, Office of the Auditor General, House committee reports) are queued for SCR registration in the August cycle.
+The federal entrants that are visible in the July live stack but still need fuller SCR treatment are ISED, Treasury Board Secretariat, Canada Revenue Agency, Housing Infrastructure Canada, Privy Council Office / MPO, and the Office of the Auditor General. The House ETHI committee entry was added on July 19.
 
 ### Non-official
 
@@ -31,7 +31,7 @@ The federal entrants that are visible in the July live stack but still need full
 - **Independent research policy institutes:** C.D. Howe Institute, IRPP / Policy Options, IISD, Canadian Climate Institute *(federally arm's-length; ECCC is a major federal funder - see SCR entry 18 for disclosure)*
 - **Market-oriented policy institutes:** Fraser Institute, Macdonald-Laurier Institute
 - **Nonprofit policy commentary platform:** The Hub *(right-of-centre orientation; see SCR entry 23)*
-- **Watchdog / advocacy:** Democracy Watch *(advocacy organization, not neutral research)*, Transparency International Canada *(not yet in SCR)*
+- **Watchdog / advocacy:** Democracy Watch *(advocacy organization, not neutral research)*, Transparency International Canada *(registered in the SCR; CPI is a country-level perception benchmark, not case-specific evidence)*
 - **Issue-focused nonprofit journalism:** The Narwhal, Canada's National Observer
 - **Academic / economic research:** Dalhousie Agri-Food Analytics Lab, PROOF (University of Toronto), The Conversation Canada, Centre for the Study of Living Standards (CSLS)
 - **Nonprofit social-policy research:** Maytree

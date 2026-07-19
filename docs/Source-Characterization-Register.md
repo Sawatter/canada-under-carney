@@ -2,7 +2,7 @@
 
 - **Purpose:** Canonical per-source-family record of institution type, ownership/funding, editorial independence, grounded ideological tendency (only where well-sourced), best-use boundary, and strongest SAM-role fit for every source family currently live in [src/data/dimensions.json](../src/data/dimensions.json). Replaces scattered ideological-lean labels with institutional description as the primary characterization.
 - **Status:** Active — governance artifact; sits alongside SAM (per-dimension role fit) and QA-Gatekeeping-Rules (admissibility / tier discipline).
-- **Last updated:** 2026-07-02 (backfilled 10 families the July 2026 full-source recertification found missing from this register; see [July-Monthly-Cycle-Report-2026-07-01.md](July-Monthly-Cycle-Report-2026-07-01.md), editor finding 4, and the matching drift row in [Source-Coverage-Ledger-2026-06.md](Source-Coverage-Ledger-2026-06.md))
+- **Last updated:** 2026-07-19 (added Transparency International Canada and the House ETHI committee, and closed the CSLS label mismatch before the August cycle)
 - **Depends on:** [docs/Source-Authority-Map.md](Source-Authority-Map.md), [docs/QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [docs/Product-Thesis.md](Product-Thesis.md), [docs/v2/verification/Claude-House-Style.md](v2/verification/Claude-House-Style.md)
 - **Used by:** [src/components/About.jsx](../src/components/About.jsx) (Source Balance block), [README.md](../README.md) (Source Balance section), [docs/DATA-SOURCES.md](DATA-SOURCES.md) (monitoring-stack layer), SAM per-dimension Current State Deltas, QA Rule 1 per-source tier assignment.
 
@@ -35,8 +35,8 @@ Granularity rule:
 
 ## Category summary
 
-- **Total unique citation labels across all live `sources` arrays:** 97 (recomputed from live [dimensions.json](../src/data/dimensions.json) on 2026-07-02)
-- **Total source families registered below for graded dimensions:** 40 (16 official / administrative / institutional; 24 non-official)
+- **Total unique citation labels across all live `sources` arrays:** 97 (recomputed from live [dimensions.json](../src/data/dimensions.json) on 2026-07-19)
+- **Total source families registered below for graded dimensions:** 42 (17 official / administrative / institutional; 25 non-official)
 - **Additional polling families registered for the Approval Signal (outside the GPA):** 5 (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group). See the dedicated *Approval Signal source families* section below and [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
 
 | Institution-type category | Count | Families |
@@ -45,14 +45,14 @@ Granularity rule:
 | Federal departmental data & communications | 5 | ECCC, IRCC, Finance Canada, NRCan, Global Affairs Canada |
 | Other federal institutional | 1 | Office of the Ethics Commissioner |
 | International official | 3 | NATO, OECD, IMF |
-| Parliamentary / legislative record | 1 | Parliament of Canada / LEGISinfo |
+| Parliamentary / legislative record | 2 | Parliament of Canada / LEGISinfo, House ETHI committee |
 | Context-only government communications | 1 | Prime Minister's Office |
 | Public broadcaster | 1 | CBC / Radio-Canada |
 | Mainstream newspaper | 1 | The Globe and Mail |
 | Independent research policy institutes | 4 | C.D. Howe Institute, IRPP / Policy Options, IISD, Canadian Climate Institute |
 | Market-oriented policy institutes | 2 | Fraser Institute, Macdonald-Laurier Institute |
 | Nonprofit policy commentary platform | 1 | The Hub |
-| Watchdog / advocacy | 1 | Democracy Watch |
+| Watchdog / advocacy | 2 | Democracy Watch, Transparency International Canada |
 | Issue-focused nonprofit journalism | 2 | The Narwhal, Canada's National Observer |
 | Academic research | 3 | Dalhousie Agri-Food Analytics, PROOF (U of T), The Conversation Canada |
 | Independent nonprofit economic research | 2 | Centre for the Study of Living Standards, Signal49 Research |
@@ -443,7 +443,7 @@ Granularity rule:
 
 ### 32. Centre for the Study of Living Standards (CSLS)
 
-- **Live labels:** `Centre for the Study of Living Standards - Canadian Productivity Review`, `CSLS - Canadian Productivity Review` (trigger challenge label)
+- **Live labels:** `Centre for the Study of Living Standards - Research Report 2025-04`, `CSLS Research Report 2025-04` (trigger challenge label)
 - **Dimensions used:** Economic Policy Response
 - **Institution type:** Independent nonprofit economic research organization; Ottawa-based, established 1995
 - **Ownership / funding:** Nonprofit; founded and directed by economist Andrew Sharpe. A specific funder breakdown was not established from sources opened for this entry; the CSLS site body is not machine-readable (the July 2026 ledger row hit the same fetch limit). Describe institutionally until a funding disclosure is read directly.
@@ -451,7 +451,7 @@ Granularity rule:
 - **Grounded ideological tendency:** None established; non-partisan economic research mandate
 - **Best-use boundary:** Grade-moving (Tier 2) for its disclosed-method research reports
 - **Strongest SAM-role fit:** Measurement truth + independent challenge truth (productivity and business-investment analysis)
-- **Trust flags:** Label imprecision logged as July 2026 cycle finding 5: the live label says "Canadian Productivity Review" while the cited pages are the International Productivity Monitor index and CSLS Research Report 2025-04. The underlying documents support the claims; queue a label fix for the August cycle.
+- **Trust flags:** The July 2026 label mismatch is closed. Live references now point directly to CSLS Research Report 2025-04 and use that publication's title.
 
 ### 33. Retail Council of Canada
 
@@ -548,6 +548,30 @@ Granularity rule:
 - **Best-use boundary:** Grade-moving (Tier 1) for published energy data and the Energy Future modelling series
 - **Strongest SAM-role fit:** Measurement truth (energy-system data and net-zero scenario modelling)
 - **Trust flags:** The live citation is the Energy Future 2023 landing page (last modified 2023-11-24). The July 2026 recertification noted it carries no emissions-cap content, so the `Emissions cap = Scrapped` metric sourceRef is not evaluable from that page; consider repointing to the newest Energy Future edition or a page that carries the specific claim.
+
+### 41. House of Commons Standing Committee on Access to Information, Privacy and Ethics (ETHI)
+
+- **Live labels:** `House ETHI report - Review of the Conflict of Interest Act`
+- **Dimensions used:** Ethics & Transparency
+- **Institution type:** Standing committee of the House of Commons, established under the House's Standing Orders
+- **Ownership / funding:** Parliament of Canada; committee members are Members of Parliament from the parties represented in the House
+- **Editorial independence / governance:** The committee chooses studies within its mandate and reports to the House. Reports reflect parliamentary committee decisions, not an independent judicial or commissioner finding.
+- **Grounded ideological tendency:** None assigned. Membership is multi-party, while a report's conclusions can still reflect committee votes and the composition of the House.
+- **Best-use boundary:** Primary parliamentary record (Tier 1) for what the committee studied, heard, and recommended. It is not proof of misconduct and does not substitute for a finding by the Conflict of Interest and Ethics Commissioner.
+- **Strongest SAM-role fit:** Policy truth + independent-challenge context on federal ethics law and the Prime Minister's conflict screen
+- **Trust flags:** Report 5 was presented April 23, 2026 and explicitly examines the application of the Conflict of Interest Act to Prime Minister Mark Carney's divestment obligations and conflict screen. Whether that report satisfies the dashboard's component or down-trigger rules is a separate frozen editor adjudication.
+
+### 42. Transparency International Canada
+
+- **Live labels:** `Transparency International Canada - Canada's CPI ranking`
+- **Dimensions used:** Ethics & Transparency
+- **Institution type:** Registered Canadian charity and national chapter of Transparency International
+- **Ownership / funding:** Charitable donations and other disclosed support; the organization publishes annual reports and financial statements and lists charity registration number 892604281RR0001
+- **Editorial independence / governance:** Volunteer board with published governance, conflict-of-interest, and donations policies. The organization describes advocacy against corruption as part of its mission.
+- **Grounded ideological tendency:** Advocacy-oriented on anti-corruption and public integrity rather than ideologically placed
+- **Best-use boundary:** Tier 2 for the methodology-backed Corruption Perceptions Index and Tier 3 for advocacy claims. The CPI is a country-level perception benchmark, not evidence about a specific officeholder.
+- **Strongest SAM-role fit:** Context truth + independent challenge on federal governance quality
+- **Trust flags:** The live citation reports Canada's CPI rank. It must not be used to infer misconduct or the adequacy of the Prime Minister's individual conflict screen.
 
 ---
 

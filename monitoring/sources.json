@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-06-13T18:18:40+00:00",
+  "generatedAt": "2026-07-19T22:06:29+00:00",
   "generatedFrom": "src/data/dimensions.json + src/data/approval-polls.json",
   "note": "Registry of monitored source surfaces. Regenerate with `python3 scripts/monitor_sources.py --rebuild-registry` when the cited source base changes. Hand-edits to access notes, methods, or search domains are preserved only if you re-apply them after a rebuild. The monitor never moves grades.",
   "methods": [
@@ -30,6 +30,7 @@
         "https://abacusdata.ca/canadian-politics-carney-government-approval-and-liberal-lead-reach-new-highs-as-optimism-about-canada-improves/",
         "https://abacusdata.ca/canadian-politics-carney-government-approval-hits-new-high-as-liberals-lead-conservatives-by-10/",
         "https://abacusdata.ca/canadian-politics-liberals-extend-lead-and-consolidate-support-following-majority-wins/",
+        "https://abacusdata.ca/federal-liberal-lead-holds-steady/",
         "https://abacusdata.ca/liberal-momentum-slows-as-approval-optimism-and-carneys-ratings-retreat/",
         "https://abacusdata.ca/prime-minister-carney-approval-liberals-strengthen-ahead-conservative-convention/"
       ],
@@ -111,7 +112,7 @@
     },
     {
       "id": "canada-ca-auditor-general",
-      "publisher": "canada.ca",
+      "publisher": "Auditor General references (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -130,7 +131,7 @@
     },
     {
       "id": "canada-ca-campaign",
-      "publisher": "canada.ca",
+      "publisher": "Campaign pages (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -151,7 +152,7 @@
     },
     {
       "id": "canada-ca-climateaction",
-      "publisher": "canada.ca",
+      "publisher": "Climate action (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -170,7 +171,7 @@
     },
     {
       "id": "canada-ca-department-finance",
-      "publisher": "canada.ca",
+      "publisher": "Department of Finance (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -187,13 +188,14 @@
       "citedUrls": [
         "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
         "https://www.canada.ca/en/department-finance/services/publications/annual-financial-report/2025.html",
-        "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html"
+        "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html",
+        "https://www.canada.ca/en/department-finance/services/publications/report-impact-reducing-lowest-marginal-personal-income-tax-rate-non-refundable-tax-credits.html"
       ],
       "accessNote": null
     },
     {
       "id": "canada-ca-environment-climate-change",
-      "publisher": "canada.ca",
+      "publisher": "Environment and Climate Change Canada (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -217,7 +219,7 @@
     },
     {
       "id": "canada-ca-housing-infrastructure-communities",
-      "publisher": "canada.ca",
+      "publisher": "Housing, Infrastructure and Communities Canada (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -230,13 +232,15 @@
         "canada.ca"
       ],
       "citedUrls": [
-        "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html"
+        "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
+        "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-open-applications-for-new-development-charge-reduction-program0.html",
+        "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/government-of-canada-marks-royal-assent-of-the-build-canada-homes-act.html"
       ],
       "accessNote": null
     },
     {
       "id": "canada-ca-immigration-refugees-citizenship",
-      "publisher": "canada.ca",
+      "publisher": "Immigration, Refugees and Citizenship Canada (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -258,7 +262,7 @@
     },
     {
       "id": "canada-ca-intergovernmental-affairs",
-      "publisher": "canada.ca",
+      "publisher": "Intergovernmental Affairs (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -279,7 +283,7 @@
     },
     {
       "id": "canada-ca-natural-resources-canada",
-      "publisher": "canada.ca",
+      "publisher": "Natural Resources Canada (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -297,8 +301,27 @@
       "accessNote": null
     },
     {
+      "id": "canada-ca-one-canadian-economy",
+      "publisher": "One Canadian Economy (canada.ca)",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "major-projects"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/one-canadian-economy/news/2026/06/canada-initiates-process-to-list-major-projects-under-the-building-canada-act.html"
+      ],
+      "accessNote": null
+    },
+    {
       "id": "canada-ca-privy-council",
-      "publisher": "canada.ca",
+      "publisher": "Privy Council / Major Projects Office (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -317,7 +340,7 @@
     },
     {
       "id": "canada-ca-revenue-agency",
-      "publisher": "canada.ca",
+      "publisher": "Canada Revenue Agency (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -336,7 +359,7 @@
     },
     {
       "id": "canada-ca-services",
-      "publisher": "canada.ca",
+      "publisher": "Services (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -356,8 +379,27 @@
       "accessNote": null
     },
     {
+      "id": "canada-ca-transport-canada",
+      "publisher": "Transport Canada (canada.ca)",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "defence-trade"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/transport-canada/news/2026/03/government-of-canada-launches-calls-for-proposals-for-the-5-billion-trade-diversification-corridors-fund-and-the-1-billion-arctic-infrastructure-fund.html"
+      ],
+      "accessNote": null
+    },
+    {
       "id": "canada-ca-treasury-board-secretariat",
-      "publisher": "canada.ca",
+      "publisher": "Treasury Board Secretariat (canada.ca)",
       "homeUrl": "https://canada.ca/",
       "family": 2,
       "familyName": "Department / press release",
@@ -370,7 +412,8 @@
         "canada.ca"
       ],
       "citedUrls": [
-        "https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html"
+        "https://www.canada.ca/en/treasury-board-secretariat/corporate/reports/annual-reports-parliament-federal-regulatory-management-initiatives/annual-report-2024-2025-fiscal-year-federal-regulatory-management-initiatives.html",
+        "https://www.canada.ca/en/treasury-board-secretariat/corporate/transparency/acts-regulations/red-tape-review-progress-report.html"
       ],
       "accessNote": null
     },
@@ -496,6 +539,25 @@
       "accessNote": "Host intermittently returns 403/503 to command-line fetchers; browser pull may be needed."
     },
     {
+      "id": "ckom-com",
+      "publisher": "ckom.com",
+      "homeUrl": "https://ckom.com/",
+      "family": 0,
+      "familyName": "Unclassified",
+      "dimensions": [
+        "defence-trade"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "ckom.com"
+      ],
+      "citedUrls": [
+        "https://www.ckom.com/2026/01/28/union-questions-why-global-affairs-issuing-layoff-warnings-before-policy-review/"
+      ],
+      "accessNote": null
+    },
+    {
       "id": "climateinstitute-ca",
       "publisher": "Canadian Climate Institute",
       "homeUrl": "https://climateinstitute.ca/",
@@ -535,7 +597,7 @@
       ],
       "citedUrls": [
         "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report",
-        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-april-2026",
+        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-may-2026",
         "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
         "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026"
       ],
@@ -556,7 +618,7 @@
         "csls.ca"
       ],
       "citedUrls": [
-        "http://www.csls.ca/ipm.asp",
+        "https://csls.ca/research/can-a-lack-of-pro-productivity-policies-explain-the-secular-decline-in-canadas-productivity-growth/",
         "https://www.csls.ca/reports/csls2025-04.pdf"
       ],
       "accessNote": null
@@ -596,6 +658,25 @@
       ],
       "citedUrls": [
         "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "documents-leger360-com",
+      "publisher": "documents.leger360.com",
+      "homeUrl": "https://documents.leger360.com/",
+      "family": 9,
+      "familyName": "Academic / research / pollsters",
+      "dimensions": [
+        "approval-signal"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "documents.leger360.com"
+      ],
+      "citedUrls": [
+        "https://documents.leger360.com/hubfs/%C3%89tudes%20M%C3%A9diatiques/%C3%89tudes%20M%C3%A9diatiques%20-%202026/6.%20%C3%89tudes%20M%C3%A9diatiques%20Juin%202026/Fed%20Poll/Leger_Federal_Poll_Canada_June_2026.pdf"
       ],
       "accessNote": null
     },
@@ -843,6 +924,7 @@
         "liberal.ca"
       ],
       "citedUrls": [
+        "https://liberal.ca/housing-plan/",
         "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf"
       ],
       "accessNote": null
@@ -864,8 +946,8 @@
       ],
       "citedUrls": [
         "https://macdonaldlaurier.ca/carneys-energy-superpower-talk-isnt-cutting-it-we-need-action-heather-exner-pirot-in-the-hub/",
-        "https://macdonaldlaurier.ca/fixing-canadas-broken-immigration-system-presenting-more-data-to-parliament-michael-barutciski/",
-        "https://macdonaldlaurier.ca/research/immigration/"
+        "https://macdonaldlaurier.ca/category/issues/domestic-policy-program/immigration-2/",
+        "https://macdonaldlaurier.ca/fixing-canadas-broken-immigration-system-presenting-more-data-to-parliament-michael-barutciski/"
       ],
       "accessNote": null
     },
@@ -905,7 +987,9 @@
       "citedUrls": [
         "https://nanos.co/wp-content/uploads/2026/03/Political-Package-2026q7283x-03-06-FOR-RELEASE.pdf",
         "https://nanos.co/wp-content/uploads/2026/04/Political-Package-2026-04-10C4prRx3658-FOR-RELEASE.pdf",
-        "https://nanos.co/wp-content/uploads/2026/04/Political-Package-mjwf5-2026-04-03-FOR-RELEASE.pdf"
+        "https://nanos.co/wp-content/uploads/2026/04/Political-Package-mjwf5-2026-04-03-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/06/Political-Package-2026-06-26-YS4BV-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/06/Political-Package-xOthfu65-2026-06-19-FOR-RELEASE.pdf"
       ],
       "accessNote": null
     },
@@ -945,6 +1029,7 @@
         "nato.int"
       ],
       "citedUrls": [
+        "https://www.nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf",
         "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada"
       ],
       "accessNote": null
@@ -1003,7 +1088,7 @@
         "ourcommons.ca"
       ],
       "citedUrls": [
-        "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96"
+        "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5"
       ],
       "accessNote": null
     },
@@ -1096,8 +1181,7 @@
         "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes",
         "https://www.pm.gc.ca/en/news/news-releases/2026/03/31/prime-minister-carney-launches-new-nature-strategy-protect-canadas",
         "https://www.pm.gc.ca/en/news/news-releases/2026/04/09/prime-minister-carney-breaks-ground-contrecoeur-terminal-expansion",
-        "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity",
-        "https://www.pm.gc.ca/en/news/speeches/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes-housing"
+        "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity"
       ],
       "accessNote": null
     },
@@ -1332,7 +1416,7 @@
         "transparencycanada.ca"
       ],
       "citedUrls": [
-        "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption"
+        "https://transparencycanada.ca/s/2024-CPI-TI-Canada-Statement-EN.pdf"
       ],
       "accessNote": null
     },
@@ -1358,9 +1442,10 @@
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
-        "https://www150.statcan.gc.ca/n1/daily-quotidien/260519/dq260519a-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260605/dq260605a-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260617/dq260617a-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260622/dq260622a-eng.htm",
         "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
       ],
       "accessNote": null

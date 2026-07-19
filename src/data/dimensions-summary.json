@@ -7,7 +7,7 @@
       "verdictLine": "The NATO spending target was met, and Canada's trade is measurably more diversified.",
       "status": "NATO's 2% target was met, at 2.01%. Trade is measurably more diversified. The U.S. share of Canadian exports fell from 75.9% to 71.7%. The headline grade is driven mainly by the defence side, with trade tracked separately in the sub-scores below.",
       "nextTrigger": "NATO annual defence spending report (June 2026). CUSMA review (July 2026). Next trade data release.",
-      "lastUpdated": "2026-06-30",
+      "lastUpdated": "2026-07-19",
       "trend": "stable",
       "previousGrade": null,
       "grade": "A-"
@@ -101,9 +101,9 @@
       "name": "Housing Supply",
       "whatThisGrades": "Whether federal housing policy is getting homes delivered at the scale Canada needs.",
       "verdictLine": "Federal housing programs are not yet big enough, and announced homes have not started construction.",
-      "status": "Federal housing programs are not yet big enough to meet the need. Build Canada Homes is now legislated, but announced homes have still not started construction, and housing starts are running below the pace needed to close the gap (the shortfall).",
+      "status": "Federal housing programs are still too small to meet the need. The Build Canada Homes Act is now law, but construction has not started on the announced homes. Housing starts also remain below the pace needed to close the shortfall.",
       "nextTrigger": "Next CMHC monthly starts release. Actual Build Canada Homes construction commencement. Signed Ontario BCSF / DCRP agreement, first payment, or construction evidence.",
-      "lastUpdated": "2026-07-01",
+      "lastUpdated": "2026-07-19",
       "trend": "stable",
       "previousGrade": null,
       "grade": "D"
@@ -111,11 +111,11 @@
     {
       "id": "ethics-transparency",
       "name": "Ethics & Transparency",
-      "whatThisGrades": "Whether the Prime Minister's ethics setup is strong enough for someone with his money and career history.",
+      "whatThisGrades": "Whether the Prime Minister's ethics safeguards are strong enough for his financial and career background.",
       "verdictLine": "Nothing wrong has been proven, but the ethics setup is missing pieces and the disclosure gap is open.",
       "status": "The ethics setup is missing pieces that a background like his calls for. Nothing wrong has been proven. The gap in what has been disclosed is still open.",
       "nextTrigger": "Ethics Commissioner publication of Brookfield review. Any new disclosure of retained financial interests. House Ethics Committee report.",
-      "lastUpdated": "2026-06-05",
+      "lastUpdated": "2026-07-19",
       "trend": "stable",
       "previousGrade": null,
       "grade": "C",
@@ -137,10 +137,10 @@
     {
       "id": "promise-delivery",
       "name": "Promise Delivery",
-      "whatThisGrades": "A running tracker of specific things the government promised to do. Each one is marked delivered, in progress, stalled, or abandoned.",
-      "status": "Fiscal-anchor delivery, meaning progress against the government's own budget rules, is back in progress, but housing and climate promises still fall short.",
+      "whatThisGrades": "A running tracker of specific things the government promised to do. Each one is marked delivered, in progress, too early to judge, stalled, or abandoned.",
+      "status": "Of 43 tracked promises, 14 are delivered, 16 are in progress, 4 are too early to judge, 6 are stalled, and 3 are abandoned.",
       "nextTrigger": "Next major policy announcement or delivery milestone. Housing starts trajectory. Climate replacement strategy if any.",
-      "lastUpdated": "2026-06-13",
+      "lastUpdated": "2026-07-19",
       "trend": "stable",
       "excludeFromGPA": true,
       "informationalGrade": "C+"

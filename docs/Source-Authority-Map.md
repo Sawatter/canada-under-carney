@@ -269,7 +269,7 @@ These may shape interpretation but must not move the Ethics & Transparency grade
 **Current state delta**
 
 Current `dimensions.json` Ethics & Transparency source stack:
-Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, House ETHI report — Review of the Conflict of Interest Act, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement, PM Annex A public declaration of agreed measure  
+Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, House ETHI report — Review of the Conflict of Interest Act, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement, PM Annex A public declaration of agreed measure, Transparency International Canada — Canada's CPI ranking
 Source: [src/data/dimensions.json](../src/data/dimensions.json:1397)
 
 - **Present and well-aligned**
@@ -278,6 +278,7 @@ Source: [src/data/dimensions.json](../src/data/dimensions.json:1397)
   - `PM Annex A public declaration of agreed measure` fills the policy-truth / execution-truth role on the agreed measure filing and the public declaration of screen scope.
   - `Democracy Watch critique` fills the current independent-challenge role on framework adequacy.
   - `House ETHI report — Review of the Conflict of Interest Act` now adds an official committee-review source documenting concerns with conflict-screen reporting and governance design.
+  - `Transparency International Canada — Canada's CPI ranking` provides a country-level governance benchmark. It is context, not evidence about Carney's individual arrangements.
   - `Globe and Mail — ethics filing` and `CBC — financial assets` provide context/reporting corroboration on disclosure background and public asset visibility.
 
 - **Gaps**

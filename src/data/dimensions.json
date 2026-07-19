@@ -141,7 +141,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-30",
+    "lastUpdated": "2026-07-19",
     "metrics": [
       {
         "label": "NATO spending (2025e)",
@@ -275,9 +275,9 @@
         "text": "$5B Trade Diversification Corridors Fund",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Announced in Budget 2025. Fund structure being designed. No disbursements yet.",
-        "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap4-en.html",
-        "originalSourceLabel": "Budget 2025 Ch.4",
+        "evidence": "Budget 2025 provided $5B over seven years. Transport Canada opened three funding streams in March 2026. The cited official pages do not identify project payments.",
+        "originalSourceUrl": "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
+        "originalSourceLabel": "Budget 2025 Ch.2",
         "durability": "Program",
         "history": [
           {
@@ -286,8 +286,8 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "statusSourceLabel": "Budget 2025 - Annex 1 Policy Measures"
+        "statusSourceUrl": "https://www.canada.ca/en/transport-canada/news/2026/03/government-of-canada-launches-calls-for-proposals-for-the-5-billion-trade-diversification-corridors-fund-and-the-1-billion-arctic-infrastructure-fund.html",
+        "statusSourceLabel": "Transport Canada - TDCF calls for proposals"
       },
       {
         "text": "Buy Canadian procurement strategy",
@@ -1316,7 +1316,7 @@
           "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
           "additionalSources": [
             {
-              "label": "CSLS - Canadian Productivity Review",
+              "label": "CSLS Research Report 2025-04",
               "url": "https://www.csls.ca/reports/csls2025-04.pdf",
               "role": "Independent productivity-trend analysis. CSLS publishes the reference Canadian productivity research and is cited across the political spectrum."
             },
@@ -1341,7 +1341,7 @@
           "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
           "additionalSources": [
             {
-              "label": "CSLS - Canadian Productivity Review",
+              "label": "CSLS Research Report 2025-04",
               "url": "https://www.csls.ca/reports/csls2025-04.pdf",
               "role": "Independent confirmation of productivity-trend deterioration."
             },
@@ -1405,8 +1405,8 @@
         "dateKind": "published"
       },
       {
-        "label": "Centre for the Study of Living Standards - Canadian Productivity Review",
-        "url": "http://www.csls.ca/ipm.asp",
+        "label": "Centre for the Study of Living Standards - Research Report 2025-04",
+        "url": "https://csls.ca/research/can-a-lack-of-pro-productivity-policies-explain-the-secular-decline-in-canadas-productivity-growth/",
         "date": "2025-11",
         "dateKind": "published"
       },
@@ -2828,10 +2828,10 @@
     "grade": "D",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Federal housing programs are not yet big enough to meet the need. Build Canada Homes is now legislated, but announced homes have still not started construction, and housing starts are running below the pace needed to close the gap (the shortfall).",
+    "status": "Federal housing programs are still too small to meet the need. The Build Canada Homes Act is now law, but construction has not started on the announced homes. Housing starts also remain below the pace needed to close the shortfall.",
     "verdictLine": "Federal housing programs are not yet big enough, and announced homes have not started construction.",
-    "judgmentCall": "The low grade is based on actual housing starts and program size. Announced homes count only once construction begins or there is binding delivery, meaning a signed or legally committed path to delivery, not just an announcement.",
-    "judgmentDetail": "The D grade measures the federal part of the housing response against three things: actual housing starts, how big the programs are, and binding delivery (a signed or legally committed path to delivery). The editor's judgment comes in two places. First, it gives Build Canada Homes some early credit for being in motion but still will not count announced homes as built homes. Second, it separates what the federal government does from what provinces, cities, and the market do.",
+    "judgmentCall": "The low grade rests on actual housing starts and the size of federal programs. Announced homes count only when construction starts or there is a signed or legally committed path to delivery. An announcement alone does not count.",
+    "judgmentDetail": "The D grade looks at three things: actual housing starts, program size, and binding delivery, meaning a signed or legally committed path to delivery. The editor gives Build Canada Homes some early credit for moving forward, but does not count announced homes as built homes. The editor also separates federal action from what provinces, cities, and the market control.",
     "surfaceTags": [
       "Shared-jurisdiction topic (federal, provincial, and municipal governments all share control)",
       "Long-lag topic (results take years to show up)"
@@ -2917,7 +2917,7 @@
         }
       ]
     },
-    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes is on firmer legal footing after Royal Assent for the Build Canada Homes Act, but construction is not yet underway, against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier (development charges) but is spread over a decade, and the June DCRP application opening still leaves funding conditional on later agreements, approvals, and disbursement. CMHC's May 2026 release shows the six-month starts trend at 258,010 and the monthly SAAR (seasonally adjusted annual rate) at 261,377. Because CMHC uses the trend measure to smooth volatile monthly SAAR readings, the dashboard reads the trend rather than any one-month swing by itself. Federal housing spending still declines 56% by 2028-29, and Policy Options notes supply alone will not solve the structural affordability problem.",
+    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes is on firmer legal footing after Royal Assent for the Build Canada Homes Act, but construction is not yet underway against a shortfall of hundreds of thousands. The Ontario partnership ($8.8B) targets a real barrier, development charges, but is spread over a decade. The June DCRP process still leaves funding conditional on later agreements, approvals, and disbursement. CMHC's May 2026 release shows the six-month starts trend at 258,010 and the monthly SAAR (seasonally adjusted annual rate) at 261,377. CMHC uses the trend measure to smooth volatile monthly SAAR readings, so the dashboard reads the trend rather than any one-month swing by itself. Federal housing spending still declines 56% by 2028-29. Policy Options notes that supply alone will not solve the structural affordability problem.",
     "sources": [
       {
         "label": "PBO - BCH 26,000 units",
@@ -2980,7 +2980,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-07-01",
+    "lastUpdated": "2026-07-19",
     "metrics": [
       {
         "label": "Housing starts (2025)",
@@ -3009,7 +3009,7 @@
             "url": "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
           }
         ],
-        "sourceNote": "CMHC May 2026 release: the six-month trend rose to 258,010 units, the monthly SAAR was 261,377, actual starts in centres of 10,000 or more fell 5.2% year over year to 22,633, and year-to-date actual starts were up 3% to 93,644. The refresh improves the near-term starts read from April but still leaves the file below the dashboard's C-band threshold.",
+        "sourceNote": "CMHC's May 2026 release puts the six-month trend at 258,010 units and the monthly SAAR at 261,377. Actual starts in centres of 10,000 or more fell 5.2% year over year to 22,633, while year-to-date actual starts rose 3% to 93,644. The near-term starts reading improved from April but remains below the dashboard's C-band threshold.",
         "automatable": false
       },
       {
@@ -3125,19 +3125,19 @@
   {
     "id": "ethics-transparency",
     "name": "Ethics & Transparency",
-    "whatThisGrades": "Whether the Prime Minister's ethics setup is strong enough for someone with his money and career history.",
+    "whatThisGrades": "Whether the Prime Minister's ethics safeguards are strong enough for his financial and career background.",
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
     "status": "The ethics setup is missing pieces that a background like his calls for. Nothing wrong has been proven. The gap in what has been disclosed is still open.",
     "verdictLine": "Nothing wrong has been proven, but the ethics setup is missing pieces and the disclosure gap is open.",
-    "judgmentCall": "A middle grade keeps two things apart: the disclosure machinery, meaning the disclosure and screening setup, is incomplete, but no wrongdoing has been proven.",
+    "judgmentCall": "The middle grade separates two findings. The disclosure and screening setup still has gaps, but no wrongdoing has been proven.",
     "judgmentDetail": "The C is about whether the rules are good enough, not whether he did anything wrong. Basic disclosure and an ethics screen (a recusal plan listing decisions he stays out of) keep the grade from going lower. But it is unclear whether disclosure is complete, and the Ethics Commissioner has not published a review of his specific case, so it cannot go higher. The editor's rule: a downgrade needs a formal finding against him or two independent governance critiques first.",
     "surfaceTags": [
       "Whole-letter grade",
       "Medium confidence"
     ],
-    "construct": "Whether the federal ethics setup is good enough when the Prime Minister has a money and career background that calls for more disclosure than usual.",
+    "construct": "Whether the federal ethics setup provides the extra disclosure called for by the Prime Minister's financial and career background.",
     "gradeBasis": {
       "band": "C",
       "bandCriterion": "Three of the five disclosure pieces are in place: a blind trust, the agreed-measure filing (his public statement of the conflict rules he agreed to), and the Annex A conflict-screen scope (the list of decisions he stays out of). The other two are missing: a full public accounting of his holdings, and a published independent review. A piece counts as present only when the matching public document can actually be looked at, using the checks listed below.",
@@ -3241,7 +3241,7 @@
         }
       ]
     },
-    "rationale": "No public evidence shows he steered decisions to benefit himself. This dimension grades whether the Prime Minister's ethics setup is good enough when his money and career background calls for more disclosure than usual. The setup is judged as one whole thing: how complete the disclosure is, the recusal screen, and independent review. Carney held about $6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch calls the ethics screen \"loophole-filled,\" and the House Ethics Committee (ETHI) review of the Conflict of Interest Act in 2026 recommended stronger public reporting and binding directions for conflict-of-interest screens. For a Prime Minister with a background like his, the standard should include a full public accounting reviewed by an independent body.",
+    "rationale": "No public evidence shows he steered decisions to benefit himself. This dimension grades whether the Prime Minister's ethics setup provides the extra disclosure called for by his financial and career background. It looks at the completeness of the disclosure, the recusal screen, and independent review. Carney held about $6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch calls the ethics screen \"loophole-filled.\" The House Ethics Committee's 2026 review of the Conflict of Interest Act recommended stronger public reporting and binding directions for conflict-of-interest screens. For a Prime Minister with a background like his, the standard should include a full public accounting reviewed by an independent body.",
     "sources": [
       {
         "label": "Globe and Mail - ethics filing",
@@ -3263,7 +3263,7 @@
       },
       {
         "label": "House ETHI report - Review of the Conflict of Interest Act",
-        "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96",
+        "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5",
         "date": "2026-04",
         "dateKind": "published"
       },
@@ -3287,12 +3287,12 @@
       },
       {
         "label": "Transparency International Canada - Canada's CPI ranking",
-        "url": "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption",
-        "date": "2025-02",
+        "url": "https://transparencycanada.ca/s/2024-CPI-TI-Canada-Statement-EN.pdf",
+        "date": "2025-02-11",
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-05",
+    "lastUpdated": "2026-07-19",
     "metrics": [
       {
         "label": "Ethics Commissioner review",
@@ -3340,8 +3340,8 @@
         "sourceRefs": [
           {
             "label": "House ETHI report - Review of the Conflict of Interest Act",
-            "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5/page-96",
-            "role": "Family-6 parliamentary critique. The Standing Committee on Access to Information, Privacy and Ethics report presented 2025-11-28 reviews the Conflict of Interest Act and addresses the PM's conflict screen with named recommendations for stronger public reporting."
+            "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5",
+            "role": "Family-6 parliamentary critique. The Standing Committee on Access to Information, Privacy and Ethics report, presented April 23, 2026, reviews the Conflict of Interest Act and addresses the PM's conflict screen with named recommendations for stronger public reporting."
           },
           {
             "label": "Democracy Watch - PM Carney's ethics screen and blind trust critique",
@@ -3350,11 +3350,11 @@
           },
           {
             "label": "Transparency International Canada - Canada's CPI ranking",
-            "url": "https://transparencycanada.ca/news/canada-slides-to-lowest-ever-ranking-in-corruption-perception-index-le-canada-descend-au-plus-bas-niveau-de-son-histoire-en-matire-de-perception-de-la-corruption",
+            "url": "https://transparencycanada.ca/s/2024-CPI-TI-Canada-Statement-EN.pdf",
             "role": "International benchmark. The Corruption Perceptions Index ranks 180 countries on perceived public-sector corruption; Canada's drop to its lowest-ever 15th-place rank gives an international point of comparison for federal governance quality."
           }
         ],
-        "sourceNote": "The House ETHI committee's 2025 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review. Democracy Watch carries the independent watchdog critique on the same screen. Transparency International Canada's CPI ranking gives the international benchmark for federal governance quality. The ETHI committee report is family-6 parliamentary critique (independent challenge), not family-5 procedural - note that the dashboard's source schema does not currently carry a per-source family field; the bias-audit script infers family from labels and URLs."
+        "sourceNote": "The House ETHI committee's April 2026 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review. Democracy Watch carries the independent watchdog critique on the same screen. Transparency International Canada's CPI ranking gives the international benchmark for federal governance quality. The ETHI committee report is family-6 parliamentary critique (independent challenge), not family-5 procedural. The dashboard's source schema does not currently carry a per-source family field, so the bias-audit script infers family from labels and URLs."
       }
     ],
     "promises": [
@@ -3693,10 +3693,10 @@
   {
     "id": "promise-delivery",
     "name": "Promise Delivery",
-    "whatThisGrades": "A running tracker of specific things the government promised to do. Each one is marked delivered, in progress, stalled, or abandoned.",
+    "whatThisGrades": "A running tracker of specific things the government promised to do. Each one is marked delivered, in progress, too early to judge, stalled, or abandoned.",
     "informationalGrade": "C+",
     "trend": "stable",
-    "status": "Fiscal-anchor delivery, meaning progress against the government's own budget rules, is back in progress, but housing and climate promises still fall short.",
+    "status": "Of 43 tracked promises, 14 are delivered, 16 are in progress, 4 are too early to judge, 6 are stalled, and 3 are abandoned.",
     "surfaceTags": [
       "Derivative tracker",
       "Tracker only"
@@ -3777,7 +3777,7 @@
         }
       ]
     },
-    "rationale": "This tracker counts specific promises, not whether the same policy choices were wise. Several are delivered or now back in progress after the Spring Economic Update and the Parliamentary Budget Officer's (PBO) fiscal-anchor assessment. But housing targets have been scaled back, climate promises were mostly reversed instead of delivered, and the pattern across domestic areas stays mixed.",
+    "rationale": "This tracker counts whether specific promises were kept, not whether the policies themselves were wise. Several promises were delivered or returned to In Progress after the Spring Economic Update and the Parliamentary Budget Officer's (PBO) assessment of the fiscal anchors. Housing targets have been scaled back, most climate promises were reversed rather than delivered, and delivery across domestic policy areas remains mixed.",
     "sources": [
       {
         "label": "Canada Strong - Liberal Party 2025 platform",
@@ -3816,7 +3816,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-13",
+    "lastUpdated": "2026-07-19",
     "metrics": [
       {
         "label": "Key commitments delivered",
@@ -3888,7 +3888,7 @@
         "text": "Immigration reduction",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "PR targets cut to 380,000. Temp arrivals down 53% (Jan-Sep 2025 vs 2024). Population declined by 102,436 in 2025 (StatsCan, preliminary).",
+        "evidence": "Permanent-resident targets were cut to 380,000. Temporary-resident arrivals fell 53% from January to September 2025 compared with the same period in 2024. Statistics Canada's preliminary estimate shows the population fell by 102,436 in 2025.",
         "originalSourceUrl": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html",
         "originalSourceLabel": "IRCC 2026-2028 levels plan",
         "statusSourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
@@ -3924,7 +3924,7 @@
         "text": "Emissions cap",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "Scrapped via the Carney-Smith MOU (Nov 27, 2025); proposed regulations were never finalized and the government concluded the cap was 'no longer required.' Guilbeault resigned from cabinet over the pipeline MOU.",
+        "evidence": "The Carney-Smith MOU ended the proposed cap on November 27, 2025. The regulations were never finalized, and the government said the cap was 'no longer required.' Guilbeault resigned from cabinet over the pipeline MOU.",
         "durability": "Commitment",
         "history": [
           {
@@ -3960,7 +3960,7 @@
         "text": "2 Billion Trees (wound down)",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "New commitments wound down; existing agreements honoured. Tangential connection to trade-war justification.",
+        "evidence": "New commitments were wound down, while existing agreements were honoured. The connection to the trade-war justification is limited.",
         "durability": "Legislated",
         "history": [
           {
@@ -3977,7 +3977,7 @@
     ],
     "perspectives": {
       "critics": "NDP and environmental groups: the climate rollbacks (emissions cap, EV mandate, tree planting) are abandoned commitments dressed as pragmatism. Several have no connection to trade competitiveness. Housing targets have been quietly scaled back. Rhetoric consistently outpaces results.",
-      "defenders": "Fraser Institute acknowledges the consumer carbon tax elimination, capital gains reversal, immigration correction, and interprovincial reform as genuine steps in the right direction. Defence delivery is real and verified by NATO. About half the reversals are supported across the political spectrum."
+      "defenders": "Fraser Institute acknowledges the consumer carbon tax elimination, capital gains reversal, immigration correction, and interprovincial reform as genuine steps in the right direction. Defence delivery is supported by NATO reporting. About half the reversals are supported across the political spectrum."
     },
     "tags": {
       "confidence": "Medium",

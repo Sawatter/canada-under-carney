@@ -191,6 +191,7 @@ export default function Dashboard() {
     setTheme((current) => (current === "light" ? "dark" : current === "dark" ? "system" : "light"));
   }, []);
   const anchorRequestIdRef = useRef(0);
+  const detailRequestIdRef = useRef(0);
   const anchorTargetRef = useRef(null);
   const expandedRef = useRef(null);
   // Ownership flag for the drawer's #dim-<id> history entry. Named for its
@@ -390,9 +391,12 @@ export default function Dashboard() {
   }, [expanded, fullDimensions, requestAnchorNavigation]);
 
   const retryDimensionDetails = useCallback(() => {
+    const requestId = detailRequestIdRef.current + 1;
+    detailRequestIdRef.current = requestId;
     setDetailLoadStatus("loading");
     retryDimensionsLoad().then(
       (loadedDimensions) => {
+        if (detailRequestIdRef.current !== requestId) return;
         setFullDimensions(loadedDimensions);
         setDetailLoadStatus("ready");
 
@@ -401,7 +405,9 @@ export default function Dashboard() {
           requestAnchorNavigation(target);
         }
       },
-      () => setDetailLoadStatus("error"),
+      () => {
+        if (detailRequestIdRef.current === requestId) setDetailLoadStatus("error");
+      },
     );
   }, [requestAnchorNavigation]);
 
@@ -1288,10 +1294,10 @@ export default function Dashboard() {
             >
               Promise Delivery is a running count of the government&rsquo;s
               specific commitments: how many are delivered, in progress,
-              stalled, or abandoned. Tracked here for accountability but
-              kept separate from the 11 performance grades, because the
-              same events are already scored inside those grades. The
-              number beside the card is delivered / total.
+              too early to judge, stalled, or abandoned. Tracked here for
+              accountability but kept separate from the 11 performance
+              grades, because the same events are already scored inside
+              those grades. The number beside the card is delivered / total.
             </div>
             <div
               id="accountability-tracker-grid"

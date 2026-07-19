@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-07-19",
+    "version": "5.157",
+    "summary": "Closed the v5.156 cross-AI follow-up, kept keyboard focus inside delayed policy drawers, finished three held readability edits, and corrected source links before the August cycle. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Delayed policy details keep keyboard focus",
+        "body": "When policy details replace the loading panel, focus now moves into the loaded drawer instead of falling back to the page. Retry callbacks ignore older requests, and desktop and mobile browser tests cover the delayed response."
+      },
+      {
+        "type": "product",
+        "headline": "Held readability work finished",
+        "body": "Housing, Ethics, and Promise Delivery now use shorter explanations without changing their grades, thresholds, triggers, modifiers, or promise statuses. The About page also links directly to the continuity plan."
+      },
+      {
+        "type": "fix",
+        "headline": "August source pointers corrected",
+        "body": "The Trade Diversification Corridors Fund now points to Budget 2025 Chapter 2 and Transport Canada's launch. The CSLS citation names Research Report 2025-04, the ETHI report date is corrected to April 2026, and the source register adds House ETHI and Transparency International Canada."
+      },
+      {
+        "type": "docs",
+        "headline": "Housing disbursement hold refreshed",
+        "body": "The July 19 official-page check found no signed Canada-Ontario agreement, completed DCRP project approval, signed Toronto transfer-payment agreement, first payment, or DCRP construction evidence. This dated absence keeps the trigger off but is not proof that no unpublished step exists."
+      },
+      {
+        "type": "docs",
+        "headline": "Frozen decisions separated from safe fixes",
+        "body": "Economic Policy, Defence and Trade, and Ethics now have exact editor-decision options in the review record. No frozen scoring surface was changed in this release."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-19",
     "version": "5.156",
     "summary": "Cut the first-load code by loading policy detail only when needed, repaired four Back and deep-link cases, and corrected wording that changed technical meaning. No scores or scoring rules changed.",
     "items": [

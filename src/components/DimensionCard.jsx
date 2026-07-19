@@ -1265,6 +1265,26 @@ export default function DimensionCard({
     };
   }, [dim.id, isExpanded, isFocusedDesktop, isMobileDialog]);
 
+  useEffect(() => {
+    if (!isExpanded || detailStatus !== "ready") return undefined;
+    if (!isMobileDialog && !isFocusedDesktop) return undefined;
+
+    const anchorTarget = anchorTargetRef.current;
+    const hasPendingSectionTarget = anchorTarget
+      && targetBelongsToDimension(anchorTarget, dim.id)
+      && getSectionKeysForTargetRef.current(anchorTarget).length > 0;
+    if (hasPendingSectionTarget) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      const drawer = drawerRef.current;
+      if (drawer && !drawer.contains(document.activeElement)) {
+        drawer.focus({ preventScroll: true });
+      }
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [detailStatus, dim.id, isExpanded, isFocusedDesktop, isMobileDialog]);
+
   useLayoutEffect(() => {
     if (!isExpanded) return undefined;
 

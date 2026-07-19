@@ -64,18 +64,18 @@ These four areas count twice as much in Household Impact. The other seven still 
 
 ## Source Balance
 
-This is a source-type rollup, not a formal left/right scorecard. As of 2026-07-02 the register counts 40 source families across the graded dimensions (16 official / administrative / institutional, 24 non-official) plus 5 polling families tracked for the Approval Signal outside the grades. The canonical per-source-family record (institution type, ownership / funding, editorial independence, best-use boundary, trust flags) is the [Source Characterization Register](docs/Source-Characterization-Register.md); its category summary is the count of record, and the rollup below is derived from it.
+This is a source-type rollup, not a formal left/right scorecard. As of 2026-07-19 the register counts 42 source families across the graded dimensions (17 official / administrative / institutional, 25 non-official) plus 5 polling families tracked for the Approval Signal outside the grades. The canonical per-source-family record (institution type, ownership / funding, editorial independence, best-use boundary, trust flags) is the [Source Characterization Register](docs/Source-Characterization-Register.md); its category summary is the count of record, and the rollup below is derived from it.
 
 | Institution type | Families |
 |---|---|
-| Official / administrative / institutional (statistical, departmental, parliamentary, regulatory, international) | 16 |
+| Official / administrative / institutional (statistical, departmental, parliamentary, regulatory, international) | 17 |
 | Policy institutes and commentary platforms | 7 |
 | News media (public broadcaster, mainstream newspaper, issue-focused nonprofit journalism) | 4 |
 | Industry (trade associations, code governance, bank economics) | 4 |
 | Academic research | 3 |
 | Independent nonprofit economic research | 2 |
 | Charitable sector | 2 |
-| Watchdog / advocacy | 1 |
+| Watchdog / advocacy | 2 |
 | Polling within the graded dimensions | 1 |
 | Approval Signal pollsters (tracked outside the grades) | 5 |
 

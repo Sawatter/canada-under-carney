@@ -576,7 +576,16 @@ export default function About({ onReady }) {
               docs/
             </a>{" "}
             (e.g., <code style={{ fontFamily: "monospace", fontSize: "12px" }}>Bias-Resistance-Cycle-2026-05-Closure.md</code>) capture the
-            arc of what changed.
+            arc of what changed. The{" "}
+            <a
+              href="https://github.com/Sawatter/canada-under-carney/blob/main/docs/Continuity-Plan.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "#1565c0" }}
+            >
+              continuity plan
+            </a>{" "}
+            explains what happens if the single-editor project stops updating.
           </div>
         </div>
 

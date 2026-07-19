@@ -476,6 +476,7 @@ const quarterlyRows = [
   ["Paris Agreement status", "Climate & Environment", "https://treaties.un.org/", "Quarterly", "", "", "", "Formal commitment-status movement."],
   ["Democracy Watch", "Ethics & Transparency", "https://democracywatch.ca/", "Quarterly", "", "", "", "New independent critique, review, or disclosure finding."],
   ["House ETHI", "Ethics & Transparency", "https://www.ourcommons.ca/Committees/en/ETHI", "Quarterly", "", "", "", "New committee report or hearing relevant to disclosure / screening."],
+  ["Transparency International Canada", "Ethics & Transparency", "https://transparencycanada.ca/", "Quarterly", "", "", "", "New CPI release or governance analysis relevant to the federal benchmark; not case-specific evidence by itself."],
   ["Major ethics reporting", "Ethics & Transparency", "CBC / Globe / other major reporting", "Quarterly", "", "", "", "New sourced reporting relevant to disclosure / screening."],
   ["C.D. Howe", "Independent challenge / context", "https://www.cdhowe.org/", "Quarterly", "", "", "", "New analysis affecting source balance or cited context."],
   ["Fraser Institute", "Independent challenge / context", "https://www.fraserinstitute.org/", "Quarterly", "", "", "", "New analysis affecting source balance or cited context."],

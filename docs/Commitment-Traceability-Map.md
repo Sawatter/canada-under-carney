@@ -946,15 +946,15 @@ The CTM must **not**:
 - **commitment_id:** `DEFTRADE-003`
 - **commitment_text:** "$5B Trade Diversification Corridors Fund"
 - **source_type:** campaign platform; budget (Budget 2025)
-- **source_document:** [Budget 2025 Ch.4](https://budget.canada.ca/2025/report-rapport/chap4-en.html) *(in Defence & Trade `sources` array)*.
+- **source_document:** [Budget 2025 Ch.2](https://budget.canada.ca/2025/report-rapport/chap2-en.html) and [Transport Canada's March 2026 call for proposals](https://www.canada.ca/en/transport-canada/news/2026/03/government-of-canada-launches-calls-for-proposals-for-the-5-billion-trade-diversification-corridors-fund-and-the-1-billion-arctic-infrastructure-fund.html).
 - **durability:** Program *(live tag matches PCR tier)*.
 - **home_dimension:** Defence & Trade — **trade leg**
 - **promise_tracker_entry:** Defence & Trade `promises[2]`; status In Progress.
 - **construct_tested:** [CSS:515](Canonical-Scoring-Sheets.md) construct — **trade-diversification** leg.
 - **primary_indicators:** Non-US export growth rate; EU/CETA-region export growth *(per [CSS:523](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
-  - **Policy (required):** Budget 2025 Ch.4 fund announcement [QA T1]
-  - **Execution (required):** fund structure design and first disbursements (not yet disbursed)
+  - **Policy (required):** Budget 2025 Ch.2 fund announcement [QA T1]
+  - **Execution (required):** Transport Canada opened three funding streams in March 2026; first project payments have not been identified in the cited official pages
   - **Measurement (required, future):** disbursement data and attributable non-US trade growth
   - **Independent challenge (optional):** trade-policy analysis on corridor selection and private-sector uptake
 - **deconfliction_notes:** Trade diversification metrics primary-homed in Defence & Trade; blocked from Economic Policy Response.

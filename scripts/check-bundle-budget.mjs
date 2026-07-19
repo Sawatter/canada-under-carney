@@ -65,6 +65,15 @@ const initialSource = [...initialKeys]
   .map((record) => readFileSync(path.join(distDir, record.file), "utf8"))
   .join("\n");
 
+function normalizeSentinelText(value) {
+  return value
+    .replace(/\\u\{([0-9a-f]+)\}|\\u([0-9a-f]{4})/gi, (_, codePoint, codeUnit) => (
+      String.fromCodePoint(Number.parseInt(codePoint || codeUnit, 16))
+    ))
+    .normalize("NFKD")
+    .replace(/[^\x20-\x7e]/g, "");
+}
+
 const errors = [];
 const canonicalDimensions = JSON.parse(readFileSync(canonicalDimensionsPath, "utf8"));
 const canonicalJson = JSON.stringify(canonicalDimensions);
@@ -91,8 +100,11 @@ if (dimensionsAssets.length !== 1) {
 const detailSentinels = canonicalDimensions.flatMap((dimension) => [
   dimension.judgmentDetail,
   dimension.rationale,
-]).filter((value) => typeof value === "string" && value.length >= 200);
-const embeddedDetail = detailSentinels.find((value) => initialSource.includes(value));
+])
+  .filter((value) => typeof value === "string" && value.length >= 200)
+  .map(normalizeSentinelText);
+const normalizedInitialSource = normalizeSentinelText(initialSource);
+const embeddedDetail = detailSentinels.find((value) => normalizedInitialSource.includes(value));
 if (embeddedDetail) {
   errors.push("canonical dimension detail is embedded in the initial JS graph");
 }

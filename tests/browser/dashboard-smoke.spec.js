@@ -151,6 +151,12 @@ test.describe("dashboard route matrix", () => {
         if (key === "scorecard") {
           await expectHeaderBadgeClear(page);
         }
+        if (key === "about") {
+          await expect(page.getByRole("link", { name: "continuity plan" })).toHaveAttribute(
+            "href",
+            "https://github.com/Sawatter/canada-under-carney/blob/main/docs/Continuity-Plan.md",
+          );
+        }
         await expectActiveNav(page, label);
         await expectNoOverflow(page);
 
@@ -708,6 +714,27 @@ test.describe("v5.155 deferred route integrity", () => {
       .toBe("dim-major-projects-sources-button");
     expect(consoleErrors).toEqual([]);
   });
+
+  for (const viewport of [
+    { name: "desktop", width: 1280, height: 900 },
+    { name: "mobile", width: 375, height: 812 },
+  ]) {
+    test(`a delayed policy-detail load keeps focus inside the ${viewport.name} drawer`, async ({ page }) => {
+      await page.route("**/assets/dimensions-*.json", async (route) => {
+        const response = await route.fetch();
+        await new Promise((resolve) => setTimeout(resolve, 750));
+        await route.fulfill({ response });
+      });
+      await page.setViewportSize({ width: viewport.width, height: viewport.height });
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+
+      await page.locator(".dim-card-header-button").first().click();
+      await expect(page.locator(".dim-evidence-panel")).toBeVisible();
+      await expect.poll(async () => page.evaluate(() => (
+        document.activeElement?.classList.contains("dim-drawer") || false
+      ))).toBe(true);
+    });
+  }
 
   test("a failed policy-detail request stays contained and can retry", async ({ page }) => {
     const dimensionsPattern = "**/assets/dimensions-*.json";
