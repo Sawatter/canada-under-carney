@@ -93,3 +93,11 @@ This release does not change edge gestures, pull-to-refresh handling, forced-col
 10. Desktop and mobile inspection of Defence & Trade, Economic Policy Response, Ethics & Transparency, the headline score cards, and the Change Log
 11. Scoped Claude adversarial review with an explicit verdict, or an explicit editor release exception if external-transfer policy makes the review impossible
 12. Staged diff check, identity scans, scope guard, commit, push, Pages verification, and live version check
+
+## Release Outcome
+
+v5.159 was committed as `01cfb8c` and pushed to `main` on 2026-07-21. GitHub Pages run `29862076550` passed its review-handoff, build, 141-test browser, and deploy jobs on attempt 2. Attempt 1 was cancelled after its Chromium installation step stalled for more than six minutes; the same step completed normally on the fresh runner, with no code change between attempts.
+
+The production header reports v5.159 dated 2026-07-21. Desktop and 375-by-812 mobile inspection confirmed the Defence and Trade arithmetic and stacked sub-score ladders, the Economic C correction with a declining trend, the Ethics four-of-five disclosure result and exact registry links, and the v5.159 Change Log entry. The production coverage audit recorded 530 passes and zero issues.
+
+The local release tree also passed `npm run test:data`, the bias-resistance audit, `npm run test:review-handoff`, shell syntax, workflow-YAML parsing, lint with zero errors and 327 existing warnings, `npm run build`, the 53-check app-shell contract, the 141-test browser matrix, and the 530-row local coverage audit. The frozen aggregate formula, grade-point mapping, weights, penalty formulas, dimension model, and `history.json` remained unchanged.
