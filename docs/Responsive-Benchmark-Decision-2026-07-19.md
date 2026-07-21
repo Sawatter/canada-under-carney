@@ -1,9 +1,10 @@
 # Responsive Benchmark Decision
 
-**Status:** Cross-AI review passed; physical checks explicitly excepted on 2026-07-20 for this session; publication remains an editor action<br>
+**Status:** Live as v5.158; cross-AI review passed; physical checks explicitly excepted on 2026-07-20<br>
 **Prepared:** 2026-07-19<br>
 **Dashboard baseline:** live v5.157<br>
-**Local review state:** `codex/july-1-cycle-prep` at `997cacf`<br>
+**Release commit:** `3f8d988` on `main`<br>
+**Production:** Pages run `29842717231` passed on 2026-07-21; live header reports v5.158<br>
 **Frozen surfaces:** no grade, threshold, formula, weight, modifier, promise
 status, trigger, or dimension-model change
 
@@ -223,8 +224,8 @@ those environments were unavailable here, the three manual checks were
 - Android pull-to-refresh
 - Windows forced-colors
 
-The exception closes the local release gate for this session. It does not turn
-those three checks into completed hardware verification, and it does not
+The exception closed the local release gate for that session. It does not turn
+those three checks into completed hardware verification, and it did not itself
 publish the release.
 
 ## Verification Record
@@ -239,6 +240,9 @@ publish the release.
 - In-app browser: checked at `375x812` and `1280x900`; the `640/641` boundary,
   jump focus, disclosure states, light and dark surfaces, and horizontal
   overflow matched the contract.
+- GitHub Pages run `29842717231`: build, 138-test browser, and deploy jobs passed.
+- Production in-app browser check on 2026-07-21: the sidebar and header reported
+  v5.158, the grade jump was present, and the desktop status facts remained open.
 - Physical iOS gestures, Android pull-to-refresh, and Windows forced-colors
   were explicitly excepted on 2026-07-20 because this session lacked those
   device/browser environments.
