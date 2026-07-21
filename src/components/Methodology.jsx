@@ -412,7 +412,9 @@ export default function Methodology({ onReady }) {
             . A grade reflects performance against the criteria for that
             policy area, not against an absolute scale. Defence &amp; Trade is
             A- because NATO 2.01% met the published 2% threshold and trade
-            diversification crossed published grade-move conditions. Affordability Response
+            diversification met its separate trade condition. Defence and Trade
+            are whole-letter sub-scores with equal weight; their grade points are
+            averaged and the standard headline cutoffs are applied. Affordability Response
             is D- because federal relief measures cover less than 20% of
             household cost pressure relative to its published criterion.
             Different criteria, different grades.
@@ -452,9 +454,10 @@ export default function Methodology({ onReady }) {
               src/data/dimensions.json
             </code>{" "}
             with the specific evidence required. These conditions were committed in
-            advance of scoring and can be inspected per policy area. The
-            scorecard panel for each policy area shows them under &quot;What
-            would move this grade.&quot;
+            advance of scoring and can be inspected per policy area. For the mixed
+            Defence &amp; Trade file, a trigger prompts review of the named sub-score;
+            it does not override the equal-weight headline calculation. The
+            scorecard panel shows the applicable conditions for each policy area.
           </p>
         </div>
 

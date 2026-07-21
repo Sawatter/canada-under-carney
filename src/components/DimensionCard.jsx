@@ -728,6 +728,7 @@ export default function DimensionCard({
   const hasProjects = !!(cohort && cohort.projects && cohort.projects.length > 0);
   const hasPromises = !!(dim.promises && dim.promises.length > 0);
   const hasTrackerTriggers = isTracker && !!dim.gradeTriggers;
+  const triggerPresentation = dim.gradeTriggers?.presentation || {};
   const hasPerspectives = !!dim.perspectives;
   const hasScopeContext = keyContextItems.length > 0 || !!dim.scope || !!dim.inherited;
 
@@ -2128,8 +2129,8 @@ export default function DimensionCard({
             {showTriggers && !hasTrackerTriggers && (
               <DisclosureSection
                 id={`dim-${dim.id}-triggers-section`}
-                title="What would change this grade"
-                summary="up and down triggers"
+                title={triggerPresentation.title || "What would change this grade"}
+                summary={triggerPresentation.summary || "up and down triggers"}
                 isOpen={!!openSections.triggers}
                 onToggle={() => toggleSection("triggers")}
                 region
@@ -2143,8 +2144,8 @@ export default function DimensionCard({
                     down={dim.gradeTriggers.down}
                     renderTriggerItem={renderTriggerItem}
                     keyPrefix="grade"
-                    upLabel="Up one step"
-                    downLabel="Down one step"
+                    upLabel={triggerPresentation.upLabel || "Up one step"}
+                    downLabel={triggerPresentation.downLabel || "Down one step"}
                   />
                 ) : (
                   <div>{dim.nextTrigger}</div>
@@ -2412,13 +2413,35 @@ export default function DimensionCard({
                 variant="neutral"
                 instantOpen={isInstantOpenSection("subScores")}
               >
+                {scoring?.subScoreRule && (
+                  <div className="dim-note-box dim-subscore-rule">
+                    <div><strong>Evaluation order:</strong> {scoring.subScoreRule.evaluationOrder}</div>
+                    <div><strong>Headline calculation:</strong> {scoring.subScoreRule.combination}</div>
+                    <div><strong>Current:</strong> {scoring.subScoreRule.currentCalculation}</div>
+                  </div>
+                )}
                 <div className="dim-subscore-cards">
                   {Object.values(dim.subScores).map((sub, i) => (
                     <div key={i} className="dim-subscore-card">
                       <div className="dim-subscore-card-title">{sub.label}</div>
                       <div className="dim-subscore-card-body">
-                        <GradeChip grade={sub.grade} size="sm" />
-                        <span>{sub.rationale}</span>
+                        <div className="dim-subscore-current">
+                          <GradeChip grade={sub.grade} size="sm" />
+                          <span>{sub.rationale}</span>
+                        </div>
+                        {sub.thresholds?.length > 0 && (
+                          <div className="dim-subscore-thresholds">
+                            {sub.thresholds.map((threshold) => (
+                              <div
+                                key={threshold.grade}
+                                className={`dim-threshold-row ${threshold.grade === sub.grade ? "dim-threshold-row-active" : ""}`}
+                              >
+                                <span>{threshold.grade}</span>
+                                <p>{threshold.criteria}</p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
                       </div>
                     </div>
                   ))}

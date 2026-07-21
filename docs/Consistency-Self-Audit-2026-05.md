@@ -2,7 +2,7 @@
 
 Purpose: test whether the dashboard applies the same kind of scoring logic across all live dimensions, not whether every reader will agree with every criterion.
 
-Status: internal methodology audit prompted by Reddit feedback. This is a scoring-governance artifact, not a grade change by itself.
+Status: internal methodology audit prompted by Reddit feedback. This is a scoring-governance artifact, not a grade change by itself. Current-state rows were reconciled to the July 21, 2026 frozen-rule adjudication.
 
 ## Audit standard
 
@@ -19,10 +19,10 @@ Working product rule after the Reddit pass:
 
 | Dimension | Grade | What moves it up | What moves it down | Trigger style | Consistency read |
 |---|---|---|---|---|---|
-| Defence & Trade | A- | Funded 3.5% defence path; US export share drops below 68% | NATO spending falls below 2%; US share rises above 73% | Mixed milestone + outcome | **Outlier.** Two constructs with very different evidence shapes sit in one grade. |
+| Defence & Trade | A- | Trade's annual non-US export-share gain reaches roughly 5 points and holds | Defence falls below 2%; Trade no longer meets the 1-to-5-point gain plus execution condition | Named whole-letter sub-score review | **Outlier.** Two constructs with different evidence shapes sit in one equal-weight headline, but both sub-scores and the arithmetic are visible. |
 | Major Projects | C | >=30% of cohort shows documented post-designation advancement; first full MPO cycle; first use of designation power | Project withdrawal; cohort reverses; framework bypassed | Cohort-progress / implementation | Structurally coherent now, but uses a different cohort ladder than most files. |
 | Fiscal Health | C | Deficit falls below 2% of GDP while PBO keeps anchors on track; rating / fiscal-risk caveats removed | PBO no longer sees anchors as on track; actual downgrade or deficit > $90B without revenue | Threshold + external validation | Consistent. Up/down logic is symmetric and evidence-based. |
-| Economic Policy Response | D | AI compute fund actually disburses; business investment turns positive for 2+ quarters | More major announcements without authorization; investment decline worsens | Execution + quarterly outcome | Mostly consistent. Execution threshold is clear, but permitting remains thinner than other lever checks. |
+| Economic Policy Response | C | At least two levers stay authorized or executing, at least one stays in execution, and investment stops declining for 2 quarters | Authorized-or-executing lever count falls below two | Action count + quarterly outcome | Mostly consistent. The action floor is controlling while Timing Fairness applies, but permitting remains thinner than other lever checks. |
 | Affordability Response | D- | New funded benefit > $500/household; mandatory grocery measure enacted | Food CPI > 7%; benefit expires; food insecurity > 12M | Relief-scale + household-pressure thresholds | Consistent, though the benefit trigger is more program-specific than some other files. |
 | Carbon Pricing Policy | C | Effective industrial price rises above $40/t; border adjustment plan announced | Effective price falls below $15/t; industrial pricing elimination announced | Instrument-strength threshold | Consistent and one of the cleanest files. |
 | Climate & Environment | D | Funded replacement strategy published; ECCC budget restored | Paris withdrawal; additional program eliminations | Framework coherence / reversal | Consistent. Clear framework-based trigger logic. |
@@ -63,9 +63,9 @@ This remains the biggest consistency outlier among the live policy files.
 
 - Defence is a milestone-heavy, high-attribution file.
 - Trade is a continuous outcome with meaningful external dependence.
-- The grade behaves like a defence grade with a trade modifier.
+- The headline is an equal-weight average of visible whole-letter Defence and Trade sub-scores.
 
-That can be defended, but it should be treated as an explicit exception, not as a normal file.
+That makes the current arithmetic reproducible, but the mixed construct should still be treated as an explicit exception rather than a normal file.
 
 ### 2. Flagship Delivery is a meta-file, not a home dimension
 

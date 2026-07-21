@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 # build-bundle.sh — Regenerate the Perplexity / Comet review bundle.
 #
-# Concatenates every git-tracked text file in the repo into a single
-# markdown document. Skips binaries (images, fonts, archives) and the
-# bundle output itself. Includes the working-tree content, so uncommitted
-# changes are captured.
+# Concatenates every regular git-tracked text file in the repo into a single
+# markdown document. Skips binaries (images, fonts, archives), does not
+# dereference symlinks, and excludes the bundle output itself. Includes the
+# working-tree content of tracked files, so uncommitted tracked changes are
+# captured.
 #
 # Output:
 #   tmp/perplexity-bundle.md  (project, gitignored)
@@ -15,11 +16,49 @@
 #   bash scripts/build-bundle.sh
 #   npm run bundle
 #
-# The bundle is large (~3 MB / ~40k lines). Comet and Perplexity Pro
+# The bundle is several MB and tens of thousands of lines. Comet and Perplexity Pro
 # both accept it as a single .md upload. Drop into the chat, then paste
 # the standard review prompt.
 
 set -euo pipefail
+
+verify_identical_copies() {
+  if [ "$#" -lt 2 ]; then
+    echo "Usage: $0 --verify-copies <source> <copy> [copy ...]" >&2
+    return 2
+  fi
+
+  local source="$1"
+  shift
+  local copy
+  for copy in "$@"; do
+    if ! cmp -s -- "${source}" "${copy}"; then
+      echo "Bundle copy differs from source: ${copy}" >&2
+      return 1
+    fi
+  done
+}
+
+if [ "${1:-}" = "--verify-copies" ]; then
+  shift
+  verify_identical_copies "$@"
+  exit
+fi
+
+has_symlinked_ancestor() {
+  local path="$1"
+  local parent="${path%/*}"
+
+  [ "${parent}" = "${path}" ] && return 1
+  while [ -n "${parent}" ] && [ "${parent}" != "." ]; do
+    [ -L "${parent}" ] && return 0
+    case "${parent}" in
+      */*) parent="${parent%/*}" ;;
+      *) break ;;
+    esac
+  done
+  return 1
+}
 
 # Anchor to repo root regardless of cwd
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -36,8 +75,8 @@ GEN_DATE=$(date '+%Y-%m-%d %H:%M %Z')
 # Get git short hash and dirty status for transparency
 GIT_REF=$(git rev-parse --short HEAD 2>/dev/null || echo "no-git")
 GIT_DIRTY=""
-if ! git diff-index --quiet HEAD -- 2>/dev/null; then
-  GIT_DIRTY=" (working tree has uncommitted changes — bundle reflects working tree, not HEAD)"
+if [ -n "$(git status --porcelain --untracked-files=normal 2>/dev/null)" ]; then
+  GIT_DIRTY=" (working tree has uncommitted or untracked changes — bundle reflects tracked working-tree files, not HEAD)"
 fi
 
 # File-type extensions to skip (binaries, derived)
@@ -56,8 +95,9 @@ SKIP_FILE_REGEX='^(public/visitor-count\.json|public/rss\.xml|tmp/perplexity-bun
   echo 'Live URL: https://sawatter.github.io/canada-under-carney/'
   echo 'Repo: https://github.com/Sawatter/canada-under-carney'
   echo
-  echo 'This bundle is the verbatim content of every git-tracked text file'
-  echo 'in the repository. Treat it as the authoritative source for review.'
+  echo 'This bundle contains the working-tree content of regular git-tracked'
+  echo 'text files. Tracked symlinks are listed but never dereferenced.'
+  echo 'Untracked files are not included and must be attached separately.'
   echo 'Binary files (images, fonts, SVG icons) and auto-generated files'
   echo '(visitor count, RSS feed, lock files) are excluded.'
   echo
@@ -77,6 +117,26 @@ SKIP_FILE_REGEX='^(public/visitor-count\.json|public/rss\.xml|tmp/perplexity-bun
   # Concatenate each file with a clear header and a code fence
   TOTAL=0
   while IFS= read -r f; do
+    if [ -L "$f" ]; then
+      TOTAL=$((TOTAL + 1))
+      echo
+      echo "## FILE: ${f}"
+      echo
+      echo '```text'
+      echo "Tracked symlink (not dereferenced): $(readlink "$f")"
+      echo '```'
+      continue
+    fi
+    if has_symlinked_ancestor "$f"; then
+      TOTAL=$((TOTAL + 1))
+      echo
+      echo "## FILE: ${f}"
+      echo
+      echo '```text'
+      echo 'Tracked path skipped because a parent directory is a symlink.'
+      echo '```'
+      continue
+    fi
     [ -f "$f" ] || continue
     TOTAL=$((TOTAL + 1))
     echo
@@ -146,4 +206,14 @@ if [ -z "${DESKTOP_COPY}" ]; then
 fi
 echo ""
 echo "Verify generated copies identical:"
-md5 -q "${COPIES[@]}"
+verify_identical_copies "${COPIES[@]}"
+echo "  byte-for-byte match"
+echo ""
+echo "Checksums:"
+if command -v md5 >/dev/null 2>&1; then
+  md5 -q "${COPIES[@]}"
+elif command -v md5sum >/dev/null 2>&1; then
+  md5sum "${COPIES[@]}"
+else
+  shasum -a 256 "${COPIES[@]}"
+fi

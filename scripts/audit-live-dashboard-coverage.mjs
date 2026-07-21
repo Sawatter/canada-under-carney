@@ -154,6 +154,12 @@ async function gotoApp(page, hash = "view-scorecard") {
   await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});
 }
 
+async function revealDashboardStatusDetails(page) {
+  const toggle = page.getByRole("button", { name: "Show details", exact: true });
+  if (await toggle.count() > 0) await toggle.click();
+  await page.locator("#dashboard-status-details").waitFor({ state: "visible", timeout: 5_000 });
+}
+
 async function expectNoHorizontalOverflow(page, viewportName, surface) {
   const overflow = await page.evaluate(() => ({
     scrollWidth: document.documentElement.scrollWidth,
@@ -210,17 +216,33 @@ async function auditGlobalSurfaces(page, viewportName) {
   }, { surface: "Header, trust frame, headline cards", viewport: viewportName, action: "Load scorecard" }));
 
   await auditStep(Object.assign(async () => {
+    const toggle = page.getByRole("button", { name: /Theme: .*Switch to/i });
+    const labelBefore = await toggle.getAttribute("aria-label");
     const htmlBefore = await page.locator("html").getAttribute("data-theme");
-    await page.getByRole("button", { name: /switch to/i }).click();
+    await toggle.click();
+    const labelAfter = await toggle.getAttribute("aria-label");
     const htmlAfter = await page.locator("html").getAttribute("data-theme");
+    const savedAfter = await page.evaluate(() => window.localStorage.getItem("ccc-theme"));
     await page.reload({ waitUntil: "domcontentloaded" });
     await page.locator(".app-shell").waitFor({ state: "visible" });
+    const labelReloaded = await page.locator(".theme-toggle").getAttribute("aria-label");
     const htmlReloaded = await page.locator("html").getAttribute("data-theme");
+    const savedReloaded = await page.evaluate(() => window.localStorage.getItem("ccc-theme"));
+    const failures = [];
+    if (!labelAfter || labelAfter === labelBefore) failures.push("theme preference did not advance after click");
+    if (!savedAfter) failures.push("theme preference was not saved");
+    if (labelReloaded !== labelAfter) failures.push("theme preference label did not persist after reload");
+    if (savedReloaded !== savedAfter) failures.push("saved theme preference changed after reload");
+    if (!/^(light|dark)$/.test(htmlAfter || "")) failures.push("effective theme after click is invalid");
+    if (!/^(light|dark)$/.test(htmlReloaded || "")) failures.push("effective theme after reload is invalid");
     addRow({
       surface: "Theme toggle and persistence",
       viewport: viewportName,
       action: "Click theme toggle, reload",
-      observed: `before=${htmlBefore}, after=${htmlAfter}, after reload=${htmlReloaded}`,
+      observed: `preference ${labelBefore} -> ${labelAfter} -> ${labelReloaded}; effective ${htmlBefore} -> ${htmlAfter} -> ${htmlReloaded}; saved ${savedAfter} -> ${savedReloaded}`,
+      status: failures.length ? rowStatus.issue : rowStatus.pass,
+      severity: failures.length ? "P1" : "",
+      recommendation: failures.length ? `Fix theme control: ${failures.join("; ")}.` : "",
     });
   }, { surface: "Theme toggle and persistence", viewport: viewportName, action: "Toggle theme" }));
 
@@ -251,7 +273,10 @@ async function auditGlobalSurfaces(page, viewportName) {
 
   await auditStep(Object.assign(async () => {
     await gotoApp(page);
-    const text = await page.locator("body").textContent();
+    const statusRegion = page.locator(".dashboard-status");
+    await statusRegion.waitFor({ state: "visible", timeout: 5_000 });
+    await revealDashboardStatusDetails(page);
+    const text = await statusRegion.textContent();
     const required = [
       "Dashboard status",
       "Evidence scan",
@@ -276,6 +301,7 @@ async function auditGlobalSurfaces(page, viewportName) {
     const results = [];
     for (const check of dashboardStatus.nextChecks.filter((item) => item.href)) {
       await gotoApp(page);
+      await revealDashboardStatusDetails(page);
       await page.getByRole("link", { name: `Open check path for ${check.label}` }).click();
       await page.waitForTimeout(350);
       const hash = await page.evaluate(() => window.location.hash);
@@ -303,16 +329,42 @@ async function auditGlobalSurfaces(page, viewportName) {
 
 async function auditTabs(page, viewportName) {
   const tabs = [
-    { label: "Scorecard", hash: "view-scorecard", required: ["Scorecard view", "Click any card"] },
-    { label: "Promises", hash: "view-promises", required: ["delivered", "Search", "Status", "Dimension", "Sort", "Group"] },
-    { label: "Changes", hash: "view-changelog", required: ["What changed since last update", "All", "Grades", "Events", "Product"] },
-    { label: "Rubric", hash: "view-methodology", required: ["Scoring Rubric", "Methodology & safeguards", "Limits of this model"] },
-    { label: "About", hash: "view-about", required: ["About This Dashboard", "Editor and Disclosures", "What This Scores"] },
+    {
+      label: "Scorecard",
+      hash: "view-scorecard",
+      ready: (currentPage) => currentPage.locator("#policy-grades-heading"),
+      required: ["Scorecard view", "Click any card"],
+    },
+    {
+      label: "Promises",
+      hash: "view-promises",
+      ready: (currentPage) => currentPage.getByLabel("Promise filters"),
+      required: ["delivered", "Search", "Status", "Dimension", "Sort", "Group"],
+    },
+    {
+      label: "Changes",
+      hash: "view-changelog",
+      ready: (currentPage) => currentPage.getByText("What changed since last update", { exact: true }),
+      required: ["What changed since last update", "All", "Grades", "Events", "Product"],
+    },
+    {
+      label: "Rubric",
+      hash: "view-methodology",
+      ready: (currentPage) => currentPage.getByRole("heading", { name: /Scoring Rubric/ }),
+      required: ["Scoring Rubric", "Methodology & safeguards", "Limits of this model"],
+    },
+    {
+      label: "About",
+      hash: "view-about",
+      ready: (currentPage) => currentPage.getByRole("heading", { name: "About This Dashboard" }),
+      required: ["About This Dashboard", "Editor and Disclosures", "What This Scores"],
+    },
   ];
 
   for (const tab of tabs) {
     await auditStep(Object.assign(async () => {
       await gotoApp(page, tab.hash);
+      await tab.ready(page).waitFor({ state: "visible", timeout: 15_000 });
       const text = await page.locator("body").textContent();
       const present = tab.required.filter((needle) => text.includes(needle));
       const missing = tab.required.filter((needle) => !text.includes(needle));

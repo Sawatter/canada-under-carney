@@ -1,7 +1,7 @@
 # Canonical Scoring Sheets
 
 **All live dimensions in one standard format.**
-**Last updated:** April 30, 2026
+**Last updated:** July 21, 2026
 
 ---
 
@@ -54,7 +54,7 @@
 
 ---
 
-## 2. Economic Policy Response (D)
+## 2. Economic Policy Response (C)
 
 **Construct:** The federal posture on productivity and competitiveness across funding, tax, regulatory, and trade levers.
 
@@ -79,8 +79,8 @@
 |---|---|
 | A | At least 2 core productivity levers enacted or Treasury Board-authorized, at least 1 in live execution/disbursement, business investment rising for 2+ consecutive quarters, and independent assessment positive. |
 | B | At least 2 core levers funded/authorized, at least 1 in live execution, and business investment no longer declining over 2 consecutive quarters. |
-| C | At least 1 core lever funded/authorized and others designed or announced, but business investment remains flat or only marginally positive and measurable productivity gains are not yet visible. |
-| D | Instruments are still mostly announced rather than authorized or executing, fewer than 2 core levers are clearly funded/authorized, and business investment remains near-flat without a durable two-quarter turn. |
+| C | At least 2 of the 5 core levers are clearly authorized or executing, but either no lever is executing or business investment has not recorded 2 consecutive non-declining quarters. Measurable productivity gains are not yet visible. |
+| D | Fewer than 2 of the 5 core levers are clearly authorized or executing. Business investment may confirm the weak trajectory, but it does not override the action count while Timing Fairness applies. |
 | F | No material federal productivity response through funding, tax, regulatory, or trade action. |
 
 **Current core-lever set:** AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness measures.
@@ -90,8 +90,8 @@
 - External constraint (+0.3): Partially applicable — trade war limits business investment decisions.
 
 **One-notch move triggers:**
-- Up: AI compute fund begins actual disbursement (confirmed by TB/PBO), OR business investment turns positive for 2+ consecutive quarters
-- Down: Additional major fund announced without TB authorization (announcement bias), OR business investment decline accelerates
+- Up: At least 2 core levers remain authorized or executing, at least 1 remains in execution, and business investment records 2 consecutive non-declining quarters
+- Down: The number of core levers clearly authorized or executing falls below 2
 
 **Biggest confounder:** Inherited structural weakness (GDP per capita declining since 2020, business investment falling since 2006). The grade must assess the policy response, not the inherited level. The "Mostly inherited" attribution tag must be visible on the card.
 
@@ -167,9 +167,9 @@
 | Grade | Threshold |
 |---|---|
 | A | Full public disclosure. Independent review completed and published. No unresolved framework gap remains. |
-| B | Substantial disclosure. Ethics Commissioner review published with findings of adequate screening. Only limited unresolved gaps remain. |
-| C | Baseline disclosure and an ethics screen exist, but important completeness questions remain and no independent review has been published. |
-| D | Important disclosure gaps remain, no independent review is published, and either an official concern or 2 independent governance critiques cite a screening or disclosure problem. |
+| B | At least 4 of the 5 disclosure pieces are present, including a published Ethics Commissioner review finding the PM-specific screen adequate. Only limited unresolved gaps remain. |
+| C | At least 3 of the 5 disclosure pieces are present, but full public accounting is missing or no PM-specific Ethics Commissioner review has found the screen adequate, and material completeness questions remain. |
+| D | Fewer than 3 pieces are present; or an official finding concludes that the PM-specific screen or disclosure is inadequate; or, while no independent review exists, 2 independent governance critiques cite a material problem. |
 | F | Active concealment or evidence of self-dealing. |
 
 **Modifier rules:**
@@ -177,7 +177,7 @@
 
 **One-notch move triggers:**
 - Up: Ethics Commissioner publishes detailed review finding adequate disclosure, OR PM proactively publishes full Brookfield accounting
-- Down: New evidence of undisclosed interests, OR Ethics Commissioner finding of inadequate screening, OR two independent governance critiques citing a material disclosure or screening gap
+- Down: New evidence of undisclosed interests, OR Ethics Commissioner finding of inadequate screening, OR, while no published independent review exists, 2 listed governance sources publish separate findings of a material disclosure or screening gap
 
 **Biggest confounder:** Absence of evidence is not evidence of absence. No proven wrongdoing does NOT mean adequate disclosure. The grade assesses the framework, not whether misconduct occurred. Two raters could reasonably disagree by one full letter grade because the evidence is predominantly qualitative.
 
@@ -550,27 +550,40 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 - EU/CETA-region export growth (Global Affairs Canada Monthly Trade Report; substituted for prior "CETA utilization value" in March 2026 cycle because the $134B figure could not be verified from any accessed source — EU export growth is a verified proxy from the same Tier 1 source)
 - Defence procurement milestones (DND)
 
-**Grade thresholds:**
+**Sub-score evaluation rule:** Check the active `F` condition first for each sub-score. Otherwise take the highest satisfied band from `A` down to `D`. Sub-scores use whole letters only.
+
+**Defence sub-score thresholds:**
 | Grade | Threshold |
 |---|---|
-| A | Defence target sustained 2+ quarters. Trade: non-US share up 5+ points and sustained. New agreements ratified or corridor execution is live. |
-| B | Defence target reached. Trade: non-US share up 1-5 points. Agreements or corridor investments are in progress. |
-| C | Defence spending increasing but target not met, or trade diversification is measurable but modest and not yet durable. |
-| D | Defence spending flat or declining. Trade: no diversification or regression. |
-| F | Defence cuts. Trade dependence increasing. |
+| A | NATO spending is independently confirmed at or above 2.0% of GDP. |
+| B | A is not met, but the published B-5yr funded-pathway condition is met. |
+| C | Spending is increasing but remains below target without the published funded pathway. |
+| D | Spending is flat or declining, but no explicit spending cut occurred. |
+| F | The government explicitly cuts defence spending. |
+
+**Trade sub-score thresholds:**
+| Grade | Threshold |
+|---|---|
+| A | The non-US export share improves by roughly 5 points or more and holds beyond one-month volatility. |
+| B | The gain is roughly 1 to 5 points, with corridor or agreement execution underway. |
+| C | Diversification is measurable but modest or not yet durable. |
+| D | Diversification is unchanged or worsening without evidence that government policy actively deepened dependence. |
+| F | Government policy actively deepens US dependence or retreats from diversification. |
+
+**Headline combination rule:** Convert the two whole-letter sub-scores using the frozen grade-point table, average them equally, then apply the standard headline score cutoffs. No sub-score anchors or overrides the other.
 
 **Live sub-scores:**
-- Defence sub-score: A (NATO 2% met, $81.8B committed, procurement advancing)
-- Trade sub-score: B+ (US share down to 71.7%, non-US +17.2%, partially market-driven)
-- Headline A- = average of sub-scores: (4.0 + 3.3) / 2 = 3.65 → A-
+- Defence sub-score: A (NATO independently confirmed 2.01%)
+- Trade sub-score: B (US share down to 71.7%, a 4.2-point gain, with execution underway)
+- Headline A- = equal average of sub-scores: (4.0 + 3.0) / 2 = 3.50, which maps to A-
 
 **Modifier rules:**
-- Credit-claiming penalty: Minor. Defence achievement is genuine. Trade diversification is partially market-driven (exchange rates, global demand) but federal trade policy contributed.
-- External constraint (+0.3): Trade diversification is partly driven by the trade war itself (forced diversification). This is a confounder — the external constraint simultaneously creates the problem and drives the improvement.
+- No active modifier adjusts this file. Diversification is partly driven by the trade war itself, but under the whole-letter sub-score rule that fact remains attribution context only; it does not change the Trade band or create a separate headline adjustment.
 
-**One-notch move triggers:**
-- Down: NATO spending falls below 2.0%, OR US export share reverses above 73%
-- Up: 3.5% target gets a funded pathway, OR US share drops below 68%
+**Sub-score review triggers:**
+- Higher condition: Trade's annual non-US export-share gain reaches roughly 5 points or more and holds beyond one-month volatility
+- Lower conditions: NATO spending falls below 2.0%, OR Trade no longer meets the roughly 1-to-5-point gain with execution required for B
+- A trigger prompts review of the named sub-score. The headline still follows the equal-weight arithmetic.
 
 **Biggest confounder:** Two fundamentally different constructs in one grade. Defence is a binary milestone (met/not met) with high federal attribution. Trade is a continuous outcome with heavy external dependence. The A- currently reflects mostly the defence achievement. If trade regresses while defence holds, the grade would hide the regression.
 
@@ -578,7 +591,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 **Deconfliction rule:** Defence is clean — nothing else grades it. Trade diversification partially overlaps with Economic Policy Response (interprovincial trade, Buy Canadian). Trade metrics are primary-homed HERE. Economic Policy Response may reference trade context but cannot grade-credit export diversification.
 
-**Rater note:** Defence is the anchor. Trade is the modifier. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch the live tripwire: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version.
+**Rater note:** Defence and Trade carry equal weight. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch the live tripwire: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version. A methodology correction to a sub-score does not count as evidence-driven opposite movement.
 
 **v2 status:** Sub-scores are implemented. Keep combined unless the split-promotion tripwire fires.
 
@@ -594,7 +607,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 4. Immigration — C+
 5. Climate & Environment — D
 6. Affordability Response — D-
-7. Economic Policy Response — D
+7. Economic Policy Response — C
 8. Carbon Pricing Policy — C
 9. Ethics & Transparency — C
 

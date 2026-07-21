@@ -3,7 +3,7 @@
 **Question:** Should Defence & Trade remain combined in v2?
 
 **Date:** April 2026
-**Status:** Decision pending
+**Status:** Option 2 implemented for v1 on 2026-07-21; full v2 split remains conditional on the published tripwire
 
 ---
 
@@ -11,7 +11,7 @@
 
 Defence & Trade staples together two fundamentally different constructs. Defence spending is a binary target (NATO 2%: met or not) with direct federal attribution. Trade diversification is a slow-moving structural outcome (US export share, non-US growth) with heavy external dependence on global markets, exchange rates, and partner-country demand.
 
-The diagnostic question — "if defence improved and trade worsened in the same month, how would the current model handle that?" — exposes a real failure mode. The current A- grade is carried almost entirely by the defence achievement. If trade diversification reversed (US share climbing back toward 73%), the A- would mask the regression because the NATO achievement would still anchor the grade.
+The diagnostic question — "if defence improved and trade worsened in the same month, how would the current model handle that?" — exposes a real failure mode. The July 2026 implementation answers it with visible whole-letter sub-scores and equal-weight arithmetic. A sustained divergence can still be muted in the headline, so the published split tripwire remains necessary.
 
 ---
 
@@ -33,7 +33,7 @@ Perfect. No change means no disruption to historical tracking.
 Low. Same as current.
 
 ### Score integrity
-**Compromised.** The A- is not representative of either construct independently. Defence alone would merit an A. Trade diversification alone would merit a B+ at best (real diversification, but partially market-driven and partially reversible). The blended grade conceals this split.
+**Compromised.** The A- is not representative of either construct independently. Defence alone merits an A. Trade diversification merits a B under the implemented whole-letter ladder because the gain is real but partly market-driven and reversible. Without visible sub-scores, the blend would conceal this split.
 
 ### Assessment
 Keeping the combination is the lowest-disruption option but carries a real measurement integrity risk that will get worse over time as the defence milestone fades from salience and trade becomes the active indicator.
@@ -45,7 +45,7 @@ Keeping the combination is the lowest-disruption option but carries a real measu
 ### How it works
 The dimension stays as one entry on the dashboard but displays two sub-scores:
 - **Defence sub-score: A** (NATO 2% met, $81.8B committed, procurement advancing)
-- **Trade sub-score: B+** (US share down to 71.7%, non-US exports +17.2%, but partially market-driven)
+- **Trade sub-score: B** (US share down to 71.7%, non-US exports +17.2%, but partially market-driven)
 
 The headline grade (A-) is the average of the two sub-scores, or follows a defined combination rule.
 
@@ -65,7 +65,7 @@ Good. The headline dimension name and grade are preserved. The sub-scores are ad
 Moderate. Each monthly update must assess two sub-scores instead of one blended grade. But the indicators are already tracked separately (NATO spending vs. export share), so the actual work increase is the formal sub-score assignment.
 
 ### Score integrity
-**Good.** The headline grade is still a composite, but the components are visible. A reader can see that A- means "A on defence, B+ on trade" rather than guessing what the blend contains.
+**Good.** The headline grade is still a composite, but the components are visible. A reader can see that A- means "A on defence, B on trade" rather than guessing what the blend contains.
 
 ### Assessment
 This is the minimum viable fix. It solves the transparency problem without the disruption of a full split. The risk of hiding regression is mitigated (not eliminated — the headline can still mask a divergence, but the sub-scores make the divergence visible to anyone who clicks the card).
@@ -77,7 +77,7 @@ This is the minimum viable fix. It solves the transparency problem without the d
 ### How it works
 Defence & Trade becomes two independent dimensions:
 - **Defence** (A): NATO spending, procurement, BOREALIS, Arctic sovereignty
-- **Trade Diversification** (B+): US export share, non-US export growth, CETA, new agreements
+- **Trade Diversification** (B): US export share, non-US export growth, CETA, new agreements
 
 Each contributes independently to the GPA.
 
@@ -138,7 +138,7 @@ True, but the alternative (full split) breaks the historical series and adds com
 
 ### Timing
 
-**Implement sub-scoring in the next cycle (May 2026).** This requires only a data model change (add `subScores` to the Defence & Trade dimension in dimensions.json) and a display change in the expanded card. No structural dashboard change. No GPA calculation change. Shadow-test a full split alongside for one cycle. If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version.
+**Implemented July 21, 2026.** The expanded card now shows whole-letter sub-scores, their A-to-F ladders, the equal-weight combination rule, and the current calculation. No GPA formula or dimension-model change was made. If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version.
 
 ---
 

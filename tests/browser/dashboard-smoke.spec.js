@@ -459,6 +459,34 @@ test.describe("responsive benchmark controls", () => {
     await expectNoOverflow(page);
     expect(consoleErrors).toEqual([]);
   });
+
+  test("Defence and Trade sub-score ladders stack on mobile", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath({ hash: "#dim-defence-trade-subscores" }));
+
+    const section = page.locator("#dim-defence-trade-subscores");
+    const cards = section.locator(".dim-subscore-card");
+    await expect(section).toBeVisible();
+    await expect(cards).toHaveCount(2);
+
+    const layout = await cards.evaluateAll((nodes) => nodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      return {
+        bottom: rect.bottom,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        width: rect.width,
+      };
+    }));
+    expect(layout[1].top).toBeGreaterThanOrEqual(layout[0].bottom);
+    expect(Math.abs(layout[0].left - layout[1].left)).toBeLessThanOrEqual(1);
+    expect(Math.abs(layout[0].width - layout[1].width)).toBeLessThanOrEqual(1);
+    expect(layout.every((card) => card.right <= 375)).toBe(true);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
 });
 
 test.describe("v5.153 review follow-through", () => {

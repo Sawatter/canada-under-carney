@@ -2,7 +2,7 @@
 
 **Purpose:** Register the structural status of every dimension. The active work queue lives in [Current-Roadmap.md](Current-Roadmap.md); this file prevents old structural concerns from being mistaken for current blockers.
 
-**Last updated:** May 2026
+**Last updated:** July 21, 2026
 
 ---
 
@@ -23,8 +23,8 @@
 
 | Field | Value |
 |---|---|
-| **Status** | Stable with split tripwire |
-| **Unresolved issue** | Mixed construct remains, but sub-scores and a split-promotion tripwire now make the defence/trade tension visible. |
+| **Status** | Stable with equal-weight sub-scores and split tripwire |
+| **Unresolved issue** | Mixed construct remains, but whole-letter sub-score ladders, equal-weight arithmetic, and the split-promotion tripwire make the defence/trade tension reproducible and visible. |
 | **What needs doing** | Monitor the live tripwire: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version. |
 | **Before next cycle?** | Monitor only. Full split: no unless the tripwire fires. |
 | **Affects** | Live model monitoring |
@@ -49,12 +49,12 @@
 | **Before next cycle?** | Language tightening: yes. Structural change: no. |
 | **Affects** | Live model only |
 
-### 4. Economic Policy Response (D)
+### 4. Economic Policy Response (C)
 
 | Field | Value |
 |---|---|
-| **Status** | Stable with announcement-bias guardrail |
-| **Unresolved issue** | Announcement bias remains the main risk, but the live guardrails now require authorization or execution evidence before announcements can lift the grade. |
+| **Status** | Declining outcome with action-first correction |
+| **Unresolved issue** | Announcement bias remains the main risk. Two levers clear authorization, which sets the current band, while the five-quarter investment decline blocks the next band. |
 | **What needs doing** | Enforce QA Gatekeeping Rule 2 during each cycle: evidence must be at "Authorized" stage or higher. Announcements alone cannot move this grade. |
 | **Before next cycle?** | Cycle enforcement only. Redefine construct: no. |
 | **Affects** | Live model only |
@@ -149,7 +149,7 @@ These items must be completed before the May 2026 cycle:
 - [x] **Economic Policy Response:** Enforce QA Rule 2 (no grade moves on announcements alone)
 - [x] **Carbon Pricing / Climate deconfliction:** Confirm boundary holds in release log
 - [x] **Ethics & Transparency:** Add one anchored indicator
-- [x] **Defence & Trade:** Add sub-scores (Defence: A, Trade: B+) to expanded card display
+- [x] **Defence & Trade:** Add reproducible whole-letter sub-scores (Defence: A, Trade: B) and equal-weight headline arithmetic
 - [x] **Flagship Delivery:** Apply Combination Rule mechanically to produce grade
 - [ ] **Promise Delivery:** Review tracker statuses and remaining status-evidence gaps
 - [ ] **Fiscal Health:** Incorporate April 28 economic update data
@@ -184,7 +184,7 @@ Ideas that are valid but must NOT leak into the live cycle. These are queued for
 
 2. **Carbon Pricing Policy (C)** — The Pack 4 drill blocked this dimension for double-counting. The deconfliction fix must hold under real evidence.
 
-3. **Economic Policy Response (D)** — The Pack 2 drill showed how easily AI/minerals announcements can be argued into a grade move. The QA gatekeeping rules must resist announcement bias with real data.
+3. **Economic Policy Response (C)** — The Pack 2 drill showed how easily AI/minerals announcements can be argued into a grade move. The QA gatekeeping rules must resist announcement bias with real data.
 
 ---
 

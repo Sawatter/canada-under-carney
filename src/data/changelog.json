@@ -1,5 +1,51 @@
 [
   {
+    "date": "2026-07-21",
+    "version": "5.159",
+    "summary": "Corrected Economic Policy's rule application, made the Defence and Trade sub-score arithmetic reproducible, and counted the House ethics review consistently.",
+    "items": [
+      {
+        "type": "grade",
+        "dimensionId": "economic-policy",
+        "dimensionName": "Economic Policy Response",
+        "from": "D",
+        "to": "C",
+        "deltaLabel": "+1 letter",
+        "headline": "Economic Policy corrected from D to C",
+        "body": "The published action count already had one executing lever and one authorized lever, which contradicted the prior D condition of fewer than two. This is a rule-application correction, not evidence of improvement. Business investment has fallen for five straight quarters, so the trend remains declining.",
+        "drivers": [
+          "The productivity tax measure is executing after Bill C-15 received Royal Assent",
+          "The internal trade law and regulations are in force, meeting the authorized test",
+          "Five consecutive quarterly investment declines keep the file below the next band"
+        ],
+        "link": {
+          "label": "Budget 2025 Implementation Act, No. 1 (Bill C-15)",
+          "href": "https://www.parl.ca/legisinfo/en/bill/45-1/c-15"
+        }
+      },
+      {
+        "type": "method",
+        "headline": "Defence and Trade arithmetic is explicit",
+        "body": "Defence A and Trade B now use whole-letter ladders, average equally to 3.50, and map mechanically to A-. Market-driven trade pressure remains visible as attribution context, not as an active scoring adjustment. Future triggers prompt a named sub-score review instead of bypassing the arithmetic."
+      },
+      {
+        "type": "method",
+        "headline": "House ethics review counted consistently",
+        "body": "House ETHI Report 5 now counts as the published independent-review component and as one institutional critique. Ethics remains C because no full public accounting or PM-specific Commissioner adequacy finding has been published. The two-critique lower condition applies only while no independent review exists."
+      },
+      {
+        "type": "fix",
+        "headline": "Economic evidence wording corrected",
+        "body": "Direct Statistics Canada quarter-over-quarter values replace derived annualized wording, critical-minerals project capital is corrected from $121B to $12.1B, and enacted tax and internal-trade records now support the lever statuses."
+      },
+      {
+        "type": "docs",
+        "headline": "Review tooling now fails closed",
+        "body": "The live coverage audit opens compact status details before judging the page. The tracked-file review bundle reports untracked dirty state and never dereferences symlinks, while the unsafe filesystem connector remains disabled."
+      }
+    ]
+  },
+  {
     "date": "2026-07-19",
     "version": "5.158",
     "summary": "Made the 11 policy grades reachable from the top and shortened Dashboard Status on phones while keeping the key review dates visible. No scores or scoring rules changed.",

@@ -233,7 +233,7 @@ try {
     "## Review Prompt Snippet",
     "",
     "```text",
-    "Use the attached review-evidence.pdf as rendered-browser evidence for the live dashboard. Treat layout, hierarchy, mobile wrapping, and interaction comments as visual findings only when they are visible in the screenshots. Use the repo bundle or MCP connector for code, methodology, and source-chain claims. Clearly label each finding as rendered evidence, repo inference, or needs live interaction.",
+    "Use the attached review-evidence.pdf as rendered-browser evidence for the live dashboard. Treat layout, hierarchy, mobile wrapping, and interaction comments as visual findings only when they are visible in the screenshots. Use the tracked-file repo bundle or individually attached files for code, methodology, and source-chain claims. Clearly label each finding as rendered evidence, repo inference, or needs live interaction.",
     "```",
     "",
     "## Captures",

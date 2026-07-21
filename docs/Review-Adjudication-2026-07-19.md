@@ -113,9 +113,18 @@ The current sub-scores, Defence A and Trade B+, average to A-. That supports the
 
 Official House Report 5 is dated April 2026 and explicitly examines the Conflict of Interest Act as applied to Prime Minister Carney's divestment obligations and conflict screen. The stale 2025 date is corrected in the source metadata, but the live component still says no substantive parliamentary report exists. The editor must decide two linked questions: whether Report 5 satisfies the published-independent-review component, and whether its recommendations count with Democracy Watch toward the two-source down-trigger. The recommendation is to adjudicate both roles together rather than count the same report selectively. Any component, trigger, or grade consequence is frozen and requires an explicit decision, synchronized `componentScoreSummary` and why-not copy, a changelog item if the grade or trigger assessment moves, and `npm run test:data`.
 
+## Frozen Decision Closure - 2026-07-21
+
+The editor authorized all three frozen decisions for the v5.159 release. The full evidence, symmetry checks, exact rule text, and release gates are recorded in [Frozen-Rule-Adjudication-2026-07-21.md](Frozen-Rule-Adjudication-2026-07-21.md).
+
+1. Economic Policy is corrected from `D` to `C`, with `trend: down` retained. The published ledger already had one executing and one authorized lever, so the prior grade contradicted its fewer-than-two condition. This is a rule-application correction, not evidence-triggered improvement.
+2. Defence and Trade now use separate whole-letter ladders and equal-weight arithmetic. Defence `A` plus Trade `B` averages to 3.50 and keeps the `A-` headline. Triggers prompt a named sub-score review rather than overriding that arithmetic.
+3. House ETHI Report 5 counts as the independent-review component and as one institutional critique. Ethics remains `C`. The two-critique lower condition does not fire because a published independent review now exists.
+
+The aggregate GPA formula, grade-point mappings, weights, penalty formulas, and 11-graded-plus-1-tracker model are unchanged. Defence and Trade no longer lists External Constraint as an active modifier; the same market-pressure fact remains in the attribution text and cannot override the whole-letter sub-scores or their equal-weight arithmetic. `history.json` is also unchanged so the July 1 snapshot continues to record the grade that was actually published then.
+
 ## Remaining Gates
 
-1. The editor must complete the listed physical checks or explicitly record an exception.
-2. The Economic Policy, Defence and Trade, and Ethics decisions above require explicit editor adjudication.
-3. The external red-team invite is ready but cannot be sent without a current-turn recipient and send instruction.
-4. The inter-rater pilot cannot be scored until the external worksheets return.
+1. The iOS edge-swipe and sheet-overscroll, Android pull-to-refresh, and Windows forced-colors checks remain explicit physical-environment exceptions. They were not represented as completed checks.
+2. The external red-team invite is ready but cannot be sent without a current-turn recipient and send instruction.
+3. The inter-rater pilot cannot be scored until the external worksheets return.

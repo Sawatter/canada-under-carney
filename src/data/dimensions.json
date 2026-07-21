@@ -6,91 +6,106 @@
     "grade": "A-",
     "previousGrade": null,
     "trend": "stable",
-    "status": "NATO's 2% target was met, at 2.01%. Trade is measurably more diversified. The U.S. share of Canadian exports fell from 75.9% to 71.7%. The headline grade is driven mainly by the defence side, with trade tracked separately in the sub-scores below.",
+    "status": "NATO's 2% target was met, at 2.01%. The U.S. share of Canadian exports fell from 75.9% to 71.7%. Defence scores A and Trade scores B; their equal-weight average produces the A- headline.",
     "verdictLine": "The NATO spending target was met, and Canada's trade is measurably more diversified.",
-    "judgmentCall": "The high grade rests mainly on defence delivery. The trade gains get partial credit, because some of the improvement came from market forces rather than federal policy.",
-    "judgmentDetail": "The A- is not an endorsement of everything here. Defence spending meets the NATO 2% target, and trade diversification helps the grade. The editor's judgment enters in two ways. First, the trade gain gets only partial credit because the U.S. trade shock itself drove some of the diversification. Second, the grade stops short of an A even though the 3.5% defence-spending path is now funded (Budget 2025, $81.8B over five years). A condition the editor set in advance for raising the defence side was met in the June 2026 review, so that is no longer a reason to hold back. But the grade stayed at A- for two other reasons, and because the trade side is mixed: diversification improved while Canada's overall goods deficit grew to $31.3B in 2025, the largest since 2020. Defence is carrying most of the headline. Trade is tracked separately in the sub-scores below. This review records the first cycle of divergence. If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one letter grade), for two consecutive monthly review cycles, the file splits into separate defence and trade grades.",
+    "judgmentCall": "Defence and Trade are scored separately and weighted equally. Trade is B because its 4.2-point gain falls below the roughly five-point A marker; market-driven change remains an attribution constraint.",
+    "judgmentDetail": "The headline follows a fixed calculation, not an anchor-and-modifier judgment. Defence is A because NATO independently confirmed spending at 2.01% of GDP. Trade is B because the annual non-U.S. export-share gain was 4.2 points and corridor execution is underway. Whole-letter sub-scores convert to 4.0 and 3.0, average equally to 3.50, and map to A-. The existing External Constraint entry discloses that the U.S. trade shock drove part of the gain; it does not separately change the Trade band or headline arithmetic. The June 2026 editor decision treated Budget 2025's $81.8B five-year envelope as satisfying the narrower B-5yr funded-pathway condition; it did not establish that the full 3.5% trajectory is appropriated. If the sub-scores move in opposite directions, or differ by more than 1.0 GPA points for two consecutive monthly cycles, the file splits into separate grades.",
     "surfaceTags": [
       "Has sub-scores",
       "Trade partly driven by market forces"
     ],
     "construct": "Whether the federal government met its defence spending commitments and diversified Canada's trade relationships away from heavy reliance on one market.",
     "gradeBasis": {
-      "band": "A",
-      "bandCriterion": "The defence target is sustained and trade diversification has materially improved, meaning enough to affect the grade, away from heavy reliance on one market.",
-      "plusMinusRationale": "A- rather than A reflects a mixed file. Defence clears its published 2.0% condition at 2.01%, while the non-U.S. export-share gain is 4.2 points, just under the roughly five-point A marker, and the overall goods deficit widened fourfold to $31.3B in 2025. The 3.5% target also has a funded path through Budget 2025's $81.8B over five years for the Canadian Armed Forces (CAF).",
-      "whyNotHigher": "The top grade needs the non-U.S. share gain at roughly five points or more, holding beyond one-month swings. Defence clears its condition at 2.01%, but the trade gain is 4.2 points.",
-      "whyNotLower": "The band below covers a share gain of roughly one to five points with execution underway. The recorded gain is 4.2 points, and the file treats that plus confirmed 2.01% spending as clearing the bar.",
-      "activeModifiers": [
-        {
-          "name": "External Constraint",
-          "status": "partly applicable",
-          "reason": "The trade war simultaneously creates the diversification problem and drives some of the measured improvement, so trade gains should not be treated as purely policy-caused."
-        }
-      ]
+      "band": "A-",
+      "bandCriterion": "Defence scores A and Trade scores B under their separate whole-letter ladders. Their equal-weight average is 3.50, which maps to the current headline under the standard score-to-grade cutoffs.",
+      "plusMinusRationale": "The A- is the mechanical result of Defence A and Trade B, not a discretionary minus. Trade stays at B because the 4.2-point non-U.S. share gain is below the roughly five-point A marker.",
+      "whyNotHigher": "A higher headline needs both sub-scores at the top band. Trade remains one band lower because its 4.2-point gain is below the roughly five-point marker and has a material attribution caveat.",
+      "whyNotLower": "Confirmed 2.01% defence spending and a 4.2-point trade-share gain with corridor execution produce sub-scores whose equal average clears the current headline cutoff.",
+      "activeModifiers": []
     },
     "scoring": {
       "thresholds": [
         {
           "grade": "A",
-          "criteria": "NATO spending is confirmed at or above 2.0% of GDP and the non-U.S. export share improves by roughly five points or more, with the diversification holding beyond one-month volatility."
+          "criteria": "Defence A plus Trade A averages to 4.00."
+        },
+        {
+          "grade": "A-",
+          "criteria": "Defence A plus Trade B, in either order, averages to 3.50."
         },
         {
           "grade": "B",
-          "criteria": "NATO 2% is reached or a funded pathway is in place, and the non-U.S. export share improves by roughly one to five points with corridor, procurement, or agreement execution underway."
+          "criteria": "A plus C or B plus B averages to 3.00."
+        },
+        {
+          "grade": "B-",
+          "criteria": "A plus D or B plus C averages to 2.50."
         },
         {
           "grade": "C",
-          "criteria": "Defence spending is rising but still below target, or trade diversification is measurable but modest and not yet durable."
+          "criteria": "A plus F, B plus D, or C plus C averages to 2.00."
+        },
+        {
+          "grade": "D+",
+          "criteria": "B plus F or C plus D averages to 1.50."
         },
         {
           "grade": "D",
-          "criteria": "Defence spending is flat or below target and trade dependence on the U.S. is unchanged or worsening."
+          "criteria": "C plus F or D plus D averages to 1.00."
+        },
+        {
+          "grade": "D-",
+          "criteria": "D plus F averages to 0.50."
         },
         {
           "grade": "F",
-          "criteria": "Defence spending is cut and trade dependence deepens."
+          "criteria": "F plus F averages to 0.00."
         }
       ],
+      "subScoreRule": {
+        "evaluationOrder": "For each sub-score, test the active F condition first. Otherwise take the highest satisfied band from A down to D.",
+        "combination": "Use whole-letter sub-scores only. Convert them with the frozen grade-point values, average them equally, then apply the standard headline cutoffs.",
+        "currentCalculation": "Defence A (4.0) plus Trade B (3.0), divided by two, equals 3.50 and maps to A-."
+      },
       "scopeNote": "This grade keeps defence delivery and trade diversification together because both sit inside the government's national-security and economic-resilience goals. Read the defence and trade sub-scores alongside the overall grade because the two halves move at different speeds. This grade does not cover the government's broader foreign policy posture, diplomacy, or alliance strategy beyond the published defence and trade-diversification tests.",
       "guardrails": [
         "Confirm defence spending from NATO or equivalent official tables, not from domestic political claims alone.",
         "Use annual trade-share movement rather than single-month export volatility when judging diversification.",
-        "The defence sub-score anchors the file; trade modifies the headline and should not hide a widening divergence between the two.",
+        "Defence and Trade carry equal weight in the headline; neither sub-score overrides the other.",
         "If the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one letter grade), for two consecutive monthly review cycles, the editor will split them into two separate dimensions."
       ]
     },
     "gradeTriggers": {
+      "presentation": {
+        "title": "What prompts a sub-score review",
+        "summary": "defence and trade conditions",
+        "upLabel": "Higher-condition checks",
+        "downLabel": "Lower-condition checks"
+      },
       "up": [
         {
-          "text": "3.5% defence target gets a funded pathway",
-          "setDate": "2026-04-17",
-          "sourceLabel": "Budget 2025 Ch.4",
-          "sourceUrl": "https://budget.canada.ca/2025/report-rapport/chap4-en.html"
-        },
-        {
-          "text": "U.S. export share drops below 68%",
-          "setDate": "2026-04-17",
-          "sourceLabel": "StatsCan trade data",
+        "text": "Trade sub-score: the annual non-U.S. export-share gain reaches roughly 5 points or more and holds beyond one-month volatility",
+          "setDate": "2026-07-21",
+          "sourceLabel": "StatsCan trade data and Global Affairs annual synthesis",
           "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
         }
       ],
       "down": [
         {
-          "text": "NATO spending falls below 2.0%",
-          "setDate": "2026-04-17",
+          "text": "Defence sub-score: NATO spending falls below 2.0%, prompting reassessment against the lower bands",
+          "setDate": "2026-07-21",
           "sourceLabel": "NATO Secretary General Annual Report 2025",
           "sourceUrl": "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada"
         },
         {
-          "text": "U.S. export share reverses above 73%",
-          "setDate": "2026-04-17",
-          "sourceLabel": "StatsCan trade data",
+        "text": "Trade sub-score: the annual non-U.S. export-share movement no longer meets the roughly 1-to-5-point gain with execution required for B",
+          "setDate": "2026-07-21",
+          "sourceLabel": "StatsCan trade data and Global Affairs annual synthesis",
           "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
         }
       ]
     },
-    "rationale": "The government set a specific NATO target, funded it ($81.8B over 5 years), and delivered on timeline. NATO confirmed all allies met the 2% target for the first time in 2025, with Canada at 2.01% in NATO expenditure tables. Trade diversification produced measurable results: U.S. export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s, and non-U.S. goods exports rose 17.2% to an all-time high (Global Affairs Canada). The A- rather than A reflects a mixed file. Defence clears its published 2.0% condition at 2.01%, while the non-U.S. export-share gain is 4.2 points, just under the roughly five-point A marker, and the overall goods deficit widened fourfold to $31.3B in 2025. The 3.5% target also has a funded path through Budget 2025's $81.8B over five years for the Canadian Armed Forces (CAF).",
+    "rationale": "NATO independently confirmed Canada at 2.01% of GDP, which puts Defence at A. Global Affairs Canada reported that the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025 and non-U.S. exports rose 17.2%. That puts Trade at B: the gain is measurable and corridor execution is underway, but it is below the roughly five-point A marker and partly reflects the U.S. trade shock. The whole-letter sub-scores average equally to 3.50, producing the A- headline. Budget 2025's $81.8B five-year envelope satisfied the narrower funded-pathway condition adopted in June 2026, but it is not described here as full appropriation of the 3.5% path.",
     "sources": [
       {
         "label": "NATO Secretary General Annual Report 2025",
@@ -141,7 +156,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-07-19",
+    "lastUpdated": "2026-07-21",
     "metrics": [
       {
         "label": "NATO spending (2025e)",
@@ -335,18 +350,62 @@
       "attribution": "Direct",
       "lag": "Short"
     },
-    "nextTrigger": "NATO annual defence spending report (June 2026). CUSMA review (July 2026). Next trade data release.",
+    "nextTrigger": "CUSMA review outcome. Next NATO annual report. Next annual trade-share synthesis.",
     "inherited": "Canada had not met NATO 2% since the Cold War. Trade was 75.9% US-dependent in 2024 (Global Affairs Canada, December 2025 Monthly Trade Report). Interprovincial barriers were decades-old.",
     "subScores": {
       "defence": {
         "grade": "A",
         "label": "Defence",
-        "rationale": "NATO 2% met and confirmed by NATO Secretary General Annual Report. $81.8B committed. Procurement advancing."
+        "rationale": "NATO independently confirmed Canada at 2.01% of GDP, meeting the published top-band condition.",
+        "thresholds": [
+          {
+            "grade": "A",
+            "criteria": "NATO spending is independently confirmed at or above 2.0% of GDP."
+          },
+          {
+            "grade": "B",
+            "criteria": "The top condition is not met, but the published B-5yr funded-pathway condition is met."
+          },
+          {
+            "grade": "C",
+            "criteria": "Spending is increasing but remains below target without the published funded pathway."
+          },
+          {
+            "grade": "D",
+            "criteria": "Spending is flat or declining, but no explicit spending cut occurred."
+          },
+          {
+            "grade": "F",
+            "criteria": "The government explicitly cuts defence spending."
+          }
+        ]
       },
       "trade": {
-        "grade": "B+",
+        "grade": "B",
         "label": "Trade Diversification",
-        "rationale": "U.S. export share fell 4.2 percentage points to 71.7% in 2025, the lowest since the early 1980s (Global Affairs Canada, December 2025 report). Non-U.S. goods exports rose 17.2% to an all-time high. EU exports up 23.4% YTD. January 2026 monthly showed weakness (-6.5%) but single-month data is volatile."
+        "rationale": "The annual non-U.S. share gained 4.2 points and corridor execution is underway, meeting the published whole-letter B condition.",
+        "thresholds": [
+          {
+            "grade": "A",
+            "criteria": "The non-U.S. export share improves by roughly five points or more and holds beyond one-month volatility."
+          },
+          {
+            "grade": "B",
+            "criteria": "The gain is roughly one to five points, with corridor or agreement execution underway."
+          },
+          {
+            "grade": "C",
+            "criteria": "Diversification is measurable but modest or not yet durable."
+          },
+          {
+            "grade": "D",
+            "criteria": "Diversification is unchanged or worsening without evidence that government policy actively deepened dependence."
+          },
+          {
+            "grade": "F",
+            "criteria": "Government policy actively deepens U.S. dependence or retreats from diversification."
+          }
+        ]
       }
     }
   },
@@ -1201,62 +1260,62 @@
     "id": "economic-policy",
     "name": "Economic Policy Response",
     "whatThisGrades": "Federal action to make Canada's economy more productive and competitive. That means investment, innovation, jobs, and wages.",
-    "grade": "D",
-    "previousGrade": null,
+    "grade": "C",
+    "previousGrade": "D",
     "trend": "down",
-    "status": "Canada's weak productivity (how much it gets out of each hour of work) was inherited, not caused by this government. This grade now tracks four kinds of levers the government can pull: tax, trade, regulation, and funding. But fewer than two of the core levers have reached the authorized or executing stage, and business investment is still close to flat.",
-    "verdictLine": "Fewer than two of the core levers are executing, and business investment is still close to flat.",
-    "judgmentCall": "The low grade is about how far the government's policy levers have actually been carried out. It is not about the inherited productivity weakness, which is treated as background.",
-    "judgmentDetail": "The grade is about the federal response, not Canada's inherited productivity level. Judgment enters in deciding which levers count as execution-ready. Announced funds and frameworks do not count the same as programs with Treasury Board sign-off, tax or regulatory changes already in force, or measurable movement on internal trade and permitting. June 2026 review: the Q1 2026 technical recession and the fifth straight quarterly business-investment decline are recorded in the metrics. But the D to D- question is held until the actual April 2026 GDP (gross domestic product) figure lands. Statistics Canada's early estimate was +0.4%, which could revise the technical recession away. So any down-move here waits for the data, not a judgment call.",
+    "status": "Two of the five core productivity levers have cleared the action bar: the productivity tax measure is executing and the internal trade law is authorized. The other three remain announced, and business investment has fallen for five straight quarters.",
+    "verdictLine": "Two core levers have cleared authorization, but business investment has fallen for five straight quarters.",
+    "judgmentCall": "The grade is about how far the government's policy levers have been carried out. It is not about the inherited productivity weakness, which is treated as background.",
+    "judgmentDetail": "The July 21 correction applies the action-first rule literally. Productivity-tax competitiveness is executing and interprovincial trade is authorized, so the qualifying count is two and the prior D no longer fits its fewer-than-two condition. The grade moves to C as a correction, not because an up-trigger fired or the economy improved. Business investment has fallen for five straight quarters, which blocks the next band. Timing Fairness keeps that outcome from vetoing the action count until March 14, 2027. The same two authorized-or-better levers and five-quarter investment decline would produce the same result under a government of another party.",
     "surfaceTags": [
       "Mostly inherited baseline",
       "Long-lag area (slow to show results)"
     ],
     "construct": "The federal government's overall stance on productivity and competitiveness, looked at across four kinds of levers: funding, tax, regulation, and trade.",
     "gradeBasis": {
-      "band": "D",
-      "bandCriterion": "Across the five core levers (AI compute, critical minerals execution, interprovincial trade implementation, regulatory-review execution, and productivity-tax competitiveness), fewer than two are clearly authorized or executing, and business investment is still close to flat with no durable turn (no lasting change of direction). Each lever is rated on its own as announced, authorized, or executing, using the published criteria listed below under per-lever status criteria. The main evidence for business investment is Statistics Canada GDP data, with two independent productivity analysts for context: the Centre for the Study of Living Standards (CSLS) Canadian Productivity Review and Signal49 Research.",
+      "band": "C",
+      "bandCriterion": "Productivity-tax competitiveness is executing and interprovincial trade is authorized. The other three core levers remain announced. That count meets the action-first C row. A fifth consecutive business-investment decline keeps the file below the next band. Each lever is rated as announced, authorized, or executing using the published criteria below. Statistics Canada GDP data is the main investment evidence, with the Centre for the Study of Living Standards and Signal49 Research as independent context.",
       "leverOperationalization": [
         {
           "name": "AI compute strategy",
           "announced": "Public commitment with named program",
-          "authorized": "Treasury Board sign-off OR Budget 2025 funded allocation visible in main estimates with named program leadership",
+        "authorized": "Treasury Board sign-off OR a funded allocation visible in estimates with named program leadership",
           "executing": "At least one compute capacity deployment or sovereign-compute investment live with public announcement, dollar figure, and named recipient",
-          "currentStatus": "announced. The sovereign AI compute strategy is named in Budget 2025 but no Treasury Board authorization, deployment, or named recipient has been confirmed in supplementary estimates as of this cycle."
+        "currentStatus": "announced. The ISED strategy page names funding envelopes and open applications, but this cycle did not locate Treasury Board authorization in estimates or a named capacity deployment and recipient."
         },
         {
           "name": "Critical minerals execution",
           "announced": "Strategy or partnership signing announced",
           "authorized": "Treasury Board-funded program with named recipients, signed federal-provincial or federal-foreign agreements, and a deployment timeline",
           "executing": "Project advancement past partnership-signing stage into permitting, construction, or extraction phase with measurable milestones",
-          "currentStatus": "announced (boundary with authorized). NRCan announced 30 critical minerals partnerships in March 2026 with $121B in associated project capital, but partnership signings are pre-execution. Project-level advancement into permitting or construction has not been verified across the project list."
+        "currentStatus": "announced (boundary with authorized). NRCan announced 30 critical minerals partnerships in March 2026 with $12.1B in associated project capital, but the cited page does not establish Treasury Board authorization and a deployment timeline across the project list."
         },
         {
           "name": "Interprovincial trade implementation",
           "announced": "Federal commitment to reduce barriers stated",
-          "authorized": "Legislative instrument enacted (Bill C-5 Building Canada Act in force)",
+          "authorized": "Legislative instrument enacted (Bill C-5 Free Trade and Labour Mobility in Canada Act in force)",
           "executing": "Bill C-5 in force AND signed federal-provincial implementation agreements operationalizing specific barrier reductions in at least three provinces with measurable change",
-          "currentStatus": "authorized. Bill C-5 is the live instrument. Implementation through federal-provincial agreements is in progress but executing status would require measurable barrier reduction in at least three provinces, which is not yet confirmed."
+        "currentStatus": "authorized. Bill C-5's Free Trade and Labour Mobility in Canada Act and its regulations came into force on January 1, 2026. Executing status under this ladder still requires measurable barrier reduction in at least three provinces, which is not yet confirmed."
         },
         {
           "name": "Regulatory-review execution",
           "announced": "Red tape review or regulatory modernization commitment stated",
           "authorized": "Treasury Board mandate issued with named regulatory initiatives in queue",
           "executing": "Regulatory initiatives reduced, repealed, or modernized with measurable change in compliance burden via PBO, Treasury Board, or independent burden estimate",
-          "currentStatus": "announced. Treasury Board's 2024-25 regulatory management annual report names hundreds of regulatory initiatives in queue. Executing status requires measurable burden reduction, not list publication."
+        "currentStatus": "announced. The Red Tape Review reports mix recent achievements with forward-looking actions. This cycle did not locate a government-wide burden estimate attributable to the 2025 review, which the executing condition requires."
         },
         {
           "name": "Productivity-tax competitiveness",
           "announced": "Tax measure committed in budget speech or campaign",
           "authorized": "Tax measure passed in budget legislation",
           "executing": "Tax measure in force AND effective rate change visible in published METR or equivalent independent estimate",
-          "currentStatus": "executing. Budget 2025 productivity super-deduction passed, with marginal effective tax rate on new business investment falling from 15.6% to 13.2% per Budget 2025 estimates."
+        "currentStatus": "executing. Bill C-15 received Royal Assent on March 26, 2026 and implemented the productivity super-deduction measures. Budget 2025 estimates that the marginal effective tax rate on new business investment falls from 15.6% to 13.2%."
         }
       ],
-      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), 3 announced (AI compute, critical minerals, regulatory review). The literal authorized-or-executing count is two, so it does not cleanly satisfy the D band's 'fewer than two' lever leg. The current D instead rests on only one lever executing, no durable two-quarter investment turn, and a fifth straight quarterly investment decline. Which leg binds when those signals split remains queued for editor adjudication. This release does not change the criterion or grade.",
-      "plusMinusRationale": "The current D reflects a real policy response that has not yet cleared the execution bar. Key funds are still more announced than actually running, business investment is close to flat, and the big barriers at home are still unresolved.",
-      "whyNotHigher": "The next band up needs at least one lever funded or authorized while business investment stays flat or barely positive. Investment fell at a 3% annual pace, a fifth straight quarterly decline.",
-      "whyNotLower": "The band below means no material federal response at all through funding, tax, regulation, or trade. The super-deduction and internal trade law are real actions whose execution the card contests.",
+      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), and 3 announced (AI compute, critical minerals, regulatory review). The authorized-or-executing count is two, which meets the action-first C row. Five consecutive quarterly investment declines block the next band.",
+      "plusMinusRationale": "The whole-letter C reflects two qualifying policy levers alongside a worsening investment outcome. The response has cleared the action floor, but most levers are still announced and the outcome check has not turned.",
+      "whyNotHigher": "The next band needs one executing lever and two consecutive quarters without an investment decline. One lever is executing, but investment has fallen for five straight quarters.",
+      "whyNotLower": "The lower band requires fewer than two levers authorized or executing. The productivity tax measure is executing and the internal trade law is authorized.",
       "activeModifiers": [
         {
           "name": "Timing Fairness",
@@ -1282,11 +1341,11 @@
         },
         {
           "grade": "C",
-          "criteria": "At least one of the five core levers is funded or authorized and others are designed or announced, but business investment is still flat or only barely positive, and no measurable productivity gains have shown up yet."
+          "criteria": "At least two of the five core levers are clearly authorized or executing, but either no lever is yet executing or business investment has not recorded two consecutive non-declining quarters. Measurable productivity gains are not yet visible."
         },
         {
           "grade": "D",
-          "criteria": "Instruments are still mostly announced rather than authorized or executing, fewer than two of the five current core levers are clearly funded or authorized, and business investment is still close to flat with no durable two-quarter turn (no lasting change of direction)."
+          "criteria": "Fewer than two of the five core levers are clearly authorized or executing, so instruments remain mostly announced. Business investment may confirm the weak trajectory, but it does not override the action count while Timing Fairness applies."
         },
         {
           "grade": "F",
@@ -1305,15 +1364,10 @@
     "gradeTriggers": {
       "up": [
         {
-          "text": "The AI compute fund starts actually paying out money, confirmed by Treasury Board or the PBO",
-          "setDate": "2026-04-17",
-          "sourceLabel": "Treasury Board or PBO confirmation (event-driven)"
-        },
-        {
-          "text": "Business investment turns positive for two or more quarters in a row",
-          "setDate": "2026-04-17",
-          "sourceLabel": "StatsCan GDP, income and expenditure - Q4 2025",
-          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
+          "text": "At least two core levers remain authorized or executing, at least one remains in execution, and business investment records two consecutive non-declining quarters",
+          "setDate": "2026-07-21",
+          "sourceLabel": "StatsCan GDP, income and expenditure - Q1 2026",
+          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm",
           "additionalSources": [
             {
               "label": "CSLS Research Report 2025-04",
@@ -1330,31 +1384,13 @@
       ],
       "down": [
         {
-          "text": "Additional major fund is announced without Treasury Board authorization",
-          "setDate": "2026-04-17",
-          "sourceLabel": "Budget / Treasury Board records (event-driven)"
-        },
-        {
-          "text": "Business investment falls even faster",
-          "setDate": "2026-04-17",
-          "sourceLabel": "StatsCan GDP, income and expenditure - Q4 2025",
-          "sourceUrl": "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
-          "additionalSources": [
-            {
-              "label": "CSLS Research Report 2025-04",
-              "url": "https://www.csls.ca/reports/csls2025-04.pdf",
-              "role": "Independent confirmation of productivity-trend deterioration."
-            },
-            {
-              "label": "Signal49 Research - business investment outlook",
-              "url": "https://www.signal49.ca/product/canadas-five-year-business-investment-outlook_mar2026/",
-              "role": "Centrist independent confirmation of business-investment decline acceleration."
-            }
-          ]
+          "text": "The number of core levers clearly authorized or executing falls below two",
+          "setDate": "2026-07-21",
+          "sourceLabel": "Treasury Board, legislation, and program records (event-driven)"
         }
       ]
     },
-    "rationale": "This dimension grades the government's response on productivity and competitiveness. It does not grade the inherited GDP-per-capita (gross domestic product per person) level, which reflects a decade of underinvestment. The grade now tracks non-spending levers explicitly. Budget 2025's productivity super-deduction lowers the marginal effective tax rate on new business investment. Bill C-5 is the live internal-trade law. Treasury Board's Red Tape Review has identified hundreds of regulatory initiatives. But fewer than two core levers have clearly cleared the authorization-or-execution bar. No permitting-acceleration tool has been used yet. Business investment rose only 0.3% in 2025 after repeated weak quarters. The grade reflects whether the policy mix is getting broad enough, and far enough along, to change the trajectory. Outcomes will take time to move.",
+    "rationale": "This dimension grades the government's response on productivity and competitiveness, not the inherited GDP-per-capita level. Budget 2025's productivity super-deduction is executing, and Bill C-5's Free Trade and Labour Mobility in Canada Act is authorized. The other three core levers remain announced. That two-lever count clears the action-first floor, while five consecutive quarterly business-investment declines keep the grade from moving higher. Timing Fairness remains active because outcomes take longer to respond than policy authorization.",
     "sources": [
       {
         "label": "OECD Economic Surveys: Canada 2025",
@@ -1387,15 +1423,15 @@
         "dateKind": "published"
       },
       {
-        "label": "Government of Canada - Internal Trade Action Plan status",
-        "url": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
-        "date": "2026-06-15",
-        "dateKind": "as-of"
+        "label": "Budget 2025 Implementation Act, No. 1 (Bill C-15)",
+        "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-15",
+        "date": "2026-03-26",
+        "dateKind": "published"
       },
       {
-        "label": "Building Canada Act (Bill C-5)",
-        "url": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
-        "date": "2026-06-14",
+        "label": "Free Trade and Labour Mobility in Canada Act - implementation",
+        "url": "https://www.canada.ca/en/one-canadian-economy/services/free-trade-labour-mobility-canada-act.html",
+        "date": "2026-07-21",
         "dateKind": "as-of"
       },
       {
@@ -1417,7 +1453,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-06-05",
+    "lastUpdated": "2026-07-21",
     "metrics": [
       {
         "group": "Inherited baseline / context only",
@@ -1432,7 +1468,7 @@
         "group": "Inherited baseline / context only",
         "label": "Real GDP (Q1 2026)",
         "lead": true,
-        "value": "Flat q/q; -0.1% annualized (technical recession, contested)",
+      "value": "0.0% q/q",
         "source": "statcan",
         "sourceRefs": [
           {
@@ -1440,13 +1476,13 @@
             "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
           }
         ],
-        "sourceNote": "StatsCan GDP release May 29, 2026: real GDP was unchanged quarter-over-quarter in Q1 2026 (-0.1% annualized), a second consecutive annualized decline after Q4 2025 (-0.2% q/q). This meets some definitions of a technical recession, but economists are split. BMO's Douglas Porter noted the Q1 dip is small enough it 'could be easily revised away,' and StatCan's early April 2026 estimate is +0.4% growth. Texture matters: real GDP per capita rose 0.2% (population fell for a second quarter) and household spending rose 1.5% annualized, so the contraction is concentrated in business investment and trade (gold imports), not consumer demand. Shown as context only. This dimension grades the policy response, not the level of GDP.",
+      "sourceNote": "Statistics Canada reported that real GDP was unchanged quarter-over-quarter in Q1 2026 after declining 0.2% in Q4 2025. Real GDP per capita rose 0.2%, household spending rose 0.4%, and business capital investment fell 0.7%. This is context only because the dimension grades the policy response, not the GDP level.",
         "automatable": false
       },
       {
         "group": "Inherited baseline / context only",
         "label": "OECD per-capita growth rank (long-run context)",
-        "value": "Last of 38",
+      "value": "Last or near-last of 38",
         "source": "oecd",
         "sourceNote": "OECD long-term baseline projections are the primary reference point. OECD Economic Surveys: Canada 2025 summarizes the weak per-capita outlook. Fraser Institute and BCBC analyses turn those projections into the 'last or near-last' framing used here. Canada's real GDP per capita is forecast to grow roughly 0.7% per year in 2020-2030 and 0.8% per year in 2030-2060. The exact rank is 'last or near-last' depending on the projection round, and Canada is tied with Italy in some versions.",
         "automatable": false
@@ -1455,7 +1491,7 @@
         "group": "Response metrics",
         "label": "Business investment (Q1 2026)",
         "lead": true,
-        "value": "-3% annualized (5th straight quarterly decline)",
+      "value": "-0.7% q/q (5th straight quarterly decline)",
         "source": "statcan",
         "sourceRefs": [
           {
@@ -1463,7 +1499,7 @@
             "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
           }
         ],
-        "sourceNote": "StatsCan GDP income-and-expenditure release for Q1 2026 (May 29, 2026): business capital investment fell 3% annualized, its fifth consecutive quarterly decline, driven by a 4.6% drop in engineering structures, largely attributed to U.S. tariff uncertainty. Full-year 2025 business investment was +0.3% (essentially flat), so the Q1 2026 reading is a clear deterioration. The decline is the load-bearing evidence for this dimension's grade and is cross-referenced against the down condition 'business investment decline accelerates.' See grade evaluation.",
+      "sourceNote": "Statistics Canada's May 29, 2026 release says business capital investment fell 0.7% quarter-over-quarter in Q1 2026, its fifth consecutive quarterly decline. Engineering structures fell 4.6%, partly offset by gains in machinery and equipment, mineral exploration, non-residential buildings, and software. This is the load-bearing outcome check for the current band.",
         "automatable": false
       },
       {
@@ -1493,7 +1529,7 @@
         "group": "Policy breadth checks",
         "label": "Tax competitiveness on new business investment",
         "lead": true,
-        "value": "13.2% METR with super-deduction",
+      "value": "13.2% projected METR with super-deduction",
         "source": "finance-canada",
         "sourceNote": "Budget 2025 states that with the productivity super-deduction, Canada's marginal effective tax rate on new business investment would fall from 15.6% to 13.2%. That rate would stay the lowest in the G7.",
         "automatable": false
@@ -1501,9 +1537,9 @@
       {
         "group": "Policy breadth checks",
         "label": "Internal trade implementation",
-        "value": "Bill C-5 enacted",
+      "value": "Act and regulations in force",
         "source": "government-of-canada",
-        "sourceNote": "The One Canadian Economy Act / Building Canada Act is the live interprovincial-trade lever in the file. The law has passed, so the open question is now whether it gets carried out.",
+      "sourceNote": "Bill C-5 enacted the Free Trade and Labour Mobility in Canada Act. The Act and regulations came into force on January 1, 2026. The file still requires measurable barrier reduction in at least three provinces before calling the lever executing.",
         "automatable": false
       },
       {
@@ -1519,7 +1555,13 @@
         "label": "Permitting acceleration tool uses",
         "value": "0",
         "source": "legisinfo",
-        "sourceNote": "The national-interest designation power under Bill C-5 has not been used yet. This is still a breadth check inside Economic Policy. Primary grading of the project-approval system stays in Major Projects.",
+      "sourceNote": "As of the July 21, 2026 check, the official page described the June 24 process to list projects but did not show a completed Schedule 1 listing. This dated absence is not proof that no unpublished step exists. Primary grading of the project-approval system stays in Major Projects.",
+      "sourceRefs": [
+        {
+          "label": "Government of Canada - Building Canada Act projects of national interest",
+          "url": "https://www.canada.ca/en/one-canadian-economy/services/building-canada-act-projects-national-interest.html"
+        }
+      ],
         "automatable": false
       }
     ],
@@ -1528,7 +1570,7 @@
         "text": "$2B sovereign AI compute strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Launched Dec 2024. Microsoft committed C$19B. SCALE AI $128.5M round completed.",
+      "evidence": "The official ISED page lists the $2B strategy, open applications for public supercomputing infrastructure, an AI Compute Challenge of up to $700M, and an access fund of up to $300M. The cited page does not name a completed capacity deployment.",
         "durability": "Program",
         "history": [
           {
@@ -1546,7 +1588,7 @@
         "text": "Critical minerals strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "NRCan states $18.5B mobilized across Canadian critical minerals projects (see dimension sources; March 2026 NRCan release consolidates the March and October rounds). The '56 partnerships' figure refers to CMGD internal R&D projects, not the $18.5B total. This is policy/context evidence, not proof of federal disbursement. Canada produces 10 of 12 NATO defence-critical minerals.",
+      "evidence": "NRCan's March 2026 page lists 30 new partnerships and investments tied to $12.1B in project capital, including conditionally approved funding and binding offtake agreements. This shows program activity, not portfolio-wide execution or federal disbursement.",
         "originalSourceUrl": "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html",
         "originalSourceLabel": "NRCan - critical minerals partnerships",
         "durability": "Program",
@@ -1586,14 +1628,14 @@
     ],
     "perspectives": {
       "critics": "If Carney is the credibility candidate, the one markets trust, why has business investment not turned after 13 months? Permitting, tax rates, electricity costs, and regulatory uncertainty remain unresolved. OECD long-term projections rank Canada last or near-last among 38 members for per-capita GDP growth through 2060. That framing comes from Fraser Institute and BCBC analysis of OECD data.",
-      "defenders": "Department of Finance Budget 2025 adds a productivity super-deduction, which widens the tax incentive for new business investment. Treasury Board Secretariat confirms the internal-trade law is enacted. The Red Tape Review is now producing a government-wide pipeline of regulatory fixes. OECD analysis treats weak productivity as a problem that built up over a decade. So a 13-month score should ask whether the response mix is broadening, not expect GDP per capita to turn around right away."
+    "defenders": "Bill C-15 implemented the productivity super-deduction, which widens the tax incentive for new business investment. Bill C-5's internal-trade Act and regulations are in force. The Red Tape Review is producing a government-wide pipeline of regulatory fixes. OECD analysis treats weak productivity as a problem that built up over a decade, so this score asks whether the response mix is broadening rather than expecting GDP per capita to turn immediately."
     },
     "tags": {
       "confidence": "High",
       "attribution": "Direct (policy response)",
       "lag": "Long"
     },
-    "nextTrigger": "Treasury Board authorization or first confirmed disbursement for AI compute. Q1 2026 business investment data. Any authorization or disbursement evidence for critical minerals instruments.",
+    "nextTrigger": "Q2 2026 business-investment data. Any authorization or execution evidence for AI compute, critical minerals, or regulatory review.",
     "inherited": "GDP per capita declined 2.0% from 2020-2024. Business investment falling since 2006. R&D at half the US rate. Population-driven growth masked per-capita decline for a decade."
   },
   {
@@ -3129,10 +3171,10 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "The ethics setup is missing pieces that a background like his calls for. Nothing wrong has been proven. The gap in what has been disclosed is still open.",
-    "verdictLine": "Nothing wrong has been proven, but the ethics setup is missing pieces and the disclosure gap is open.",
+    "status": "Four of five disclosure pieces are now documented. House ETHI Report 5 counts as a substantive independent review, but no PM-specific Ethics Commissioner review or full public accounting has been published.",
+    "verdictLine": "Four disclosure pieces are documented, but full accounting and a Commissioner finding remain absent.",
     "judgmentCall": "The middle grade separates two findings. The disclosure and screening setup still has gaps, but no wrongdoing has been proven.",
-    "judgmentDetail": "The C is about whether the rules are good enough, not whether he did anything wrong. Basic disclosure and an ethics screen (a recusal plan listing decisions he stays out of) keep the grade from going lower. But it is unclear whether disclosure is complete, and the Ethics Commissioner has not published a review of his specific case, so it cannot go higher. The editor's rule: a downgrade needs a formal finding against him or two independent governance critiques first.",
+    "judgmentDetail": "The C is about whether the rules are good enough, not whether he did anything wrong. House ETHI Report 5 substantively reviewed the Prime Minister's divestment and conflict screen, so the independent-review component is present. It also counts as a separate institutional critique alongside Democracy Watch. The grade still cannot move higher because full public accounting is absent and the Ethics Commissioner has not published a PM-specific review finding the screen adequate. It does not move lower because four components are present and Report 5 did not make a formal finding that the current PM-specific screen is inadequate.",
     "surfaceTags": [
       "Whole-letter grade",
       "Medium confidence"
@@ -3140,7 +3182,7 @@
     "construct": "Whether the federal ethics setup provides the extra disclosure called for by the Prime Minister's financial and career background.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Three of the five disclosure pieces are in place: a blind trust, the agreed-measure filing (his public statement of the conflict rules he agreed to), and the Annex A conflict-screen scope (the list of decisions he stays out of). The other two are missing: a full public accounting of his holdings, and a published independent review. A piece counts as present only when the matching public document can actually be looked at, using the checks listed below.",
+      "bandCriterion": "Four of the five disclosure pieces are in place: a blind trust, the agreed-measure filing, the Annex A conflict-screen scope, and a substantive independent parliamentary review in House ETHI Report 5. A full public accounting of holdings is still absent. The next band also requires a PM-specific Ethics Commissioner review finding the screen adequate, which has not been published.",
       "componentOperationalization": [
         {
           "name": "Blind trust",
@@ -3165,13 +3207,13 @@
         {
           "name": "Published independent ethics review",
           "presentIfX": "The Ethics Commissioner has published a formal review of the PM's screen and disclosure (not a procedural acknowledgement that a filing was received), OR an independent parliamentary committee review has produced a substantive report",
-          "currentStatus": "absent. No formal Ethics Commissioner review of the PM's screen has been published. The Ethics Committee has not produced a substantive report on the question."
+          "currentStatus": "present. House ETHI Report 5 substantively examined the Prime Minister's divestment and conflict screen. No PM-specific Ethics Commissioner review has been published."
         }
       ],
-      "componentScoreSummary": "Five components assessed: 3 present (blind trust, agreed-measure filing, Annex A conflict-screen scope), 2 absent (full public accounting of holdings, published independent ethics review). The C band reflects the baseline disclosure framework being present (which differentiates from D) but unresolved on full accounting and independent review (which blocks progression toward B).",
-      "plusMinusRationale": "The C sits at the low end of the C range. The ethics setup exists and produces basic disclosure, which is what keeps it above a D. But critics still have open complaints about it, and the Ethics Commissioner has not published a review, which is what keeps it from climbing toward a B.",
-      "whyNotHigher": "The next band up needs four of the five pieces, including an Ethics Commissioner review that finds the recusal screen good enough. A check of the Commissioner's registry found no review of his case.",
-      "whyNotLower": "The band below needs fewer than three pieces, an official concern, or two case-specific critiques. Three pieces exist. ETHI reviewed the law generally, not this PM's screen.",
+      "componentScoreSummary": "Five components assessed: 4 present (blind trust, agreed-measure filing, Annex A conflict-screen scope, substantive independent parliamentary review) and 1 absent (full public accounting of holdings). The grade holds at C because the B row specifically requires a PM-specific Ethics Commissioner review finding the screen adequate.",
+      "plusMinusRationale": "The whole-letter C reflects a real disclosure framework and a substantive committee review, alongside an unresolved accounting gap and no PM-specific Commissioner finding on adequacy.",
+      "whyNotHigher": "Four pieces are present, but the next band requires an Ethics Commissioner review finding the screen adequate. No such review is published.",
+      "whyNotLower": "Four pieces are present. Report 5 is an independent review and a separate critique alongside Democracy Watch, so the lower band's no-review condition is not met.",
       "activeModifiers": []
     },
     "scoring": {
@@ -3186,11 +3228,11 @@
         },
         {
           "grade": "C",
-          "criteria": "At least three of the five disclosure pieces are in place, but full public accounting or a published independent review is missing, and material questions remain about whether the disclosure is complete."
+          "criteria": "At least three of the five disclosure pieces are in place, but full public accounting is missing or no PM-specific Ethics Commissioner review has found the screen adequate, and material completeness questions remain."
         },
         {
           "grade": "D",
-          "criteria": "Fewer than three of the five disclosure pieces are in place, or material disclosure gaps remain with no independent review and either an official concern or two independent governance critiques cite a material problem with the recusal screen or the disclosure."
+          "criteria": "Fewer than three of the five disclosure pieces are in place; or an Ethics Commissioner review or another official finding concludes that the current PM-specific screen or disclosure is inadequate; or, while no independent review exists, two independent governance critiques cite a material problem."
         },
         {
           "grade": "F",
@@ -3203,7 +3245,7 @@
         "The disclosure pieces right now are these five: the blind trust, the agreed-measure filing, the Annex A conflict-screen scope, a full public accounting of his holdings, and a published independent review.",
         "This grade is a whole letter with medium confidence, because the evidence is mostly judgment-based and event-driven rather than steady numbers.",
         "Questions about conflicts tied to Brookfield are weighed here, as evidence about the ethics setup. They do not move the Carbon Pricing Policy grade.",
-        "To drop this to a D based on critics, there must be either an official finding against him or two separate independent governance critiques."
+        "A lower band requires fewer than three pieces, an official finding that the current setup is inadequate, or both no independent review and two separate governance critiques."
       ]
     },
     "gradeTriggers": {
@@ -3212,7 +3254,7 @@
           "text": "The Ethics Commissioner publishes a detailed review that finds his disclosure good enough",
           "setDate": "2026-04-17",
           "sourceLabel": "Office of the Ethics Commissioner - registry and reviews",
-          "sourceUrl": "https://ciec-ccie.parl.gc.ca/"
+          "sourceUrl": "https://ciec-ccie.parl.gc.ca/en/public-registry"
         },
         {
           "text": "The Prime Minister publishes a full accounting of his Brookfield holdings on his own",
@@ -3226,17 +3268,17 @@
           "text": "New evidence turns up of financial interests he did not disclose",
           "setDate": "2026-04-17",
           "sourceLabel": "Office of the Ethics Commissioner - registry and reviews",
-          "sourceUrl": "https://ciec-ccie.parl.gc.ca/"
+          "sourceUrl": "https://ciec-ccie.parl.gc.ca/en/public-registry"
         },
         {
           "text": "The Ethics Commissioner finds the recusal screen is not good enough",
           "setDate": "2026-04-17",
           "sourceLabel": "Office of the Ethics Commissioner - registry and reviews",
-          "sourceUrl": "https://ciec-ccie.parl.gc.ca/"
+          "sourceUrl": "https://ciec-ccie.parl.gc.ca/en/public-registry"
         },
         {
-          "text": "Two or more listed governance sources publish a finding of a material disclosure or screening gap.",
-          "setDate": "2026-05-02",
+          "text": "While no published independent review exists, two or more listed governance sources publish separate findings of a material disclosure or screening gap",
+          "setDate": "2026-07-21",
           "sourceLabel": "Ethics source list / governance critiques (event-driven)"
         }
       ]
@@ -3264,13 +3306,13 @@
       {
         "label": "House ETHI report - Review of the Conflict of Interest Act",
         "url": "https://www.ourcommons.ca/documentviewer/en/45-1/ETHI/report-5",
-        "date": "2026-04",
+        "date": "2026-04-23",
         "dateKind": "published"
       },
       {
         "label": "Office of the Ethics Commissioner - registry and reviews",
-        "url": "https://ciec-ccie.parl.gc.ca/en/",
-        "date": "2026-06-15",
+        "url": "https://ciec-ccie.parl.gc.ca/en/public-registry",
+        "date": "2026-07-21",
         "dateKind": "as-of"
       },
       {
@@ -3292,7 +3334,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-07-19",
+    "lastUpdated": "2026-07-21",
     "metrics": [
       {
         "label": "Ethics Commissioner review",
@@ -3300,12 +3342,12 @@
         "value": "Not published",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "Checked the Office of the Ethics Commissioner public search on 2026-06-05. The search surfaced MP Status Report entries naming Mark Carney but no PM-specific Ethics Commissioner review or report. The metric remains 'Not published'.",
+        "sourceNote": "Checked the Office of the Ethics Commissioner public registry and investigation-report index on 2026-07-21. No PM-specific Ethics Commissioner review of the screen and disclosure was found. This dated absence is evidence, not proof that no unpublished work exists.",
         "sourceRefs": [
-          {
-            "label": "Office of the Ethics Commissioner - Carney search results",
-            "url": "https://ciec-ccie.parl.gc.ca/en/Pages/search-recherche.aspx?k=Carney"
-          }
+        {
+          "label": "Office of the Ethics Commissioner - public registry",
+          "url": "https://ciec-ccie.parl.gc.ca/en/public-registry"
+        }
         ]
       },
       {
@@ -3380,8 +3422,8 @@
         "text": "Independent Ethics Commissioner review",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "No published independent review of the structural conflict between career path and policy decisions.",
-        "statusSourceUrl": "https://ciec-ccie.parl.gc.ca/en/",
+        "evidence": "No PM-specific Ethics Commissioner review of the screen and disclosure has been published. House ETHI Report 5 is a separate parliamentary review and does not satisfy this Commissioner-specific promise.",
+        "statusSourceUrl": "https://ciec-ccie.parl.gc.ca/en/public-registry",
         "statusSourceLabel": "Office of the Ethics Commissioner - registry",
         "durability": "Framework",
         "history": [
@@ -3404,7 +3446,7 @@
       "attribution": "Direct",
       "lag": "Event-driven"
     },
-    "nextTrigger": "Ethics Commissioner publication of Brookfield review. Any new disclosure of retained financial interests. House Ethics Committee report.",
+    "nextTrigger": "A PM-specific Ethics Commissioner review. Any new disclosure of retained financial interests or a full public accounting.",
     "inherited": "No prior PM had Carney's specific background in carbon market architecture and transition finance. Novel disclosure challenge without clear precedent.",
     "gpaValue": 2
   },

@@ -1,213 +1,129 @@
-# Perplexity / Comet / Claude MCP Setup
+# Perplexity / Comet / Claude Review Setup
 
-This repo can be exposed to Perplexity or Comet through the generic MCP
-filesystem server. The connector is scoped only to this repository:
+## Current hold
 
-```text
-<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>
-```
+The repo's filesystem MCP connector is paused as of 2026-07-19. Do not use the
+direct, snapshot, HTTP, SSE, or tunnel modes. The launcher exits without
+starting a server.
 
-Throughout this doc, `<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>` is the absolute
-path to your local clone of this repository (for example,
-`/Users/you/code/canada-under-carney` or `/home/you/repos/canada-under-carney`).
-Replace it everywhere it appears before wiring up your MCP client.
+The decision record is
+[MCP-vs-Scripts-Decision-2026-07-19.md](MCP-vs-Scripts-Decision-2026-07-19.md).
+It found that:
 
-Do not add broader paths like the entire home folder, the entire Downloads
-folder, or the filesystem root. Scope the connector to the repo only.
+- MCP is not part of the dashboard runtime, build, deployment, source monitor,
+  scoring, or browser-test path.
+- The old read-only snapshot copied ignored local files, including identity
+  patterns, personal AI context, machine-specific MCP configs, generated
+  output, test results, and most of `tmp/`.
+- Read-only permissions blocked edits but did not block reading those files.
+- Direct modes exposed write-capable filesystem tools.
+- Public tunnel modes used a secret URL path instead of compatible
+  authentication.
 
-## Local working config files
+The committed `.mcp/*.json.template` files remain only as historical
+configuration references. Local `.mcp/*.json` files are gitignored. Neither
+should be activated while this hold is in place.
 
-The MCP runtime reads from `.mcp/perplexity-filesystem-direct.json` and
-`.mcp/perplexity-filesystem-readonly-snapshot.json`. Those files are
-**gitignored** because the absolute paths in them are specific to each
-contributor's machine. The repo ships `.json.template` versions that you
-copy and edit:
+## Safe review paths
 
-```bash
-cd <REPLACE-WITH-YOUR-LOCAL-REPO-PATH>
-cp .mcp/perplexity-filesystem-direct.json.template \
-   .mcp/perplexity-filesystem-direct.json
-cp .mcp/perplexity-filesystem-readonly-snapshot.json.template \
-   .mcp/perplexity-filesystem-readonly-snapshot.json
-```
+Use the smallest path that gives the reviewer the evidence it needs:
 
-Then open each `.json` file and replace `<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>`
-with your actual repo path. The shell script that the JSON points at uses
-relative paths internally, so once the JSON is correct, no other edits are
-needed.
+| Review need | Current path |
+|---|---|
+| Repo, methodology, source-chain, or architecture review | Tracked-file bundle or individually attached files |
+| Live layout and interaction review | Open the rendered dashboard in a browser-capable review session |
+| Static desktop and mobile evidence | Generated review PDF and manifest |
+| Repeatable browser regression | Playwright Test through `npm run test:browser` |
+| Claude adversarial review | Read-only `scripts/claude-bridge.sh` workflow |
 
-## Recommended connector: direct repo filesystem
+### Repo bundle
 
-Use this when Perplexity supports local command-based MCP connectors and you
-want Comet to inspect the live working tree. The generic filesystem server
-exposes write/edit tools inside this repo.
-
-Command:
-
-```text
-/bin/bash
-```
-
-Args:
-
-```text
-<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>/scripts/start-perplexity-filesystem-mcp.sh
-```
-
-Equivalent JSON lives at:
-
-```text
-.mcp/perplexity-filesystem-direct.json
-```
-
-## Claude Desktop local connector
-
-Claude Desktop can launch the MCP server locally by command, so it does not
-need the public tunnel. First create or refresh the read-only snapshot:
+Generate a fresh bundle:
 
 ```bash
-cd <REPLACE-WITH-YOUR-LOCAL-REPO-PATH>
-scripts/start-perplexity-filesystem-mcp.sh --prepare-readonly-snapshot
+npm run bundle
 ```
 
-Then add this server to:
+The upload copy is written to:
 
 ```text
-~/Library/Application Support/Claude/claude_desktop_config.json
+~/Downloads/perplexity-bundle.md
 ```
 
-```json
-{
-  "mcpServers": {
-    "canada-under-carney-readonly": {
-      "command": "/opt/homebrew/bin/npx",
-      "args": [
-        "-y",
-        "@modelcontextprotocol/server-filesystem@2026.1.14",
-        "<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>/tmp/mcp-readonly-snapshot"
-      ]
-    }
-  }
-}
-```
+The bundle contains the working-tree content of regular Git-tracked text files.
+It reports untracked files through its dirty-state metadata but does not include
+them. Tracked symlinks are listed without reading their targets. Attach a new
+untracked file separately when it is part of the review.
 
-Restart Claude Desktop after editing the config. Then test in Claude:
+Before relying on the bundle, check the metadata at its top:
 
-```text
-Use the canada-under-carney-readonly MCP server. Read this exact file:
-<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>/tmp/mcp-readonly-snapshot/src/data/meta.json
+- target version
+- Git commit
+- whether the working tree was dirty when generated
 
-Tell me the dashboard version.
-```
+### Rendered evidence pack
 
-Do not point Claude Desktop at the wrapper script directly. Some Claude Desktop
-sandboxes refuse to open scripts from `~/Downloads` with `Operation not
-permitted`. Launching the pinned filesystem MCP package directly avoids that
-launcher failure.
-
-## Safer review connector: read-only snapshot
-
-Use this when Perplexity supports local command-based MCP connectors and you
-want Comet to review the repo but not edit the live working tree. The wrapper
-creates a read-only snapshot under:
-
-```text
-tmp/mcp-readonly-snapshot
-```
-
-Command:
-
-```text
-/bin/bash
-```
-
-Args:
-
-```text
-<REPLACE-WITH-YOUR-LOCAL-REPO-PATH>/scripts/start-perplexity-filesystem-mcp.sh
---readonly-snapshot
-```
-
-Equivalent JSON lives at:
-
-```text
-.mcp/perplexity-filesystem-readonly-snapshot.json
-```
-
-## URL-based connector screen
-
-If Perplexity shows an "MCP server URL" field with transport choices like
-"Streamable HTTP" and "SSE", start the local HTTP proxy first:
+Generate a fresh evidence pack:
 
 ```bash
-cd <REPLACE-WITH-YOUR-LOCAL-REPO-PATH>
-scripts/start-perplexity-filesystem-mcp.sh --readonly-snapshot-http
+npm run review:evidence
 ```
 
-Then use these settings in Perplexity:
+By default it captures:
 
 ```text
-MCP server URL: http://127.0.0.1:8080/mcp
-Transport: Streamable HTTP
-Authentication: None / No authentication
+https://sawatter.github.io/canada-under-carney/
 ```
 
-If Streamable HTTP does not connect, use the fallback:
+Before trusting the default live capture, confirm the visible live version
+matches `src/data/meta.json`. If local metadata is ahead of the deployed site,
+wait for Pages or capture a local preview.
+
+Each run writes to a timestamped folder under:
 
 ```text
-MCP server URL: http://127.0.0.1:8080/sse
-Transport: SSE
-Authentication: None / No authentication
+tmp/review-evidence/<timestamp>/
 ```
 
-Direct live-working-tree mode is also available:
+Attach these files from the newest completed folder:
+
+```text
+review-evidence.pdf
+manifest.md
+```
+
+The PDF is the visual packet. The manifest records the URL, dashboard version,
+viewports, and exact screenshots. Use these files for visible layout claims,
+not for claims about code, methodology, or live interaction.
+
+To capture a local preview:
 
 ```bash
-cd <REPLACE-WITH-YOUR-LOCAL-REPO-PATH>
-scripts/start-perplexity-filesystem-mcp.sh --http
+REVIEW_EVIDENCE_URL=http://127.0.0.1:4173/canada-under-carney/ npm run review:evidence
 ```
 
-The URLs are the same. The difference is that `--http` points to the live repo,
-while `--readonly-snapshot-http` points to a non-writable copy.
+To change the expanded dimension in the packet:
+
+```bash
+REVIEW_EVIDENCE_DIMENSION=housing-supply npm run review:evidence
+```
 
 ## Live dashboard review in Comet
 
-If the goal is for Comet to inspect the rendered dashboard at
-`https://sawatter.github.io/canada-under-carney/`, do not rely on the fetch-only
-URL tool by itself. This project is a React SPA. A plain URL fetch can return
-mostly the app shell and miss the JavaScript-rendered UI.
+For UI review, open
+`https://sawatter.github.io/canada-under-carney/` in the Comet browser and
+point the review at the open tab. A fetch-only request can return mostly the
+React app shell and miss the rendered interface.
 
-Use this primary workflow instead:
+Use this workflow:
 
-1. Open the dashboard URL in the Comet browser itself and let the page finish
-loading.
-2. If you want file-level repo context too, enable the local filesystem MCP
-connector from this doc first. Read-only snapshot mode is the safer default for
-review. Refresh the snapshot before the review so Comet is not reading an older
-copy of the repo:
-   ```bash
-   scripts/start-perplexity-filesystem-mcp.sh --prepare-readonly-snapshot
-   ```
-3. In the Comet chat, point the model at the open tab instead of only pasting
-the URL. Use `@tab` or the current-tab picker so the prompt is grounded in the
-rendered page Comet can already see.
-4. Tell Comet which mode you expect:
-   - `Rendered tab review` for layout, hierarchy, interaction, copy, and trust
-     surface feedback.
-   - `Repo review via MCP` for methodology, source-chain, and architecture
-     feedback.
-   - `Both` when you want one pass that uses the live tab plus the repo files.
-
-Suggested live-review opener:
-
-```text
-Review the open @tab for canada-under-carney as a live rendered dashboard, not
-as a raw URL fetch. If you need repo context, also use the Canada Under Carney
-filesystem MCP connector. Be explicit about which findings come from the live
-rendered tab versus which are inferred from repo files. First confirm the live
-tab version matches the version I asked you to review. If the live tab, bundle,
-and MCP files disagree on version, report the mismatch before giving findings.
-```
+1. Open the dashboard in Comet and let it finish loading.
+2. Point the chat at the open tab with `@tab` or the current-tab picker.
+3. Attach the fresh bundle for repo context when needed.
+4. Attach the fresh evidence PDF and manifest if the reviewer cannot inspect a
+   required viewport directly.
+5. Ask the reviewer to separate live-tab evidence, bundle evidence, rendered
+   packet evidence, and anything it could not inspect.
 
 Live-access smoke test:
 
@@ -220,16 +136,16 @@ click, or read the current rendered tab, stop and say LIVE-TAB ACCESS FAILED
 instead of reviewing from URL fetch results.
 ```
 
-Copy/paste prompt for a deep Comet pass:
+Deep-review prompt:
 
 ```text
 Assume the editor wants disagreement, not reassurance.
 
 Review the open @tab for https://sawatter.github.io/canada-under-carney/ as a
-live rendered dashboard, not as a raw URL fetch. Also use the Canada Under
-Carney read-only filesystem MCP connector for repo, methodology, source-chain,
-and architecture claims. If MCP is unavailable, use the attached
-perplexity-bundle.md instead.
+live rendered dashboard, not as a raw URL fetch. Use the attached
+perplexity-bundle.md for repo, methodology, source-chain, and architecture
+claims. Use the attached review-evidence.pdf and manifest.md only for visible
+layout evidence that you can point to.
 
 First prove live-tab access. Report the visible version string, active
 navigation label, the two headline-score cards, and one visible change after
@@ -237,182 +153,55 @@ opening a dimension card. Confirm the visible version matches the target review
 version. If you cannot scroll, click, or read the rendered tab, stop and say
 LIVE-TAB ACCESS FAILED.
 
-Then review every visible and interactive dashboard surface you can reach:
-header, trust frame, KPI cards, score math expanders, status block, all tabs,
-promise controls, change-log filters, methodology/about links, all dimension
-cards, dimension drawer sections, jump navigation, source/download affordances,
-desktop viewport, mobile viewport if available, and keyboard/focus behavior if
-available.
+Then inspect the reachable dashboard surfaces: header, trust frame, headline
+score cards, score math expanders, status block, navigation, promise controls,
+change-log filters, methodology and About links, dimension cards, dimension
+drawer sections, source and download controls, desktop viewport, mobile
+viewport if available, and keyboard or focus behaviour if available.
 
 For every finding, label the evidence source as one of:
-- Rendered-tab evidence
-- Repo evidence
+- Live-tab evidence
 - Bundle evidence
+- Rendered-packet evidence
 - Needs live interaction
 - Not inspected
 
-For every UI claim, label the viewport used. Do not generalize desktop findings
-to mobile or mobile findings to desktop. If you sampled instead of exhausting a
-surface, say exactly what was sampled and what remains not inspected.
+For every UI claim, name the viewport used. Do not generalize desktop findings
+to mobile or mobile findings to desktop. If you sampled a surface, say what was
+sampled and what remains.
 
 End with:
 1. A coverage matrix.
 2. Ranked findings with concrete fixes.
-3. Claims you retract or narrow because live evidence does not support them.
-4. Open questions where the evidence is still insufficient.
+3. Claims you retract or narrow because the evidence does not support them.
+4. Open questions where the evidence is insufficient.
 ```
 
-What this fixes:
+## Reopen gates for MCP
 
-- Comet can comment on the rendered page it is actually viewing in-browser.
-- The MCP connector can supply the underlying files and docs at the same time.
+Do not rebuild the connector only because the old code existed. Reconsider a
+local read-only MCP adapter after a repeated review need shows that selective
+reads are materially better than the bundle or targeted attachments.
 
-What this does not fix:
+If that need appears, the replacement design must:
 
-- A fetch-only tool still will not become a full browser.
-- If Comet is not being used inside the Comet browser, or is not pointed at the
-  open tab, it may still fall back to URL/document reading instead of live page
-  inspection.
+1. Use local `stdio` by default.
+2. Copy only Git-tracked files plus explicitly allowed, non-ignored untracked
+   files.
+3. Include modified tracked files without copying ignored local context.
+4. Reject symlinks and special files unless a narrower policy is designed and
+   tested.
+5. Install retained packages through a lockfile or another reviewable integrity
+   mechanism rather than fetching unpinned tools at runtime.
+6. Add a smoke test proving sensitive ignored paths and scratch output are
+   absent.
+7. Receive a different-AI review before it is treated as available.
 
-## Rendered evidence pack fallback
+A remote connector also needs compatible authentication and a fresh editor
+approval. A secret URL alone does not pass that gate. Separate SSE mode should
+not return as the default because the current MCP specification replaced the
+older HTTP+SSE transport with Streamable HTTP.
 
-This is a fallback, not the preferred path for a full UI review. When Comet
-cannot inspect the live tab, attach rendered evidence instead of asking it to
-infer UI quality from source files. It is useful for a bounded second opinion,
-but it is not efficient for exhaustive interaction review.
-
-Generate a fresh evidence pack:
-
-```bash
-npm run review:evidence
-```
-
-By default this captures the live GitHub Pages site:
-
-```text
-https://sawatter.github.io/canada-under-carney/
-```
-
-Before trusting the default live capture, confirm the live header version
-matches `src/data/meta.json`. If local `meta.json` is ahead of the deployed
-site, either wait for Pages to deploy or capture local preview with
-`REVIEW_EVIDENCE_URL`.
-
-The output is written under:
-
-```text
-tmp/review-evidence/
-```
-
-Attach these files to Comet:
-
-```text
-review-evidence.pdf
-manifest.md
-```
-
-The PDF is the one-file visual packet. The manifest records the URL, dashboard
-version, viewports, and exact screenshots. Individual PNGs are also generated
-in the same folder if a reviewer needs to zoom into a specific view.
-
-If the MCP connector is not available, also attach the repo bundle. Refresh it
-first so Comet sees the current working tree:
-
-```bash
-npm run bundle
-```
-
-The bundle is copied to:
-
-```text
-~/Downloads/perplexity-bundle.md
-```
-
-Use the bundle for repo, method, source-chain, and architecture claims. Use the
-evidence PDF only for rendered visual evidence.
-
-To capture a local preview instead of the live site, start preview separately
-and pass the URL:
-
-```bash
-REVIEW_EVIDENCE_URL=http://127.0.0.1:4173/canada-under-carney/ npm run review:evidence
-```
-
-To change the expanded dimension included in the packet:
-
-```bash
-REVIEW_EVIDENCE_DIMENSION=housing-supply npm run review:evidence
-```
-
-## Remote custom connector screen
-
-If Perplexity rejects `127.0.0.1` with `[FETCHER_HTML_STATUS_CODE_ERROR]`, it is
-validating the connector from Perplexity's cloud instead of from your Mac. Use a
-temporary HTTPS tunnel with a secret path:
-
-```bash
-cd <REPLACE-WITH-YOUR-LOCAL-REPO-PATH>
-export MCP_PROXY_SECRET_PATH="cuc-$(openssl rand -hex 16)"
-echo "Secret MCP path: ${MCP_PROXY_SECRET_PATH}"
-scripts/start-perplexity-filesystem-mcp.sh --readonly-snapshot-tunnel
-```
-
-The command prints a public `https://...` tunnel host. In Perplexity, use:
-
-```text
-MCP server URL: https://<tunnel-host>/<secret-path>/mcp
-Transport: Streamable HTTP
-Authentication: None / No authentication
-```
-
-If Streamable HTTP does not connect, keep the same tunnel host and use:
-
-```text
-MCP server URL: https://<tunnel-host>/<secret-path>/sse
-Transport: SSE
-Authentication: None / No authentication
-```
-
-Keep the terminal running while Comet uses the connector. Stop it with
-`Control-C` when finished. The recommended tunnel mode points at a read-only
-snapshot, not the live working tree.
-
-Note: `mcp-proxy --apiKey` expects the `X-API-Key` header. Perplexity remote
-connectors send API-key auth as `api-key`, so the secret-path tunnel is the
-working remote-connector pattern unless Perplexity adds custom header support.
-
-## Print connector JSON
-
-From the repo root:
-
-```bash
-scripts/start-perplexity-filesystem-mcp.sh --print-config
-scripts/start-perplexity-filesystem-mcp.sh --print-readonly-config
-scripts/start-perplexity-filesystem-mcp.sh --print-http-config
-scripts/start-perplexity-filesystem-mcp.sh --print-sse-config
-```
-
-## Privacy and safety boundary
-
-- The MCP server is launched with only this repo path as its allowed directory.
-- The generic filesystem server includes read, write, edit, move, and directory
-  tools. That is why the direct connector should be used only when you are
-  comfortable giving Comet write-capable access to this repo folder.
-- The read-only snapshot mode is better for external review because filesystem
-  writes should fail at the OS permission layer.
-- The wrapper pins `@modelcontextprotocol/server-filesystem@2026.1.14`.
-  Older filesystem-server versions had public path/symlink bypass advisories.
-- Do not paste secrets into repo files before launching this connector.
-- `node_modules`, `dist`, `.git`, and the snapshot folder are excluded from the
-  read-only snapshot mode.
-
-## Suggested Comet prompt
-
-```text
-Use the Canada Under Carney filesystem MCP connector. Read CLAUDE.md first.
-Inspect only files under <REPLACE-WITH-YOUR-LOCAL-REPO-PATH>.
-Do not edit, write, move, or delete files unless I explicitly ask.
-
-Task:
-[paste review task here]
-```
+The upstream filesystem server remains a trusted-code dependency even after
+local filtering. A safe input snapshot reduces exposure but does not remove the
+need to review and pin the server implementation itself.

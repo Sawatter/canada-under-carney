@@ -6,12 +6,12 @@ Non-partisan performance dashboard tracking the Carney government across 11 grad
 
 ## Current Grades (July 2026)
 
-Data current to June 30, 2026. Coverage runs from March 14, 2025 (Carney sworn in). Next scheduled update: August 1, 2026.
+Monthly evidence current to June 30, 2026. Rule corrections were checked on July 21, 2026. Coverage runs from March 14, 2025 (Carney sworn in). Next scheduled update: August 1, 2026.
 
 | Grade Type | Grade | Score |
 |---|---|---|
-| **Household Impact** | **D+** | 1.6 |
-| **Full Policy Audit** | **C-** | 1.8 |
+| **Household Impact** | **C-** | 1.8 |
+| **Full Policy Audit** | **C** | 1.9 |
 | **Promises Delivered** | **14/43** | 33% |
 
 **Why two grades?**
@@ -38,7 +38,7 @@ These four areas count twice as much in Household Impact. The other seven still 
 | Defence & Trade | A- | Stable |
 | Major Projects | C | Stable |
 | Fiscal Health | C | Improving |
-| Economic Policy Response | D | Declining |
+| Economic Policy Response | C | Declining |
 | Affordability Response | D- | Declining |
 | Carbon Pricing Policy | C | Stable |
 | Climate & Environment | D | Declining |

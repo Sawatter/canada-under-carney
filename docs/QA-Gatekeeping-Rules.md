@@ -138,7 +138,7 @@ If confidence is explicitly re-reviewed because the source stack changed but the
 **A proposed update is automatically blocked if any of the following conditions exist:**
 
 1. **Single-source dependency:** The entire case rests on one source, regardless of tier
-2. **Zero metric movement:** No quantitative indicator has changed in the direction of the proposed grade move
+2. **Zero metric movement:** For an evidence-driven move, no quantitative indicator has changed in the direction of the proposed grade move
 3. **Unresolved double-counting:** The evidence used to justify the change is also being used in another dimension's grade (per the Deconfliction Matrix)
 4. **Rubric term misapplication:** The analyst is using a rubric term (e.g., "on paper," "initiated," "delivered") in its everyday meaning rather than its defined dashboard meaning
 5. **Unresolved contradiction:** The proposed change contradicts prior cycle reasoning without acknowledgment
@@ -146,6 +146,8 @@ If confidence is explicitly re-reviewed because the source stack changed but the
 7. **Same-family concentration:** Multiple listed sources for the grade-moving claim trace back to one analytical family without independent corroboration
 
 **Any one of these conditions is sufficient to block.** The block remains until the condition is resolved.
+
+**Rule 3(b) correction exception:** A documented correction of prior reasoning is not an evidence-driven improvement or deterioration. Zero metric movement alone does not block that correction when the analyst identifies the exact contradiction, keeps the evidence and trend direction unchanged, re-verifies the full dimension under CF-BLOCK-6, applies the party-symmetry check, and labels the changelog entry as a correction. Every other Rule 6 block still applies.
 
 ---
 

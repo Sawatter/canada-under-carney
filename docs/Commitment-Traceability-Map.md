@@ -913,7 +913,7 @@ The CTM must **not**:
   - **Context (optional):** PMO announcement; geopolitical commentary
 - **deconfliction_notes:** NATO 2% spending → primary home Defence & Trade; secondary mention in Flagship Delivery (as evidence of defence file delivering); **blocked from Fiscal Health** per [Deconfliction-Matrix.md](Deconfliction-Matrix.md). Defence procurement contracts → primary home Defence & Trade; secondary Flagship.
 - **derivative_handling:** Flagship Delivery uses defence as one of five flagship files; NATO 2% is a delivery indicator (execution machinery) on that file, not an outcome indicator, per [Flagship-Delivery-Rules.md §Overlap Prevention](Flagship-Delivery-Rules.md). Aggregated in Promise Delivery.
-- **update_trigger:** NATO spending falls below 2.0% (one-notch down per CSS); 3.5% GDP target gets a funded pathway (one-notch up); procurement milestones met/missed materially.
+- **update_trigger:** Review the Defence sub-score if NATO spending falls below 2.0%. Review the Trade sub-score if the annual non-US export-share gain reaches roughly 5 points and holds, or no longer meets the 1-to-5-point gain plus execution condition. Named sub-score reviews feed the equal-weight headline arithmetic; they do not move the headline directly.
 - **measurement_rules_notes:** [Measure-Selection-Rules.md §Defence & Trade](Measure-Selection-Rules.md) — NATO defence spending as % GDP uses NATO Secretary General's Annual Report (Tier 1 independent) plus DND confirmation; DND alone is Tier 4 and requires NATO corroboration for grade-moving use.
 
 ---

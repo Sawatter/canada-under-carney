@@ -18,6 +18,7 @@
     "monitor:dryrun": "python3 scripts/monitor_sources.py --dry-run --out-suffix=-dryrun --fetch-results scripts/fixtures/fetch-results-sample.json",
     "setup:hooks": "git config core.hooksPath scripts/git-hooks; chmod +x scripts/git-hooks/pre-commit scripts/git-hooks/block-dangerous-git.sh 2>/dev/null; git checkout -- scripts/git-hooks 2>/dev/null; echo 'hooks installed (hooksPath set; exec bit from git)'",
     "bundle": "bash scripts/build-bundle.sh",
+    "test:review-handoff": "node scripts/test-review-handoff.mjs",
     "build": "vite build",
     "postbuild": "node scripts/copy-font-license.mjs && node scripts/check-bundle-budget.mjs",
     "lint": "eslint .",

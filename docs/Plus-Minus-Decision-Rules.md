@@ -20,12 +20,18 @@ Every dimension starts at the straight letter grade. Plus or minus is added only
 2. A single strong sub-file masks weakness elsewhere in the dimension
 3. The evidence base for the grade is thinner than for other dimensions at the same letter
 
-**Example:** Defence & Trade at A- — NATO 2% met (meets A threshold) BUT partly through accounting reclassification AND Canada placed in NATO's bottom third at exactly 2.0% (documented caveats).
+**Example:** Affordability Response at D- - the response reaches the D band, but the relief-to-burden ratio is below 20%, which is a documented weakness inside that band.
 
 ### Straight letter requires:
 1. The dimension meets its letter-grade threshold
 2. Neither plus nor minus conditions are met
 3. OR: the evidence is too thin to justify plus/minus precision (applies to probationary dimensions)
+
+### Mixed sub-score exception
+
+Defence & Trade uses whole-letter sub-scores only. The two sub-scores convert through the frozen grade-point table and average equally. The headline can therefore carry a plus or minus solely because the numeric average maps there. This is mechanical, not a discretionary headline adjustment.
+
+Current calculation: Defence `A` (4.0) plus Trade `B` (3.0), divided by two, equals 3.50 and maps to `A-`. Trade is `B` because its 4.2-point gain falls below the roughly five-point `A` marker. External trade pressure remains disclosed as attribution context, not as an active modifier or an adjustment to either sub-score or the headline.
 
 ---
 
@@ -33,22 +39,22 @@ Every dimension starts at the straight letter grade. Plus or minus is added only
 
 | Dimension | Current | Plus/minus justification |
 |---|---|---|
-| Defence & Trade | A- | Minus: accounting caveats, bottom-third placement |
+| Defence & Trade | A- | Computed: Defence A plus Trade B averages to 3.50; no discretionary headline minus |
 | Major Projects | C | Straight: neither momentum nor undermining caveat |
 | Fiscal Health | C | Straight: anchors improved enough for C, but caveats keep it out of B |
-| Economic Policy Response | D | Straight: response inadequate, no positive momentum yet |
+| Economic Policy Response | C | Straight: two levers clear the action floor, but investment has not turned |
 | Affordability Response | D- | Minus: relief covers negligible share (<20%) of cost increase |
 | Carbon Pricing Policy | C | Straight: consumer elimination was clean, industrial system questionable |
 | Climate & Environment | D | Straight: major reversals without replacement strategy |
 | Immigration | C+ | Plus: correction executing with measurable population decline |
 | Housing Supply | D | Straight: delivery is small fraction of need |
 
-## Dimensions NOT eligible for plus/minus (2 — probation):
+## Dimensions NOT eligible for plus/minus (2 - whole-letter dimensions):
 
 | Dimension | Display grade | Reason |
 |---|---|---|
 | Ethics & Transparency | C | Evidence too thin for plus/minus. All qualitative. |
-| Flagship Delivery | C | Probationary dimension; Combination Rule output (currently C-) collapses to whole letter. |
+| Flagship Delivery | C | Combination Rule output is kept to a whole letter; the dimension exited probation in July 2026. |
 
 ---
 

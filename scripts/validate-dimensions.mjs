@@ -9,7 +9,8 @@
 import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
-import { POCKETBOOK_DIMS } from "../src/constants.js";
+import { GRADES, POCKETBOOK_DIMS } from "../src/constants.js";
+import { gpaToGrade } from "../src/utils.js";
 import {
   TARGET_OPERATORS,
   RELATIONS,
@@ -29,6 +30,7 @@ const VALID_GRADES = new Set([
   "A", "A-", "B+", "B", "B-", "C+", "C", "C-", "D+", "D", "D-", "F",
 ]);
 const VALID_TRENDS = new Set(["up", "stable", "down"]);
+const WHOLE_LETTER_GRADES = new Set(["A", "B", "C", "D", "F"]);
 const VALID_SOURCE_DATE_KINDS = new Set(["published", "updated", "as-of"]);
 const TARGET_OPERATOR_SET = new Set(TARGET_OPERATORS);
 // Exactly the headline-commitment extension keys allowed on a promise (the
@@ -245,6 +247,17 @@ for (const d of dimensions) {
 
   // ─── Trigger shape ────────────────────────────────────────────────────────
   const triggers = d.gradeTriggers || {};
+  if (triggers.presentation !== undefined) {
+    if (!triggers.presentation || typeof triggers.presentation !== "object" || Array.isArray(triggers.presentation)) {
+      err(name, "gradeTriggers.presentation must be an object when present");
+    } else {
+      for (const field of ["title", "summary", "upLabel", "downLabel"]) {
+        if (!hasText(triggers.presentation[field])) {
+          err(name, `gradeTriggers.presentation.${field} must be a non-empty string`);
+        }
+      }
+    }
+  }
   for (const side of ["up", "down"]) {
     const arr = triggers[side];
     if (!Array.isArray(arr)) {
@@ -307,6 +320,78 @@ for (const d of dimensions) {
         }
       }
     });
+  }
+
+  // Mixed-construct dimensions expose whole-letter sub-scores and derive the
+  // headline through the same frozen grade-point conversion as the dashboard.
+  if (d.subScores !== undefined) {
+    if (isTracker) {
+      err(name, "tracker must not carry subScores");
+    } else if (!d.subScores || typeof d.subScores !== "object" || Array.isArray(d.subScores)) {
+      err(name, "subScores must be an object");
+    } else {
+      const entries = Object.entries(d.subScores);
+      if (entries.length < 2) err(name, "subScores must contain at least two scored parts");
+
+      let pointTotal = 0;
+      for (const [key, subScore] of entries) {
+        const where = `subScores.${key}`;
+        if (!subScore || typeof subScore !== "object" || Array.isArray(subScore)) {
+          err(name, `${where} must be an object`);
+          continue;
+        }
+        for (const field of ["label", "rationale"]) {
+          if (!hasText(subScore[field])) err(name, `${where}.${field} must be a non-empty string`);
+        }
+        if (!WHOLE_LETTER_GRADES.has(subScore.grade)) {
+          err(name, `${where}.grade must be one of A|B|C|D|F`);
+        } else {
+          pointTotal += GRADES[subScore.grade].gpa;
+        }
+
+        if (!Array.isArray(subScore.thresholds)) {
+          err(name, `${where}.thresholds must be an array`);
+        } else {
+          const thresholdGrades = new Set();
+          subScore.thresholds.forEach((threshold, i) => {
+            if (!threshold || typeof threshold !== "object") {
+              err(name, `${where}.thresholds[${i}] must be an object`);
+              return;
+            }
+            if (!WHOLE_LETTER_GRADES.has(threshold.grade)) {
+              err(name, `${where}.thresholds[${i}].grade must be one of A|B|C|D|F`);
+            } else if (thresholdGrades.has(threshold.grade)) {
+              err(name, `${where}.thresholds repeats grade ${threshold.grade}`);
+            } else {
+              thresholdGrades.add(threshold.grade);
+            }
+            if (!hasText(threshold.criteria)) {
+              err(name, `${where}.thresholds[${i}].criteria must be a non-empty string`);
+            }
+          });
+          for (const grade of WHOLE_LETTER_GRADES) {
+            if (!thresholdGrades.has(grade)) err(name, `${where}.thresholds is missing ${grade}`);
+          }
+        }
+      }
+
+      const rule = d.scoring?.subScoreRule;
+      if (!rule || typeof rule !== "object" || Array.isArray(rule)) {
+        err(name, "scoring.subScoreRule must be an object when subScores are present");
+      } else {
+        for (const field of ["evaluationOrder", "combination", "currentCalculation"]) {
+          if (!hasText(rule[field])) err(name, `scoring.subScoreRule.${field} must be a non-empty string`);
+        }
+      }
+
+      if (entries.length > 0 && entries.every(([, subScore]) => WHOLE_LETTER_GRADES.has(subScore?.grade))) {
+        const average = pointTotal / entries.length;
+        const expectedHeadline = gpaToGrade(average);
+        if (d.grade !== expectedHeadline) {
+          err(name, `headline ${d.grade} does not match equal sub-score average ${average.toFixed(2)} (${expectedHeadline})`);
+        }
+      }
+    }
   }
 
   // ─── Metric source-ref shape ──────────────────────────────────────────────

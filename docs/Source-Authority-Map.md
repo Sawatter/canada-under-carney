@@ -2,7 +2,7 @@
 
 - **Purpose:** Define, per dimension, what kinds of truth the dashboard is claiming and which source roles should carry those claims.
 - **Status:** Active — all 11 graded dimensions documented; cited by QA-Gatekeeping-Rules.md and Source-Verification-Protocol.md.
-- **Last updated:** 2026-04-18
+- **Last updated:** 2026-07-21
 - **Depends on:** Current-Roadmap.md, Parking-Lot.md, DATA-SOURCES.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Canonical-Scoring-Sheets.md, Plus-Minus-Decision-Rules.md, src/data/dimensions.json
 - **Used by:** QA-Gatekeeping-Rules.md, Source-Verification-Protocol.md, source-fit reviews, and confidence calibration reviews
 
@@ -227,16 +227,16 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:146)
 **Core grade-moving claims**
 
 1. Disclosure is partial rather than full, and Brookfield-related interests are not yet fully publicly accounted for.
-   Source basis: C threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](../src/data/dimensions.json:1381), and [src/data/dimensions.json](../src/data/dimensions.json:1396)
+   Source basis: C threshold + current `bandCriterion` and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
 2. An ethics screen and blind-trust framework exist, which keeps the file in the C band rather than D, but completeness of that framework is credibly challenged.
-   Source basis: C threshold + current `plusMinusRationale` and promise evidence in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](../src/data/dimensions.json:1382), and [src/data/dimensions.json](../src/data/dimensions.json:1437)
+   Source basis: C threshold + current `plusMinusRationale` and promise evidence in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
-3. No independent Ethics Commissioner review has been published.
-   Source basis: minimum indicators + C threshold + current metric and promise status in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:155), [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:165), [src/data/dimensions.json](../src/data/dimensions.json:1414), and [src/data/dimensions.json](../src/data/dimensions.json:1448)
+3. House ETHI Report 5 is a substantive independent parliamentary review, but no PM-specific Ethics Commissioner review finding the screen adequate has been published.
+   Source basis: minimum indicators + C threshold + current metric and promise status in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
-4. Governance critique is material to the grade, but a D-band move tied to critique rather than an official finding now requires either 2 independent governance critiques or 1 official adverse finding.
-   Source basis: down-trigger + current `plusMinusRationale` and critics text in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:174), [src/data/dimensions.json](../src/data/dimensions.json:1610), and [src/data/dimensions.json](../src/data/dimensions.json:1758)
+4. House ETHI Report 5 also counts as a separate institutional critique alongside Democracy Watch. The critique-based D condition is not fired because that condition now applies only while no independent review exists.
+   Source basis: down-trigger + current `plusMinusRationale` and critics text in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
 **Required source roles**
 
@@ -270,14 +270,14 @@ These may shape interpretation but must not move the Ethics & Transparency grade
 
 Current `dimensions.json` Ethics & Transparency source stack:
 Globe and Mail ethics filing, CBC financial assets, Democracy Watch critique, House ETHI report — Review of the Conflict of Interest Act, Office of the Ethics Commissioner — registry and reviews, PM blind-trust summary statement, PM Annex A public declaration of agreed measure, Transparency International Canada — Canada's CPI ranking
-Source: [src/data/dimensions.json](../src/data/dimensions.json:1397)
+Source: [src/data/dimensions.json](../src/data/dimensions.json)
 
 - **Present and well-aligned**
   - `Office of the Ethics Commissioner — registry and reviews` fills the policy-truth / execution-truth role on framework adequacy and published review status.
   - `PM blind-trust summary statement` fills the policy-truth / execution-truth role on the disclosure filing and blind-trust arrangement itself.
   - `PM Annex A public declaration of agreed measure` fills the policy-truth / execution-truth role on the agreed measure filing and the public declaration of screen scope.
   - `Democracy Watch critique` fills the current independent-challenge role on framework adequacy.
-  - `House ETHI report — Review of the Conflict of Interest Act` now adds an official committee-review source documenting concerns with conflict-screen reporting and governance design.
+  - `House ETHI report — Review of the Conflict of Interest Act` fills two disclosed roles: the substantive parliamentary-review component and one institutional critique documenting concerns with conflict-screen reporting and governance design.
   - `Transparency International Canada — Canada's CPI ranking` provides a country-level governance benchmark. It is context, not evidence about Carney's individual arrangements.
   - `Globe and Mail — ethics filing` and `CBC — financial assets` provide context/reporting corroboration on disclosure background and public asset visibility.
 
@@ -392,17 +392,17 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:515)
 
 **Core grade-moving claims**
 
-1. The defence leg meets the A-band threshold because NATO 2% has been achieved and sustained with formal funding behind it.
-   Source basis: grade threshold + current rationale + defence sub-score in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:533), [src/data/dimensions.json](../src/data/dimensions.json:32), and [src/data/dimensions.json](../src/data/dimensions.json:175)
+1. The Defence sub-score meets A because NATO independently confirmed Canada at 2.01% of GDP.
+   Source basis: grade threshold + current rationale + defence sub-score in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
-2. The trade leg meets a strong B+/near-A range because export diversification away from the U.S. is measurable, but the improvement is partly market-driven rather than purely policy-caused.
-   Source basis: current rationale + current trade sub-score + external-constraint modifier in [src/data/dimensions.json](../src/data/dimensions.json:32), [src/data/dimensions.json](../src/data/dimensions.json:177), and [src/data/dimensions.json](../src/data/dimensions.json:16)
+2. The Trade sub-score meets B because the annual non-U.S. export-share gain was 4.2 points and corridor execution is underway. That gain falls below the roughly five-point A marker.
+   Source basis: current rationale + current trade sub-score in [src/data/dimensions.json](../src/data/dimensions.json)
 
-3. The headline A- is a blended result: defence performs at A, trade diversification at B+, averaging to A-.
-   Source basis: shadow sub-score rule in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:539), plus current display grade and sub-scores in [src/data/dimensions.json](../src/data/dimensions.json:5) and [src/data/dimensions.json](../src/data/dimensions.json:171)
+3. The headline A- is mechanical: Defence A and Trade B average equally to 3.50, which maps to A- under the frozen headline cutoffs.
+   Source basis: sub-score rule in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), plus current display grade and sub-scores in [src/data/dimensions.json](../src/data/dimensions.json)
 
-4. The minus is driven by caveats, not failure: Canada met but did not materially exceed the 2% defence floor, the 3.5% target lacks a funded pathway, and trade diversification is partly confounded by the trade war itself.
-   Source basis: current `plusMinusRationale`, rationale, and modifier rule in [src/data/dimensions.json](../src/data/dimensions.json:13), [src/data/dimensions.json](../src/data/dimensions.json:32), and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:545)
+4. The June 2026 B-5yr funded-pathway decision is historical context, not a live trigger. Budget 2025's $81.8B five-year envelope is not described as full appropriation of the 3.5% trajectory.
+   Source basis: current `plusMinusRationale`, rationale, and modifier disclosure in [src/data/dimensions.json](../src/data/dimensions.json) and [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md)
 
 **Required source roles**
 
@@ -441,11 +441,11 @@ Source: [src/data/dimensions.json](../src/data/dimensions.json:33)
 - **Present and well-aligned**
   - `NATO Secretary General Annual Report 2025` fills defence measurement/execution truth.
   - `StatsCan trade data` and `Global Affairs Canada Monthly Trade Report` fill trade measurement/execution truth.
-  - `Budget 2025 Ch.4` fills policy truth on the funded defence and diversification commitments.
+  - `Budget 2025 Ch.4` fills policy truth on the five-year defence envelope. It does not by itself prove full appropriation of the 3.5% trajectory.
   - `Building Canada Act (Bill C-5)` fills policy/legislative truth on the delivered interprovincial-trade-barrier reform promise (added 2026-04-18 to close the direct-legislative-source gap flagged by U10 / CTM-T2; same URL cross-referenced in the Major Projects `sources` array for MPROJ-001).
 
 - **Gaps**
-  - No explicit independent-challenge source is present in the `sources` array, even though the live minus rationale depends on caveats about the unfunded 3.5% target and partly market-driven diversification.
+  - The source stack includes PBO challenge evidence, but no direct published Canadian annual plan for the 3.5% trajectory is cited. That does not affect the current Defence A condition, which rests on NATO's 2.01% confirmation.
 
 - **Role mismatches**
   - `PMO NATO 2% announcement` is better understood as context/policy corroboration than as a primary measurement or execution anchor, because NATO already provides the grade-moving confirmation.
@@ -730,17 +730,17 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:59)
 
 **Core grade-moving claims**
 
-1. The government has mounted a real policy response, but key instruments remain more announced than executed, which is why the file stays in D rather than moving to C.
-   Source basis: D threshold + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:79), [src/data/dimensions.json](../src/data/dimensions.json:502), [src/data/dimensions.json](../src/data/dimensions.json:503), and [src/data/dimensions.json](../src/data/dimensions.json:527)
+1. Two of five core levers clear the action floor: the productivity-tax measure is executing and the internal-trade law is authorized. That puts the file in C under the action-first ladder.
+   Source basis: C/D boundary + current `bandCriterion`, `plusMinusRationale`, and rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
-2. Business investment and related productivity indicators have not yet turned, so the policy response has not produced measurable traction.
-   Source basis: minimum indicators + current `bandCriterion` and grade triggers in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:68), [src/data/dimensions.json](../src/data/dimensions.json:502), and [src/data/dimensions.json](../src/data/dimensions.json:518)
+2. Business investment fell 0.7% quarter-over-quarter in Q1 2026, its fifth consecutive decline. That blocks the next band but does not override the two-lever count while Timing Fairness applies.
+   Source basis: minimum indicators + current `bandCriterion` and grade triggers in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
 3. Timing fairness applies because the structural weakness is inherited, but that modifier does not excuse weak execution on current instruments.
-   Source basis: modifier rule + current active modifier + rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:82), [src/data/dimensions.json](../src/data/dimensions.json:506), and [src/data/dimensions.json](../src/data/dimensions.json:527)
+   Source basis: modifier rule + current active modifier + rationale in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
 4. GDP per capita decline is inherited context rather than a grade-moving metric, while critical minerals and AI compute are primary-homed here as response instruments.
-   Source basis: deconfliction rule + current rationale and promise set in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:94), [src/data/dimensions.json](../src/data/dimensions.json:527), [src/data/dimensions.json](../src/data/dimensions.json:583), and [src/data/dimensions.json](../src/data/dimensions.json:597)
+   Source basis: deconfliction rule + current rationale and promise set in [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md) and [src/data/dimensions.json](../src/data/dimensions.json)
 
 **Required source roles**
 
@@ -773,14 +773,16 @@ These may shape interpretation but must not move the Economic Policy Response gr
 **Current state delta**
 
 Current `dimensions.json` Economic Policy Response source stack:  
-Fraser Institute Ugly Growth, OECD Economic Surveys: Canada 2025, StatsCan GDP per capita, StatsCan GDP Q4 2025, StatsCan R&D intensity table, StatsCan LFS Feb 2026, ISED AI Compute Strategy, Budget 2025 productivity super-deduction, Treasury Board regulatory-management annual report, Internal Trade Action Plan status, Building Canada Act, NRCan critical minerals partnerships  
-Source: [src/data/dimensions.json](../src/data/dimensions.json:528)
+OECD Economic Surveys: Canada 2025, StatsCan GDP Q1 2026, ISED AI Compute Strategy, Budget 2025 productivity super-deduction, Treasury Board regulatory-management annual report, Budget 2025 Implementation Act No. 1, Free Trade and Labour Mobility in Canada Act implementation, NRCan critical minerals partnerships, CSLS Research Report 2025-04, Signal49 business investment outlook
+Source: [src/data/dimensions.json](../src/data/dimensions.json)
 
 - **Present and well-aligned**
-  - `StatsCan GDP, income and expenditure — Q4 2025`, `StatsCan R&D intensity table`, and `StatsCan LFS Feb 2026` now fill direct measurement truth on business investment, R&D, and labour conditions.
-  - `Budget 2025 — productivity super-deduction`, `Government of Canada — Internal Trade Action Plan status`, and `Treasury Board — 2024-25 regulatory management annual report` now make the non-spending policy stack visible rather than implied.
+  - `StatsCan GDP, income and expenditure - Q1 2026` fills direct measurement truth on the five-quarter business-investment decline.
+  - `Budget 2025 - productivity super-deduction` supplies the projected METR effect, while `Budget 2025 Implementation Act, No. 1` supplies the enactment evidence that puts the tax lever in execution.
+  - `Free Trade and Labour Mobility in Canada Act - implementation` records that the Act and regulations are in force, putting the internal-trade lever at authorized or higher.
+  - `Treasury Board - 2024-25 regulatory management annual report` documents the review pipeline but does not yet establish the live lever's government-wide burden-reduction execution test.
   - `ISED — Canadian Sovereign AI Compute Strategy` and `NRCan — critical minerals partnerships` fill policy/context truth on two of the government's stated productivity instruments.
-  - `Fraser Institute — Ugly Growth` fills independent-challenge/context framing on the depth of the inherited problem.
+  - `CSLS Research Report 2025-04` and `Signal49` fill independent-challenge context on the investment trajectory. They do not create the grade correction.
 
 - **Gaps**
   - The file still does not have Treasury Board or PBO authorization evidence for AI compute or critical minerals, even though announcement-versus-execution is the core gating rule.
