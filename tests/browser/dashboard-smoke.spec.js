@@ -9,8 +9,16 @@ const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../
 const meta = JSON.parse(readFileSync(path.join(repoRoot, "src/data/meta.json"), "utf8"));
 const changelog = JSON.parse(readFileSync(path.join(repoRoot, "src/data/changelog.json"), "utf8"));
 const dimensions = JSON.parse(readFileSync(path.join(repoRoot, "src/data/dimensions.json"), "utf8"));
+const dashboardStatus = JSON.parse(readFileSync(path.join(repoRoot, "src/data/status.json"), "utf8"));
 const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
 const movedDimensionIds = new Set(currentGradeMoves.map((item) => item.dimensionId));
+
+const statusDateFormatter = new Intl.DateTimeFormat("en-CA", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 const views = [
   ["scorecard", "Scorecard"],
@@ -130,6 +138,92 @@ async function expectAppShell(page) {
   await expect(page.locator(".classic-shell")).toHaveCount(0);
 }
 
+function formatStatusDate(value) {
+  return statusDateFormatter.format(new Date(`${value}T00:00:00Z`));
+}
+
+function dashboardStatusRegion(page) {
+  return page.getByRole("region", { name: "Dashboard status" });
+}
+
+async function expectCompactDashboardStatus(page, { expanded = false } = {}) {
+  const region = dashboardStatusRegion(page);
+  const details = page.locator("#dashboard-status-details");
+  const toggleName = expanded ? "Hide details" : "Show details";
+  const toggle = region.getByRole("button", { name: toggleName });
+
+  await expect(region).toBeVisible();
+  await expect(region.getByText("Source freshness and score review are tracked separately.", {
+    exact: true,
+  })).toBeVisible();
+  await expect(toggle).toBeVisible();
+  await expect(toggle).toHaveAttribute("type", "button");
+  await expect(toggle).toHaveAttribute("aria-controls", "dashboard-status-details");
+  await expect(toggle).toHaveAttribute("aria-expanded", expanded ? "true" : "false");
+
+  if (expanded) {
+    await expect(details).toBeVisible();
+    await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(6);
+    await expect(region.getByRole("heading", { name: "Next checks" })).toBeVisible();
+    await expect(region.getByRole("link", { name: /Open check path for/ }).first()).toBeVisible();
+  } else {
+    await expect(details).toBeHidden();
+    await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(0);
+    await expect(region.getByRole("heading", { name: "Next checks" })).toHaveCount(0);
+    await expect(region.getByRole("link")).toHaveCount(0);
+
+    const visibleText = await region.innerText();
+    expect(visibleText).toContain(formatStatusDate(dashboardStatus.lastSourceScanAt));
+    expect(visibleText).toContain(formatStatusDate(dashboardStatus.lastEditorReviewedScoreCycleAt));
+    expect(visibleText).toContain(formatStatusDate(dashboardStatus.coverageThrough));
+    expect(visibleText).toMatch(/Evidence scan/i);
+    expect(visibleText).toMatch(/Editor-reviewed/i);
+    expect(visibleText).toMatch(/Coverage through/i);
+    const moveValue = currentGradeMoves.length === 0 ? "None" : String(currentGradeMoves.length);
+    expect(visibleText).toMatch(new RegExp(`Grade moves(?: this release)?[^\\n]*${moveValue}`, "i"));
+  }
+
+  return { details, region, toggle };
+}
+
+async function expectFullDashboardStatus(page) {
+  const region = dashboardStatusRegion(page);
+  const details = page.locator("#dashboard-status-details");
+
+  await expect(region).toBeVisible();
+  await expect(region.getByRole("button", { name: /details/i })).toHaveCount(0);
+  await expect(details).toBeVisible();
+  await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(6);
+  await expect(region.getByRole("heading", { name: "Next checks" })).toBeVisible();
+  await expect(region.getByText("Housing disbursement watch", { exact: true })).toBeVisible();
+  await expect(region.locator(".dashboard-status-row", {
+    hasText: "Grade moves this release",
+  }).locator("dd")).toHaveText(currentGradeMoves.length === 0 ? "None" : String(currentGradeMoves.length));
+
+  return { details, region };
+}
+
+async function expectPolicyHeadingNearViewportTop(page) {
+  await expect.poll(async () => page.locator("#policy-grades-heading").evaluate((heading) => {
+    const rect = heading.getBoundingClientRect();
+    return rect.top >= -1 && rect.top <= 120 && rect.bottom > 0;
+  })).toBe(true);
+}
+
+async function expectStatusHeadingInViewport(page) {
+  await expect.poll(async () => page.locator("#dashboard-status-heading").evaluate((heading) => {
+    const rect = heading.getBoundingClientRect();
+    const bottomNav = document.querySelector(".app-bottom-nav");
+    const bottomNavStyle = bottomNav ? window.getComputedStyle(bottomNav) : null;
+    const bottomNavTop = bottomNav
+      && bottomNavStyle?.display !== "none"
+      && bottomNavStyle?.visibility !== "hidden"
+      ? bottomNav.getBoundingClientRect().top
+      : window.innerHeight;
+    return rect.top >= 0 && rect.bottom <= bottomNavTop;
+  })).toBe(true);
+}
+
 test.describe("dashboard route matrix", () => {
   for (const [viewportName, viewport] of viewports) {
     test(`root ${viewportName} routes stay clean`, async ({ page }, testInfo) => {
@@ -143,11 +237,18 @@ test.describe("dashboard route matrix", () => {
         await page.goto(routePath({ hash: `#view-${key}` }));
         await expectAppShell(page);
         await expectVisibleVersion(page);
-        await expect(page.getByRole("heading", { name: "Next checks" })).toBeVisible();
-        await expect(page.locator(".dashboard-status-row").filter({
-          has: page.locator("dt", { hasText: "Grade moves this release" }),
-        }).locator("dd")).toHaveText(currentGradeMoves.length === 0 ? "None" : String(currentGradeMoves.length));
-        await expect(page.getByText("Housing disbursement watch", { exact: true })).toBeVisible();
+        if (viewportName === "mobile") {
+          await expectCompactDashboardStatus(page);
+        } else {
+          await expectFullDashboardStatus(page);
+        }
+
+        const gradeJump = page.getByRole("link", { name: "Jump to the 11 policy grades" });
+        if (key === "scorecard") {
+          await expect(gradeJump).toBeVisible();
+        } else {
+          await expect(gradeJump).toHaveCount(0);
+        }
         if (key === "scorecard") {
           await expectHeaderBadgeClear(page);
         }
@@ -175,6 +276,189 @@ test.describe("dashboard route matrix", () => {
       expect(consoleErrors).toEqual([]);
     });
   }
+});
+
+test.describe("responsive benchmark controls", () => {
+  for (const [viewportName, viewport] of viewports) {
+    test(`grade jump focuses the policy heading without changing ${viewportName} history`, async ({ page }) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+
+      const jump = page.getByRole("link", { name: "Jump to the 11 policy grades" });
+      const heading = page.getByRole("heading", {
+        level: 2,
+        name: /11 policy areas graded A.F, updated monthly\./,
+      });
+      await expect(jump).toBeVisible();
+      await expect(jump).toHaveAttribute("href", "#policy-grades-heading");
+      await expect(heading).toHaveAttribute("id", "policy-grades-heading");
+      await expect(heading).toHaveAttribute("tabindex", "-1");
+
+      const targetBox = await jump.boundingBox();
+      expect(targetBox).not.toBeNull();
+      expect(targetBox.width).toBeGreaterThanOrEqual(44);
+      expect(targetBox.height).toBeGreaterThanOrEqual(44);
+
+      const pointerHistoryBefore = await page.evaluate(() => ({
+        hash: window.location.hash,
+        length: window.history.length,
+        state: window.history.state,
+      }));
+      await jump.click();
+
+      await expect(heading).toBeFocused();
+      await expectPolicyHeadingNearViewportTop(page);
+      const pointerHistoryAfter = await page.evaluate(() => ({
+        hash: window.location.hash,
+        length: window.history.length,
+        state: window.history.state,
+      }));
+      expect(pointerHistoryAfter).toEqual(pointerHistoryBefore);
+
+      await page.reload();
+      await expect(jump).toBeVisible();
+      const keyboardHistoryBefore = await page.evaluate(() => ({
+        hash: window.location.hash,
+        length: window.history.length,
+        state: window.history.state,
+      }));
+      await jump.focus();
+      await expect(jump).toBeFocused();
+      await page.keyboard.press("Enter");
+
+      await expect(heading).toBeFocused();
+      await expectPolicyHeadingNearViewportTop(page);
+      const keyboardHistoryAfter = await page.evaluate(() => ({
+        hash: window.location.hash,
+        length: window.history.length,
+        state: window.history.state,
+      }));
+      expect(keyboardHistoryAfter).toEqual(keyboardHistoryBefore);
+
+      await page.keyboard.press("Tab");
+      const firstPolicy = page.locator("#scorecard-dimension-grid .dim-card-header-button").first();
+      await expect(firstPolicy).toBeFocused();
+      const firstPolicyId = await firstPolicy.getAttribute("id");
+      await page.keyboard.press("Enter");
+      await expect(jump).toHaveCount(0);
+      await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+
+      if (viewportName === "mobile") {
+        await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
+      } else {
+        await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
+      }
+
+      await page.goBack();
+      await expect(page).toHaveURL(/#view-scorecard$/);
+      await expect(jump).toBeVisible();
+      if (viewportName === "mobile") {
+        await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
+      } else {
+        await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+      }
+      await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
+        .toBe(firstPolicyId);
+      await expectNoOverflow(page);
+      expect(consoleErrors).toEqual([]);
+    });
+  }
+
+  test("Dashboard Status defaults switch exactly at the 640px boundary", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    const cases = [
+      { width: 375, compact: true },
+      { width: 640, compact: true },
+      { width: 641, compact: false },
+      { width: 1280, compact: false },
+    ];
+
+    for (const { width, compact } of cases) {
+      await page.setViewportSize({ width, height: width >= 1280 ? 900 : 812 });
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+      if (compact) {
+        await expectCompactDashboardStatus(page);
+      } else {
+        await expectFullDashboardStatus(page);
+      }
+      await expectNoOverflow(page);
+    }
+
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("mobile Dashboard Status disclosure supports Enter and Space without exposing hidden links", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    const closed = await expectCompactDashboardStatus(page);
+    const toggleBox = await closed.toggle.boundingBox();
+    expect(toggleBox).not.toBeNull();
+    expect(toggleBox.width).toBeGreaterThanOrEqual(44);
+    expect(toggleBox.height).toBeGreaterThanOrEqual(44);
+
+    await closed.toggle.focus();
+    await page.keyboard.press("Enter");
+    const opened = await expectCompactDashboardStatus(page, { expanded: true });
+    await expect(opened.toggle).toBeFocused();
+
+    await page.keyboard.press("Space");
+    const reclosed = await expectCompactDashboardStatus(page);
+    await expect(reclosed.toggle).toBeFocused();
+    await page.keyboard.press("Tab");
+    expect(await reclosed.details.evaluate((details) => !details.contains(document.activeElement))).toBe(true);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("Dashboard Status resize preserves mobile choice and repairs disappearing focus", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    const desktop = await expectFullDashboardStatus(page);
+    const focusedCheckLink = desktop.region.getByRole("link", {
+      name: "Open check path for Housing disbursement watch",
+    });
+    await focusedCheckLink.focus();
+    await expect(focusedCheckLink).toBeFocused();
+
+    await page.setViewportSize({ width: 640, height: 812 });
+    const compact = await expectCompactDashboardStatus(page);
+    await expect(page.locator("#dashboard-status-heading")).toBeFocused();
+    await expectStatusHeadingInViewport(page);
+    await expectNoOverflow(page);
+
+    await compact.toggle.focus();
+    await expect(compact.toggle).toBeFocused();
+    await page.setViewportSize({ width: 641, height: 812 });
+    await expectFullDashboardStatus(page);
+    await expect(page.locator("#dashboard-status-heading")).toBeFocused();
+    await expectStatusHeadingInViewport(page);
+    await expectNoOverflow(page);
+
+    await page.setViewportSize({ width: 640, height: 812 });
+    const compactAgain = await expectCompactDashboardStatus(page);
+    await compactAgain.toggle.focus();
+    await page.keyboard.press("Enter");
+    const explicitlyOpen = await expectCompactDashboardStatus(page, { expanded: true });
+    await expect(explicitlyOpen.toggle).toBeFocused();
+
+    await page.setViewportSize({ width: 641, height: 812 });
+    await expectFullDashboardStatus(page);
+    await expect(page.locator("#dashboard-status-heading")).toBeFocused();
+    await expectStatusHeadingInViewport(page);
+    await expectNoOverflow(page);
+
+    await page.setViewportSize({ width: 375, height: 812 });
+    await expectCompactDashboardStatus(page, { expanded: true });
+    await expect(page.locator("#dashboard-status-heading")).toBeFocused();
+    await expectStatusHeadingInViewport(page);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
 });
 
 test.describe("v5.153 review follow-through", () => {
@@ -504,9 +788,13 @@ test.describe("v5.155 drawer history contract", () => {
   test("mobile card open pushes a #dim entry and Back closes the sheet", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await page.goto(routePath());
 
-    await page.locator(".dim-card-header-button").first().click();
+    const cardHeader = page.locator("#dim-housing-supply-header");
+    await cardHeader.scrollIntoViewIfNeeded();
+    await cardHeader.focus();
+    const scrollBeforeOpen = await page.evaluate(() => window.scrollY);
+    await page.keyboard.press("Enter");
     await expect(page).toHaveURL(/#dim-[a-z-]+$/);
     await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
 
@@ -515,8 +803,20 @@ test.describe("v5.155 drawer history contract", () => {
     // rewinds the URL to what preceded the open.
     await page.goBack();
     await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
-    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect.poll(() => new URL(page.url()).hash).toBe("");
     await expectActiveNav(page, "Scorecard");
+    await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
+      .toBe("dim-housing-supply-header");
+    const scrollAfterBack = await page.evaluate(() => window.scrollY);
+    expect(scrollAfterBack).toBeCloseTo(scrollBeforeOpen, 0);
+    await expect.poll(async () => page.evaluate(() => {
+      const header = document.getElementById("dim-housing-supply-header");
+      const bottomNav = document.querySelector(".app-bottom-nav");
+      if (!header || !bottomNav) return false;
+      const headerRect = header.getBoundingClientRect();
+      const bottomNavTop = bottomNav.getBoundingClientRect().top;
+      return headerRect.top >= 0 && headerRect.bottom <= bottomNavTop;
+    })).toBe(true);
     await expectNoOverflow(page);
     expect(consoleErrors).toEqual([]);
   });
@@ -524,20 +824,30 @@ test.describe("v5.155 drawer history contract", () => {
   test("desktop card open pushes a #dim entry and Back restores grid, URL, and focus", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await page.goto(routePath());
 
-    const firstHeader = page.locator(".dim-card-header-button").first();
-    const headerId = await firstHeader.getAttribute("id");
-    await firstHeader.click();
+    const cardHeader = page.locator("#dim-housing-supply-header");
+    await cardHeader.scrollIntoViewIfNeeded();
+    await cardHeader.focus();
+    const scrollBeforeOpen = await page.evaluate(() => window.scrollY);
+    await cardHeader.click();
     await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
     await expect(page).toHaveURL(/#dim-[a-z-]+$/);
 
     await page.goBack();
     await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
     await expect(page.locator("#scorecard-dimension-grid")).toBeVisible();
-    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect.poll(() => new URL(page.url()).hash).toBe("");
     await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
-      .toBe(headerId);
+      .toBe("dim-housing-supply-header");
+    await expect.poll(async () => page.evaluate(() => window.scrollY))
+      .toBeCloseTo(scrollBeforeOpen, 0);
+    await expect.poll(async () => page.evaluate(() => {
+      const header = document.getElementById("dim-housing-supply-header");
+      if (!header) return false;
+      const headerRect = header.getBoundingClientRect();
+      return headerRect.top >= 0 && headerRect.bottom <= window.innerHeight;
+    })).toBe(true);
     await expectNoOverflow(page);
     expect(consoleErrors).toEqual([]);
   });

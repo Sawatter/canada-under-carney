@@ -331,6 +331,61 @@ check(
     sources.dashboard.includes("tabIndex={-1}"),
   "Dashboard must retain a skip link and focusable main-content target.",
 );
+const policyJumpIndex = sources.dashboard.indexOf("Jump to the 11 policy grades");
+const orientationIndex = sources.dashboard.indexOf('className="dashboard-orientation"');
+const trustFrameIndex = sources.dashboard.indexOf('className="scorecard-trust-wrap"');
+const scoreboardIndex = sources.dashboard.indexOf('id="main-content"');
+const policyJumpRenderContract = sourceAround(
+  sources.dashboard,
+  "Jump to the 11 policy grades",
+  1200,
+  100,
+);
+const policyJumpHandlerContract = sourceAround(
+  sources.dashboard,
+  "const handlePolicyGradesJump",
+  0,
+  800,
+).split("const handleShowSafeguards")[0];
+const anchorFocusContract = sourceAround(
+  sources.dashboard,
+  "function focusAndScrollToAnchor",
+  0,
+  500,
+);
+const policyHeadingContract = sourceAround(
+  sources.dashboard,
+  'id="policy-grades-heading"',
+  100,
+  500,
+);
+check(
+  orientationIndex !== -1 &&
+    trustFrameIndex > orientationIndex &&
+    policyJumpIndex > trustFrameIndex &&
+    scoreboardIndex > policyJumpIndex &&
+    policyJumpRenderContract.includes("<a") &&
+    policyJumpRenderContract.includes('href="#policy-grades-heading"') &&
+    policyJumpRenderContract.includes("onClick={handlePolicyGradesJump}") &&
+    policyJumpRenderContract.includes('view === "scorecard"') &&
+    policyJumpRenderContract.includes("expanded === null"),
+  "Dashboard must render the native policy-grade jump only on the closed Scorecard overview after the trust frame and before the scoreboard.",
+);
+check(
+  policyJumpHandlerContract.includes("event.preventDefault()") &&
+    policyJumpHandlerContract.includes('focusAndScrollToAnchor("policy-grades-heading")') &&
+    !policyJumpHandlerContract.includes("window.history"),
+  "The ordinary policy-grade jump must focus its target without mutating browser history.",
+);
+check(
+  policyHeadingContract.includes("<h2") &&
+    policyHeadingContract.includes("tabIndex={-1}") &&
+    policyHeadingContract.includes("11 policy areas graded A–F, updated monthly.") &&
+    anchorFocusContract.includes("focus({ preventScroll: true })") &&
+    anchorFocusContract.includes('behavior: "auto"') &&
+    sources.dashboard.includes('id="scorecard-dimension-grid"'),
+  "The policy-grade jump must target a focusable level-two heading with auto scrolling while preserving the grid anchor.",
+);
 const bodyLockContract = sourceAround(
   sources.dashboard,
   "document.body.style.overflow = isMobile",

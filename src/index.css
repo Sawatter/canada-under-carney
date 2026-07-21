@@ -2085,6 +2085,52 @@ a:hover { text-decoration: underline; }
   line-height: var(--lh-body);
 }
 
+.dashboard-status-summary {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  color: var(--text-secondary);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--card-radius);
+  font-size: var(--fs-small);
+  line-height: var(--lh-body);
+}
+
+.dashboard-status-summary strong {
+  color: var(--text-primary);
+}
+
+.dashboard-status-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 44px;
+  min-height: 44px;
+  margin: 0 0 var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  color: var(--accent-strong);
+  background: var(--surface-raised);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--card-radius);
+  font: inherit;
+  font-size: var(--fs-small);
+  font-weight: 800;
+  cursor: pointer;
+  animation: none;
+  transition: none;
+}
+
+.dashboard-status-toggle:hover {
+  color: var(--accent);
+  background: var(--surface-sunken);
+  border-color: var(--accent);
+}
+
+.dashboard-status-details[hidden] {
+  display: none;
+}
+
 .dashboard-status-list {
   display: grid;
   grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -2201,6 +2247,32 @@ a:hover { text-decoration: underline; }
 .dashboard-status-next-item a:hover,
 .dashboard-status-next-item a:focus-visible {
   text-decoration: underline;
+}
+
+@media (forced-colors: active) {
+  .dashboard-status-summary {
+    color: CanvasText;
+    background: Canvas;
+    border-color: CanvasText;
+  }
+
+  .dashboard-status-summary strong {
+    color: CanvasText;
+  }
+
+  .dashboard-status-toggle,
+  .dashboard-status-toggle:hover {
+    color: ButtonText;
+    background: ButtonFace;
+    border-color: ButtonText;
+  }
+
+  .policy-grades-jump:focus-visible,
+  #policy-grades-heading:focus-visible,
+  .dashboard-status-toggle:focus-visible,
+  .dashboard-status h2:focus-visible {
+    outline-color: Highlight;
+  }
 }
 
 /* Scoreboard columns: 4-up on desktop (set inline), 2x2 on tablets, single

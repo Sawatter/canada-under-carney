@@ -271,7 +271,6 @@ export default function Dashboard() {
   const openDimension = useCallback((dimensionId, options = {}) => {
     if (
       typeof window !== "undefined"
-      && !isMobileViewport()
       && expandedRef.current !== dimensionId
     ) {
       desktopReturnScrollRef.current = options.fromHash ? null : window.scrollY;
@@ -455,7 +454,12 @@ export default function Dashboard() {
 
   const routeHashTarget = useCallback((target, options = {}) => {
     if (!target) return;
-    requestAnchorNavigation(target);
+    if (options.skipAnchorNavigation) {
+      anchorTargetRef.current = null;
+      setAnchorNavigation(null);
+    } else {
+      requestAnchorNavigation(target);
+    }
 
     const dimensionId = getDimensionIdForHashTarget(target);
     if (dimensionId) {
@@ -529,13 +533,12 @@ export default function Dashboard() {
 
       if (hadOwnedEntry && expandedRef.current && !state.dimModal) {
         // Backing out of an owned drawer entry: browser Back, edge swipe,
-        // or the close control's history.back(). Close on both viewports;
-        // desktop additionally restores scroll and re-focuses the origin
-        // card via the same pending refs the close-button path used before.
+        // or the close control's history.back(). Both viewports restore the
+        // prior scroll offset and re-focus the origin card.
         const returnsToScorecard = !destinationTarget || destinationTarget === "view-scorecard";
-        if (!isMobileViewport() && returnsToScorecard) {
-          pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
+        if (returnsToScorecard) {
           pendingDesktopFocusRef.current = expandedRef.current;
+          pendingDesktopReturnRef.current = desktopReturnScrollRef.current ?? "grid";
         } else {
           pendingDesktopReturnRef.current = null;
           pendingDesktopFocusRef.current = null;
@@ -558,11 +561,15 @@ export default function Dashboard() {
           setView(queuedView);
           requestAnchorNavigation(`view-${queuedView}`);
         } else if (destinationTarget) {
-          routeHashTarget(destinationTarget, { preserveDesktopReturn: returnsToScorecard });
+          routeHashTarget(destinationTarget, {
+            preserveDesktopReturn: returnsToScorecard,
+            skipAnchorNavigation: returnsToScorecard,
+          });
         } else {
+          anchorTargetRef.current = null;
+          setAnchorNavigation(null);
           setExpanded(null);
           setView("scorecard");
-          requestAnchorNavigation("main-content");
         }
       }
     };
@@ -691,35 +698,41 @@ export default function Dashboard() {
 
   useLayoutEffect(() => {
     if (typeof window === "undefined") return undefined;
-    if (expanded !== null || view !== "scorecard" || isMobile) return undefined;
+    if (expanded !== null || view !== "scorecard") return undefined;
     const target = pendingDesktopReturnRef.current;
-    if (target === null) return undefined;
+    const dimensionId = pendingDesktopFocusRef.current;
+    if (target === null && dimensionId === null) return undefined;
 
     pendingDesktopReturnRef.current = null;
-    if (target === "grid") {
-      document.getElementById("scorecard-dimension-grid")?.scrollIntoView({
-        behavior: "auto",
-        block: "start",
-      });
-    } else {
-      window.scrollTo({ top: target, behavior: "auto" });
-    }
+    const restoreScroll = () => {
+      if (target === null) return;
+      if (target === "grid") {
+        document.getElementById("scorecard-dimension-grid")?.scrollIntoView({
+          behavior: "auto",
+          block: "start",
+        });
+      } else {
+        window.scrollTo({ top: target, behavior: "auto" });
+      }
+    };
+    restoreScroll();
 
-    const dimensionId = pendingDesktopFocusRef.current;
     pendingDesktopFocusRef.current = null;
     const focusHeader = () => {
+      if (!dimensionId) return;
       document.getElementById(`dim-${dimensionId}-header`)?.focus({ preventScroll: true });
     };
     focusHeader();
-    // A Back/Forward-driven close applies this focus during the traversal's
-    // own task; Chromium then runs its same-document-navigation focus fixup
-    // (~1ms later) and resets focus to <body>. Re-apply on a double rAF,
-    // which lands after that fixup. Re-focusing an element that already
-    // holds focus is a no-op, so the non-traversal close path is unaffected.
+    // Chromium applies same-document navigation fixups after the traversal's
+    // task. Re-apply scroll and focus on a double rAF so fragment scrolling
+    // and the focus reset cannot leave the origin card offscreen.
     let frameA = null;
     let frameB = null;
     frameA = window.requestAnimationFrame(() => {
-      frameB = window.requestAnimationFrame(focusHeader);
+      frameB = window.requestAnimationFrame(() => {
+        restoreScroll();
+        focusHeader();
+      });
     });
     return () => {
       if (frameA) window.cancelAnimationFrame(frameA);
@@ -745,6 +758,18 @@ export default function Dashboard() {
 
   const handleToggleApproval = () => {
     setApprovalExpanded((curr) => !curr);
+  };
+
+  const handlePolicyGradesJump = (event) => {
+    const isOrdinaryActivation = event.button === 0
+      && !event.metaKey
+      && !event.ctrlKey
+      && !event.shiftKey
+      && !event.altKey;
+    if (!isOrdinaryActivation) return;
+
+    event.preventDefault();
+    focusAndScrollToAnchor("policy-grades-heading");
   };
 
   const handleShowSafeguards = () => {
@@ -1083,6 +1108,31 @@ export default function Dashboard() {
         </div>
       </div>
 
+      {view === "scorecard" && expanded === null && (
+        <a
+          className="policy-grades-jump"
+          href="#policy-grades-heading"
+          onClick={handlePolicyGradesJump}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "fit-content",
+            minHeight: "44px",
+            margin: "-4px auto 16px",
+            padding: "0 12px",
+            borderRadius: "6px",
+            color: "var(--accent)",
+            fontSize: "14px",
+            fontWeight: 700,
+            textDecoration: "underline",
+            textUnderlineOffset: "3px",
+          }}
+        >
+          Jump to the 11 policy grades
+        </a>
+      )}
+
       {/* Scoreboard header: overall grades + promise count + approval signal card */}
       <div id="main-content" tabIndex={-1} />
       <div id="scoreboard-row">
@@ -1183,17 +1233,21 @@ export default function Dashboard() {
             marginRight: "auto",
           }}
         >
-          <div
+          <h2
+            id="policy-grades-heading"
+            className="policy-grades-heading"
+            tabIndex={-1}
             style={{
               fontSize: "16px",
               color: "#1a1a1a",
               fontWeight: 700,
               lineHeight: 1.5,
               marginBottom: "8px",
+              scrollMarginTop: "86px",
             }}
           >
             11 policy areas graded A–F, updated monthly.
-          </div>
+          </h2>
           <div
             style={{
               display: "flex",

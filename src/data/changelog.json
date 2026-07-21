@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-07-19",
+    "version": "5.158",
+    "summary": "Made the 11 policy grades reachable from the top and shortened Dashboard Status on phones while keeping the key review dates visible. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Policy grades are one jump away",
+        "body": "A visible link below the trust explanation moves keyboard focus and the page directly to the 11 policy grades. It does not add a browser-history entry, stays out of later sections and opened policy details, and Back returns focus to the policy card that opened the detail view."
+      },
+      {
+        "type": "product",
+        "headline": "Phone status takes less space",
+        "body": "On phones, Dashboard Status now keeps the evidence-scan date, editor-reviewed cycle, coverage date, and grade-move count visible, with the remaining facts and next checks behind one Show details button. Wider screens keep the six status facts and Next checks open."
+      },
+      {
+        "type": "docs",
+        "headline": "Responsive benchmark decisions recorded",
+        "body": "The review kept Apple Stocks as a narrow scan-to-detail reference, treated Wikipedia as cautionary evidence, and rejected Airbnb-style browse chrome. Incorrect claims about the policy drawer and returning-reader notice were not adopted."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-19",
     "version": "5.157",
     "summary": "Closed the v5.156 cross-AI follow-up, kept keyboard focus inside delayed policy drawers, finished three held readability edits, and corrected source links before the August cycle. No scores or scoring rules changed.",
     "items": [
