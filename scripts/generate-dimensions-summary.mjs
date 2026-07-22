@@ -18,6 +18,7 @@ const SUMMARY_FIELDS = [
   "name",
   "whatThisGrades",
   "verdictLine",
+  "latestReview",
   "status",
   "nextTrigger",
   "lastUpdated",

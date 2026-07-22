@@ -5,6 +5,11 @@
       "name": "Defence & Trade",
       "whatThisGrades": "Federal action on defence spending and trade diversification away from U.S. reliance.",
       "verdictLine": "The NATO spending target was met, and Canada's trade is measurably more diversified.",
+      "latestReview": {
+        "date": "2026-07-21",
+        "outcome": "held",
+        "summary": "Defence and Trade still averaged to the same result, while their one-point gap did not cross the published split trigger."
+      },
       "status": "NATO's 2% target was met, at 2.01%. The U.S. share of Canadian exports fell from 75.9% to 71.7%. Defence scores A and Trade scores B; their equal-weight average produces the A- headline.",
       "nextTrigger": "CUSMA review outcome. Next NATO annual report. Next annual trade-share synthesis.",
       "lastUpdated": "2026-07-21",
@@ -17,6 +22,11 @@
       "name": "Major Projects",
       "whatThisGrades": "How well the federal system for approving and delivering major infrastructure is working.",
       "verdictLine": "The Major Projects Office is tracking 15 projects, but only 2 show documented progress so far.",
+      "latestReview": {
+        "date": "2026-07-01",
+        "outcome": "held",
+        "summary": "The project-listing process started, but no project had received a national-interest designation or completed a full approval cycle."
+      },
       "status": "The Major Projects Office (MPO) is tracking 15 projects in three groups. Four have moved beyond the first stage, called 'designated'. Canada has now started the process to list projects under the Building Canada Act. But only 2 show documented progress after being added to the list. And the government has not yet used its power to declare any project a national-interest project.",
       "nextTrigger": "First use of the national-interest designation. MPO project completion or cancellation. Alto rail feasibility report.",
       "lastUpdated": "2026-07-01",
@@ -29,6 +39,11 @@
       "name": "Fiscal Health",
       "whatThisGrades": "Where the federal budget is headed. Can Ottawa keep up its spending and deficit path without it becoming a problem, and do outside watchers find the plan believable?",
       "verdictLine": "Both fiscal anchors are on track, but rising interest costs and other open worries remain.",
+      "latestReview": {
+        "date": "2026-07-01",
+        "outcome": "held",
+        "summary": "Both fiscal anchors remained on track, but higher-risk stress results and the lack of an independent operating-capital assessment kept the result unchanged."
+      },
       "status": "The Spring Economic Update expects a $66.9B deficit for the 2025-26 fiscal year. The PBO (Parliamentary Budget Officer, Parliament's independent fiscal watchdog) says both fiscal anchors (the government's self-set fiscal targets) are on track. Three open worries hold the grade at C: rising interest costs on the debt, how capital spending is labelled, and defence costs that may not all be counted yet.",
       "nextTrigger": "Next Finance fiscal monitor, any PBO fiscal-anchor update, and Fitch/Moody's/S&P rating actions.",
       "lastUpdated": "2026-06-05",
@@ -53,6 +68,11 @@
       "name": "Affordability Response",
       "whatThisGrades": "How the federal government responds to rising household costs. This covers groceries, costs pushed up by tariffs (taxes on imported goods), and relief aimed at specific groups.",
       "verdictLine": "Relief measures cover only a small slice of the extra costs families face, and tariffs add more.",
+      "latestReview": {
+        "date": "2026-07-01",
+        "outcome": "held",
+        "summary": "Food inflation rose to 4.3% but stayed below the down trigger, while the review found no new relief or mandatory grocery competition measure."
+      },
       "status": "This grade is about what Ottawa did, not about how high world prices are. The relief measures cover only a small slice of the extra costs families face. The Grocery Code is voluntary, so it is weaker than a mandatory rule. And tariffs (taxes on imported goods) are adding to what households pay.",
       "nextTrigger": "Next monthly CPI release. Any new grocery benefit or mandatory grocery competition measure. Next PROOF food insecurity release.",
       "lastUpdated": "2026-07-01",
@@ -65,6 +85,11 @@
       "name": "Carbon Pricing Policy",
       "whatThisGrades": "Federal carbon pricing policy. Covers changes to the consumer charge and the industrial system.",
       "verdictLine": "The consumer carbon price is gone as promised, but the industrial price is weak in practice.",
+      "latestReview": {
+        "date": "2026-07-01",
+        "outcome": "held",
+        "summary": "The May industrial-carbon update was already reflected, and the July 1 evidence check found no change that met either move trigger."
+      },
       "status": "The consumer carbon price was eliminated, which delivered a campaign promise. Industrial pricing was kept on paper, but the price it actually puts on a tonne of pollution (its effective price) is weak. This grade covers the pricing tool only. The wider climate framework is graded under Climate & Environment.",
       "nextTrigger": "OBPS tightening schedule or new effective-price evidence. Carbon border adjustment proposal. Broader replacement climate-plan changes remain primary to Climate & Environment.",
       "lastUpdated": "2026-06-05",
@@ -77,6 +102,11 @@
       "name": "Climate & Environment",
       "whatThisGrades": "Federal climate and environmental policy. How fast emissions are falling, how much nature is protected, and whether the targets still hold.",
       "verdictLine": "Big environmental rules were rolled back, and Canada is on track for only about half its 2030 target.",
+      "latestReview": {
+        "date": "2026-07-01",
+        "outcome": "held",
+        "summary": "The June policy context was already reflected, and the July 1 evidence check found no replacement plan or other trigger-level change."
+      },
       "status": "Big environmental rules have been rolled back, with nothing new put in their place. The Canadian Climate Institute (CCI) says Canada is on track to hit only about half the emissions cut its 2030 target requires. For the carbon price on big industrial emitters, see the Carbon Pricing Policy grade.",
       "nextTrigger": "Government response to CCI February 2026 assessment. Any new climate plan or replacement strategy. ECCC budget execution. OBPS-only pricing changes remain primary to Carbon Pricing Policy.",
       "lastUpdated": "2026-06-05",
@@ -89,6 +119,11 @@
       "name": "Immigration",
       "whatThisGrades": "Federal immigration policy. This covers how many permanent residents Canada lets in, how many temporary residents are here, and the student and worker streams.",
       "verdictLine": "The needed immigration correction has been made, but there is still no long-term plan for the system.",
+      "latestReview": {
+        "date": "2026-07-01",
+        "outcome": "held",
+        "summary": "The temporary-resident share fell to 6.18% but stayed above the 5% target, while the long-term levels plan remained unsettled."
+      },
       "status": "Immigration has been cut sharply. The correction is big and was needed, and the temporary-resident share is now down to about 6.18% of the population. But there is still no long-term plan for how the system should run. That plan is the main thing being watched for the next grade move.",
       "nextTrigger": "Next quarterly population estimate (StatsCan). IRCC monthly data. Healthcare staffing data showing pullback impact.",
       "lastUpdated": "2026-07-01",
@@ -101,6 +136,11 @@
       "name": "Housing Supply",
       "whatThisGrades": "Whether federal housing policy is getting homes delivered at the scale Canada needs.",
       "verdictLine": "Federal housing programs are not yet big enough, and announced homes have not started construction.",
+      "latestReview": {
+        "date": "2026-07-22",
+        "outcome": "held",
+        "summary": "The July 22 official-page check found no published signed Ontario agreement, first payment, or construction evidence, so the trigger stayed off."
+      },
       "status": "Federal housing programs are still too small to meet the need. The Build Canada Homes Act is now law, but construction has not started on the announced homes. Housing starts also remain below the pace needed to close the shortfall.",
       "nextTrigger": "Next CMHC monthly starts release. Actual Build Canada Homes construction commencement. Signed Ontario BCSF / DCRP agreement, first payment, or construction evidence.",
       "lastUpdated": "2026-07-22",
@@ -113,6 +153,11 @@
       "name": "Ethics & Transparency",
       "whatThisGrades": "Whether the Prime Minister's ethics safeguards are strong enough for his financial and career background.",
       "verdictLine": "Four disclosure pieces are documented, but full accounting and a Commissioner finding remain absent.",
+      "latestReview": {
+        "date": "2026-07-21",
+        "outcome": "held",
+        "summary": "The House review brought the file to four of five components, but full accounting stayed unpublished and the July 21 registry did not show a PM-specific Commissioner finding."
+      },
       "status": "Four of five disclosure pieces are now documented. House ETHI Report 5 counts as a substantive independent review, but no PM-specific Ethics Commissioner review or full public accounting has been published.",
       "nextTrigger": "A PM-specific Ethics Commissioner review. Any new disclosure of retained financial interests or a full public accounting.",
       "lastUpdated": "2026-07-21",
@@ -126,6 +171,11 @@
       "name": "Flagship Delivery",
       "whatThisGrades": "A combined delivery score pulled from five of the government's biggest areas: defence, housing, major projects, climate, and immigration. This grade is built from those five, not judged on its own.",
       "verdictLine": "Defence and immigration are getting done, while housing, major projects, and climate are stalled.",
+      "latestReview": {
+        "date": "2026-07-01",
+        "outcome": "held",
+        "summary": "Two files were still delivering and three were stalled, so the published combination rule produced the same result and passed its retention check."
+      },
       "status": "Defence and immigration are clearly getting done. Housing, major projects, and climate are stalled, meaning no measurable progress yet or progress has stopped after initial action.",
       "nextTrigger": "Post-majority legislative pace (bills passed per month). First Ministers Meeting outcomes. April 28 economic update implementation.",
       "lastUpdated": "2026-06-30",

@@ -23,11 +23,15 @@ function buildShareText(dim, trackerStat) {
     ].filter(Boolean).join("\n");
   }
 
+  const reviewedDate = dim.latestReview?.outcome === "held"
+    ? dim.latestReview.date
+    : dim.lastUpdated;
+
   return [
     "Canada Under Carney performance scorecard",
     dim.name,
     `Grade: ${dim.grade || "Not available"} | Trend: ${trend}`,
-    dim.lastUpdated ? `Policy file reviewed: ${dim.lastUpdated}` : null,
+    reviewedDate ? `Policy file reviewed: ${reviewedDate}` : null,
     "Evidence and grading method:",
   ].filter(Boolean).join("\n");
 }

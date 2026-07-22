@@ -352,6 +352,75 @@ button.text-link-button {
   overflow: hidden;
 }
 
+.dim-latest-review {
+  min-width: 0;
+  color: var(--text-body);
+  background: var(--surface-sunken);
+  border: 1px solid var(--border-strong);
+  border-radius: 7px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.dim-latest-review-collapsed {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 3px 8px;
+  margin-top: 8px;
+  padding: 7px 9px;
+}
+
+.dim-latest-review-meta {
+  display: inline-flex;
+  align-items: baseline;
+  flex: none;
+  gap: 5px;
+  white-space: nowrap;
+}
+
+.dim-latest-review-label {
+  color: var(--accent-strong);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.45px;
+  text-transform: uppercase;
+}
+
+.dim-latest-review-separator {
+  color: var(--text-subtle);
+  font-weight: 400;
+}
+
+.dim-latest-review-copy {
+  min-width: 0;
+  flex: 1 1 20ch;
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.dim-latest-review-collapsed .dim-latest-review-copy {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dim-latest-review-expanded {
+  display: grid;
+  gap: 5px;
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-left: 3px solid var(--accent);
+}
+
+.dim-latest-review-expanded .dim-latest-review-copy {
+  margin: 0;
+  max-width: 65ch;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
 /* Next-check line stays on one line; the full editor-authored sentence
    lives in the element's title attribute. */
 .dim-next-check-line {
@@ -2111,6 +2180,14 @@ button.text-link-button {
     columns: 1;
   }
 
+  .dim-latest-review-collapsed {
+    align-items: flex-start;
+  }
+
+  .dim-latest-review-collapsed .dim-latest-review-copy {
+    flex-basis: 100%;
+  }
+
   /* Mobile full-screen drawer: icon-only circular close, top-right. The label
      collapses so the 44px target stays a clean circle; the dark glyph on the
      bordered chip keeps it obvious to tap. Copy-link collapses the same way
@@ -2920,6 +2997,15 @@ a:hover { text-decoration: underline; }
 [data-theme="dark"] .dim-verdict-hero {
   background: var(--surface-sunken);
   border-left-color: #5b7689;
+}
+
+[data-theme="dark"] .dim-latest-review {
+  background: var(--surface-sunken);
+  border-color: var(--border-strong);
+}
+
+[data-theme="dark"] .dim-latest-review-expanded {
+  border-left-color: var(--accent);
 }
 
 [data-theme="dark"] .dim-decision-brief {

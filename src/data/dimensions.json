@@ -8,6 +8,11 @@
     "trend": "stable",
     "status": "NATO's 2% target was met, at 2.01%. The U.S. share of Canadian exports fell from 75.9% to 71.7%. Defence scores A and Trade scores B; their equal-weight average produces the A- headline.",
     "verdictLine": "The NATO spending target was met, and Canada's trade is measurably more diversified.",
+    "latestReview": {
+      "date": "2026-07-21",
+      "outcome": "held",
+      "summary": "Defence and Trade still averaged to the same result, while their one-point gap did not cross the published split trigger."
+    },
     "judgmentCall": "Defence and Trade are scored separately and weighted equally. Trade is B because its 4.2-point gain falls below the roughly five-point A marker; market-driven change remains an attribution constraint.",
     "judgmentDetail": "The headline follows a fixed calculation, not an anchor-and-modifier judgment. Defence is A because NATO independently confirmed spending at 2.01% of GDP. Trade is B because the annual non-U.S. export-share gain was 4.2 points and corridor execution is underway. Whole-letter sub-scores convert to 4.0 and 3.0, average equally to 3.50, and map to A-. The existing External Constraint entry discloses that the U.S. trade shock drove part of the gain; it does not separately change the Trade band or headline arithmetic. The June 2026 editor decision treated Budget 2025's $81.8B five-year envelope as satisfying the narrower B-5yr funded-pathway condition; it did not establish that the full 3.5% trajectory is appropriated. If the sub-scores move in opposite directions, or differ by more than 1.0 GPA points for two consecutive monthly cycles, the file splits into separate grades.",
     "surfaceTags": [
@@ -418,6 +423,11 @@
     "trend": "stable",
     "status": "The Major Projects Office (MPO) is tracking 15 projects in three groups. Four have moved beyond the first stage, called 'designated'. Canada has now started the process to list projects under the Building Canada Act. But only 2 show documented progress after being added to the list. And the government has not yet used its power to declare any project a national-interest project.",
     "verdictLine": "The Major Projects Office is tracking 15 projects, but only 2 show documented progress so far.",
+    "latestReview": {
+      "date": "2026-07-01",
+      "outcome": "held",
+      "summary": "The project-listing process started, but no project had received a national-interest designation or completed a full approval cycle."
+    },
     "judgmentCall": "The grade rests on documented progress after a project is added to the list. It does not rest on how many projects were announced, or on whether any project is a good idea.",
     "judgmentDetail": "This grade does not judge whether each project is good policy. It judges the federal delivery process: the 15 projects the Major Projects Office (MPO) is tracking, whether they reached a higher stage on a date after they were added, and whether the government used its national-interest power. The editor's judgment enters in two places. A stage label added on the same day a project joins the list does not count as progress. And a credit-claiming penalty applies where the government overstates its role in projects that were already moving before it stepped in.",
     "surfaceTags": [
@@ -959,6 +969,11 @@
     "trend": "up",
     "status": "The Spring Economic Update expects a $66.9B deficit for the 2025-26 fiscal year. The PBO (Parliamentary Budget Officer, Parliament's independent fiscal watchdog) says both fiscal anchors (the government's self-set fiscal targets) are on track. Three open worries hold the grade at C: rising interest costs on the debt, how capital spending is labelled, and defence costs that may not all be counted yet.",
     "verdictLine": "Both fiscal anchors are on track, but rising interest costs and other open worries remain.",
+    "latestReview": {
+      "date": "2026-07-01",
+      "outcome": "held",
+      "summary": "Both fiscal anchors remained on track, but higher-risk stress results and the lack of an independent operating-capital assessment kept the result unchanged."
+    },
     "judgmentCall": "The C grade rests on the fiscal anchors (the government's self-set fiscal targets) now looking more believable. Worries stay open on rising interest costs, how capital spending is labelled, and defence costs that may not all be counted yet.",
     "judgmentDetail": "The Spring Economic Update and the PBO materially improve the read on where the budget is headed, meaning enough to affect the grade. The deficit-to-GDP anchor is projected to decline and the operating-balance anchor is on track. Judgment still enters in how much weight to give the open worries. The PBO says the rules for what counts as capital spending are still not precise, interest costs keep rising, and not all expected defence spending appears in the projections yet.",
     "construct": "Whether the federal budget path can keep going without becoming a problem, and whether the plan for the next several years is believable.",
@@ -1647,6 +1662,11 @@
     "trend": "down",
     "status": "This grade is about what Ottawa did, not about how high world prices are. The relief measures cover only a small slice of the extra costs families face. The Grocery Code is voluntary, so it is weaker than a mandatory rule. And tariffs (taxes on imported goods) are adding to what households pay.",
     "verdictLine": "Relief measures cover only a small slice of the extra costs families face, and tariffs add more.",
+    "latestReview": {
+      "date": "2026-07-01",
+      "outcome": "held",
+      "summary": "Food inflation rose to 4.3% but stayed below the down trigger, while the review found no new relief or mandatory grocery competition measure."
+    },
     "judgmentCall": "The low grade compares federal relief to the measured rise in household costs. It is not a judgment on world prices.",
     "judgmentDetail": "The D- grade rates how well federal action measures up against documented cost increases. The editor's judgment comes in three places. First, matching the size of the relief to the yearly cost burden it is meant to ease. Second, counting voluntary grocery measures as weaker than ones the government can enforce. Third, separating Ottawa's policy response from world price spikes that Ottawa does not fully control.",
     "construct": "How well the federal response measures up against rising household costs from groceries, tariffs (taxes on imported goods), and relief aimed at specific groups.",
@@ -1972,6 +1992,11 @@
     "trend": "stable",
     "status": "The consumer carbon price was eliminated, which delivered a campaign promise. Industrial pricing was kept on paper, but the price it actually puts on a tonne of pollution (its effective price) is weak. This grade covers the pricing tool only. The wider climate framework is graded under Climate & Environment.",
     "verdictLine": "The consumer carbon price is gone as promised, but the industrial price is weak in practice.",
+    "latestReview": {
+      "date": "2026-07-01",
+      "outcome": "held",
+      "summary": "The May industrial-carbon update was already reflected, and the July 1 evidence check found no change that met either move trigger."
+    },
     "judgmentCall": "The middle grade gives credit for keeping the consumer-price promise. It also marks the grade down for the weak industrial price (the price it actually charges per tonne).",
     "judgmentDetail": "The C grade keeps two things separate: whether a promise was kept, and how strong the pricing tool is. Removing the consumer charge gets credit as a campaign promise that was carried out. The industrial system gets marked down because the price it actually charges (the effective price signal) is far below the official posted schedule. Judgment comes in by treating the pricing tool as partly intact, but not clearly strong enough to earn a higher grade. The editor fixed the definition on 2026-06-12: the effective-price checks are decided on the marginal compliance price. That is the market price of the compliance credits big emitters buy under the federal Output-Based Pricing System (OBPS) and matching provincial systems, currently about $20 per tonne. It is not the average cost per tonne across the whole economy, which is shown only as background and does not move the grade. Under that definition, the May 15 Canada-Alberta agreement was checked against the $15/t down condition and did not set it off. The agreement weakens the future price path, not the current marginal price.",
     "surfaceTags": [
@@ -2247,6 +2272,11 @@
     "trend": "down",
     "status": "Big environmental rules have been rolled back, with nothing new put in their place. The Canadian Climate Institute (CCI) says Canada is on track to hit only about half the emissions cut its 2030 target requires. For the carbon price on big industrial emitters, see the Carbon Pricing Policy grade.",
     "verdictLine": "Big environmental rules were rolled back, and Canada is on track for only about half its 2030 target.",
+    "latestReview": {
+      "date": "2026-07-01",
+      "outcome": "held",
+      "summary": "The June policy context was already reflected, and the July 1 evidence check found no replacement plan or other trigger-level change."
+    },
     "judgmentCall": "The low grade is about the missing replacement strategy after the rollbacks, not about how emissions moved in any one month.",
     "judgmentDetail": "The D grade comes from the whole policy framework. Big rules were rolled back, no funded replacement strategy exists, the department doing the work is shrinking, and the government admits the 2030 targets are out of reach. The editor's judgment shows up in two places: keeping this grade from overlapping with Carbon Pricing Policy, and weighing how believable the framework is more heavily than month-to-month emissions noise. Editor decision (June 12, 2026): on May 14 the government said it intends to weaken the Clean Electricity Regulations (CER), the rules pushing the power grid toward clean electricity. That was checked against the down condition for cutting climate programs and did not set it off. Announced is not done, in both directions: the same rule that refuses credit for an announcement refuses to dock points for one. The condition stays active: if a CER amendment that materially weakens the rules is published in the Canada Gazette (the government's official record of new law), or the CER is repealed, the condition comes back to be decided.",
     "surfaceTags": [
@@ -2583,6 +2613,11 @@
     "trend": "up",
     "status": "Immigration has been cut sharply. The correction is big and was needed, and the temporary-resident share is now down to about 6.18% of the population. But there is still no long-term plan for how the system should run. That plan is the main thing being watched for the next grade move.",
     "verdictLine": "The needed immigration correction has been made, but there is still no long-term plan for the system.",
+    "latestReview": {
+      "date": "2026-07-01",
+      "outcome": "held",
+      "summary": "The temporary-resident share fell to 6.18% but stayed above the 5% target, while the long-term levels plan remained unsettled."
+    },
     "judgmentCall": "The plus on the grade gives credit for a real cut to immigration levels. The grade is held back because there is still no settled plan for the right long-term level.",
     "judgmentDetail": "The C+ gives credit for a big correction to a system that was overloaded. It stops short of a B because there is no durable long-term plan yet. Editor judgment shows up in two places. First, treating the correction as needed rather than as punishment. Second, weighing the open risks (to specific industries, public services, and long-term planning) against the fact that the lower levels were clearly carried out. No External Constraint adjustment is applied. The absorption strain (the system taking in more people than housing, health care, and the job market could handle) that triggered the correction was left over from earlier policy choices. But this grade is about how the current government responded, not the strain itself, so the inherited conditions do not ease the read on what the government did.",
     "surfaceTags": [
@@ -2872,6 +2907,11 @@
     "trend": "stable",
     "status": "Federal housing programs are still too small to meet the need. The Build Canada Homes Act is now law, but construction has not started on the announced homes. Housing starts also remain below the pace needed to close the shortfall.",
     "verdictLine": "Federal housing programs are not yet big enough, and announced homes have not started construction.",
+    "latestReview": {
+      "date": "2026-07-22",
+      "outcome": "held",
+      "summary": "The July 22 official-page check found no published signed Ontario agreement, first payment, or construction evidence, so the trigger stayed off."
+    },
     "judgmentCall": "The low grade rests on actual housing starts and the size of federal programs. Announced homes count only when construction starts or there is a signed or legally committed path to delivery. An announcement alone does not count.",
     "judgmentDetail": "The D grade looks at three things: actual housing starts, program size, and binding delivery, meaning a signed or legally committed path to delivery. The editor gives Build Canada Homes some early credit for moving forward, but does not count announced homes as built homes. The editor also separates federal action from what provinces, cities, and the market control.",
     "surfaceTags": [
@@ -3259,6 +3299,11 @@
     "trend": "stable",
     "status": "Four of five disclosure pieces are now documented. House ETHI Report 5 counts as a substantive independent review, but no PM-specific Ethics Commissioner review or full public accounting has been published.",
     "verdictLine": "Four disclosure pieces are documented, but full accounting and a Commissioner finding remain absent.",
+    "latestReview": {
+      "date": "2026-07-21",
+      "outcome": "held",
+      "summary": "The House review brought the file to four of five components, but full accounting stayed unpublished and the July 21 registry did not show a PM-specific Commissioner finding."
+    },
     "judgmentCall": "The middle grade separates two findings. The disclosure and screening setup still has gaps, but no wrongdoing has been proven.",
     "judgmentDetail": "The C is about whether the rules are good enough, not whether he did anything wrong. House ETHI Report 5 substantively reviewed the Prime Minister's divestment and conflict screen, so the independent-review component is present. It also counts as a separate institutional critique alongside Democracy Watch. The grade still cannot move higher because full public accounting is absent and the Ethics Commissioner has not published a PM-specific review finding the screen adequate. It does not move lower because four components are present and Report 5 did not make a formal finding that the current PM-specific screen is inadequate.",
     "surfaceTags": [
@@ -3545,6 +3590,11 @@
     "trend": "down",
     "status": "Defence and immigration are clearly getting done. Housing, major projects, and climate are stalled, meaning no measurable progress yet or progress has stopped after initial action.",
     "verdictLine": "Defence and immigration are getting done, while housing, major projects, and climate are stalled.",
+    "latestReview": {
+      "date": "2026-07-01",
+      "outcome": "held",
+      "summary": "Two files were still delivering and three were stalled, so the published combination rule produced the same result and passed its retention check."
+    },
     "judgmentCall": "The middle grade comes from counting how the five flagship areas split across delivery statuses. It is not a fresh opinion on whether each policy is good.",
     "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivering, partially delivering, stalled, or failing. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies. It passed its July 2026 retention check and exited probation. The rule ran through a real cycle without changes. Its direction did not contradict the status moves in the five areas underneath. It showed a delivery pattern spanning two or more flagship areas that no single home card makes obvious. And no metric was counted twice, once in a home area and again here.",
     "surfaceTags": [

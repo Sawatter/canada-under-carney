@@ -9,6 +9,11 @@ const housingPayload = buildDimensionSharePayload({
     grade: "D",
     trend: "stable",
     lastUpdated: "2026-07-19",
+    latestReview: {
+      date: "2026-07-22",
+      outcome: "held",
+      summary: "Official pages showed no signed agreement or first payment.",
+    },
   },
   url: housingUrl,
 });
@@ -19,7 +24,7 @@ assert.deepEqual(housingPayload.shareData, {
     "Canada Under Carney performance scorecard",
     "Housing Supply",
     "Grade: D | Trend: Stable",
-    "Policy file reviewed: 2026-07-19",
+    "Policy file reviewed: 2026-07-22",
     "Evidence and grading method:",
   ].join("\n"),
   url: housingUrl,
@@ -28,6 +33,23 @@ assert.equal(
   housingPayload.clipboardText,
   `${housingPayload.shareData.text}\n${housingUrl}`,
   "clipboard fallback must retain the contextual text and exact deep link",
+);
+
+const fallbackPayload = buildDimensionSharePayload({
+  dim: {
+    id: "economic-policy",
+    name: "Economic Policy Response",
+    grade: "C+",
+    trend: "up",
+    lastUpdated: "2026-07-21",
+  },
+  url: "https://example.test/canada-under-carney/#dim-economic-policy",
+});
+
+assert.match(
+  fallbackPayload.shareData.text,
+  /Policy file reviewed: 2026-07-21/,
+  "graded dimensions without latestReview must keep the lastUpdated fallback",
 );
 
 const trackerUrl = "https://example.test/canada-under-carney/#dim-promise-delivery";
@@ -39,6 +61,11 @@ const trackerPayload = buildDimensionSharePayload({
     informationalGrade: "C+",
     trend: "stable",
     lastUpdated: "2026-07-19",
+    latestReview: {
+      date: "2026-07-22",
+      outcome: "held",
+      summary: "This field is ignored for tracker share text.",
+    },
   },
   trackerStat: { delivered: 14, total: 43 },
   url: trackerUrl,

@@ -33,6 +33,7 @@ const VALID_TRENDS = new Set(["up", "stable", "down"]);
 const WHOLE_LETTER_GRADES = new Set(["A", "B", "C", "D", "F"]);
 const VALID_SOURCE_DATE_KINDS = new Set(["published", "updated", "as-of"]);
 const TARGET_OPERATOR_SET = new Set(TARGET_OPERATORS);
+const LATEST_REVIEW_KEYS = new Set(["date", "outcome", "summary"]);
 const LATEST_EVIDENCE_REVIEW_KEYS = new Set([
   "date",
   "title",
@@ -207,6 +208,18 @@ const trackerCount = dimensions.filter((d) => d.excludeFromGPA).length;
 const gradedCount = totalCount - trackerCount;
 const canonicalUrlsByDimension = new Map();
 const dimensionsById = new Map();
+const latestGradeMoveDateByDimension = new Map();
+
+for (const entry of changelog) {
+  if (!validFullDateString(entry?.date)) continue;
+  for (const item of entry.items || []) {
+    if (item?.type !== "grade" || !hasText(item.dimensionId)) continue;
+    const current = latestGradeMoveDateByDimension.get(item.dimensionId);
+    if (!current || entry.date > current) {
+      latestGradeMoveDateByDimension.set(item.dimensionId, entry.date);
+    }
+  }
+}
 
 if (totalCount !== 12) err("[root]", `expected 12 dimensions, found ${totalCount}`);
 if (gradedCount !== 11) err("[root]", `expected 11 graded dimensions, found ${gradedCount}`);
@@ -229,6 +242,7 @@ for (const d of dimensions) {
 for (const d of dimensions) {
   const name = d.name || "[unnamed]";
   const isTracker = !!d.excludeFromGPA;
+  const latestGradeMoveDate = latestGradeMoveDateByDimension.get(d.id) || null;
   if (hasText(d.id)) {
     if (dimensionsById.has(d.id)) err(name, `duplicate dimension id "${d.id}"`);
     dimensionsById.set(d.id, d);
@@ -290,6 +304,56 @@ for (const d of dimensions) {
     if (d.verdictLine !== undefined) {
       err(name, `tracker must not have "verdictLine" — verdict one-liners are for graded dimensions only`);
     }
+  }
+
+  // Optional latest-cycle outcome for collapsed graded cards. This records the
+  // review decision only and does not alter thresholds or scoring.
+  if (d.latestReview !== undefined) {
+    const review = d.latestReview;
+    if (isTracker) {
+      err(name, `tracker must not have "latestReview"`);
+    }
+    if (!isPlainObject(review)) {
+      err(name, `latestReview must be a plain object`);
+    } else {
+      rejectUnknownKeys(name, "latestReview", review, LATEST_REVIEW_KEYS);
+
+      if (!validFullDateString(review.date)) {
+        err(name, `latestReview.date must be a valid YYYY-MM-DD date`);
+      } else if (validFullDateString(meta.lastUpdated) && review.date > meta.lastUpdated) {
+        err(name, `latestReview.date (${review.date}) must not be later than meta.lastUpdated (${meta.lastUpdated})`);
+      } else if (validFullDateString(d.lastUpdated) && review.date < d.lastUpdated) {
+        err(name, `latestReview.date (${review.date}) must not predate lastUpdated (${d.lastUpdated})`);
+      } else if (latestGradeMoveDate && review.date <= latestGradeMoveDate) {
+        err(name, `latestReview.date (${review.date}) must be later than the latest grade move (${latestGradeMoveDate})`);
+      }
+
+      if (typeof review.outcome !== "string" || review.outcome !== "held") {
+        err(name, `latestReview.outcome must be exactly "held"`);
+      }
+
+      if (!hasText(review.summary)) {
+        err(name, `latestReview.summary must be a non-empty string`);
+      } else {
+        if (review.summary.length > 180) {
+          err(name, `latestReview.summary is ${review.summary.length} chars — must be 180 or fewer`);
+        }
+        for (const pattern of VERDICT_GRADE_TOKEN_PATTERNS) {
+          if (pattern.test(review.summary)) {
+            err(name, `latestReview.summary contains a grade token (matched ${pattern}) — review copy must not name grades`);
+          }
+        }
+        for (const { word, pattern } of VERDICT_FORBIDDEN_URGENCY_PATTERNS) {
+          if (pattern.test(review.summary)) {
+            err(name, `latestReview.summary contains forbidden urgency/freshness wording "${word}"`);
+          }
+        }
+      }
+    }
+  }
+
+  if (!isTracker && d.latestReview === undefined && !latestGradeMoveDate) {
+    err(name, `graded dimension needs either latestReview or a dated grade-move record`);
   }
 
   // Optional dated evidence-review brief for graded dimensions. This is a

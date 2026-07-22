@@ -566,6 +566,18 @@ export default function DimensionCard({
   onPolicyNavigate,
 }) {
   const isTracker = !!dim.excludeFromGPA;
+  const heldReview = !isTracker && dim.latestReview?.outcome === "held"
+    ? dim.latestReview
+    : null;
+  const reviewedDate = isTracker
+    ? dim.lastUpdated
+    : (dim.latestReview?.date || dim.lastUpdated);
+  const collapsedReviewDescription = !isExpanded && heldReview
+    ? [
+      `dim-${dim.id}-latest-review`,
+      reviewedDate ? `dim-${dim.id}-reviewed-date` : null,
+    ].filter(Boolean).join(" ")
+    : undefined;
   const g = isTracker ? null : GRADES[dim.grade];
   const modifierItems = isTracker ? [] : (dim.gradeBasis?.activeModifiers || []);
   const metrics = dim.metrics || [];
@@ -1533,6 +1545,15 @@ export default function DimensionCard({
   const latestGradeMove = Array.isArray(gradeMoves) && gradeMoves.length > 0
     ? gradeMoves[0]
     : null;
+  const sourceDownloadPayload = {
+    id: dim.id,
+    name: dim.name,
+    ...(isTracker ? { informationalGrade: dim.informationalGrade } : { grade: dim.grade }),
+    sources,
+    metrics,
+    lastUpdated: dim.lastUpdated,
+    ...(dim.latestReview ? { latestReview: dim.latestReview } : {}),
+  };
 
   return (
     <div
@@ -1560,6 +1581,7 @@ export default function DimensionCard({
           aria-expanded={isExpanded}
           aria-controls={`dim-${dim.id}-drawer`}
           aria-labelledby={`dim-${dim.id}-title`}
+          aria-describedby={collapsedReviewDescription}
         >
           <div className="dim-card-header-content">
             <div style={{ flex: 1, minWidth: 0 }}>
@@ -1615,6 +1637,22 @@ export default function DimensionCard({
               >
                 {dim.verdictLine || dim.status}
               </div>
+              {!isExpanded && heldReview && (
+                <div
+                  id={`dim-${dim.id}-latest-review`}
+                  className="dim-latest-review dim-latest-review-collapsed"
+                  data-review-outcome="held"
+                >
+                  <span className="dim-latest-review-meta">
+                    <span className="dim-latest-review-label">This review</span>
+                    <span className="dim-latest-review-separator" aria-hidden="true">&#183;</span>
+                    <strong>Grade held</strong>
+                  </span>
+                  <span className="dim-latest-review-copy" title={heldReview.summary}>
+                    {heldReview.summary}
+                  </span>
+                </div>
+              )}
               {!isTracker && dim.nextTrigger && (
                 <div
                   className="dim-next-check-line"
@@ -1633,12 +1671,15 @@ export default function DimensionCard({
                   })()}
                 </div>
               )}
-              {dim.lastUpdated && (
-                <div className="last-reviewed-pill dim-last-reviewed-pill">
+              {reviewedDate && (
+                <div
+                  id={!isExpanded && heldReview ? `dim-${dim.id}-reviewed-date` : undefined}
+                  className="last-reviewed-pill dim-last-reviewed-pill"
+                >
                   <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
                     Reviewed
                   </span>
-                  {dim.lastUpdated}
+                  <time dateTime={reviewedDate}>{reviewedDate}</time>
                   {meta.nextUpdate && (
                     <>
                       <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
@@ -1892,6 +1933,19 @@ export default function DimensionCard({
                   <p className="dim-verdict-kicker">{dim.whatThisGrades}</p>
                 )}
                 <p className="dim-verdict-status">{dim.status}</p>
+                {heldReview && !dim.latestEvidenceReview && (
+                  <div
+                    className="dim-latest-review dim-latest-review-expanded"
+                    data-review-outcome="held"
+                  >
+                    <span className="dim-latest-review-meta">
+                      <span className="dim-latest-review-label">This review</span>
+                      <span className="dim-latest-review-separator" aria-hidden="true">&#183;</span>
+                      <strong>Grade held</strong>
+                    </span>
+                    <p className="dim-latest-review-copy">{heldReview.summary}</p>
+                  </div>
+                )}
                 {isTracker && (
                   <p className="dim-verdict-note">
                     Promise Delivery is tracked outside the GPA. It counts commitments across all files rather than grading a policy outcome.
@@ -1931,12 +1985,12 @@ export default function DimensionCard({
                     {dim.gradeBasis.whyNotLower}
                   </div>
                 )}
-                {dim.lastUpdated && (
+                {reviewedDate && (
                   <div className="last-reviewed-pill dim-last-reviewed-pill">
                     <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
                       Reviewed
                     </span>
-                    {dim.lastUpdated}
+                    <time dateTime={reviewedDate}>{reviewedDate}</time>
                     {meta.nextUpdate && (
                       <>
                         <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
@@ -2268,7 +2322,7 @@ export default function DimensionCard({
                     usageBySource={sourceUsageByUrl}
                   />
                   <a
-                    href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify({ id: dim.id, name: dim.name, ...(isTracker ? { informationalGrade: dim.informationalGrade } : { grade: dim.grade }), sources, metrics, lastUpdated: dim.lastUpdated }, null, 2))}`}
+                    href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(sourceDownloadPayload, null, 2))}`}
                     download={`${dim.id}-sources.json`}
                     onClick={(e) => e.stopPropagation()}
                     className="dim-download-link"

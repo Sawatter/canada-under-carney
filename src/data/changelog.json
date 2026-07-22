@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-07-22",
+    "version": "5.162",
+    "summary": "Added a dated explanation of why the latest review held each unchanged policy grade. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Held grades now explain this review",
+        "body": "Ten policy cards now show the latest review date, a Grade held label, and one authored sentence naming the decisive reason. Economic Policy is omitted because its latest review corrected the grade, and Promise Delivery remains an ungraded tracker."
+      },
+      {
+        "type": "fix",
+        "headline": "Review dates no longer depend on file-edit dates",
+        "body": "A separate reviewed date now records when a held policy was assessed even if its underlying evidence file did not need an edit. Shared policy text uses that date when available and keeps the prior file date as a fallback."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-22",
     "version": "5.161",
     "summary": "Added a dated Housing evidence review, removed source-tier labels that overstated authority, and added desktop policy switching. No scores or scoring rules changed.",
     "items": [

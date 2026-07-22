@@ -13,6 +13,22 @@ const dashboardStatus = JSON.parse(readFileSync(path.join(repoRoot, "src/data/st
 const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
 const movedDimensionIds = new Set(currentGradeMoves.map((item) => item.dimensionId));
 const housingDimension = dimensions.find((dim) => dim.id === "housing-supply");
+const housingReviewedDate = housingDimension.latestReview?.date || housingDimension.lastUpdated;
+const heldReviewDimensions = dimensions.filter((dim) => (
+  !dim.excludeFromGPA && dim.latestReview?.outcome === "held"
+));
+const expectedHeldReviewIds = [
+  "affordability-response",
+  "carbon-pricing",
+  "climate-environment",
+  "defence-trade",
+  "ethics-transparency",
+  "execution-delivery",
+  "fiscal-health",
+  "housing-supply",
+  "immigration",
+  "major-projects",
+];
 
 const statusDateFormatter = new Intl.DateTimeFormat("en-CA", {
   month: "long",
@@ -672,6 +688,101 @@ test.describe("workspace chrome, verdict lines, and follow updates", () => {
   }
 });
 
+test.describe("held policy review summaries", () => {
+  for (const [viewportName, viewport] of viewports) {
+    test(`held reviews stay secondary and readable on ${viewportName}`, async ({ page }, testInfo) => {
+      expect(
+        heldReviewDimensions.map((dim) => dim.id).sort(),
+        "the release fixture must include exactly the ten documented held policies",
+      ).toEqual(expectedHeldReviewIds);
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+
+      await expect(page.locator(".dim-latest-review-collapsed"))
+        .toHaveCount(heldReviewDimensions.length);
+
+      for (const dim of heldReviewDimensions) {
+        const card = page.locator(`#dim-${dim.id}`);
+        const review = card.locator(".dim-latest-review-collapsed");
+        await review.scrollIntoViewIfNeeded();
+        await expect(review).toBeVisible();
+        await expect(review.locator(".dim-latest-review-label")).toHaveText("This review");
+        await expect(review.locator(".dim-latest-review-meta strong")).toHaveText("Grade held");
+        await expect(review.locator(".dim-latest-review-copy")).toHaveText(dim.latestReview.summary);
+        await expect(card.locator(".dim-last-reviewed-pill time"))
+          .toHaveText(dim.latestReview.date);
+        await expect(card.locator(".dim-card-header-button"))
+          .toHaveAttribute(
+            "aria-describedby",
+            `dim-${dim.id}-latest-review dim-${dim.id}-reviewed-date`,
+          );
+        await expect(review.locator("a, button, [role='button']")).toHaveCount(0);
+        expect(await review.evaluate((node) => node.scrollWidth <= node.clientWidth)).toBe(true);
+      }
+
+      await expect(page.locator("#dim-economic-policy .dim-latest-review")).toHaveCount(0);
+      await expect(page.locator("#dim-promise-delivery .dim-latest-review")).toHaveCount(0);
+      await expectNoOverflow(page);
+
+      if (testInfo.project.name.includes("dark")) {
+        await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+      }
+      expect(consoleErrors).toEqual([]);
+    });
+  }
+
+  test("expanded held review renders once and sources JSON retains it", async ({ page }) => {
+    expect(heldReviewDimensions.length, "the release fixture must include a held policy review")
+      .toBeGreaterThan(0);
+    const consoleErrors = await installConsoleGuards(page);
+    const [dim] = heldReviewDimensions;
+
+    for (const viewport of viewports.map(([, size]) => size)) {
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: `#dim-${dim.id}` }));
+
+      const card = page.locator(`#dim-${dim.id}`);
+      const review = card.locator(".dim-latest-review-expanded");
+      await expect(review).toBeVisible();
+      await expect(card.locator(".dim-latest-review")).toHaveCount(1);
+      await expect(card.locator(".dim-latest-review-collapsed")).toHaveCount(0);
+      await expect(review.locator(".dim-latest-review-label")).toHaveText("This review");
+      await expect(review.locator(".dim-latest-review-meta strong")).toHaveText("Grade held");
+      await expect(review.locator(".dim-latest-review-copy")).toHaveText(dim.latestReview.summary);
+      await expect(card.getByText(dim.latestReview.summary, { exact: true })).toHaveCount(1);
+      await expect(card.locator(".dim-verdict-hero .dim-last-reviewed-pill time"))
+        .toHaveText(dim.latestReview.date);
+      await expectNoOverflow(page);
+    }
+
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: `#dim-${dim.id}` }));
+    await page.locator(`#dim-${dim.id}-sources-button`).click();
+    const download = page.getByRole("link", { name: "Download sources as JSON" });
+    await expect(download).toBeVisible();
+    const href = await download.getAttribute("href");
+    const payload = JSON.parse(decodeURIComponent(href.slice(href.indexOf(",") + 1)));
+    expect(payload.latestReview).toEqual(dim.latestReview);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("Housing expanded detail relies on its full Decision Brief instead of repeating the compact hold", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+
+    const housing = page.locator("#dim-housing-supply");
+    await expect(housing.locator(".dim-latest-review-expanded")).toHaveCount(0);
+    await expect(housing.locator(".dim-decision-brief")).toBeVisible();
+    await expect(
+      housing.getByText(housingDimension.latestEvidenceReview.outcome, { exact: true }),
+    ).toHaveCount(1);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+});
+
 test.describe("current release grade-move evidence loop", () => {
   for (const [viewportName, viewport] of viewports) {
     test(`scorecard ${viewportName} grade-move markers match current changelog`, async ({ page }, testInfo) => {
@@ -1004,7 +1115,7 @@ test.describe("drawer history and contextual share contract", () => {
       "Canada Under Carney performance scorecard",
       "Housing Supply",
       "Grade: D | Trend: Stable",
-      `Policy file reviewed: ${housingDimension.lastUpdated}`,
+      `Policy file reviewed: ${housingReviewedDate}`,
       "Evidence and grading method:",
       deepLink,
     ].join("\n"));
@@ -1037,7 +1148,7 @@ test.describe("drawer history and contextual share contract", () => {
         "Canada Under Carney performance scorecard",
         "Housing Supply",
         "Grade: D | Trend: Stable",
-        `Policy file reviewed: ${housingDimension.lastUpdated}`,
+        `Policy file reviewed: ${housingReviewedDate}`,
         "Evidence and grading method:",
       ].join("\n"),
       url: page.url(),
