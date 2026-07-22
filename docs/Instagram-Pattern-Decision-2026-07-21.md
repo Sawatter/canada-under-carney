@@ -1,8 +1,12 @@
 # Instagram Pattern Decision
 
-**Status:** Local v5.160 prototype prepared; not published<br>
+**Status:** Live as v5.160<br>
 **Prepared:** 2026-07-21<br>
-**Live baseline:** v5.159<br>
+**Published:** 2026-07-21<br>
+**Release commit:** `a1eb18f`<br>
+**Production evidence:** Pages run `29884796740` passed and live audit run
+`29884939039` passed 530 checks with zero issues<br>
+**Research baseline:** live v5.159<br>
 **Frozen surfaces:** no grade, threshold, formula, weight, modifier, promise
 status, trigger, source, or dimension-model change
 
@@ -32,7 +36,7 @@ infrastructure.
 
 | Candidate | Decision | Reason |
 |---|---|---|
-| Context-preserving share text | Accept for one local prototype | The current outbound result loses grade, trend, and review-date context even though those facts are already visible in the opened policy. The change can reuse the existing control and exact deep link. |
+| Context-preserving share text | Published as a bounded v5.160 change | The prior outbound result lost grade, trend, and review-date context even though those facts were already visible in the opened policy. The change reuses the existing control and exact deep link. |
 | Local `Pin for later` list | Defer | No reader feedback shows that revisiting a fixed 11-policy grid is costly enough to justify another control and local state. The political-signalling risk remains real when a pin list is screenshotted. |
 | Stronger caught-up flow | Reject | `SinceLastVisit`, Dashboard Status, and the finite Change Log already cover the job. |
 | Recommendations reset | Reject | The dashboard has no personalized recommendation system to reset. |
@@ -81,12 +85,12 @@ https://sawatter.github.io/canada-under-carney/#dim-housing-supply
 - Desktop `1280x900` and mobile `375x812` must show no visible layout,
   keyboard, focus, dark-theme, reduced-motion, or horizontal-overflow
   regression.
-- Before publication, the editor should read the detached text without the
-  page and confirm it reads as a dated scorecard result rather than an
-  endorsement or attack. A later moderated reader task can test whether people
-  correctly identify the grade, trend, date, and evidence destination. The
-  Perplexity report's proposed five-person, five-of-five threshold is not
-  adopted because it supplied no basis for that exact cutoff.
+- The editor instructed publication after the detached wording and the
+  remaining physical-device observation gap were named. A later moderated
+  reader task can test whether people correctly identify the grade, trend,
+  date, and evidence destination. The Perplexity report's proposed
+  five-person, five-of-five threshold is not adopted because it supplied no
+  basis for that exact cutoff.
 - Context in the payload reduces ambiguity but does not prevent a recipient
   from cropping, rewriting, or screenshotting the result without its link.
 - Roll back to title plus URL if a physical share target drops or mangles the
@@ -108,5 +112,18 @@ https://sawatter.github.io/canada-under-carney/#dim-housing-supply
   catch would add an unobserved failure path; rebuilding one tracker callback
   when its inline count object changes has no measurable cost and keeps the
   complete `dim` object in the dependency list.
-- No physical iOS or Android share target is available on this host. That
-  remains a named pre-publication observation gap, not a claimed pass.
+- No physical iOS or Android share target is available on this host. The editor
+  explicitly accepted that observation gap for publication by instructing the
+  v5.160 push after it was named. It remains an exception, not a claimed pass.
+
+## Release Outcome
+
+- Commit `a1eb18f` was pushed to `main` on 2026-07-21.
+- GitHub Pages run `29884796740` passed its build, review-handoff,
+  156-test browser, and deploy jobs.
+- The production header reports v5.160. The live Housing Share control measured
+  `93x44` CSS pixels with no horizontal overflow.
+- Live Dashboard Audit run `29884939039` finished with
+  `PASS=530 ISSUE=0 TOTAL=530` across desktop and mobile.
+- No grade, threshold, formula, weight, modifier, promise status, source, or
+  dimension-model change was part of the release.
