@@ -812,7 +812,7 @@ test.describe("v5.154 legibility wave", () => {
   });
 });
 
-test.describe("v5.155 drawer history contract", () => {
+test.describe("drawer history and contextual share contract", () => {
   test("mobile card open pushes a #dim entry and Back closes the sheet", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 375, height: 812 });
@@ -913,20 +913,168 @@ test.describe("v5.155 drawer history contract", () => {
             throw error;
           },
         });
+        Object.defineProperty(navigator, "canShare", {
+          configurable: true,
+          value: () => true,
+        });
       } catch { /* keep the native value if the property refuses override */ }
     });
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(routePath({ hash: "#view-scorecard" }));
 
-    await page.locator(".dim-card-header-button").first().click();
-    await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+    await page.locator("#dim-housing-supply-header").click();
+    await expect(page).toHaveURL(/#dim-housing-supply$/);
     const deepLink = page.url();
 
     await page.getByRole("button", { name: "Share this card" }).click();
-    await expect(page.getByText("Link copied", { exact: true })).toBeVisible();
+    await expect(page.getByText("Share text copied", { exact: true })).toBeVisible();
     const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
-    expect(clipboardText).toBe(deepLink);
-    expect(clipboardText).toMatch(/#dim-[a-z-]+$/);
+    expect(clipboardText).toBe([
+      "Canada Under Carney performance scorecard",
+      "Housing Supply",
+      "Grade: D | Trend: Stable",
+      "Policy file reviewed: 2026-07-19",
+      "Evidence and grading method:",
+      deepLink,
+    ].join("\n"));
+    expect(clipboardText.split("\n").at(-1)).toBe(deepLink);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("native Share receives grade, trend, review date, and the exact deep link", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "share", {
+        configurable: true,
+        value: async (payload) => {
+          window.__dashboardSharePayload = payload;
+        },
+      });
+      Object.defineProperty(navigator, "canShare", {
+        configurable: true,
+        value: () => true,
+      });
+    });
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+
+    await page.getByRole("button", { name: "Share this card" }).click();
+    const sharePayload = await page.evaluate(() => window.__dashboardSharePayload);
+    expect(sharePayload).toEqual({
+      title: "Housing Supply | Canada Under Carney",
+      text: [
+        "Canada Under Carney performance scorecard",
+        "Housing Supply",
+        "Grade: D | Trend: Stable",
+        "Policy file reviewed: 2026-07-19",
+        "Evidence and grading method:",
+      ].join("\n"),
+      url: page.url(),
+    });
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("native Share keeps Promise Delivery ungraded and includes its count", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "share", {
+        configurable: true,
+        value: async (payload) => {
+          window.__dashboardSharePayload = payload;
+        },
+      });
+      Object.defineProperty(navigator, "canShare", {
+        configurable: true,
+        value: () => true,
+      });
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-promise-delivery" }));
+
+    await page.getByRole("button", { name: "Share this card" }).click();
+    const sharePayload = await page.evaluate(() => window.__dashboardSharePayload);
+    expect(sharePayload.title).toBe("Promise Delivery | Canada Under Carney");
+    expect(sharePayload.text).toContain("Delivered: 14 of 43 | Tracker trend: Stable");
+    expect(sharePayload.text).toContain("No letter grade. Not included in headline scores.");
+    expect(sharePayload.text).not.toContain("C+");
+    expect(sharePayload.url).toBe(page.url());
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("canShare false skips Web Share and copies the contextual payload", async ({ page, context }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "share", {
+        configurable: true,
+        value: async () => {
+          throw new Error("navigator.share must not run when canShare is false");
+        },
+      });
+      Object.defineProperty(navigator, "canShare", {
+        configurable: true,
+        value: () => false,
+      });
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+
+    await page.getByRole("button", { name: "Share this card" }).click();
+    await expect(page.getByText("Share text copied", { exact: true })).toBeVisible();
+    const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
+    expect(clipboardText).toContain("Grade: D | Trend: Stable");
+    expect(clipboardText.split("\n").at(-1)).toBe(page.url());
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("dismissing the native share sheet does not overwrite the clipboard", async ({ page, context }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await context.grantPermissions(["clipboard-read", "clipboard-write"]);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "share", {
+        configurable: true,
+        value: async () => {
+          const error = new Error("reader dismissed share sheet");
+          error.name = "AbortError";
+          throw error;
+        },
+      });
+      Object.defineProperty(navigator, "canShare", {
+        configurable: true,
+        value: () => true,
+      });
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await page.evaluate(() => navigator.clipboard.writeText("keep existing clipboard"));
+
+    await page.getByRole("button", { name: "Share this card" }).click();
+    await expect(page.getByText("Share text copied", { exact: true })).toHaveCount(0);
+    expect(await page.evaluate(() => navigator.clipboard.readText())).toBe("keep existing clipboard");
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("clipboard rejection does not show false copied feedback", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.addInitScript(() => {
+      Object.defineProperty(navigator, "share", {
+        configurable: true,
+        value: undefined,
+      });
+      Object.defineProperty(navigator, "clipboard", {
+        configurable: true,
+        value: {
+          writeText: async () => {
+            throw new Error("clipboard denied");
+          },
+        },
+      });
+    });
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+
+    await page.getByRole("button", { name: "Share this card" }).click();
+    await expect(page.getByText("Share text copied", { exact: true })).toHaveCount(0);
     expect(consoleErrors).toEqual([]);
   });
 

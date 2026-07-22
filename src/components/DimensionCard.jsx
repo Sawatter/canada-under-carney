@@ -5,6 +5,7 @@ import TrendArrow from "./TrendArrow";
 import meta from "../data/meta.json";
 import changelogSummary from "../data/changelog-summary.json";
 import { formatValue, formatTarget, formatPeriod, deriveRelation } from "../dimensionTargets";
+import { buildDimensionSharePayload } from "../dimensionShare";
 
 // MED1: Heuristic tier classification from source URL domain.
 // Tier 1 = official government / international body / central bank / auditor.
@@ -584,7 +585,7 @@ export default function DimensionCard({
   const wasExpandedRef = useRef(false);
   const anchorTargetRef = useRef(anchorNavigation?.target || null);
   const closeCallbackRef = useRef(onClick);
-  // Transient "Link copied" confirmation for the drawer's copy-link control.
+  // Transient copy confirmation for the drawer's Share control.
   const [copyLinkFeedback, setCopyLinkFeedback] = useState(false);
   const copyFeedbackTimerRef = useRef(null);
 
@@ -598,7 +599,7 @@ export default function DimensionCard({
 
   // Render-phase reset (the React adjust-state-on-prop-change pattern): a
   // drawer that closes and reopens within the 2s window must not show a
-  // stale "Link copied" confirmation.
+  // stale "Share text copied" confirmation.
   if (!isExpanded && copyLinkFeedback) {
     setCopyLinkFeedback(false);
   }
@@ -607,10 +608,19 @@ export default function DimensionCard({
     event.stopPropagation();
     if (typeof window === "undefined") return;
     const url = `${window.location.origin}${window.location.pathname}#dim-${dim.id}`;
+    const { shareData, clipboardText } = buildDimensionSharePayload({
+      dim,
+      trackerStat,
+      url,
+    });
 
-    if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+    const canUseWebShare = typeof navigator !== "undefined"
+      && typeof navigator.share === "function"
+      && (typeof navigator.canShare !== "function" || navigator.canShare(shareData));
+
+    if (canUseWebShare) {
       try {
-        await navigator.share({ title: document.title, url });
+        await navigator.share(shareData);
         return;
       } catch (error) {
         // Dismissing the native share sheet is intentional. Other Web Share
@@ -620,7 +630,7 @@ export default function DimensionCard({
     }
 
     try {
-      await navigator.clipboard.writeText(url);
+      await navigator.clipboard.writeText(clipboardText);
     } catch {
       // Clipboard blocked by permissions: no confirmation, nothing broke.
       return;
@@ -628,7 +638,7 @@ export default function DimensionCard({
     setCopyLinkFeedback(true);
     if (copyFeedbackTimerRef.current) window.clearTimeout(copyFeedbackTimerRef.current);
     copyFeedbackTimerRef.current = window.setTimeout(() => setCopyLinkFeedback(false), 2000);
-  }, [dim.id]);
+  }, [dim, trackerStat]);
 
   useEffect(() => {
     openSectionsRef.current = openSections;
@@ -1730,7 +1740,7 @@ export default function DimensionCard({
               </span>
             )}
             <span className="dim-drawer-copy-feedback" aria-live="polite">
-              {copyLinkFeedback ? "Link copied" : ""}
+              {copyLinkFeedback ? "Share text copied" : ""}
             </span>
             <button
               type="button"

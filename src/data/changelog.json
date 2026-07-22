@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-07-21",
+    "version": "5.160",
+    "summary": "Made shared policy links carry the grade, trend, review date, and exact evidence path in plain text. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Shared results keep their context",
+        "body": "The existing Share control now sends the policy name, grade, trend, review date, and exact policy link to the native share sheet or clipboard. Promise Delivery stays clearly labelled as a tracker with no letter grade, and no account, tracking, storage, or new visible control was added."
+      },
+      {
+        "type": "docs",
+        "headline": "Instagram pattern research narrowed to one prototype",
+        "body": "The research pass kept context-preserving sharing as the only bounded prototype, deferred a local pin list until a reader need is demonstrated, and rejected feed, reset, Stories, and denser-grid patterns that duplicate current behavior or weaken the finite evidence path."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-21",
     "version": "5.159",
     "summary": "Corrected Economic Policy's rule application, made the Defence and Trade sub-score arithmetic reproducible, and counted the House ethics review consistently.",
     "items": [
