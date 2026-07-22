@@ -1,7 +1,9 @@
 # Held-Grade Review Release
 
-**Status:** Release candidate for v5.162<br>
+**Status:** Live as v5.162<br>
 **Prepared:** 2026-07-22<br>
+**Published:** 2026-07-22<br>
+**Release commit:** `8c87779`<br>
 **Comparison baseline:** live v5.161<br>
 **Frozen surfaces:** no grade, threshold, formula, weight, modifier, promise status, source stack, trigger, or dimension-model change
 
@@ -74,7 +76,10 @@ the policy opens.
 - Local rendered-content audit: passed, 530 checks with zero issues at `1366x900` and `375x812`.
 - Independent Standards and Spec staged-diff reviews: passed. The Standards review's one wording finding was accepted and corrected before re-review.
 - Authenticated Claude staged-diff review: `VERDICT: APPROVED` with no blocking findings.
-- GitHub Pages, production inspection, and live rendered-content audit: pending.
+- GitHub Pages run `29946680527`: passed its review-handoff, build, 174-test browser, and deploy jobs.
+- Production desktop inspection: v5.162 rendered ten held-review previews with no horizontal overflow; Major Projects showed one full review reason and Housing showed one Decision Brief with no duplicate compact outcome.
+- Production 375-by-812 inspection: the full-width Major Projects sheet preserved scroll lock, hid the desktop policy switcher, showed one full review reason, and restored body scroll plus card focus on close.
+- Live Dashboard Audit run `29946942650`: passed 530 checks with zero issues across desktop and mobile.
 
 ## Review Log
 
@@ -105,8 +110,9 @@ failed run is treated as approval.
 
 ## Release Outcome
 
-The candidate closes the missing part of the Flighty-style sequence for held
+v5.162 closes the missing part of the Flighty-style sequence for held
 grades: current status, why it sits there, what this review decided, and what to
 check next. It does so with authored, dated data rather than inferred activity
-or a second scoring system. Publication remains gated on Pages, production
-inspection, and the live audit.
+or a second scoring system. Release commit `8c87779`, Pages run `29946680527`,
+direct production inspection, and Live Dashboard Audit run `29946942650` close
+the publication gate with no scoring or frozen-surface change.
