@@ -7,52 +7,6 @@ import changelogSummary from "../data/changelog-summary.json";
 import { formatValue, formatTarget, formatPeriod, deriveRelation } from "../dimensionTargets";
 import { buildDimensionSharePayload } from "../dimensionShare";
 
-// MED1: Heuristic tier classification from source URL domain.
-// Tier 1 = official government / international body / central bank / auditor.
-// Tier 2 = think tank / professional association / academic / credible media.
-// Tier 3 = other.
-const TIER1_DOMAINS = [
-  "canada.ca", "gc.ca", "parl.ca", "ourcommons.ca",
-  "pm.gc.ca", "budget.canada.ca", "pbo-dpb.ca",
-  "statcan.gc.ca", "cmhc-schl.gc.ca", "oag-bvg.gc.ca",
-  "bankofcanada.ca",
-  "nato.int", "imf.org", "oecd.org", "worldbank.org", "un.org",
-  "dal.ca", "utoronto.ca", "mcgill.ca", "ubc.ca", "uwaterloo.ca",
-  "queensu.ca", "uottawa.ca", "yorku.ca", "sfu.ca",
-  "fitchratings.com",
-];
-
-const TIER2_DOMAINS = [
-  "globeandmail.com", "theglobeandmail.com", "cbc.ca", "ctvnews.ca",
-  "nationalpost.com", "thestar.com", "financialpost.com",
-  "nationalobserver.com", "thenarwhal.ca",
-  "policyoptions.irpp.org", "fraserinstitute.org", "cdhowe.org",
-  "broadbentinstitute.ca", "mli.ca", "macdonaldlaurier.ca",
-  "climateinstitute.ca", "iisd.org", "csls.ca",
-  "thehub.ca", "signal49.ca", "canada2020.ca", "canadacode.org",
-  "theconversation.com",
-  "proof.utoronto.ca",
-  "chba.ca", "buildingvalue.ca", "cfib-fcei.ca", "retailcouncil.org",
-  "maytree.com", "foodbankscanada.ca", "transparencycanada.ca",
-  "democracywatch.ca",
-  "angusreid.org",
-  "scotiabank.com",
-  "liberal.ca",
-  "conferenceboard.ca",
-];
-
-const TIER_LABEL = { 1: "T1", 2: "T2", 3: "T3" };
-const TIER_DEFINITIONS = {
-  1: "T1: primary records, official data, officers of Parliament, or intergovernmental bodies.",
-  2: "T2: independent analysis, research bodies, policy institutes, professional associations, or established media.",
-  3: "T3: context, advocacy, commentary, or sources used mainly as challenge evidence.",
-};
-const TIER_STYLE = {
-  1: { background: "#e3f2fd", color: "#0d47a1", border: "1px solid #90caf9" },
-  2: { background: "#f3e5f5", color: "#4a148c", border: "1px solid #ce93d8" },
-  3: { background: "#fafafa", color: "#555", border: "1px solid #ccc" },
-};
-
 const MODIFIER_LABELS = {
   "External Constraint": "External pressure",
   "Timing Fairness": "Early-cycle adjustment",
@@ -67,45 +21,6 @@ const GRADE_ORDER = [
   "D+", "D", "D-",
   "F",
 ];
-
-function getSourceTier(url) {
-  if (!url) return null;
-  try {
-    const host = new URL(url).hostname.replace(/^www\./, "");
-    if (TIER1_DOMAINS.some((d) => host === d || host.endsWith(`.${d}`))) return 1;
-    if (TIER2_DOMAINS.some((d) => host === d || host.endsWith(`.${d}`))) return 2;
-    return 3;
-  } catch {
-    return null;
-  }
-}
-
-function SourceTierBadge({ url }) {
-  const tier = getSourceTier(url);
-  if (!tier) return null;
-  const style = TIER_STYLE[tier] || TIER_STYLE[3];
-  const description = TIER_DEFINITIONS[tier] || TIER_DEFINITIONS[3];
-  return (
-    <span
-      title={description}
-      aria-label={description}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        fontSize: "var(--dim-fs-micro, 11px)",
-        fontWeight: 800,
-        padding: "1px 5px",
-        borderRadius: "4px",
-        marginLeft: "5px",
-        verticalAlign: "middle",
-        lineHeight: 1.4,
-        ...style,
-      }}
-    >
-      {TIER_LABEL[tier]}
-    </span>
-  );
-}
 
 function normalizeTrigger(trigger) {
   if (!trigger) return null;
@@ -175,14 +90,6 @@ function focusDisclosureButtonForTarget(target) {
   if (targetElement && typeof targetElement.focus === "function") {
     targetElement.focus({ preventScroll: true });
   }
-}
-
-function getTierCounts(sources = []) {
-  return {
-    t1: sources.filter((s) => getSourceTier(s.url) === 1).length,
-    t2: sources.filter((s) => getSourceTier(s.url) === 2).length,
-    t3: sources.filter((s) => getSourceTier(s.url) === 3).length,
-  };
 }
 
 function canonicalUrl(value) {
@@ -497,25 +404,148 @@ function DisclosureSection({
   );
 }
 
-function SourceTierSummary({ counts }) {
+function PolicySwitcher({ previousPolicy, nextPolicy, onPolicyNavigate }) {
+  if (!previousPolicy || !nextPolicy || !onPolicyNavigate) return null;
+
+  const navigate = (event, policy) => {
+    event.stopPropagation();
+    onPolicyNavigate(policy.id);
+  };
+
   return (
-    <span className="dim-source-tier-summary">
-      {counts.t1 > 0 && (
-        <span className="dim-tier-chip dim-tier-chip-1" title={TIER_DEFINITIONS[1]}>
-          {counts.t1} Tier-1
-        </span>
-      )}
-      {counts.t2 > 0 && (
-        <span className="dim-tier-chip dim-tier-chip-2" title={TIER_DEFINITIONS[2]}>
-          {counts.t2} Tier-2
-        </span>
-      )}
-      {counts.t3 > 0 && (
-        <span className="dim-tier-chip dim-tier-chip-3" title={TIER_DEFINITIONS[3]}>
-          {counts.t3} context
-        </span>
-      )}
-    </span>
+    <div className="dim-policy-switcher" aria-label="Browse policies">
+      <button
+        type="button"
+        className="dim-policy-switcher-button"
+        onClick={(event) => navigate(event, previousPolicy)}
+        aria-label={`Previous policy: ${previousPolicy.name}`}
+        title={`Previous: ${previousPolicy.name}`}
+      >
+        <span aria-hidden="true">←</span>
+        <span>Previous</span>
+      </button>
+      <button
+        type="button"
+        className="dim-policy-switcher-button"
+        onClick={(event) => navigate(event, nextPolicy)}
+        aria-label={`Next policy: ${nextPolicy.name}`}
+        title={`Next: ${nextPolicy.name}`}
+      >
+        <span>Next</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+  );
+}
+
+function EvidenceReviewList({ title, items, variant }) {
+  return (
+    <article className={`dim-review-evidence dim-review-evidence-${variant}`}>
+      <h4>{title}</h4>
+      <ul>
+        {items.map((item) => (
+          <li key={`${item.sourceUrl}-${item.text}`}>
+            <p>{item.text}</p>
+            <a
+              href={item.sourceUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(event) => event.stopPropagation()}
+            >
+              {item.sourceLabel}
+              <span aria-hidden="true">↗</span>
+            </a>
+            <span className="dim-review-source-meta">
+              {item.sourceRole} · {formatSourceDate({ date: item.sourceDate })}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </article>
+  );
+}
+
+function LatestEvidenceReview({ review, dimId, dimName }) {
+  if (!review) return null;
+
+  const headingId = `dim-${dimId}-latest-evidence-review-title`;
+
+  return (
+    <section
+      className="dim-decision-brief dim-default-block"
+      aria-labelledby={headingId}
+    >
+      <header className="dim-decision-brief-head">
+        <div>
+          <span className="dim-decision-brief-label">Decision brief</span>
+          <h3 id={headingId}>Latest evidence review</h3>
+          <p>{review.title}</p>
+        </div>
+        <time dateTime={review.date}>{formatSourceDate({ date: review.date })}</time>
+      </header>
+
+      <div className="dim-review-trigger">
+        <h4>Trigger under review</h4>
+        <p>{review.triggerUnderReview}</p>
+      </div>
+
+      <div className="dim-review-evidence-grid">
+        <EvidenceReviewList
+          title="Evidence earning credit"
+          items={review.evidenceEarningCredit}
+          variant="credit"
+        />
+        <EvidenceReviewList
+          title="Evidence limiting credit"
+          items={review.evidenceLimitingCredit}
+          variant="limit"
+        />
+      </div>
+
+      <div className="dim-review-unproven">
+        <h4>Still unproven</h4>
+        <ul>
+          {review.stillUnproven.map((item) => <li key={item}>{item}</li>)}
+        </ul>
+      </div>
+
+      <dl className="dim-review-readout">
+        <div>
+          <dt>Scorecard read</dt>
+          <dd>{review.scorecardRead}</dd>
+        </div>
+        <div>
+          <dt>Review outcome</dt>
+          <dd>{review.outcome}</dd>
+        </div>
+        <div>
+          <dt>Next check</dt>
+          <dd>{review.nextCheck}</dd>
+        </div>
+      </dl>
+
+      <p className="dim-review-caveat">{review.caveat}</p>
+
+      <details className="dim-review-pages">
+        <summary>Official pages checked ({review.pagesChecked.length})</summary>
+        <ul aria-label={`${dimName} official pages checked`}>
+          {review.pagesChecked.map((page) => (
+            <li key={page.url}>
+              <a
+                href={page.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(event) => event.stopPropagation()}
+              >
+                {page.label}
+                <span aria-hidden="true">↗</span>
+              </a>
+              <span>{page.role} · checked {formatSourceDate({ date: page.checkedAt })}</span>
+            </li>
+          ))}
+        </ul>
+      </details>
+    </section>
   );
 }
 
@@ -531,6 +561,9 @@ export default function DimensionCard({
   gradeMoves = [],
   detailStatus = "ready",
   onRetryDetails,
+  previousPolicy,
+  nextPolicy,
+  onPolicyNavigate,
 }) {
   const isTracker = !!dim.excludeFromGPA;
   const g = isTracker ? null : GRADES[dim.grade];
@@ -544,7 +577,6 @@ export default function DimensionCard({
     ? `${triggerCount} trigger${triggerCount === 1 ? "" : "s"}`
     : "next condition";
   const cohort = dim.projectCohort || null;
-  const sourceCounts = useMemo(() => getTierCounts(sources), [sources]);
   const sortedSources = useMemo(() => sortSourcesByDate(sources), [sources]);
   const newestDatedSource = useMemo(
     () => sortedSources.find((source) => source.date && !source.needsManualDate) || null,
@@ -1114,7 +1146,6 @@ export default function DimensionCard({
               }}
             >
               Source: {item.sourceLabel}
-              <SourceTierBadge url={item.sourceUrl} />
               <span aria-hidden="true" style={{ fontSize: "11px", opacity: 0.7 }}>↗</span>
             </a>
           ) : (
@@ -1155,7 +1186,6 @@ export default function DimensionCard({
                       style={{ color: "#1565c0", fontWeight: 600, display: "inline-flex", alignItems: "center", gap: "3px" }}
                     >
                       {alt.label}
-                      <SourceTierBadge url={alt.url} />
                       <span aria-hidden="true" style={{ fontSize: "11px", opacity: 0.7 }}>↗</span>
                     </a>
                   ) : (
@@ -1676,9 +1706,17 @@ export default function DimensionCard({
             <span
               id={isFocusedDesktop ? `dim-${dim.id}-title` : undefined}
               className="dim-drawer-title"
+              tabIndex={isFocusedDesktop ? -1 : undefined}
             >
               {dim.name}
             </span>
+            {isFocusedDesktop && (
+              <PolicySwitcher
+                previousPolicy={previousPolicy}
+                nextPolicy={nextPolicy}
+                onPolicyNavigate={onPolicyNavigate}
+              />
+            )}
             <button
               type="button"
               className="dim-drawer-close"
@@ -1731,6 +1769,7 @@ export default function DimensionCard({
             <span
               id={isFocusedDesktop ? `dim-${dim.id}-title` : undefined}
               className="dim-drawer-title"
+              tabIndex={isFocusedDesktop ? -1 : undefined}
             >
               {dim.name}
             </span>
@@ -1742,6 +1781,13 @@ export default function DimensionCard({
             <span className="dim-drawer-copy-feedback" aria-live="polite">
               {copyLinkFeedback ? "Share text copied" : ""}
             </span>
+            {isFocusedDesktop && (
+              <PolicySwitcher
+                previousPolicy={previousPolicy}
+                nextPolicy={nextPolicy}
+                onPolicyNavigate={onPolicyNavigate}
+              />
+            )}
             <button
               type="button"
               className="dim-drawer-copy-link"
@@ -1943,6 +1989,12 @@ export default function DimensionCard({
                 )}
               </div>
             </section>
+
+            <LatestEvidenceReview
+              review={dim.latestEvidenceReview}
+              dimId={dim.id}
+              dimName={dim.name}
+            />
 
             <section className="dim-evidence-panel dim-default-block" aria-label={`${dim.name} evidence snapshot`}>
               <div className="dim-default-block-head">
@@ -2210,7 +2262,6 @@ export default function DimensionCard({
                     )}
                     <span>Full source table is newest-first.</span>
                   </div>
-                  <SourceTierSummary counts={sourceCounts} />
                   <SourceStackTable
                     sources={sortedSources}
                     gradeMovesBySource={sourceGradeMoves.moves}
@@ -2677,11 +2728,6 @@ function sourceUsageLabels(source, gradeMovesBySource, usageBySource) {
 function SourceStackTable({ sources, gradeMovesBySource, usageBySource }) {
   return (
     <div className="dim-source-stack">
-      <div className="dim-source-stack-legend">
-        <span title={TIER_DEFINITIONS[1]}><strong>T1</strong> primary records / official data</span>
-        <span title={TIER_DEFINITIONS[2]}><strong>T2</strong> independent analysis / established media</span>
-        <span title={TIER_DEFINITIONS[3]}><strong>T3</strong> context / challenge evidence</span>
-      </div>
       <div className="dim-source-mobile-cards">
         {sources.map((source, i) => {
           const usageLabels = sourceUsageLabels(source, gradeMovesBySource, usageBySource);
@@ -2702,7 +2748,6 @@ function SourceStackTable({ sources, gradeMovesBySource, usageBySource }) {
                   {source.label}
                   <span aria-hidden="true">↗</span>
                 </a>
-                <SourceTierBadge url={source.url} />
               </div>
               <div className="dim-source-usage-row">
                 {usageLabels.map((usage) => (
@@ -2724,7 +2769,6 @@ function SourceStackTable({ sources, gradeMovesBySource, usageBySource }) {
           <thead>
             <tr>
               <th>Source</th>
-              <th>Tier</th>
               <th>Used for</th>
               <th>Date</th>
             </tr>
@@ -2746,9 +2790,6 @@ function SourceStackTable({ sources, gradeMovesBySource, usageBySource }) {
                       {source.label}
                       <span aria-hidden="true">↗</span>
                     </a>
-                  </td>
-                  <td>
-                    <SourceTierBadge url={source.url} />
                   </td>
                   <td>
                     <span className="dim-source-usage-row">
@@ -2807,7 +2848,6 @@ function MetricsList({ metricGroups }) {
                       onClick={(e) => e.stopPropagation()}
                     >
                       Source: {sourceRef.label}
-                      <SourceTierBadge url={sourceRef.url} />
                       <span aria-hidden="true">↗</span>
                     </a>
                   ))}

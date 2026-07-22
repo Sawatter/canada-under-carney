@@ -12,6 +12,7 @@ const dimensions = JSON.parse(readFileSync(path.join(repoRoot, "src/data/dimensi
 const dashboardStatus = JSON.parse(readFileSync(path.join(repoRoot, "src/data/status.json"), "utf8"));
 const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
 const movedDimensionIds = new Set(currentGradeMoves.map((item) => item.dimensionId));
+const housingDimension = dimensions.find((dim) => dim.id === "housing-supply");
 
 const statusDateFormatter = new Intl.DateTimeFormat("en-CA", {
   month: "long",
@@ -813,6 +814,76 @@ test.describe("v5.154 legibility wave", () => {
 });
 
 test.describe("drawer history and contextual share contract", () => {
+  test("Housing decision brief separates the dated evidence record on desktop and mobile", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+
+    for (const viewport of [
+      { width: 1280, height: 900 },
+      { width: 375, height: 812 },
+    ]) {
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#dim-housing-supply" }));
+
+      const brief = page.locator(".dim-decision-brief");
+      await expect(brief).toBeVisible();
+      await expect(brief.getByText("Latest evidence review", { exact: true })).toBeVisible();
+      await expect(brief.locator(".dim-review-evidence-credit")).toContainText("Evidence earning credit");
+      await expect(brief.locator(".dim-review-evidence-limit")).toContainText("Evidence limiting credit");
+      await expect(brief.locator(".dim-review-unproven")).toContainText("Still unproven");
+      await expect(brief.locator(".dim-review-readout")).toContainText("Review outcome");
+      await expect(brief.locator(".dim-review-pages summary"))
+        .toHaveText(`Official pages checked (${housingDimension.latestEvidenceReview.pagesChecked.length})`);
+      await page.locator("#dim-housing-supply-sources-button").click();
+      await expect(page.locator(".dim-source-table thead th")).toHaveCount(3);
+      await expect(page.locator(".dim-source-table thead")).not.toContainText("Tier");
+      await expect(page.locator(".dim-tier-chip, .dim-source-stack-legend")).toHaveCount(0);
+      await expectNoOverflow(page);
+    }
+
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("desktop policy switching wraps without building a Back stack", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    const scoredPolicies = dimensions.filter((dim) => !dim.excludeFromGPA);
+    const firstPolicy = scoredPolicies[0];
+    const lastPolicy = scoredPolicies[scoredPolicies.length - 1];
+    const housingIndex = scoredPolicies.findIndex((dim) => dim.id === "housing-supply");
+    const nextHousingPolicy = scoredPolicies[(housingIndex + 1) % scoredPolicies.length];
+
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await page.locator("#dim-housing-supply-header").click();
+    await page.getByRole("button", { name: `Next policy: ${nextHousingPolicy.name}` }).click();
+
+    await expect(page).toHaveURL(new RegExp(`#dim-${nextHousingPolicy.id}$`));
+    await expect(page.locator(`#dim-${nextHousingPolicy.id}-title`)).toBeFocused();
+    await expect(page.locator(".app-policy-navigation-announcer"))
+      .toHaveText(`${nextHousingPolicy.name}, grade ${nextHousingPolicy.grade}`);
+    await expect.poll(async () => page.evaluate(() => {
+      const grid = document.getElementById("scorecard-dimension-grid");
+      if (!grid) return false;
+      const top = grid.getBoundingClientRect().top;
+      return top >= -1 && top < 120;
+    })).toBe(true);
+
+    await page.goBack();
+    await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+    await expect(page).toHaveURL(/#view-scorecard$/);
+
+    await page.goto(routePath({ hash: `#dim-${firstPolicy.id}` }));
+    await page.getByRole("button", { name: `Previous policy: ${lastPolicy.name}` }).click();
+    await expect(page).toHaveURL(new RegExp(`#dim-${lastPolicy.id}$`));
+    await page.locator(".dim-drawer-close").click();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await expect(page.locator(".dim-policy-switcher")).toHaveCount(0);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
   test("mobile card open pushes a #dim entry and Back closes the sheet", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 375, height: 812 });
@@ -933,7 +1004,7 @@ test.describe("drawer history and contextual share contract", () => {
       "Canada Under Carney performance scorecard",
       "Housing Supply",
       "Grade: D | Trend: Stable",
-      "Policy file reviewed: 2026-07-19",
+      `Policy file reviewed: ${housingDimension.lastUpdated}`,
       "Evidence and grading method:",
       deepLink,
     ].join("\n"));
@@ -966,7 +1037,7 @@ test.describe("drawer history and contextual share contract", () => {
         "Canada Under Carney performance scorecard",
         "Housing Supply",
         "Grade: D | Trend: Stable",
-        "Policy file reviewed: 2026-07-19",
+        `Policy file reviewed: ${housingDimension.lastUpdated}`,
         "Evidence and grading method:",
       ].join("\n"),
       url: page.url(),

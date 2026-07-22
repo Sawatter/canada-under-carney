@@ -206,6 +206,124 @@ check(
     sources.dashboard.includes("window.history.back()"),
   "App navigation must create history entries and support Back-driven detail close.",
 );
+const policyNavigationHelperContract = sourceAround(
+  sources.dashboard,
+  "function getPolicyNavigation",
+  0,
+  900,
+);
+const openDimensionContract = sourceAround(
+  sources.dashboard,
+  "const openDimension = useCallback",
+  0,
+  900,
+).split("const handlePolicyNavigate = useCallback")[0];
+const policyNavigationHandlerContract = sourceAround(
+  sources.dashboard,
+  "const handlePolicyNavigate = useCallback",
+  0,
+  1100,
+).split("const closeDimension = useCallback")[0];
+const focusedDetailPolicyContract = sourceAround(
+  sources.dashboard,
+  "{isDesktopFocusedDetail ? (",
+  0,
+  2500,
+).split(") : (")[0];
+const overviewPolicyContract = sourceAround(
+  sources.dashboard,
+  "{scoredDimensions.map((d) => (",
+  0,
+  1600,
+);
+const policyNavigationFocusContract = sourceAround(
+  sources.dashboard,
+  "const dimensionId = pendingPolicyNavigationFocusRef.current",
+  200,
+  1800,
+);
+const policyNavigationAnnouncementContract = sourceAround(
+  sources.dashboard,
+  'className="app-view-announcer app-policy-navigation-announcer"',
+  100,
+  400,
+);
+check(
+  sources.dashboard.includes(
+    "const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);",
+  ) &&
+    sources.dashboard.includes(
+      "getPolicyNavigation(scoredDimensions, expandedDimension?.id)",
+    ) &&
+    policyNavigationHelperContract.includes("if (currentIndex === -1") &&
+    policyNavigationHelperContract.includes("return null"),
+  "Desktop policy navigation must derive only from scoredDimensions and exclude the Promise Delivery tracker.",
+);
+check(
+  policyNavigationHelperContract.includes(
+    "(currentIndex - 1 + scoredPolicies.length) % scoredPolicies.length",
+  ) &&
+    policyNavigationHelperContract.includes(
+      "(currentIndex + 1) % scoredPolicies.length",
+    ),
+  "Desktop policy navigation must wrap Previous and Next across the scored-policy sequence.",
+);
+check(
+  focusedDetailPolicyContract.includes("previousPolicy={focusedPolicyNavigation?.previousPolicy}") &&
+    focusedDetailPolicyContract.includes("nextPolicy={focusedPolicyNavigation?.nextPolicy}") &&
+    focusedDetailPolicyContract.includes(
+      "onPolicyNavigate={focusedPolicyNavigation ? handlePolicyNavigate : undefined}",
+    ) &&
+    !overviewPolicyContract.includes("previousPolicy=") &&
+    !overviewPolicyContract.includes("nextPolicy=") &&
+    !overviewPolicyContract.includes("onPolicyNavigate="),
+  "Policy navigation props must be limited to the focused desktop DimensionCard, never overview/mobile cards.",
+);
+check(
+  policyNavigationHandlerContract.includes("if (isMobileViewport()) return") &&
+    policyNavigationHandlerContract.includes("anchorTargetRef.current = null") &&
+    policyNavigationHandlerContract.includes("setAnchorNavigation(null)") &&
+    policyNavigationHandlerContract.includes(
+      "window.history.replaceState(nextState, \"\", `#dim-${dimensionId}`)",
+    ) &&
+    policyNavigationHandlerContract.includes(
+      "if (mobileModalEntryRef.current) nextState.dimModal = dimensionId",
+    ) &&
+    policyNavigationHandlerContract.includes("else delete nextState.dimModal") &&
+    policyNavigationHandlerContract.includes(
+      "openDimension(dimensionId, { fromHash: true, preserveReturnScroll: true })",
+    ) &&
+    openDimensionContract.includes("!options.preserveReturnScroll") &&
+    openDimensionContract.includes("pushModalHistoryEntry(dimensionId)"),
+  "Policy switches must stay desktop-only, clear pending anchors, replace either owned or deep-link history in place, preserve grid return state, and route through openDimension.",
+);
+check(
+  sourceAround(sources.dashboard, "const pushModalHistoryEntry", 0, 1100).includes(
+    "if (mobileModalEntryRef.current)",
+  ) &&
+    sourceAround(sources.dashboard, "const pushModalHistoryEntry", 0, 1100).includes(
+      "window.history.replaceState(nextState, \"\", nextUrl)",
+    ),
+  "Owned policy switches must retarget the existing #dim-* history entry with replaceState.",
+);
+check(
+  policyNavigationHandlerContract.includes(
+    "pendingPolicyNavigationFocusRef.current = dimensionId",
+  ) &&
+    policyNavigationHandlerContract.includes(
+      "setPolicyNavigationAnnouncement(`${policy.name}, grade ${policy.grade}`)",
+    ) &&
+    policyNavigationFocusContract.includes('getElementById("scorecard-dimension-grid")') &&
+    policyNavigationFocusContract.includes("scrollIntoView") &&
+    (policyNavigationFocusContract.match(/requestAnimationFrame/g) || []).length >= 2 &&
+    policyNavigationFocusContract.includes("getElementById(`dim-${dimensionId}-title`)") &&
+    policyNavigationFocusContract.includes('setAttribute("tabindex", "-1")') &&
+    policyNavigationFocusContract.includes("title.focus({ preventScroll: true })") &&
+    sources.dashboard.includes("key={`focused-${expandedDimension.id}`}") &&
+    policyNavigationAnnouncementContract.includes('aria-live="polite"') &&
+    policyNavigationAnnouncementContract.includes("{policyNavigationAnnouncement}"),
+  "Policy switches must remount at the top, focus the expanded title after render, and announce the new policy and grade.",
+);
 check(
   sources.dashboard.includes('addEventListener("popstate"') &&
     sources.dashboard.includes('removeEventListener("popstate"'),

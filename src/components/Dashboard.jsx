@@ -35,6 +35,8 @@ const Methodology = lazy(() => import("./Methodology"));
 const About = lazy(() => import("./About"));
 
 const dimensions = dimensionsSummary.dimensions;
+const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
+const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
 
 function isMobileViewport() {
   return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
@@ -46,6 +48,18 @@ function getDimensionIdForHashTarget(target) {
     target === `dim-${dim.id}` || target.startsWith(`dim-${dim.id}-`)
   ));
   return match?.id || null;
+}
+
+function getPolicyNavigation(scoredPolicies, currentPolicyId) {
+  const currentIndex = scoredPolicies.findIndex((policy) => policy.id === currentPolicyId);
+  if (currentIndex === -1 || scoredPolicies.length < 2) return null;
+
+  return {
+    previousPolicy: scoredPolicies[
+      (currentIndex - 1 + scoredPolicies.length) % scoredPolicies.length
+    ],
+    nextPolicy: scoredPolicies[(currentIndex + 1) % scoredPolicies.length],
+  };
 }
 
 function focusAndScrollToAnchor(target) {
@@ -137,6 +151,7 @@ export default function Dashboard() {
   const [anchorNavigation, setAnchorNavigation] = useState(null);
   const [lazyViewReadyVersion, setLazyViewReadyVersion] = useState(0);
   const [isMobile, setIsMobile] = useState(() => isMobileViewport());
+  const [policyNavigationAnnouncement, setPolicyNavigationAnnouncement] = useState("");
   // Theme: tri-state, one of "light" | "dark" | "system". The no-flash script
   // in index.html sets the initial data-theme on <html> before React mounts;
   // here we resolve state from the same VALIDATED saved choice, defaulting to
@@ -214,11 +229,11 @@ export default function Dashboard() {
   const desktopReturnScrollRef = useRef(null);
   const pendingDesktopReturnRef = useRef(null);
   const pendingDesktopFocusRef = useRef(null);
-  const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
-  const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
+  const pendingPolicyNavigationFocusRef = useRef(null);
   const fullDimensionById = new Map((fullDimensions || []).map((d) => [d.id, d]));
   const expandedDimension = (fullDimensions || dimensions).find((d) => d.id === expanded) || null;
   const isDesktopFocusedDetail = view === "scorecard" && !!expandedDimension && !isMobile;
+  const focusedPolicyNavigation = getPolicyNavigation(scoredDimensions, expandedDimension?.id);
 
   // Calculate grades and promises from the data
   const overallGPA = calculateOverallGPA(dimensions).toFixed(1);
@@ -272,6 +287,7 @@ export default function Dashboard() {
     if (
       typeof window !== "undefined"
       && expandedRef.current !== dimensionId
+      && !options.preserveReturnScroll
     ) {
       desktopReturnScrollRef.current = options.fromHash ? null : window.scrollY;
     }
@@ -282,6 +298,26 @@ export default function Dashboard() {
       return dimensionId;
     });
   }, [pushModalHistoryEntry]);
+
+  const handlePolicyNavigate = useCallback((dimensionId) => {
+    if (isMobileViewport()) return;
+    const policy = scoredDimensions.find((dimension) => dimension.id === dimensionId);
+    if (!policy) return;
+
+    anchorTargetRef.current = null;
+    setAnchorNavigation(null);
+    pendingPolicyNavigationFocusRef.current = dimensionId;
+    setPolicyNavigationAnnouncement(`${policy.name}, grade ${policy.grade}`);
+
+    if (typeof window !== "undefined") {
+      const nextState = { ...(window.history.state || {}) };
+      if (mobileModalEntryRef.current) nextState.dimModal = dimensionId;
+      else delete nextState.dimModal;
+      window.history.replaceState(nextState, "", `#dim-${dimensionId}`);
+    }
+
+    openDimension(dimensionId, { fromHash: true, preserveReturnScroll: true });
+  }, [openDimension]);
 
   const closeDimension = useCallback((dimensionId) => {
     const ownsModalEntry = mobileModalEntryRef.current;
@@ -739,6 +775,37 @@ export default function Dashboard() {
       if (frameB) window.cancelAnimationFrame(frameB);
     };
   }, [expanded, isMobile, view]);
+
+  useLayoutEffect(() => {
+    if (typeof window === "undefined" || !isDesktopFocusedDetail) return undefined;
+    const dimensionId = pendingPolicyNavigationFocusRef.current;
+    if (!dimensionId || dimensionId !== expandedDimension?.id) return undefined;
+
+    document.getElementById("scorecard-dimension-grid")?.scrollIntoView({
+      behavior: "auto",
+      block: "start",
+    });
+
+    let frameA = null;
+    let frameB = null;
+    frameA = window.requestAnimationFrame(() => {
+      frameB = window.requestAnimationFrame(() => {
+        const title = document.getElementById(`dim-${dimensionId}-title`);
+        if (title) {
+          title.setAttribute("tabindex", "-1");
+          title.focus({ preventScroll: true });
+        }
+        if (fullDimensions || detailLoadStatus === "error") {
+          pendingPolicyNavigationFocusRef.current = null;
+        }
+      });
+    });
+
+    return () => {
+      if (frameA) window.cancelAnimationFrame(frameA);
+      if (frameB) window.cancelAnimationFrame(frameB);
+    };
+  }, [detailLoadStatus, expandedDimension?.id, fullDimensions, isDesktopFocusedDetail]);
 
   useLayoutEffect(() => {
     if (typeof window === "undefined" || expanded !== null) return undefined;
@@ -1206,6 +1273,9 @@ export default function Dashboard() {
       <span className="app-view-announcer" aria-live="polite" aria-atomic="true">
         {tabs.find((tab) => tab.key === view)?.label} view
       </span>
+      <span className="app-view-announcer app-policy-navigation-announcer" aria-live="polite" aria-atomic="true">
+        {policyNavigationAnnouncement}
+      </span>
       <div
         id={`view-${view}`}
         tabIndex={view === "promises" ? -1 : undefined}
@@ -1290,6 +1360,9 @@ export default function Dashboard() {
               anchorNavigation={anchorNavigation}
               onHashTarget={handleHashTargetNavigation}
               gradeMoves={currentGradeMovesByDimension.get(expandedDimension.id) || []}
+              previousPolicy={focusedPolicyNavigation?.previousPolicy}
+              nextPolicy={focusedPolicyNavigation?.nextPolicy}
+              onPolicyNavigate={focusedPolicyNavigation ? handlePolicyNavigate : undefined}
               trackerStat={expandedDimension.excludeFromGPA ? {
                 delivered: promiseCounts["Delivered"] || 0,
                 total: totalPromises,

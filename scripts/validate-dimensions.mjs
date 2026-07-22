@@ -33,6 +33,27 @@ const VALID_TRENDS = new Set(["up", "stable", "down"]);
 const WHOLE_LETTER_GRADES = new Set(["A", "B", "C", "D", "F"]);
 const VALID_SOURCE_DATE_KINDS = new Set(["published", "updated", "as-of"]);
 const TARGET_OPERATOR_SET = new Set(TARGET_OPERATORS);
+const LATEST_EVIDENCE_REVIEW_KEYS = new Set([
+  "date",
+  "title",
+  "triggerUnderReview",
+  "evidenceEarningCredit",
+  "evidenceLimitingCredit",
+  "stillUnproven",
+  "scorecardRead",
+  "outcome",
+  "nextCheck",
+  "caveat",
+  "pagesChecked",
+]);
+const LATEST_EVIDENCE_ITEM_KEYS = new Set([
+  "text",
+  "sourceLabel",
+  "sourceUrl",
+  "sourceDate",
+  "sourceRole",
+]);
+const LATEST_EVIDENCE_PAGE_KEYS = new Set(["label", "url", "checkedAt", "role"]);
 // Exactly the headline-commitment extension keys allowed on a promise (the
 // promise's own base keys — text/status/since/evidence/source fields/durability/
 // history — are validated/handled elsewhere).
@@ -93,6 +114,16 @@ function hasText(value) {
   return typeof value === "string" && value.trim().length > 0;
 }
 
+function isPlainObject(value) {
+  return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+function rejectUnknownKeys(dimName, path, value, allowedKeys) {
+  for (const key of Object.keys(value)) {
+    if (!allowedKeys.has(key)) err(dimName, `${path} has unexpected key "${key}"`);
+  }
+}
+
 function warnMissingFields(dimName, path, item, fields) {
   for (const field of fields) {
     if (!hasText(item?.[field])) {
@@ -119,6 +150,22 @@ function validDateString(value) {
     && parsed.getUTCFullYear() === y
     && parsed.getUTCMonth() === m - 1
     && parsed.getUTCDate() === d;
+}
+
+function validFullDateString(value) {
+  return typeof value === "string"
+    && /^\d{4}-\d{2}-\d{2}$/.test(value)
+    && validDateString(value);
+}
+
+function validHttpUrl(value) {
+  if (!hasText(value)) return false;
+  try {
+    const parsed = new URL(value);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
 }
 
 function canonicalUrl(value) {
@@ -242,6 +289,95 @@ for (const d of dimensions) {
     }
     if (d.verdictLine !== undefined) {
       err(name, `tracker must not have "verdictLine" — verdict one-liners are for graded dimensions only`);
+    }
+  }
+
+  // Optional dated evidence-review brief for graded dimensions. This is a
+  // presentation record only: it does not alter thresholds or scoring.
+  if (d.latestEvidenceReview !== undefined) {
+    const review = d.latestEvidenceReview;
+    if (isTracker) {
+      err(name, `tracker must not have "latestEvidenceReview"`);
+    }
+    if (!isPlainObject(review)) {
+      err(name, `latestEvidenceReview must be a plain object`);
+    } else {
+      rejectUnknownKeys(name, "latestEvidenceReview", review, LATEST_EVIDENCE_REVIEW_KEYS);
+
+      for (const field of [
+        "title",
+        "triggerUnderReview",
+        "scorecardRead",
+        "outcome",
+        "nextCheck",
+        "caveat",
+      ]) {
+        if (!hasText(review[field])) {
+          err(name, `latestEvidenceReview.${field} must be a non-empty string`);
+        }
+      }
+      if (!validFullDateString(review.date)) {
+        err(name, `latestEvidenceReview.date must be a valid YYYY-MM-DD date`);
+      }
+
+      for (const field of ["evidenceEarningCredit", "evidenceLimitingCredit"]) {
+        const evidence = review[field];
+        if (!Array.isArray(evidence) || evidence.length < 1) {
+          err(name, `latestEvidenceReview.${field} must contain at least 1 item`);
+          continue;
+        }
+        evidence.forEach((item, i) => {
+          const path = `latestEvidenceReview.${field}[${i}]`;
+          if (!isPlainObject(item)) {
+            err(name, `${path} must be a plain object`);
+            return;
+          }
+          rejectUnknownKeys(name, path, item, LATEST_EVIDENCE_ITEM_KEYS);
+          for (const itemField of ["text", "sourceLabel", "sourceRole"]) {
+            if (!hasText(item[itemField])) {
+              err(name, `${path}.${itemField} must be a non-empty string`);
+            }
+          }
+          if (!validHttpUrl(item.sourceUrl)) {
+            err(name, `${path}.sourceUrl must be a valid http(s) URL`);
+          }
+          if (!validFullDateString(item.sourceDate)) {
+            err(name, `${path}.sourceDate must be a valid YYYY-MM-DD date`);
+          }
+        });
+      }
+
+      if (!Array.isArray(review.stillUnproven) || review.stillUnproven.length < 1) {
+        err(name, `latestEvidenceReview.stillUnproven must contain at least 1 item`);
+      } else {
+        review.stillUnproven.forEach((item, i) => {
+          if (!hasText(item)) {
+            err(name, `latestEvidenceReview.stillUnproven[${i}] must be a non-empty string`);
+          }
+        });
+      }
+
+      if (!Array.isArray(review.pagesChecked) || review.pagesChecked.length < 1) {
+        err(name, `latestEvidenceReview.pagesChecked must contain at least 1 page`);
+      } else {
+        review.pagesChecked.forEach((page, i) => {
+          const path = `latestEvidenceReview.pagesChecked[${i}]`;
+          if (!isPlainObject(page)) {
+            err(name, `${path} must be a plain object`);
+            return;
+          }
+          rejectUnknownKeys(name, path, page, LATEST_EVIDENCE_PAGE_KEYS);
+          for (const field of ["label", "role"]) {
+            if (!hasText(page[field])) err(name, `${path}.${field} must be a non-empty string`);
+          }
+          if (!validHttpUrl(page.url)) {
+            err(name, `${path}.url must be a valid http(s) URL`);
+          }
+          if (!validFullDateString(page.checkedAt)) {
+            err(name, `${path}.checkedAt must be a valid YYYY-MM-DD date`);
+          }
+        });
+      }
     }
   }
 
@@ -694,6 +830,16 @@ for (const d of dimensions) {
         trigger.additionalSources.forEach((source) => addCanonicalUrl(canonicalUrls, source?.url));
       }
     });
+  }
+  if (isPlainObject(d.latestEvidenceReview)) {
+    for (const field of ["evidenceEarningCredit", "evidenceLimitingCredit"]) {
+      if (Array.isArray(d.latestEvidenceReview[field])) {
+        d.latestEvidenceReview[field].forEach((item) => addCanonicalUrl(canonicalUrls, item?.sourceUrl));
+      }
+    }
+    if (Array.isArray(d.latestEvidenceReview.pagesChecked)) {
+      d.latestEvidenceReview.pagesChecked.forEach((page) => addCanonicalUrl(canonicalUrls, page?.url));
+    }
   }
   canonicalUrlsByDimension.set(d.id, canonicalUrls);
 }

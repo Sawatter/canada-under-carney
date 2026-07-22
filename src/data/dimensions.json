@@ -3022,7 +3022,93 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-07-19",
+    "latestEvidenceReview": {
+      "date": "2026-07-22",
+      "title": "Ontario DCRP disbursement review",
+      "triggerUnderReview": "Federal housing contribution rises above about 5% of the gap (the shortfall), with money actually going out (disbursement) or construction underway",
+      "evidenceEarningCredit": [
+        {
+          "text": "Toronto has a conditional $1.5 billion DCRP allocation for water, wastewater, transit, and other housing-enabling infrastructure.",
+          "sourceLabel": "Ontario and Canada - Toronto DCRP announcement",
+          "sourceUrl": "https://news.ontario.ca/en/release/1007662/ontario-and-canada-making-homes-more-affordable-in-toronto",
+          "sourceDate": "2026-06-23",
+          "sourceRole": "Official program announcement (context)"
+        }
+      ],
+      "evidenceLimitingCredit": [
+        {
+          "text": "The federal June 23 release says funding is subject to signing a Canada-Ontario BCSF agreement and further due diligence.",
+          "sourceLabel": "Housing, Infrastructure and Communities Canada - Toronto release",
+          "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-making-homes-more-affordable-in-toronto.html",
+          "sourceDate": "2026-06-23",
+          "sourceRole": "Official funding conditions"
+        },
+        {
+          "text": "The federal FAQ, modified July 21, says provincial and territorial agreements are being finalized and priority projects follow signed agreements.",
+          "sourceLabel": "Build Communities Strong Fund - FAQ",
+          "sourceUrl": "https://housing-infrastructure.canada.ca/bcsf-fbcf/faq-eng.html",
+          "sourceDate": "2026-07-21",
+          "sourceRole": "Official agreement and project-selection process"
+        },
+        {
+          "text": "The federal agreement page says signed agreements will be posted there, but its agreement section currently lists none and its funding footnote remains conditional on signed agreements.",
+          "sourceLabel": "Build Communities Strong Fund - Provincial and Territorial stream",
+          "sourceUrl": "https://housing-infrastructure.canada.ca/bcsf-fbcf/provincial-territorial/index-eng.html",
+          "sourceDate": "2026-06-05",
+          "sourceRole": "Official agreement publication status"
+        }
+      ],
+      "stillUnproven": [
+        "Signed Canada-Ontario BCSF Provincial and Territorial stream agreement",
+        "Completed federal DCRP project approval",
+        "Signed Toronto-Ontario Transfer Payment Agreement",
+        "First DCRP payment",
+        "DCRP construction evidence"
+      ],
+      "scorecardRead": "Conditional allocations and announcements earn early credit, but they do not satisfy the trigger for disbursement or construction underway.",
+      "outcome": "The trigger did not fire. Housing remains D.",
+      "nextCheck": "Signed agreement, first payment, or construction evidence.",
+      "caveat": "Not finding these items on the official pages checked is dated evidence, not proof that unpublished steps do not exist.",
+      "pagesChecked": [
+        {
+          "label": "Ontario - Development Charge Reduction Program",
+          "url": "https://www.ontario.ca/page/development-charge-reduction-program",
+          "checkedAt": "2026-07-22",
+          "role": "Program status and application terms"
+        },
+        {
+          "label": "Build Communities Strong Fund - FAQ",
+          "url": "https://housing-infrastructure.canada.ca/bcsf-fbcf/faq-eng.html",
+          "checkedAt": "2026-07-22",
+          "role": "Agreement and project-selection process"
+        },
+        {
+          "label": "Build Communities Strong Fund - Provincial and Territorial stream",
+          "url": "https://housing-infrastructure.canada.ca/bcsf-fbcf/provincial-territorial/index-eng.html",
+          "checkedAt": "2026-07-22",
+          "role": "Agreement publication and allocations"
+        },
+        {
+          "label": "Build Communities Strong Fund - latest announcements",
+          "url": "https://housing-infrastructure.canada.ca/bcsf-fbcf/news-nouvelles-eng.html",
+          "checkedAt": "2026-07-22",
+          "role": "Published BCSF announcements"
+        },
+        {
+          "label": "Housing, Infrastructure and Communities Canada - Toronto release",
+          "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-making-homes-more-affordable-in-toronto.html",
+          "checkedAt": "2026-07-22",
+          "role": "Federal Toronto funding conditions"
+        },
+        {
+          "label": "Ontario and Canada - Toronto DCRP announcement",
+          "url": "https://news.ontario.ca/en/release/1007662/ontario-and-canada-making-homes-more-affordable-in-toronto",
+          "checkedAt": "2026-07-22",
+          "role": "Provincial Toronto funding announcement"
+        }
+      ]
+    },
+    "lastUpdated": "2026-07-22",
     "metrics": [
       {
         "label": "Housing starts (2025)",

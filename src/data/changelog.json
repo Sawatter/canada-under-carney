@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-07-22",
+    "version": "5.161",
+    "summary": "Added a dated Housing evidence review, removed source-tier labels that overstated authority, and added desktop policy switching. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Housing now shows the latest evidence decision",
+        "body": "The Housing detail now separates evidence earning credit, evidence limiting credit, steps that remain unproven, the scorecard read, review outcome, next check, and six official pages checked on July 22. The record says clearly that not finding a public item is dated evidence, not proof that an unpublished step does not exist."
+      },
+      {
+        "type": "fix",
+        "headline": "Source authority is no longer guessed from a web address",
+        "body": "The source table keeps dates and the existing used-for labels but removes domain-inferred tier badges and counts. Official news releases no longer receive the same visible authority label as official statistics just because both use a government domain."
+      },
+      {
+        "type": "product",
+        "headline": "Desktop readers can move between policy files",
+        "body": "Previous and Next controls move through the 11 graded policies without adding a Back step for each switch. The tracker stays outside the sequence, the new policy title receives keyboard focus, and phones keep the existing sheet without these controls."
+      },
+      {
+        "type": "docs",
+        "headline": "July 22 Housing hold recorded",
+        "body": "The six official pages checked did not show the signed Ontario agreement, completed DCRP project approval, signed Toronto transfer-payment agreement, first payment, or DCRP construction evidence. That dated absence is not proof of an unpublished step. The live disbursement or construction trigger remains off, so Housing stays D."
+      }
+    ]
+  },
+  {
     "date": "2026-07-21",
     "version": "5.160",
     "summary": "Made shared policy links carry the grade, trend, review date, and exact evidence path in plain text. No scores or scoring rules changed.",
