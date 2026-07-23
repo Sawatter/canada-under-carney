@@ -6,8 +6,15 @@
 // Wired into the prebuild step so it runs before every `npm run build`.
 // Run directly with `node scripts/validate-dimensions.mjs`.
 
-import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readFileSync, realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
+import {
+  dirname,
+  isAbsolute,
+  relative,
+  resolve,
+  sep,
+} from "node:path";
 import { fileURLToPath } from "node:url";
 import { GRADES, POCKETBOOK_DIMS } from "../src/constants.js";
 import { gpaToGrade } from "../src/utils.js";
@@ -19,9 +26,42 @@ import {
 } from "../src/dimensionTargets.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const dataPath = resolve(__dirname, "../src/data/dimensions.json");
-const changelogPath = resolve(__dirname, "../src/data/changelog.json");
-const metaPath = resolve(__dirname, "../src/data/meta.json");
+
+function resolveDataDirectory() {
+  const canonicalDataDir = resolve(__dirname, "../src/data");
+  const args = process.argv.slice(2);
+  if (args.length === 0) return canonicalDataDir;
+  if (args.length !== 2 || args[0] !== "--fixture-data-dir") {
+    console.error("FATAL: expected --fixture-data-dir <temporary-directory>");
+    process.exit(1);
+  }
+
+  let fixtureDataDir;
+  let systemTempDir;
+  try {
+    fixtureDataDir = realpathSync(resolve(args[1]));
+    systemTempDir = realpathSync(tmpdir());
+  } catch (error) {
+    console.error(`FATAL: fixture data directory could not be resolved: ${error.message}`);
+    process.exit(1);
+  }
+
+  const fromSystemTemp = relative(systemTempDir, fixtureDataDir);
+  if (
+    fromSystemTemp === ".."
+    || fromSystemTemp.startsWith(`..${sep}`)
+    || isAbsolute(fromSystemTemp)
+  ) {
+    console.error("FATAL: fixture data directory must be inside the system temp directory");
+    process.exit(1);
+  }
+  return fixtureDataDir;
+}
+
+const selectedDataDir = resolveDataDirectory();
+const dataPath = resolve(selectedDataDir, "dimensions.json");
+const changelogPath = resolve(selectedDataDir, "changelog.json");
+const metaPath = resolve(selectedDataDir, "meta.json");
 const dimensions = JSON.parse(readFileSync(dataPath, "utf-8"));
 const changelog = JSON.parse(readFileSync(changelogPath, "utf-8"));
 const meta = JSON.parse(readFileSync(metaPath, "utf-8"));

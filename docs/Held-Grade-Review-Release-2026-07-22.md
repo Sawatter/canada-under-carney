@@ -96,9 +96,10 @@ The Standards review found that this record described the date validation too
 broadly; the wording now matches the enforced release-date boundary, and its
 re-review approved the candidate. Authenticated Claude review then returned
 `VERDICT: APPROVED` after checking all ten summaries against their source
-records. Its two product-specific residual risks are queued in the roadmap:
-negative fixtures for the new validator branches, and an explicit display
-decision before any second policy gains a Decision Brief.
+records. It identified two product-specific residual risks. The first closed on
+July 23 when fixture-driven tests covered the new `latestReview` rejection
+paths. The explicit display decision before any second policy gains a Decision
+Brief remains in the roadmap.
 
 The first full browser rerun failed one new Housing assertion because the test
 looked for wording the Decision Brief does not use. The assertion was corrected
