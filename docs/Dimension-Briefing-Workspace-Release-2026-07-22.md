@@ -1,7 +1,8 @@
 # Dimension Briefing Workspace Release
 
-**Status:** Release gates and independent review passed; publication pending<br>
-**Publication evidence:** Pending<br>
+**Status:** Live<br>
+**Published:** 2026-07-23<br>
+**Publication evidence:** Release commit [`d091fc3`](https://github.com/Sawatter/canada-under-carney/commit/d091fc326c9be51263fa5cd643e8becff7aaa46a); Pages run [`30013234857`](https://github.com/Sawatter/canada-under-carney/actions/runs/30013234857); post-deploy audit run [`30013591946`](https://github.com/Sawatter/canada-under-carney/actions/runs/30013591946)<br>
 **Prepared:** 2026-07-22<br>
 **Comparison baseline:** live v5.162<br>
 **Frozen surfaces:** no grade, threshold, formula, weight, modifier, promise status, source stack, trigger, or dimension-model change
@@ -137,10 +138,14 @@ Independent review completed on the staged candidate:
   band remains in Briefing and Evidence intentionally: decision context first,
   canonical record second.
 
-Still required before this release can be called live:
+Publication completed on July 23:
 
-- GitHub Pages deployment, live v5.163 header confirmation, and the production
-  rendered-content audit.
+- Release commit `d091fc3` was pushed to `main`. GitHub Pages run `30013234857`
+  passed its review-handoff, build, 231-case browser, and deploy jobs.
+- The public header reports v5.163. A direct production audit reported
+  `PASS=348` and `ISSUE=0` across desktop and mobile widths.
+- The separate workflow-triggered Live Dashboard Audit run `30013591946` also
+  passed and uploaded its production report.
 
 A timeout, missing environment, or unperformed check is not approval.
 
