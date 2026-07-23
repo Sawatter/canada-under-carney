@@ -37,6 +37,10 @@ const About = lazy(() => import("./About"));
 const dimensions = dimensionsSummary.dimensions;
 const scoredDimensions = dimensions.filter((d) => !d.excludeFromGPA);
 const trackerDimensions = dimensions.filter((d) => d.excludeFromGPA);
+const scorecardHashTargets = new Set([
+  "policy-grades-heading",
+  "scorecard-dimension-grid",
+]);
 
 function isMobileViewport() {
   return typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
@@ -265,7 +269,7 @@ export default function Dashboard() {
   const pushModalHistoryEntry = useCallback((dimensionId) => {
     if (typeof window === "undefined") return;
 
-    const nextUrl = `#dim-${dimensionId}`;
+    const nextUrl = `#dim-${dimensionId}-briefing`;
     const nextState = { ...(window.history.state || {}), dimModal: dimensionId };
 
     // Click-opens on either viewport create exactly one owned history entry
@@ -284,6 +288,11 @@ export default function Dashboard() {
   }, []);
 
   const openDimension = useCallback((dimensionId, options = {}) => {
+    if (!options.fromHash) {
+      anchorTargetRef.current = null;
+      setAnchorNavigation(null);
+    }
+
     if (
       typeof window !== "undefined"
       && expandedRef.current !== dimensionId
@@ -313,7 +322,7 @@ export default function Dashboard() {
       const nextState = { ...(window.history.state || {}) };
       if (mobileModalEntryRef.current) nextState.dimModal = dimensionId;
       else delete nextState.dimModal;
-      window.history.replaceState(nextState, "", `#dim-${dimensionId}`);
+      window.history.replaceState(nextState, "", `#dim-${dimensionId}-briefing`);
     }
 
     openDimension(dimensionId, { fromHash: true, preserveReturnScroll: true });
@@ -531,9 +540,11 @@ export default function Dashboard() {
       return;
     }
 
-    closeDimensionForInternalNavigation();
+    // App-opened drawers own the current history entry. Collapse that entry
+    // into the requested anchor instead of backing over the destination.
+    if (scorecardHashTargets.has(target)) setView("scorecard");
+    leaveDrawerForHashDestination();
   }, [
-    closeDimensionForInternalNavigation,
     leaveDrawerForHashDestination,
     openDimension,
     requestAnchorNavigation,
@@ -864,14 +875,7 @@ export default function Dashboard() {
 
     if (ref.type === "anchor") {
       if (ref.view) setView(ref.view);
-      const dimensionId = getDimensionIdForHashTarget(ref.target);
-      if (dimensionId) {
-        requestAnchorNavigation(ref.target);
-        openDimension(dimensionId, { fromHash: true });
-        return;
-      }
-      closeDimensionForInternalNavigation();
-      requestAnchorNavigation(ref.target);
+      handleHashTargetNavigation(ref.target);
     }
   };
 
@@ -1347,6 +1351,7 @@ export default function Dashboard() {
           <div
             id="scorecard-dimension-grid"
             className="desktop-focused-detail-wrap"
+            tabIndex={-1}
           >
             <DimensionCard
               key={`focused-${expandedDimension.id}`}
@@ -1373,6 +1378,7 @@ export default function Dashboard() {
           <>
           <div
             id="scorecard-dimension-grid"
+            tabIndex={-1}
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",

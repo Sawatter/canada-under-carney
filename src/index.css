@@ -447,18 +447,6 @@ button.text-link-button {
   box-shadow: var(--shadow-card) !important;
 }
 
-.dim-section-button {
-  transition: filter 140ms ease, transform 110ms ease;
-}
-
-.dim-section-button:hover {
-  filter: brightness(0.975);
-}
-
-.dim-section-button:active {
-  transform: translateY(0.5px);
-}
-
 .dim-tracker-pill {
   display: inline-flex;
   align-items: center;
@@ -676,59 +664,6 @@ button.text-link-button {
   background: var(--surface-sunken);
   border-color: var(--text-subtle);
   color: var(--text-primary);
-}
-
-.dim-mini-nav {
-  position: static;
-  z-index: 1;
-  background: #f0f4ff;
-  border-radius: 6px;
-  padding: 6px 10px;
-  margin-bottom: 12px;
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 700;
-  border-bottom: 1px solid #d8e3ff;
-}
-
-.dim-mini-nav-label {
-  color: #5c6bc0;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  margin-right: 2px;
-}
-
-.dim-mini-nav-label-desktop {
-  display: none;
-}
-
-.dim-mini-nav a,
-.dim-show-all-button {
-  color: #3949ab;
-  text-decoration: none;
-  padding: 2px 7px;
-  border-radius: 4px;
-  background: #fff;
-  border: 1px solid #c5cae9;
-  white-space: nowrap;
-  line-height: 1.5;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.dim-mini-nav a[aria-current="true"] {
-  background: #3949ab;
-  color: #fff;
-  border-color: #3949ab;
-}
-
-.dim-show-all-button {
-  cursor: pointer;
-  font-family: inherit;
 }
 
 .dim-default-blocks {
@@ -1409,84 +1344,6 @@ button.text-link-button {
   gap: 10px;
 }
 
-.dim-disclosure-section {
-  scroll-margin-top: var(--dim-anchor-offset);
-}
-
-.dim-section-heading {
-  margin: 0;
-  font-size: 14px;
-  line-height: 1.3;
-}
-
-.dim-section-button {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 40px;
-  border: 1px solid #e1e5ea;
-  border-left: 3px solid #9e9e9e;
-  border-radius: 7px;
-  background: #fafafa;
-  color: var(--text-primary);
-  cursor: pointer;
-  padding: 8px 10px;
-  font-family: inherit;
-  font-size: 14px;
-  font-weight: 800;
-  text-align: left;
-  text-transform: uppercase;
-  letter-spacing: 0.45px;
-}
-
-.dim-disclosure-blue .dim-section-button { border-left-color: var(--accent); background: #f7faff; }
-.dim-disclosure-green .dim-section-button { border-left-color: #558b2f; background: #f7fbf8; }
-.dim-disclosure-rule .dim-section-button { border-left-color: #607d8b; background: #f7f8fa; }
-.dim-disclosure-why .dim-section-button { border-left-color: #6b4a00; background: #fffaf0; }
-.dim-disclosure-yellow .dim-section-button { border-left-color: #f9a825; background: #fffde7; }
-
-.dim-section-caret {
-  font-size: 11px;
-  flex: 0 0 auto;
-}
-
-.dim-section-summary {
-  margin-left: auto;
-  font-size: 12px;
-  color: var(--text-muted);
-  text-transform: none;
-  letter-spacing: 0;
-  font-weight: 700;
-  text-align: right;
-}
-
-.dim-disclosure-panel {
-  display: grid;
-  grid-template-rows: 0fr;
-  opacity: 0;
-  transition: grid-template-rows 200ms ease-out, opacity 200ms ease-out;
-}
-
-.dim-disclosure-panel[data-open="true"] {
-  grid-template-rows: 1fr;
-  opacity: 1;
-}
-
-.dim-disclosure-panel-inner {
-  overflow: hidden;
-  min-height: 0;
-  font-size: 14px;
-  color: var(--text-body);
-  line-height: 1.55;
-  padding: 0 10px;
-}
-
-.dim-disclosure-panel[data-open="true"] .dim-disclosure-panel-inner {
-  padding-top: 10px;
-  padding-bottom: 2px;
-}
-
 .dim-stack {
   display: flex;
   flex-direction: column;
@@ -1974,6 +1831,319 @@ button.text-link-button {
 .dim-tracker-score-line {
   color: #6b5a13;
 }
+
+/* Four-panel dimension workspace. The drawer remains the containing shell;
+   this layer only establishes a flat reading order inside it. */
+.dimension-workspace {
+  min-width: 0;
+  width: 100%;
+  color: var(--text-body);
+}
+
+.dimension-workspace .cohort-mobile-projects {
+  display: grid;
+}
+
+@media (min-width: 768px) {
+  .dimension-workspace .cohort-mobile-projects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.dimension-workspace-nav {
+  position: sticky;
+  top: var(--dim-sticky-head, 52px);
+  z-index: 19;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  min-width: 0;
+  max-width: 100%;
+  margin: 0 0 var(--space-4);
+  padding: 0 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-color: var(--border-strong) var(--surface-modal);
+  scrollbar-width: thin;
+  background: var(--surface-modal);
+  border-bottom: 1px solid var(--border-strong);
+  -webkit-overflow-scrolling: touch;
+}
+
+.dimension-workspace-nav::-webkit-scrollbar {
+  height: 6px;
+}
+
+.dimension-workspace-nav::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 999px;
+}
+
+.dimension-workspace-tab {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 8px 12px 7px;
+  appearance: none;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.dimension-workspace-tab:hover {
+  background: var(--surface-sunken);
+  color: var(--text-primary);
+}
+
+.dimension-workspace-tab[aria-current="page"],
+.dimension-workspace-tab[aria-current="true"],
+.dimension-workspace-tab[aria-selected="true"],
+.dimension-workspace-tab.is-current,
+.dimension-workspace-tab.current {
+  border-bottom-color: var(--accent);
+  background: var(--surface-sunken);
+  color: var(--text-primary);
+}
+
+.dimension-workspace-tab:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+.dimension-workspace-panel {
+  min-width: 0;
+  width: 100%;
+  padding-bottom: var(--space-3);
+  scroll-margin-top: var(--dim-anchor-offset, 80px);
+}
+
+.dimension-workspace-panel[hidden] {
+  display: none !important;
+}
+
+.dimension-briefing {
+  display: grid;
+  gap: 0;
+  width: 100%;
+  max-width: 78ch;
+  margin-inline: auto;
+}
+
+.dimension-briefing-section {
+  min-width: 0;
+  padding-block: 20px;
+  border-top: 1px solid var(--border-subtle);
+  scroll-margin-top: var(--dim-anchor-offset, 80px);
+}
+
+.dimension-briefing-section:first-child {
+  padding-top: 4px;
+  border-top: 0;
+}
+
+.dimension-briefing-section > :first-child {
+  margin-top: 0;
+}
+
+.dimension-briefing-section > :last-child {
+  margin-bottom: 0;
+}
+
+.dimension-briefing-section p,
+.dimension-briefing-section li,
+.dimension-briefing-section dd {
+  overflow-wrap: anywhere;
+}
+
+.dimension-briefing-section p {
+  max-width: 65ch;
+}
+
+.dimension-briefing-section .dim-default-block-head {
+  margin-bottom: var(--space-3);
+}
+
+/* Legacy summary components may be reused by the JSX, but inside the new
+   briefing they become sections and rows rather than cards inside a card. */
+.dimension-workspace .dimension-briefing .dim-default-block,
+.dimension-workspace .dimension-briefing .dim-decision-brief,
+.dimension-workspace .dimension-briefing .dim-verdict-hero {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.dimension-workspace .dimension-briefing .dim-default-blocks {
+  gap: 0;
+  margin-bottom: 0;
+}
+
+.dimension-workspace .dimension-briefing .dim-verdict-mark {
+  border-bottom-color: var(--border-subtle);
+}
+
+.dimension-workspace .dimension-briefing .dim-why-not {
+  padding: 10px 0;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dimension-workspace .dimension-briefing .dim-evidence-grid,
+.dimension-workspace .dimension-briefing .dim-top-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 24px;
+}
+
+.dimension-workspace .dimension-briefing .dim-evidence-item,
+.dimension-workspace .dimension-briefing .dim-headline-commitment {
+  min-width: 0;
+  padding: 10px 0;
+  border: 0;
+  border-top: 1px solid var(--border-subtle);
+  border-radius: 0;
+  background: transparent;
+}
+
+.dimension-workspace .dimension-briefing .dim-evidence-item:hover {
+  background: var(--surface-sunken);
+}
+
+.dimension-trigger-band,
+.dimension-subscore-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  min-width: 0;
+  margin-block: var(--space-3);
+  border-block: 1px solid var(--border-subtle);
+}
+
+.dimension-trigger-column,
+.dimension-subscore-grid > * {
+  min-width: 0;
+  padding-block: var(--space-4);
+}
+
+.dimension-trigger-column + .dimension-trigger-column,
+.dimension-subscore-grid > * + * {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.dimension-trigger-column > :first-child,
+.dimension-subscore-grid > * > :first-child {
+  margin-top: 0;
+}
+
+.dimension-trigger-column > :last-child,
+.dimension-subscore-grid > * > :last-child {
+  margin-bottom: 0;
+}
+
+.dimension-trigger-column .dim-trigger-list {
+  gap: 0;
+  margin: var(--space-2) 0 0;
+}
+
+.dimension-trigger-column .dim-trigger-list > * {
+  min-width: 0;
+  padding-block: var(--space-3);
+  border-top: 1px solid var(--border-subtle);
+  break-inside: avoid;
+  overflow-wrap: anywhere;
+  page-break-inside: avoid;
+}
+
+.dimension-trigger-column .dim-trigger-list > :first-child {
+  border-top: 0;
+}
+
+.dimension-trigger-column .dim-trigger-setdate {
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  font-family: 'DM Mono', monospace;
+}
+
+.dimension-workspace .dimension-subscore-grid .dim-subscore-card {
+  width: 100%;
+  min-width: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+@media (min-width: 768px) {
+  .dim-focused-detail-root .dimension-workspace-nav {
+    width: auto;
+    max-width: none;
+    margin-inline: -18px;
+    padding-inline: 18px;
+  }
+
+  .dimension-trigger-band,
+  .dimension-subscore-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 24px;
+  }
+
+  .dimension-trigger-column + .dimension-trigger-column,
+  .dimension-subscore-grid > * + * {
+    padding-left: 24px;
+    border-top: 0;
+    border-left: 1px solid var(--border-subtle);
+  }
+}
+
+@media (max-width: 767px) {
+  .dim-drawer {
+    overflow-x: hidden;
+  }
+
+  .dimension-workspace-nav {
+    width: auto;
+    max-width: none;
+    margin-inline: -16px;
+    padding-inline: 12px;
+    scroll-padding-inline: 12px;
+  }
+
+  .dimension-workspace-tab {
+    min-height: 44px;
+    padding-inline: 14px;
+  }
+
+  .dimension-briefing {
+    max-width: none;
+  }
+
+  .dimension-briefing-section {
+    padding-block: 18px;
+  }
+
+  .dimension-workspace .dimension-briefing .dim-evidence-grid,
+  .dimension-workspace .dimension-briefing .dim-top-metrics {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (max-width: 639px) {
   .cohort-mobile-projects {
     display: grid;
@@ -2067,12 +2237,6 @@ button.text-link-button {
     font-size: 16px;
   }
 
-  .dim-focused-detail-root .dim-mini-nav {
-    margin: 0 -18px 16px;
-    padding: 8px 18px;
-    border-radius: 0;
-  }
-
   .dim-focused-detail-root .dim-detail-overview {
     grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
     align-items: stretch;
@@ -2084,14 +2248,6 @@ button.text-link-button {
     align-items: stretch;
   }
 
-  .dim-mini-nav-label-mobile {
-    display: none;
-  }
-
-  .dim-mini-nav-label-desktop {
-    display: inline;
-  }
-
   .dim-drawer-sticky-head {
     position: sticky;
     top: 0;
@@ -2100,13 +2256,6 @@ button.text-link-button {
     box-shadow: 0 1px 0 #e6e6e6;
   }
 
-  .dim-mini-nav {
-    position: sticky;
-    top: var(--dim-sticky-head, 52px);
-    z-index: 19;
-    border-radius: 0 0 6px 6px;
-    box-shadow: 0 1px 0 #d8e3ff;
-  }
 }
 
 /* MED3: Full-screen modal drawer on mobile (<768px).
@@ -2144,12 +2293,6 @@ button.text-link-button {
     z-index: 10;
     background: var(--surface-modal) !important;
     border-bottom: 1px solid var(--border-subtle) !important;
-  }
-
-  .dim-mini-nav {
-    position: sticky;
-    z-index: 9;
-    top: var(--dim-sticky-head, 48px) !important;
   }
 
   .dim-source-stack .dim-table-wrap {
@@ -2204,9 +2347,6 @@ button.text-link-button {
     display: none;
   }
 
-  .dim-desktop-only-nav-item {
-    display: none !important;
-  }
 }
 
 @keyframes dimDialogIn {
@@ -2260,10 +2400,6 @@ button.text-link-button {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .dim-disclosure-panel {
-    transition: none;
-  }
-
   .dim-drawer {
     animation: none !important;
   }
@@ -2284,7 +2420,6 @@ button.text-link-button {
 
   .dimension-card-root:not(.dim-focused-detail-root):hover,
   .dimension-card-root:not(.dim-focused-detail-root):has(.dim-card-header-button:active),
-  .dim-section-button:active,
   .theme-toggle:active,
   .dim-drawer-close:active,
   .dim-drawer-copy-link:active {
@@ -2566,6 +2701,50 @@ a:hover { text-decoration: underline; }
 }
 
 @media (forced-colors: active) {
+  .dimension-workspace-nav {
+    background: Canvas;
+    border-color: CanvasText;
+    scrollbar-color: ButtonText Canvas;
+  }
+
+  .dimension-workspace-tab,
+  .dimension-workspace-tab:hover {
+    background: ButtonFace;
+    color: ButtonText;
+  }
+
+  .dimension-workspace-tab[aria-current="page"],
+  .dimension-workspace-tab[aria-current="true"],
+  .dimension-workspace-tab[aria-selected="true"],
+  .dimension-workspace-tab.is-current,
+  .dimension-workspace-tab.current {
+    forced-color-adjust: none;
+    border-bottom-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+
+  .dimension-workspace-tab:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: -3px;
+  }
+
+  .dimension-workspace-tab[aria-current="page"]:focus-visible,
+  .dimension-workspace-tab[aria-current="true"]:focus-visible,
+  .dimension-workspace-tab[aria-selected="true"]:focus-visible,
+  .dimension-workspace-tab.is-current:focus-visible,
+  .dimension-workspace-tab.current:focus-visible {
+    outline-color: HighlightText;
+  }
+
+  .dimension-briefing-section,
+  .dimension-trigger-band,
+  .dimension-subscore-grid,
+  .dimension-trigger-column + .dimension-trigger-column,
+  .dimension-subscore-grid > * + * {
+    border-color: CanvasText;
+  }
+
   .dashboard-status-summary {
     color: CanvasText;
     background: Canvas;
@@ -3024,20 +3203,6 @@ a:hover { text-decoration: underline; }
   background: #211f18;
 }
 
-[data-theme="dark"] .dim-section-button {
-  background: var(--surface-sunken);
-  border-color: var(--border-subtle);
-  color: var(--text-primary);
-}
-
-/* Reassert the semantic left rails (the generic .dim-section-button rule above
-   sets border-color on all sides, which would otherwise flatten them). */
-[data-theme="dark"] .dim-disclosure-blue .dim-section-button { background: #16222e; border-left-color: #5b8fd6; }
-[data-theme="dark"] .dim-disclosure-green .dim-section-button { background: #16241b; border-left-color: #6fae4f; }
-[data-theme="dark"] .dim-disclosure-rule .dim-section-button { background: #1a2127; border-left-color: #7e97a6; }
-[data-theme="dark"] .dim-disclosure-why .dim-section-button { background: #241f12; border-left-color: #c8a24a; }
-[data-theme="dark"] .dim-disclosure-yellow .dim-section-button { background: #221f10; border-left-color: #d9a93a; }
-
 /* ----- Dark theme straggler fixes (driven by the coverage audit) ----- */
 
 /* Inline borders are never reached by the color/background attribute flips,
@@ -3214,12 +3379,6 @@ a:hover { text-decoration: underline; }
 [data-theme="dark"] .dim-source-date-kind-updated { background: #241f10; border-color: #5a4a1a; color: #e0b85a; }
 [data-theme="dark"] .dim-source-date-kind-manual { background: #241f12; border-color: #5a4a2a; color: var(--accent-tracker); }
 [data-theme="dark"] .dim-source-effect-moved { background: #172230; border-color: #2f4763; color: #9cc2e8; }
-
-/* Drawer mini-nav band + chips. */
-[data-theme="dark"] .dim-mini-nav { background: #16222e; border-bottom-color: var(--border-subtle); box-shadow: 0 1px 0 var(--border-subtle); }
-[data-theme="dark"] .dim-mini-nav-label { color: #9fa8da; }
-[data-theme="dark"] .dim-mini-nav a,
-[data-theme="dark"] .dim-show-all-button { background: var(--surface-raised); border-color: var(--border-strong); color: var(--accent-strong); }
 
 /* Drawer hairline borders. */
 [data-theme="dark"] .dim-drawer-sticky-head { border-bottom-color: var(--border-subtle) !important; }

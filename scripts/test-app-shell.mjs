@@ -284,7 +284,7 @@ check(
     policyNavigationHandlerContract.includes("anchorTargetRef.current = null") &&
     policyNavigationHandlerContract.includes("setAnchorNavigation(null)") &&
     policyNavigationHandlerContract.includes(
-      "window.history.replaceState(nextState, \"\", `#dim-${dimensionId}`)",
+      "window.history.replaceState(nextState, \"\", `#dim-${dimensionId}-briefing`)",
     ) &&
     policyNavigationHandlerContract.includes(
       "if (mobileModalEntryRef.current) nextState.dimModal = dimensionId",
@@ -408,7 +408,7 @@ const desktopFocusIndex = headerLookupIndex === -1
 
 check(
   sources.dimension.includes("previousFocusRef") &&
-    sources.dimension.includes("drawerRef.current?.focus") &&
+    sources.dimension.includes("initialFocus?.focus({ preventScroll: true })") &&
     /previousFocus\.focus\s*\(/.test(sources.dimension),
   "Non-behavioral source contract: dimension detail must retain focus-in and mobile focus-restore plumbing.",
 );
@@ -420,7 +420,7 @@ check(
 check(
   dimensionFocusContract.includes("isFocusedDesktop") &&
     dimensionFocusContract.includes("isMobileDialog") &&
-    dimensionFocusContract.includes("drawerRef.current?.focus"),
+    dimensionFocusContract.includes("initialFocus?.focus"),
   "Non-behavioral source contract: the dimension focus effect must cover focused desktop detail.",
 );
 check(

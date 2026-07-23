@@ -13,6 +13,11 @@ const dashboardStatus = JSON.parse(readFileSync(path.join(repoRoot, "src/data/st
 const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
 const movedDimensionIds = new Set(currentGradeMoves.map((item) => item.dimensionId));
 const housingDimension = dimensions.find((dim) => dim.id === "housing-supply");
+const defenceTradeDimension = dimensions.find((dim) => dim.id === "defence-trade");
+const promiseDeliveryDimension = dimensions.find((dim) => dim.id === "promise-delivery");
+const flagshipDeliveryDimension = dimensions.find((dim) => dim.id === "execution-delivery");
+const ordinaryGradedDimension = dimensions.find((dim) => dim.id === "economic-policy");
+const majorProjectsDimension = dimensions.find((dim) => dim.id === "major-projects");
 const housingReviewedDate = housingDimension.latestReview?.date || housingDimension.lastUpdated;
 const heldReviewDimensions = dimensions.filter((dim) => (
   !dim.excludeFromGPA && dim.latestReview?.outcome === "held"
@@ -49,6 +54,8 @@ const viewports = [
   ["desktop", { width: 1280, height: 900 }],
   ["mobile", { width: 375, height: 812 }],
 ];
+
+const policyDetailSections = ["Briefing", "Evidence", "History", "Method"];
 
 test.beforeEach(async ({ page }) => {
   const analyticsStub = async (route) => {
@@ -99,6 +106,156 @@ async function expectNoOverflow(page) {
   await expect.poll(async () => page.evaluate(() => (
     document.documentElement.scrollWidth <= document.documentElement.clientWidth
   ))).toBe(true);
+}
+
+function policyPanel(page, dimensionId, section) {
+  return page.locator(`#dim-${dimensionId}-${section.toLowerCase()}`);
+}
+
+function policyDetailNavigation(page) {
+  return page.getByRole("navigation", { name: "Policy detail sections" });
+}
+
+function policySectionControl(page, section) {
+  const navigation = policyDetailNavigation(page);
+  return navigation.getByRole("button", { name: section, exact: true }).or(
+    navigation.getByRole("link", { name: section, exact: true }),
+  );
+}
+
+async function expectPolicySection(page, dimensionId, section) {
+  const navigation = policyDetailNavigation(page);
+  const currentControl = policySectionControl(page, section);
+  const panel = policyPanel(page, dimensionId, section);
+
+  await expect(navigation).toBeVisible();
+  await expect(navigation.getByRole("button").or(navigation.getByRole("link")))
+    .toHaveCount(policyDetailSections.length);
+  await expect(currentControl).toHaveAttribute("aria-current", /.+/);
+  await expect(panel).toBeVisible();
+
+  for (const otherSection of policyDetailSections.filter((label) => label !== section)) {
+    await expect(policySectionControl(page, otherSection)).not.toHaveAttribute("aria-current", /.+/);
+    await expect(policyPanel(page, dimensionId, otherSection)).not.toBeVisible();
+  }
+
+  return { currentControl, navigation, panel };
+}
+
+async function selectPolicySection(page, dimensionId, section) {
+  await policySectionControl(page, section).click();
+  await expect(page).toHaveURL(new RegExp(`#dim-${dimensionId}-${section.toLowerCase()}$`));
+  return expectPolicySection(page, dimensionId, section);
+}
+
+async function expectNoNestedDisclosures(panel) {
+  await expect(panel.locator("details, summary, button[aria-expanded], [role='button'][aria-expanded]"))
+    .toHaveCount(0);
+}
+
+async function expectVisibleText(scope, text) {
+  await expect(scope.getByText(text, { exact: false }).first()).toBeVisible();
+}
+
+function collectSubstantiveStrings(value) {
+  if (typeof value === "string") return value.length >= 8 ? [value] : [];
+  if (Array.isArray(value)) return value.flatMap(collectSubstantiveStrings);
+  if (value && typeof value === "object") {
+    return Object.values(value).flatMap(collectSubstantiveStrings);
+  }
+  return [];
+}
+
+const methodGlossaryStrings = [
+  "Confidence - how resistant the grade is to new data. High = direct measurement against numeric thresholds. Medium = qualitative judgment with mixed evidence. Low = sparse evidence.",
+  "Attribution - what share of the outcome the federal government actually controls. Direct = at least 60% federal levers. Mixed = 30 to 60%. Mostly inherited = less than 30%.",
+  "Lag - how long policy effects take to show in the metrics. Short = monthly / quarterly. Medium = 1 to 2 year cycles. Long = 5+ year structural. Event-driven = this area moves on specific disclosures or rulings rather than a fixed schedule.",
+];
+
+function evidenceLinksForDimension(dim) {
+  const triggers = [
+    ...(dim.gradeTriggers?.up || []),
+    ...(dim.gradeTriggers?.down || []),
+  ];
+  return [
+    ...(dim.sources || []).map((source) => ({ kind: "source", url: source.url })),
+    ...(dim.metrics || []).flatMap((metric) => (metric.sourceRefs || []).map((source) => ({
+      kind: `metric ${metric.label}`,
+      url: source.url,
+    }))),
+    ...(dim.promises || []).flatMap((promise) => [
+      { kind: `promise original ${promise.text}`, url: promise.originalSourceUrl },
+      { kind: `promise status ${promise.text}`, url: promise.statusSourceUrl },
+    ]),
+    ...triggers.flatMap((trigger) => [
+      { kind: `trigger ${trigger.text}`, url: trigger.sourceUrl },
+      ...(trigger.additionalSources || []).map((source) => ({
+        kind: `trigger challenge ${trigger.text}`,
+        url: source.url,
+      })),
+    ]),
+    ...(dim.projectCohort?.projects || []).map((project) => ({
+      kind: `project ${project.name}`,
+      url: project.sourceUrl,
+    })),
+  ].filter((link) => link.url);
+}
+
+async function expectCanonicalEvidence(panel, dim) {
+  for (const metric of dim.metrics || []) {
+    await expectVisibleText(panel, metric.label);
+    await expectVisibleText(panel, metric.value);
+  }
+  for (const promise of dim.promises || []) {
+    await expectVisibleText(panel, promise.text);
+    await expectVisibleText(panel, promise.status);
+    if (promise.evidence) await expectVisibleText(panel, promise.evidence);
+  }
+  for (const trigger of [
+    ...(dim.gradeTriggers?.up || []),
+    ...(dim.gradeTriggers?.down || []),
+  ]) {
+    await expectVisibleText(panel, trigger.text);
+    if (trigger.sourceLabel) await expectVisibleText(panel, trigger.sourceLabel);
+    for (const source of trigger.additionalSources || []) {
+      await expectVisibleText(panel, source.label);
+    }
+  }
+  for (const project of dim.projectCohort?.projects || []) {
+    await expectVisibleText(panel, project.name);
+  }
+  const renderedLinkTargets = await panel.locator("a[href]").evaluateAll(
+    (nodes) => nodes.map((node) => node.getAttribute("href")),
+  );
+  for (const link of evidenceLinksForDimension(dim)) {
+    expect(renderedLinkTargets, `missing ${link.kind} target ${link.url}`).toContain(link.url);
+  }
+  if (dim.perspectives?.critics) await expectVisibleText(panel, dim.perspectives.critics);
+  if (dim.perspectives?.defenders) await expectVisibleText(panel, dim.perspectives.defenders);
+}
+
+async function expectCanonicalMethod(panel, dim) {
+  if (dim.construct) await expectVisibleText(panel, dim.construct);
+  if (dim.scoring?.scopeNote) await expectVisibleText(panel, dim.scoring.scopeNote);
+  if (dim.scoring?.modifierExpiry) await expectVisibleText(panel, dim.scoring.modifierExpiry);
+  for (const threshold of dim.scoring?.thresholds || []) {
+    await expectVisibleText(panel, threshold.criteria);
+  }
+  for (const guardrail of dim.scoring?.guardrails || []) {
+    await expectVisibleText(panel, guardrail);
+  }
+  for (const text of collectSubstantiveStrings({
+    combinationRule: dim.gradeBasis?.combinationRule,
+    componentOperationalization: dim.gradeBasis?.componentOperationalization,
+    componentScoreSummary: dim.gradeBasis?.componentScoreSummary,
+    leverOperationalization: dim.gradeBasis?.leverOperationalization,
+    leverScoreSummary: dim.gradeBasis?.leverScoreSummary,
+  })) {
+    await expectVisibleText(panel, text);
+  }
+  if (dim.tags) {
+    for (const text of methodGlossaryStrings) await expectVisibleText(panel, text);
+  }
 }
 
 async function expectVisibleVersion(page) {
@@ -359,7 +516,7 @@ test.describe("responsive benchmark controls", () => {
       const firstPolicyId = await firstPolicy.getAttribute("id");
       await page.keyboard.press("Enter");
       await expect(jump).toHaveCount(0);
-      await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+      await expect(page).toHaveURL(/#dim-[a-z-]+-briefing$/);
 
       if (viewportName === "mobile") {
         await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
@@ -480,10 +637,12 @@ test.describe("responsive benchmark controls", () => {
   test("Defence and Trade sub-score ladders stack on mobile", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(routePath({ hash: "#dim-defence-trade-subscores" }));
+    await page.goto(routePath({ hash: "#dim-defence-trade-method" }));
 
-    const section = page.locator("#dim-defence-trade-subscores");
-    const cards = section.locator(".dim-subscore-card");
+    const { panel: section } = await expectPolicySection(page, "defence-trade", "Method");
+    const cards = section
+      .locator(".dimension-subscore-grid")
+      .locator(":scope > article, :scope > section");
     await expect(section).toBeVisible();
     await expect(cards).toHaveCount(2);
 
@@ -536,10 +695,7 @@ test.describe("v5.153 review follow-through", () => {
     test.skip(!pilot, "no dimension carries the why-not pilot fields");
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    // Deep-linking #dim-<id> auto-opens the focused desktop detail (which
-    // suppresses the collapsed header button), so assert against the
-    // already-open drawer instead of clicking.
-    await page.goto(routePath({ hash: `#dim-${pilot.id}` }));
+    await page.goto(routePath({ hash: `#dim-${pilot.id}-briefing` }));
     await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
     await expect(page.getByText("Why not higher:", { exact: false })).toHaveCount(1);
     await expect(page.getByText("Why not lower:", { exact: false })).toHaveCount(1);
@@ -562,10 +718,10 @@ test.describe("v5.153 review follow-through", () => {
   test("provenance date chip never wraps on mobile", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(routePath());
-    await page.locator(".dim-card-header-button").first().click();
-    await page.locator(".dim-show-all-button").click();
-    const chip = page.locator(".dim-trigger-setdate").first();
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
+    const chip = policyPanel(page, "housing-supply", "Briefing")
+      .locator(".dimension-trigger-band time")
+      .first();
     await expect(chip).toBeVisible();
     await expect(chip).toHaveCSS("white-space", "nowrap");
     expect(consoleErrors).toEqual([]);
@@ -576,13 +732,11 @@ test.describe("v5.152 trust surfaces", () => {
   test("trigger provenance badges render in the opened dimension", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath());
-    await page.locator(".dim-card-header-button").first().click();
-    // Open all sections so the triggers panel renders its rows.
-    await page.locator(".dim-show-all-button").click();
-    const badges = page.locator(".dim-trigger-setdate");
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
+    const badges = policyPanel(page, "housing-supply", "Briefing")
+      .locator(".dimension-trigger-band time[datetime]");
     await expect(badges.first()).toBeVisible();
-    await expect(badges.first()).toContainText(/condition set \d{4}-\d{2}-\d{2}/);
+    await expect(badges.first()).toHaveAttribute("datetime", /^\d{4}-\d{2}-\d{2}$/);
     expect(consoleErrors).toEqual([]);
   });
 
@@ -732,7 +886,7 @@ test.describe("held policy review summaries", () => {
     });
   }
 
-  test("expanded held review renders once and sources JSON retains it", async ({ page }) => {
+  test("expanded held review renders once in Briefing and sources JSON retains it", async ({ page }) => {
     expect(heldReviewDimensions.length, "the release fixture must include a held policy review")
       .toBeGreaterThan(0);
     const consoleErrors = await installConsoleGuards(page);
@@ -740,25 +894,20 @@ test.describe("held policy review summaries", () => {
 
     for (const viewport of viewports.map(([, size]) => size)) {
       await page.setViewportSize(viewport);
-      await page.goto(routePath({ hash: `#dim-${dim.id}` }));
+      await page.goto(routePath({ hash: `#dim-${dim.id}-briefing` }));
 
-      const card = page.locator(`#dim-${dim.id}`);
-      const review = card.locator(".dim-latest-review-expanded");
-      await expect(review).toBeVisible();
-      await expect(card.locator(".dim-latest-review")).toHaveCount(1);
-      await expect(card.locator(".dim-latest-review-collapsed")).toHaveCount(0);
-      await expect(review.locator(".dim-latest-review-label")).toHaveText("This review");
-      await expect(review.locator(".dim-latest-review-meta strong")).toHaveText("Grade held");
-      await expect(review.locator(".dim-latest-review-copy")).toHaveText(dim.latestReview.summary);
-      await expect(card.getByText(dim.latestReview.summary, { exact: true })).toHaveCount(1);
-      await expect(card.locator(".dim-verdict-hero .dim-last-reviewed-pill time"))
-        .toHaveText(dim.latestReview.date);
+      const { panel: briefing } = await expectPolicySection(page, dim.id, "Briefing");
+      await expect(page.getByText(dim.latestReview.summary, { exact: true })).toHaveCount(1);
+      await expectVisibleText(briefing, "Grade held");
+      await expect(briefing.locator(`time[datetime="${dim.latestReview.date}"]`).first())
+        .toBeVisible();
+      await expectNoNestedDisclosures(briefing);
       await expectNoOverflow(page);
     }
 
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: `#dim-${dim.id}` }));
-    await page.locator(`#dim-${dim.id}-sources-button`).click();
+    await page.goto(routePath({ hash: `#dim-${dim.id}-evidence` }));
+    await expectPolicySection(page, dim.id, "Evidence");
     const download = page.getByRole("link", { name: "Download sources as JSON" });
     await expect(download).toBeVisible();
     const href = await download.getAttribute("href");
@@ -767,16 +916,17 @@ test.describe("held policy review summaries", () => {
     expect(consoleErrors).toEqual([]);
   });
 
-  test("Housing expanded detail relies on its full Decision Brief instead of repeating the compact hold", async ({ page }) => {
+  test("Housing keeps the compact hold singular and the dated evidence record in History", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
 
-    const housing = page.locator("#dim-housing-supply");
-    await expect(housing.locator(".dim-latest-review-expanded")).toHaveCount(0);
-    await expect(housing.locator(".dim-decision-brief")).toBeVisible();
+    await expectPolicySection(page, housingDimension.id, "Briefing");
+    await expect(page.getByText(housingDimension.latestReview.summary, { exact: true }))
+      .toHaveCount(1);
+    const { panel: history } = await selectPolicySection(page, housingDimension.id, "History");
     await expect(
-      housing.getByText(housingDimension.latestEvidenceReview.outcome, { exact: true }),
+      history.getByText(housingDimension.latestEvidenceReview.outcome, { exact: true }),
     ).toHaveCount(1);
     await expectNoOverflow(page);
     expect(consoleErrors).toEqual([]);
@@ -829,33 +979,514 @@ test("grade-move callout routes to the exact change note when a current grade mo
   expect(consoleErrors).toEqual([]);
 });
 
-test.describe("dimension evidence deep links", () => {
-  for (const [viewportName, viewport] of viewports) {
-    test(`root ${viewportName} Major Projects sources link opens and focuses`, async ({ page }, testInfo) => {
-      const consoleErrors = await installConsoleGuards(page);
-      await page.setViewportSize(viewport);
-      if (testInfo.project.name.includes("reduced-motion")) {
-        await page.emulateMedia({ reducedMotion: "reduce" });
-      }
-      await page.goto(routePath({ hash: "#dim-major-projects-sources" }));
+test.describe("approved dimension workspace architecture", () => {
+  test("Housing Briefing is complete and its dated evidence review is available in History", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
 
-      await expectAppShell(page);
-      await expectVisibleVersion(page);
-      await expect(page.locator("#dim-major-projects-sources-button")).toBeVisible();
-      await expect.poll(async () => page.evaluate(() => document.activeElement?.id || "")).toBe(
-        "dim-major-projects-sources-button",
-      );
-      await expect(page.locator("#dim-major-projects-title")).toBeVisible();
-      await expect(page.locator("#dim-major-projects-sources-button")).toContainText("Sources");
+    const { panel: briefing } = await expectPolicySection(
+      page,
+      housingDimension.id,
+      "Briefing",
+    );
+    await expect(briefing.getByText(housingDimension.grade, { exact: true }).first()).toBeVisible();
+    await expectVisibleText(briefing, housingDimension.verdictLine);
+    await expect(page.getByText(housingDimension.latestReview.summary, { exact: true }))
+      .toHaveCount(1);
+
+    for (const metric of housingDimension.metrics.filter((item) => item.lead)) {
+      await expectVisibleText(briefing, metric.label);
+      await expectVisibleText(briefing, metric.value);
+    }
+    await expectVisibleText(briefing, housingDimension.gradeBasis.whyNotHigher);
+    await expectVisibleText(briefing, housingDimension.gradeBasis.whyNotLower);
+    await expectVisibleText(briefing, housingDimension.judgmentCall);
+
+    const triggerBand = briefing.locator(".dimension-trigger-band");
+    await expect(triggerBand).toBeVisible();
+    for (const trigger of [
+      ...housingDimension.gradeTriggers.up,
+      ...housingDimension.gradeTriggers.down,
+    ]) {
+      await expectVisibleText(triggerBand, trigger.text);
+      await expect(
+        triggerBand.getByRole("link", { name: trigger.sourceLabel, exact: true }).first(),
+      ).toHaveAttribute("href", trigger.sourceUrl);
+      await expect(triggerBand.locator(`time[datetime="${trigger.setDate}"]`).first())
+        .toBeVisible();
+    }
+    await expectNoNestedDisclosures(briefing);
+
+    const { panel: history } = await selectPolicySection(page, housingDimension.id, "History");
+    await expectVisibleText(history, housingDimension.latestEvidenceReview.title);
+    await expectVisibleText(history, housingDimension.latestEvidenceReview.triggerUnderReview);
+    await expectVisibleText(history, housingDimension.latestEvidenceReview.scorecardRead);
+    await expectVisibleText(history, housingDimension.latestEvidenceReview.outcome);
+    for (const evidence of [
+      ...housingDimension.latestEvidenceReview.evidenceEarningCredit,
+      ...housingDimension.latestEvidenceReview.evidenceLimitingCredit,
+    ]) {
+      await expectVisibleText(history, evidence.text);
+      await expect(
+        history.getByRole("link", { name: evidence.sourceLabel, exact: true }).first(),
+      ).toHaveAttribute("href", evidence.sourceUrl);
+    }
+    for (const pageChecked of housingDimension.latestEvidenceReview.pagesChecked) {
+      await expect(
+        history.getByRole("link", { name: pageChecked.label, exact: true }).first(),
+      ).toHaveAttribute("href", pageChecked.url);
+    }
+    await expectNoNestedDisclosures(history);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("Defence and Trade keeps flat lead metrics and groups both sub-scores in Method", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-defence-trade-method" }));
+
+    const { panel: method } = await expectPolicySection(
+      page,
+      defenceTradeDimension.id,
+      "Method",
+    );
+    const subScoreGrid = method.locator(".dimension-subscore-grid");
+    const subScoreCards = subScoreGrid.locator(":scope > article, :scope > section");
+    await expect(subScoreGrid).toBeVisible();
+    await expect(subScoreCards).toHaveCount(Object.keys(defenceTradeDimension.subScores).length);
+
+    for (const subScore of Object.values(defenceTradeDimension.subScores)) {
+      const card = subScoreCards.filter({ hasText: subScore.label });
+      await expect(card).toHaveCount(1);
+      await expect(card.getByText(subScore.grade, { exact: true }).first()).toBeVisible();
+      await expectVisibleText(card, subScore.rationale);
+      for (const threshold of subScore.thresholds) {
+        await expectVisibleText(card, threshold.criteria);
+      }
+    }
+    await expectNoNestedDisclosures(method);
+
+    const { panel: briefing } = await selectPolicySection(
+      page,
+      defenceTradeDimension.id,
+      "Briefing",
+    );
+    for (const metric of defenceTradeDimension.metrics.filter((item) => item.lead)) {
+      await expectVisibleText(briefing, metric.label);
+      await expectVisibleText(briefing, metric.value);
+    }
+    await expect(briefing.locator(".dimension-subscore-grid")).toHaveCount(0);
+    await expectNoNestedDisclosures(briefing);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("Promise Delivery follows the informational tracker path without grade-only sections", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    expect(promiseDeliveryDimension.excludeFromGPA).toBe(true);
+    expect(promiseDeliveryDimension.latestEvidenceReview).toBeUndefined();
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-promise-delivery-briefing" }));
+
+    const { panel: briefing } = await expectPolicySection(
+      page,
+      promiseDeliveryDimension.id,
+      "Briefing",
+    );
+    await expect(
+      briefing.getByText(promiseDeliveryDimension.informationalGrade, { exact: true }).first(),
+    ).toBeVisible();
+    await expect(briefing).toContainText(/tracker/i);
+    await expect(briefing).toContainText(/outside (?:the )?GPA|not included in headline scores/i);
+    await expect(page.getByText("Why not higher:", { exact: false })).toHaveCount(0);
+    await expect(page.getByText("Why not lower:", { exact: false })).toHaveCount(0);
+    await expect(page.getByText("Where editor judgment enters:", { exact: false })).toHaveCount(0);
+    await expectNoNestedDisclosures(briefing);
+
+    const { panel: history } = await selectPolicySection(
+      page,
+      promiseDeliveryDimension.id,
+      "History",
+    );
+    await expect(history).toBeVisible();
+    await expect(history.getByRole("alert")).toHaveCount(0);
+    await expectNoNestedDisclosures(history);
+
+    const { panel: method } = await selectPolicySection(
+      page,
+      promiseDeliveryDimension.id,
+      "Method",
+    );
+    for (const modifier of promiseDeliveryDimension.gradeBasis.activeModifiers) {
+      await expectVisibleText(method, modifier.status);
+      await expectVisibleText(method, modifier.reason);
+    }
+    await expectNoNestedDisclosures(method);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("Flagship Method retains its combination rule and an ordinary policy tolerates empty History", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-execution-delivery-method" }));
+
+    const { panel: flagshipMethod } = await expectPolicySection(
+      page,
+      flagshipDeliveryDimension.id,
+      "Method",
+    );
+    await expectCanonicalMethod(flagshipMethod, flagshipDeliveryDimension);
+    await expectVisibleText(flagshipMethod, flagshipDeliveryDimension.gradeBasis
+      .combinationRule.currentDistribution);
+    await expectVisibleText(flagshipMethod, flagshipDeliveryDimension.gradeBasis
+      .combinationRule.currentGradeFromRule);
+    await expect(flagshipMethod.getByText(/Combination Rule/i).first()).toBeVisible();
+    await expectNoNestedDisclosures(flagshipMethod);
+
+    expect(ordinaryGradedDimension.latestEvidenceReview).toBeUndefined();
+    await page.goto(routePath({ hash: `#dim-${ordinaryGradedDimension.id}-briefing` }));
+    const { panel: ordinaryBriefing } = await expectPolicySection(
+      page,
+      ordinaryGradedDimension.id,
+      "Briefing",
+    );
+    await expect(
+      ordinaryBriefing.getByText(ordinaryGradedDimension.grade, { exact: true }).first(),
+    ).toBeVisible();
+    await expectVisibleText(ordinaryBriefing, ordinaryGradedDimension.verdictLine);
+    for (const metric of ordinaryGradedDimension.metrics.filter((item) => item.lead)) {
+      await expectVisibleText(ordinaryBriefing, metric.label);
+    }
+    const { panel: ordinaryHistory } = await selectPolicySection(
+      page,
+      ordinaryGradedDimension.id,
+      "History",
+    );
+    await expect(ordinaryHistory.getByRole("alert")).toHaveCount(0);
+    await expectNoNestedDisclosures(ordinaryHistory);
+    const { panel: ordinaryMethod } = await selectPolicySection(
+      page,
+      ordinaryGradedDimension.id,
+      "Method",
+    );
+    await expectCanonicalMethod(ordinaryMethod, ordinaryGradedDimension);
+    await expectNoNestedDisclosures(ordinaryMethod);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("Evidence and Method retain canonical content without nested disclosures", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-major-projects-evidence" }));
+
+    const { panel: evidence } = await expectPolicySection(
+      page,
+      majorProjectsDimension.id,
+      "Evidence",
+    );
+    await expectCanonicalEvidence(evidence, majorProjectsDimension);
+    await expectNoNestedDisclosures(evidence);
+
+    const { panel: method } = await selectPolicySection(
+      page,
+      majorProjectsDimension.id,
+      "Method",
+    );
+    await expectCanonicalMethod(method, majorProjectsDimension);
+    await expectNoNestedDisclosures(method);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("internal trigger sources reach cohort, scorecard, and Promises targets", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+
+    const cohortTrigger = [
+      ...majorProjectsDimension.gradeTriggers.up,
+      ...majorProjectsDimension.gradeTriggers.down,
+    ].find((trigger) => trigger.internalRef?.type === "cohort");
+    await page.goto(routePath({ hash: "#dim-major-projects-evidence" }));
+    await expectPolicySection(page, majorProjectsDimension.id, "Evidence");
+    const cohortControls = page.locator("#dim-major-projects-evidence button.text-link-button")
+      .filter({ hasText: cohortTrigger.sourceLabel });
+    expect(await cohortControls.count()).toBeGreaterThan(0);
+    await cohortControls.first().click();
+    await expect(page).toHaveURL(/#dim-major-projects-cohort$/);
+    await expect(page.locator("#dim-major-projects-cohort")).toBeFocused();
+
+    const anchorTrigger = [
+      ...flagshipDeliveryDimension.gradeTriggers.up,
+      ...flagshipDeliveryDimension.gradeTriggers.down,
+    ].find((trigger) => trigger.internalRef?.type === "anchor");
+    await page.goto(routePath({ hash: "#dim-execution-delivery-evidence" }));
+    await expectPolicySection(page, flagshipDeliveryDimension.id, "Evidence");
+    const anchorControls = page.locator("#dim-execution-delivery-evidence button.text-link-button")
+      .filter({ hasText: anchorTrigger.sourceLabel });
+    expect(await anchorControls.count()).toBeGreaterThan(0);
+    await anchorControls.first().click();
+    await expect(page).toHaveURL(/#scorecard-dimension-grid$/);
+    await expect(page.locator("#scorecard-dimension-grid")).toBeFocused();
+    await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+
+    const viewTrigger = [
+      ...promiseDeliveryDimension.gradeTriggers.up,
+      ...promiseDeliveryDimension.gradeTriggers.down,
+    ].find((trigger) => trigger.internalRef?.type === "view");
+    await page.goto(routePath({ hash: "#dim-promise-delivery-evidence" }));
+    await expectPolicySection(page, promiseDeliveryDimension.id, "Evidence");
+    const viewControls = page.locator("#dim-promise-delivery-evidence button.text-link-button")
+      .filter({ hasText: viewTrigger.sourceLabel });
+    expect(await viewControls.count()).toBeGreaterThan(0);
+    await viewControls.first().click();
+    await expect(page).toHaveURL(/#view-promises$/);
+    await expect(page.locator("#view-promises")).toBeFocused();
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("an internal scorecard anchor preserves its target from a card-owned history entry", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    const initialHistoryLength = await page.evaluate(() => window.history.length);
+
+    await page.locator("#dim-execution-delivery .dim-card-header-button").click();
+    await expectPolicySection(page, flagshipDeliveryDimension.id, "Briefing");
+    expect(await page.evaluate(() => window.history.length)).toBe(initialHistoryLength + 1);
+
+    const { panel: evidence } = await selectPolicySection(
+      page,
+      flagshipDeliveryDimension.id,
+      "Evidence",
+    );
+    const anchorTrigger = [
+      ...flagshipDeliveryDimension.gradeTriggers.up,
+      ...flagshipDeliveryDimension.gradeTriggers.down,
+    ].find((trigger) => trigger.internalRef?.type === "anchor");
+    const anchorControl = evidence.locator("button.text-link-button")
+      .filter({ hasText: anchorTrigger.sourceLabel });
+    expect(await anchorControl.count()).toBeGreaterThan(0);
+    await anchorControl.first().click();
+
+    await expect(page).toHaveURL(/#scorecard-dimension-grid$/);
+    await expect(page.locator("#scorecard-dimension-grid")).toBeFocused();
+    await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+    expect(await page.evaluate(() => window.history.state?.dimModal ?? null)).toBeNull();
+    expect(await page.evaluate(() => window.history.length)).toBe(initialHistoryLength + 1);
+
+    const sidebar = page.locator(".app-workspace-sidebar");
+    await sidebar.getByRole("button", { name: "Promises" }).click();
+    await expect(page).toHaveURL(/#view-promises$/);
+    await expect(page.locator("#view-promises")).toBeFocused();
+
+    await page.goBack();
+    await expect(page).toHaveURL(/#scorecard-dimension-grid$/);
+    await expect(page.locator("#scorecard-dimension-grid")).toBeFocused();
+    await expectActiveNav(page, "Scorecard");
+
+    await page.goBack();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("the skip link keeps a non-Scorecard view mounted", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-promises" }));
+    await expect(page.locator(".app-promise-tracker")).toBeVisible();
+    await expect(page.locator("#view-promises")).toBeFocused();
+    await expectActiveNav(page, "Promises");
+
+    const skipLink = page.getByRole("link", { name: "Skip to main content" });
+    await skipLink.focus();
+    await expect(skipLink).toBeFocused();
+    await page.keyboard.press("Enter");
+
+    await expect(page).toHaveURL(/#main-content$/);
+    await expect(page.locator("#main-content")).toBeFocused();
+    await expect(page.locator(".app-promise-tracker")).toBeVisible();
+    await expectActiveNav(page, "Promises");
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("forced-colors keeps the active workspace view and focus distinguishable", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.emulateMedia({ forcedColors: "active" });
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
+
+    expect(await page.evaluate(() => window.matchMedia("(forced-colors: active)").matches))
+      .toBe(true);
+    const currentControl = policySectionControl(page, "Briefing");
+    await expect(currentControl).toHaveAttribute("aria-current", "page");
+    await expect(currentControl).toBeFocused();
+
+    const styles = await page.evaluate(() => {
+      const current = document.querySelector('.dimension-workspace-tab[aria-current="page"]');
+      const inactive = Array.from(document.querySelectorAll(".dimension-workspace-tab"))
+        .find((control) => !control.hasAttribute("aria-current"));
+      const currentStyle = getComputedStyle(current);
+      const inactiveStyle = getComputedStyle(inactive);
+      return {
+        forcedColorAdjust: currentStyle.forcedColorAdjust,
+        currentBackground: currentStyle.backgroundColor,
+        inactiveBackground: inactiveStyle.backgroundColor,
+        currentColor: currentStyle.color,
+        inactiveColor: inactiveStyle.color,
+        outlineStyle: currentStyle.outlineStyle,
+        outlineWidth: currentStyle.outlineWidth,
+      };
+    });
+
+    expect(styles.forcedColorAdjust).toBe("none");
+    expect(styles.currentBackground).not.toBe(styles.inactiveBackground);
+    expect(styles.currentColor).not.toBe(styles.inactiveColor);
+    expect(styles.outlineStyle).not.toBe("none");
+    expect(styles.outlineWidth).not.toBe("0px");
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("desktop panel navigation replaces history and policy switching returns to Briefing", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    const scoredPolicies = dimensions.filter((dim) => !dim.excludeFromGPA);
+    const housingIndex = scoredPolicies.findIndex((dim) => dim.id === housingDimension.id);
+    const previousPolicy = scoredPolicies[(housingIndex - 1 + scoredPolicies.length) % scoredPolicies.length];
+    const nextPolicy = scoredPolicies[(housingIndex + 1) % scoredPolicies.length];
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    const housingHeader = page.locator("#dim-housing-supply-header");
+    await housingHeader.focus();
+    await housingHeader.click();
+    await expect(page).toHaveURL(/#dim-housing-supply-briefing$/);
+    await expect(page.locator("#dim-housing-supply-title")).toBeFocused();
+    await expectPolicySection(page, housingDimension.id, "Briefing");
+    const dimensionEntryLength = await page.evaluate(() => window.history.length);
+
+    for (const section of ["Evidence", "History", "Method"]) {
+      const { currentControl } = await selectPolicySection(page, housingDimension.id, section);
+      await expect(currentControl).toBeFocused();
+      expect(await page.evaluate(() => window.history.length)).toBe(dimensionEntryLength);
+    }
+
+    await page.goBack();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect(page.locator("#scorecard-dimension-grid")).toBeVisible();
+    await expect(housingHeader).toBeFocused();
+
+    await housingHeader.click();
+    await page.getByRole("button", { name: `Next policy: ${nextPolicy.name}` }).click();
+    await expect(page).toHaveURL(new RegExp(`#dim-${nextPolicy.id}-briefing$`));
+    await expect(page.locator(`#dim-${nextPolicy.id}-title`)).toBeFocused();
+    await expectPolicySection(page, nextPolicy.id, "Briefing");
+
+    await page.getByRole("button", { name: `Previous policy: ${housingDimension.name}` }).click();
+    await page.getByRole("button", { name: `Previous policy: ${previousPolicy.name}` }).click();
+    await expect(page).toHaveURL(new RegExp(`#dim-${previousPolicy.id}-briefing$`));
+    await expectPolicySection(page, previousPolicy.id, "Briefing");
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("mobile workspace is full-screen, locked, navigable, and exits with Escape, Close, or Back", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    const housingHeader = page.locator("#dim-housing-supply-header");
+
+    const openHousing = async () => {
+      await housingHeader.scrollIntoViewIfNeeded();
+      await housingHeader.click();
+      await expect(page).toHaveURL(/#dim-housing-supply-briefing$/);
+      const dialog = page.locator('[role="dialog"][aria-modal="true"]');
+      await expect(dialog).toBeVisible();
+      await expect.poll(async () => dialog.evaluate((node) => {
+        const rect = node.getBoundingClientRect();
+        return (
+          rect.left <= 1
+          && rect.top <= 1
+          && rect.right >= window.innerWidth - 1
+          && rect.bottom >= window.innerHeight - 1
+          && rect.right <= window.innerWidth + 1
+          && rect.bottom <= window.innerHeight + 1
+        );
+      })).toBe(true);
+      await expect.poll(async () => page.evaluate(() => (
+        getComputedStyle(document.body).overflow === "hidden"
+        || document.body.style.position === "fixed"
+      ))).toBe(true);
+      await expectPolicySection(page, housingDimension.id, "Briefing");
       await expectNoOverflow(page);
+      return dialog;
+    };
 
-      if (viewportName === "mobile") {
-        await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
-      }
+    await openHousing();
+    await selectPolicySection(page, housingDimension.id, "Method");
+    await page.keyboard.press("Escape");
+    await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect(housingHeader).toBeFocused();
 
+    await openHousing();
+    await page.getByRole("button", { name: "Close", exact: true }).click();
+    await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
+    await expect(page).toHaveURL(/#view-scorecard$/);
+
+    await openHousing();
+    const dimensionEntryLength = await page.evaluate(() => window.history.length);
+    await selectPolicySection(page, housingDimension.id, "Evidence");
+    expect(await page.evaluate(() => window.history.length)).toBe(dimensionEntryLength);
+    await page.goBack();
+    await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect.poll(async () => page.evaluate(() => (
+      getComputedStyle(document.body).overflow !== "hidden"
+      && document.body.style.position !== "fixed"
+    ))).toBe(true);
+    await expect(housingHeader).toBeFocused();
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  for (const legacyRoute of [
+    { hash: "#dim-housing-supply", dimensionId: "housing-supply", section: "Briefing" },
+    { hash: "#dim-housing-supply-triggers-section", dimensionId: "housing-supply", section: "Briefing" },
+    { hash: "#dim-defence-trade-headline-title", dimensionId: "defence-trade", section: "Briefing" },
+    { hash: "#dim-major-projects-sources", dimensionId: "major-projects", section: "Evidence" },
+    { hash: "#dim-major-projects-cohort-table", dimensionId: "major-projects", section: "Evidence" },
+    { hash: "#dim-promise-delivery-tracker-triggers", dimensionId: "promise-delivery", section: "Evidence" },
+    { hash: "#dim-defence-trade-subscores", dimensionId: "defence-trade", section: "Method" },
+    { hash: "#dim-housing-supply-scoring", dimensionId: "housing-supply", section: "Method" },
+  ]) {
+    test(`legacy ${legacyRoute.hash} routes to ${legacyRoute.section}`, async ({ page }) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize({ width: 1280, height: 900 });
+      await page.goto(routePath({ hash: legacyRoute.hash }));
+
+      await expect(page).toHaveURL(new RegExp(
+        `#dim-${legacyRoute.dimensionId}-${legacyRoute.section.toLowerCase()}$`,
+      ));
+      await expectPolicySection(page, legacyRoute.dimensionId, legacyRoute.section);
+      await expectNoOverflow(page);
       expect(consoleErrors).toEqual([]);
     });
   }
+
+  test("a mobile legacy Evidence link canonicalizes and focuses its view control", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 375, height: 812 });
+    await page.goto(routePath({ hash: "#dim-major-projects-sources" }));
+
+    await expect(page).toHaveURL(/#dim-major-projects-evidence$/);
+    const { currentControl } = await expectPolicySection(page, majorProjectsDimension.id, "Evidence");
+    await expect(currentControl).toBeFocused();
+    await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
 });
 
 test.describe("retired classic route", () => {
@@ -912,7 +1543,7 @@ test.describe("v5.154 legibility wave", () => {
   test("why-not lines render once on a non-pilot dimension", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-fiscal-health" }));
+    await page.goto(routePath({ hash: "#dim-fiscal-health-briefing" }));
 
     await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
     await expect(page.getByText("Why not higher:")).toHaveCount(1);
@@ -924,8 +1555,8 @@ test.describe("v5.154 legibility wave", () => {
   });
 });
 
-test.describe("drawer history and contextual share contract", () => {
-  test("Housing decision brief separates the dated evidence record on desktop and mobile", async ({ page }) => {
+test.describe("dimension workspace history and contextual share contract", () => {
+  test("Housing separates the dated evidence record from canonical evidence on desktop and mobile", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
 
     for (const viewport of [
@@ -933,21 +1564,28 @@ test.describe("drawer history and contextual share contract", () => {
       { width: 375, height: 812 },
     ]) {
       await page.setViewportSize(viewport);
-      await page.goto(routePath({ hash: "#dim-housing-supply" }));
+      await page.goto(routePath({ hash: "#dim-housing-supply-history" }));
 
-      const brief = page.locator(".dim-decision-brief");
-      await expect(brief).toBeVisible();
-      await expect(brief.getByText("Latest evidence review", { exact: true })).toBeVisible();
-      await expect(brief.locator(".dim-review-evidence-credit")).toContainText("Evidence earning credit");
-      await expect(brief.locator(".dim-review-evidence-limit")).toContainText("Evidence limiting credit");
-      await expect(brief.locator(".dim-review-unproven")).toContainText("Still unproven");
-      await expect(brief.locator(".dim-review-readout")).toContainText("Review outcome");
-      await expect(brief.locator(".dim-review-pages summary"))
-        .toHaveText(`Official pages checked (${housingDimension.latestEvidenceReview.pagesChecked.length})`);
-      await page.locator("#dim-housing-supply-sources-button").click();
-      await expect(page.locator(".dim-source-table thead th")).toHaveCount(3);
-      await expect(page.locator(".dim-source-table thead")).not.toContainText("Tier");
-      await expect(page.locator(".dim-tier-chip, .dim-source-stack-legend")).toHaveCount(0);
+      const { panel: history } = await expectPolicySection(page, housingDimension.id, "History");
+      await expectVisibleText(history, "Evidence earning credit");
+      await expectVisibleText(history, "Evidence limiting credit");
+      await expectVisibleText(history, "Still unproven");
+      await expectVisibleText(history, housingDimension.latestEvidenceReview.outcome);
+      for (const pageChecked of housingDimension.latestEvidenceReview.pagesChecked) {
+        await expect(
+          history.getByRole("link", { name: pageChecked.label, exact: true }).first(),
+        ).toHaveAttribute("href", pageChecked.url);
+      }
+      await expectNoNestedDisclosures(history);
+
+      const { panel: evidence } = await selectPolicySection(page, housingDimension.id, "Evidence");
+      for (const source of housingDimension.sources) {
+        await expect(
+          evidence.getByRole("link", { name: source.label, exact: true }).first(),
+        ).toHaveAttribute("href", source.url);
+      }
+      await expect(evidence.getByText("Tier", { exact: true })).toHaveCount(0);
+      await expectNoNestedDisclosures(evidence);
       await expectNoOverflow(page);
     }
 
@@ -967,7 +1605,7 @@ test.describe("drawer history and contextual share contract", () => {
     await page.locator("#dim-housing-supply-header").click();
     await page.getByRole("button", { name: `Next policy: ${nextHousingPolicy.name}` }).click();
 
-    await expect(page).toHaveURL(new RegExp(`#dim-${nextHousingPolicy.id}$`));
+    await expect(page).toHaveURL(new RegExp(`#dim-${nextHousingPolicy.id}-briefing$`));
     await expect(page.locator(`#dim-${nextHousingPolicy.id}-title`)).toBeFocused();
     await expect(page.locator(".app-policy-navigation-announcer"))
       .toHaveText(`${nextHousingPolicy.name}, grade ${nextHousingPolicy.grade}`);
@@ -982,14 +1620,14 @@ test.describe("drawer history and contextual share contract", () => {
     await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
     await expect(page).toHaveURL(/#view-scorecard$/);
 
-    await page.goto(routePath({ hash: `#dim-${firstPolicy.id}` }));
+    await page.goto(routePath({ hash: `#dim-${firstPolicy.id}-briefing` }));
     await page.getByRole("button", { name: `Previous policy: ${lastPolicy.name}` }).click();
-    await expect(page).toHaveURL(new RegExp(`#dim-${lastPolicy.id}$`));
+    await expect(page).toHaveURL(new RegExp(`#dim-${lastPolicy.id}-briefing$`));
     await page.locator(".dim-drawer-close").click();
     await expect(page).toHaveURL(/#view-scorecard$/);
 
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
     await expect(page.locator(".dim-policy-switcher")).toHaveCount(0);
     await expectNoOverflow(page);
     expect(consoleErrors).toEqual([]);
@@ -1005,7 +1643,7 @@ test.describe("drawer history and contextual share contract", () => {
     await cardHeader.focus();
     const scrollBeforeOpen = await page.evaluate(() => window.scrollY);
     await page.keyboard.press("Enter");
-    await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+    await expect(page).toHaveURL(/#dim-[a-z-]+-briefing$/);
     await expect(page.locator('[role="dialog"][aria-modal="true"]')).toBeVisible();
 
     // The back-gesture invariant: browser Back (the same history traversal an
@@ -1042,7 +1680,7 @@ test.describe("drawer history and contextual share contract", () => {
     const scrollBeforeOpen = await page.evaluate(() => window.scrollY);
     await cardHeader.click();
     await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
-    await expect(page).toHaveURL(/#dim-[a-z-]+$/);
+    await expect(page).toHaveURL(/#dim-[a-z-]+-briefing$/);
 
     await page.goBack();
     await expect(page.locator(".desktop-focused-detail-wrap")).toHaveCount(0);
@@ -1065,7 +1703,7 @@ test.describe("drawer history and contextual share contract", () => {
   test("deep-link arrival close stays on the site and lands on the scorecard URL", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-fiscal-health" }));
+    await page.goto(routePath({ hash: "#dim-fiscal-health-briefing" }));
 
     await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
     // No in-app entry precedes a deep-link arrival, so the close control must
@@ -1076,6 +1714,27 @@ test.describe("drawer history and contextual share contract", () => {
     await expectAppShell(page);
     await expect(page).toHaveURL(/#view-scorecard$/);
     await expectActiveNav(page, "Scorecard");
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("a card reopened after a direct panel link starts on Briefing", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.goto(routePath({ hash: "#dim-major-projects-evidence" }));
+
+    await expectPolicySection(page, majorProjectsDimension.id, "Evidence");
+    await page.getByRole("button", { name: "Close", exact: true }).click();
+    await expect(page).toHaveURL(/#view-scorecard$/);
+
+    await page.locator("#dim-major-projects-header").click();
+    await expect(page).toHaveURL(/#dim-major-projects-briefing$/);
+    await expectPolicySection(
+      page,
+      majorProjectsDimension.id,
+      "Briefing",
+    );
+    await expect(page.locator("#dim-major-projects-title")).toBeFocused();
     await expectNoOverflow(page);
     expect(consoleErrors).toEqual([]);
   });
@@ -1105,7 +1764,7 @@ test.describe("drawer history and contextual share contract", () => {
     await page.goto(routePath({ hash: "#view-scorecard" }));
 
     await page.locator("#dim-housing-supply-header").click();
-    await expect(page).toHaveURL(/#dim-housing-supply$/);
+    await expect(page).toHaveURL(/#dim-housing-supply-briefing$/);
     const deepLink = page.url();
 
     await page.getByRole("button", { name: "Share this card" }).click();
@@ -1138,7 +1797,7 @@ test.describe("drawer history and contextual share contract", () => {
       });
     });
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
 
     await page.getByRole("button", { name: "Share this card" }).click();
     const sharePayload = await page.evaluate(() => window.__dashboardSharePayload);
@@ -1171,7 +1830,7 @@ test.describe("drawer history and contextual share contract", () => {
       });
     });
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-promise-delivery" }));
+    await page.goto(routePath({ hash: "#dim-promise-delivery-briefing" }));
 
     await page.getByRole("button", { name: "Share this card" }).click();
     const sharePayload = await page.evaluate(() => window.__dashboardSharePayload);
@@ -1199,7 +1858,7 @@ test.describe("drawer history and contextual share contract", () => {
       });
     });
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
 
     await page.getByRole("button", { name: "Share this card" }).click();
     await expect(page.getByText("Share text copied", { exact: true })).toBeVisible();
@@ -1227,7 +1886,7 @@ test.describe("drawer history and contextual share contract", () => {
       });
     });
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
     await page.evaluate(() => navigator.clipboard.writeText("keep existing clipboard"));
 
     await page.getByRole("button", { name: "Share this card" }).click();
@@ -1253,7 +1912,7 @@ test.describe("drawer history and contextual share contract", () => {
       });
     });
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-housing-supply" }));
+    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
 
     await page.getByRole("button", { name: "Share this card" }).click();
     await expect(page.getByText("Share text copied", { exact: true })).toHaveCount(0);
@@ -1290,7 +1949,11 @@ test.describe("drawer history and contextual share contract", () => {
 
   for (const destination of [
     { hash: "#view-promises", nav: "Promises", selector: ".app-promise-tracker" },
-    { hash: "#dim-fiscal-health", nav: "Scorecard", selector: "#dim-fiscal-health-title" },
+    {
+      hash: "#dim-fiscal-health-method",
+      nav: "Scorecard",
+      selector: "#dim-fiscal-health-method",
+    },
     {
       hash: "#change-2026-05-13-fiscal-health-0",
       nav: "Changes",
@@ -1362,7 +2025,8 @@ test.describe("v5.155 deferred route integrity", () => {
     expect(detailRequests).toHaveLength(0);
 
     await page.locator(".dim-card-header-button").first().click();
-    await expect(page.locator(".dim-evidence-panel")).toBeVisible();
+    await expect(policyDetailNavigation(page)).toBeVisible();
+    await expect(policySectionControl(page, "Briefing")).toHaveAttribute("aria-current", /.+/);
     expect(detailRequests).toHaveLength(1);
     expect(consoleErrors).toEqual([]);
   });
@@ -1377,9 +2041,9 @@ test.describe("v5.155 deferred route integrity", () => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(routePath({ hash: "#dim-major-projects-sources" }));
 
-    await expect(page.locator("#dim-major-projects-sources-button")).toBeVisible();
-    await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
-      .toBe("dim-major-projects-sources-button");
+    await expect(page).toHaveURL(/#dim-major-projects-evidence$/);
+    const { currentControl } = await expectPolicySection(page, "major-projects", "Evidence");
+    await expect(currentControl).toBeFocused();
     expect(consoleErrors).toEqual([]);
   });
 
@@ -1387,7 +2051,7 @@ test.describe("v5.155 deferred route integrity", () => {
     { name: "desktop", width: 1280, height: 900 },
     { name: "mobile", width: 375, height: 812 },
   ]) {
-    test(`a delayed policy-detail load keeps focus inside the ${viewport.name} drawer`, async ({ page }) => {
+    test(`a delayed policy-detail load keeps focus inside the ${viewport.name} workspace`, async ({ page }) => {
       await page.route("**/assets/dimensions-*.json", async (route) => {
         const response = await route.fetch();
         await new Promise((resolve) => setTimeout(resolve, 750));
@@ -1397,9 +2061,12 @@ test.describe("v5.155 deferred route integrity", () => {
       await page.goto(routePath({ hash: "#view-scorecard" }));
 
       await page.locator(".dim-card-header-button").first().click();
-      await expect(page.locator(".dim-evidence-panel")).toBeVisible();
-      await expect.poll(async () => page.evaluate(() => (
-        document.activeElement?.classList.contains("dim-drawer") || false
+      await expect(policyDetailNavigation(page)).toBeVisible();
+      const workspace = viewport.name === "mobile"
+        ? page.locator('[role="dialog"][aria-modal="true"]')
+        : page.locator(".desktop-focused-detail-wrap");
+      await expect.poll(async () => workspace.evaluate((node) => (
+        node.contains(document.activeElement)
       ))).toBe(true);
     });
   }
@@ -1417,7 +2084,8 @@ test.describe("v5.155 deferred route integrity", () => {
 
     await page.unroute(dimensionsPattern, failDetails);
     await page.getByRole("button", { name: "Try again" }).click();
-    await expect(page.locator(".dim-evidence-panel")).toBeVisible();
+    await expect(policyDetailNavigation(page)).toBeVisible();
+    await expect(policySectionControl(page, "Briefing")).toHaveAttribute("aria-current", /.+/);
   });
 
   test("a failed Promises data request stays contained and can retry", async ({ page }) => {

@@ -22,6 +22,13 @@ const GRADE_ORDER = [
   "F",
 ];
 
+const WORKSPACE_PANELS = [
+  { id: "briefing", label: "Briefing" },
+  { id: "evidence", label: "Evidence" },
+  { id: "history", label: "History" },
+  { id: "method", label: "Method" },
+];
+
 function normalizeTrigger(trigger) {
   if (!trigger) return null;
   if (typeof trigger === "string") return { text: trigger };
@@ -69,26 +76,70 @@ function findActiveThresholdRow(thresholds, grade) {
   return thresholds.find((row) => baseGrade(row.grade) === baseGrade(grade)) || null;
 }
 
-function sectionKeysForTargetFromDefinitions(target, sectionDefinitions) {
-  if (!target) return [];
-  const match = sectionDefinitions.find((section) => section.targets.includes(target));
-  return match ? match.keys : [];
-}
-
 function targetBelongsToDimension(target, dimId) {
   return target === `dim-${dimId}` || target.startsWith(`dim-${dimId}-`);
 }
 
-function focusDisclosureButtonForTarget(target) {
-  if (!target) return;
-  const button = document.getElementById(`${target}-button`);
-  if (button && typeof button.focus === "function") {
-    button.focus({ preventScroll: true });
-    return;
-  }
-  const targetElement = document.getElementById(target);
-  if (targetElement && typeof targetElement.focus === "function") {
-    targetElement.focus({ preventScroll: true });
+function workspacePanelAnchor(dimId, panel) {
+  return `dim-${dimId}-${panel}`;
+}
+
+function workspacePanelForTarget(target, dimId) {
+  if (!targetBelongsToDimension(target, dimId)) return "briefing";
+
+  const prefix = `dim-${dimId}`;
+  const evidenceTargets = [
+    `${prefix}-evidence`,
+    `${prefix}-metrics`,
+    `${prefix}-sources`,
+    `${prefix}-promises`,
+    `${prefix}-cohort`,
+    `${prefix}-cohort-list`,
+    `${prefix}-cohort-table`,
+    `${prefix}-perspectives-section`,
+    `${prefix}-latest-evidence`,
+    `${prefix}-tracker-triggers`,
+  ];
+  if (evidenceTargets.includes(target)) return "evidence";
+
+  const historyTargets = [
+    `${prefix}-history`,
+    `${prefix}-latest-review`,
+    `${prefix}-latest-evidence-review`,
+    `${prefix}-latest-evidence-review-title`,
+  ];
+  if (historyTargets.includes(target)) return "history";
+
+  const methodTargets = [
+    `${prefix}-method`,
+    `${prefix}-scoring`,
+    `${prefix}-lever-operationalization`,
+    `${prefix}-component-operationalization`,
+    `${prefix}-combination-rule`,
+    `${prefix}-subscores`,
+    `${prefix}-caveats`,
+    `${prefix}-context`,
+    `${prefix}-scope`,
+    `${prefix}-inherited`,
+    `${prefix}-glossary`,
+  ];
+  if (methodTargets.includes(target)) return "method";
+
+  return "briefing";
+}
+
+function focusWorkspaceTarget(target, dimId, panel, shouldFocus = true) {
+  const panelTarget = workspacePanelAnchor(dimId, panel);
+  const scrollTarget = target === `dim-${dimId}`
+    ? document.getElementById(panelTarget)
+    : (document.getElementById(target) || document.getElementById(panelTarget));
+  scrollTarget?.scrollIntoView({ behavior: "auto", block: "start", inline: "nearest" });
+
+  if (shouldFocus) {
+    const panelControl = target === panelTarget
+      ? document.querySelector('.dimension-workspace-tab[aria-current="page"]')
+      : null;
+    (panelControl || scrollTarget)?.focus?.({ preventScroll: true });
   }
 }
 
@@ -139,6 +190,71 @@ function buildGradeMovesBySource(changelog, dimId) {
   return { moves };
 }
 
+function buildGradeMoveHistory(changelog, dimId) {
+  return changelog.flatMap((entry) => (
+    (entry.items || [])
+      .filter((item) => item?.type === "grade" && item.dimensionId === dimId)
+      .map((item, summaryIndex) => {
+        const itemIndex = Number.isInteger(item.itemIndex) ? item.itemIndex : summaryIndex;
+        return {
+          ...item,
+          date: entry.date,
+          version: entry.version,
+          anchorId: `change-${entry.date}-${dimId}-${itemIndex}`,
+        };
+      })
+  ));
+}
+
+function buildDimensionHistory(dim, isTracker, gradeMoves) {
+  const events = gradeMoves.map((move, index) => ({
+    type: "grade-move",
+    date: move.date,
+    key: `grade-${move.date}-${index}`,
+    move,
+    rank: 1,
+  }));
+
+  if (dim.latestReview) {
+    events.push({
+      type: "review",
+      date: dim.latestReview.date,
+      key: `review-${dim.latestReview.date}`,
+      review: dim.latestReview,
+      rank: 2,
+    });
+  }
+
+  if (dim.latestEvidenceReview) {
+    events.push({
+      type: "evidence-review",
+      date: dim.latestEvidenceReview.date,
+      key: `evidence-${dim.latestEvidenceReview.date}`,
+      review: dim.latestEvidenceReview,
+      rank: 3,
+    });
+  }
+
+  if (isTracker) {
+    (dim.promises || []).forEach((promise, promiseIndex) => {
+      (promise.history || []).forEach((event, eventIndex) => {
+        events.push({
+          type: "promise",
+          date: event.date,
+          key: `promise-${promiseIndex}-${eventIndex}-${event.date}`,
+          promise,
+          event,
+          rank: 0,
+        });
+      });
+    });
+  }
+
+  return events.sort((a, b) => (
+    b.date.localeCompare(a.date) || b.rank - a.rank || a.key.localeCompare(b.key)
+  ));
+}
+
 function sourceDateSortValue(source) {
   if (!source?.date) return "0000-00-00";
   if (/^\d{4}-\d{2}$/.test(source.date)) return `${source.date}-01`;
@@ -172,36 +288,6 @@ function sortSourcesByDate(sources = []) {
     if (byDate !== 0) return byDate;
     return String(a.label || "").localeCompare(String(b.label || ""));
   });
-}
-
-function isContextMetric(metric) {
-  const text = `${metric?.group || ""} ${metric?.label || ""}`.toLowerCase();
-  return text.includes("inherited")
-    || text.includes("context only")
-    || text.includes("baseline");
-}
-
-function pickTopMetrics(metrics = [], limit = 4) {
-  const picked = [];
-  const pickedIndexes = new Set();
-  const seenGroups = new Set();
-
-  metrics.forEach((metric, index) => {
-    if (picked.length >= limit) return;
-    if (isContextMetric(metric)) return;
-    const group = metric.group || `metric-${index}`;
-    if (seenGroups.has(group)) return;
-    seenGroups.add(group);
-    picked.push(metric);
-    pickedIndexes.add(index);
-  });
-
-  metrics.forEach((metric, index) => {
-    if (picked.length >= limit || pickedIndexes.has(index)) return;
-    picked.push(metric);
-  });
-
-  return picked;
 }
 
 function countPromisesByStatus(promises = []) {
@@ -241,167 +327,6 @@ function buildSourceUsageByUrl(dim, metrics = []) {
   });
 
   return usage;
-}
-
-function useDisclosureVisibility(isOpen, instantOpen = false) {
-  const [visible, setVisible] = useState(isOpen);
-  const [animatedOpen, setAnimatedOpen] = useState(isOpen);
-
-  useLayoutEffect(() => {
-    if (typeof window === "undefined") {
-      return undefined;
-    }
-
-    if (instantOpen && isOpen) {
-      let cancelled = false;
-      const schedule = typeof queueMicrotask === "function"
-        ? queueMicrotask
-        : (callback) => Promise.resolve().then(callback);
-
-      schedule(() => {
-        if (cancelled) return;
-        setVisible(true);
-        setAnimatedOpen(true);
-      });
-
-      return () => {
-        cancelled = true;
-      };
-    }
-
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let frameA = null;
-    let frameB = null;
-
-    frameA = window.requestAnimationFrame(() => {
-      if (reduce) {
-        setVisible(isOpen);
-        setAnimatedOpen(isOpen);
-        return;
-      }
-
-      if (isOpen) {
-        setVisible(true);
-        setAnimatedOpen(false);
-        frameB = window.requestAnimationFrame(() => setAnimatedOpen(true));
-        return;
-      }
-
-      setAnimatedOpen(false);
-    });
-
-    return () => {
-      if (frameA) window.cancelAnimationFrame(frameA);
-      if (frameB) window.cancelAnimationFrame(frameB);
-    };
-  }, [instantOpen, isOpen]);
-
-  const handleTransitionEnd = (event) => {
-    if (event.target !== event.currentTarget) return;
-    if (!isOpen) {
-      setVisible(false);
-    }
-  };
-
-  const instantActive = isOpen && instantOpen;
-
-  return {
-    visible: instantActive || visible,
-    animatedOpen: instantActive || animatedOpen,
-    instantActive,
-    handleTransitionEnd,
-  };
-}
-
-function DisclosurePanel({
-  id,
-  labelledBy,
-  isOpen,
-  children,
-  region = false,
-  active = false,
-  instantOpen = false,
-}) {
-  const {
-    visible,
-    animatedOpen,
-    instantActive,
-    handleTransitionEnd,
-  } = useDisclosureVisibility(isOpen, instantOpen);
-  const role = region || active ? "region" : undefined;
-
-  return (
-    <div
-      id={id}
-      className="dim-disclosure-panel"
-      data-open={animatedOpen ? "true" : "false"}
-      hidden={!visible}
-      aria-hidden={!isOpen}
-      aria-labelledby={labelledBy}
-      role={role}
-      style={instantActive ? { transition: "none" } : undefined}
-      onTransitionEnd={handleTransitionEnd}
-    >
-      <div className="dim-disclosure-panel-inner">
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function DisclosureSection({
-  id,
-  title,
-  isOpen,
-  onToggle,
-  children,
-  summary,
-  variant = "neutral",
-  region = false,
-  active = false,
-  anchor = true,
-  instantOpen = false,
-}) {
-  const buttonId = `${id}-button`;
-  const panelId = `${id}-panel`;
-
-  return (
-    <section
-      id={anchor ? id : undefined}
-      className={`dim-disclosure-section dim-disclosure-${variant}`}
-      data-dim-anchor={anchor ? "true" : undefined}
-    >
-      <h3 className="dim-section-heading">
-        <button
-          type="button"
-          id={buttonId}
-          className="dim-section-button"
-          aria-expanded={isOpen}
-          aria-controls={panelId}
-          onClick={(e) => {
-            e.stopPropagation();
-            onToggle();
-          }}
-        >
-          <span aria-hidden="true" className="dim-section-caret">
-            {isOpen ? "\u25BE" : "\u25B8"}
-          </span>
-          <span>{title}</span>
-          {summary && <span className="dim-section-summary">{summary}</span>}
-        </button>
-      </h3>
-      <DisclosurePanel
-        id={panelId}
-        labelledBy={buttonId}
-        isOpen={isOpen}
-        region={region}
-        active={active}
-        instantOpen={instantOpen}
-      >
-        {children}
-      </DisclosurePanel>
-    </section>
-  );
 }
 
 function PolicySwitcher({ previousPolicy, nextPolicy, onPolicyNavigate }) {
@@ -472,6 +397,7 @@ function LatestEvidenceReview({ review, dimId, dimName }) {
 
   return (
     <section
+      id={`dim-${dimId}-latest-evidence-review`}
       className="dim-decision-brief dim-default-block"
       aria-labelledby={headingId}
     >
@@ -526,8 +452,8 @@ function LatestEvidenceReview({ review, dimId, dimName }) {
 
       <p className="dim-review-caveat">{review.caveat}</p>
 
-      <details className="dim-review-pages">
-        <summary>Official pages checked ({review.pagesChecked.length})</summary>
+      <div className="dim-review-pages">
+        <h4>Official pages checked ({review.pagesChecked.length})</h4>
         <ul aria-label={`${dimName} official pages checked`}>
           {review.pagesChecked.map((page) => (
             <li key={page.url}>
@@ -544,7 +470,7 @@ function LatestEvidenceReview({ review, dimId, dimName }) {
             </li>
           ))}
         </ul>
-      </details>
+      </div>
     </section>
   );
 }
@@ -579,7 +505,7 @@ export default function DimensionCard({
     ].filter(Boolean).join(" ")
     : undefined;
   const g = isTracker ? null : GRADES[dim.grade];
-  const modifierItems = isTracker ? [] : (dim.gradeBasis?.activeModifiers || []);
+  const modifierItems = dim.gradeBasis?.activeModifiers || [];
   const metrics = dim.metrics || [];
   const sources = dim.sources || [];
   const scoring = dim.scoring || null;
@@ -594,11 +520,12 @@ export default function DimensionCard({
     () => sortedSources.find((source) => source.date && !source.needsManualDate) || null,
     [sortedSources]
   );
-  const sourceFreshnessSummary = newestDatedSource
-    ? `newest dated source: ${formatSourceDate(newestDatedSource)}`
-    : "no dated source yet";
   const sourceGradeMoves = useMemo(
     () => buildGradeMovesBySource(changelogSummary, dim.id),
+    [dim.id]
+  );
+  const gradeMoveHistory = useMemo(
+    () => buildGradeMoveHistory(changelogSummary, dim.id),
     [dim.id]
   );
   const activeThresholdRow = useMemo(
@@ -606,20 +533,17 @@ export default function DimensionCard({
     [dim.grade, isTracker, scoring?.thresholds]
   );
 
-  const [openSections, setOpenSections] = useState({});
-  const [instantOpenSections, setInstantOpenSections] = useState({});
-  const [scrollIntent, setScrollIntent] = useState(null);
-  const [activeAnchorTarget, setActiveAnchorTarget] = useState(null);
-  const [activeNavAnchor, setActiveNavAnchor] = useState(null);
+  const [activeWorkspacePanel, setActiveWorkspacePanel] = useState(() => {
+    const initialTarget = anchorNavigation?.target
+      || (typeof window !== "undefined" ? window.location.hash.replace(/^#/, "") : null);
+    return workspacePanelForTarget(initialTarget, dim.id);
+  });
   const [stickyStackHeight, setStickyStackHeight] = useState(80);
   const [stickyHeadHeight, setStickyHeadHeight] = useState(52);
   const [isMobileDialog, setIsMobileDialog] = useState(() => (
     typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
   ));
   const isFocusedDesktop = focusedDesktop && !isMobileDialog;
-  const openSectionsRef = useRef({});
-  const pendingInstantClearRef = useRef(null);
-  const localScrollRequestIdRef = useRef(0);
   const headerButtonRef = useRef(null);
   const rootRef = useRef(null);
   const drawerRef = useRef(null);
@@ -651,7 +575,7 @@ export default function DimensionCard({
   const handleCopyLink = useCallback(async (event) => {
     event.stopPropagation();
     if (typeof window === "undefined") return;
-    const url = `${window.location.origin}${window.location.pathname}#dim-${dim.id}`;
+    const url = window.location.href;
     const { shareData, clipboardText } = buildDimensionSharePayload({
       dim,
       trackerStat,
@@ -683,10 +607,6 @@ export default function DimensionCard({
     if (copyFeedbackTimerRef.current) window.clearTimeout(copyFeedbackTimerRef.current);
     copyFeedbackTimerRef.current = window.setTimeout(() => setCopyLinkFeedback(false), 2000);
   }, [dim, trackerStat]);
-
-  useEffect(() => {
-    openSectionsRef.current = openSections;
-  }, [openSections]);
 
   useEffect(() => {
     anchorTargetRef.current = anchorNavigation?.target || null;
@@ -734,12 +654,10 @@ export default function DimensionCard({
       comparabilityNote: hc.comparabilityNote,
     };
   }, [dim.promises, metrics, isTracker]);
-  const headlineMetrics = useMemo(() => {
-    const editorialLeads = metrics.filter((metric) => metric.lead === true);
-    const base = editorialLeads.length > 0 ? editorialLeads : pickTopMetrics(metrics);
-    // The referenced actual metric renders inside the headline, not as a duplicate lead cell.
-    return headlineCommitment ? base.filter((m) => m.id !== headlineCommitment.metricId) : base;
-  }, [metrics, headlineCommitment]);
+  const leadMetrics = useMemo(
+    () => metrics.filter((metric) => metric.lead === true),
+    [metrics]
+  );
   const sourceUsageByUrl = useMemo(() => buildSourceUsageByUrl(dim, metrics), [dim, metrics]);
   const promiseStatusCounts = useMemo(() => countPromisesByStatus(dim.promises || []), [dim.promises]);
 
@@ -748,6 +666,12 @@ export default function DimensionCard({
   if (dim.tags?.attribution) scoringMetadata.push({ label: "Attribution", value: dim.tags.attribution });
   if (dim.tags?.lag) scoringMetadata.push({ label: "Lag", value: dim.tags.lag });
 
+  const hasSubScores = !isTracker && !!dim.subScores;
+  const hasProjects = !!(cohort && cohort.projects && cohort.projects.length > 0);
+  const hasPromises = !!(dim.promises && dim.promises.length > 0);
+  const hasTrackerTriggers = isTracker && !!dim.gradeTriggers;
+  const triggerPresentation = dim.gradeTriggers?.presentation || {};
+  const hasPerspectives = !!dim.perspectives;
   const keyContextItems = [];
   if (scoring?.scopeNote) {
     keyContextItems.push({ label: "Scope", text: scoring.scopeNote });
@@ -770,304 +694,27 @@ export default function DimensionCard({
       text: modifierItems.map(renderModifierContext).filter(Boolean).join(" / "),
     });
   }
-  const hasRuleSection = !!(dim.construct || scoring || scoringMetadata.length > 0);
-  const hasWhySection = !!(
-    dim.gradeBasis
-    || dim.rationale
-    || dim.judgmentDetail
-    || modifierItems.length > 0
-    || isTracker
-  );
-  const hasSubScores = !isTracker && !!dim.subScores;
-  const hasProjects = !!(cohort && cohort.projects && cohort.projects.length > 0);
-  const hasPromises = !!(dim.promises && dim.promises.length > 0);
-  const hasTrackerTriggers = isTracker && !!dim.gradeTriggers;
-  const triggerPresentation = dim.gradeTriggers?.presentation || {};
-  const hasPerspectives = !!dim.perspectives;
   const hasScopeContext = keyContextItems.length > 0 || !!dim.scope || !!dim.inherited;
 
-  const sectionDefinitions = useMemo(() => [
-    {
-      id: "summary",
-      label: "Verdict",
-      anchor: `dim-${dim.id}-summary`,
-      keys: [],
-      available: true,
-      targets: [`dim-${dim.id}`, `dim-${dim.id}-summary`],
-      nav: true,
-      navAnchor: `dim-${dim.id}-summary`,
-    },
-    {
-      id: "why",
-      label: "Why",
-      anchor: `dim-${dim.id}-why`,
-      keys: ["why"],
-      available: hasWhySection,
-      targets: [`dim-${dim.id}-why`],
-      nav: true,
-      navAnchor: `dim-${dim.id}-why`,
-      desktopOnly: true,
-    },
-    {
-      id: "subScores",
-      label: "Sub-scores",
-      anchor: `dim-${dim.id}-subscores`,
-      keys: ["subScores"],
-      available: hasSubScores,
-      targets: [`dim-${dim.id}-subscores`],
-    },
-    {
-      id: "triggers",
-      label: "Triggers",
-      anchor: `dim-${dim.id}-triggers-section`,
-      keys: ["triggers"],
-      available: showTriggers && !hasTrackerTriggers,
-      targets: [`dim-${dim.id}-triggers-section`],
-      nav: !isTracker,
-      navAnchor: `dim-${dim.id}-triggers-section`,
-    },
-    {
-      id: "metrics",
-      label: "Metrics",
-      anchor: `dim-${dim.id}-metrics`,
-      keys: ["metrics"],
-      available: metrics.length > 0,
-      targets: [`dim-${dim.id}-metrics`],
-    },
-    {
-      id: "sources",
-      label: "Sources",
-      anchor: `dim-${dim.id}-sources`,
-      keys: ["sources"],
-      available: sources.length > 0,
-      targets: [`dim-${dim.id}-sources`],
-      nav: true,
-      navAnchor: `dim-${dim.id}-sources`,
-    },
-    {
-      id: "rule",
-      label: "Criteria",
-      anchor: `dim-${dim.id}-scoring`,
-      keys: ["rule"],
-      available: hasRuleSection,
-      targets: [`dim-${dim.id}-scoring`],
-      nav: true,
-      navAnchor: `dim-${dim.id}-scoring`,
-    },
-    {
-      id: "projects",
-      label: "Projects",
-      anchor: `dim-${dim.id}-cohort`,
-      keys: ["projects", "cohortList"],
-      available: hasProjects,
-      targets: [`dim-${dim.id}-cohort`, `dim-${dim.id}-cohort-list`, `dim-${dim.id}-cohort-table`],
-    },
-    {
-      id: "promises",
-      label: "Promises",
-      anchor: `dim-${dim.id}-promises`,
-      keys: ["promises"],
-      available: hasPromises,
-      targets: [`dim-${dim.id}-promises`],
-    },
-    {
-      id: "trackerTriggers",
-      label: "Moves",
-      anchor: `dim-${dim.id}-tracker-triggers`,
-      keys: ["trackerTriggers"],
-      available: hasTrackerTriggers,
-      targets: [`dim-${dim.id}-tracker-triggers`],
-      nav: isTracker,
-      navAnchor: `dim-${dim.id}-tracker-triggers`,
-    },
-    {
-      id: "perspectives",
-      label: "Perspectives",
-      anchor: `dim-${dim.id}-perspectives-section`,
-      keys: ["perspectives"],
-      available: hasPerspectives,
-      targets: [`dim-${dim.id}-perspectives-section`],
-      nav: true,
-      navAnchor: `dim-${dim.id}-perspectives-section`,
-    },
-    {
-      id: "scopeContext",
-      label: "Scope & context",
-      anchor: `dim-${dim.id}-caveats`,
-      keys: ["scopeContext"],
-      available: hasScopeContext,
-      targets: [
-        `dim-${dim.id}-caveats`,
-        `dim-${dim.id}-context`,
-        `dim-${dim.id}-scope`,
-        `dim-${dim.id}-inherited`,
-      ],
-      nav: true,
-      navAnchor: `dim-${dim.id}-caveats`,
-    },
-    {
-      id: "glossary",
-      label: "Glossary",
-      anchor: `dim-${dim.id}-glossary`,
-      keys: ["glossary"],
-      available: scoringMetadata.length > 0,
-      targets: [`dim-${dim.id}-glossary`],
-    },
-    {
-      id: "leverOperationalization",
-      label: "Lever criteria",
-      anchor: `dim-${dim.id}-lever-operationalization`,
-      keys: ["rule", "leverOperationalization"],
-      available: !!dim.gradeBasis?.leverOperationalization,
-      targets: [`dim-${dim.id}-lever-operationalization`],
-      navAnchor: `dim-${dim.id}-scoring`,
-    },
-    {
-      id: "componentOperationalization",
-      label: "Component checklist",
-      anchor: `dim-${dim.id}-component-operationalization`,
-      keys: ["rule", "componentOperationalization"],
-      available: !!dim.gradeBasis?.componentOperationalization,
-      targets: [`dim-${dim.id}-component-operationalization`],
-      navAnchor: `dim-${dim.id}-scoring`,
-    },
-    {
-      id: "combinationRule",
-      label: "How pieces combine",
-      anchor: `dim-${dim.id}-combination-rule`,
-      keys: ["rule", "combinationRule"],
-      available: !!dim.gradeBasis?.combinationRule,
-      targets: [`dim-${dim.id}-combination-rule`],
-      navAnchor: `dim-${dim.id}-scoring`,
-    },
-  ], [
-    dim.gradeBasis?.combinationRule,
-    dim.gradeBasis?.componentOperationalization,
-    dim.gradeBasis?.leverOperationalization,
-    dim.id,
-    dim.inherited,
-    dim.perspectives,
-    dim.scope,
-    hasProjects,
-    hasPromises,
-    hasPerspectives,
-    hasRuleSection,
-    hasScopeContext,
-    hasSubScores,
-    hasTrackerTriggers,
-    hasWhySection,
-    isTracker,
-    metrics.length,
-    scoringMetadata.length,
-    showTriggers,
-    sources.length,
-  ]);
-
-  const availableSections = useMemo(() => (
-    Array.from(new Set(
-      sectionDefinitions
-        .filter((section) => section.available)
-        .flatMap((section) => section.keys)
-    ))
-  ), [sectionDefinitions]);
-
-  const sectionNavItems = useMemo(() => (
-    sectionDefinitions
-      .filter((section) => section.available && section.nav)
-      .sort((a, b) => {
-        const order = isTracker
-          ? ["summary", "trackerTriggers", "sources", "why", "rule", "perspectives", "scopeContext"]
-          : ["summary", "triggers", "sources", "why", "rule", "perspectives", "scopeContext"];
-        return order.indexOf(a.id) - order.indexOf(b.id);
-      })
-      .map(({ label, anchor, keys, desktopOnly }) => ({ label, anchor, keys, desktopOnly }))
-  ), [isTracker, sectionDefinitions]);
-
-  const getSectionKeysForTarget = useCallback((target) => (
-    sectionKeysForTargetFromDefinitions(target, sectionDefinitions)
-  ), [sectionDefinitions]);
-  const getSectionKeysForTargetRef = useRef(getSectionKeysForTarget);
-  const getNavAnchorForTarget = useCallback((target) => (
-    sectionDefinitions.find((section) => section.targets.includes(target))?.navAnchor || null
-  ), [sectionDefinitions]);
-
-  useLayoutEffect(() => {
-    getSectionKeysForTargetRef.current = getSectionKeysForTarget;
-  }, [getSectionKeysForTarget]);
-
-  const toggleSection = (section) => {
-    setOpenSections((current) => ({
-      ...current,
-      [section]: !current[section],
-    }));
-  };
-
-  const openSectionKeys = useCallback((sections) => {
-    setOpenSections((current) => {
-      const next = { ...current };
-      sections.forEach((section) => {
-        next[section] = true;
-      });
-      return next;
-    });
-  }, [setOpenSections]);
-
-  const markInstantOpenSections = useCallback((sections, requestId) => {
-    if (sections.length === 0) return;
-    setInstantOpenSections((current) => {
-      const next = { ...current };
-      sections.forEach((section) => {
-        next[section] = requestId;
-      });
-      return next;
-    });
-  }, [setInstantOpenSections]);
-
-  const openAllSections = () => {
-    const next = {};
-    availableSections.forEach((section) => {
-      next[section] = true;
-    });
-    setOpenSections(next);
-  };
-
-  const queueAnchorScroll = useCallback((target, sections) => {
+  const activateWorkspaceTarget = (target, options = {}) => {
     if (!target) return;
-    const keys = Array.isArray(sections) ? sections : getSectionKeysForTarget(target);
-    const currentOpenSections = openSectionsRef.current;
-    const instantSections = keys.filter((section) => !currentOpenSections[section]);
-    const requestId = anchorNavigation?.target === target
-      ? anchorNavigation.requestId
-      : (localScrollRequestIdRef.current += 1);
-    markInstantOpenSections(instantSections, requestId);
-    if (keys.length > 0) openSectionKeys(keys);
-    setActiveAnchorTarget(target);
-    setActiveNavAnchor(getNavAnchorForTarget(target));
-    setScrollIntent({
-      target,
-      sections: keys,
-      instantSections,
-      requestId,
-    });
-  }, [
-    anchorNavigation,
-    getSectionKeysForTarget,
-    getNavAnchorForTarget,
-    markInstantOpenSections,
-    openSectionKeys,
-    setActiveAnchorTarget,
-    setActiveNavAnchor,
-    setScrollIntent,
-  ]);
+    const panel = workspacePanelForTarget(target, dim.id);
+    setActiveWorkspacePanel(panel);
+    if (options.replaceHash !== false && typeof window !== "undefined") {
+      window.history.replaceState(window.history.state, "", `#${target}`);
+    }
+    if (typeof window !== "undefined") {
+      window.requestAnimationFrame(() => {
+        focusWorkspaceTarget(target, dim.id, panel, options.focus !== false);
+      });
+    }
+  };
 
-  const handleHashLinkClick = (e, target, sections) => {
+  const handleHashLinkClick = (e, target, options = {}) => {
     e.preventDefault();
     e.stopPropagation();
     if (targetBelongsToDimension(target, dim.id)) {
-      if (typeof window !== "undefined") {
-        window.history.replaceState(window.history.state, "", `#${target}`);
-      }
-      queueAnchorScroll(target, sections);
+      activateWorkspaceTarget(target, options);
       return;
     }
     if (onHashTarget) {
@@ -1077,7 +724,6 @@ export default function DimensionCard({
     if (typeof window !== "undefined") {
       window.history.replaceState(window.history.state, "", `#${target}`);
     }
-    queueAnchorScroll(target, sections);
   };
 
   const renderScopeItem = (item) => {
@@ -1098,7 +744,7 @@ export default function DimensionCard({
       if (!item.internalRef) return;
 
       if (item.internalRef.type === "cohort") {
-        queueAnchorScroll(`dim-${dim.id}-cohort`, ["projects", "cohortList"]);
+        activateWorkspaceTarget(`dim-${dim.id}-cohort`);
         return;
       }
 
@@ -1112,12 +758,13 @@ export default function DimensionCard({
       >
         <span>{item.text}</span>
         {item.setDate && (
-          <span
+          <time
             className="dim-trigger-setdate"
+            dateTime={item.setDate}
             title={`This condition was published on ${item.setDate}, before the evidence it now judges.`}
           >
             condition set {item.setDate}
-          </span>
+          </time>
         )}
         {item.sourceLabel && (
           item.internalRef ? (
@@ -1143,6 +790,7 @@ export default function DimensionCard({
           ) : item.sourceUrl ? (
             <a
               href={item.sourceUrl}
+              aria-label={item.sourceLabel}
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
@@ -1182,10 +830,10 @@ export default function DimensionCard({
           )
         )}
         {Array.isArray(trigger?.additionalSources) && trigger.additionalSources.length > 0 && (
-          <details style={{ marginTop: "4px", fontSize: "12px", color: "#374151" }}>
-            <summary style={{ cursor: "pointer", fontWeight: 600, color: "#1565c0" }}>
-              + {trigger.additionalSources.length} independent challenge source{trigger.additionalSources.length === 1 ? "" : "s"} on this trigger
-            </summary>
+          <div className="dim-trigger-additional-sources">
+            <strong>
+              Independent challenge source{trigger.additionalSources.length === 1 ? "" : "s"}
+            </strong>
             <ul style={{ margin: "6px 0 0", paddingLeft: "18px", lineHeight: 1.5 }}>
               {trigger.additionalSources.map((alt, i) => (
                 <li key={i} style={{ marginBottom: "4px" }}>
@@ -1209,7 +857,7 @@ export default function DimensionCard({
                 </li>
               ))}
             </ul>
-          </details>
+          </div>
         )}
       </div>
     );
@@ -1232,14 +880,16 @@ export default function DimensionCard({
     const drawer = drawerRef.current;
     const headerButton = headerButtonRef.current;
     const anchorTarget = anchorTargetRef.current;
-    const hasPendingSectionTarget = anchorTarget
-      && targetBelongsToDimension(anchorTarget, dim.id)
-      && getSectionKeysForTargetRef.current(anchorTarget).length > 0;
+    const hasPendingWorkspaceTarget = anchorTarget
+      && targetBelongsToDimension(anchorTarget, dim.id);
     let frame = null;
 
-    if (!hasPendingSectionTarget) {
+    if (!hasPendingWorkspaceTarget) {
       frame = window.requestAnimationFrame(() => {
-        drawerRef.current?.focus({ preventScroll: true });
+        const initialFocus = isFocusedDesktop
+          ? document.getElementById(`dim-${dim.id}-title`)
+          : drawerRef.current;
+        initialFocus?.focus({ preventScroll: true });
       });
     }
 
@@ -1323,10 +973,9 @@ export default function DimensionCard({
     if (!isMobileDialog && !isFocusedDesktop) return undefined;
 
     const anchorTarget = anchorTargetRef.current;
-    const hasPendingSectionTarget = anchorTarget
-      && targetBelongsToDimension(anchorTarget, dim.id)
-      && getSectionKeysForTargetRef.current(anchorTarget).length > 0;
-    if (hasPendingSectionTarget) return undefined;
+    const hasPendingWorkspaceTarget = anchorTarget
+      && targetBelongsToDimension(anchorTarget, dim.id);
+    if (hasPendingWorkspaceTarget) return undefined;
 
     const frame = window.requestAnimationFrame(() => {
       const drawer = drawerRef.current;
@@ -1364,7 +1013,7 @@ export default function DimensionCard({
       observers.forEach((observer) => observer.disconnect());
       window.removeEventListener("resize", measure);
     };
-  }, [isExpanded, sectionNavItems.length]);
+  }, [isExpanded]);
 
   useLayoutEffect(() => {
     const wasExpanded = wasExpandedRef.current;
@@ -1383,131 +1032,30 @@ export default function DimensionCard({
   useEffect(() => {
     const target = anchorNavigation?.target;
     if (!isExpanded || !target || !targetBelongsToDimension(target, dim.id)) return;
-    queueAnchorScroll(target);
-  }, [anchorNavigation, dim.id, isExpanded, queueAnchorScroll]);
-
-  useLayoutEffect(() => {
-    const targetId = scrollIntent?.target;
-    if (!isExpanded || !targetId) return undefined;
-    if (typeof window === "undefined") return undefined;
-
-    const sections = scrollIntent.sections?.length
-      ? scrollIntent.sections
-      : getSectionKeysForTarget(targetId);
-    const sectionsOpen = sections.every((section) => openSections[section]);
-    if (!sectionsOpen) return undefined;
-
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.scrollIntoView({
-        behavior: "auto",
-        block: "start",
-        inline: "nearest",
+    const panel = workspacePanelForTarget(target, dim.id);
+    const canonicalTarget = workspacePanelAnchor(dim.id, panel);
+    let focusFrame = null;
+    const stateFrame = window.requestAnimationFrame(() => {
+      setActiveWorkspacePanel(panel);
+      if (target !== canonicalTarget) {
+        window.history.replaceState(window.history.state, "", `#${canonicalTarget}`);
+      }
+      focusFrame = window.requestAnimationFrame(() => {
+        focusWorkspaceTarget(canonicalTarget, dim.id, panel, true);
       });
-      focusDisclosureButtonForTarget(targetId);
-    }
-
-    if (scrollIntent.instantSections?.length > 0) {
-      pendingInstantClearRef.current = {
-        requestId: scrollIntent.requestId,
-        sections: scrollIntent.instantSections,
-      };
-    }
-    let cancelled = false;
-    const clearIntent = () => {
-      if (!cancelled) setScrollIntent(null);
-    };
-    if (typeof queueMicrotask === "function") {
-      queueMicrotask(clearIntent);
-    } else {
-      window.setTimeout(clearIntent, 0);
-    }
-    return () => {
-      cancelled = true;
-    };
-  }, [getSectionKeysForTarget, isExpanded, openSections, scrollIntent, setScrollIntent]);
-
-  useEffect(() => {
-    if (scrollIntent) return;
-    const pending = pendingInstantClearRef.current;
-    if (!pending) return;
-
-    pendingInstantClearRef.current = null;
-    setInstantOpenSections((current) => {
-      let changed = false;
-      const next = { ...current };
-      pending.sections.forEach((section) => {
-        if (next[section] === pending.requestId) {
-          delete next[section];
-          changed = true;
-        }
-      });
-      return changed ? next : current;
     });
-  }, [scrollIntent]);
-
-  useEffect(() => {
-    if (!isExpanded || !drawerRef.current || sectionNavItems.length === 0) return undefined;
-    if (typeof IntersectionObserver === "undefined") return undefined;
-
-    const media = window.matchMedia("(max-width: 767px)");
-    const root = media.matches ? drawerRef.current : null;
-    const anchors = sectionNavItems
-      .filter((item) => !(media.matches && item.desktopOnly))
-      .map((item) => document.getElementById(item.anchor))
-      .filter(Boolean);
-    const updateActiveAnchor = () => {
-      const anchorTop = stickyStackHeight + 8;
-      const hashTarget = window.location.hash.replace(/^#/, "");
-      const hashAnchor = anchors.find((anchor) => anchor.id === hashTarget);
-
-      if (hashAnchor) {
-        const hashRect = hashAnchor.getBoundingClientRect();
-        if (hashRect.bottom > anchorTop && hashRect.top < anchorTop + 160) {
-          setActiveNavAnchor(hashAnchor.id);
-          return;
-        }
-      }
-
-      const visible = anchors
-        .map((anchor) => {
-          const rect = anchor.getBoundingClientRect();
-          return {
-            id: anchor.id,
-            top: rect.top,
-            bottom: rect.bottom,
-          };
-        })
-        .filter((anchor) => anchor.bottom > anchorTop)
-        .sort((a, b) => (
-          Math.abs(a.top - anchorTop) - Math.abs(b.top - anchorTop)
-        ))[0];
-
-      if (visible?.id) setActiveNavAnchor(visible.id);
+    return () => {
+      window.cancelAnimationFrame(stateFrame);
+      if (focusFrame) window.cancelAnimationFrame(focusFrame);
     };
-
-    const observer = new IntersectionObserver(
-      updateActiveAnchor,
-      {
-        root,
-        rootMargin: `-${stickyStackHeight + 8}px 0px -60% 0px`,
-        threshold: [0.05, 0.25, 0.5],
-      }
-    );
-
-    anchors.forEach((anchor) => observer.observe(anchor));
-    updateActiveAnchor();
-    return () => observer.disconnect();
-  }, [isExpanded, sectionNavItems, stickyStackHeight]);
+  }, [anchorNavigation?.requestId, anchorNavigation?.target, dim.id, isExpanded]);
 
   useEffect(() => {
     if (isExpanded) return;
     let cancelled = false;
     const clearClosedState = () => {
       if (cancelled) return;
-      setActiveAnchorTarget(null);
-      setActiveNavAnchor(null);
-      setScrollIntent(null);
+      setActiveWorkspacePanel("briefing");
     };
     if (typeof window !== "undefined") {
       window.setTimeout(clearClosedState, 0);
@@ -1517,7 +1065,7 @@ export default function DimensionCard({
     return () => {
       cancelled = true;
     };
-  }, [isExpanded, setActiveAnchorTarget, setActiveNavAnchor, setScrollIntent]);
+  }, [isExpanded]);
 
   if (!isTracker && !g) return null;
 
@@ -1535,8 +1083,6 @@ export default function DimensionCard({
   const subScoreSummary = hasSubScores
     ? Object.values(dim.subScores).map((sub) => `${sub.label}: ${sub.grade}`).join(" / ")
     : null;
-  const activeSectionKeys = getSectionKeysForTarget(activeAnchorTarget);
-  const isInstantOpenSection = (section) => !!instantOpenSections[section];
   const promiseStatusSummary = hasPromises
     ? Object.entries(promiseStatusCounts)
       .map(([status, count]) => `${count} ${status}`)
@@ -1545,6 +1091,7 @@ export default function DimensionCard({
   const latestGradeMove = Array.isArray(gradeMoves) && gradeMoves.length > 0
     ? gradeMoves[0]
     : null;
+  const historyEvents = buildDimensionHistory(dim, isTracker, gradeMoveHistory);
   const sourceDownloadPayload = {
     id: dim.id,
     name: dim.name,
@@ -1765,7 +1312,7 @@ export default function DimensionCard({
                 event.stopPropagation();
                 onClick?.(event);
               }}
-              aria-label="Close details"
+              aria-label="Close"
             >
               <span className="dim-drawer-close-label">Close</span>
             </button>
@@ -1860,7 +1407,7 @@ export default function DimensionCard({
                 e.stopPropagation();
                 onClick?.(e);
               }}
-              aria-label="Close details"
+              aria-label="Close"
             >
               <svg
                 className="dim-drawer-close-icon"
@@ -1881,843 +1428,565 @@ export default function DimensionCard({
             </button>
           </div>
 
-          {sectionNavItems.length > 0 && (
-            <nav
-              ref={miniNavRef}
-              className="dim-mini-nav"
-              aria-label={`${dim.name} section navigation`}
-            >
-              <span className="dim-mini-nav-label dim-mini-nav-label-mobile">Jump:</span>
-              <span className="dim-mini-nav-label dim-mini-nav-label-desktop">Jump:</span>
-              {sectionNavItems.map((item) => {
-                const isActive = activeNavAnchor === item.anchor
-                  || (!activeNavAnchor && item.anchor === `dim-${dim.id}-summary`)
-                  || (activeNavAnchor === `dim-${dim.id}` && item.anchor === `dim-${dim.id}-summary`);
-
-                return (
-                  <a
-                    key={item.anchor}
-                    href={`#${item.anchor}`}
-                    className={item.desktopOnly ? "dim-desktop-only-nav-item" : undefined}
-                    aria-current={isActive ? "true" : undefined}
-                    onClick={(e) => handleHashLinkClick(e, item.anchor, item.keys)}
-                  >
-                    {item.label}
-                  </a>
-                );
-              })}
-              <button
-                type="button"
-                className="text-link-button dim-show-all-button"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  openAllSections();
-                }}
-              >
-                Show all sections
-              </button>
-            </nav>
-          )}
-
-          <div
-            id={`dim-${dim.id}-summary`}
-            className="dim-default-blocks dim-detail-overview"
-            aria-label={`${dim.name} verdict summary`}
+          <nav
+            ref={miniNavRef}
+            className="dimension-workspace-nav"
+            aria-label="Policy detail sections"
           >
-            <section className="dim-verdict-hero dim-default-block">
-              <div className="dim-verdict-copy">
-                <div className="dim-default-block-head">
-                  <span>{isTracker ? "Tracker snapshot" : "Verdict"}</span>
-                </div>
-                {dim.whatThisGrades && (
-                  <p className="dim-verdict-kicker">{dim.whatThisGrades}</p>
-                )}
-                <p className="dim-verdict-status">{dim.status}</p>
-                {heldReview && !dim.latestEvidenceReview && (
-                  <div
-                    className="dim-latest-review dim-latest-review-expanded"
-                    data-review-outcome="held"
-                  >
-                    <span className="dim-latest-review-meta">
-                      <span className="dim-latest-review-label">This review</span>
-                      <span className="dim-latest-review-separator" aria-hidden="true">&#183;</span>
-                      <strong>Grade held</strong>
-                    </span>
-                    <p className="dim-latest-review-copy">{heldReview.summary}</p>
-                  </div>
-                )}
-                {isTracker && (
-                  <p className="dim-verdict-note">
-                    Promise Delivery is tracked outside the GPA. It counts commitments across all files rather than grading a policy outcome.
-                  </p>
-                )}
-                {activeThresholdRow && (
-                  <div className="dim-live-threshold-row">
-                    <span>{activeThresholdRow.grade}</span>
-                    <p>{activeThresholdRow.criteria}</p>
-                  </div>
-                )}
-                {dim.gradeBasis?.whyNotHigher && (
-                  <div
-                    className="dim-why-not"
-                    style={{
-                      margin: 0,
-                      color: "var(--text-body)",
-                      fontSize: "14px",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    <span style={{ fontWeight: 700 }}>Why not higher:</span>{" "}
-                    {dim.gradeBasis.whyNotHigher}
-                  </div>
-                )}
-                {dim.gradeBasis?.whyNotLower && (
-                  <div
-                    className="dim-why-not"
-                    style={{
-                      margin: 0,
-                      color: "var(--text-body)",
-                      fontSize: "14px",
-                      lineHeight: 1.5,
-                    }}
-                  >
-                    <span style={{ fontWeight: 700 }}>Why not lower:</span>{" "}
-                    {dim.gradeBasis.whyNotLower}
-                  </div>
-                )}
-                {reviewedDate && (
-                  <div className="last-reviewed-pill dim-last-reviewed-pill">
-                    <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
-                      Reviewed
-                    </span>
-                    <time dateTime={reviewedDate}>{reviewedDate}</time>
-                    {meta.nextUpdate && (
-                      <>
-                        <span style={{ color: "#bbb", fontWeight: 400 }}>&#183;</span>
-                        <span style={{ textTransform: "uppercase", letterSpacing: "0.35px", color: "#5a7a9b" }}>
-                          Next
-                        </span>
-                        <span style={{ color: "#5a7a9b" }}>{meta.nextUpdate}</span>
-                      </>
-                    )}
-                  </div>
-                )}
-                {latestGradeMove && (
-                  <div className="dim-change-card dim-current-grade-move-callout">
-                    <div className="dim-change-card-title">Grade moved this release</div>
-                    <p>
-                      {latestGradeMove.headline || `${dim.name} moved ${latestGradeMove.from} to ${latestGradeMove.to}`}.
-                    </p>
-                    <a
-                      href={`#${latestGradeMove.anchorId}`}
-                      onClick={(e) => handleHashLinkClick(e, latestGradeMove.anchorId, [])}
-                    >
-                      Open the change note
-                    </a>
-                  </div>
-                )}
-              </div>
-              <div className="dim-verdict-mark">
-                {isTracker ? (
-                  trackerStat ? (
-                    <div className="dim-tracker-count dim-tracker-count-large">
-                      <div className="dim-tracker-count-number">
-                        {trackerStat.delivered}
-                        <span>/{trackerStat.total}</span>
-                      </div>
-                      <div className="dim-tracker-count-label">delivered</div>
-                    </div>
-                  ) : (
-                    <span className="dim-info-grade-pill">
-                      {dim.informationalGrade} tracker, outside GPA
-                    </span>
-                  )
-                ) : (
-                  <>
-                    <GradeChip grade={dim.grade} />
-                    <TrendArrow trend={dim.trend} />
-                    {dim.previousGrade && (
-                      <span className="dim-previous-grade-note">was {dim.previousGrade}</span>
-                    )}
-                  </>
-                )}
-              </div>
-            </section>
+            {WORKSPACE_PANELS.map((panel) => {
+              const isCurrent = activeWorkspacePanel === panel.id;
+              return (
+                <button
+                  key={panel.id}
+                  type="button"
+                  className="dimension-workspace-tab"
+                  aria-current={isCurrent ? "page" : undefined}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    activateWorkspaceTarget(workspacePanelAnchor(dim.id, panel.id), { focus: false });
+                  }}
+                >
+                  {panel.label}
+                </button>
+              );
+            })}
+          </nav>
 
-            <LatestEvidenceReview
-              review={dim.latestEvidenceReview}
-              dimId={dim.id}
-              dimName={dim.name}
-            />
-
-            <section className="dim-evidence-panel dim-default-block" aria-label={`${dim.name} evidence snapshot`}>
-              <div className="dim-default-block-head">
-                <span>Evidence snapshot</span>
-                <span className="dim-evidence-note">
-                  {isTracker
-                    ? "Tracker totals stay outside the GPA."
-                    : "Headline metrics are editor-selected for display, not weighted inputs."}
-                </span>
-              </div>
-              <div className="dim-evidence-grid">
-                {headlineCommitment && (
-                  <article
-                    className="dim-headline-commitment"
-                    aria-labelledby={`dim-${dim.id}-headline-title`}
-                  >
-                    <h3
-                      id={`dim-${dim.id}-headline-title`}
-                      className="dim-headline-commitment-title"
-                    >
-                      Headline commitment
-                    </h3>
-                    <p className="dim-headline-commitment-sub">
-                      Stated commitment vs externally reported result
-                    </p>
-                    <dl className="dim-headline-commitment-pairs">
-                      <div className="dim-headline-commitment-pair">
-                        <dt>Target</dt>
-                        <dd>
-                          <strong>{headlineCommitment.targetDisplay}</strong>
-                          <span className="dim-headline-commitment-period">
-                            {headlineCommitment.targetPeriod}
-                          </span>
-                        </dd>
+          <div className="dimension-workspace">
+            {activeWorkspacePanel === "briefing" && (
+              <section
+                id={workspacePanelAnchor(dim.id, "briefing")}
+                className="dimension-workspace-panel dimension-briefing"
+                tabIndex={-1}
+                aria-label={`${dim.name} briefing`}
+              >
+                <div
+                  id={`dim-${dim.id}-summary`}
+                  className="dimension-briefing-section"
+                  tabIndex={-1}
+                >
+                  <section className="dim-verdict-hero dim-default-block">
+                    <div className="dim-verdict-copy">
+                      <div className="dim-default-block-head">
+                        <span>{isTracker ? "Tracker snapshot" : "Verdict"}</span>
                       </div>
-                      <div className="dim-headline-commitment-pair">
-                        <dt>Result</dt>
-                        <dd>
-                          <strong>{headlineCommitment.actualDisplay}</strong>
-                          <span className="dim-headline-commitment-period">
-                            {headlineCommitment.actualPeriod}
-                          </span>
-                        </dd>
-                      </div>
-                    </dl>
-                    <p className="dim-headline-commitment-relation">
-                      Comparison: <strong>{headlineCommitment.relation}</strong>
-                    </p>
-                    {headlineCommitment.comparabilityNote && (
-                      <p className="dim-headline-commitment-note">
-                        {headlineCommitment.comparabilityNote}
-                      </p>
-                    )}
-                    <p className="dim-headline-commitment-links">
-                      {headlineCommitment.targetSourceUrl && (
-                        <a
-                          href={headlineCommitment.targetSourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
+                      {dim.whatThisGrades && <p className="dim-verdict-kicker">{dim.whatThisGrades}</p>}
+                      <p className="dim-verdict-status">{dim.verdictLine || dim.status}</p>
+                      {dim.verdictLine && dim.status !== dim.verdictLine && <p>{dim.status}</p>}
+                      {dim.latestReview && (
+                        <div
+                          id={`dim-${dim.id}-latest-review`}
+                          className="dim-latest-review dim-latest-review-expanded"
+                          data-review-outcome={dim.latestReview.outcome}
+                          tabIndex={-1}
                         >
-                          Target source: {headlineCommitment.targetSourceLabel}
-                        </a>
+                          <span className="dim-latest-review-meta">
+                            <span className="dim-latest-review-label">This review</span>
+                            <span className="dim-latest-review-separator" aria-hidden="true">&#183;</span>
+                            <strong>{dim.latestReview.outcome === "held" ? "Grade held" : "Review updated"}</strong>
+                            <time dateTime={dim.latestReview.date}>{dim.latestReview.date}</time>
+                          </span>
+                          <p className="dim-latest-review-copy">{dim.latestReview.summary}</p>
+                        </div>
                       )}
-                      {headlineCommitment.actualSourceUrl && (
-                        <a
-                          href={headlineCommitment.actualSourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          Result source: {headlineCommitment.actualSourceLabel}
-                        </a>
+                      {isTracker && (
+                        <p className="dim-verdict-note">
+                          This informational tracker is outside the GPA and is not included in headline scores.
+                        </p>
                       )}
-                    </p>
-                    <p className="dim-headline-commitment-clarifier">
-                      Tracks a stated commitment. It is not the grade.
-                    </p>
-                  </article>
-                )}
-                {headlineMetrics.map((metric) => (
-                  <button
-                    key={`${metric.label}-${metric.value}`}
-                    type="button"
-                    className="dim-evidence-item dim-evidence-metric"
-                    aria-expanded={!!openSections.metrics}
-                    aria-controls={`dim-${dim.id}-metrics-panel`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      queueAnchorScroll(`dim-${dim.id}-metrics`, ["metrics"]);
-                    }}
-                  >
-                    <span>{metric.label}</span>
-                    <strong>{metric.value}</strong>
-                  </button>
-                ))}
-                {showTriggers && !hasTrackerTriggers && (
-                  <button
-                    type="button"
-                    className="dim-evidence-item"
-                    aria-expanded={!!openSections.triggers}
-                    aria-controls={`dim-${dim.id}-triggers-section-panel`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      queueAnchorScroll(`dim-${dim.id}-triggers-section`, ["triggers"]);
-                    }}
-                  >
-                    <span>Grade movement</span>
-                    <strong>{triggerSummary}</strong>
-                  </button>
-                )}
-                {hasTrackerTriggers && (
-                  <button
-                    type="button"
-                    className="dim-evidence-item"
-                    aria-expanded={!!openSections.trackerTriggers}
-                    aria-controls={`dim-${dim.id}-tracker-triggers-panel`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      queueAnchorScroll(`dim-${dim.id}-tracker-triggers`, ["trackerTriggers"]);
-                    }}
-                  >
-                    <span>Tracker movement</span>
-                    <strong>{triggerSummary}</strong>
-                  </button>
-                )}
-                {sources.length > 0 && (
-                  <button
-                    type="button"
-                    className="dim-evidence-item"
-                    aria-expanded={!!openSections.sources}
-                    aria-controls={`dim-${dim.id}-sources-panel`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      queueAnchorScroll(`dim-${dim.id}-sources`, ["sources"]);
-                    }}
-                  >
-                    <span>Sources</span>
-                    <strong>{sources.length} cited</strong>
-                    <small className="dim-evidence-subnote">
-                      {sourceFreshnessSummary}
-                    </small>
-                  </button>
-                )}
-                {!isTracker && hasPromises && (
-                  <button
-                    type="button"
-                    className="dim-evidence-item"
-                    aria-expanded={!!openSections.promises}
-                    aria-controls={`dim-${dim.id}-promises-panel`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      queueAnchorScroll(`dim-${dim.id}-promises`, ["promises"]);
-                    }}
-                  >
-                    <span>Promises</span>
-                    <strong>{dim.promises.length} tracked</strong>
-                  </button>
-                )}
-                {isTracker && trackerStat && (
-                  <button
-                    type="button"
-                    className="dim-evidence-item"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onInternalRef?.({ type: "view", target: "promises" });
-                    }}
-                  >
-                    <span>Promise delivery</span>
-                    <strong>{trackerStat.delivered}/{trackerStat.total} delivered</strong>
-                  </button>
-                )}
-              </div>
-            </section>
-          </div>
-
-          <div className="dim-fold-stack">
-            {metrics.length > 0 && (
-              <DisclosureSection
-                id={`dim-${dim.id}-metrics`}
-                title="Metrics"
-                summary={`${metrics.length} tracked`}
-                isOpen={!!openSections.metrics}
-                onToggle={() => toggleSection("metrics")}
-                region
-                active={activeSectionKeys.includes("metrics")}
-                variant="neutral"
-                instantOpen={isInstantOpenSection("metrics")}
-              >
-                <MetricsList metricGroups={metricGroups} />
-              </DisclosureSection>
-            )}
-
-            {showTriggers && !hasTrackerTriggers && (
-              <DisclosureSection
-                id={`dim-${dim.id}-triggers-section`}
-                title={triggerPresentation.title || "What would change this grade"}
-                summary={triggerPresentation.summary || "up and down triggers"}
-                isOpen={!!openSections.triggers}
-                onToggle={() => toggleSection("triggers")}
-                region
-                active={activeSectionKeys.includes("triggers")}
-                variant="yellow"
-                instantOpen={isInstantOpenSection("triggers")}
-              >
-                {dim.gradeTriggers ? (
-                  <TriggerColumns
-                    up={dim.gradeTriggers.up}
-                    down={dim.gradeTriggers.down}
-                    renderTriggerItem={renderTriggerItem}
-                    keyPrefix="grade"
-                    upLabel={triggerPresentation.upLabel || "Up one step"}
-                    downLabel={triggerPresentation.downLabel || "Down one step"}
-                  />
-                ) : (
-                  <div>{dim.nextTrigger}</div>
-                )}
-              </DisclosureSection>
-            )}
-
-            {hasTrackerTriggers && (
-              <DisclosureSection
-                id={`dim-${dim.id}-tracker-triggers`}
-                title="What changes this tracker"
-                summary="movement conditions"
-                isOpen={!!openSections.trackerTriggers}
-                onToggle={() => toggleSection("trackerTriggers")}
-                region
-                active={activeSectionKeys.includes("trackerTriggers")}
-                variant="yellow"
-                instantOpen={isInstantOpenSection("trackerTriggers")}
-              >
-                <TriggerColumns
-                  up={dim.gradeTriggers.up}
-                  down={dim.gradeTriggers.down}
-                  renderTriggerItem={renderTriggerItem}
-                  keyPrefix="tracker"
-                  upLabel="Upward trigger"
-                  downLabel="Downward triggers"
-                />
-              </DisclosureSection>
-            )}
-
-            {sources.length > 0 && (
-              <DisclosureSection
-                id={`dim-${dim.id}-sources`}
-                title="Sources"
-                summary={`${sources.length} total · ${sourceFreshnessSummary}`}
-                isOpen={!!openSections.sources}
-                onToggle={() => toggleSection("sources")}
-                region
-                active={activeSectionKeys.includes("sources")}
-                variant="blue"
-                instantOpen={isInstantOpenSection("sources")}
-              >
-                <div className="dim-stack">
-                  <div className="dim-source-overview" aria-label={`${dim.name} source freshness`}>
-                    <span>
-                      <strong>{sources.length}</strong> cited source{sources.length === 1 ? "" : "s"}
-                    </span>
-                    {newestDatedSource && (
-                      <span>
-                        Newest dated source: <strong>{formatSourceDate(newestDatedSource)}</strong>
-                      </span>
-                    )}
-                    <span>Full source table is newest-first.</span>
-                  </div>
-                  <SourceStackTable
-                    sources={sortedSources}
-                    gradeMovesBySource={sourceGradeMoves.moves}
-                    usageBySource={sourceUsageByUrl}
-                  />
-                  <a
-                    href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(sourceDownloadPayload, null, 2))}`}
-                    download={`${dim.id}-sources.json`}
-                    onClick={(e) => e.stopPropagation()}
-                    className="dim-download-link"
-                  >
-                    ⤓ Download sources as JSON
-                  </a>
-                </div>
-              </DisclosureSection>
-            )}
-
-            {hasWhySection && (
-              <DisclosureSection
-                id={`dim-${dim.id}-why`}
-                title={isTracker ? "Why this tracker reads this way" : "Why this grade"}
-                summary={isTracker ? "how it is counted" : "judgment and rationale"}
-                isOpen={!!openSections.why}
-                onToggle={() => toggleSection("why")}
-                region
-                active={activeSectionKeys.includes("why")}
-                variant="why"
-                instantOpen={isInstantOpenSection("why")}
-              >
-                <div className="dim-score-body">
-                  {!isTracker && dim.judgmentCall && (
-                    <p><strong>Judgment call:</strong> {dim.judgmentCall}</p>
-                  )}
-                  {dim.judgmentDetail && (
-                    <p><strong>Where editor judgment enters:</strong> {dim.judgmentDetail}</p>
-                  )}
-                  {dim.rationale && <p>{dim.rationale}</p>}
-                  {isTracker && trackerStat && (
-                    <p>
-                      <strong>{trackerStat.delivered} of {trackerStat.total}</strong> tracked commitments are delivered.
-                      {promiseStatusSummary ? ` Current non-delivered pattern: ${promiseStatusSummary}.` : ""}
-                    </p>
-                  )}
-                  {isTracker && (
-                    <p>This tracker moves when the underlying promise evidence changes. It stays outside the GPA.</p>
-                  )}
-                  {!isTracker && dim.gradeBasis?.plusMinusRationale && (
-                    <p>{dim.gradeBasis.plusMinusRationale}</p>
-                  )}
-                  {dim.gradeBasis?.band && (
-                    <p><strong>{dim.gradeBasis.band}</strong> band means: {dim.gradeBasis.bandCriterion}</p>
-                  )}
-                  {/* Why-not lines live in gradeBasis and render in the verdict
-                      hero under the live threshold row (single source of truth;
-                      the old unvalidated top-level fields were retired). */}
-                  {subScoreSummary && (
-                    <p className="dim-subscore-summary"><strong>Sub-scores:</strong> {subScoreSummary}</p>
-                  )}
-                </div>
-              </DisclosureSection>
-            )}
-
-            {hasRuleSection && (
-              <DisclosureSection
-                id={`dim-${dim.id}-scoring`}
-                title="How this grade is built"
-                summary="grading criteria"
-                isOpen={!!openSections.rule}
-                onToggle={() => toggleSection("rule")}
-                region
-                active={activeSectionKeys.includes("rule")}
-                variant="rule"
-                instantOpen={isInstantOpenSection("rule")}
-              >
-                <div className="dim-stack">
-                  {dim.construct && (
-                    <div>
-                      <strong>Construct:</strong> {dim.construct}
+                      {isTracker && (
+                        <p className="dim-info-grade-pill">{dim.informationalGrade}</p>
+                      )}
+                      {activeThresholdRow && (
+                        <div className="dim-live-threshold-row">
+                          <span>{activeThresholdRow.grade}</span>
+                          <p>{activeThresholdRow.criteria}</p>
+                        </div>
+                      )}
+                      {!isTracker && dim.gradeBasis?.whyNotHigher && (
+                        <div className="dim-why-not">
+                          <strong>Why not higher:</strong> {dim.gradeBasis.whyNotHigher}
+                        </div>
+                      )}
+                      {!isTracker && dim.gradeBasis?.whyNotLower && (
+                        <div className="dim-why-not">
+                          <strong>Why not lower:</strong> {dim.gradeBasis.whyNotLower}
+                        </div>
+                      )}
+                      {reviewedDate && (
+                        <div className="last-reviewed-pill dim-last-reviewed-pill">
+                          <span>Reviewed</span>
+                          <time dateTime={reviewedDate}>{reviewedDate}</time>
+                          {meta.nextUpdate && <span>Next {meta.nextUpdate}</span>}
+                        </div>
+                      )}
+                      {latestGradeMove && (
+                        <div className="dim-change-card dim-current-grade-move-callout">
+                          <div className="dim-change-card-title">Grade moved this release</div>
+                          <p>{latestGradeMove.headline || `${dim.name} moved ${latestGradeMove.from} to ${latestGradeMove.to}`}.</p>
+                          <a
+                            href={`#${latestGradeMove.anchorId}`}
+                            onClick={(event) => handleHashLinkClick(event, latestGradeMove.anchorId)}
+                          >
+                            Open the change note
+                          </a>
+                        </div>
+                      )}
                     </div>
-                  )}
-                  {scoringMetadata.length > 0 && (
-                    <div className="dim-meta-chip-row">
-                      {scoringMetadata.map((item) => (
-                        <span key={item.label} className="dim-meta-chip">
-                          <strong>{item.label}:</strong> {item.value}
-                        </span>
+                    <div className="dim-verdict-mark">
+                      {isTracker ? (
+                        trackerStat ? (
+                          <div className="dim-tracker-count dim-tracker-count-large">
+                            <div className="dim-tracker-count-number">
+                              {trackerStat.delivered}<span>/{trackerStat.total}</span>
+                            </div>
+                            <div className="dim-tracker-count-label">delivered</div>
+                          </div>
+                        ) : (
+                          <span className="dim-info-grade-pill">{dim.informationalGrade} tracker</span>
+                        )
+                      ) : (
+                        <>
+                          <GradeChip grade={dim.grade} />
+                          <TrendArrow trend={dim.trend} />
+                          {dim.previousGrade && <span className="dim-previous-grade-note">was {dim.previousGrade}</span>}
+                        </>
+                      )}
+                    </div>
+                  </section>
+                </div>
+
+                {(leadMetrics.length > 0 || headlineCommitment) && (
+                  <section className="dimension-briefing-section" aria-label={`${dim.name} lead evidence`}>
+                    <div className="dim-default-block-head">
+                      <span>Lead evidence</span>
+                      <span className="dim-evidence-note">Display selection only. These are not weighted inputs.</span>
+                    </div>
+                    {headlineCommitment && (
+                      <article className="dim-headline-commitment" id={`dim-${dim.id}-headline-title`}>
+                        <h3>Headline commitment</h3>
+                        <dl className="dim-headline-commitment-pairs">
+                          <div><dt>Target</dt><dd><strong>{headlineCommitment.targetDisplay}</strong> {headlineCommitment.targetPeriod}</dd></div>
+                          <div><dt>Result</dt><dd><strong>{headlineCommitment.actualDisplay}</strong> {headlineCommitment.actualPeriod}</dd></div>
+                        </dl>
+                        <p>Comparison: <strong>{headlineCommitment.relation}</strong></p>
+                        {headlineCommitment.comparabilityNote && <p>{headlineCommitment.comparabilityNote}</p>}
+                      </article>
+                    )}
+                    <div className="dim-top-metrics">
+                      {leadMetrics.map((metric) => (
+                        <article key={`${metric.label}-${metric.value}`} className="dim-evidence-item dim-evidence-metric">
+                          <span>{metric.label}</span>
+                          <strong>{metric.value}</strong>
+                        </article>
                       ))}
                     </div>
-                  )}
-                  {scoring?.scopeNote && (
-                    <div>
-                      <strong>What this covers:</strong> {scoring.scopeNote}
+                  </section>
+                )}
+
+                {showTriggers && (
+                  <section
+                    id={`dim-${dim.id}-triggers-section`}
+                    className="dimension-briefing-section"
+                    tabIndex={-1}
+                  >
+                    <div className="dim-default-block-head">
+                      <span>{hasTrackerTriggers ? "What changes this tracker" : (triggerPresentation.title || "What would change this grade")}</span>
+                      <span className="dim-evidence-note">{triggerSummary}</span>
+                    </div>
+                    {dim.gradeTriggers ? (
+                      <div className="dimension-trigger-band">
+                        <div className="dimension-trigger-column">
+                          <h3>{hasTrackerTriggers ? "Upward trigger" : (triggerPresentation.upLabel || "Up one step")}</h3>
+                          <div className="dim-trigger-list">
+                            {dim.gradeTriggers.up.map((trigger, index) => renderTriggerItem(trigger, `briefing-up-${index}`))}
+                          </div>
+                        </div>
+                        <div className="dimension-trigger-column">
+                          <h3>{hasTrackerTriggers ? "Downward triggers" : (triggerPresentation.downLabel || "Down one step")}</h3>
+                          <div className="dim-trigger-list">
+                            {dim.gradeTriggers.down.map((trigger, index) => renderTriggerItem(trigger, `briefing-down-${index}`))}
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <p>{dim.nextTrigger}</p>
+                    )}
+                  </section>
+                )}
+
+                {!isTracker && (dim.judgmentCall || dim.judgmentDetail || dim.rationale) && (
+                  <section
+                    id={`dim-${dim.id}-why`}
+                    className="dimension-briefing-section dim-score-body"
+                    tabIndex={-1}
+                  >
+                    <h3>How the judgment was made</h3>
+                    {dim.judgmentCall && <p><strong>Judgment call:</strong> {dim.judgmentCall}</p>}
+                    {dim.judgmentDetail && <p><strong>Where editor judgment enters:</strong> {dim.judgmentDetail}</p>}
+                    {dim.rationale && <p>{dim.rationale}</p>}
+                    {dim.gradeBasis?.plusMinusRationale && <p>{dim.gradeBasis.plusMinusRationale}</p>}
+                  </section>
+                )}
+
+                {isTracker && trackerStat && (
+                  <section className="dimension-briefing-section">
+                    <h3>Current delivery pattern</h3>
+                    <p>
+                      <strong>{trackerStat.delivered} of {trackerStat.total}</strong> tracked commitments are delivered.
+                      {promiseStatusSummary ? ` Current pattern: ${promiseStatusSummary}.` : ""}
+                    </p>
+                    <button
+                      type="button"
+                      className="dim-summary-open-button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        onInternalRef?.({ type: "view", target: "promises" });
+                      }}
+                    >
+                      Open the Promises tab →
+                    </button>
+                  </section>
+                )}
+              </section>
+            )}
+
+            {activeWorkspacePanel === "evidence" && (
+              <section
+                id={workspacePanelAnchor(dim.id, "evidence")}
+                className="dimension-workspace-panel dim-fold-stack"
+                tabIndex={-1}
+                aria-label={`${dim.name} evidence`}
+              >
+                <header className="dimension-briefing-section">
+                  <h2>Evidence record</h2>
+                  <p>Metrics, promises, cited sources, projects, and competing interpretations used in this file.</p>
+                </header>
+
+                {metrics.length > 0 && (
+                  <section id={`dim-${dim.id}-metrics`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Metrics</h3>
+                    <MetricsList metricGroups={metricGroups} />
+                  </section>
+                )}
+
+                {showTriggers && (
+                  <section
+                    id={`dim-${dim.id}-tracker-triggers`}
+                    className="dimension-briefing-section"
+                    tabIndex={-1}
+                  >
+                    <h3>{hasTrackerTriggers ? "Tracker movement conditions" : "Grade movement conditions"}</h3>
+                    {dim.gradeTriggers ? (
+                      <TriggerColumns
+                        up={dim.gradeTriggers.up}
+                        down={dim.gradeTriggers.down}
+                        renderTriggerItem={renderTriggerItem}
+                        keyPrefix="evidence"
+                        upLabel={hasTrackerTriggers ? "Upward trigger" : (triggerPresentation.upLabel || "Up one step")}
+                        downLabel={hasTrackerTriggers ? "Downward triggers" : (triggerPresentation.downLabel || "Down one step")}
+                      />
+                    ) : <p>{dim.nextTrigger}</p>}
+                  </section>
+                )}
+
+                {hasPromises && (
+                  <section id={`dim-${dim.id}-promises`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Promises</h3>
+                    <p>{dim.promises.length} tracked. {promiseStatusSummary ? `Current pattern: ${promiseStatusSummary}.` : ""}</p>
+                    <div className="dim-stack">
+                      {dim.promises.map((promise, index) => (
+                        <article key={`${promise.text}-${index}`} className="dim-nested-rule-card">
+                          <div className="dim-nested-rule-title">{promise.text}</div>
+                          <p><strong>Status:</strong> {promise.status}</p>
+                          {promise.evidence && <p>{promise.evidence}</p>}
+                          <div className="dim-metric-source-list">
+                            {promise.originalSourceUrl && (
+                              <a href={promise.originalSourceUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()}>
+                                {promise.originalSourceLabel}
+                              </a>
+                            )}
+                            {promise.statusSourceUrl && (
+                              <a href={promise.statusSourceUrl} target="_blank" rel="noopener noreferrer" onClick={(event) => event.stopPropagation()}>
+                                {promise.statusSourceLabel}
+                              </a>
+                            )}
+                          </div>
+                        </article>
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      className="dim-summary-open-button"
+                      onClick={(event) => {
+                        event.stopPropagation();
+                        onInternalRef?.({ type: "view", target: "promises", dimension: dim.name });
+                      }}
+                    >
+                      Open the Promises tab →
+                    </button>
+                  </section>
+                )}
+
+                {hasProjects && (
+                  <section id={`dim-${dim.id}-cohort`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Project pipeline</h3>
+                    <ProjectCohortSection cohort={cohort} dimId={dim.id} />
+                  </section>
+                )}
+
+                {sources.length > 0 && (
+                  <section id={`dim-${dim.id}-sources`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Sources</h3>
+                    <div className="dim-source-overview" aria-label={`${dim.name} source freshness`}>
+                      <span><strong>{sources.length}</strong> cited source{sources.length === 1 ? "" : "s"}</span>
+                      {newestDatedSource && <span>Newest dated source: <strong>{formatSourceDate(newestDatedSource)}</strong></span>}
+                      <span>Newest first.</span>
+                    </div>
+                    <SourceStackTable
+                      sources={sortedSources}
+                      gradeMovesBySource={sourceGradeMoves.moves}
+                      usageBySource={sourceUsageByUrl}
+                    />
+                    <a
+                      href={`data:application/json;charset=utf-8,${encodeURIComponent(JSON.stringify(sourceDownloadPayload, null, 2))}`}
+                      download={`${dim.id}-sources.json`}
+                      onClick={(event) => event.stopPropagation()}
+                      className="dim-download-link"
+                    >
+                      ⤓ Download sources as JSON
+                    </a>
+                  </section>
+                )}
+
+                {hasPerspectives && (
+                  <section id={`dim-${dim.id}-perspectives-section`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Perspectives</h3>
+                    <div className="dim-perspective-card dim-perspective-critics"><strong>Critics say:</strong> {dim.perspectives.critics}</div>
+                    <div className="dim-perspective-card dim-perspective-defenders"><strong>Defenders say:</strong> {dim.perspectives.defenders}</div>
+                  </section>
+                )}
+              </section>
+            )}
+
+            {activeWorkspacePanel === "history" && (
+              <section
+                id={workspacePanelAnchor(dim.id, "history")}
+                className="dimension-workspace-panel"
+                tabIndex={-1}
+                aria-label={`${dim.name} history`}
+              >
+                <header className="dimension-briefing-section">
+                  <h2>History</h2>
+                  <p>Dated grade, review, and tracker events in one sequence.</p>
+                </header>
+                {historyEvents.length === 0 ? (
+                  <p className="dimension-briefing-section">No dated events are recorded for this file yet.</p>
+                ) : (
+                  <div className="dim-stack" aria-label={`${dim.name} dated history`}>
+                    {historyEvents.map((historyEvent) => {
+                      if (historyEvent.type === "evidence-review") {
+                        return (
+                          <LatestEvidenceReview
+                            key={historyEvent.key}
+                            review={historyEvent.review}
+                            dimId={dim.id}
+                            dimName={dim.name}
+                          />
+                        );
+                      }
+                      if (historyEvent.type === "review") {
+                        return (
+                          <article
+                            key={historyEvent.key}
+                            id={`dim-${dim.id}-latest-review`}
+                            className="dimension-briefing-section dim-latest-review"
+                          >
+                            <time dateTime={historyEvent.date}>{historyEvent.date}</time>
+                            <h3>{historyEvent.review.outcome === "held" ? "Grade held" : "Review updated"}</h3>
+                            <p>{historyEvent.review.summary}</p>
+                          </article>
+                        );
+                      }
+                      if (historyEvent.type === "grade-move") {
+                        return (
+                          <article key={historyEvent.key} className="dimension-briefing-section">
+                            <time dateTime={historyEvent.date}>{historyEvent.date}</time>
+                            <h3>{historyEvent.move.headline || `Grade moved ${historyEvent.move.from} to ${historyEvent.move.to}`}</h3>
+                            {historyEvent.move.body && <p>{historyEvent.move.body}</p>}
+                            <a href={`#${historyEvent.move.anchorId}`} onClick={(event) => handleHashLinkClick(event, historyEvent.move.anchorId)}>
+                              Open the change note
+                            </a>
+                          </article>
+                        );
+                      }
+                      return (
+                        <article key={historyEvent.key} className="dimension-briefing-section">
+                          <time dateTime={historyEvent.date}>{historyEvent.date}</time>
+                          <h3>{historyEvent.promise.text}</h3>
+                          <p><strong>{historyEvent.event.status}</strong>{historyEvent.event.note ? `: ${historyEvent.event.note}` : ""}</p>
+                        </article>
+                      );
+                    })}
+                  </div>
+                )}
+              </section>
+            )}
+
+            {activeWorkspacePanel === "method" && (
+              <section
+                id={workspacePanelAnchor(dim.id, "method")}
+                className="dimension-workspace-panel dim-fold-stack"
+                tabIndex={-1}
+                aria-label={`${dim.name} method`}
+              >
+                <header className="dimension-briefing-section">
+                  <h2>{isTracker ? "How this tracker is built" : "How this grade is built"}</h2>
+                  {dim.construct && <p><strong>Construct:</strong> {dim.construct}</p>}
+                  {dim.gradeBasis?.band && <p><strong>{dim.gradeBasis.band} band:</strong> {dim.gradeBasis.bandCriterion}</p>}
+                  {dim.gradeBasis?.plusMinusRationale && <p>{dim.gradeBasis.plusMinusRationale}</p>}
+                </header>
+
+                <section id={`dim-${dim.id}-scoring`} className="dimension-briefing-section" tabIndex={-1}>
+                  <h3>Criteria and guardrails</h3>
+                  {scoringMetadata.length > 0 && (
+                    <div className="dim-meta-chip-row">
+                      {scoringMetadata.map((item) => <span key={item.label} className="dim-meta-chip"><strong>{item.label}:</strong> {item.value}</span>)}
                     </div>
                   )}
-                  {scoring?.modifierExpiry && (
-                    <div>
-                      <strong>Timing note:</strong> {scoring.modifierExpiry}
-                    </div>
-                  )}
+                  {scoring?.scopeNote && <p><strong>What this covers:</strong> {scoring.scopeNote}</p>}
+                  {scoring?.modifierExpiry && <p><strong>Timing note:</strong> {scoring.modifierExpiry}</p>}
                   {scoring?.thresholds?.length > 0 && (
                     <div className="dim-stack">
-                      <strong>Grade thresholds</strong>
+                      <h4>Grade thresholds</h4>
                       {scoring.thresholds.map((threshold) => (
-                        <div
-                          key={threshold.grade}
-                          className={`dim-threshold-row ${threshold === activeThresholdRow ? "dim-threshold-row-active" : ""}`}
-                        >
-                          <span>{threshold.grade}</span>
-                          <p>{threshold.criteria}</p>
+                        <div key={threshold.grade} className={`dim-threshold-row ${threshold === activeThresholdRow ? "dim-threshold-row-active" : ""}`}>
+                          <span>{threshold.grade}</span><p>{threshold.criteria}</p>
                         </div>
                       ))}
                     </div>
                   )}
                   {scoring?.guardrails?.length > 0 && (
                     <div className="dim-stack">
-                      <strong>Rules that limit the grade</strong>
-                      {scoring.guardrails.map((rule, i) => (
-                        <div key={i} style={{ color: "#444" }}>
-                          {rule}
-                        </div>
-                      ))}
+                      <h4>Rules that limit the result</h4>
+                      <ul>{scoring.guardrails.map((rule) => <li key={rule}>{rule}</li>)}</ul>
                     </div>
                   )}
                   {modifierItems.length > 0 && (
                     <div className="dim-stack">
-                      <strong>Scoring adjustments</strong>
-                      {modifierItems.map((modifier, i) => (
-                        <div key={i}>
-                          <strong>{MODIFIER_LABELS[modifier.name] || modifier.name}</strong>: {modifier.status}. {modifier.reason}
-                        </div>
+                      <h4>Scoring adjustments</h4>
+                      {modifierItems.map((modifier, index) => (
+                        <p key={`${modifier.name}-${index}`}><strong>{MODIFIER_LABELS[modifier.name] || modifier.name}:</strong> {modifier.status}. {modifier.reason}</p>
                       ))}
                     </div>
                   )}
-                  {dim.gradeBasis?.leverOperationalization && (
-                    <DisclosureSection
-                      id={`dim-${dim.id}-lever-operationalization`}
-                      title={`Status checks for each lever (${dim.gradeBasis.leverOperationalization.length} levers)`}
-                      isOpen={!!openSections.leverOperationalization}
-                      onToggle={() => toggleSection("leverOperationalization")}
-                      active={activeSectionKeys.includes("leverOperationalization")}
-                      instantOpen={isInstantOpenSection("leverOperationalization")}
-                    >
-                      <div className="dim-stack">
-                        {dim.gradeBasis.leverOperationalization.map((lever, i) => (
-                          <div key={i} className="dim-nested-rule-card">
-                            <div className="dim-nested-rule-title">{lever.name}</div>
-                            <div><strong>Announced if:</strong> {lever.announced}</div>
-                            <div><strong>Authorized if:</strong> {lever.authorized}</div>
-                            <div><strong>Executing if:</strong> {lever.executing}</div>
-                            <div><strong>Current:</strong> {lever.currentStatus}</div>
-                          </div>
-                        ))}
-                        {dim.gradeBasis.leverScoreSummary && (
-                          <div className="dim-note-box">
-                            <strong>Score summary:</strong> {dim.gradeBasis.leverScoreSummary}
-                          </div>
-                        )}
-                      </div>
-                    </DisclosureSection>
-                  )}
-                  {dim.gradeBasis?.componentOperationalization && (
-                    <DisclosureSection
-                      id={`dim-${dim.id}-component-operationalization`}
-                      title={`Per-component checklist (${dim.gradeBasis.componentOperationalization.length} components)`}
-                      isOpen={!!openSections.componentOperationalization}
-                      onToggle={() => toggleSection("componentOperationalization")}
-                      active={activeSectionKeys.includes("componentOperationalization")}
-                      instantOpen={isInstantOpenSection("componentOperationalization")}
-                    >
-                      <div className="dim-stack">
-                        {dim.gradeBasis.componentOperationalization.map((component, i) => (
-                          <div key={i} className="dim-nested-rule-card">
-                            <div className="dim-nested-rule-title">{component.name}</div>
-                            <div><strong>Present if:</strong> {component.presentIfX}</div>
-                            <div><strong>Current:</strong> {component.currentStatus}</div>
-                          </div>
-                        ))}
-                        {dim.gradeBasis.componentScoreSummary && (
-                          <div className="dim-note-box">
-                            <strong>Score summary:</strong> {dim.gradeBasis.componentScoreSummary}
-                          </div>
-                        )}
-                      </div>
-                    </DisclosureSection>
-                  )}
-                  {dim.gradeBasis?.combinationRule && (
-                    <DisclosureSection
-                      id={`dim-${dim.id}-combination-rule`}
-                      title="How the pieces combine"
-                      isOpen={!!openSections.combinationRule}
-                      onToggle={() => toggleSection("combinationRule")}
-                      active={activeSectionKeys.includes("combinationRule")}
-                      instantOpen={isInstantOpenSection("combinationRule")}
-                    >
-                      <CombinationRule rule={dim.gradeBasis.combinationRule} />
-                    </DisclosureSection>
-                  )}
-                </div>
-              </DisclosureSection>
-            )}
+                </section>
 
-            {hasSubScores && (
-              <DisclosureSection
-                id={`dim-${dim.id}-subscores`}
-                title="Sub-scores"
-                summary={subScoreSummary}
-                isOpen={!!openSections.subScores}
-                onToggle={() => toggleSection("subScores")}
-                active={activeSectionKeys.includes("subScores")}
-                variant="neutral"
-                instantOpen={isInstantOpenSection("subScores")}
-              >
-                {scoring?.subScoreRule && (
-                  <div className="dim-note-box dim-subscore-rule">
-                    <div><strong>Evaluation order:</strong> {scoring.subScoreRule.evaluationOrder}</div>
-                    <div><strong>Headline calculation:</strong> {scoring.subScoreRule.combination}</div>
-                    <div><strong>Current:</strong> {scoring.subScoreRule.currentCalculation}</div>
-                  </div>
+                {hasSubScores && (
+                  <section id={`dim-${dim.id}-subscores`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Sub-scores</h3>
+                    {subScoreSummary && <p>{subScoreSummary}</p>}
+                    {scoring?.subScoreRule && (
+                      <div className="dim-note-box dim-subscore-rule">
+                        <p><strong>Evaluation order:</strong> {scoring.subScoreRule.evaluationOrder}</p>
+                        <p><strong>Headline calculation:</strong> {scoring.subScoreRule.combination}</p>
+                        <p><strong>Current:</strong> {scoring.subScoreRule.currentCalculation}</p>
+                      </div>
+                    )}
+                    <div className="dimension-subscore-grid">
+                      {Object.values(dim.subScores).map((sub) => (
+                        <article key={sub.label} className="dim-subscore-card">
+                          <h4 className="dim-subscore-card-title">{sub.label}</h4>
+                          <div className="dim-subscore-current"><GradeChip grade={sub.grade} size="sm" /><span>{sub.rationale}</span></div>
+                          {sub.thresholds?.map((threshold) => (
+                            <div key={threshold.grade} className={`dim-threshold-row ${threshold.grade === sub.grade ? "dim-threshold-row-active" : ""}`}>
+                              <span>{threshold.grade}</span><p>{threshold.criteria}</p>
+                            </div>
+                          ))}
+                        </article>
+                      ))}
+                    </div>
+                  </section>
                 )}
-                <div className="dim-subscore-cards">
-                  {Object.values(dim.subScores).map((sub, i) => (
-                    <div key={i} className="dim-subscore-card">
-                      <div className="dim-subscore-card-title">{sub.label}</div>
-                      <div className="dim-subscore-card-body">
-                        <div className="dim-subscore-current">
-                          <GradeChip grade={sub.grade} size="sm" />
-                          <span>{sub.rationale}</span>
-                        </div>
-                        {sub.thresholds?.length > 0 && (
-                          <div className="dim-subscore-thresholds">
-                            {sub.thresholds.map((threshold) => (
-                              <div
-                                key={threshold.grade}
-                                className={`dim-threshold-row ${threshold.grade === sub.grade ? "dim-threshold-row-active" : ""}`}
-                              >
-                                <span>{threshold.grade}</span>
-                                <p>{threshold.criteria}</p>
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </DisclosureSection>
-            )}
 
-            {hasPromises && (
-              <DisclosureSection
-                id={`dim-${dim.id}-promises`}
-                title="Promises"
-                summary={`${dim.promises.length} tracked`}
-                isOpen={!!openSections.promises}
-                onToggle={() => toggleSection("promises")}
-                region
-                active={activeSectionKeys.includes("promises")}
-                variant="neutral"
-                instantOpen={isInstantOpenSection("promises")}
-              >
-                <div className="dim-stack">
-                  <div>
-                    {dim.promises.length} promise{dim.promises.length === 1 ? "" : "s"} tracked in this dimension.
-                    {promiseStatusSummary ? ` Current pattern: ${promiseStatusSummary}.` : ""}
-                  </div>
-                  <button
-                    type="button"
-                    className="dim-summary-open-button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      onInternalRef?.({ type: "view", target: "promises", dimension: dim.name });
-                    }}
-                  >
-                    Open the Promises tab →
-                  </button>
-                </div>
-              </DisclosureSection>
-            )}
-
-            {hasProjects && (
-              <DisclosureSection
-                id={`dim-${dim.id}-cohort`}
-                title="Project pipeline"
-                summary={`${cohort.projects.length} projects`}
-                isOpen={!!openSections.projects}
-                onToggle={() => toggleSection("projects")}
-                region
-                active={activeSectionKeys.includes("projects")}
-                variant="rule"
-                instantOpen={isInstantOpenSection("projects")}
-              >
-                <ProjectCohortSection
-                  cohort={cohort}
-                  isOpen={!!openSections.cohortList}
-                  onToggle={() => toggleSection("cohortList")}
-                  dimId={dim.id}
-                  active={activeSectionKeys.includes("cohortList")}
-                  instantOpen={isInstantOpenSection("cohortList")}
-                />
-              </DisclosureSection>
-            )}
-
-            {hasPerspectives && (
-              <DisclosureSection
-                id={`dim-${dim.id}-perspectives-section`}
-                title="Perspectives"
-                summary="critical and supportive reads"
-                isOpen={!!openSections.perspectives}
-                onToggle={() => toggleSection("perspectives")}
-                region
-                active={activeSectionKeys.includes("perspectives")}
-                variant="blue"
-                instantOpen={isInstantOpenSection("perspectives")}
-              >
-                <div className="dim-stack">
-                  <div className="dim-perspective-card dim-perspective-critics">
-                    <strong>Critics say:</strong> {dim.perspectives.critics}
-                  </div>
-                  <div className="dim-perspective-card dim-perspective-defenders">
-                    <strong>Defenders say:</strong> {dim.perspectives.defenders}
-                  </div>
-                </div>
-              </DisclosureSection>
-            )}
-
-            {hasScopeContext && (
-              <DisclosureSection
-                id={`dim-${dim.id}-caveats`}
-                title="Scope & context"
-                summary="boundaries and confounders"
-                isOpen={!!openSections.scopeContext}
-                onToggle={() => toggleSection("scopeContext")}
-                region
-                active={activeSectionKeys.includes("scopeContext")}
-                variant="blue"
-                instantOpen={isInstantOpenSection("scopeContext")}
-              >
-                <div className="dim-stack">
-                  {keyContextItems.length > 0 && (
-                    <div id={`dim-${dim.id}-context`} tabIndex={-1} className="dim-stack">
-                      <strong>Context and confounders</strong>
-                      {keyContextItems.map((item) => (
-                        <div key={item.label}>
-                          <strong>{item.label}:</strong> {item.text}
-                        </div>
+                {dim.gradeBasis?.leverOperationalization && (
+                  <section id={`dim-${dim.id}-lever-operationalization`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Status checks for each lever</h3>
+                    <div className="dim-stack">
+                      {dim.gradeBasis.leverOperationalization.map((lever) => (
+                        <article key={lever.name} className="dim-nested-rule-card">
+                          <h4>{lever.name}</h4>
+                          <p><strong>Announced if:</strong> {lever.announced}</p>
+                          <p><strong>Authorized if:</strong> {lever.authorized}</p>
+                          <p><strong>Executing if:</strong> {lever.executing}</p>
+                          <p><strong>Current:</strong> {lever.currentStatus}</p>
+                        </article>
                       ))}
                     </div>
-                  )}
-                  {dim.scope && (
-                    <div id={`dim-${dim.id}-scope`} tabIndex={-1} className="dim-stack">
-                      <strong>Scope</strong>
-                      <div>
-                        <strong>In scope:</strong>
-                        <div className="dim-stack dim-narrow-stack">
-                          {dim.scope.inScope.map((item, i) => (
-                            <div key={i}>{renderScopeItem(item)}</div>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <strong>Out of scope:</strong>
-                        <div className="dim-stack dim-narrow-stack">
-                          {dim.scope.outOfScope.map((item, i) => (
-                            <div key={i}>{renderScopeItem(item)}</div>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                  {dim.inherited && (
-                    <div id={`dim-${dim.id}-inherited`} tabIndex={-1}>
-                      <strong>What was inherited:</strong> {dim.inherited}
-                    </div>
-                  )}
-                </div>
-              </DisclosureSection>
-            )}
+                    {dim.gradeBasis.leverScoreSummary && <p><strong>Score summary:</strong> {dim.gradeBasis.leverScoreSummary}</p>}
+                  </section>
+                )}
 
-            {scoringMetadata.length > 0 && (
-              <DisclosureSection
-                id={`dim-${dim.id}-glossary`}
-                title="Glossary"
-                summary="confidence, attribution, and lag"
-                isOpen={!!openSections.glossary}
-                onToggle={() => toggleSection("glossary")}
-                region
-                active={activeSectionKeys.includes("glossary")}
-                variant="neutral"
-                instantOpen={isInstantOpenSection("glossary")}
-              >
-                <div className="dim-stack">
-                  <div>
-                    <strong>Confidence</strong> - how resistant the grade is to new data. <em>High</em> = direct measurement against numeric thresholds. <em>Medium</em> = qualitative judgment with mixed evidence. <em>Low</em> = sparse evidence.
-                  </div>
-                  <div>
-                    <strong>Attribution</strong> - what share of the outcome the federal government actually controls. <em>Direct</em> = at least 60% federal levers. <em>Mixed</em> = 30 to 60%. <em>Mostly inherited</em> = less than 30%.
-                  </div>
-                  <div>
-                    <strong>Lag</strong> - how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1 to 2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = this area moves on specific disclosures or rulings rather than a fixed schedule.
-                  </div>
-                </div>
-              </DisclosureSection>
+                {dim.gradeBasis?.componentOperationalization && (
+                  <section id={`dim-${dim.id}-component-operationalization`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Per-component checklist</h3>
+                    <div className="dim-stack">
+                      {dim.gradeBasis.componentOperationalization.map((component) => (
+                        <article key={component.name} className="dim-nested-rule-card">
+                          <h4>{component.name}</h4>
+                          <p><strong>Present if:</strong> {component.presentIfX}</p>
+                          <p><strong>Current:</strong> {component.currentStatus}</p>
+                        </article>
+                      ))}
+                    </div>
+                    {dim.gradeBasis.componentScoreSummary && <p><strong>Score summary:</strong> {dim.gradeBasis.componentScoreSummary}</p>}
+                  </section>
+                )}
+
+                {dim.gradeBasis?.combinationRule && (
+                  <section id={`dim-${dim.id}-combination-rule`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Combination Rule</h3>
+                    <CombinationRule rule={dim.gradeBasis.combinationRule} />
+                  </section>
+                )}
+
+                {hasScopeContext && (
+                  <section id={`dim-${dim.id}-caveats`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Scope and context</h3>
+                    {keyContextItems.length > 0 && (
+                      <div id={`dim-${dim.id}-context`} className="dim-stack" tabIndex={-1}>
+                        {keyContextItems.map((item) => <p key={item.label}><strong>{item.label}:</strong> {item.text}</p>)}
+                      </div>
+                    )}
+                    {dim.scope && (
+                      <div id={`dim-${dim.id}-scope`} className="dim-stack" tabIndex={-1}>
+                        <h4>In scope</h4>
+                        <ul>{dim.scope.inScope.map((item, index) => <li key={index}>{renderScopeItem(item)}</li>)}</ul>
+                        <h4>Out of scope</h4>
+                        <ul>{dim.scope.outOfScope.map((item, index) => <li key={index}>{renderScopeItem(item)}</li>)}</ul>
+                      </div>
+                    )}
+                    {dim.inherited && <p id={`dim-${dim.id}-inherited`} tabIndex={-1}><strong>What was inherited:</strong> {dim.inherited}</p>}
+                  </section>
+                )}
+
+                {scoringMetadata.length > 0 && (
+                  <section id={`dim-${dim.id}-glossary`} className="dimension-briefing-section" tabIndex={-1}>
+                    <h3>Glossary</h3>
+                    <div className="dim-stack">
+                      <div>
+                        <strong>Confidence</strong> - how resistant the grade is to new data. <em>High</em> = direct measurement against numeric thresholds. <em>Medium</em> = qualitative judgment with mixed evidence. <em>Low</em> = sparse evidence.
+                      </div>
+                      <div>
+                        <strong>Attribution</strong> - what share of the outcome the federal government actually controls. <em>Direct</em> = at least 60% federal levers. <em>Mixed</em> = 30 to 60%. <em>Mostly inherited</em> = less than 30%.
+                      </div>
+                      <div>
+                        <strong>Lag</strong> - how long policy effects take to show in the metrics. <em>Short</em> = monthly / quarterly. <em>Medium</em> = 1 to 2 year cycles. <em>Long</em> = 5+ year structural. <em>Event-driven</em> = this area moves on specific disclosures or rulings rather than a fixed schedule.
+                      </div>
+                    </div>
+                  </section>
+                )}
+              </section>
             )}
           </div>
         </div>
@@ -2949,6 +2218,14 @@ function CombinationRule({ rule }) {
       <div className="dim-note-box">
         <strong>{rule.currentDistribution} → {rule.currentGradeFromRule}</strong>
       </div>
+      {rule.moveRules && (
+        <div className="dim-stack">
+          <div className="dim-nested-rule-title">Movement rules</div>
+          <p><strong>Upgrade:</strong> {rule.moveRules.upgrade}</p>
+          <p><strong>Downgrade:</strong> {rule.moveRules.downgrade}</p>
+          <p><strong>Multiple steps:</strong> {rule.moveRules.multiNotch}</p>
+        </div>
+      )}
     </div>
   );
 }
@@ -2981,7 +2258,7 @@ function RuleTable({ title, columns, rows }) {
   );
 }
 
-function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active, instantOpen = false }) {
+function ProjectCohortSection({ cohort, dimId }) {
   const stageGates = cohort.stageGates || [];
   const stageOrder = stageGates.reduce((acc, gate, i) => {
     acc[gate.key] = i;
@@ -3071,17 +2348,18 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active, instant
           ))}
         </div>
       </div>
-      <DisclosureSection
+      <section
         id={`dim-${dimId}-cohort-list`}
-        title="Full project list"
-        summary={`${total} rows`}
-        isOpen={isOpen}
-        onToggle={onToggle}
-        active={active}
-        instantOpen={instantOpen}
-        anchor
+        className="dim-stack"
+        tabIndex={-1}
       >
-        <div className="cohort-mobile-projects" aria-label="Full Major Projects cohort list">
+        <h4>Full project list ({total})</h4>
+        <div
+          id={`dim-${dimId}-cohort-table`}
+          className="cohort-mobile-projects"
+          tabIndex={-1}
+          aria-label="Full Major Projects cohort list"
+        >
           {sortedProjects.map((p, i) => (
             <article
               key={`${p.name}-card-${i}`}
@@ -3109,11 +2387,12 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active, instant
                     <dd>
                       <a
                         href={p.sourceUrl}
+                        aria-label={p.sourceLabel || "Project source"}
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
                       >
-                        Open source →
+                        {p.sourceLabel || "Project source"}
                       </a>
                     </dd>
                   </div>
@@ -3122,56 +2401,7 @@ function ProjectCohortSection({ cohort, isOpen, onToggle, dimId, active, instant
             </article>
           ))}
         </div>
-        <div
-          id={`dim-${dimId}-cohort-table`}
-          tabIndex={-1}
-          role={active ? "region" : undefined}
-          aria-labelledby={`dim-${dimId}-cohort-list-button`}
-          className="cohort-table-wrap"
-        >
-          <table className="dim-cohort-table">
-            <thead>
-              <tr>
-                <th>Project</th>
-                <th>Tranche</th>
-                <th>Stage</th>
-                <th>Stage date</th>
-                <th>Source</th>
-              </tr>
-            </thead>
-            <tbody>
-              {sortedProjects.map((p, i) => (
-                <tr key={`${p.name}-${i}`}>
-                  <td>
-                    <div className="dim-cohort-project-name">{p.name}</div>
-                    {p.location && (
-                      <div className="dim-cohort-location">
-                        {p.location}
-                      </div>
-                    )}
-                  </td>
-                  <td>{p.tranche}</td>
-                  <td>{stagePill(p.stage)}</td>
-                  <td>{p.stageDate}</td>
-                  <td>
-                    {p.sourceUrl && (
-                      <a
-                        href={p.sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="dim-inline-link"
-                      >
-                        Source →
-                      </a>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </DisclosureSection>
+      </section>
     </div>
   );
 }

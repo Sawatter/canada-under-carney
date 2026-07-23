@@ -13,7 +13,7 @@
       "label": "Housing disbursement watch",
       "timingLabel": "Event-driven",
       "status": "Waiting for DCRP agreement, project approval, payment, or construction evidence.",
-      "href": "#dim-housing-supply-sources"
+      "href": "#dim-housing-supply-evidence"
     },
     {
       "id": "august-monthly-cycle",

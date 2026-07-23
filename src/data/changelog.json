@@ -1,6 +1,28 @@
 [
   {
     "date": "2026-07-22",
+    "version": "5.163",
+    "summary": "Reorganized each policy file into four focused views so readers can get the verdict first and inspect the evidence record without working through nested drawers. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Policy files now open with a briefing",
+        "body": "Each policy opens on a flat Briefing view with the verdict, latest review, lead measures, published trigger band, grade limits, and editor judgment visible together. Evidence, History, and Method remain one click away instead of sitting inside a long stack of sub-drawers."
+      },
+      {
+        "type": "product",
+        "headline": "Dense records have dedicated views",
+        "body": "Evidence collects the measures, sources, promises, triggers, projects, and perspectives. History puts dated changes into one timeline, while Method keeps thresholds, rules, scope notes, and definitions together. Shared links retain the active view."
+      },
+      {
+        "type": "fix",
+        "headline": "Legacy policy links still reach the right record",
+        "body": "Older policy anchors now resolve to the matching Briefing, Evidence, History, or Method view. Direct links move keyboard focus to the selected view, and closing the workspace returns focus to the policy card that opened it."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-22",
     "version": "5.162",
     "summary": "Added a dated explanation of why the latest review held each unchanged policy grade. No scores or scoring rules changed.",
     "items": [
