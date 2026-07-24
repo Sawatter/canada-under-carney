@@ -10,11 +10,14 @@
 
 ## Current State
 
-- The v5.164 first-look briefing is the current release candidate. It puts the
+- The v5.164 first-look briefing is live. It puts the
   Full Policy Audit result, authored reason, newest release state, next update,
   primary published watch, scoring boundary, and inspect routes before the
   policy grid. Household Impact, Promise Delivery, and Approval remain visible
-  with their different scoring roles stated. No scoring surface changed.
+  with their different scoring roles stated. Release commit `985765b` and
+  audit-harness follow-up `d622df0` are on `main`. Pages run `30056858119` and
+  Live Dashboard Audit run `30057055063` passed, with the latter reporting
+  `356/356` checks. No scoring surface changed.
 - Inspectability structure is live across the dashboard.
 - Ethics & Transparency is normalized to a true whole-letter `C` with GPA `2.0`.
 - Flagship Delivery is normalized to a true whole-letter `C` with GPA `2.0`.
@@ -66,7 +69,7 @@
 
 ## Recently Completed
 
-- v5.164 first-look implementation and local release gates - the approved
+- v5.164 first-look release - the approved
   first-look contract now reads one validated authored verdict, a deterministic
   projection of the newest release, and the first published next check. Direct
   inspection at `375 x 812` placed the result, reason, release state, watch,
@@ -79,8 +82,14 @@
   monthly cycle. Standards, Spec, and a focused read-only Claude pass approved
   the final candidate after route, timing, touch-target, copy, and
   accessibility corrections. The 246-case browser matrix and 356-row local
-  rendered-content check passed with zero issues. The release remains a
-  candidate until its production gates close. The record is
+  rendered-content check passed with zero issues. Release commit `985765b`
+  deployed through Pages run `30055354606`. Its first post-deploy audit exposed
+  a fixed-wait race in the audit harness rather than a product-route defect.
+  Follow-up `d622df0` now waits for the exact lazy target and fails closed on
+  publisher request errors. Two focused agent re-reviews and Claude approved
+  the correction. Pages run `30056858119` passed build, the 246-case browser
+  gate, and deploy; Live Dashboard Audit run `30057055063` passed `356/356`
+  checks. The record is
   [First-Look-Briefing-Release-2026-07-23.md](First-Look-Briefing-Release-2026-07-23.md).
 
 - First-look modernization review - the July 23 live inspection found that v5.163 explains the scorecard before showing its result: at `375 x 812`, the headline row begins near `y=907` and the policy grid near `y=2863`; at `1280 x 900`, the headline row begins near `y=639` and extends beyond the first viewport. Current official product research kept Flighty as the broad model and selected Robinhood Cortex, Apple Health, Axios, incident.io, and Sentry as the new bounded first-look references. This advances the readability goal by turning a renewed user signal into a measurable prototype contract for result, reason, latest change, next checkpoint, and evidence, and it exposes overview hierarchy, headline-role confusion, and freshness comprehension as the next test. Standards and specification agents approved the corrected record, and authenticated Claude approved its second adversarial pass. No dashboard, score, method, or data changed. The decision record is [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md).
@@ -217,6 +226,7 @@ These are valid, but not active now.
 7. Reconsider hero collapse for returning readers after the next live review. Priority reason: it could reduce repeat-visit scroll cost, but it adds client state and hides a trust frame that helped first-time readers.
 8. Keep the v2 tri-lens architecture docs frozen as design artifacts. Priority reason: v5.163 addresses the measured drawer problem without reopening the scoring architecture.
 9. Reconsider a local read-only MCP adapter only after repeated review work shows that selective reads are materially better than targeted files or the tracked-file bundle. Any return needs a filtered input set, symlink and special-file policy, locked tool dependencies, a disclosure smoke test, local `stdio`, and another different-AI review. Priority reason: do not rebuild an optional access path without measured need.
+10. Refresh the workflow action that still targets deprecated Node.js 20 before GitHub removes forced Node.js 24 compatibility. Priority reason: the v5.164 audit passed, but its artifact-upload step now emits a platform deprecation warning that should not become a future release blocker.
 
 ---
 

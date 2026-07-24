@@ -1,7 +1,8 @@
 # First-Look Briefing Release
 
-**Status:** Release candidate<br>
+**Status:** Live<br>
 **Prepared:** 2026-07-23<br>
+**Published:** 2026-07-23<br>
 **Comparison baseline:** live v5.163<br>
 **Frozen surfaces:** no grade, threshold, formula, weight, modifier, promise
 status, source order, trigger, or dimension-model change
@@ -104,9 +105,29 @@ Completed locally on July 23:
 - A later broad Claude retry timed out after 600 seconds and counted as no
   review. A focused read-only pass over the final correction surfaces returned
   `APPROVED` with no remaining discrepancy.
+- The first post-deploy audit exposed a timing defect in the audit harness, not
+  the policy route. Two focused agents returned `REVISE` until the gate required
+  the exact lazy-loaded target and failed closed on publisher request errors.
+  Both re-reviews and a narrow read-only Claude pass then returned `APPROVED`.
 
-Commit, deployment, and production checks must pass before this record changes
-to Live. A timeout, missing environment, or unperformed check is not approval.
+## Production Record
+
+- Release commit `985765b` deployed through Pages run `30055354606`, whose
+  review-handoff, build, 246-case browser, and deploy jobs passed.
+- Initial Live Dashboard Audit run `30055574553` recorded one issue because its
+  fixed 350-millisecond wait checked the Housing target before the deferred
+  policy chunk rendered. The expected hash was present, the later direct route
+  passed, and the product route was unchanged.
+- Follow-up commit `d622df0` replaced the fixed delay with an exact-target wait.
+  It also allows one longer confirmation request only after a publisher timeout
+  while retaining failure results for exhausted requests, 404 and 410
+  responses, plus any 5xx response.
+- A direct production rerun passed `356/356` checks across desktop and mobile.
+  Pages run `30056858119` then passed build, the 246-case browser gate, and
+  deploy. Its triggered Live Dashboard Audit run `30057055063` passed
+  `356/356` checks with zero issues.
+- The production header reports v5.164. The generated visitor count remained
+  outside both release commits.
 
 ## Reader-Test Boundary
 
