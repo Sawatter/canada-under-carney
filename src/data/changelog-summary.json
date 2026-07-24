@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-07-23",
+    "version": "5.164",
+    "items": [],
+    "firstLook": {
+      "mode": "no-grade-moves",
+      "gradeMoveCount": 0,
+      "featuredItems": [
+        {
+          "type": "product",
+          "headline": "The dashboard now leads with the result",
+          "body": "Full Policy Audit is now the dominant first result, followed by one authored explanation, the latest release outcome, the next scheduled review, the active Housing watch, and direct paths to the 11 policy files and score math.",
+          "itemIndex": 0
+        }
+      ]
+    }
+  },
+  {
     "date": "2026-07-22",
     "version": "5.163",
     "items": []

@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-07-23",
+    "version": "5.164",
+    "summary": "Put the overall result, reason, latest release, next check, and score boundaries into one first-look briefing. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "The dashboard now leads with the result",
+        "body": "Full Policy Audit is now the dominant first result, followed by one authored explanation, the latest release outcome, the next scheduled review, the active Housing watch, and direct paths to the 11 policy files and score math."
+      },
+      {
+        "type": "product",
+        "headline": "The four headline values have distinct roles",
+        "body": "Household Impact is labelled as the same 11 files with four pocketbook files double-weighted. Promise Delivery and Approval remain compact context signals outside the grades."
+      },
+      {
+        "type": "fix",
+        "headline": "Freshness dates say what they mean",
+        "body": "The masthead now distinguishes evidence coverage from the editor-reviewed score cycle instead of presenting one broad Updated badge."
+      }
+    ]
+  },
+  {
     "date": "2026-07-22",
     "version": "5.163",
     "summary": "Reorganized each policy file into four focused views so readers can get the verdict first and inspect the evidence record without working through nested drawers. No scores or scoring rules changed.",

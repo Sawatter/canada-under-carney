@@ -18,19 +18,13 @@ function formatDate(value) {
   return dateFormatter.format(new Date(`${value}T00:00:00Z`));
 }
 
-function formatNextCheckTiming(check) {
-  if (check.date) return formatDate(check.date);
-  if (check.dateSource && status[check.dateSource]) return formatDate(status[check.dateSource]);
-  return check.timingLabel || "Event-driven";
-}
-
 function isMobileStatusViewport() {
   return typeof window !== "undefined"
     && typeof window.matchMedia === "function"
     && window.matchMedia(MOBILE_STATUS_QUERY).matches;
 }
 
-export default function DashboardStatus({ gradeMoves = [] }) {
+export default function DashboardStatus() {
   const [isMobileStatus, setIsMobileStatus] = useState(isMobileStatusViewport);
   const [mobileDetailsOpen, setMobileDetailsOpen] = useState(false);
   const mobileDetailsOpenRef = useRef(false);
@@ -41,14 +35,11 @@ export default function DashboardStatus({ gradeMoves = [] }) {
   const evidenceScanDate = formatDate(status.lastSourceScanAt);
   const editorReviewedDate = formatDate(status.lastEditorReviewedScoreCycleAt);
   const coverageThroughDate = formatDate(status.coverageThrough);
-  const gradeMoveValue = gradeMoves.length === 0 ? "None" : String(gradeMoves.length);
   const facts = [
     ["Evidence scan", evidenceScanDate],
     ["Next scheduled scan", formatDate(status.nextScheduledSourceScanAt)],
     ["Editor-reviewed score cycle", editorReviewedDate],
     ["Coverage through", coverageThroughDate],
-    ["Grade moves this release", gradeMoveValue],
-    ["Monitor items awaiting review", String(status.watchItemsAwaitingReviewCount)],
   ];
   const detailsVisible = !isMobileStatus || mobileDetailsOpen;
 
@@ -116,8 +107,6 @@ export default function DashboardStatus({ gradeMoves = [] }) {
             <span><strong>Editor-reviewed cycle</strong> {editorReviewedDate}</span>
             <span aria-hidden="true"> &middot; </span>
             <span><strong>Coverage through</strong> {coverageThroughDate}</span>
-            <span aria-hidden="true"> &middot; </span>
-            <span><strong>Grade moves</strong> {gradeMoveValue}</span>
           </p>
           <button
             ref={toggleRef}
@@ -148,27 +137,6 @@ export default function DashboardStatus({ gradeMoves = [] }) {
         <p className="dashboard-status-note">
           {STATUS_DISCLAIMERS[status.disclaimerKey]}
         </p>
-        {Array.isArray(status.nextChecks) && status.nextChecks.length > 0 && (
-          <div className="dashboard-status-next" aria-labelledby="dashboard-status-next-heading">
-            <h3 id="dashboard-status-next-heading">Next checks</h3>
-            <ul className="dashboard-status-next-list">
-              {status.nextChecks.map((check) => (
-                <li key={check.id} className="dashboard-status-next-item">
-                  <div>
-                    <strong>{check.label}</strong>
-                    <span>{formatNextCheckTiming(check)}</span>
-                  </div>
-                  <p>{check.status}</p>
-                  {check.href && (
-                    <a href={check.href} aria-label={`Open check path for ${check.label}`}>
-                      Open check path
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
       </div>
     </section>
   );

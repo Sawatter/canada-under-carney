@@ -77,7 +77,7 @@ The dashboard's internal product name `Full Policy Audit` is grandfathered noun-
 src/
   components/
     Dashboard.jsx          ← top-level shell, view routing, scoreboard layout
-    ScoreboardHeader.jsx   ← four-card row (Household / Audit / Promises / Approval)
+    ScoreboardHeader.jsx   ← first-look briefing with role-separated secondary signals
     ScoreDerivation.jsx    ← "How is this score built?" panels
     DimensionCard.jsx      ← per-dimension card with expand drawer
     PromiseTracker.jsx     ← Promises tab list view

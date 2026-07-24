@@ -61,13 +61,24 @@ it. Lint and build do not count as UI verification.
   grade or tracker labels remain distinguishable without relying on colour
   alone.
 
-## Unchanged Shell
+## First-Look And Shell
 
-- Header cards: confirm the four cards align on desktop, Approval Signal has no
-  extra ungraded pill, and its poll detail toggle still opens and closes.
+- Desktop `1280 x 900`: confirm the Full Policy Audit result is visually
+  dominant and the Household, Promise Delivery, and Approval signals remain
+  visible in the first viewport with their different roles stated.
+- Mobile `375 x 812`: confirm the result, reason, release state, watch, scoring
+  boundary, and both inspect routes finish above the fixed bottom navigation
+  without horizontal overflow.
+- Route checks: activate the policy-file route from Scorecard and from another
+  top-level view. It must focus the policy heading without adding a history
+  entry. Confirm the scoring-method and release-detail routes reach their
+  intended targets.
+- Approval Signal: confirm its accessible name includes the approve,
+  disapprove, net, and poll-window values, and its detail toggle opens and
+  closes.
 - Scorecard return: confirm closing a policy returns to the same card and scroll
   position without changing the selected top-level view.
 
 Physical iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and
-Windows forced-colors device checks are not part of the v5.163 change. Do not
-record them as passes unless they are separately performed on those platforms.
+Windows forced-colors device checks are separate from browser emulation. Do not
+record them as passes unless they are performed on those platforms.

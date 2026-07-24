@@ -2,6 +2,7 @@ import { Suspense, lazy, useCallback, useEffect, useLayoutEffect, useRef, useSta
 import dimensionsSummary from "../data/dimensions-summary.json";
 import meta from "../data/meta.json";
 import changelogSummary from "../data/changelog-summary.json";
+import status from "../data/status.json";
 import {
   gpaToGrade,
   calculateOverallGPA,
@@ -23,6 +24,7 @@ import SinceLastVisit from "./SinceLastVisit";
 import FollowUpdates from "./FollowUpdates";
 import RouteErrorBoundary from "./RouteErrorBoundary";
 import { getCurrentGradeMoves, getCurrentGradeMovesByDimension } from "../gradeMoves";
+import { resolveNextCheckTiming, selectPrimaryNextCheck } from "../firstLook";
 import "./AppShell.css";
 
 // Route-level code splitting: these views are not needed for first paint of
@@ -246,6 +248,9 @@ export default function Dashboard() {
   const pocketbookDerivation = getPocketbookDerivation(dimensions);
   const promiseCounts = dimensionsSummary.promiseCounts;
   const totalPromises = dimensionsSummary.totalPromises;
+  const latestRelease = changelogSummary[0];
+  const primaryNextCheck = selectPrimaryNextCheck(status);
+  const primaryNextCheckTiming = resolveNextCheckTiming(status, primaryNextCheck);
   const currentGradeMoves = getCurrentGradeMoves(changelogSummary, dimensions, meta);
   const currentGradeMovesByDimension = getCurrentGradeMovesByDimension(
     changelogSummary,
@@ -847,7 +852,12 @@ export default function Dashboard() {
     if (!isOrdinaryActivation) return;
 
     event.preventDefault();
-    focusAndScrollToAnchor("policy-grades-heading");
+    const target = "policy-grades-heading";
+    if (view === "scorecard") {
+      focusAndScrollToAnchor(target);
+      return;
+    }
+    handleHashTargetNavigation(target);
   };
 
   const handleShowSafeguards = () => {
@@ -1057,9 +1067,7 @@ export default function Dashboard() {
             maxWidth: "560px",
           }}
         >
-          &ldquo;Canada Under Carney&rdquo; is a time-period label, like &ldquo;Canada
-          under Chr&eacute;tien&rdquo; or &ldquo;Canada under Diefenbaker.&rdquo; This
-          scorecard grades the Carney government&rsquo;s performance, not Canada itself.
+          This grades the Carney government&rsquo;s performance, not Canada.
         </p>
         <div
           className="header-subtitle"
@@ -1074,8 +1082,7 @@ export default function Dashboard() {
           }}
         >
           <span>
-            {meta.coveragePeriod.start.slice(0, 7).replace("-", "/")} &ndash;{" "}
-            {meta.coveragePeriod.end.slice(0, 7).replace("-", "/")}
+            Evidence through {status.coverageThrough}
           </span>
           <span
             style={{
@@ -1091,125 +1098,26 @@ export default function Dashboard() {
             }}
           >
             <span style={{ textTransform: "uppercase", fontSize: "12px", letterSpacing: "0.4px" }}>
-              Updated
+              Score cycle
             </span>
-            {meta.lastUpdated}
+            {status.lastEditorReviewedScoreCycleAt}
           </span>
           <span>v{meta.version}</span>
         </div>
       </header>
 
-      {/* One-line orientation, above the trust frame: what this does, plainly. */}
-      <p
-        className="dashboard-orientation"
-        style={{
-          textAlign: "center",
-          fontSize: "16px",
-          color: "#555",
-          lineHeight: 1.5,
-          margin: "0 auto 16px",
-          maxWidth: "720px",
-          fontWeight: 500,
-        }}
-      >
-        An evidence-based scorecard grading the Carney government on 11 policy areas. Open any card to see how it&rsquo;s graded, the sources, and the reasoning.
-      </p>
-
-      {/* Trust frame — global, sits between the title and the scoreboard so
-          a reader sees what this dashboard is and is not for, regardless of
-          which tab they land on. Earlier it was scoped to the Scorecard tab
-          only; moving it up makes the framing tab-agnostic. */}
-      <div
-        className="scorecard-trust-wrap"
-        style={{
-          maxWidth: "820px",
-          margin: "0 auto 20px",
-        }}
-      >
-        <div
-          className="scorecard-trust-frame"
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-            columnGap: "28px",
-            rowGap: "10px",
-            textAlign: "left",
-            borderTop: "1px solid #e0e0e0",
-            borderBottom: "1px solid #e0e0e0",
-            padding: "16px 0",
-            alignItems: "start",
-          }}
-        >
-          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
-            <strong>What this is:</strong> each grade is built from published thresholds, source links, and review dates.
-          </div>
-          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
-            <strong>What this isn&rsquo;t:</strong> a forecast, voting guide, popularity measure, or claim that only measurable files matter.
-          </div>
-          <div className="scorecard-trust-item" style={{ fontSize: "14px", color: "#333", lineHeight: 1.5, minWidth: 0 }}>
-            <div style={{ fontWeight: 700, color: "#333", marginBottom: "4px" }}>
-              How to check it
-            </div>
-            <button
-              type="button"
-              onClick={handleShowSafeguards}
-              className="text-link-button"
-              style={{
-                background: "none",
-                border: "none",
-                padding: 0,
-                color: "#1565c0",
-                cursor: "pointer",
-                fontFamily: "inherit",
-                fontSize: "14px",
-                lineHeight: 1.5,
-                fontWeight: 700,
-                textDecoration: "underline",
-                textAlign: "left",
-                minWidth: 0,
-                minHeight: 0,
-              }}
-            >
-              read the safeguards
-            </button>
-            <span> or open any card to walk the criteria, evidence, sources, and critic /
-            defender views.
-            </span>
-          </div>
-        </div>
-      </div>
-
-      {view === "scorecard" && expanded === null && (
-        <a
-          className="policy-grades-jump"
-          href="#policy-grades-heading"
-          onClick={handlePolicyGradesJump}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "fit-content",
-            minHeight: "44px",
-            margin: "-4px auto 16px",
-            padding: "0 12px",
-            borderRadius: "6px",
-            color: "var(--accent)",
-            fontSize: "14px",
-            fontWeight: 700,
-            textDecoration: "underline",
-            textUnderlineOffset: "3px",
-          }}
-        >
-          Jump to the 11 policy grades
-        </a>
-      )}
-
-      {/* Scoreboard header: overall grades + promise count + approval signal card */}
-      <div id="main-content" tabIndex={-1} />
+      <main id="main-content" tabIndex={-1}>
+      {/* First-look briefing: overall result, reason, latest release, next
+          checkpoint, score boundaries, and the three secondary signals. */}
       <div id="scoreboard-row">
       <ScoreboardHeader
         overallGrade={gpaToGrade(parseFloat(overallGPA))}
         overallGPA={overallGPA}
+        overallVerdictLine={meta.overallVerdictLine}
+        latestRelease={latestRelease}
+        nextUpdate={meta.nextUpdate}
+        primaryNextCheck={primaryNextCheck}
+        primaryNextCheckTiming={primaryNextCheckTiming}
         pocketbookGrade={gpaToGrade(parseFloat(pocketbookGPA))}
         pocketbookGPA={pocketbookGPA}
         promiseCounts={promiseCounts}
@@ -1221,10 +1129,12 @@ export default function Dashboard() {
         onToggleDerivation={handleToggleDerivation}
         overallDerivation={overallDerivation}
         pocketbookDerivation={pocketbookDerivation}
+        onPolicyGradesJump={handlePolicyGradesJump}
+        onShowSafeguards={handleShowSafeguards}
       />
       </div>
 
-      <DashboardStatus gradeMoves={currentGradeMoves} />
+      <DashboardStatus />
 
       <SinceLastVisit onOpenChangelog={() => selectView("changelog")} />
 
@@ -1294,10 +1204,8 @@ export default function Dashboard() {
       {/* Scorecard View */}
       {view === "scorecard" && (
         <>
-        {/* Scorecard-local orientation: intro line + legend. The trust frame
-            ("what this is / what this isn't") moved up to the global header
-            so it shows on every tab. The legend below stays Scorecard-local
-            because it documents the visual language used only in this grid. */}
+        {/* Scorecard-local legend. The first-look briefing above owns the
+            product boundary and reading instructions. */}
         <div
           style={{
             textAlign: "center",
@@ -1343,7 +1251,7 @@ export default function Dashboard() {
               <span><span className="dim-current-grade-move-marker">Grade moved this release</span></span>
             )}
             <span style={{ color: "#666", fontWeight: 500, fontStyle: "italic" }}>
-              Click any card for the reasoning.
+              Open a policy for Briefing, Evidence, History, and Method.
             </span>
           </div>
         </div>
@@ -1512,6 +1420,7 @@ export default function Dashboard() {
         </div>
         <FollowUpdates />
       </footer>
+      </main>
       </div>
 
       {!expandedDimension && (

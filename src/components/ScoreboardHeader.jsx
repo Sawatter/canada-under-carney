@@ -3,91 +3,176 @@ import ScoreDerivation from "./ScoreDerivation";
 import { ApprovalCard, ApprovalDetail } from "./ApprovalSignal";
 import { STATUS_COLORS } from "../constants";
 
-// Fixed leading order for the promise-status mini bar; any other status
-// present in the data follows in its data order. Zero-count statuses are
-// skipped so the bar never renders zero-width segments.
 const STATUS_BAR_ORDER = ["Delivered", "In Progress", "Stalled", "Abandoned"];
 
-// Shared card container style so the four scoreboard cards have identical
-// size, spacing, and alignment. Each card is a subgrid spanning the row's
-// four shared tracks (title / subtitle / stat block / footer), so the same
-// slot lands at the same y-position on every card no matter how many lines
-// its copy wraps to. Column counts per viewport live in index.css.
-const cardBase = {
-  background: "var(--surface-card)",
-  border: "1px solid var(--border-subtle)",
-  borderRadius: "var(--card-radius)",
-  boxShadow: "var(--shadow-card)",
-  padding: "20px 20px 18px",
-  textAlign: "center",
-  display: "grid",
-  gridTemplateRows: "subgrid",
-  gridRow: "span 4",
-};
+const dateFormatter = new Intl.DateTimeFormat("en-CA", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
-const cardTitle = {
-  fontSize: "15px",
-  fontWeight: 700,
-  color: "#1a1a1a",
-  textTransform: "uppercase",
-  letterSpacing: "0.6px",
-  marginBottom: "6px",
-};
+function formatDate(value) {
+  if (!value) return "Not scheduled";
 
-const cardSubtitle = {
-  fontSize: "14px",
-  color: "#444",
-  fontStyle: "italic",
-  lineHeight: 1.4,
-  marginBottom: "12px",
-};
+  const parsed = new Date(`${value}T00:00:00Z`);
+  return Number.isNaN(parsed.getTime()) ? value : dateFormatter.format(parsed);
+}
 
-const cardScoreCaption = {
-  fontSize: "14px",
-  color: "#333",
-  marginTop: "10px",
-  fontFamily: "'DM Mono', monospace",
-  fontWeight: 600,
-};
+function isOrdinaryActivation(event) {
+  return event.button === 0
+    && !event.metaKey
+    && !event.ctrlKey
+    && !event.shiftKey
+    && !event.altKey;
+}
 
-const cardScoreNote = {
-  fontSize: "12px",
-  color: "#666",
-  marginTop: "6px",
-  lineHeight: 1.35,
-};
+function releaseSummary(firstLook) {
+  if (firstLook.mode === "grade-moves") {
+    const count = firstLook.gradeMoveCount || 0;
+    return `${count} grade ${count === 1 ? "move" : "moves"} in this release`;
+  }
 
-const derivationToggleBase = {
-  fontSize: "13px",
-  color: "#1565c0",
-  fontWeight: 700,
-  background: "none",
-  border: "none",
-  padding: "4px 6px",
-  cursor: "pointer",
-  fontFamily: "inherit",
-  borderRadius: "4px",
-  alignSelf: "center",
-};
+  if (firstLook.mode === "maintenance-only") {
+    return "Maintenance-only release";
+  }
+
+  if (firstLook.mode === "no-grade-moves") {
+    return "No grade moves in this release";
+  }
+
+  return firstLook.summary || "Latest release summary";
+}
 
 function DerivationToggle({ variant, derivationOpen, onToggle }) {
   const isOpen = derivationOpen === variant;
+  const label = variant === "overall"
+    ? "How is the audit score built?"
+    : "How is Household built?";
+  const openLabel = variant === "overall"
+    ? "Hide audit score math"
+    : "Hide Household math";
+
   return (
     <button
       type="button"
+      className="first-look-derivation-toggle"
       onClick={() => onToggle(variant)}
       aria-expanded={isOpen}
       aria-controls={`score-derivation-${variant}`}
-      style={derivationToggleBase}
     >
-      {isOpen ? "▾ Hide score math" : "▸ How is this score built?"}
+      {isOpen ? openLabel : label}
     </button>
+  );
+}
+
+function ReleaseUpdate({ latestRelease }) {
+  const firstLook = latestRelease?.firstLook || {};
+  const featuredItems = Array.isArray(firstLook.featuredItems)
+    ? firstLook.featuredItems
+    : [];
+
+  return (
+    <div className="first-look-update">
+      <div className="first-look-block-heading">
+        <span>This release</span>
+        {latestRelease?.version && (
+          <span className="first-look-block-meta">v{latestRelease.version}</span>
+        )}
+      </div>
+      <p className="first-look-update-summary">{releaseSummary(firstLook)}</p>
+      {featuredItems.length > 0 && (
+        <ul className="first-look-update-list">
+          {featuredItems.map((item, index) => (
+            <li key={`${item.type || "item"}-${item.itemIndex ?? index}`}>
+              {item.headline || item.body}
+            </li>
+          ))}
+        </ul>
+      )}
+      <a className="first-look-inline-link" href="#view-changelog">
+        Read release details
+      </a>
+    </div>
+  );
+}
+
+function NextWatch({ nextUpdate, primaryNextCheck, primaryNextCheckTiming }) {
+  const timing = primaryNextCheckTiming?.kind === "date"
+    ? formatDate(primaryNextCheckTiming.value)
+    : primaryNextCheckTiming?.value;
+  const checkLabel = primaryNextCheck?.label || "Published watch item";
+
+  return (
+    <div className="first-look-watch">
+      <div className="first-look-block-heading">Watch next</div>
+      <p className="first-look-next-update">
+        Next score update{" "}
+        <time dateTime={nextUpdate}>{formatDate(nextUpdate)}</time>
+      </p>
+      {primaryNextCheck && (
+        <div className="first-look-primary-check">
+          <div className="first-look-check-heading">
+            {primaryNextCheck.href ? (
+              <a href={primaryNextCheck.href}>{checkLabel}</a>
+            ) : (
+              <span>{checkLabel}</span>
+            )}
+            {timing && (
+              primaryNextCheckTiming.kind === "date" ? (
+                <time
+                  className="first-look-block-meta"
+                  dateTime={primaryNextCheckTiming.value}
+                >
+                  {timing}
+                </time>
+              ) : (
+                <span className="first-look-block-meta">{timing}</span>
+              )
+            )}
+          </div>
+          <p>{primaryNextCheck.status}</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ScoringBoundary() {
+  return (
+    <div className="first-look-boundary" aria-labelledby="first-look-boundary-heading">
+      <h3 id="first-look-boundary-heading">What affects the grades</h3>
+      <dl className="first-look-boundary-list">
+        <div>
+          <dt>Full Policy Audit</dt>
+          <dd>Each of the 11 graded policy files counts equally.</dd>
+        </div>
+        <div>
+          <dt>Household Impact</dt>
+          <dd>
+            The same 11 files, with housing, cost of living, the economy, and
+            government spending counted twice.
+          </dd>
+        </div>
+        <div>
+          <dt>Context only</dt>
+          <dd>Promise Delivery and Approval do not affect either grade.</dd>
+        </div>
+      </dl>
+    </div>
   );
 }
 
 export default function ScoreboardHeader({
   overallGrade,
   overallGPA,
+  overallVerdictLine,
+  latestRelease,
+  nextUpdate,
+  primaryNextCheck,
+  primaryNextCheckTiming,
+  onPolicyGradesJump,
+  onShowSafeguards,
   pocketbookGrade,
   pocketbookGPA,
   promiseCounts,
@@ -101,86 +186,81 @@ export default function ScoreboardHeader({
   pocketbookDerivation,
 }) {
   const delivered = promiseCounts["Delivered"] || 0;
-  const pct = totalPromises > 0 ? delivered / totalPromises : 0;
-  const promiseNumColor =
-    pct >= 0.6 ? "#1a7a3a" : pct >= 0.3 ? "#8d5a00" : "#c62828";
-
-  // Statuses shown in the mini distribution bar, in fixed order first, then
-  // any remaining statuses in data order. barSummary states the same counts
-  // in words so the bar is never color-only.
+  const deliveredShare = totalPromises > 0 ? delivered / totalPromises : 0;
+  const promiseToneClass = deliveredShare >= 0.6
+    ? "first-look-value-positive"
+    : deliveredShare >= 0.3
+      ? "first-look-value-caution"
+      : "first-look-value-negative";
   const barStatuses = [
     ...STATUS_BAR_ORDER,
-    ...Object.keys(promiseCounts).filter((s) => !STATUS_BAR_ORDER.includes(s)),
-  ].filter((s) => (promiseCounts[s] || 0) > 0);
+    ...Object.keys(promiseCounts).filter((status) => !STATUS_BAR_ORDER.includes(status)),
+  ].filter((status) => (promiseCounts[status] || 0) > 0);
   const barSummary = barStatuses
-    .map((s) => `${promiseCounts[s]} ${s.toLowerCase()}`)
+    .map((status) => `${promiseCounts[status]} ${status.toLowerCase()}`)
     .join(", ");
 
-  return (
-    <div style={{ marginBottom: "var(--space-5)" }}>
-      <div
-        className="scoreboard-card-row"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, minmax(0, 1fr))",
-          gap: "var(--space-4)",
-          marginBottom: "var(--space-3)",
-        }}
-      >
-        {/* Household Impact */}
-        <div className="scoreboard-card scoreboard-card-household" style={cardBase}>
-          <div className="scoreboard-card-title" style={cardTitle}>Household Impact</div>
-          <div className="scoreboard-card-subtitle" style={cardSubtitle}>
-            How the government is performing on housing, cost of living, the economy, and spending.
-          </div>
-          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <GradeChip grade={pocketbookGrade} size="lg" />
-            <div style={cardScoreCaption}>Score: {pocketbookGPA}</div>
-            <div style={cardScoreNote}>Depends on weighting choices. Score math is below.</div>
-          </div>
-          {onToggleDerivation && (
-            <div className="scoreboard-card-footer">
-              <DerivationToggle
-                variant="household"
-                derivationOpen={derivationOpen}
-                onToggle={onToggleDerivation}
-              />
-            </div>
-          )}
-        </div>
-        {derivationOpen === "household" && pocketbookDerivation && (
-          <div className="scoreboard-detail scoreboard-detail-household">
-            <ScoreDerivation
-              variant="household"
-              derivation={pocketbookDerivation}
-              displayedScore={pocketbookGPA}
-            />
-          </div>
-        )}
+  const handleSafeguardsClick = (event) => {
+    if (!onShowSafeguards || !isOrdinaryActivation(event)) return;
+    event.preventDefault();
+    onShowSafeguards();
+  };
 
-        {/* Full Policy Audit */}
-        <div className="scoreboard-card scoreboard-card-overall" style={cardBase}>
-          <div className="scoreboard-card-title" style={cardTitle}>Full Policy Audit</div>
-          <div className="scoreboard-card-subtitle" style={cardSubtitle}>
-            How the Carney government is performing across all 11 policy areas.
-          </div>
-          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <GradeChip grade={overallGrade} size="lg" />
-            <div style={cardScoreCaption}>Score: {overallGPA}</div>
-            <div style={cardScoreNote}>Depends on weighting choices. Score math is below.</div>
-          </div>
-          {onToggleDerivation && (
-            <div className="scoreboard-card-footer">
-              <DerivationToggle
-                variant="overall"
-                derivationOpen={derivationOpen}
-                onToggle={onToggleDerivation}
-              />
-            </div>
-          )}
+  return (
+    <section className="first-look-briefing" aria-label="Scorecard briefing">
+      <div className="first-look-primary-wrap">
+        <header className="first-look-primary-header">
+          <p className="first-look-eyebrow">Scorecard briefing</p>
+          <h2>Full Policy Audit</h2>
+          <p className="first-look-primary-description">
+            Performance across 11 graded policy files.
+          </p>
+        </header>
+
+        <div className="first-look-primary-result">
+          <GradeChip grade={overallGrade} size="lg" />
+          <p className="first-look-primary-score">Score: {overallGPA}</p>
         </div>
+
+        <p className="first-look-overall-verdict">{overallVerdictLine}</p>
+
+        <div className="first-look-primary-context">
+          <ReleaseUpdate latestRelease={latestRelease} />
+          <NextWatch
+            nextUpdate={nextUpdate}
+            primaryNextCheck={primaryNextCheck}
+            primaryNextCheckTiming={primaryNextCheckTiming}
+          />
+        </div>
+
+        <ScoringBoundary />
+
+        <div className="first-look-actions" aria-label="Inspect the scorecard">
+          <a
+            className="first-look-action first-look-action-primary"
+            href="#policy-grades-heading"
+            onClick={onPolicyGradesJump}
+          >
+            Inspect the 11 policy files
+          </a>
+          <a
+            className="first-look-action"
+            href="#methodology-safeguards"
+            onClick={handleSafeguardsClick}
+          >
+            Read the scoring method
+          </a>
+        </div>
+
+        {onToggleDerivation && (
+          <DerivationToggle
+            variant="overall"
+            derivationOpen={derivationOpen}
+            onToggle={onToggleDerivation}
+          />
+        )}
         {derivationOpen === "overall" && overallDerivation && (
-          <div className="scoreboard-detail scoreboard-detail-overall">
+          <div className="first-look-detail first-look-detail-overall">
             <ScoreDerivation
               variant="overall"
               derivation={overallDerivation}
@@ -188,60 +268,65 @@ export default function ScoreboardHeader({
             />
           </div>
         )}
+      </div>
 
-        {/* Promises Delivered - clickable: navigates to the full Promises view */}
-        <button
-          type="button"
-          onClick={onOpenPromises}
-          className="scoreboard-card scoreboard-card-promises"
-          style={{
-            ...cardBase,
-            cursor: onOpenPromises ? "pointer" : "default",
-            font: "inherit",
-            color: "inherit",
-            width: "100%",
-          }}
-        >
-          <div className="scoreboard-card-title" style={cardTitle}>Promises Delivered</div>
-          <div className="scoreboard-card-subtitle" style={cardSubtitle}>
-            A running count of tracked government commitments across every policy area.
-          </div>
-          <div className="scoreboard-card-main" style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-            <div
-              style={{
-                fontFamily: "'DM Mono', monospace",
-                fontSize: "40px",
-                fontWeight: 800,
-                color: promiseNumColor,
-                lineHeight: 1.1,
-              }}
-            >
-              {delivered}
-              <span style={{ fontSize: "20px", color: "#666" }}>/{totalPromises}</span>
+      <div
+        className="first-look-signal-group"
+        role="group"
+        aria-labelledby="first-look-signals-heading"
+      >
+        <h3 id="first-look-signals-heading">Other dashboard signals</h3>
+        <div className="first-look-signal-grid">
+          <article
+            className="first-look-signal first-look-signal-household"
+            aria-labelledby="first-look-household-heading"
+          >
+            <header>
+              <h4 id="first-look-household-heading">Household Impact</h4>
+              <p>
+                The same 11 policies, with four pocketbook files
+                double-weighted.
+              </p>
+            </header>
+            <div className="first-look-signal-result">
+              <GradeChip grade={pocketbookGrade} />
+              <span className="first-look-signal-score">Score: {pocketbookGPA}</span>
             </div>
-            {/* Mini status distribution bar. Lives inside the stat-block
-                subgrid track, so the card still spans the same four shared
-                rows. Segment colors are the existing STATUS_COLORS foreground
-                values; like the .app-promise-status chips, they get no
-                dark-mode override and render as-is on the dark card. Counts
-                are restated in words via aria-label and title so the bar is
-                not color-only. Static by design: no animation. */}
+            {onToggleDerivation && (
+              <DerivationToggle
+                variant="household"
+                derivationOpen={derivationOpen}
+                onToggle={onToggleDerivation}
+              />
+            )}
+          </article>
+
+          <button
+            type="button"
+            className="first-look-signal first-look-signal-promises"
+            onClick={onOpenPromises}
+          >
+            <span className="first-look-signal-title">Promise Delivery</span>
+            <span className="first-look-signal-description">
+              Tracker outside the grades.
+            </span>
+            <span className="first-look-promise-result">
+              <span
+                className={`first-look-promise-number ${promiseToneClass}`}
+              >
+                {delivered}
+                <span>/{totalPromises}</span>
+              </span>
+              <span>delivered</span>
+            </span>
             {totalPromises > 0 && (
-              <div
+              <span
+                className="first-look-promise-bar"
                 aria-hidden="true"
                 title={barSummary}
-                style={{
-                  display: "flex",
-                  gap: "2px",
-                  width: "100%",
-                  height: "8px",
-                  marginTop: "10px",
-                  borderRadius: "4px",
-                  overflow: "hidden",
-                }}
               >
                 {barStatuses.map((status) => (
-                  <div
+                  <span
                     key={status}
                     style={{
                       flex: `${promiseCounts[status]} 0 0`,
@@ -250,55 +335,37 @@ export default function ScoreboardHeader({
                     }}
                   />
                 ))}
-              </div>
-            )}
-            {/* The bar itself is aria-hidden (child semantics inside a button
-                are unreliably exposed); this visually-hidden text carries the
-                same counts into the button's accessible name instead. */}
-            {totalPromises > 0 && (
-              <span
-                style={{
-                  position: "absolute",
-                  width: "1px",
-                  height: "1px",
-                  padding: 0,
-                  margin: "-1px",
-                  overflow: "hidden",
-                  clip: "rect(0, 0, 0, 0)",
-                  whiteSpace: "nowrap",
-                  border: 0,
-                }}
-              >
-                {barSummary}
               </span>
             )}
-            <div style={{ ...cardScoreCaption, color: "#555" }}>
-              {promiseCounts["Abandoned"] || 0} abandoned &middot;{" "}
-              {promiseCounts["Stalled"] || 0} stalled
-            </div>
-          </div>
-          <div className="scoreboard-card-footer">
-            <span style={derivationToggleBase}>&#9656; See all promises</span>
-          </div>
-        </button>
+            {barSummary && (
+              <span className="first-look-signal-meta">{barSummary}</span>
+            )}
+            <span className="first-look-signal-action">
+              See {totalPromises} promises
+            </span>
+          </button>
 
-        {/* Approval Signal card (shares cardBase + title styles via props) */}
-        <ApprovalCard
-          expanded={!!approvalExpanded}
-          onToggle={onToggleApproval}
-          cardClassName="scoreboard-card-approval"
-          cardStyle={cardBase}
-          titleStyle={cardTitle}
-          subtitleStyle={cardSubtitle}
-          captionStyle={cardScoreCaption}
-        />
+          <ApprovalCard
+            expanded={!!approvalExpanded}
+            onToggle={onToggleApproval}
+          />
+        </div>
+
+        {derivationOpen === "household" && pocketbookDerivation && (
+          <div className="first-look-detail first-look-detail-household">
+            <ScoreDerivation
+              variant="household"
+              derivation={pocketbookDerivation}
+              displayedScore={pocketbookGPA}
+            />
+          </div>
+        )}
         {approvalExpanded && (
-          <div className="scoreboard-detail scoreboard-detail-approval">
+          <div className="first-look-detail first-look-detail-approval">
             <ApprovalDetail />
           </div>
         )}
       </div>
-
-    </div>
+    </section>
   );
 }

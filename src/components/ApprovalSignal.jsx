@@ -14,107 +14,64 @@ function computeApproval() {
 
 const DETAIL_ID = "approval-signal-detail";
 
-// Compact card for the scoreboard row. Accepts shared style props from
-// ScoreboardHeader so its container, title, subtitle, and caption all match
-// the three grade cards exactly.
 export function ApprovalCard({
   expanded,
   onToggle,
   cardClassName = "",
-  cardStyle,
-  titleStyle,
-  subtitleStyle,
-  captionStyle,
 }) {
   const s = computeApproval();
-
-  const handleKey = (e) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      onToggle();
-    }
-  };
-
   const netText =
     s.net == null ? "Net n/a" : s.net >= 0 ? `Net +${s.net}` : `Net ${s.net}`;
+  const netClassName = s.net != null && s.net >= 0
+    ? "first-look-value-positive"
+    : "first-look-value-negative";
+  const actionText = expanded ? "Hide poll details" : "See polls and sources";
+  const accessibleLabel = [
+    "Approval Signal.",
+    "Public opinion outside the grades.",
+    `${formatPct(s.approveNow)} approve and ${formatPct(s.disapproveNow)} disapprove.`,
+    `${netText}.`,
+    `${s.recent.length} polls in the ${s.windowDays}-day average.`,
+    actionText,
+  ].join(" ");
 
   return (
-    <div
-      className={`scoreboard-card ${cardClassName}`.trim()}
-      role="button"
-      tabIndex={0}
+    <button
+      type="button"
+      className={`first-look-signal first-look-signal-approval ${cardClassName}`.trim()}
       aria-expanded={expanded}
       aria-controls={DETAIL_ID}
       onClick={onToggle}
-      onKeyDown={handleKey}
-      style={{
-        ...cardStyle,
-        cursor: "pointer",
-        userSelect: "none",
-        border: "1.5px dashed #9ab8d8",
-        background: "#f7fbff",
-      }}
+      aria-label={accessibleLabel}
     >
-      <div className="scoreboard-card-title" style={titleStyle}>Approval Signal</div>
-      <div className="scoreboard-card-subtitle" style={subtitleStyle}>
-        Public approval of PM Carney. Not part of the grades.
-      </div>
-      <div
-        className="scoreboard-card-main"
-        style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}
+      <span
+        className="first-look-signal-title"
       >
-        <div>
-          <span
-            className="approval-stat-number"
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "32px",
-              fontWeight: 800,
-              color: "#1a7a3a",
-              lineHeight: 1.1,
-            }}
-          >
-            {formatPct(s.approveNow)}
-          </span>
-          <span
-            style={{
-              fontFamily: "'DM Mono', monospace",
-              fontSize: "18px",
-              fontWeight: 700,
-              color: "#666",
-              marginLeft: "6px",
-            }}
-          >
-            / {formatPct(s.disapproveNow)}
-          </span>
-        </div>
-        <div
-          style={{
-            ...captionStyle,
-            color: s.net != null && s.net >= 0 ? "#1a7a3a" : "#c62828",
-          }}
-        >
-          {netText}
-        </div>
-        <div style={{ fontSize: "13px", color: "#555", marginTop: "4px", fontWeight: 500 }}>
-          {s.recent.length} polls &middot; {s.windowDays}-day average
-        </div>
-      </div>
-      {/* Footer slot: matches the derivation toggles on the two grade cards
-          so all four scoreboard cards land their action affordance at the
-          same y-position. */}
-      <div className="scoreboard-card-footer">
-        <span
-          style={{
-            fontSize: "13px",
-            color: "#1a73e8",
-            fontWeight: 700,
-          }}
-        >
-          {expanded ? "\u25BE Hide poll details" : "\u25B8 See polls & sources"}
+        Approval Signal
+      </span>
+      <span
+        className="first-look-signal-description"
+      >
+        Public opinion outside the grades.
+      </span>
+      <span className="first-look-approval-result">
+        <span className="approval-stat-number first-look-approval-positive">
+          {formatPct(s.approveNow)}
         </span>
-      </div>
-    </div>
+        <span className="first-look-approval-negative">
+          / {formatPct(s.disapproveNow)}
+        </span>
+      </span>
+      <span className={`first-look-signal-score ${netClassName}`}>
+        {netText}
+      </span>
+      <span className="first-look-signal-meta">
+          {s.recent.length} polls &middot; {s.windowDays}-day average
+      </span>
+      <span className="first-look-signal-action">
+        {actionText}
+      </span>
+    </button>
   );
 }
 

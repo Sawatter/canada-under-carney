@@ -4,19 +4,28 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import {
+  buildFirstLookProjection,
+  selectPrimaryNextCheck,
+} from "../src/firstLook.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const [
   { default: dimensions },
   { default: meta },
   { default: changelog },
+  { default: changelogSummary },
   { default: dashboardStatus },
 ] = await Promise.all([
   import("../src/data/dimensions.json", { with: { type: "json" } }),
   import("../src/data/meta.json", { with: { type: "json" } }),
   import("../src/data/changelog.json", { with: { type: "json" } }),
+  import("../src/data/changelog-summary.json", { with: { type: "json" } }),
   import("../src/data/status.json", { with: { type: "json" } }),
 ]);
+const expectedFirstLook = buildFirstLookProjection(changelog[0]);
+const latestRelease = changelogSummary[0];
+const primaryNextCheck = selectPrimaryNextCheck(dashboardStatus);
 
 const baseUrl = process.env.LIVE_AUDIT_URL || "https://sawatter.github.io/canada-under-carney/";
 const generatedAt = new Date();
@@ -24,7 +33,7 @@ const stamp = generatedAt.toISOString().replace(/[:.]/g, "-");
 const outDir = path.join(repoRoot, "tmp", "live-coverage-audit", stamp);
 
 const contexts = [
-  { name: "desktop", width: 1366, height: 900 },
+  { name: "desktop", width: 1280, height: 900 },
   { name: "mobile", width: 375, height: 812 },
 ];
 
@@ -92,8 +101,14 @@ function textSnippet(value) {
   return String(value || "").replace(/\s+/g, " ").trim().slice(0, 220);
 }
 
-function yearMonth(value) {
-  return String(value || "").slice(0, 7).replace("-", "/");
+function releaseStateLabel(firstLook) {
+  if (firstLook.mode === "grade-moves") {
+    const count = firstLook.gradeMoveCount || 0;
+    return `${count} grade ${count === 1 ? "move" : "moves"} in this release`;
+  }
+  if (firstLook.mode === "maintenance-only") return "Maintenance-only release";
+  if (firstLook.mode === "no-grade-moves") return "No grade moves in this release";
+  return latestRelease.summary || "Latest release summary";
 }
 
 function presenceStatus(missing) {
@@ -301,40 +316,148 @@ async function expectNoHorizontalOverflow(page, viewportName, surface) {
 
 async function auditGlobalSurfaces(page, viewportName) {
   await auditStep(Object.assign(async () => {
-    await gotoApp(page);
+    await gotoApp(page, "");
     const observed = await page.evaluate((expected) => {
-      const text = document.body.textContent || "";
+      const bodyText = document.body.textContent || "";
+      const briefing = document.querySelector(".first-look-briefing");
+      const briefingText = briefing?.textContent || "";
+      const signalGroup = briefing?.querySelector('[role="group"]');
+      const roleText = (selector) => (
+        briefing?.querySelector(selector)?.textContent?.replace(/\s+/g, " ").trim() || ""
+      );
       return {
         title: document.querySelector("h1")?.textContent?.trim(),
-        version: text.includes(`v${expected.version}`),
-        updated: text.includes(expected.lastUpdated),
-        coverage: text.includes(expected.coverageStart) && text.includes(expected.coverageEnd),
-        trust: ["What this is", "What this isn", "How to check it"].every((needle) => text.includes(needle)),
-        cards: ["Household Impact", "Full Policy Audit", "Promises Delivered", "Approval Signal"].every((needle) => text.includes(needle)),
+        version: bodyText.includes(`v${expected.version}`),
+        coverage: bodyText.includes(`Evidence through ${expected.coverageThrough}`),
+        scoreCycle:
+          bodyText.includes("Score cycle")
+          && bodyText.includes(expected.scoreCycle),
+        briefing: Boolean(briefing),
+        overallReason: briefingText.includes(expected.overallReason),
+        releaseVersion: briefingText.includes(`v${expected.releaseVersion}`),
+        releaseState: briefingText.includes(expected.releaseState),
+        featuredItems: expected.featuredItems.every((item) => briefingText.includes(item)),
+        nextUpdate: briefingText.includes(expected.nextUpdate),
+        primaryCheck:
+          briefingText.includes(expected.primaryCheckLabel)
+          && briefingText.includes(expected.primaryCheckStatus),
+        boundary: [
+          "Each of the 11 graded policy files counts equally.",
+          "Promise Delivery and Approval do not affect either grade.",
+        ].every((needle) => briefingText.includes(needle)),
+        policyRoute:
+          briefing?.querySelector('a[href="#policy-grades-heading"]')?.textContent?.trim()
+          === "Inspect the 11 policy files",
+        methodRoute:
+          briefing?.querySelector('a[href="#methodology-safeguards"]')?.textContent?.trim()
+          === "Read the scoring method",
+        signalGroup: signalGroup?.getAttribute("aria-labelledby") === "first-look-signals-heading",
+        householdRole:
+          briefing?.querySelector(".first-look-signal-household")?.tagName === "ARTICLE"
+          && roleText(".first-look-signal-household").includes("four pocketbook files"),
+        promisesRole:
+          briefing?.querySelector(".first-look-signal-promises")?.tagName === "BUTTON"
+          && roleText(".first-look-signal-promises").includes("Tracker outside the grades."),
+        approvalRole:
+          briefing?.querySelector(".first-look-signal-approval")?.tagName === "BUTTON"
+          && roleText(".first-look-signal-approval").includes("Public opinion outside the grades."),
       };
     }, {
       version: meta.version,
-      lastUpdated: meta.lastUpdated,
-      coverageStart: yearMonth(meta.coveragePeriod?.start),
-      coverageEnd: yearMonth(meta.coveragePeriod?.end),
+      coverageThrough: dashboardStatus.coverageThrough,
+      scoreCycle: dashboardStatus.lastEditorReviewedScoreCycleAt,
+      overallReason: meta.overallVerdictLine,
+      releaseVersion: latestRelease.version,
+      releaseState: releaseStateLabel(expectedFirstLook),
+      featuredItems: expectedFirstLook.featuredItems.map((item) => item.headline || item.body),
+      nextUpdate: new Intl.DateTimeFormat("en-CA", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        timeZone: "UTC",
+      }).format(new Date(`${meta.nextUpdate}T00:00:00Z`)),
+      primaryCheckLabel: primaryNextCheck.label,
+      primaryCheckStatus: primaryNextCheck.status,
     });
     const missing = [
       observed.title === "Canada Under Carney" ? "" : "Canada Under Carney h1",
       observed.version ? "" : `v${meta.version}`,
-      observed.updated ? "" : meta.lastUpdated,
-      observed.coverage ? "" : "coverage period",
-      observed.trust ? "" : "trust frame",
-      observed.cards ? "" : "headline cards",
+      observed.coverage ? "" : "evidence-through date",
+      observed.scoreCycle ? "" : "score-cycle date",
+      observed.briefing ? "" : "Scorecard briefing",
+      observed.overallReason ? "" : "authored overall reason",
+      observed.releaseVersion ? "" : "latest release version",
+      observed.releaseState ? "" : "latest release state",
+      observed.featuredItems ? "" : "projected release item",
+      observed.nextUpdate ? "" : "next score update",
+      observed.primaryCheck ? "" : "primary next check",
+      observed.boundary ? "" : "scoring boundary",
+      observed.policyRoute ? "" : "11-policy route",
+      observed.methodRoute ? "" : "methodology route",
+      observed.signalGroup ? "" : "named signal group",
+      observed.householdRole ? "" : "Household signal role",
+      observed.promisesRole ? "" : "Promise Delivery context role",
+      observed.approvalRole ? "" : "Approval context role",
     ].filter(Boolean);
     addRow({
-      surface: "Header, trust frame, headline cards",
+      surface: "Header and first-look briefing",
       viewport: viewportName,
       action: "Load scorecard and read rendered text",
       observed: JSON.stringify(observed),
       ...presenceStatus(missing),
     });
-    await expectNoHorizontalOverflow(page, viewportName, "Header, trust frame, headline cards");
-  }, { surface: "Header, trust frame, headline cards", viewport: viewportName, action: "Load scorecard" }));
+    await expectNoHorizontalOverflow(page, viewportName, "Header and first-look briefing");
+  }, { surface: "Header and first-look briefing", viewport: viewportName, action: "Load scorecard" }));
+
+  await auditStep(Object.assign(async () => {
+    const fit = await page.evaluate(() => {
+      const briefing = document.querySelector(".first-look-briefing");
+      const selectors = [
+        ".first-look-primary-wrap",
+        ".first-look-update",
+        ".first-look-watch",
+        ".first-look-boundary",
+        ".first-look-action",
+        ".first-look-signal",
+      ];
+      const boxes = selectors.flatMap((selector) => (
+        [...briefing.querySelectorAll(selector)].map((node) => {
+          const rect = node.getBoundingClientRect();
+          return {
+            bottom: rect.bottom,
+            height: rect.height,
+            left: rect.left,
+            right: rect.right,
+            top: rect.top,
+            width: rect.width,
+          };
+        })
+      ));
+      const primary = briefing.querySelector(".first-look-primary-wrap").getBoundingClientRect();
+      return {
+        allHaveArea: boxes.every((box) => box.width > 0 && box.height > 0),
+        allFitWidth: boxes.every((box) => box.left >= -1 && box.right <= window.innerWidth + 1),
+        primaryIntersectsInitialViewport: primary.top < window.innerHeight && primary.bottom > 0,
+        scrollWidth: document.documentElement.scrollWidth,
+        clientWidth: document.documentElement.clientWidth,
+      };
+    });
+    const failures = [
+      fit.allHaveArea ? "" : "one or more briefing elements had no rendered area",
+      fit.allFitWidth ? "" : "one or more briefing elements exceeded the viewport width",
+      fit.primaryIntersectsInitialViewport ? "" : "primary result missed the initial viewport",
+      fit.scrollWidth <= fit.clientWidth ? "" : "document overflowed horizontally",
+    ].filter(Boolean);
+    addRow({
+      surface: "First-look layout fit",
+      viewport: viewportName,
+      action: `Measure briefing at ${viewportName === "desktop" ? "1280x900" : "375x812"}`,
+      observed: JSON.stringify(fit),
+      status: failures.length ? rowStatus.issue : rowStatus.pass,
+      severity: failures.length ? "P1" : "",
+      recommendation: failures.length ? failures.join("; ") : "",
+    });
+  }, { surface: "First-look layout fit", viewport: viewportName, action: "Measure rendered boxes" }));
 
   await auditStep(Object.assign(async () => {
     const toggle = page.getByRole("button", { name: /Theme: .*Switch to/i });
@@ -368,10 +491,70 @@ async function auditGlobalSurfaces(page, viewportName) {
   }, { surface: "Theme toggle and persistence", viewport: viewportName, action: "Toggle theme" }));
 
   await auditStep(Object.assign(async () => {
+    await page.emulateMedia({ forcedColors: "active" });
+    try {
+      await gotoApp(page);
+      const route = page.getByRole("region", { name: "Scorecard briefing" })
+        .getByRole("link", { name: "Inspect the 11 policy files" });
+      await route.focus();
+      const observed = await page.evaluate(() => {
+        const primary = document.querySelector(".first-look-primary-wrap");
+        const action = document.querySelector(".first-look-action-primary");
+        const signal = document.querySelector(".first-look-signal");
+        const primaryStyle = getComputedStyle(primary);
+        const actionStyle = getComputedStyle(action);
+        const signalStyle = getComputedStyle(signal);
+        return {
+          active: window.matchMedia("(forced-colors: active)").matches,
+          actionFocused: document.activeElement === action,
+          actionForcedColorAdjust: actionStyle.forcedColorAdjust,
+          actionOutlineStyle: actionStyle.outlineStyle,
+          actionOutlineWidth: actionStyle.outlineWidth,
+          primaryBackground: primaryStyle.backgroundColor,
+          primaryBorderStyle: primaryStyle.borderStyle,
+          signalBackground: signalStyle.backgroundColor,
+          signalBorderStyle: signalStyle.borderStyle,
+        };
+      });
+      const failures = [
+        observed.active ? "" : "forced-colors media query inactive",
+        observed.actionFocused ? "" : "primary route did not hold keyboard focus",
+        observed.actionForcedColorAdjust === "none" ? "" : "primary route did not preserve Highlight treatment",
+        observed.actionOutlineStyle !== "none" && observed.actionOutlineWidth !== "0px"
+          ? ""
+          : "focused route had no visible outline",
+        observed.primaryBackground !== "rgba(0, 0, 0, 0)" ? "" : "primary surface was transparent",
+        observed.signalBackground !== "rgba(0, 0, 0, 0)" ? "" : "signal surface was transparent",
+        observed.primaryBorderStyle !== "none" ? "" : "primary surface had no border",
+        observed.signalBorderStyle !== "none" ? "" : "signal surface had no border",
+      ].filter(Boolean);
+      addRow({
+        surface: "First-look forced-colors",
+        viewport: viewportName,
+        action: "Emulate forced colors and focus the primary route",
+        observed: JSON.stringify(observed),
+        status: failures.length ? rowStatus.issue : rowStatus.pass,
+        severity: failures.length ? "P1" : "",
+        recommendation: failures.length ? failures.join("; ") : "",
+      });
+    } finally {
+      await page.emulateMedia({ forcedColors: "none" });
+    }
+  }, { surface: "First-look forced-colors", viewport: viewportName, action: "Emulate forced colors" }));
+
+  await auditStep(Object.assign(async () => {
     await gotoApp(page);
     const derivations = [
-      { name: "Household Impact", button: ".scoreboard-card-household button", panel: "#score-derivation-household" },
-      { name: "Full Policy Audit", button: ".scoreboard-card-overall button", panel: "#score-derivation-overall" },
+      {
+        name: "Household Impact",
+        button: ".first-look-signal-household .first-look-derivation-toggle",
+        panel: "#score-derivation-household",
+      },
+      {
+        name: "Full Policy Audit",
+        button: ".first-look-primary-wrap .first-look-derivation-toggle",
+        panel: "#score-derivation-overall",
+      },
     ];
     const opened = [];
     for (const derivation of derivations) {
@@ -381,16 +564,16 @@ async function auditGlobalSurfaces(page, viewportName) {
       opened.push(derivation.name);
       await button.click();
     }
-    await page.locator(".scoreboard-card-approval").click();
-    await page.locator(".scoreboard-detail-approval").waitFor({ state: "visible" });
+    await page.locator(".first-look-signal-approval").click();
+    await page.locator("#approval-signal-detail").waitFor({ state: "visible" });
     addRow({
-      surface: "Headline expanders",
+      surface: "First-look expanders",
       viewport: viewportName,
       action: "Open both score math panels and Approval Signal drilldown",
       observed: `opened=${opened.join(", ")}; approval detail rendered`,
       ...presenceStatus(opened.length === derivations.length ? [] : ["both headline score math panels"]),
     });
-  }, { surface: "Headline expanders", viewport: viewportName, action: "Click expanders" }));
+  }, { surface: "First-look expanders", viewport: viewportName, action: "Click expanders" }));
 
   await auditStep(Object.assign(async () => {
     await gotoApp(page);
@@ -404,48 +587,60 @@ async function auditGlobalSurfaces(page, viewportName) {
       "Next scheduled scan",
       "Editor-reviewed score cycle",
       "Coverage through",
-      "Grade moves this release",
-      "Monitor items awaiting review",
-      ...dashboardStatus.nextChecks.flatMap((check) => [check.label, check.status]),
     ];
     const missing = required.filter((needle) => !text.includes(needle));
+    const forbidden = [
+      "Grade moves this release",
+      "Monitor items awaiting review",
+      "Next checks",
+      ...dashboardStatus.nextChecks.flatMap((check) => [check.label, check.status]),
+    ].filter((needle) => text.includes(needle));
+    const rowCount = await statusRegion.locator(".dashboard-status-row:visible").count();
+    const linkCount = await statusRegion.locator("a[href]").count();
+    if (rowCount !== 4) missing.push(`exactly four freshness rows (found ${rowCount})`);
+    if (linkCount !== 0) forbidden.push(`status links (found ${linkCount})`);
     addRow({
-      surface: "Dashboard status and next checks",
+      surface: "Dashboard freshness status",
       viewport: viewportName,
-      action: "Read status block and next-check cards",
-      observed: `present=${required.length - missing.length}/${required.length}`,
-      ...presenceStatus(missing),
+      action: "Read freshness facts and check for duplicate release/watch content",
+      observed: `present=${required.length - missing.length}/${required.length}; forbidden=${forbidden.join(", ") || "none"}; rows=${rowCount}; links=${linkCount}`,
+      status: missing.length || forbidden.length ? rowStatus.issue : rowStatus.pass,
+      severity: missing.length || forbidden.length ? "P2" : "",
+      recommendation: missing.length || forbidden.length
+        ? "Keep Dashboard status limited to the four freshness facts and scan/review disclaimer."
+        : "",
     });
-  }, { surface: "Dashboard status and next checks", viewport: viewportName, action: "Read rendered text" }));
+  }, { surface: "Dashboard freshness status", viewport: viewportName, action: "Read rendered text" }));
 
   await auditStep(Object.assign(async () => {
-    const results = [];
-    for (const check of dashboardStatus.nextChecks.filter((item) => item.href)) {
-      await gotoApp(page);
-      await revealDashboardStatusDetails(page);
-      await page.getByRole("link", { name: `Open check path for ${check.label}` }).click();
-      await page.waitForTimeout(350);
-      const hash = await page.evaluate(() => window.location.hash);
-      const targetId = check.href.replace(/^#/, "");
-      const targetCount = await page.locator(`#${targetId}, #${targetId}-button, #${targetId}-panel`).count();
-      results.push({
-        label: check.label,
-        expected: check.href,
-        actual: hash,
-        targetFound: targetCount > 0,
-      });
-    }
-    const failures = results.filter((result) => result.actual !== result.expected || !result.targetFound);
+    await gotoApp(page);
+    const check = primaryNextCheck;
+    const link = page.locator(".first-look-watch").getByRole("link", { name: check.label });
+    await link.click();
+    await page.waitForTimeout(350);
+    const hash = await page.evaluate(() => window.location.hash);
+    const targetId = check.href.replace(/^#/, "");
+    const target = page.locator(`#${targetId}, #${targetId}-button, #${targetId}-panel`).first();
+    const targetCount = await target.count();
+    const targetVisible = targetCount > 0 && await target.isVisible();
+    const result = {
+      label: check.label,
+      expected: check.href,
+      actual: hash,
+      targetFound: targetCount > 0,
+      targetVisible,
+    };
+    const failed = result.actual !== result.expected || !result.targetFound || !result.targetVisible;
     addRow({
-      surface: "Next-check deep links",
+      surface: "Primary next-check route",
       viewport: viewportName,
-      action: "Click each data-driven Open check path link",
-      observed: JSON.stringify(results),
-      status: failures.length ? rowStatus.issue : rowStatus.pass,
-      severity: failures.length ? "P2" : "",
-      recommendation: failures.length ? "Fix nextChecks href or the corresponding rendered target." : "",
+      action: "Click the primary data-driven watch link",
+      observed: JSON.stringify(result),
+      status: failed ? rowStatus.issue : rowStatus.pass,
+      severity: failed ? "P2" : "",
+      recommendation: failed ? "Fix status.nextChecks[0].href or its rendered target." : "",
     });
-  }, { surface: "Next-check deep links", viewport: viewportName, action: "Click links" }));
+  }, { surface: "Primary next-check route", viewport: viewportName, action: "Click link" }));
 }
 
 async function auditTabs(page, viewportName) {
@@ -454,7 +649,10 @@ async function auditTabs(page, viewportName) {
       label: "Scorecard",
       hash: "view-scorecard",
       ready: (currentPage) => currentPage.locator("#policy-grades-heading"),
-      required: ["Scorecard view", "Click any card"],
+      required: [
+        "11 policy areas graded A–F, updated monthly.",
+        "Open a policy for Briefing, Evidence, History, and Method.",
+      ],
     },
     {
       label: "Promises",
@@ -1050,6 +1248,84 @@ async function auditKeyboard(page, viewportName) {
       recommendation: failures.length ? `Preserve the current view when routing the global skip link: ${failures.join("; ")}.` : "",
     });
   }, { surface: "Skip link view preservation", viewport: viewportName, action: "Activate skip link from Promises" }));
+
+  await auditStep(Object.assign(async () => {
+    await gotoApp(page, "view-scorecard");
+    const policyRoute = page.getByRole("region", { name: "Scorecard briefing" })
+      .getByRole("link", { name: "Inspect the 11 policy files" });
+    await policyRoute.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForFunction(
+      () => document.activeElement?.id === "policy-grades-heading",
+      undefined,
+      { timeout: 10_000 },
+    );
+    const observed = await page.evaluate(() => ({
+      hash: window.location.hash,
+      focusedId: document.activeElement?.id || "",
+      targetVisible: Boolean(document.querySelector("#policy-grades-heading")?.getClientRects().length),
+    }));
+    const failed = observed.hash !== "#view-scorecard"
+      || observed.focusedId !== "policy-grades-heading"
+      || !observed.targetVisible;
+    addRow({
+      surface: "First-look policy route keyboard activation",
+      viewport: viewportName,
+      action: "Focus Inspect the 11 policy files and press Enter",
+      observed: JSON.stringify(observed),
+      status: failed ? rowStatus.issue : rowStatus.pass,
+      severity: failed ? "P1" : "",
+      recommendation: failed
+        ? "Keep the scorecard route history-stable and focus the policy heading."
+        : "",
+    });
+  }, {
+    surface: "First-look policy route keyboard activation",
+    viewport: viewportName,
+    action: "Activate policy route",
+  }));
+
+  await auditStep(Object.assign(async () => {
+    await gotoApp(page, "view-scorecard");
+    const methodRoute = page.getByRole("region", { name: "Scorecard briefing" })
+      .getByRole("link", { name: "Read the scoring method" });
+    await methodRoute.focus();
+    await page.keyboard.press("Enter");
+    await page.waitForFunction(
+      () => (
+        window.location.hash === "#methodology-safeguards"
+        && document.activeElement?.id === "methodology-safeguards"
+      ),
+      undefined,
+      { timeout: 10_000 },
+    );
+    const observed = await page.evaluate(() => ({
+      hash: window.location.hash,
+      focusedId: document.activeElement?.id || "",
+      targetVisible: Boolean(document.querySelector("#methodology-safeguards")?.getClientRects().length),
+      activeLabels: [...document.querySelectorAll('[aria-current="page"]')]
+        .map((node) => node.textContent?.replace(/\s+/g, " ").trim()),
+    }));
+    const failed = observed.hash !== "#methodology-safeguards"
+      || observed.focusedId !== "methodology-safeguards"
+      || !observed.targetVisible
+      || !observed.activeLabels.includes("Rubric");
+    addRow({
+      surface: "First-look methodology route keyboard activation",
+      viewport: viewportName,
+      action: "Focus Read the scoring method and press Enter",
+      observed: JSON.stringify(observed),
+      status: failed ? rowStatus.issue : rowStatus.pass,
+      severity: failed ? "P1" : "",
+      recommendation: failed
+        ? "Route to and focus #methodology-safeguards while marking Rubric current."
+        : "",
+    });
+  }, {
+    surface: "First-look methodology route keyboard activation",
+    viewport: viewportName,
+    action: "Activate methodology route",
+  }));
 
   await auditStep(Object.assign(async () => {
     await gotoApp(page, "view-scorecard");

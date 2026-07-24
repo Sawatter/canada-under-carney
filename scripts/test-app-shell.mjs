@@ -2,6 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
+import {
+  buildFirstLookProjection,
+  resolveNextCheckTiming,
+  selectPrimaryNextCheck,
+} from "../src/firstLook.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -12,12 +17,19 @@ function read(relativePath) {
 const sources = {
   app: read("src/App.jsx"),
   dashboard: read("src/components/Dashboard.jsx"),
+  scoreboardHeader: read("src/components/ScoreboardHeader.jsx"),
+  dashboardStatus: read("src/components/DashboardStatus.jsx"),
+  approvalSignal: read("src/components/ApprovalSignal.jsx"),
   promises: read("src/components/PromiseTracker.jsx"),
   promisesRoute: read("src/components/PromiseTrackerRoute.jsx"),
   whatsChangedRoute: read("src/components/WhatsChangedRoute.jsx"),
   dimension: read("src/components/DimensionCard.jsx"),
   dimensionData: read("src/dimensionData.js"),
   dimensionsSummary: read("src/data/dimensions-summary.json"),
+  changelog: read("src/data/changelog.json"),
+  changelogSummary: read("src/data/changelog-summary.json"),
+  meta: read("src/data/meta.json"),
+  status: read("src/data/status.json"),
   gradeMoves: read("src/gradeMoves.js"),
   sinceLastVisit: read("src/components/SinceLastVisit.jsx"),
   sinceLastVisitHelpers: read("src/sinceLastVisit.js"),
@@ -26,6 +38,9 @@ const sources = {
 const publicJsPath = [
   sources.app,
   sources.dashboard,
+  sources.scoreboardHeader,
+  sources.dashboardStatus,
+  sources.approvalSignal,
   sources.promises,
   sources.dimension,
   sources.gradeMoves,
@@ -185,20 +200,107 @@ try {
 } catch {
   check(false, "The generated dimensions summary must be valid JSON.");
 }
+try {
+  const changelog = JSON.parse(sources.changelog);
+  const changelogSummary = JSON.parse(sources.changelogSummary);
+  const meta = JSON.parse(sources.meta);
+  const status = JSON.parse(sources.status);
+  const latestRelease = changelogSummary[0];
+
+  check(
+    latestRelease?.version === meta.version
+      && latestRelease?.date === meta.lastUpdated
+      && JSON.stringify(latestRelease.firstLook)
+        === JSON.stringify(buildFirstLookProjection(changelog[0])),
+    "The newest changelog summary must carry the canonical first-look projection for the current release.",
+  );
+  check(
+    typeof meta.overallVerdictLine === "string"
+      && meta.overallVerdictLine.trim().length > 0
+      && JSON.stringify(selectPrimaryNextCheck(status))
+        === JSON.stringify(status.nextChecks[0])
+      && resolveNextCheckTiming(status, status.nextChecks[1]).value
+        === status.nextScheduledSourceScanAt,
+    "The first-look data contract must include an authored overall reason and select the first status next-check as primary.",
+  );
+} catch {
+  check(false, "The first-look changelog, metadata, and status inputs must be valid JSON.");
+}
 check(
   imports(sources.dashboard, "gradeMoves") &&
     sources.dashboard.includes("getCurrentGradeMoves(changelogSummary, dimensions, meta)") &&
     sources.dashboard.includes("getCurrentGradeMovesByDimension(") &&
     sources.dashboard.includes("changelogSummary,") &&
-    /<DashboardStatus\s+gradeMoves=\{currentGradeMoves\}/.test(sources.dashboard) &&
+    /<DashboardStatus\s*\/>/.test(sources.dashboard) &&
+    !/<DashboardStatus\b[^>]*gradeMoves=/.test(sources.dashboard) &&
     /gradeMoves=\{currentGradeMovesByDimension\.get\(d\.id\) \|\| \[\]\}/.test(sources.dashboard),
-  "Dashboard must derive current-release grade moves from changelog grade items and pass them into status/card surfaces.",
+  "Dashboard must derive current-release grade moves for policy cards without passing them into the freshness-only status surface.",
 );
 check(
   !sources.dashboard.includes("../data/changelog.json")
     && !sources.dimension.includes("../data/changelog.json")
     && !sources.sinceLastVisit.includes("../data/changelog.json"),
   "The scorecard path must use the small changelog summary instead of importing the full history.",
+);
+const firstLookRenderContract = sourceAround(
+  sources.dashboard,
+  "<ScoreboardHeader",
+  300,
+  1800,
+);
+check(
+  imports(sources.dashboard, "changelog-summary.json")
+    && imports(sources.dashboard, "firstLook")
+    && sources.dashboard.includes("const latestRelease = changelogSummary[0];")
+    && sources.dashboard.includes("const primaryNextCheck = selectPrimaryNextCheck(status);")
+    && sources.dashboard.includes(
+      "const primaryNextCheckTiming = resolveNextCheckTiming(status, primaryNextCheck);",
+    )
+    && firstLookRenderContract.includes("overallVerdictLine={meta.overallVerdictLine}")
+    && firstLookRenderContract.includes("latestRelease={latestRelease}")
+    && firstLookRenderContract.includes("nextUpdate={meta.nextUpdate}")
+    && firstLookRenderContract.includes("primaryNextCheck={primaryNextCheck}")
+    && firstLookRenderContract.includes(
+      "primaryNextCheckTiming={primaryNextCheckTiming}",
+    ),
+  "Dashboard must feed ScoreboardHeader the canonical compact release projection, authored reason, next update, and primary next check.",
+);
+check(
+  sources.scoreboardHeader.includes("latestRelease?.firstLook")
+    && !sources.scoreboardHeader.includes("latestRelease?.items")
+    && sources.scoreboardHeader.includes("{overallVerdictLine}")
+    && sources.scoreboardHeader.includes("<ReleaseUpdate latestRelease={latestRelease} />")
+    && sources.scoreboardHeader.includes("primaryNextCheck={primaryNextCheck}")
+    && sources.scoreboardHeader.includes(
+      "primaryNextCheckTiming={primaryNextCheckTiming}",
+    ),
+  "ScoreboardHeader must render the authored reason and compact first-look projection without reading the full changelog entry.",
+);
+check(
+  sources.scoreboardHeader.includes("What affects the grades")
+    && sources.scoreboardHeader.includes(
+      "Each of the 11 graded policy files counts equally.",
+    )
+    && sources.scoreboardHeader.includes("The same 11 files, with housing, cost of living")
+    && sources.scoreboardHeader.includes("Promise Delivery and Approval do not affect either grade."),
+  "The first-look briefing must state the Full Policy Audit, Household Impact, and context-only scoring boundaries.",
+);
+check(
+  sources.scoreboardHeader.includes('role="group"')
+    && sources.scoreboardHeader.includes('aria-labelledby="first-look-signals-heading"')
+    && sources.scoreboardHeader.includes("Household Impact")
+    && sources.scoreboardHeader.includes("Tracker outside the grades.")
+    && sources.approvalSignal.includes("Public opinion outside the grades."),
+  "The compact signal group must distinguish Household Impact from the Promise Delivery and Approval context signals.",
+);
+check(
+  ["Evidence scan", "Next scheduled scan", "Editor-reviewed score cycle", "Coverage through"]
+    .every((label) => sources.dashboardStatus.includes(label))
+    && !sources.dashboardStatus.includes("gradeMoves")
+    && !sources.dashboardStatus.includes("nextChecks")
+    && !sources.dashboardStatus.includes("Grade moves")
+    && !sources.dashboardStatus.includes("Next checks"),
+  "DashboardStatus must remain a freshness-only surface without duplicate grade-move or next-check content.",
 );
 
 check(
@@ -450,14 +552,15 @@ check(
   "Dashboard must retain a skip link and focusable main-content target.",
 );
 const policyJumpIndex = sources.dashboard.indexOf("Jump to the 11 policy grades");
-const orientationIndex = sources.dashboard.indexOf('className="dashboard-orientation"');
-const trustFrameIndex = sources.dashboard.indexOf('className="scorecard-trust-wrap"');
-const scoreboardIndex = sources.dashboard.indexOf('id="main-content"');
-const policyJumpRenderContract = sourceAround(
-  sources.dashboard,
-  "Jump to the 11 policy grades",
-  1200,
-  100,
+const mainIndex = sources.dashboard.indexOf('<main id="main-content"');
+const briefingIndex = sources.dashboard.indexOf("<ScoreboardHeader");
+const statusIndex = sources.dashboard.indexOf("<DashboardStatus");
+const sectionNavigationIndex = sources.dashboard.indexOf('className="dashboard-tabs-wrap"');
+const briefingRouteContract = sourceAround(
+  sources.scoreboardHeader,
+  'className="first-look-actions"',
+  0,
+  900,
 );
 const policyJumpHandlerContract = sourceAround(
   sources.dashboard,
@@ -465,6 +568,12 @@ const policyJumpHandlerContract = sourceAround(
   0,
   800,
 ).split("const handleShowSafeguards")[0];
+const safeguardsHandlerContract = sourceAround(
+  sources.dashboard,
+  "const handleShowSafeguards",
+  0,
+  900,
+).split("const handleInternalRef")[0];
 const anchorFocusContract = sourceAround(
   sources.dashboard,
   "function focusAndScrollToAnchor",
@@ -478,22 +587,39 @@ const policyHeadingContract = sourceAround(
   500,
 );
 check(
-  orientationIndex !== -1 &&
-    trustFrameIndex > orientationIndex &&
-    policyJumpIndex > trustFrameIndex &&
-    scoreboardIndex > policyJumpIndex &&
-    policyJumpRenderContract.includes("<a") &&
-    policyJumpRenderContract.includes('href="#policy-grades-heading"') &&
-    policyJumpRenderContract.includes("onClick={handlePolicyGradesJump}") &&
-    policyJumpRenderContract.includes('view === "scorecard"') &&
-    policyJumpRenderContract.includes("expanded === null"),
-  "Dashboard must render the native policy-grade jump only on the closed Scorecard overview after the trust frame and before the scoreboard.",
+  mainIndex !== -1
+    && briefingIndex > mainIndex
+    && statusIndex > briefingIndex
+    && sectionNavigationIndex > statusIndex
+    && sources.dashboard.includes('id="scoreboard-row"')
+    && !sources.dashboard.includes('className="dashboard-orientation"')
+    && !sources.dashboard.includes('className="scorecard-trust-wrap"')
+    && policyJumpIndex === -1,
+  "Dashboard must lead main content with the first-look briefing, then freshness status and section navigation, without the retired orientation/trust-frame hierarchy.",
+);
+check(
+  briefingRouteContract.includes('href="#policy-grades-heading"')
+    && briefingRouteContract.includes("Inspect the 11 policy files")
+    && briefingRouteContract.includes("onClick={onPolicyGradesJump}")
+    && briefingRouteContract.includes('href="#methodology-safeguards"')
+    && briefingRouteContract.includes("Read the scoring method")
+    && briefingRouteContract.includes("onClick={handleSafeguardsClick}"),
+  "The first-look briefing must expose visible routes to the 11 policy files and scoring methodology.",
 );
 check(
   policyJumpHandlerContract.includes("event.preventDefault()") &&
-    policyJumpHandlerContract.includes('focusAndScrollToAnchor("policy-grades-heading")') &&
+    policyJumpHandlerContract.includes('const target = "policy-grades-heading"') &&
+    policyJumpHandlerContract.includes('if (view === "scorecard")') &&
+    policyJumpHandlerContract.includes("focusAndScrollToAnchor(target)") &&
+    policyJumpHandlerContract.includes("handleHashTargetNavigation(target)") &&
     !policyJumpHandlerContract.includes("window.history"),
-  "The ordinary policy-grade jump must focus its target without mutating browser history.",
+  "The policy-grade jump must focus in place on Scorecard and route other views without adding history.",
+);
+check(
+  safeguardsHandlerContract.includes('const target = "methodology-safeguards"')
+    && safeguardsHandlerContract.includes("window.history.pushState")
+    && safeguardsHandlerContract.includes("routeHashTarget(target)"),
+  "The first-look methodology route must create navigable history and route to the safeguards target.",
 );
 check(
   policyHeadingContract.includes("<h2") &&
@@ -503,6 +629,20 @@ check(
     anchorFocusContract.includes('behavior: "auto"') &&
     sources.dashboard.includes('id="scorecard-dimension-grid"'),
   "The policy-grade jump must target a focusable level-two heading with auto scrolling while preserving the grid anchor.",
+);
+const firstLookForcedColorsContract = sourceAround(
+  sources.css,
+  "@media (forced-colors: active)",
+  0,
+  2000,
+);
+check(
+  firstLookForcedColorsContract.includes(".app-shell .first-look-primary-wrap")
+    && firstLookForcedColorsContract.includes(".app-shell .first-look-signal")
+    && firstLookForcedColorsContract.includes("background: Canvas")
+    && firstLookForcedColorsContract.includes(".app-shell .first-look-action:focus-visible")
+    && firstLookForcedColorsContract.includes("outline: 2px solid Highlight"),
+  "The first-look briefing must retain explicit forced-colors surfaces and keyboard focus treatment.",
 );
 const bodyLockContract = sourceAround(
   sources.dashboard,

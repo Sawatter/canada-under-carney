@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { QUIET_TYPES } from "../firstLook.js";
 import GradeChip from "./GradeChip";
 
 // Type chip styles — text-only, one per type, following research synthesis:
@@ -20,11 +21,6 @@ const FILTERS = [
 // How many entries render before the reader asks for the rest. One explicit
 // button reveals everything older; no auto-load on scroll.
 const PAGE_SIZE = 12;
-
-// Item types that sit behind the per-entry "minor updates" expander when the
-// "All" filter is active. "fix" rides along so recorded fixes stay readable
-// instead of dropping out of the rendered history.
-const QUIET_TYPES = ["docs", "minor", "fix"];
 
 function Chip({ type }) {
   const s = CHIP_STYLES[type];

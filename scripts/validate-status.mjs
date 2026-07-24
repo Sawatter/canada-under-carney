@@ -1,13 +1,53 @@
 // Validates the reader-facing dashboard status metadata. This file protects the
 // status card from becoming a shadow scoring system or a fuzzy freshness badge.
 
-import { readFileSync } from "node:fs";
-import { dirname, resolve } from "node:path";
+import { readFileSync, realpathSync } from "node:fs";
+import { tmpdir } from "node:os";
+import {
+  dirname,
+  isAbsolute,
+  relative,
+  resolve,
+  sep,
+} from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const statusPath = resolve(__dirname, "../src/data/status.json");
-const metaPath = resolve(__dirname, "../src/data/meta.json");
+
+function resolveDataDirectory() {
+  const canonicalDataDir = resolve(__dirname, "../src/data");
+  const args = process.argv.slice(2);
+  if (args.length === 0) return canonicalDataDir;
+  if (args.length !== 2 || args[0] !== "--fixture-data-dir") {
+    console.error("FATAL: expected --fixture-data-dir <temporary-directory>");
+    process.exit(1);
+  }
+
+  let fixtureDataDir;
+  let systemTempDir;
+  try {
+    fixtureDataDir = realpathSync(resolve(args[1]));
+    systemTempDir = realpathSync(tmpdir());
+  } catch (error) {
+    console.error(`FATAL: fixture data directory could not be resolved: ${error.message}`);
+    process.exit(1);
+  }
+
+  const fromSystemTemp = relative(systemTempDir, fixtureDataDir);
+  if (
+    fromSystemTemp === ".."
+    || fromSystemTemp.startsWith(`..${sep}`)
+    || isAbsolute(fromSystemTemp)
+  ) {
+    console.error("FATAL: fixture data directory must be inside the system temp directory");
+    process.exit(1);
+  }
+  return fixtureDataDir;
+}
+
+const selectedDataDirectory = resolveDataDirectory();
+const statusPath = resolve(selectedDataDirectory, "status.json");
+const metaPath = resolve(selectedDataDirectory, "meta.json");
 
 const status = JSON.parse(readFileSync(statusPath, "utf-8"));
 const meta = JSON.parse(readFileSync(metaPath, "utf-8"));
@@ -184,8 +224,8 @@ if (
   err("status schema must not include personalized, material-change, or visit-history watch-item fields");
 }
 
-if (!Array.isArray(status.nextChecks)) {
-  err("nextChecks must be an array");
+if (!Array.isArray(status.nextChecks) || status.nextChecks.length === 0) {
+  err("nextChecks must be a non-empty array");
 } else {
   const ids = new Set();
   status.nextChecks.forEach((check, index) => {

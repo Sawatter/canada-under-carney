@@ -4,12 +4,27 @@ import { fileURLToPath } from "node:url";
 import path from "node:path";
 import { getCurrentGradeMoves } from "../../src/gradeMoves.js";
 import { resolveNoticeState } from "../../src/sinceLastVisit.js";
+import {
+  buildFirstLookProjection,
+  resolveNextCheckTiming,
+  selectPrimaryNextCheck,
+} from "../../src/firstLook.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const meta = JSON.parse(readFileSync(path.join(repoRoot, "src/data/meta.json"), "utf8"));
 const changelog = JSON.parse(readFileSync(path.join(repoRoot, "src/data/changelog.json"), "utf8"));
+const changelogSummary = JSON.parse(
+  readFileSync(path.join(repoRoot, "src/data/changelog-summary.json"), "utf8"),
+);
 const dimensions = JSON.parse(readFileSync(path.join(repoRoot, "src/data/dimensions.json"), "utf8"));
 const dashboardStatus = JSON.parse(readFileSync(path.join(repoRoot, "src/data/status.json"), "utf8"));
+const expectedFirstLook = buildFirstLookProjection(changelog[0]);
+const latestRelease = changelogSummary[0];
+const primaryNextCheck = selectPrimaryNextCheck(dashboardStatus);
+const primaryNextCheckTiming = resolveNextCheckTiming(
+  dashboardStatus,
+  primaryNextCheck,
+);
 const currentGradeMoves = getCurrentGradeMoves(changelog, dimensions, meta);
 const movedDimensionIds = new Set(currentGradeMoves.map((item) => item.dimensionId));
 const housingDimension = dimensions.find((dim) => dim.id === "housing-supply");
@@ -266,7 +281,7 @@ async function expectVisibleVersion(page) {
   ).toBeVisible();
 }
 
-async function expectHeaderBadgeClear(page) {
+async function expectCompactHeaderClear(page) {
   await expect.poll(async () => page.evaluate(() => {
     const rectOf = (selector) => {
       const node = document.querySelector(selector);
@@ -287,13 +302,30 @@ async function expectHeaderBadgeClear(page) {
     const title = rectOf(".dashboard-title");
     const kickerNode = document.querySelector(".dashboard-kicker");
     if (!header || !toggle || !kicker || !title || !kickerNode) return false;
+    const isCompactMobile = window.matchMedia("(max-width: 640px)").matches;
+    const kickerStyle = getComputedStyle(kickerNode);
     const before = getComputedStyle(kickerNode, "::before");
-    return (
+    const controlsStayInsideHeader = (
       getComputedStyle(document.querySelector(".theme-toggle")).position === "absolute"
-      && kicker.top >= toggle.bottom + 8
+      && toggle.top >= header.top
+      && toggle.left >= header.left
+      && toggle.right <= header.right
+      && toggle.bottom <= header.bottom
+      && title.top >= header.top
+      && title.left >= header.left
+      && title.right <= header.right
+      && title.bottom <= header.bottom
+    );
+    if (isCompactMobile) {
+      return controlsStayInsideHeader && kickerStyle.display === "none";
+    }
+    return (
+      controlsStayInsideHeader
+      && kickerStyle.display === "inline-flex"
+      && kicker.width > 0
       && kicker.left >= header.left
       && kicker.right <= header.right
-      && title.top >= kicker.bottom + 6
+      && title.top >= kicker.bottom + 4
       && Number.parseFloat(before.width) >= 28
       && Number.parseFloat(before.flexBasis) >= 28
       && before.backgroundImage.includes("radial-gradient")
@@ -320,6 +352,146 @@ function dashboardStatusRegion(page) {
   return page.getByRole("region", { name: "Dashboard status" });
 }
 
+function firstLookRegion(page) {
+  return page.getByRole("region", { name: "Scorecard briefing" });
+}
+
+function releaseStateLabel(firstLook) {
+  if (firstLook.mode === "grade-moves") {
+    return `${firstLook.gradeMoveCount} grade ${
+      firstLook.gradeMoveCount === 1 ? "move" : "moves"
+    } in this release`;
+  }
+  if (firstLook.mode === "maintenance-only") return "Maintenance-only release";
+  if (firstLook.mode === "no-grade-moves") return "No grade moves in this release";
+  return latestRelease.summary;
+}
+
+async function expectFirstLookBriefing(page, viewport) {
+  const region = firstLookRegion(page);
+  const update = region.locator(".first-look-update");
+  const watch = region.locator(".first-look-watch");
+  const boundary = region.locator(".first-look-boundary");
+  const signalGroup = region.getByRole("group", { name: "Other dashboard signals" });
+  const policyRoute = region.getByRole("link", { name: "Inspect the 11 policy files" });
+  const methodRoute = region.getByRole("link", { name: "Read the scoring method" });
+
+  await expect(region).toBeVisible();
+  await expect(region.getByRole("heading", { level: 2, name: "Full Policy Audit" }))
+    .toBeVisible();
+  await expect(region.getByText(meta.overallVerdictLine, { exact: true })).toBeVisible();
+
+  await expect(update).toContainText(`v${latestRelease.version}`);
+  await expect(update).toContainText(releaseStateLabel(expectedFirstLook));
+  for (const item of expectedFirstLook.featuredItems) {
+    await expect(update).toContainText(item.headline || item.body);
+  }
+
+  await expect(watch).toContainText(`Next score update ${formatStatusDate(meta.nextUpdate)}`);
+  await expect(watch).toContainText(primaryNextCheck.label);
+  await expect(watch).toContainText(primaryNextCheck.status);
+  const expectedTiming = primaryNextCheckTiming.kind === "date"
+    ? formatStatusDate(primaryNextCheckTiming.value)
+    : primaryNextCheckTiming.value;
+  await expect(watch.getByText(expectedTiming, { exact: true })).toBeVisible();
+  if (primaryNextCheck.href) {
+    await expect(watch.getByRole("link", { name: primaryNextCheck.label }))
+      .toHaveAttribute("href", primaryNextCheck.href);
+  }
+
+  await expect(boundary.getByRole("heading", { name: "What affects the grades" }))
+    .toBeVisible();
+  await expect(boundary).toContainText(
+    "Each of the 11 graded policy files counts equally.",
+  );
+  await expect(boundary).toContainText(
+    "The same 11 files, with housing, cost of living, the economy, and government spending counted twice.",
+  );
+  await expect(boundary).toContainText(
+    "Promise Delivery and Approval do not affect either grade.",
+  );
+
+  await expect(policyRoute).toBeVisible();
+  await expect(policyRoute).toHaveAttribute("href", "#policy-grades-heading");
+  await expect(methodRoute).toBeVisible();
+  await expect(methodRoute).toHaveAttribute("href", "#methodology-safeguards");
+
+  await expect(signalGroup.getByRole("article", { name: "Household Impact" })).toBeVisible();
+  const householdMath = signalGroup.getByRole("button", {
+    name: "How is Household built?",
+  });
+  await expect(householdMath).toBeVisible();
+  const householdMathBox = await householdMath.boundingBox();
+  expect(householdMathBox).not.toBeNull();
+  expect(householdMathBox.height).toBeGreaterThanOrEqual(44);
+  await expect(signalGroup.getByText(
+    "The same 11 policies, with four pocketbook files double-weighted.",
+    { exact: true },
+  )).toBeVisible();
+  await expect(signalGroup.getByRole("button", { name: /Promise Delivery/ })).toBeVisible();
+  await expect(signalGroup.getByText("Tracker outside the grades.", { exact: true }))
+    .toBeVisible();
+  const approvalButton = signalGroup.getByRole("button", { name: /Approval Signal/ });
+  await expect(approvalButton).toBeVisible();
+  await expect(approvalButton).toHaveAccessibleName(
+    /Approval Signal.*\d+% approve.*\d+% disapprove.*Net.*polls.*day average.*polls and sources/i,
+  );
+  await expect(signalGroup.getByText("Public opinion outside the grades.", { exact: true }))
+    .toBeVisible();
+
+  const fit = await region.evaluate((node, expectedViewport) => {
+    const selectors = [
+      ".first-look-primary-wrap",
+      ".first-look-update",
+      ".first-look-watch",
+      ".first-look-boundary",
+      ".first-look-action",
+      ".first-look-signal",
+    ];
+    const boxes = selectors.flatMap((selector) => (
+      [...node.querySelectorAll(selector)].map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          bottom: rect.bottom,
+          height: rect.height,
+          left: rect.left,
+          right: rect.right,
+          width: rect.width,
+        };
+      })
+    ));
+    return {
+      allHaveArea: boxes.every((box) => box.width > 0 && box.height > 0),
+      allFitWidth: boxes.every((box) => (
+        box.left >= -1 && box.right <= expectedViewport.width + 1
+      )),
+      noDocumentOverflow:
+        document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+    };
+  }, viewport);
+  expect(fit).toEqual({
+    allHaveArea: true,
+    allFitWidth: true,
+    noDocumentOverflow: true,
+  });
+
+  if (viewport.width <= 767) {
+    const actionFit = await region.evaluate((node) => {
+      const actions = node.querySelector(".first-look-actions");
+      const bottomNav = document.querySelector(".app-bottom-nav");
+      if (!actions || !bottomNav) return null;
+      return {
+        actionsBottom: actions.getBoundingClientRect().bottom,
+        bottomNavTop: bottomNav.getBoundingClientRect().top,
+      };
+    });
+    expect(actionFit).not.toBeNull();
+    expect(actionFit.actionsBottom).toBeLessThanOrEqual(actionFit.bottomNavTop);
+  }
+
+  return { methodRoute, policyRoute, region };
+}
+
 async function expectCompactDashboardStatus(page, { expanded = false } = {}) {
   const region = dashboardStatusRegion(page);
   const details = page.locator("#dashboard-status-details");
@@ -337,14 +509,10 @@ async function expectCompactDashboardStatus(page, { expanded = false } = {}) {
 
   if (expanded) {
     await expect(details).toBeVisible();
-    await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(6);
-    await expect(region.getByRole("heading", { name: "Next checks" })).toBeVisible();
-    await expect(region.getByRole("link", { name: /Open check path for/ }).first()).toBeVisible();
+    await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(4);
   } else {
     await expect(details).toBeHidden();
     await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(0);
-    await expect(region.getByRole("heading", { name: "Next checks" })).toHaveCount(0);
-    await expect(region.getByRole("link")).toHaveCount(0);
 
     const visibleText = await region.innerText();
     expect(visibleText).toContain(formatStatusDate(dashboardStatus.lastSourceScanAt));
@@ -353,9 +521,12 @@ async function expectCompactDashboardStatus(page, { expanded = false } = {}) {
     expect(visibleText).toMatch(/Evidence scan/i);
     expect(visibleText).toMatch(/Editor-reviewed/i);
     expect(visibleText).toMatch(/Coverage through/i);
-    const moveValue = currentGradeMoves.length === 0 ? "None" : String(currentGradeMoves.length);
-    expect(visibleText).toMatch(new RegExp(`Grade moves(?: this release)?[^\\n]*${moveValue}`, "i"));
   }
+  await expect(region.getByRole("heading", { name: "Next checks" })).toHaveCount(0);
+  await expect(region.getByRole("link")).toHaveCount(0);
+  await expect(region).not.toContainText("Grade moves this release");
+  await expect(region).not.toContainText(primaryNextCheck.label);
+  await expect(region).not.toContainText(primaryNextCheck.status);
 
   return { details, region, toggle };
 }
@@ -367,12 +538,12 @@ async function expectFullDashboardStatus(page) {
   await expect(region).toBeVisible();
   await expect(region.getByRole("button", { name: /details/i })).toHaveCount(0);
   await expect(details).toBeVisible();
-  await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(6);
-  await expect(region.getByRole("heading", { name: "Next checks" })).toBeVisible();
-  await expect(region.getByText("Housing disbursement watch", { exact: true })).toBeVisible();
-  await expect(region.locator(".dashboard-status-row", {
-    hasText: "Grade moves this release",
-  }).locator("dd")).toHaveText(currentGradeMoves.length === 0 ? "None" : String(currentGradeMoves.length));
+  await expect(region.locator(".dashboard-status-row:visible")).toHaveCount(4);
+  await expect(region.getByRole("heading", { name: "Next checks" })).toHaveCount(0);
+  await expect(region.getByRole("link")).toHaveCount(0);
+  await expect(region).not.toContainText("Grade moves this release");
+  await expect(region).not.toContainText(primaryNextCheck.label);
+  await expect(region).not.toContainText(primaryNextCheck.status);
 
   return { details, region };
 }
@@ -417,14 +588,15 @@ test.describe("dashboard route matrix", () => {
           await expectFullDashboardStatus(page);
         }
 
-        const gradeJump = page.getByRole("link", { name: "Jump to the 11 policy grades" });
+        await expect(firstLookRegion(page)).toBeVisible();
+        await expect(
+          firstLookRegion(page).getByRole("link", { name: "Inspect the 11 policy files" }),
+        ).toBeVisible();
+        await expect(
+          firstLookRegion(page).getByRole("link", { name: "Read the scoring method" }),
+        ).toBeVisible();
         if (key === "scorecard") {
-          await expect(gradeJump).toBeVisible();
-        } else {
-          await expect(gradeJump).toHaveCount(0);
-        }
-        if (key === "scorecard") {
-          await expectHeaderBadgeClear(page);
+          await expectCompactHeaderClear(page);
         }
         if (key === "about") {
           await expect(page.getByRole("link", { name: "continuity plan" })).toHaveAttribute(
@@ -454,12 +626,14 @@ test.describe("dashboard route matrix", () => {
 
 test.describe("responsive benchmark controls", () => {
   for (const [viewportName, viewport] of viewports) {
-    test(`grade jump focuses the policy heading without changing ${viewportName} history`, async ({ page }) => {
+    test(`policy-file route focuses the policy heading without changing ${viewportName} history`, async ({ page }) => {
       const consoleErrors = await installConsoleGuards(page);
       await page.setViewportSize(viewport);
       await page.goto(routePath({ hash: "#view-scorecard" }));
 
-      const jump = page.getByRole("link", { name: "Jump to the 11 policy grades" });
+      const jump = firstLookRegion(page).getByRole("link", {
+        name: "Inspect the 11 policy files",
+      });
       const heading = page.getByRole("heading", {
         level: 2,
         name: /11 policy areas graded A.F, updated monthly\./,
@@ -515,7 +689,6 @@ test.describe("responsive benchmark controls", () => {
       await expect(firstPolicy).toBeFocused();
       const firstPolicyId = await firstPolicy.getAttribute("id");
       await page.keyboard.press("Enter");
-      await expect(jump).toHaveCount(0);
       await expect(page).toHaveURL(/#dim-[a-z-]+-briefing$/);
 
       if (viewportName === "mobile") {
@@ -534,6 +707,50 @@ test.describe("responsive benchmark controls", () => {
       }
       await expect.poll(async () => page.evaluate(() => document.activeElement?.id || ""))
         .toBe(firstPolicyId);
+      await expectNoOverflow(page);
+      expect(consoleErrors).toEqual([]);
+    });
+
+    test(`first-look briefing exposes canonical content and keyboard methodology routing on ${viewportName}`, async ({ page }) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+
+      expect(latestRelease.firstLook).toEqual(expectedFirstLook);
+      const { methodRoute } = await expectFirstLookBriefing(page, viewport);
+      await methodRoute.focus();
+      await expect(methodRoute).toBeFocused();
+      await page.keyboard.press("Enter");
+
+      await expect(page).toHaveURL(/#methodology-safeguards$/);
+      await expectActiveNav(page, "Rubric");
+      await expect(page.locator("#methodology-safeguards")).toBeVisible();
+      await expect(page.locator("#methodology-safeguards")).toBeFocused();
+      await expectNoOverflow(page);
+      expect(consoleErrors).toEqual([]);
+    });
+  }
+
+  for (const [viewportName, viewport] of viewports) {
+    test(`policy-file route returns from another ${viewportName} view without adding history`, async ({ page }) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#view-about" }));
+
+      const jump = firstLookRegion(page).getByRole("link", {
+        name: "Inspect the 11 policy files",
+      });
+      await expect(page.locator("#policy-grades-heading")).toHaveCount(0);
+      const historyLengthBefore = await page.evaluate(() => window.history.length);
+
+      await jump.click();
+
+      const heading = page.locator("#policy-grades-heading");
+      await expect(page).toHaveURL(/#policy-grades-heading$/);
+      await expect(heading).toBeFocused();
+      await expectPolicyHeadingNearViewportTop(page);
+      await expect.poll(async () => page.evaluate(() => window.history.length))
+        .toBe(historyLengthBefore);
       await expectNoOverflow(page);
       expect(consoleErrors).toEqual([]);
     });
@@ -593,11 +810,12 @@ test.describe("responsive benchmark controls", () => {
     await page.goto(routePath({ hash: "#view-scorecard" }));
 
     const desktop = await expectFullDashboardStatus(page);
-    const focusedCheckLink = desktop.region.getByRole("link", {
-      name: "Open check path for Housing disbursement watch",
+    const focusedStatusRow = desktop.region.locator(".dashboard-status-row").last();
+    await focusedStatusRow.evaluate((row) => {
+      row.setAttribute("tabindex", "0");
+      row.focus();
     });
-    await focusedCheckLink.focus();
-    await expect(focusedCheckLink).toBeFocused();
+    await expect(focusedStatusRow).toBeFocused();
 
     await page.setViewportSize({ width: 640, height: 812 });
     const compact = await expectCompactDashboardStatus(page);
@@ -702,15 +920,13 @@ test.describe("v5.153 review follow-through", () => {
     expect(consoleErrors).toEqual([]);
   });
 
-  test("promise card carries the status distribution bar with a text summary", async ({ page }) => {
+  test("compact Promise Delivery signal carries the status distribution bar with a text summary", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(routePath());
-    const bar = page.locator(".scoreboard-card-promises [aria-hidden='true'][title*='delivered']");
+    const bar = page.locator(".first-look-signal-promises [aria-hidden='true'][title*='delivered']");
     await expect(bar).toHaveCount(1);
-    // The counts-in-words summary reaches AT via the button's accessible name
-    // (visually-hidden span), not the aria-hidden visual bar.
-    await expect(page.locator("button.scoreboard-card-promises"))
+    await expect(page.locator("button.first-look-signal-promises"))
       .toHaveAccessibleName(/delivered/);
     expect(consoleErrors).toEqual([]);
   });
@@ -1349,6 +1565,49 @@ test.describe("approved dimension workspace architecture", () => {
     expect(consoleErrors).toEqual([]);
   });
 
+  test("forced-colors keeps the first-look briefing, signals, and focused route distinguishable", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.setViewportSize({ width: 1280, height: 900 });
+    await page.emulateMedia({ forcedColors: "active" });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+
+    expect(await page.evaluate(() => window.matchMedia("(forced-colors: active)").matches))
+      .toBe(true);
+    const region = firstLookRegion(page);
+    const policyRoute = region.getByRole("link", { name: "Inspect the 11 policy files" });
+    await expect(region).toBeVisible();
+    await policyRoute.focus();
+    await expect(policyRoute).toBeFocused();
+
+    const styles = await region.evaluate((node) => {
+      const primary = node.querySelector(".first-look-primary-wrap");
+      const action = node.querySelector(".first-look-action-primary");
+      const signal = node.querySelector(".first-look-signal");
+      const primaryStyle = getComputedStyle(primary);
+      const actionStyle = getComputedStyle(action);
+      const signalStyle = getComputedStyle(signal);
+      return {
+        actionForcedColorAdjust: actionStyle.forcedColorAdjust,
+        actionOutlineStyle: actionStyle.outlineStyle,
+        actionOutlineWidth: actionStyle.outlineWidth,
+        primaryBackground: primaryStyle.backgroundColor,
+        primaryBorderStyle: primaryStyle.borderStyle,
+        signalBackground: signalStyle.backgroundColor,
+        signalBorderStyle: signalStyle.borderStyle,
+      };
+    });
+
+    expect(styles.actionForcedColorAdjust).toBe("none");
+    expect(styles.actionOutlineStyle).not.toBe("none");
+    expect(styles.actionOutlineWidth).not.toBe("0px");
+    expect(styles.primaryBackground).not.toBe("rgba(0, 0, 0, 0)");
+    expect(styles.signalBackground).not.toBe("rgba(0, 0, 0, 0)");
+    expect(styles.primaryBorderStyle).not.toBe("none");
+    expect(styles.signalBorderStyle).not.toBe("none");
+    await expectNoOverflow(page);
+    expect(consoleErrors).toEqual([]);
+  });
+
   test("desktop panel navigation replaces history and policy switching returns to Briefing", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     const scoredPolicies = dimensions.filter((dim) => !dim.excludeFromGPA);
@@ -1509,7 +1768,7 @@ test("app mode pushes Promises into history and Back returns to Scorecard", asyn
   const consoleErrors = await installConsoleGuards(page);
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto(routePath({ hash: "#view-scorecard" }));
-  await page.locator(".scoreboard-card-promises").click();
+  await page.locator(".first-look-signal-promises").click();
   await expect(page).toHaveURL(/#view-promises$/);
   await expectActiveNav(page, "Promises");
 
@@ -2151,7 +2410,9 @@ test.describe("v5.155 deferred route integrity", () => {
     });
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(routePath({ hash: "#view-scorecard" }));
-    await page.getByRole("button", { name: "read the safeguards" }).click();
+    await firstLookRegion(page)
+      .getByRole("link", { name: "Read the scoring method" })
+      .click();
 
     const target = page.locator("#methodology-safeguards");
     await expect(page).toHaveURL(/#methodology-safeguards$/);
