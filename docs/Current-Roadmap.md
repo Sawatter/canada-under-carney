@@ -10,10 +10,18 @@
 
 ## Current State
 
-- v5.166 is the current release candidate. It aligns the titles and actions in
-  the three secondary signal cards after a reader screenshot showed Promise
-  Delivery and Approval vertically centred beside the top-aligned Household
-  card. No score, signal value, or scoring rule changed.
+- v5.166 is live through implementation commit `3c329c9` and browser-gate
+  follow-up `6e8891f`. It aligns the titles, descriptions, visible results, and
+  actions in the three secondary signal cards after a reader screenshot showed
+  Promise Delivery and Approval vertically centred beside the top-aligned
+  Household card. Replacement Pages run `30114357988` passed build, 249 browser
+  checks, and deploy after the initial run correctly blocked on an over-tight
+  cross-platform glyph tolerance. Live Dashboard Audit run `30114654381`
+  reports `356/356` checks. At a 390-pixel production viewport, all three titles
+  start at 9.5 pixels, descriptions at 24.75, visible results at 69.68, and
+  action centres 32.13 pixels from the card bottom; actions are 44 pixels high,
+  cards are 178.08 pixels high, and no card overflows. No score, signal value,
+  or scoring rule changed.
 - v5.165 is live through commit `2addd47`. It corrects the Household Impact
   score-math control that the v5.164 mobile layout forced into a narrow implicit
   grid column. The control now spans the card content width while retaining its
