@@ -10,6 +10,11 @@
 
 ## Current State
 
+- v5.165 is the current release candidate. It corrects the Household Impact
+  score-math control that the v5.164 mobile layout forced into a narrow implicit
+  grid column. The control now spans the card content width while retaining its
+  existing explanation, and it meets the 44-pixel minimum target in both
+  dimensions. No score or scoring rule changed.
 - The v5.164 first-look briefing is live. It puts the
   Full Policy Audit result, authored reason, newest release state, next update,
   primary published watch, scoring boundary, and inspect routes before the
@@ -68,6 +73,20 @@
 ---
 
 ## Recently Completed
+
+- v5.165 Household control correction and local regression - a reader screenshot
+  exposed that the shared `grid-area: math` rule created an unintended second
+  column inside the mobile Household card. At 390 pixels, the live card measured
+  118 pixels wide while the control measured 37 pixels and wrapped to four
+  lines. The scoped override restores normal grid placement and full content
+  width. The focused desktop and mobile browser checks now assert both the
+  44-pixel minimum target and the mobile height ceiling that prevents the
+  four-line regression. Data, app-shell, lint, build, six focused browser, and
+  246-case browser gates passed; the 15 deferred-request cases affected by the
+  documented stale local preview process passed in five fresh batches.
+  Independent Codex and Claude reviews approved the corrected candidate. This
+  advances the first-look readability goal and exposes no broader signal-card
+  layout defect.
 
 - v5.164 first-look release - the approved
   first-look contract now reads one validated authored verdict, a deterministic

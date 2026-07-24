@@ -416,7 +416,8 @@ async function expectFirstLookBriefing(page, viewport) {
   await expect(methodRoute).toBeVisible();
   await expect(methodRoute).toHaveAttribute("href", "#methodology-safeguards");
 
-  await expect(signalGroup.getByRole("article", { name: "Household Impact" })).toBeVisible();
+  const householdSignal = signalGroup.getByRole("article", { name: "Household Impact" });
+  await expect(householdSignal).toBeVisible();
   const householdMath = signalGroup.getByRole("button", {
     name: "How is Household built?",
   });
@@ -424,6 +425,23 @@ async function expectFirstLookBriefing(page, viewport) {
   const householdMathBox = await householdMath.boundingBox();
   expect(householdMathBox).not.toBeNull();
   expect(householdMathBox.height).toBeGreaterThanOrEqual(44);
+  const householdMathLayout = await householdSignal.evaluate((card) => {
+    const button = card.querySelector(".first-look-derivation-toggle");
+    const buttonBox = button.getBoundingClientRect();
+    const cardStyle = getComputedStyle(card);
+    return {
+      buttonWidth: buttonBox.width,
+      contentWidth: card.clientWidth
+        - Number.parseFloat(cardStyle.paddingLeft)
+        - Number.parseFloat(cardStyle.paddingRight),
+    };
+  });
+  expect(Math.abs(
+    householdMathLayout.buttonWidth - householdMathLayout.contentWidth,
+  )).toBeLessThanOrEqual(1);
+  if (viewport.width <= 640) {
+    expect(householdMathBox.height).toBeLessThanOrEqual(45);
+  }
   await expect(signalGroup.getByText(
     "The same 11 policies, with four pocketbook files double-weighted.",
     { exact: true },

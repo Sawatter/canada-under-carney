@@ -1,6 +1,18 @@
 [
   {
     "date": "2026-07-23",
+    "version": "5.165",
+    "summary": "Fixed the cramped Household Impact score-math control on phones. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Household score explanation fits its card",
+        "body": "The Household Impact score-math button now uses the full card width instead of being forced into a narrow second column on phones. It now meets the 44-pixel minimum target in both dimensions and keeps the existing explanation."
+      }
+    ]
+  },
+  {
+    "date": "2026-07-23",
     "version": "5.164",
     "summary": "Put the overall result, reason, latest release, next check, and score boundaries into one first-look briefing. No scores or scoring rules changed.",
     "items": [
