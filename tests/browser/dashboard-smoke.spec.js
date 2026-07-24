@@ -367,6 +367,70 @@ function releaseStateLabel(firstLook) {
   return latestRelease.summary;
 }
 
+async function readSignalAlignment(signalGrid) {
+  return signalGrid.evaluate((grid) => (
+    [...grid.querySelectorAll(":scope > .first-look-signal")].map((card) => {
+      const title = card.querySelector("h4, .first-look-signal-title");
+      const description = card.querySelector(
+        ".first-look-signal-description, header p",
+      );
+      const result = card.querySelector(
+        ".first-look-signal-result, .first-look-promise-result, .first-look-approval-result",
+      );
+      const resultContent = result.firstElementChild;
+      const action = card.querySelector(
+        ".first-look-derivation-toggle, .first-look-signal-action",
+      );
+      const cardBox = card.getBoundingClientRect();
+      const actionElementBox = action.getBoundingClientRect();
+      const textBox = (element) => {
+        const range = document.createRange();
+        range.selectNodeContents(element);
+        return range.getBoundingClientRect();
+      };
+      const titleBox = textBox(title);
+      const descriptionBox = textBox(description);
+      const actionTextBox = textBox(action);
+      return {
+        label: title.textContent.trim(),
+        titleOffset: titleBox.top - cardBox.top,
+        descriptionOffset: descriptionBox.top - cardBox.top,
+        resultOffset: result.getBoundingClientRect().top - cardBox.top,
+        resultContentOffset:
+          resultContent.getBoundingClientRect().top - cardBox.top,
+        actionCenterGap: cardBox.bottom
+          - ((actionTextBox.top + actionTextBox.bottom) / 2),
+        actionHeight: actionElementBox.height,
+        cardHeight: cardBox.height,
+        overflowX: card.scrollWidth - card.clientWidth,
+        overflowY: card.scrollHeight - card.clientHeight,
+      };
+    })
+  ));
+}
+
+function expectSignalAlignment(signalAlignment, { alignResults = true } = {}) {
+  expect(signalAlignment).toHaveLength(3);
+  const alignedKeys = [
+    "titleOffset",
+    "descriptionOffset",
+    "actionCenterGap",
+    "cardHeight",
+  ];
+  if (alignResults) {
+    alignedKeys.push("resultOffset", "resultContentOffset");
+  }
+  for (const key of alignedKeys) {
+    const values = signalAlignment.map((measurement) => measurement[key]);
+    expect(Math.max(...values) - Math.min(...values)).toBeLessThanOrEqual(1);
+  }
+  for (const measurement of signalAlignment) {
+    expect(measurement.actionHeight).toBeGreaterThanOrEqual(44);
+    expect(measurement.overflowX).toBe(0);
+    expect(measurement.overflowY).toBe(0);
+  }
+}
+
 async function expectFirstLookBriefing(page, viewport) {
   const region = firstLookRegion(page);
   const update = region.locator(".first-look-update");
@@ -442,6 +506,10 @@ async function expectFirstLookBriefing(page, viewport) {
   if (viewport.width <= 640) {
     expect(householdMathBox.height).toBeLessThanOrEqual(45);
   }
+  const signalAlignment = await readSignalAlignment(
+    signalGroup.locator(".first-look-signal-grid"),
+  );
+  expectSignalAlignment(signalAlignment, { alignResults: viewport.width <= 640 });
   await expect(signalGroup.getByText(
     "The same 11 policies, with four pocketbook files double-weighted.",
     { exact: true },
@@ -748,6 +816,28 @@ test.describe("responsive benchmark controls", () => {
       expect(consoleErrors).toEqual([]);
     });
   }
+
+  test("secondary signal rows stay aligned across phone widths", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    const widths = [320, 360, 375, 390, 420, 421, 430, 440, 640, 641];
+    await page.setViewportSize({ width: widths[0], height: 812 });
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await page.evaluate(async () => {
+      await document.fonts.ready;
+    });
+
+    const signalGrid = firstLookRegion(page).locator(".first-look-signal-grid");
+    await expect(signalGrid).toBeVisible();
+    for (const width of widths) {
+      await page.setViewportSize({ width, height: 812 });
+      expectSignalAlignment(await readSignalAlignment(signalGrid), {
+        alignResults: width <= 640,
+      });
+      await expectNoOverflow(page);
+    }
+
+    expect(consoleErrors).toEqual([]);
+  });
 
   for (const [viewportName, viewport] of viewports) {
     test(`policy-file route returns from another ${viewportName} view without adding history`, async ({ page }) => {

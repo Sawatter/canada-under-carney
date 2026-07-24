@@ -4,12 +4,16 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-07-23
+**Last updated:** 2026-07-24
 
 ---
 
 ## Current State
 
+- v5.166 is the current release candidate. It aligns the titles and actions in
+  the three secondary signal cards after a reader screenshot showed Promise
+  Delivery and Approval vertically centred beside the top-aligned Household
+  card. No score, signal value, or scoring rule changed.
 - v5.165 is live through commit `2addd47`. It corrects the Household Impact
   score-math control that the v5.164 mobile layout forced into a narrow implicit
   grid column. The control now spans the card content width while retaining its
@@ -75,6 +79,28 @@
 ---
 
 ## Recently Completed
+
+- v5.166 secondary-signal alignment correction - live mobile geometry showed
+  title offsets of 10, 42, and 26 pixels inside three cards with the same top
+  edge. The phone layout now shares six intrinsic rows across the cards, so the
+  longest real title or description sets the reading line without fixed-height
+  breakpoint guesses. Promise Delivery wraps its metric at the narrowest tested
+  width, and all three action labels share a 44-pixel footer line. Independent
+  review caught that the first regression assertion aligned result containers
+  while the visible Promise number remained 22 pixels lower. The fix top-aligns
+  that number and the test now measures both container and visible-child
+  geometry. At 390 pixels, all three titles start at 9.5 pixels, descriptions at
+  24.75, visible results at 69.68, and action centres 32.13 pixels from the card
+  bottom; all cards are 178.08 pixels high with no overflow. Browser regression
+  checks compare rendered geometry from 320 through the 640/641 breakpoint.
+  Data, 69-check app-shell, build, bundle-budget, lint, 9 focused browser, and
+  249-case full browser gates passed. Independent re-review and authenticated
+  Claude review both returned `VERDICT: APPROVED`. Claude noted that old
+  browsers without subgrid remain readable but lose the cosmetic shared-line
+  alignment, and that the base button alignment also improves desktop. Neither
+  note changes the release scope or warrants work before a real browser report.
+  This advances the first-look readability goal and exposes no content or
+  scoring change.
 
 - v5.165 Household control correction and local regression - a reader screenshot
   exposed that the shared `grid-area: math` rule created an unintended second
@@ -250,6 +276,7 @@ These are valid, but not active now.
 8. Keep the v2 tri-lens architecture docs frozen as design artifacts. Priority reason: v5.163 addresses the measured drawer problem without reopening the scoring architecture.
 9. Reconsider a local read-only MCP adapter only after repeated review work shows that selective reads are materially better than targeted files or the tracked-file bundle. Any return needs a filtered input set, symlink and special-file policy, locked tool dependencies, a disclosure smoke test, local `stdio`, and another different-AI review. Priority reason: do not rebuild an optional access path without measured need.
 10. Refresh the workflow action that still targets deprecated Node.js 20 before GitHub removes forced Node.js 24 compatibility. Priority reason: the v5.164 audit passed, but its artifact-upload step now emits a platform deprecation warning that should not become a future release blocker.
+11. Revisit a secondary-signal subgrid fallback only if an unsupported-browser report shows the cosmetic misalignment still matters in ordinary use. Priority reason: current evergreen browsers support subgrid and older browsers retain readable, functional cards, so a speculative shim ranks below the August cycle.
 
 ---
 

@@ -1,13 +1,18 @@
 [
   {
-    "date": "2026-07-23",
-    "version": "5.165",
+    "date": "2026-07-24",
+    "version": "5.166",
     "items": [],
     "firstLook": {
       "mode": "maintenance-only",
       "gradeMoveCount": 0,
       "featuredItems": []
     }
+  },
+  {
+    "date": "2026-07-23",
+    "version": "5.165",
+    "items": []
   },
   {
     "date": "2026-07-23",

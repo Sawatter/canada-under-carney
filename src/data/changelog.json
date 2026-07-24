@@ -1,5 +1,17 @@
 [
   {
+    "date": "2026-07-24",
+    "version": "5.166",
+    "summary": "Aligned the three secondary signal cards on phones. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Secondary signals share one reading line",
+        "body": "Household Impact, Promise Delivery, and Approval now share the same title and description lines, with their action text centred on one footer line, instead of vertically centring the two button cards."
+      }
+    ]
+  },
+  {
     "date": "2026-07-23",
     "version": "5.165",
     "summary": "Fixed the cramped Household Impact score-math control on phones. No scores or scoring rules changed.",

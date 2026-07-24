@@ -564,6 +564,10 @@
 }
 
 .app-shell button.first-look-signal {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
   width: 100%;
   cursor: pointer;
 }
@@ -620,6 +624,7 @@
 
 .app-shell .first-look-promise-result {
   align-items: flex-end;
+  flex-wrap: wrap;
 }
 
 .app-shell .first-look-promise-number,
@@ -669,6 +674,13 @@
   font-size: 11px;
   font-weight: 850;
   line-height: 1.25;
+}
+
+.app-shell button.first-look-signal > .first-look-signal-action {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  min-height: 44px;
 }
 
 .app-shell .first-look-approval-positive,
@@ -1465,25 +1477,54 @@
 
   .app-shell .first-look-signal-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 6px;
+    column-gap: 6px;
+    row-gap: 0;
   }
 
   .app-shell .first-look-signal {
+    display: grid;
+    grid-row: 1 / span 6;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: subgrid;
     min-height: 126px;
     padding: 9px 8px;
     border-radius: 12px;
   }
 
+  .app-shell button.first-look-signal {
+    display: grid;
+  }
+
+  .app-shell .first-look-signal-household {
+    grid-template-rows: subgrid;
+  }
+
+  .app-shell .first-look-signal-household header {
+    display: contents;
+  }
+
   .app-shell .first-look-signal-title,
   .app-shell .first-look-signal h4 {
+    grid-row: 1;
     font-size: 11px;
   }
 
   .app-shell .first-look-signal-description,
   .app-shell .first-look-signal header p {
+    grid-row: 2;
     margin: 2px 0 6px;
     font-size: 9px;
     line-height: 1.22;
+  }
+
+  .app-shell .first-look-signal-result,
+  .app-shell .first-look-promise-result,
+  .app-shell .first-look-approval-result {
+    grid-row: 3;
+  }
+
+  .app-shell .first-look-promise-result {
+    align-self: start;
   }
 
   .app-shell .first-look-signal-result {
@@ -1522,11 +1563,22 @@
     display: none;
   }
 
+  .app-shell .first-look-signal-approval > .first-look-signal-score {
+    grid-row: 4;
+  }
+
   .app-shell .first-look-signal-action {
+    grid-row: 6;
     margin-top: 6px;
   }
 
+  .app-shell button.first-look-signal > .first-look-signal-action {
+    margin-top: 0;
+  }
+
   .app-shell .first-look-signal-household .first-look-derivation-toggle {
+    grid-area: auto;
+    grid-row: 6;
     min-height: 44px;
     padding: 4px 5px;
     font-size: 9px;
