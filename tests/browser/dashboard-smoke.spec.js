@@ -409,20 +409,28 @@ async function readSignalAlignment(signalGrid) {
   ));
 }
 
-function expectSignalAlignment(signalAlignment, { alignResults = true } = {}) {
+function expectSignalAlignment(
+  signalAlignment,
+  { alignResults = true, context = "secondary signals" } = {},
+) {
   expect(signalAlignment).toHaveLength(3);
-  const alignedKeys = [
-    "titleOffset",
-    "descriptionOffset",
-    "actionCenterGap",
-    "cardHeight",
-  ];
+  const alignedKeys = {
+    titleOffset: 2,
+    descriptionOffset: 2,
+    actionCenterGap: 2,
+    cardHeight: 1,
+  };
   if (alignResults) {
-    alignedKeys.push("resultOffset", "resultContentOffset");
+    alignedKeys.resultOffset = 1;
+    alignedKeys.resultContentOffset = 2;
   }
-  for (const key of alignedKeys) {
+  for (const [key, tolerance] of Object.entries(alignedKeys)) {
     const values = signalAlignment.map((measurement) => measurement[key]);
-    expect(Math.max(...values) - Math.min(...values)).toBeLessThanOrEqual(1);
+    const spread = Math.max(...values) - Math.min(...values);
+    expect(
+      spread,
+      `${context}: ${key} spread ${spread}px from ${values.join(", ")}`,
+    ).toBeLessThanOrEqual(tolerance);
   }
   for (const measurement of signalAlignment) {
     expect(measurement.actionHeight).toBeGreaterThanOrEqual(44);
@@ -509,7 +517,10 @@ async function expectFirstLookBriefing(page, viewport) {
   const signalAlignment = await readSignalAlignment(
     signalGroup.locator(".first-look-signal-grid"),
   );
-  expectSignalAlignment(signalAlignment, { alignResults: viewport.width <= 640 });
+  expectSignalAlignment(signalAlignment, {
+    alignResults: viewport.width <= 640,
+    context: `${viewport.width}px first-look check`,
+  });
   await expect(signalGroup.getByText(
     "The same 11 policies, with four pocketbook files double-weighted.",
     { exact: true },
@@ -832,6 +843,7 @@ test.describe("responsive benchmark controls", () => {
       await page.setViewportSize({ width, height: 812 });
       expectSignalAlignment(await readSignalAlignment(signalGrid), {
         alignResults: width <= 640,
+        context: `${width}px width matrix`,
       });
       await expectNoOverflow(page);
     }

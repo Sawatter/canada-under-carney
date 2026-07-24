@@ -99,8 +99,16 @@
   browsers without subgrid remain readable but lose the cosmetic shared-line
   alignment, and that the base button alignment also improves desktop. Neither
   note changes the release scope or warrants work before a real browser report.
-  This advances the first-look readability goal and exposes no content or
-  scoring change.
+  Initial Pages run `30112929941` then passed its build and 246 existing browser
+  checks but exposed a `1.625`-pixel Linux glyph-box variance against the new
+  one-pixel rendered-text limit. Exact layout boxes remain capped at one pixel;
+  rendered text now allows two pixels and reports the failing property, width,
+  spread, and values. The prior 22-pixel visible-result defect remains well
+  outside the limit. Focused checks passed with both local and hosted-equivalent
+  concurrency, and the full two-worker matrix passed `249/249`. Independent
+  re-review and a focused authenticated Claude review approved the portability
+  correction. This advances the first-look readability goal and exposes no
+  content or scoring change.
 
 - v5.165 Household control correction and local regression - a reader screenshot
   exposed that the shared `grid-area: math` rule created an unintended second
