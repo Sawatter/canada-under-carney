@@ -617,10 +617,10 @@ async function auditGlobalSurfaces(page, viewportName) {
     const check = primaryNextCheck;
     const link = page.locator(".first-look-watch").getByRole("link", { name: check.label });
     await link.click();
-    await page.waitForTimeout(350);
-    const hash = await page.evaluate(() => window.location.hash);
     const targetId = check.href.replace(/^#/, "");
-    const target = page.locator(`#${targetId}, #${targetId}-button, #${targetId}-panel`).first();
+    const target = page.locator(`#${targetId}`);
+    await target.waitFor({ state: "visible", timeout: 10_000 }).catch(() => {});
+    const hash = await page.evaluate(() => window.location.hash);
     const targetCount = await target.count();
     const targetVisible = targetCount > 0 && await target.isVisible();
     const result = {
@@ -1185,21 +1185,46 @@ async function auditExternalLinkSamples(page, viewportName) {
     });
     const results = [];
     for (const link of links) {
-      try {
-        const response = await page.request.get(link.href, { timeout: 12_000, maxRedirects: 4 });
-        results.push(`${link.text}: ${response.status()}`);
-      } catch (error) {
-        results.push(`${link.text}: ${error.message}`);
+      let result = {
+        observed: "",
+        requestFailed: true,
+        statusCode: null,
+      };
+      // Confirm a slow publisher response once before classifying the link as broken.
+      for (const [attemptIndex, timeout] of [12_000, 20_000].entries()) {
+        try {
+          const response = await page.request.get(link.href, { timeout, maxRedirects: 4 });
+          result = {
+            observed: `${link.text}: ${response.status()}`,
+            requestFailed: false,
+            statusCode: response.status(),
+          };
+          break;
+        } catch (error) {
+          result = {
+            observed: `${link.text}: ${error.message}`,
+            requestFailed: true,
+            statusCode: null,
+          };
+          const firstAttemptTimedOut = attemptIndex === 0 && /\b(?:timeout|timed out)\b/i.test(error.message);
+          if (!firstAttemptTimedOut) {
+            break;
+          }
+        }
       }
+      results.push(result);
     }
+    const hasIssue = results.some(({ requestFailed, statusCode }) => (
+      requestFailed || statusCode === 404 || statusCode === 410 || statusCode >= 500
+    ));
     addRow({
       surface: "Representative external source links",
       viewport: viewportName,
       action: "HTTP GET first three Defence & Trade source links",
-      observed: results.join(" | "),
-      status: results.some((item) => /\b(404|410|500|timeout|ENOTFOUND)\b/i.test(item)) ? rowStatus.issue : rowStatus.pass,
-      severity: results.some((item) => /\b(404|410|500|timeout|ENOTFOUND)\b/i.test(item)) ? "P2" : "",
-      recommendation: results.some((item) => /\b(404|410|500|timeout|ENOTFOUND)\b/i.test(item)) ? "Browser-check failed sampled source links and replace dead URLs if confirmed." : "",
+      observed: results.map(({ observed }) => observed).join(" | "),
+      status: hasIssue ? rowStatus.issue : rowStatus.pass,
+      severity: hasIssue ? "P2" : "",
+      recommendation: hasIssue ? "Browser-check failed sampled source links and replace dead URLs if confirmed." : "",
     });
   }, { surface: "Representative external source links", viewport: viewportName, action: "Fetch sampled links" }));
 }
