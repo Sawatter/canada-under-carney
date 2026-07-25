@@ -4,12 +4,20 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-07-24
+**Last updated:** 2026-07-25
 
 ---
 
 ## Current State
 
+- v5.167 is the current release candidate. It puts each policy's authored next
+  checkpoint beside its verdict, keeps the dated trigger ledger in
+  Evidence instead of repeating it in Briefing, moves Flagship Delivery's
+  current five-file record to Evidence, and corrects first-look and mobile-focus
+  interaction gaps found in the July 25 observation pass. The Housing
+  disbursement trigger remains off after a dated official-page check. No score,
+  grade, trigger, or scoring rule changes in this candidate. The release record
+  is [Policy-Quick-Read-Release-2026-07-25.md](Policy-Quick-Read-Release-2026-07-25.md).
 - v5.166 is live through implementation commit `3c329c9` and browser-gate
   follow-up `6e8891f`. It aligns the titles, descriptions, visible results, and
   actions in the three secondary signal cards after a reader screenshot showed
@@ -253,19 +261,19 @@
 
 ## Now
 
-1. **Keep the Housing disbursement watch current.** The July 22 official-page check found no published signed Canada-Ontario BCSF agreement, completed DCRP project approval, Toronto-Ontario transfer-payment agreement, first payment, or DCRP construction evidence. Treat that dated absence as evidence, not proof, and do not move the grade automatically. The dated evidence record is in [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md), and the reader-facing decision is in the live Housing brief. Priority reason: this remains the active trigger watch before the August cycle.
+1. **Keep the Housing disbursement watch current.** The July 25 official-page check found no published signed Canada-Ontario BCSF agreement, completed DCRP project approval, signed Toronto transfer-payment agreement, first payment, or DCRP construction evidence on the checked pages. The July 16 North Dundas announcement is Direct Delivery, not DCRP. Treat that dated absence as evidence, not proof, and do not move the grade automatically. The dated check is recorded in [Policy-Quick-Read-Release-2026-07-25.md](Policy-Quick-Read-Release-2026-07-25.md), the standing trigger history remains in [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md), and the reader-facing decision remains in the live Housing brief. Priority reason: this remains the active trigger watch before the August cycle.
 
 ---
 
 ## Next
 
-These are on deck after the v5.164 first-look release and the existing scope split.
+These are on deck after the v5.167 quick-read release and the existing scope split.
 
 1. **Run the August 1 monthly cycle.** The pre-cycle cleanup is complete: House ETHI and Transparency International Canada are registered, the Trade Diversification Corridors Fund and CSLS citations are corrected, and the five dead legacy watch URLs were triaged. Two exact URLs are live again; the other three have live replacement pages and no archive capture was found. On August 1, generate `Source-Coverage-Ledger-2026-08.md` for the July 1-31 evidence window, run freshness pulls, re-check Housing, adjudicate monitor candidates, and close the ledger with `--require-closed`. Priority reason: the July evidence window and its final negative findings cannot be completed before the month ends.
 
-2. **Run the first-time-reader check on the v5.164 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Record first action, false clicks, signal-role confusion, and freshness confusion. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout and routes, but only readers can show whether the new hierarchy is understood quickly.
+2. **Run the first-time-reader check on the v5.167 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Record first action, false clicks, signal-role confusion, and freshness confusion. The July 25 screenshot-only proxies answered all seven questions but exposed unequal signal click targets, missing release-date context, and a mobile navigation overlap; v5.167 corrects those defects. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout and routes, but only readers can show whether the new hierarchy is understood quickly.
 
-3. **Observe the four-view policy workspace through the August cycle.** Run the 30-second reader test across Housing, Defence & Trade, Promise Delivery, Flagship Delivery, and an ordinary graded dimension. Check whether Briefing answers grade, reason, latest change, and next checkpoint while Evidence still makes the policy record easy to find. Priority reason: the new structure reduces drawer work, but reader behavior has to show that the split improves comprehension rather than only moving complexity.
+3. **Observe the four-view policy workspace through the August cycle.** Run the 30-second human-reader test across Housing, Defence & Trade, Promise Delivery, Flagship Delivery, and an ordinary graded dimension. The July 25 browser and AI pass found that Briefing repeated the complete trigger ledger from Evidence and hid the authored next checkpoint after opening a policy; v5.167 corrects that boundary and moves Flagship Delivery's current record into Evidence. Check whether readers now answer grade, reason, latest change, and next checkpoint quickly while still finding the complete policy record. Priority reason: the structural defect is corrected, but reader behavior must show that the split improves comprehension.
 
 4. **Check history growth before adding charts or another event type.** Use the August cycle to confirm that grade moves, held reviews, and Housing's detailed evidence review read as one dated sequence. Define a provenance rule before any new history event is introduced. Priority reason: the workspace exposed that history is still shallow, so visual trend treatment would imply more continuity than the record supports.
 

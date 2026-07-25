@@ -9,6 +9,10 @@ import {
   resolveNextCheckTiming,
   selectPrimaryNextCheck,
 } from "../../src/firstLook.js";
+import {
+  calculatePocketbookGPA,
+  gpaToGrade,
+} from "../../src/utils.js";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
 const meta = JSON.parse(readFileSync(path.join(repoRoot, "src/data/meta.json"), "utf8"));
@@ -18,6 +22,8 @@ const changelogSummary = JSON.parse(
 );
 const dimensions = JSON.parse(readFileSync(path.join(repoRoot, "src/data/dimensions.json"), "utf8"));
 const dashboardStatus = JSON.parse(readFileSync(path.join(repoRoot, "src/data/status.json"), "utf8"));
+const expectedPocketbookScore = calculatePocketbookGPA(dimensions).toFixed(1);
+const expectedPocketbookGrade = gpaToGrade(Number(expectedPocketbookScore));
 const expectedFirstLook = buildFirstLookProjection(changelog[0]);
 const latestRelease = changelogSummary[0];
 const primaryNextCheck = selectPrimaryNextCheck(dashboardStatus);
@@ -259,8 +265,12 @@ async function expectCanonicalMethod(panel, dim) {
   for (const guardrail of dim.scoring?.guardrails || []) {
     await expectVisibleText(panel, guardrail);
   }
+  const combinationRule = dim.gradeBasis?.combinationRule;
+  const methodCombinationRule = combinationRule
+    ? { ...combinationRule, currentSnapshot: undefined }
+    : combinationRule;
   for (const text of collectSubstantiveStrings({
-    combinationRule: dim.gradeBasis?.combinationRule,
+    combinationRule: methodCombinationRule,
     componentOperationalization: dim.gradeBasis?.componentOperationalization,
     componentScoreSummary: dim.gradeBasis?.componentScoreSummary,
     leverOperationalization: dim.gradeBasis?.leverOperationalization,
@@ -453,7 +463,11 @@ async function expectFirstLookBriefing(page, viewport) {
     .toBeVisible();
   await expect(region.getByText(meta.overallVerdictLine, { exact: true })).toBeVisible();
 
-  await expect(update).toContainText(`v${latestRelease.version}`);
+  const releaseHeading = update.locator(".first-look-block-heading");
+  await expect(releaseHeading).toContainText(`v${latestRelease.version}`);
+  await expect(
+    releaseHeading.locator(`time[datetime="${latestRelease.date}"]`),
+  ).toHaveText(formatStatusDate(latestRelease.date));
   await expect(update).toContainText(releaseStateLabel(expectedFirstLook));
   for (const item of expectedFirstLook.featuredItems) {
     await expect(update).toContainText(item.headline || item.body);
@@ -488,32 +502,35 @@ async function expectFirstLookBriefing(page, viewport) {
   await expect(methodRoute).toBeVisible();
   await expect(methodRoute).toHaveAttribute("href", "#methodology-safeguards");
 
-  const householdSignal = signalGroup.getByRole("article", { name: "Household Impact" });
+  const householdSignal = signalGroup.locator("button.first-look-signal-household");
   await expect(householdSignal).toBeVisible();
-  const householdMath = signalGroup.getByRole("button", {
-    name: "How is Household built?",
-  });
-  await expect(householdMath).toBeVisible();
-  const householdMathBox = await householdMath.boundingBox();
-  expect(householdMathBox).not.toBeNull();
-  expect(householdMathBox.height).toBeGreaterThanOrEqual(44);
-  const householdMathLayout = await householdSignal.evaluate((card) => {
-    const button = card.querySelector(".first-look-derivation-toggle");
-    const buttonBox = button.getBoundingClientRect();
-    const cardStyle = getComputedStyle(card);
-    return {
-      buttonWidth: buttonBox.width,
-      contentWidth: card.clientWidth
-        - Number.parseFloat(cardStyle.paddingLeft)
-        - Number.parseFloat(cardStyle.paddingRight),
-    };
-  });
-  expect(Math.abs(
-    householdMathLayout.buttonWidth - householdMathLayout.contentWidth,
-  )).toBeLessThanOrEqual(1);
-  if (viewport.width <= 640) {
-    expect(householdMathBox.height).toBeLessThanOrEqual(45);
-  }
+  await expect(householdSignal).toHaveAttribute("type", "button");
+  await expect(householdSignal).toHaveAttribute("aria-expanded", "false");
+  await expect(householdSignal).toHaveAttribute(
+    "aria-controls",
+    "score-derivation-household",
+  );
+  await expect(householdSignal).toHaveAccessibleName(
+    `Household Impact. Grade ${expectedPocketbookGrade}. Score ${expectedPocketbookScore}. How is Household built?`,
+  );
+  await expect(
+    householdSignal.locator(".first-look-signal-action"),
+  ).toHaveText("How is Household built?");
+  await expect(householdSignal.locator("button")).toHaveCount(0);
+  await expect(page.locator("#score-derivation-household")).toHaveCount(0);
+  await householdSignal.click();
+  await expect(householdSignal).toHaveAttribute("aria-expanded", "true");
+  await expect(householdSignal).toHaveAccessibleName(
+    `Household Impact. Grade ${expectedPocketbookGrade}. Score ${expectedPocketbookScore}. Hide Household math`,
+  );
+  await expect(page.locator("#score-derivation-household")).toBeVisible();
+  await householdSignal.click();
+  await expect(householdSignal).toHaveAttribute("aria-expanded", "false");
+  await expect(householdSignal).toHaveAccessibleName(
+    `Household Impact. Grade ${expectedPocketbookGrade}. Score ${expectedPocketbookScore}. How is Household built?`,
+  );
+  await expect(page.locator("#score-derivation-household")).toHaveCount(0);
+
   const signalAlignment = await readSignalAlignment(
     signalGroup.locator(".first-look-signal-grid"),
   );
@@ -525,16 +542,30 @@ async function expectFirstLookBriefing(page, viewport) {
     "The same 11 policies, with four pocketbook files double-weighted.",
     { exact: true },
   )).toBeVisible();
-  await expect(signalGroup.getByRole("button", { name: /Promise Delivery/ })).toBeVisible();
+  const promiseButton = signalGroup.locator("button.first-look-signal-promises");
+  await expect(promiseButton).toBeVisible();
+  await expect(promiseButton).toHaveAttribute("type", "button");
+  await expect(promiseButton).toHaveAccessibleName(
+    /Promise Delivery.*delivered.*See \d+ promises/i,
+  );
   await expect(signalGroup.getByText("Tracker outside the grades.", { exact: true }))
     .toBeVisible();
   const approvalButton = signalGroup.getByRole("button", { name: /Approval Signal/ });
   await expect(approvalButton).toBeVisible();
+  await expect(approvalButton).toHaveAttribute("aria-expanded", "false");
+  await expect(approvalButton).toHaveAttribute("aria-controls", "approval-signal-detail");
   await expect(approvalButton).toHaveAccessibleName(
     /Approval Signal.*\d+% approve.*\d+% disapprove.*Net.*polls.*day average.*polls and sources/i,
   );
   await expect(signalGroup.getByText("Public opinion outside the grades.", { exact: true }))
     .toBeVisible();
+  await expect(page.locator("#approval-signal-detail")).toHaveCount(0);
+  await approvalButton.click();
+  await expect(approvalButton).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("#approval-signal-detail")).toBeVisible();
+  await approvalButton.click();
+  await expect(approvalButton).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator("#approval-signal-detail")).toHaveCount(0);
 
   const fit = await region.evaluate((node, expectedViewport) => {
     const selectors = [
@@ -573,6 +604,10 @@ async function expectFirstLookBriefing(page, viewport) {
   });
 
   if (viewport.width <= 767) {
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await expect.poll(async () => page.evaluate(() => window.scrollY))
+      .toBeLessThanOrEqual(4);
+
     const actionFit = await region.evaluate((node) => {
       const actions = node.querySelector(".first-look-actions");
       const bottomNav = document.querySelector(".app-bottom-nav");
@@ -584,6 +619,45 @@ async function expectFirstLookBriefing(page, viewport) {
     });
     expect(actionFit).not.toBeNull();
     expect(actionFit.actionsBottom).toBeLessThanOrEqual(actionFit.bottomNavTop);
+
+    const obscuredInitialControls = await region.evaluate((node) => {
+      const bottomNav = document.querySelector(".app-bottom-nav");
+      if (!bottomNav) return null;
+      const navRect = bottomNav.getBoundingClientRect();
+      return [...node.querySelectorAll("a[href], button:not([disabled])")]
+        .map((control) => {
+          const rect = control.getBoundingClientRect();
+          const style = getComputedStyle(control);
+          return {
+            bottom: rect.bottom,
+            label: control.getAttribute("aria-label") || control.textContent?.trim(),
+            left: rect.left,
+            right: rect.right,
+            top: rect.top,
+            visible: (
+              rect.width > 0
+              && rect.height > 0
+              && rect.bottom > 0
+              && rect.top < window.innerHeight
+              && style.display !== "none"
+              && style.visibility !== "hidden"
+            ),
+          };
+        })
+        .filter((control) => (
+          control.visible
+          && control.top < navRect.top
+          && control.bottom > navRect.top
+          && control.top < navRect.bottom
+          && control.right > navRect.left
+          && control.left < navRect.right
+        ));
+    });
+    expect(obscuredInitialControls).not.toBeNull();
+    expect(
+      obscuredInitialControls,
+      "initially visible first-look controls must stay above the fixed bottom navigation",
+    ).toEqual([]);
   }
 
   return { methodRoute, policyRoute, region };
@@ -1054,9 +1128,9 @@ test.describe("v5.153 review follow-through", () => {
   test("provenance date chip never wraps on mobile", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 375, height: 812 });
-    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
-    const chip = policyPanel(page, "housing-supply", "Briefing")
-      .locator(".dimension-trigger-band time")
+    await page.goto(routePath({ hash: "#dim-housing-supply-evidence" }));
+    const chip = policyPanel(page, "housing-supply", "Evidence")
+      .locator("#dim-housing-supply-tracker-triggers time")
       .first();
     await expect(chip).toBeVisible();
     await expect(chip).toHaveCSS("white-space", "nowrap");
@@ -1068,9 +1142,9 @@ test.describe("v5.152 trust surfaces", () => {
   test("trigger provenance badges render in the opened dimension", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
-    const badges = policyPanel(page, "housing-supply", "Briefing")
-      .locator(".dimension-trigger-band time[datetime]");
+    await page.goto(routePath({ hash: "#dim-housing-supply-evidence" }));
+    const badges = policyPanel(page, "housing-supply", "Evidence")
+      .locator("#dim-housing-supply-tracker-triggers time[datetime]");
     await expect(badges.first()).toBeVisible();
     await expect(badges.first()).toHaveAttribute("datetime", /^\d{4}-\d{2}-\d{2}$/);
     expect(consoleErrors).toEqual([]);
@@ -1339,20 +1413,53 @@ test.describe("approved dimension workspace architecture", () => {
     await expectVisibleText(briefing, housingDimension.gradeBasis.whyNotLower);
     await expectVisibleText(briefing, housingDimension.judgmentCall);
 
-    const triggerBand = briefing.locator(".dimension-trigger-band");
-    await expect(triggerBand).toBeVisible();
+    const triggerCount = (
+      housingDimension.gradeTriggers.up.length
+      + housingDimension.gradeTriggers.down.length
+    );
+    const checkpoint = briefing.locator("#dim-housing-supply-triggers-section");
+    await expect(checkpoint).toBeVisible();
+    await expectVisibleText(checkpoint, housingDimension.nextTrigger);
+    await expect(checkpoint).toContainText(String(triggerCount));
+    const evidenceAction = checkpoint.locator("button, a")
+      .filter({ hasText: new RegExp(String(triggerCount)) });
+    await expect(evidenceAction).toHaveCount(1);
+    await expect(evidenceAction).toContainText(/Evidence|conditions/i);
+    await expect(briefing.locator(".dimension-trigger-band")).toHaveCount(0);
     for (const trigger of [
       ...housingDimension.gradeTriggers.up,
       ...housingDimension.gradeTriggers.down,
     ]) {
-      await expectVisibleText(triggerBand, trigger.text);
+      await expect(briefing.getByText(trigger.text, { exact: true })).toHaveCount(0);
       await expect(
-        triggerBand.getByRole("link", { name: trigger.sourceLabel, exact: true }).first(),
-      ).toHaveAttribute("href", trigger.sourceUrl);
-      await expect(triggerBand.locator(`time[datetime="${trigger.setDate}"]`).first())
-        .toBeVisible();
+        briefing.locator(`time[datetime="${trigger.setDate}"]`),
+      ).toHaveCount(0);
     }
     await expectNoNestedDisclosures(briefing);
+
+    await evidenceAction.click();
+    await expect(page).toHaveURL(/#dim-housing-supply-tracker-triggers$/);
+    const { panel: evidence } = await expectPolicySection(
+      page,
+      housingDimension.id,
+      "Evidence",
+    );
+    const triggerLedger = evidence.locator("#dim-housing-supply-tracker-triggers");
+    await expect(triggerLedger).toBeVisible();
+    await expect(triggerLedger).toBeFocused();
+    for (const trigger of [
+      ...housingDimension.gradeTriggers.up,
+      ...housingDimension.gradeTriggers.down,
+    ]) {
+      await expectVisibleText(triggerLedger, trigger.text);
+      await expect(
+        triggerLedger.getByRole("link", { name: trigger.sourceLabel, exact: true }).first(),
+      ).toHaveAttribute("href", trigger.sourceUrl);
+      await expect(
+        triggerLedger.locator(`time[datetime="${trigger.setDate}"]`).first(),
+      ).toBeVisible();
+    }
+    await expectNoNestedDisclosures(evidence);
 
     const { panel: history } = await selectPolicySection(page, housingDimension.id, "History");
     await expectVisibleText(history, housingDimension.latestEvidenceReview.title);
@@ -1461,12 +1568,32 @@ test.describe("approved dimension workspace architecture", () => {
     expect(consoleErrors).toEqual([]);
   });
 
-  test("Flagship Method retains its combination rule and an ordinary policy tolerates empty History", async ({ page }) => {
+  test("Flagship Evidence owns the current snapshot while Method retains the rule, and an ordinary policy tolerates empty History", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
-    await page.goto(routePath({ hash: "#dim-execution-delivery-method" }));
+    await page.goto(routePath({ hash: "#dim-execution-delivery-evidence" }));
 
-    const { panel: flagshipMethod } = await expectPolicySection(
+    const snapshot = flagshipDeliveryDimension.gradeBasis.combinationRule.currentSnapshot;
+    const { panel: flagshipEvidence } = await expectPolicySection(
+      page,
+      flagshipDeliveryDimension.id,
+      "Evidence",
+    );
+    await expect(
+      flagshipEvidence.getByText("Current snapshot", { exact: true }),
+    ).toBeVisible();
+    const snapshotTable = flagshipEvidence.locator("table")
+      .filter({ hasText: snapshot[0].evidence });
+    await expect(snapshotTable).toHaveCount(1);
+    for (const row of snapshot) {
+      const renderedRow = snapshotTable.locator("tbody tr").filter({ hasText: row.file });
+      await expect(renderedRow).toHaveCount(1);
+      await expect(renderedRow.getByText(row.file, { exact: true })).toBeVisible();
+      await expect(renderedRow.getByText(row.status, { exact: true })).toBeVisible();
+      await expect(renderedRow.getByText(row.evidence, { exact: true })).toBeVisible();
+    }
+
+    const { panel: flagshipMethod } = await selectPolicySection(
       page,
       flagshipDeliveryDimension.id,
       "Method",
@@ -1477,6 +1604,14 @@ test.describe("approved dimension workspace architecture", () => {
     await expectVisibleText(flagshipMethod, flagshipDeliveryDimension.gradeBasis
       .combinationRule.currentGradeFromRule);
     await expect(flagshipMethod.getByText(/Combination Rule/i).first()).toBeVisible();
+    await expect(
+      flagshipMethod.getByText("Current snapshot", { exact: true }),
+    ).toHaveCount(0);
+    for (const row of snapshot) {
+      await expect(
+        flagshipMethod.getByText(row.evidence, { exact: true }),
+      ).toHaveCount(0);
+    }
     await expectNoNestedDisclosures(flagshipMethod);
 
     expect(ordinaryGradedDimension.latestEvidenceReview).toBeUndefined();
@@ -1782,6 +1917,15 @@ test.describe("approved dimension workspace architecture", () => {
       await expect(page).toHaveURL(/#dim-housing-supply-briefing$/);
       const dialog = page.locator('[role="dialog"][aria-modal="true"]');
       await expect(dialog).toBeVisible();
+      const visibleTitle = dialog.locator(".dim-drawer-title");
+      await expect(visibleTitle).toHaveText(housingDimension.name);
+      await expect(visibleTitle).toHaveAttribute("tabindex", "-1");
+      const visibleTitleId = await visibleTitle.getAttribute("id");
+      expect(visibleTitleId).toBeTruthy();
+      await expect(page.locator(`#${visibleTitleId}`)).toHaveCount(1);
+      await expect(dialog).toHaveAttribute("aria-labelledby", visibleTitleId);
+      await expect(dialog).toHaveAccessibleName(housingDimension.name);
+      await expect(visibleTitle).toBeFocused();
       await expect.poll(async () => dialog.evaluate((node) => {
         const rect = node.getBoundingClientRect();
         return (
@@ -1799,7 +1943,7 @@ test.describe("approved dimension workspace architecture", () => {
       ))).toBe(true);
       await expectPolicySection(page, housingDimension.id, "Briefing");
       await expectNoOverflow(page);
-      return dialog;
+      return { dialog, visibleTitle };
     };
 
     await openHousing();
@@ -1813,6 +1957,7 @@ test.describe("approved dimension workspace architecture", () => {
     await page.getByRole("button", { name: "Close", exact: true }).click();
     await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
     await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect(housingHeader).toBeFocused();
 
     await openHousing();
     const dimensionEntryLength = await page.evaluate(() => window.history.length);
@@ -1826,13 +1971,38 @@ test.describe("approved dimension workspace architecture", () => {
       && document.body.style.position !== "fixed"
     ))).toBe(true);
     await expect(housingHeader).toBeFocused();
+
+    await page.goForward();
+    await expect(page).toHaveURL(/#dim-housing-supply-evidence$/);
+    const reopenedDialog = page.locator('[role="dialog"][aria-modal="true"]');
+    await expect(reopenedDialog).toBeVisible();
+    const reopenedTitle = reopenedDialog.locator(".dim-drawer-title");
+    await expect(reopenedTitle).toHaveText(housingDimension.name);
+    await expect(reopenedDialog).toHaveAccessibleName(housingDimension.name);
+    const { currentControl: reopenedEvidenceControl } = await expectPolicySection(
+      page,
+      housingDimension.id,
+      "Evidence",
+    );
+    await expect(reopenedEvidenceControl).toBeFocused();
+    await expect(reopenedTitle).not.toBeFocused();
+
+    await page.goBack();
+    await expect(page.locator('[role="dialog"][aria-modal="true"]')).toHaveCount(0);
+    await expect(page).toHaveURL(/#view-scorecard$/);
+    await expect(housingHeader).toBeFocused();
     await expectNoOverflow(page);
     expect(consoleErrors).toEqual([]);
   });
 
   for (const legacyRoute of [
     { hash: "#dim-housing-supply", dimensionId: "housing-supply", section: "Briefing" },
-    { hash: "#dim-housing-supply-triggers-section", dimensionId: "housing-supply", section: "Briefing" },
+    {
+      hash: "#dim-housing-supply-triggers-section",
+      dimensionId: "housing-supply",
+      section: "Briefing",
+      contentTarget: "#dim-housing-supply-triggers-section",
+    },
     { hash: "#dim-defence-trade-headline-title", dimensionId: "defence-trade", section: "Briefing" },
     { hash: "#dim-major-projects-sources", dimensionId: "major-projects", section: "Evidence" },
     { hash: "#dim-major-projects-cohort-table", dimensionId: "major-projects", section: "Evidence" },
@@ -1848,7 +2018,17 @@ test.describe("approved dimension workspace architecture", () => {
       await expect(page).toHaveURL(new RegExp(
         `#dim-${legacyRoute.dimensionId}-${legacyRoute.section.toLowerCase()}$`,
       ));
-      await expectPolicySection(page, legacyRoute.dimensionId, legacyRoute.section);
+      const { currentControl } = await expectPolicySection(
+        page,
+        legacyRoute.dimensionId,
+        legacyRoute.section,
+      );
+      if (legacyRoute.contentTarget) {
+        const contentTarget = page.locator(legacyRoute.contentTarget);
+        await expect(contentTarget).toBeVisible();
+        await expectVisibleText(contentTarget, housingDimension.nextTrigger);
+        await expect(currentControl).toBeFocused();
+      }
       await expectNoOverflow(page);
       expect(consoleErrors).toEqual([]);
     });

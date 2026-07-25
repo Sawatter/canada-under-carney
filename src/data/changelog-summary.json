@@ -1,13 +1,25 @@
 [
   {
-    "date": "2026-07-24",
-    "version": "5.166",
+    "date": "2026-07-25",
+    "version": "5.167",
     "items": [],
     "firstLook": {
-      "mode": "maintenance-only",
+      "mode": "no-grade-moves",
       "gradeMoveCount": 0,
-      "featuredItems": []
+      "featuredItems": [
+        {
+          "type": "product",
+          "headline": "Policy briefings show what happens next",
+          "body": "Each Briefing now pairs the verdict and latest review with the authored next checkpoint. The dated trigger list remains in Evidence instead of being repeated in both views.",
+          "itemIndex": 0
+        }
+      ]
     }
+  },
+  {
+    "date": "2026-07-24",
+    "version": "5.166",
+    "items": []
   },
   {
     "date": "2026-07-23",

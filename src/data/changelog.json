@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-07-25",
+    "version": "5.167",
+    "summary": "Put each policy's next checkpoint beside its verdict and fixed first-look and policy-workspace interaction gaps. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Policy briefings show what happens next",
+        "body": "Each Briefing now pairs the verdict and latest review with the authored next checkpoint. The dated trigger list remains in Evidence instead of being repeated in both views."
+      },
+      {
+        "type": "fix",
+        "headline": "First-look controls behave consistently",
+        "body": "The release date now sits beside the version, the whole Household Impact card opens its score explanation, and mobile spacing keeps first-look controls clear of the bottom navigation."
+      },
+      {
+        "type": "fix",
+        "headline": "Policy records live in the matching view",
+        "body": "Flagship Delivery's current five-file snapshot now sits in Evidence while its calculation remains in Method. Mobile policy sheets focus their visible title when opened."
+      }
+    ]
+  },
+  {
     "date": "2026-07-24",
     "version": "5.166",
     "summary": "Aligned the three secondary signal cards on phones. No scores or scoring rules changed.",

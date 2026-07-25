@@ -2002,6 +2002,72 @@ button.text-link-button {
   border-top: 1px solid var(--border-subtle);
 }
 
+.dim-next-checkpoint {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 6px 18px;
+  align-items: center;
+  min-width: 0;
+  margin-block: var(--space-3);
+  padding-block: 10px;
+  border-block: 1px solid var(--border-subtle);
+  color: var(--text-body);
+}
+
+.dim-next-checkpoint > * {
+  min-width: 0;
+}
+
+.dim-next-checkpoint p,
+.dim-next-checkpoint-copy {
+  max-width: none;
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.dim-next-checkpoint-label {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.dim-next-checkpoint button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 44px;
+  margin: 0;
+  padding: 7px 0;
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  color: var(--accent);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+}
+
+.dim-next-checkpoint button:focus-visible {
+  outline: 2px solid var(--focus-ring);
+  outline-offset: 2px;
+}
+
 .dimension-workspace .dimension-briefing .dim-evidence-grid,
 .dimension-workspace .dimension-briefing .dim-top-metrics {
   display: grid;
@@ -2136,6 +2202,16 @@ button.text-link-button {
 
   .dimension-briefing-section {
     padding-block: 18px;
+  }
+
+  .dim-next-checkpoint {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+    align-items: start;
+  }
+
+  .dim-next-checkpoint button {
+    justify-self: start;
   }
 
   .dimension-workspace .dimension-briefing .dim-evidence-grid,
@@ -2738,11 +2814,28 @@ a:hover { text-decoration: underline; }
   }
 
   .dimension-briefing-section,
+  .dim-next-checkpoint,
   .dimension-trigger-band,
   .dimension-subscore-grid,
   .dimension-trigger-column + .dimension-trigger-column,
   .dimension-subscore-grid > * + * {
     border-color: CanvasText;
+  }
+
+  .dim-next-checkpoint,
+  .dim-next-checkpoint p,
+  .dim-next-checkpoint-copy,
+  .dim-next-checkpoint-label {
+    color: CanvasText;
+  }
+
+  .dim-next-checkpoint button {
+    color: LinkText;
+    background: Canvas;
+  }
+
+  .dim-next-checkpoint button:focus-visible {
+    outline-color: Highlight;
   }
 
   .dashboard-status-summary {

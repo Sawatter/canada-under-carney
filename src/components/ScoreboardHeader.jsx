@@ -77,7 +77,17 @@ function ReleaseUpdate({ latestRelease }) {
       <div className="first-look-block-heading">
         <span>This release</span>
         {latestRelease?.version && (
-          <span className="first-look-block-meta">v{latestRelease.version}</span>
+          <span className="first-look-block-meta">
+            v{latestRelease.version}
+            {latestRelease.date && (
+              <>
+                <span aria-hidden="true"> · </span>
+                <time dateTime={latestRelease.date}>
+                  {formatDate(latestRelease.date)}
+                </time>
+              </>
+            )}
+          </span>
         )}
       </div>
       <p className="first-look-update-summary">{releaseSummary(firstLook)}</p>
@@ -199,6 +209,27 @@ export default function ScoreboardHeader({
   const barSummary = barStatuses
     .map((status) => `${promiseCounts[status]} ${status.toLowerCase()}`)
     .join(", ");
+  const householdDerivationOpen = derivationOpen === "household";
+  const householdSignalContent = (
+    <>
+      <span id="first-look-household-heading" className="first-look-signal-title">
+        Household Impact
+      </span>
+      <span className="first-look-signal-description">
+        The same 11 policies, with four pocketbook files
+        double-weighted.
+      </span>
+      <span className="first-look-signal-result">
+        <GradeChip grade={pocketbookGrade} />
+        <span className="first-look-signal-score">Score: {pocketbookGPA}</span>
+      </span>
+      {onToggleDerivation && (
+        <span className="first-look-signal-action">
+          {householdDerivationOpen ? "Hide Household math" : "How is Household built?"}
+        </span>
+      )}
+    </>
+  );
 
   const handleSafeguardsClick = (event) => {
     if (!onShowSafeguards || !isOrdinaryActivation(event)) return;
@@ -277,29 +308,27 @@ export default function ScoreboardHeader({
       >
         <h3 id="first-look-signals-heading">Other dashboard signals</h3>
         <div className="first-look-signal-grid">
-          <article
-            className="first-look-signal first-look-signal-household"
-            aria-labelledby="first-look-household-heading"
-          >
-            <header>
-              <h4 id="first-look-household-heading">Household Impact</h4>
-              <p>
-                The same 11 policies, with four pocketbook files
-                double-weighted.
-              </p>
-            </header>
-            <div className="first-look-signal-result">
-              <GradeChip grade={pocketbookGrade} />
-              <span className="first-look-signal-score">Score: {pocketbookGPA}</span>
-            </div>
-            {onToggleDerivation && (
-              <DerivationToggle
-                variant="household"
-                derivationOpen={derivationOpen}
-                onToggle={onToggleDerivation}
-              />
-            )}
-          </article>
+          {onToggleDerivation ? (
+            <button
+              type="button"
+              className="first-look-signal first-look-signal-household"
+              onClick={() => onToggleDerivation("household")}
+              aria-expanded={householdDerivationOpen}
+              aria-controls="score-derivation-household"
+              aria-label={`Household Impact. Grade ${pocketbookGrade}. Score ${pocketbookGPA}. ${
+                householdDerivationOpen ? "Hide Household math" : "How is Household built?"
+              }`}
+            >
+              {householdSignalContent}
+            </button>
+          ) : (
+            <article
+              className="first-look-signal first-look-signal-household"
+              aria-labelledby="first-look-household-heading"
+            >
+              {householdSignalContent}
+            </article>
+          )}
 
           <button
             type="button"

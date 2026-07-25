@@ -99,6 +99,7 @@ function workspacePanelForTarget(target, dimId) {
     `${prefix}-perspectives-section`,
     `${prefix}-latest-evidence`,
     `${prefix}-tracker-triggers`,
+    `${prefix}-current-snapshot`,
   ];
   if (evidenceTargets.includes(target)) return "evidence";
 
@@ -511,9 +512,6 @@ export default function DimensionCard({
   const scoring = dim.scoring || null;
   const showTriggers = !!(dim.gradeTriggers || dim.nextTrigger);
   const triggerCount = (dim.gradeTriggers?.up?.length || 0) + (dim.gradeTriggers?.down?.length || 0);
-  const triggerSummary = dim.gradeTriggers
-    ? `${triggerCount} trigger${triggerCount === 1 ? "" : "s"}`
-    : "next condition";
   const cohort = dim.projectCohort || null;
   const sortedSources = useMemo(() => sortSourcesByDate(sources), [sources]);
   const newestDatedSource = useMemo(
@@ -544,9 +542,14 @@ export default function DimensionCard({
     typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches
   ));
   const isFocusedDesktop = focusedDesktop && !isMobileDialog;
+  const drawerTitleId = `dim-${dim.id}-title`;
+  const cardTitleId = isExpanded && isMobileDialog
+    ? `dim-${dim.id}-card-title`
+    : drawerTitleId;
   const headerButtonRef = useRef(null);
   const rootRef = useRef(null);
   const drawerRef = useRef(null);
+  const drawerTitleRef = useRef(null);
   const stickyHeadRef = useRef(null);
   const miniNavRef = useRef(null);
   const previousFocusRef = useRef(null);
@@ -886,9 +889,7 @@ export default function DimensionCard({
 
     if (!hasPendingWorkspaceTarget) {
       frame = window.requestAnimationFrame(() => {
-        const initialFocus = isFocusedDesktop
-          ? document.getElementById(`dim-${dim.id}-title`)
-          : drawerRef.current;
+        const initialFocus = drawerTitleRef.current || drawerRef.current;
         initialFocus?.focus({ preventScroll: true });
       });
     }
@@ -922,7 +923,7 @@ export default function DimensionCard({
 
       if (tabbableElements.length === 0) {
         event.preventDefault();
-        currentDrawer.focus({ preventScroll: true });
+        (drawerTitleRef.current || currentDrawer).focus({ preventScroll: true });
         return;
       }
 
@@ -980,7 +981,7 @@ export default function DimensionCard({
     const frame = window.requestAnimationFrame(() => {
       const drawer = drawerRef.current;
       if (drawer && !drawer.contains(document.activeElement)) {
-        drawer.focus({ preventScroll: true });
+        (drawerTitleRef.current || drawer).focus({ preventScroll: true });
       }
     });
 
@@ -1127,13 +1128,13 @@ export default function DimensionCard({
           onClick={onClick}
           aria-expanded={isExpanded}
           aria-controls={`dim-${dim.id}-drawer`}
-          aria-labelledby={`dim-${dim.id}-title`}
+          aria-labelledby={cardTitleId}
           aria-describedby={collapsedReviewDescription}
         >
           <div className="dim-card-header-content">
             <div style={{ flex: 1, minWidth: 0 }}>
               <h2
-                id={`dim-${dim.id}-title`}
+                id={cardTitleId}
                 style={{
                   fontWeight: 700,
                   fontSize: "15px",
@@ -1277,7 +1278,7 @@ export default function DimensionCard({
           tabIndex={-1}
           role={isMobileDialog ? "dialog" : undefined}
           aria-modal={isMobileDialog ? "true" : undefined}
-          aria-labelledby={`dim-${dim.id}-title`}
+          aria-labelledby={drawerTitleId}
           onClick={(e) => e.stopPropagation()}
           className="dim-drawer"
           style={{
@@ -1292,9 +1293,10 @@ export default function DimensionCard({
         >
           <div ref={stickyHeadRef} className="dim-drawer-sticky-head">
             <span
-              id={isFocusedDesktop ? `dim-${dim.id}-title` : undefined}
+              ref={drawerTitleRef}
+              id={isMobileDialog || isFocusedDesktop ? drawerTitleId : undefined}
               className="dim-drawer-title"
-              tabIndex={isFocusedDesktop ? -1 : undefined}
+              tabIndex={isMobileDialog || isFocusedDesktop ? -1 : undefined}
             >
               {dim.name}
             </span>
@@ -1336,7 +1338,7 @@ export default function DimensionCard({
           tabIndex={-1}
           role={isMobileDialog ? "dialog" : undefined}
           aria-modal={isMobileDialog ? "true" : undefined}
-          aria-labelledby={`dim-${dim.id}-title`}
+          aria-labelledby={drawerTitleId}
           onClick={(e) => e.stopPropagation()}
           className="dim-drawer"
           style={{
@@ -1355,9 +1357,10 @@ export default function DimensionCard({
             className="dim-drawer-sticky-head"
           >
             <span
-              id={isFocusedDesktop ? `dim-${dim.id}-title` : undefined}
+              ref={drawerTitleRef}
+              id={isMobileDialog || isFocusedDesktop ? drawerTitleId : undefined}
               className="dim-drawer-title"
-              tabIndex={isFocusedDesktop ? -1 : undefined}
+              tabIndex={isMobileDialog || isFocusedDesktop ? -1 : undefined}
             >
               {dim.name}
             </span>
@@ -1489,6 +1492,28 @@ export default function DimensionCard({
                           <p className="dim-latest-review-copy">{dim.latestReview.summary}</p>
                         </div>
                       )}
+                      {dim.nextTrigger && (
+                        <div
+                          id={`dim-${dim.id}-triggers-section`}
+                          className="dim-next-checkpoint"
+                          tabIndex={-1}
+                        >
+                          <div className="dim-next-checkpoint-copy">
+                            <span className="dim-next-checkpoint-label">Next checkpoint</span>
+                            <p>{dim.nextTrigger}</p>
+                          </div>
+                          <button
+                            type="button"
+                            className="dim-next-checkpoint-link"
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              activateWorkspaceTarget(`dim-${dim.id}-tracker-triggers`);
+                            }}
+                          >
+                            See all {triggerCount} published condition{triggerCount === 1 ? "" : "s"}
+                          </button>
+                        </div>
+                      )}
                       {isTracker && (
                         <p className="dim-verdict-note">
                           This informational tracker is outside the GPA and is not included in headline scores.
@@ -1584,37 +1609,6 @@ export default function DimensionCard({
                   </section>
                 )}
 
-                {showTriggers && (
-                  <section
-                    id={`dim-${dim.id}-triggers-section`}
-                    className="dimension-briefing-section"
-                    tabIndex={-1}
-                  >
-                    <div className="dim-default-block-head">
-                      <span>{hasTrackerTriggers ? "What changes this tracker" : (triggerPresentation.title || "What would change this grade")}</span>
-                      <span className="dim-evidence-note">{triggerSummary}</span>
-                    </div>
-                    {dim.gradeTriggers ? (
-                      <div className="dimension-trigger-band">
-                        <div className="dimension-trigger-column">
-                          <h3>{hasTrackerTriggers ? "Upward trigger" : (triggerPresentation.upLabel || "Up one step")}</h3>
-                          <div className="dim-trigger-list">
-                            {dim.gradeTriggers.up.map((trigger, index) => renderTriggerItem(trigger, `briefing-up-${index}`))}
-                          </div>
-                        </div>
-                        <div className="dimension-trigger-column">
-                          <h3>{hasTrackerTriggers ? "Downward triggers" : (triggerPresentation.downLabel || "Down one step")}</h3>
-                          <div className="dim-trigger-list">
-                            {dim.gradeTriggers.down.map((trigger, index) => renderTriggerItem(trigger, `briefing-down-${index}`))}
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <p>{dim.nextTrigger}</p>
-                    )}
-                  </section>
-                )}
-
                 {!isTracker && (dim.judgmentCall || dim.judgmentDetail || dim.rationale) && (
                   <section
                     id={`dim-${dim.id}-why`}
@@ -1667,6 +1661,25 @@ export default function DimensionCard({
                   <section id={`dim-${dim.id}-metrics`} className="dimension-briefing-section" tabIndex={-1}>
                     <h3>Metrics</h3>
                     <MetricsList metricGroups={metricGroups} />
+                  </section>
+                )}
+
+                {dim.gradeBasis?.combinationRule?.currentSnapshot?.length > 0 && (
+                  <section
+                    id={`dim-${dim.id}-current-snapshot`}
+                    className="dimension-briefing-section"
+                    tabIndex={-1}
+                    aria-label="Current flagship snapshot"
+                  >
+                    <RuleTable
+                      title="Current snapshot"
+                      columns={["File", "Status", "Evidence"]}
+                      rows={dim.gradeBasis.combinationRule.currentSnapshot.map((row) => [
+                        row.file,
+                        row.status,
+                        row.evidence,
+                      ])}
+                    />
                   </section>
                 )}
 
@@ -2209,11 +2222,6 @@ function CombinationRule({ rule }) {
         title="Distribution to grade"
         columns={["Distribution", "Grade", "Logic"]}
         rows={rule.distributionToGrade.map((row) => [row.distribution, row.grade, row.logic])}
-      />
-      <RuleTable
-        title="Current snapshot"
-        columns={["File", "Status", "Evidence"]}
-        rows={rule.currentSnapshot.map((row) => [row.file, row.status, row.evidence])}
       />
       <div className="dim-note-box">
         <strong>{rule.currentDistribution} → {rule.currentGradeFromRule}</strong>
