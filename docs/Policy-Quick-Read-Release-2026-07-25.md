@@ -1,6 +1,6 @@
 # Policy Quick-Read Release
 
-**Status:** Candidate<br>
+**Status:** Live<br>
 **Prepared:** 2026-07-25<br>
 **Comparison baseline:** live v5.166<br>
 **Frozen surfaces:** no grade, threshold, formula, weight, modifier, promise
@@ -108,7 +108,24 @@ about 26 pixels total from the original layout, without reducing type or
 signal cards from entering the nav-obstructed zone. The final revised state
 passed the nine focused layout checks and the full 249-test local matrix.
 
-Production verification will be added after publication.
+v5.167 is live through product commits `60e8824` and `408e387`, plus
+audit-gate correction `16bfa07`. Final Pages run `30181762251` passed its
+review-handoff, build, 249-case Ubuntu browser, and deploy jobs. Live Dashboard
+Audit run `30181903904` passed `356/356` rendered-content and interaction
+checks.
+
+Direct production inspection confirmed v5.167 and the July 25 release date, no
+horizontal overflow, working Household open and close behavior, the Housing
+next watch, and the Flagship snapshot and Combination Rule in their intended
+views.
+
+The prior Live Dashboard Audit run `30180732764` exposed stale audit
+assumptions rather than a product defect. Its six failures were corrected by
+matching the Household whole-card control and the Flagship Evidence and Method
+split. A browser-gate race was also traced to measuring initial geometry after
+the app's intentional expander-close smooth scroll. The check now runs before
+the interactions it still exercises. Authenticated Claude approved the final
+correction.
 
 ## Review Record
 
@@ -125,7 +142,9 @@ and the roadmap again links the standing Housing trigger history. Claude's
 focused correction review then returned `APPROVED` with no blocking or
 non-blocking defects. After the first Pages run exposed the Linux-only overlap,
 Claude returned `REVISE` on the initial spacing fix. That finding was accepted,
-and its review of the wider final headroom returned `APPROVED`.
+and its review of the wider final headroom returned `APPROVED`. Claude's final
+audit-gate review also returned `APPROVED`, with no false-pass, lost-interaction,
+or hidden-defect finding.
 
 ## Physical Device Boundary
 

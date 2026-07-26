@@ -10,14 +10,20 @@
 
 ## Current State
 
-- v5.167 is the current release candidate. It puts each policy's authored next
-  checkpoint beside its verdict, keeps the dated trigger ledger in
-  Evidence instead of repeating it in Briefing, moves Flagship Delivery's
-  current five-file record to Evidence, and corrects first-look and mobile-focus
-  interaction gaps found in the July 25 observation pass. The Housing
-  disbursement trigger remains off after a dated official-page check. No score,
-  grade, trigger, or scoring rule changes in this candidate. The release record
-  is [Policy-Quick-Read-Release-2026-07-25.md](Policy-Quick-Read-Release-2026-07-25.md).
+- v5.167 is live through product commits `60e8824` and `408e387`, with
+  audit-gate correction `16bfa07`. It puts each policy's authored next
+  checkpoint beside its verdict, keeps the dated trigger ledger in Evidence
+  instead of repeating it in Briefing, moves Flagship Delivery's current
+  five-file record to Evidence, and corrects first-look and mobile-focus
+  interaction gaps found in the July 25 observation pass. Pages run
+  `30181762251` passed review-handoff, build, 249 browser checks, and deploy.
+  Live Dashboard Audit run `30181903904` passed `356/356` checks. Direct
+  production inspection confirmed the release date, no horizontal overflow,
+  working Household open and close behavior, the Housing next watch, and the
+  intended Flagship Evidence and Method split. The Housing disbursement trigger
+  remains off after a dated official-page check. No score, grade, trigger, or
+  scoring rule changed. The release record is
+  [Policy-Quick-Read-Release-2026-07-25.md](Policy-Quick-Read-Release-2026-07-25.md).
 - v5.166 is live through implementation commit `3c329c9` and browser-gate
   follow-up `6e8891f`. It aligns the titles, descriptions, visible results, and
   actions in the three secondary signal cards after a reader screenshot showed
@@ -95,6 +101,22 @@
 ---
 
 ## Recently Completed
+
+- v5.167 policy quick-read release - the July 25 pass checked the active Housing
+  trigger, first-look hierarchy, and the five-policy four-view workspace before
+  making one bounded presentation release. Opened policies now retain their
+  authored next checkpoint, dated trigger ledgers live in Evidence instead of
+  repeating in Briefing, and Flagship Delivery's current record is separated
+  from its Method rule. The release date and Household whole-card interaction
+  close two first-look gaps, while mobile first-look controls and sheet focus
+  now clear their measured accessibility defects. Pages run `30181762251`
+  passed review-handoff, build, 249 browser checks, and deploy. Live Dashboard
+  Audit run `30181903904` passed `356/356` checks, and authenticated Claude
+  approved the integrated release and final audit-gate correction. This
+  advances the roadmap's quick-comprehension and evidence-inspectability goals.
+  It exposes two remaining evidence gaps that automation cannot close: the
+  eight-reader first-look study and the five-policy human workspace observation.
+  No score, grade, trigger, or scoring rule changed.
 
 - v5.166 secondary-signal alignment correction - live mobile geometry showed
   title offsets of 10, 42, and 26 pixels inside three cards with the same top
@@ -261,7 +283,9 @@
 
 ## Now
 
-1. **Keep the Housing disbursement watch current.** The July 25 official-page check found no published signed Canada-Ontario BCSF agreement, completed DCRP project approval, signed Toronto transfer-payment agreement, first payment, or DCRP construction evidence on the checked pages. The July 16 North Dundas announcement is Direct Delivery, not DCRP. Treat that dated absence as evidence, not proof, and do not move the grade automatically. The dated check is recorded in [Policy-Quick-Read-Release-2026-07-25.md](Policy-Quick-Read-Release-2026-07-25.md), the standing trigger history remains in [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md), and the reader-facing decision remains in the live Housing brief. Priority reason: this remains the active trigger watch before the August cycle.
+1. **Run the August 1 monthly cycle.** The pre-cycle cleanup is complete: House ETHI and Transparency International Canada are registered, the Trade Diversification Corridors Fund and CSLS citations are corrected, and the five dead legacy watch URLs were triaged. Two exact URLs are live again; the other three have live replacement pages and no archive capture was found. On August 1, generate `Source-Coverage-Ledger-2026-08.md` for the July 1-31 evidence window, run freshness pulls, re-check Housing, adjudicate monitor candidates, and close the ledger with `--require-closed`. Priority reason: the monthly evidence cycle outranks presentation follow-up, and the July window cannot be closed before the month ends.
+
+2. **Keep the Housing disbursement watch current.** The July 25 official-page check found no published signed Canada-Ontario BCSF agreement, completed DCRP project approval, signed Toronto transfer-payment agreement, first payment, or DCRP construction evidence on the checked pages. The July 16 North Dundas announcement is Direct Delivery, not DCRP. Treat that dated absence as evidence, not proof, and do not move the grade automatically. The dated check is recorded in [Policy-Quick-Read-Release-2026-07-25.md](Policy-Quick-Read-Release-2026-07-25.md), the standing trigger history remains in [Trigger-Verification-2026-06-09.md](Trigger-Verification-2026-06-09.md), and the reader-facing decision remains in the live Housing brief. Priority reason: this remains the active trigger watch inside the August cycle.
 
 ---
 
@@ -269,21 +293,19 @@
 
 These are on deck after the v5.167 quick-read release and the existing scope split.
 
-1. **Run the August 1 monthly cycle.** The pre-cycle cleanup is complete: House ETHI and Transparency International Canada are registered, the Trade Diversification Corridors Fund and CSLS citations are corrected, and the five dead legacy watch URLs were triaged. Two exact URLs are live again; the other three have live replacement pages and no archive capture was found. On August 1, generate `Source-Coverage-Ledger-2026-08.md` for the July 1-31 evidence window, run freshness pulls, re-check Housing, adjudicate monitor candidates, and close the ledger with `--require-closed`. Priority reason: the July evidence window and its final negative findings cannot be completed before the month ends.
+1. **Run the first-time-reader check on the v5.167 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Record first action, false clicks, signal-role confusion, and freshness confusion. The July 25 screenshot-only proxies answered all seven questions but exposed unequal signal click targets, missing release-date context, and a mobile navigation overlap; v5.167 corrects those defects. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout and routes, but only readers can show whether the new hierarchy is understood quickly.
 
-2. **Run the first-time-reader check on the v5.167 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Record first action, false clicks, signal-role confusion, and freshness confusion. The July 25 screenshot-only proxies answered all seven questions but exposed unequal signal click targets, missing release-date context, and a mobile navigation overlap; v5.167 corrects those defects. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout and routes, but only readers can show whether the new hierarchy is understood quickly.
+2. **Observe the four-view policy workspace through the August cycle.** Run the 30-second human-reader test across Housing, Defence & Trade, Promise Delivery, Flagship Delivery, and an ordinary graded dimension. The July 25 browser and AI pass found that Briefing repeated the complete trigger ledger from Evidence and hid the authored next checkpoint after opening a policy; v5.167 corrects that boundary and moves Flagship Delivery's current record into Evidence. Check whether readers now answer grade, reason, latest change, and next checkpoint quickly while still finding the complete policy record. Priority reason: the structural defect is corrected, but reader behavior must show that the split improves comprehension.
 
-3. **Observe the four-view policy workspace through the August cycle.** Run the 30-second human-reader test across Housing, Defence & Trade, Promise Delivery, Flagship Delivery, and an ordinary graded dimension. The July 25 browser and AI pass found that Briefing repeated the complete trigger ledger from Evidence and hid the authored next checkpoint after opening a policy; v5.167 corrects that boundary and moves Flagship Delivery's current record into Evidence. Check whether readers now answer grade, reason, latest change, and next checkpoint quickly while still finding the complete policy record. Priority reason: the structural defect is corrected, but reader behavior must show that the split improves comprehension.
+3. **Check history growth before adding charts or another event type.** Use the August cycle to confirm that grade moves, held reviews, and Housing's detailed evidence review read as one dated sequence. Define a provenance rule before any new history event is introduced. Priority reason: the workspace exposed that history is still shallow, so visual trend treatment would imply more continuity than the record supports.
 
-4. **Check history growth before adding charts or another event type.** Use the August cycle to confirm that grade moves, held reviews, and Housing's detailed evidence review read as one dated sequence. Define a provenance rule before any new history event is introduced. Priority reason: the workspace exposed that history is still shallow, so visual trend treatment would imply more continuity than the record supports.
+4. **Evaluate Decision Brief reuse during the August cycle.** Add a second brief only if another consequential evidence review benefits from the same credit / limiting / unproven / outcome structure. Do not backfill other policies. Before adding one, decide explicitly how it belongs in the shared History view without duplicating the latest-review summary. Priority reason: one real follow-up should test whether this is a useful repeatable trust pattern before the optional schema spreads.
 
-5. **Evaluate Decision Brief reuse during the August cycle.** Add a second brief only if another consequential evidence review benefits from the same credit / limiting / unproven / outcome structure. Do not backfill other policies. Before adding one, decide explicitly how it belongs in the shared History view without duplicating the latest-review summary. Priority reason: one real follow-up should test whether this is a useful repeatable trust pattern before the optional schema spreads.
+5. **Observe v5.160 contextual sharing on a physical iOS or Android target when one becomes available.** Record whether the native target preserves the detached text and exact deep link, and roll back to title plus URL if the target drops or mangles the context. This is a release exception, not a current blocker or a claimed pass. Priority reason: production checks cover the browser contract, while only a physical target can characterize target-specific rewriting.
 
-6. **Observe v5.160 contextual sharing on a physical iOS or Android target when one becomes available.** Record whether the native target preserves the detached text and exact deep link, and roll back to title plus URL if the target drops or mangles the context. This is a release exception, not a current blocker or a claimed pass. Priority reason: production checks cover the browser contract, while only a physical target can characterize target-specific rewriting.
+6. **Process the inter-rater pilot return.** When the worksheets arrive, compare them with the frozen packet and classify each mismatch as rubric clarity, source ambiguity, application error, or genuine disagreement. Priority reason: this is the largest open independent-replication gap, but it depends on an external return.
 
-7. **Process the inter-rater pilot return.** When the worksheets arrive, compare them with the frozen packet and classify each mismatch as rubric clarity, source ambiguity, application error, or genuine disagreement. Priority reason: this is the largest open independent-replication gap, but it depends on an external return.
-
-8. **Resolve the remaining external/editor queue.** The About funding disclosure, direct continuity pointer, Defence mixed-construct explanation, and desktop tab order are complete. What remains is sending the prepared red-team invite to an editor-selected recipient and deciding whether to mark the old Trust and Bias Resistance Plan historical while keeping the audit brief and validation templates separate. Priority reason: one item is an external send and the other is a governance-retirement decision, so neither should happen silently.
+7. **Resolve the remaining external/editor queue.** The About funding disclosure, direct continuity pointer, Defence mixed-construct explanation, and desktop tab order are complete. What remains is sending the prepared red-team invite to an editor-selected recipient and deciding whether to mark the old Trust and Bias Resistance Plan historical while keeping the audit brief and validation templates separate. Priority reason: one item is an external send and the other is a governance-retirement decision, so neither should happen silently.
 
 ---
 ## Later
@@ -301,6 +323,7 @@ These are valid, but not active now.
 9. Reconsider a local read-only MCP adapter only after repeated review work shows that selective reads are materially better than targeted files or the tracked-file bundle. Any return needs a filtered input set, symlink and special-file policy, locked tool dependencies, a disclosure smoke test, local `stdio`, and another different-AI review. Priority reason: do not rebuild an optional access path without measured need.
 10. Refresh the workflow action that still targets deprecated Node.js 20 before GitHub removes forced Node.js 24 compatibility. Priority reason: the v5.164 audit passed, but its artifact-upload step now emits a platform deprecation warning that should not become a future release blocker.
 11. Revisit a secondary-signal subgrid fallback only if an unsupported-browser report shows the cosmetic misalignment still matters in ordinary use. Priority reason: current evergreen browsers support subgrid and older browsers retain readable, functional cards, so a speculative shim ranks below the August cycle.
+12. Run physical interaction checks when targets are available: iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and Windows forced-colors. These remain accepted v5.167 release exceptions, not passes or current blockers. Priority reason: browser emulation covers the application contract but cannot characterize the native platform shell.
 
 ---
 
