@@ -97,6 +97,17 @@ signals remained visible. Housing's next-checkpoint action reached the focused
 Evidence ledger, and Flagship Delivery's five-file record appeared in Evidence
 instead of Method.
 
+The first GitHub Pages run, `30170849112`, correctly blocked deployment when
+Linux font rendering put the mobile action row 7.08 pixels under the fixed
+navigation. Mobile row spacing and padding were reduced, and the browser gate
+now requires an 8-pixel safety gap rather than accepting edge contact. Claude
+rejected the first spacing reduction as too close to the measured Linux
+variance, so a second pass added about 12 pixels of fixed-layout headroom for
+about 26 pixels total from the original layout, without reducing type or
+44-pixel touch targets. A 12-pixel mobile separation also keeps the following
+signal cards from entering the nav-obstructed zone. The final revised state
+passed the nine focused layout checks and the full 249-test local matrix.
+
 Production verification will be added after publication.
 
 ## Review Record
@@ -112,7 +123,9 @@ cleanup findings. All three were accepted: the Household card's accessible
 name now includes its grade and score, stale checkpoint selectors were removed,
 and the roadmap again links the standing Housing trigger history. Claude's
 focused correction review then returned `APPROVED` with no blocking or
-non-blocking defects.
+non-blocking defects. After the first Pages run exposed the Linux-only overlap,
+Claude returned `REVISE` on the initial spacing fix. That finding was accepted,
+and its review of the wider final headroom returned `APPROVED`.
 
 ## Physical Device Boundary
 

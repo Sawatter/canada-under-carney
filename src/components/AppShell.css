@@ -1346,8 +1346,8 @@
       "actions actions actions actions math math"
       "detail detail detail detail detail detail";
     grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 9px 12px;
-    padding: 13px;
+    gap: 5px 12px;
+    padding: 9px;
     border-radius: 17px;
   }
 
@@ -1399,7 +1399,7 @@
 
   .app-shell .first-look-update,
   .app-shell .first-look-watch {
-    padding: 9px;
+    padding: 8px 9px;
     border-radius: 11px;
   }
 
@@ -1456,7 +1456,7 @@
   }
 
   .app-shell .first-look-boundary {
-    padding: 8px 9px;
+    padding: 6px 9px;
     border-radius: 11px;
   }
 
@@ -1493,6 +1493,10 @@
   .app-shell .first-look-derivation-toggle {
     align-self: stretch;
     width: 100%;
+  }
+
+  .app-shell .first-look-signal-group {
+    margin-top: 12px;
   }
 
   .app-shell .first-look-signal-group > h3 {

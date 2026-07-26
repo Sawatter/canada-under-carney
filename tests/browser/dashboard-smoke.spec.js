@@ -618,7 +618,7 @@ async function expectFirstLookBriefing(page, viewport) {
       };
     });
     expect(actionFit).not.toBeNull();
-    expect(actionFit.actionsBottom).toBeLessThanOrEqual(actionFit.bottomNavTop);
+    expect(actionFit.actionsBottom).toBeLessThanOrEqual(actionFit.bottomNavTop - 8);
 
     const obscuredInitialControls = await region.evaluate((node) => {
       const bottomNav = document.querySelector(".app-bottom-nav");
