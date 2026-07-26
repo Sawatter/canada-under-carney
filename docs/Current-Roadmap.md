@@ -21,9 +21,14 @@
   lint, review-handoff, build, bundle-budget, and 252 browser checks pass.
   Specification review passed. Standards review returned `REVISE`, its three
   findings were corrected, and the second pass approved. Claude's read-only
-  bridge review and focused post-fix review both approved. Publication is
-  pending. No score, grade, trigger, or scoring rule changes. The candidate
-  record is
+  bridge review and focused post-fix review both approved. Initial Pages run
+  `30218318675` then passed build but correctly blocked deployment when Linux
+  font metrics clipped the Scorecard label at the 320-pixel test floor. The
+  label remains 12 pixels; the narrow grid now gives that known longest label
+  a wider first column, and all six focused local checks pass. A third Claude
+  review approved the mechanism while requiring a green replacement Linux
+  run. Publication is pending. No score, grade, trigger, or scoring rule
+  changes. The candidate record is
   [Mobile-Readability-Release-2026-07-26.md](Mobile-Readability-Release-2026-07-26.md).
 - v5.167 is live through product commits `60e8824` and `408e387`, with
   audit-gate correction `16bfa07`. It puts each policy's authored next

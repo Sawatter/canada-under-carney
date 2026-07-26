@@ -95,6 +95,16 @@ and 200% reachability helpers was rejected because they prove different
 contracts: complete control visibility at default size, and separate
 top-and-bottom reachability after text enlargement.
 
+The first Pages run, `30218318675`, passed its build job but correctly stopped
+before deployment after the Linux browser job found the 12-pixel Scorecard
+navigation label clipping in its equal-width 320-pixel grid cell. The other
+246 checks passed. The test was not weakened. The narrow-phone grid now gives
+the known longest first label a modestly wider column without shrinking text;
+the other four labels retain more than the 44-pixel target width. All six
+focused checks passed locally across the three profiles. A third Claude bridge
+review returned `APPROVED` on the mechanism and named a green replacement
+Linux run as the authoritative closeout gate.
+
 ## Acceptance Record
 
 - `npm run test:data` passed, including 56 frozen-surface assertions.
@@ -109,6 +119,8 @@ top-and-bottom reachability after text enlargement.
   passed.
 - The new mobile matrix passed at `320 x 568`, `375 x 812`, and `390 x 844`,
   including default-size navigation clearance and 200% text resize.
+- Replacement Pages and live-audit results remain pending. The failed initial
+  Pages run is not treated as deployment or approval.
 
 ## Physical Device Boundary
 
