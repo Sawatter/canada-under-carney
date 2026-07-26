@@ -151,6 +151,10 @@ function methodStringsForDimension(dim) {
     subScore.rationale,
     ...(subScore.thresholds || []).map((threshold) => threshold.criteria),
   ]);
+  const combinationRule = dim.gradeBasis?.combinationRule;
+  const methodCombinationRule = combinationRule
+    ? { ...combinationRule, currentSnapshot: undefined }
+    : combinationRule;
 
   return uniqueStrings([
     dim.construct,
@@ -163,7 +167,7 @@ function methodStringsForDimension(dim) {
     ...collectSubstantiveStrings(dim.scoring?.subScoreRule),
     ...subScores,
     ...collectSubstantiveStrings({
-      combinationRule: dim.gradeBasis?.combinationRule,
+      combinationRule: methodCombinationRule,
       componentOperationalization: dim.gradeBasis?.componentOperationalization,
       componentScoreSummary: dim.gradeBasis?.componentScoreSummary,
       leverOperationalization: dim.gradeBasis?.leverOperationalization,
@@ -287,6 +291,9 @@ async function gotoApp(page, hash = "view-scorecard") {
   await page.goto(dashboardUrl(hash), { waitUntil: "domcontentloaded" });
   await page.locator(".app-shell").waitFor({ state: "visible", timeout: 15_000 });
   await page.getByRole("heading", { name: "Canada Under Carney", level: 1 }).waitFor({ timeout: 15_000 });
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
   await page.waitForLoadState("networkidle", { timeout: 10_000 }).catch(() => {});
 }
 
@@ -352,9 +359,18 @@ async function auditGlobalSurfaces(page, viewportName) {
           briefing?.querySelector('a[href="#methodology-safeguards"]')?.textContent?.trim()
           === "Read the scoring method",
         signalGroup: signalGroup?.getAttribute("aria-labelledby") === "first-look-signals-heading",
-        householdRole:
-          briefing?.querySelector(".first-look-signal-household")?.tagName === "ARTICLE"
-          && roleText(".first-look-signal-household").includes("four pocketbook files"),
+        householdRole: (() => {
+          const household = briefing?.querySelector("button.first-look-signal-household");
+          const accessibleName = household?.getAttribute("aria-label") || "";
+          return household?.getAttribute("type") === "button"
+            && household.getAttribute("aria-expanded") === "false"
+            && household.getAttribute("aria-controls") === "score-derivation-household"
+            && accessibleName.startsWith("Household Impact. Grade ")
+            && accessibleName.includes(". Score ")
+            && accessibleName.endsWith("How is Household built?")
+            && roleText(".first-look-signal-household").includes("four pocketbook files")
+            && household.querySelector("button") === null;
+        })(),
         promisesRole:
           briefing?.querySelector(".first-look-signal-promises")?.tagName === "BUTTON"
           && roleText(".first-look-signal-promises").includes("Tracker outside the grades."),
@@ -547,7 +563,7 @@ async function auditGlobalSurfaces(page, viewportName) {
     const derivations = [
       {
         name: "Household Impact",
-        button: ".first-look-signal-household .first-look-derivation-toggle",
+        button: "button.first-look-signal-household",
         panel: "#score-derivation-household",
       },
       {
@@ -860,6 +876,11 @@ async function auditCanonicalEvidence(page, dim, viewportName) {
   const expectedText = [
     ...(dim.metrics || []).flatMap((metric) => [metric.label, metric.value]),
     ...(dim.promises || []).flatMap((promise) => [promise.text, promise.status, promise.evidence]),
+    ...(dim.gradeBasis?.combinationRule?.currentSnapshot || []).flatMap((row) => [
+      row.file,
+      row.status,
+      row.evidence,
+    ]),
     ...triggers.flatMap((trigger) => [
       trigger.text,
       trigger.sourceLabel,
@@ -882,7 +903,7 @@ async function auditCanonicalEvidence(page, dim, viewportName) {
   addRow({
     surface: `${dim.name} canonical Evidence content`,
     viewport: viewportName,
-    action: "Compare rendered metrics, sources, promises, triggers, project cohort, perspectives, and source targets with dimensions.json",
+    action: "Compare rendered metrics, sources, promises, triggers, flagship snapshot, project cohort, perspectives, and source targets with dimensions.json",
     observed: `metrics=${dim.metrics?.length || 0}; sources=${dim.sources?.length || 0}; promises=${dim.promises?.length || 0}; triggers=${triggers.length}; projects=${dim.projectCohort?.projects?.length || 0}; link targets=${expectedLinks.length}; missing=${missing.length}${missing.length ? ` (${textSnippet(missing.join(" | "))})` : ""}`,
     status: missing.length ? rowStatus.issue : rowStatus.pass,
     severity: missing.length ? "P1" : "",

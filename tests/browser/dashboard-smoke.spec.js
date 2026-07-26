@@ -449,6 +449,101 @@ function expectSignalAlignment(
   }
 }
 
+async function expectInitialFirstLookLayout(page, region, viewport) {
+  const fit = await region.evaluate((node, expectedViewport) => {
+    const selectors = [
+      ".first-look-primary-wrap",
+      ".first-look-update",
+      ".first-look-watch",
+      ".first-look-boundary",
+      ".first-look-action",
+      ".first-look-signal",
+    ];
+    const boxes = selectors.flatMap((selector) => (
+      [...node.querySelectorAll(selector)].map((element) => {
+        const rect = element.getBoundingClientRect();
+        return {
+          bottom: rect.bottom,
+          height: rect.height,
+          left: rect.left,
+          right: rect.right,
+          width: rect.width,
+        };
+      })
+    ));
+    return {
+      allHaveArea: boxes.every((box) => box.width > 0 && box.height > 0),
+      allFitWidth: boxes.every((box) => (
+        box.left >= -1 && box.right <= expectedViewport.width + 1
+      )),
+      noDocumentOverflow:
+        document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+    };
+  }, viewport);
+  expect(fit).toEqual({
+    allHaveArea: true,
+    allFitWidth: true,
+    noDocumentOverflow: true,
+  });
+
+  if (viewport.width > 767) return;
+
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await expect.poll(async () => page.evaluate(() => window.scrollY))
+    .toBeLessThanOrEqual(4);
+
+  const actionFit = await region.evaluate((node) => {
+    const actions = node.querySelector(".first-look-actions");
+    const bottomNav = document.querySelector(".app-bottom-nav");
+    if (!actions || !bottomNav) return null;
+    return {
+      actionsBottom: actions.getBoundingClientRect().bottom,
+      bottomNavTop: bottomNav.getBoundingClientRect().top,
+    };
+  });
+  expect(actionFit).not.toBeNull();
+  expect(actionFit.actionsBottom).toBeLessThanOrEqual(actionFit.bottomNavTop - 8);
+
+  const obscuredInitialControls = await region.evaluate((node) => {
+    const bottomNav = document.querySelector(".app-bottom-nav");
+    if (!bottomNav) return null;
+    const navRect = bottomNav.getBoundingClientRect();
+    return [...node.querySelectorAll("a[href], button:not([disabled])")]
+      .map((control) => {
+        const rect = control.getBoundingClientRect();
+        const style = getComputedStyle(control);
+        return {
+          bottom: rect.bottom,
+          label: control.getAttribute("aria-label") || control.textContent?.trim(),
+          left: rect.left,
+          right: rect.right,
+          top: rect.top,
+          visible: (
+            rect.width > 0
+            && rect.height > 0
+            && rect.bottom > 0
+            && rect.top < window.innerHeight
+            && style.display !== "none"
+            && style.visibility !== "hidden"
+          ),
+        };
+      })
+      .filter((control) => (
+        control.visible
+        && control.top < navRect.top
+        && control.bottom > navRect.top
+        && control.top < navRect.bottom
+        && control.right > navRect.left
+        && control.left < navRect.right
+      ));
+  });
+  expect(obscuredInitialControls).not.toBeNull();
+  expect(
+    obscuredInitialControls,
+    "initially visible first-look controls must stay above the fixed bottom navigation",
+  ).toEqual([]);
+}
+
 async function expectFirstLookBriefing(page, viewport) {
   const region = firstLookRegion(page);
   const update = region.locator(".first-look-update");
@@ -459,6 +554,9 @@ async function expectFirstLookBriefing(page, viewport) {
   const methodRoute = region.getByRole("link", { name: "Read the scoring method" });
 
   await expect(region).toBeVisible();
+  await page.evaluate(async () => {
+    await document.fonts.ready;
+  });
   await expect(region.getByRole("heading", { level: 2, name: "Full Policy Audit" }))
     .toBeVisible();
   await expect(region.getByText(meta.overallVerdictLine, { exact: true })).toBeVisible();
@@ -501,6 +599,7 @@ async function expectFirstLookBriefing(page, viewport) {
   await expect(policyRoute).toHaveAttribute("href", "#policy-grades-heading");
   await expect(methodRoute).toBeVisible();
   await expect(methodRoute).toHaveAttribute("href", "#methodology-safeguards");
+  await expectInitialFirstLookLayout(page, region, viewport);
 
   const householdSignal = signalGroup.locator("button.first-look-signal-household");
   await expect(householdSignal).toBeVisible();
@@ -566,99 +665,6 @@ async function expectFirstLookBriefing(page, viewport) {
   await approvalButton.click();
   await expect(approvalButton).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator("#approval-signal-detail")).toHaveCount(0);
-
-  const fit = await region.evaluate((node, expectedViewport) => {
-    const selectors = [
-      ".first-look-primary-wrap",
-      ".first-look-update",
-      ".first-look-watch",
-      ".first-look-boundary",
-      ".first-look-action",
-      ".first-look-signal",
-    ];
-    const boxes = selectors.flatMap((selector) => (
-      [...node.querySelectorAll(selector)].map((element) => {
-        const rect = element.getBoundingClientRect();
-        return {
-          bottom: rect.bottom,
-          height: rect.height,
-          left: rect.left,
-          right: rect.right,
-          width: rect.width,
-        };
-      })
-    ));
-    return {
-      allHaveArea: boxes.every((box) => box.width > 0 && box.height > 0),
-      allFitWidth: boxes.every((box) => (
-        box.left >= -1 && box.right <= expectedViewport.width + 1
-      )),
-      noDocumentOverflow:
-        document.documentElement.scrollWidth <= document.documentElement.clientWidth,
-    };
-  }, viewport);
-  expect(fit).toEqual({
-    allHaveArea: true,
-    allFitWidth: true,
-    noDocumentOverflow: true,
-  });
-
-  if (viewport.width <= 767) {
-    await page.evaluate(() => window.scrollTo(0, 0));
-    await expect.poll(async () => page.evaluate(() => window.scrollY))
-      .toBeLessThanOrEqual(4);
-
-    const actionFit = await region.evaluate((node) => {
-      const actions = node.querySelector(".first-look-actions");
-      const bottomNav = document.querySelector(".app-bottom-nav");
-      if (!actions || !bottomNav) return null;
-      return {
-        actionsBottom: actions.getBoundingClientRect().bottom,
-        bottomNavTop: bottomNav.getBoundingClientRect().top,
-      };
-    });
-    expect(actionFit).not.toBeNull();
-    expect(actionFit.actionsBottom).toBeLessThanOrEqual(actionFit.bottomNavTop - 8);
-
-    const obscuredInitialControls = await region.evaluate((node) => {
-      const bottomNav = document.querySelector(".app-bottom-nav");
-      if (!bottomNav) return null;
-      const navRect = bottomNav.getBoundingClientRect();
-      return [...node.querySelectorAll("a[href], button:not([disabled])")]
-        .map((control) => {
-          const rect = control.getBoundingClientRect();
-          const style = getComputedStyle(control);
-          return {
-            bottom: rect.bottom,
-            label: control.getAttribute("aria-label") || control.textContent?.trim(),
-            left: rect.left,
-            right: rect.right,
-            top: rect.top,
-            visible: (
-              rect.width > 0
-              && rect.height > 0
-              && rect.bottom > 0
-              && rect.top < window.innerHeight
-              && style.display !== "none"
-              && style.visibility !== "hidden"
-            ),
-          };
-        })
-        .filter((control) => (
-          control.visible
-          && control.top < navRect.top
-          && control.bottom > navRect.top
-          && control.top < navRect.bottom
-          && control.right > navRect.left
-          && control.left < navRect.right
-        ));
-    });
-    expect(obscuredInitialControls).not.toBeNull();
-    expect(
-      obscuredInitialControls,
-      "initially visible first-look controls must stay above the fixed bottom navigation",
-    ).toEqual([]);
-  }
 
   return { methodRoute, policyRoute, region };
 }
