@@ -10,25 +10,24 @@
 
 ## Current State
 
-- v5.168 is a mobile-readability candidate responding to a reader who found
-  the default phone text small even though browser zoom worked. Production
-  inspection at `375 x 812` found 45 of 50 visible direct-text elements in the
-  first-look area at 12 pixels or smaller, including 10 at 9 pixels. The
-  candidate replaces the fixed 9-11 pixel mobile overrides with rem-based
-  practical floors, turns the grade boundary and three secondary signals into
-  full-width rows, and tests normal-scroll reachability at `320 x 568`,
-  `375 x 812`, and `390 x 844` plus 200% text resize. Data, 69 app-shell,
-  lint, review-handoff, build, bundle-budget, and 252 browser checks pass.
-  Specification review passed. Standards review returned `REVISE`, its three
-  findings were corrected, and the second pass approved. Claude's read-only
-  bridge review and focused post-fix review both approved. Initial Pages run
-  `30218318675` then passed build but correctly blocked deployment when Linux
-  font metrics clipped the Scorecard label at the 320-pixel test floor. The
-  label remains 12 pixels; the narrow grid now gives that known longest label
-  a wider first column, and all six focused local checks pass. A third Claude
-  review approved the mechanism while requiring a green replacement Linux
-  run. Publication is pending. No score, grade, trigger, or scoring rule
-  changes. The candidate record is
+- v5.168 is live through product commit `9061bb2` and Linux correction
+  `5000b8f`. It responds to a reader who found the default phone text small
+  even though browser zoom worked. The release replaces measured 9-11 pixel
+  first-look overrides with practical mobile type floors, turns the grade
+  boundary and three secondary signals into full-width rows, and tests normal
+  scrolling at `320 x 568`, `375 x 812`, and `390 x 844` plus 200% text
+  resize. Initial Pages run `30218318675` correctly blocked deployment when
+  Linux font metrics clipped the Scorecard label at the 320-pixel floor. The
+  corrected grid keeps the label at 12 pixels and gives its known longest
+  first cell more width. Replacement Pages run `30218716905` passed
+  review-handoff, build, 252 browser checks, and deployment. Live Dashboard
+  Audit run `30218889844` passed `356/356` checks. Direct production inspection
+  confirmed v5.168 at the three phone widths and `1280 x 900`, with no
+  horizontal overflow, no initial fixed-navigation overlap, full-width mobile
+  signal rows, and unclipped navigation labels. Specification, Standards, and
+  three Claude bridge reviews approved after their accepted findings were
+  corrected. No score, grade, trigger, or scoring rule changed. The release
+  record is
   [Mobile-Readability-Release-2026-07-26.md](Mobile-Readability-Release-2026-07-26.md).
 - v5.167 is live through product commits `60e8824` and `408e387`, with
   audit-gate correction `16bfa07`. It puts each policy's authored next
@@ -311,7 +310,7 @@
 
 ## Next
 
-These are on deck after the v5.168 readability candidate and the existing
+These are on deck after the v5.168 readability release and the existing
 scope split.
 
 1. **Run the first-time-reader check on the v5.168 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Include older readers in the mobile group and record first action, false clicks, signal-role confusion, freshness confusion, default-size comfort, and whether browser zoom is easy to discover. The July 25 screenshot-only proxies answered all seven questions but exposed unequal signal click targets, missing release-date context, and a mobile navigation overlap; v5.167 corrected those defects, while v5.168 addresses the later default-size report. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout, routes, and resize behavior, but only readers can show whether the new hierarchy and default size work in ordinary use.
@@ -344,7 +343,7 @@ These are valid, but not active now.
 9. Reconsider a local read-only MCP adapter only after repeated review work shows that selective reads are materially better than targeted files or the tracked-file bundle. Any return needs a filtered input set, symlink and special-file policy, locked tool dependencies, a disclosure smoke test, local `stdio`, and another different-AI review. Priority reason: do not rebuild an optional access path without measured need.
 10. Refresh the workflow action that still targets deprecated Node.js 20 before GitHub removes forced Node.js 24 compatibility. Priority reason: the v5.164 audit passed, but its artifact-upload step now emits a platform deprecation warning that should not become a future release blocker.
 11. Revisit a secondary-signal subgrid fallback only if an unsupported-browser report shows the cosmetic misalignment still matters in ordinary use. Priority reason: current evergreen browsers support subgrid and older browsers retain readable, functional cards, so a speculative shim ranks below the August cycle.
-12. Run physical interaction checks when targets are available: iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and Windows forced-colors. These remain accepted v5.167 release exceptions, not passes or current blockers. Priority reason: browser emulation covers the application contract but cannot characterize the native platform shell.
+12. Run physical interaction checks when targets are available: iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and Windows forced-colors. These remain accepted v5.168 release exceptions, not passes or current blockers. Priority reason: browser emulation covers the application contract but cannot characterize the native platform shell.
 13. Consider an on-page text-size control only if the v5.168 reader check shows that default sizing or browser-zoom discovery remains a real barrier. Tokenize the complete shell before building it so the control changes the whole reading experience rather than one section. Priority reason: the current release fixes the measured default-size problem, while a partial A/A+ control would add another setting without proving that readers need it.
 
 ---

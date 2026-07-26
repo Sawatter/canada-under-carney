@@ -1,6 +1,6 @@
 # Mobile Readability Release
 
-**Status:** Release candidate; local gates passed, publication pending<br>
+**Status:** Live<br>
 **Prepared:** 2026-07-26<br>
 **Comparison baseline:** live v5.167<br>
 **Frozen surfaces:** no grade, threshold, formula, weight, modifier, promise
@@ -119,8 +119,19 @@ Linux run as the authoritative closeout gate.
   passed.
 - The new mobile matrix passed at `320 x 568`, `375 x 812`, and `390 x 844`,
   including default-size navigation clearance and 200% text resize.
-- Replacement Pages and live-audit results remain pending. The failed initial
-  Pages run is not treated as deployment or approval.
+
+v5.168 is live through product commit `9061bb2` and Linux correction
+`5000b8f`. Replacement Pages run `30218716905` passed review-handoff, build,
+all 252 Ubuntu browser checks, and deployment. Live Dashboard Audit run
+`30218889844` passed `356/356` rendered-content and interaction checks.
+
+Direct production inspection confirmed v5.168 at `320 x 568`, `375 x 812`,
+`390 x 844`, and `1280 x 900`. The three mobile signals and boundary
+explanations use full-width rows without horizontal overflow. Mobile actions
+and explanatory copy render at 14 pixels, signal titles at 16 pixels, initially
+visible controls clear the fixed navigation, and all five bottom-navigation
+labels remain unclipped. At desktop width, the three signals remain aligned
+and the result-led briefing stays intact.
 
 ## Physical Device Boundary
 
