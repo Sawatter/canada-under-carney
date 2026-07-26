@@ -76,6 +76,12 @@ const viewports = [
   ["mobile", { width: 375, height: 812 }],
 ];
 
+const mobileFirstLookViewports = [
+  { width: 320, height: 568 },
+  { width: 375, height: 812 },
+  { width: 390, height: 844 },
+];
+
 const policyDetailSections = ["Briefing", "Evidence", "History", "Method"];
 
 test.beforeEach(async ({ page }) => {
@@ -421,7 +427,7 @@ async function readSignalAlignment(signalGrid) {
 
 function expectSignalAlignment(
   signalAlignment,
-  { alignResults = true, context = "secondary signals" } = {},
+  { alignResults = false, context = "secondary signals" } = {},
 ) {
   expect(signalAlignment).toHaveLength(3);
   const alignedKeys = {
@@ -449,7 +455,483 @@ function expectSignalAlignment(
   }
 }
 
+async function readMobileSignalStack(signalGrid) {
+  return signalGrid.evaluate((grid) => {
+    const gridBox = grid.getBoundingClientRect();
+    return [...grid.querySelectorAll(":scope > .first-look-signal")].map((card) => {
+      const cardBox = card.getBoundingClientRect();
+      const description = card.querySelector(
+        ".first-look-signal-description, header p",
+      );
+      const action = card.querySelector(
+        ".first-look-derivation-toggle, .first-look-signal-action",
+      );
+      const contentBoxes = [
+        card.querySelector("h4, .first-look-signal-title"),
+        description,
+        card.querySelector(
+          ".first-look-signal-result, .first-look-promise-result, .first-look-approval-result",
+        ),
+        action,
+      ].filter(Boolean).map((element) => element.getBoundingClientRect());
+      const actionBox = action.getBoundingClientRect();
+      return {
+        actionHeight: actionBox.height,
+        bottom: cardBox.bottom,
+        contentInside: contentBoxes.every((box) => (
+          box.top >= cardBox.top - 1
+          && box.bottom <= cardBox.bottom + 1
+          && box.left >= cardBox.left - 1
+          && box.right <= cardBox.right + 1
+        )),
+        descriptionWidth: description.getBoundingClientRect().width,
+        gridLeft: gridBox.left,
+        gridRight: gridBox.right,
+        gridWidth: gridBox.width,
+        label: card.getAttribute("aria-label")
+          || card.querySelector("h4, .first-look-signal-title")?.textContent?.trim(),
+        left: cardBox.left,
+        overflowX: card.scrollWidth - card.clientWidth,
+        overflowY: card.scrollHeight - card.clientHeight,
+        right: cardBox.right,
+        top: cardBox.top,
+        width: cardBox.width,
+      };
+    });
+  });
+}
+
+function expectMobileSignalStack(signalStack, context) {
+  expect(signalStack).toHaveLength(3);
+  for (const [index, measurement] of signalStack.entries()) {
+    expect(
+      Math.abs(measurement.left - measurement.gridLeft),
+      `${context}: ${measurement.label} must start at the signal-grid edge`,
+    ).toBeLessThanOrEqual(2);
+    expect(
+      Math.abs(measurement.right - measurement.gridRight),
+      `${context}: ${measurement.label} must finish at the signal-grid edge`,
+    ).toBeLessThanOrEqual(2);
+    expect(
+      measurement.width,
+      `${context}: ${measurement.label} must use the full signal-grid width`,
+    ).toBeGreaterThanOrEqual(measurement.gridWidth - 2);
+    expect(
+      measurement.descriptionWidth,
+      `${context}: ${measurement.label} explanation needs a readable line width`,
+    ).toBeGreaterThanOrEqual(measurement.width * 0.55);
+    expect(
+      measurement.contentInside,
+      `${context}: ${measurement.label} content must remain inside its card`,
+    ).toBe(true);
+    expect(
+      measurement.actionHeight,
+      `${context}: ${measurement.label} action must retain a 44px target`,
+    ).toBeGreaterThanOrEqual(44);
+    expect(
+      measurement.overflowX,
+      `${context}: ${measurement.label} must not clip horizontally`,
+    ).toBeLessThanOrEqual(1);
+    expect(
+      measurement.overflowY,
+      `${context}: ${measurement.label} must not clip vertically`,
+    ).toBeLessThanOrEqual(1);
+    if (index > 0) {
+      expect(
+        measurement.top,
+        `${context}: ${measurement.label} must stack below the preceding signal`,
+      ).toBeGreaterThanOrEqual(signalStack[index - 1].bottom - 1);
+    }
+  }
+}
+
+async function expectMobileBoundaryStack(boundary, context) {
+  const rows = await boundary.locator(".first-look-boundary-list").evaluate((list) => {
+    const listBox = list.getBoundingClientRect();
+    return [...list.querySelectorAll(":scope > div")].map((row) => {
+      const rowBox = row.getBoundingClientRect();
+      return {
+        bottom: rowBox.bottom,
+        label: row.querySelector("dt")?.textContent?.trim(),
+        left: rowBox.left,
+        listLeft: listBox.left,
+        listRight: listBox.right,
+        listWidth: listBox.width,
+        overflowX: row.scrollWidth - row.clientWidth,
+        overflowY: row.scrollHeight - row.clientHeight,
+        right: rowBox.right,
+        top: rowBox.top,
+        width: rowBox.width,
+      };
+    });
+  });
+  expect(rows).toHaveLength(3);
+  for (const [index, row] of rows.entries()) {
+    expect(
+      Math.abs(row.left - row.listLeft),
+      `${context}: ${row.label} boundary row must start at the list edge`,
+    ).toBeLessThanOrEqual(2);
+    expect(
+      Math.abs(row.right - row.listRight),
+      `${context}: ${row.label} boundary row must finish at the list edge`,
+    ).toBeLessThanOrEqual(2);
+    expect(
+      row.width,
+      `${context}: ${row.label} boundary row must use the full list width`,
+    ).toBeGreaterThanOrEqual(row.listWidth - 2);
+    expect(row.overflowX, `${context}: ${row.label} must not clip horizontally`)
+      .toBeLessThanOrEqual(1);
+    expect(row.overflowY, `${context}: ${row.label} must not clip vertically`)
+      .toBeLessThanOrEqual(1);
+    if (index > 0) {
+      expect(
+        row.top,
+        `${context}: ${row.label} must stack below the preceding boundary row`,
+      ).toBeGreaterThanOrEqual(rows[index - 1].bottom - 1);
+    }
+  }
+}
+
+async function expectTextFloor(region, selector, minimumPx, category) {
+  const measurements = await region.locator(selector).evaluateAll((nodes) => (
+    nodes.map((node) => {
+      const rect = node.getBoundingClientRect();
+      const style = getComputedStyle(node);
+      return {
+        fontSize: Number.parseFloat(style.fontSize),
+        label: (
+          node.getAttribute("aria-label")
+          || node.textContent
+          || node.className
+        ).trim().replace(/\s+/g, " ").slice(0, 90),
+        visible: (
+          rect.width > 0
+          && rect.height > 0
+          && style.display !== "none"
+          && style.visibility !== "hidden"
+        ),
+      };
+    }).filter((measurement) => measurement.visible)
+  ));
+  expect(
+    measurements.length,
+    `${category}: expected at least one visible first-look text sample`,
+  ).toBeGreaterThan(0);
+  for (const measurement of measurements) {
+    expect(
+      measurement.fontSize,
+      `${category}: "${measurement.label}" is ${measurement.fontSize}px; expected at least ${minimumPx}px`,
+    ).toBeGreaterThanOrEqual(minimumPx);
+  }
+}
+
+async function expectMobileFirstLookTypography(region, context) {
+  await expectTextFloor(
+    region,
+    [
+      ".first-look-eyebrow",
+      ".first-look-block-heading",
+      ".first-look-block-meta",
+      ".first-look-primary-score",
+      ".first-look-signal-group > h3",
+    ].join(", "),
+    12,
+    `${context} metadata and eyebrow`,
+  );
+  await expectTextFloor(
+    region,
+    [
+      ".first-look-primary-description",
+      ".first-look-overall-verdict",
+      ".first-look-update-summary",
+      ".first-look-update-list",
+      ".first-look-next-update",
+      ".first-look-primary-check p",
+      ".first-look-inline-link",
+      ".first-look-boundary-list dt",
+      ".first-look-boundary-list dd",
+      ".first-look-action",
+      ".first-look-derivation-toggle",
+      ".first-look-signal-description",
+      ".first-look-signal-score",
+      ".first-look-signal-action",
+      ".first-look-promise-result > span:last-child",
+    ].join(", "),
+    14,
+    `${context} explanations and actions`,
+  );
+  await expectTextFloor(
+    region,
+    ".first-look-signal-title, .first-look-signal h4",
+    16,
+    `${context} signal titles`,
+  );
+}
+
+async function expectMobileFirstLookControlsReachable(page, region, context) {
+  const controls = region.locator("a[href], button:not([disabled])");
+  const controlCount = await controls.count();
+  expect(
+    controlCount,
+    `${context}: expected interactive controls in the first-look briefing`,
+  ).toBeGreaterThan(0);
+
+  for (let index = 0; index < controlCount; index += 1) {
+    const control = controls.nth(index);
+    const label = await control.evaluate((node) => (
+      node.getAttribute("aria-label")
+      || node.textContent
+      || `${node.tagName.toLowerCase()} ${node.getAttribute("href") || ""}`
+    ).trim().replace(/\s+/g, " ").slice(0, 100));
+    await control.evaluate((node) => {
+      node.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+    });
+    await expect.poll(
+      async () => control.evaluate((node) => {
+        const rect = node.getBoundingClientRect();
+        const bottomNav = document.querySelector(".app-bottom-nav");
+        const navRect = bottomNav?.getBoundingClientRect();
+        const centerX = rect.left + (rect.width / 2);
+        const centerY = rect.top + (rect.height / 2);
+        const hit = document.elementFromPoint(centerX, centerY);
+        let ancestor = node.parentElement;
+        let insideClippingAncestors = true;
+        while (ancestor && ancestor !== document.body) {
+          const style = getComputedStyle(ancestor);
+          const clipsX = /(auto|clip|hidden|scroll)/.test(style.overflowX);
+          const clipsY = /(auto|clip|hidden|scroll)/.test(style.overflowY);
+          if (clipsX || clipsY) {
+            const ancestorRect = ancestor.getBoundingClientRect();
+            if (
+              (clipsX && (rect.left < ancestorRect.left - 1 || rect.right > ancestorRect.right + 1))
+              || (clipsY && (rect.top < ancestorRect.top - 1 || rect.bottom > ancestorRect.bottom + 1))
+            ) {
+              insideClippingAncestors = false;
+              break;
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
+        return {
+          aboveFixedNav: Boolean(navRect)
+            && rect.top >= -1
+            && rect.bottom <= navRect.top - 1,
+          contentFits: (
+            node.scrollWidth <= node.clientWidth + 1
+            && node.scrollHeight <= node.clientHeight + 1
+          ),
+          hitTarget: node === hit || node.contains(hit),
+          insideClippingAncestors,
+          insideViewportWidth: rect.left >= -1 && rect.right <= window.innerWidth + 1,
+          noHorizontalScroll: window.scrollX === 0,
+        };
+      }),
+      {
+        message: `${context}: "${label}" must scroll fully above the fixed navigation without clipping`,
+      },
+    ).toEqual({
+      aboveFixedNav: true,
+      contentFits: true,
+      hitTarget: true,
+      insideClippingAncestors: true,
+      insideViewportWidth: true,
+      noHorizontalScroll: true,
+    });
+    await expect(control, `${context}: "${label}" must remain enabled`).toBeEnabled();
+    await control.click({ trial: true });
+  }
+}
+
+async function expectFirstLookControlsReflowAtTextResize(page, region, context) {
+  const controls = region.locator("a[href], button:not([disabled])");
+  const controlCount = await controls.count();
+  expect(
+    controlCount,
+    `${context}: expected interactive controls in the resized first-look briefing`,
+  ).toBeGreaterThan(0);
+
+  for (let index = 0; index < controlCount; index += 1) {
+    const control = controls.nth(index);
+    const label = await control.evaluate((node) => (
+      node.getAttribute("aria-label")
+      || node.textContent
+      || `${node.tagName.toLowerCase()} ${node.getAttribute("href") || ""}`
+    ).trim().replace(/\s+/g, " ").slice(0, 100));
+
+    await control.evaluate((node) => {
+      node.scrollIntoView({ behavior: "auto", block: "start", inline: "nearest" });
+    });
+    await expect.poll(
+      async () => control.evaluate((node) => {
+        const rect = node.getBoundingClientRect();
+        return rect.top >= -1 && rect.top < window.innerHeight;
+      }),
+      { message: `${context}: "${label}" top edge must remain reachable` },
+    ).toBe(true);
+
+    await control.evaluate((node) => {
+      node.scrollIntoView({ behavior: "auto", block: "end", inline: "nearest" });
+      const bottomNav = document.querySelector(".app-bottom-nav");
+      if (bottomNav) {
+        window.scrollBy({
+          behavior: "auto",
+          left: 0,
+          top: bottomNav.getBoundingClientRect().height + 8,
+        });
+      }
+    });
+    await expect.poll(
+      async () => control.evaluate((node) => {
+        const rect = node.getBoundingClientRect();
+        const bottomNav = document.querySelector(".app-bottom-nav");
+        const navRect = bottomNav?.getBoundingClientRect();
+        const visibleTop = Math.max(rect.top, 0);
+        const visibleBottom = Math.min(rect.bottom, navRect?.top ?? window.innerHeight);
+        const hitX = rect.left + (rect.width / 2);
+        const hitY = visibleTop + ((visibleBottom - visibleTop) / 2);
+        const hit = visibleBottom > visibleTop
+          ? document.elementFromPoint(hitX, hitY)
+          : null;
+        let ancestor = node.parentElement;
+        let insideClippingAncestors = true;
+        while (ancestor && ancestor !== document.body) {
+          const style = getComputedStyle(ancestor);
+          const clipsX = /(auto|clip|hidden|scroll)/.test(style.overflowX);
+          if (clipsX) {
+            const ancestorRect = ancestor.getBoundingClientRect();
+            if (rect.left < ancestorRect.left - 1 || rect.right > ancestorRect.right + 1) {
+              insideClippingAncestors = false;
+              break;
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
+        return {
+          bottomEdgeAboveNav: Boolean(navRect) && rect.bottom <= navRect.top - 1,
+          contentFitsControl: (
+            node.scrollWidth <= node.clientWidth + 1
+            && node.scrollHeight <= node.clientHeight + 1
+          ),
+          hasOperableVisibleArea: visibleBottom > visibleTop
+            && (node === hit || node.contains(hit)),
+          insideClippingAncestors,
+          insideViewportWidth: rect.left >= -1 && rect.right <= window.innerWidth + 1,
+          noHorizontalScroll: window.scrollX === 0,
+        };
+      }),
+      {
+        message: `${context}: "${label}" must reflow without clipped content or fixed-nav obstruction`,
+      },
+    ).toEqual({
+      bottomEdgeAboveNav: true,
+      contentFitsControl: true,
+      hasOperableVisibleArea: true,
+      insideClippingAncestors: true,
+      insideViewportWidth: true,
+      noHorizontalScroll: true,
+    });
+    await expect(control, `${context}: "${label}" must remain enabled`).toBeEnabled();
+    await control.click({ trial: true });
+  }
+}
+
+async function expectShellReflowAtTextResize(page, context) {
+  await page.locator(".app-bottom-nav").evaluate(async (node) => {
+    const finiteAnimations = node.getAnimations({ subtree: true }).filter((animation) => {
+      const endTime = animation.effect?.getComputedTiming().endTime;
+      return typeof endTime === "number" && Number.isFinite(endTime);
+    });
+    await Promise.all(finiteAnimations.map((animation) => (
+      animation.finished.catch(() => undefined)
+    )));
+  });
+
+  const measurements = await page.locator(".app-shell").evaluate((shell) => {
+    const header = shell.querySelector(".dashboard-header");
+    const bottomNav = document.querySelector(".app-bottom-nav");
+    const themeToggle = header.querySelector(".theme-toggle");
+    const headerItems = [
+      themeToggle,
+      header.querySelector(".dashboard-title"),
+      header.querySelector(".header-clarifier"),
+      header.querySelector(".header-subtitle"),
+    ].filter(Boolean);
+    const navButtons = [...bottomNav.querySelectorAll("button")];
+    const navLabels = [...bottomNav.querySelectorAll(".app-bottom-nav-label")];
+    const shellBox = shell.getBoundingClientRect();
+    const headerBox = header.getBoundingClientRect();
+    const navBox = bottomNav.getBoundingClientRect();
+    const inside = (child, parent) => (
+      child.top >= parent.top - 1
+      && child.bottom <= parent.bottom + 1
+      && child.left >= parent.left - 1
+      && child.right <= parent.right + 1
+    );
+
+    return {
+      bottomNavAnchored: (
+        Math.abs(navBox.left) <= 1
+        && Math.abs(navBox.right - window.innerWidth) <= 1
+        && navBox.top >= 0
+        && Math.abs(navBox.bottom - window.innerHeight) <= 1
+      ),
+      documentFitsWidth:
+        document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+      headerContentFits: headerItems.every((item) => (
+        inside(item.getBoundingClientRect(), headerBox)
+        && getComputedStyle(item).visibility !== "hidden"
+      )),
+      headerFitsWidth: (
+        inside(headerBox, shellBox)
+      ),
+      navButtonsFit: navButtons.every((button) => {
+        const box = button.getBoundingClientRect();
+        return (
+          inside(box, navBox)
+          && box.width >= 44
+          && box.height >= 44
+          && button.scrollWidth <= button.clientWidth + 1
+          && button.scrollHeight <= button.clientHeight + 1
+        );
+      }),
+      navLabelsFit: navLabels.every((label) => (
+        label.scrollWidth <= label.clientWidth + 1
+        && label.scrollHeight <= label.clientHeight + 1
+      )),
+      shellFitsWidth: (
+        shellBox.left >= -1
+        && shellBox.right <= window.innerWidth + 1
+        && shell.scrollWidth <= shell.clientWidth + 1
+      ),
+      themeTargetFits: (() => {
+        const box = themeToggle.getBoundingClientRect();
+        return box.width >= 44 && box.height >= 44 && inside(box, headerBox);
+      })(),
+    };
+  });
+
+  expect(measurements, `${context}: surrounding shell must remain usable`).toEqual({
+    bottomNavAnchored: true,
+    documentFitsWidth: true,
+    headerContentFits: true,
+    headerFitsWidth: true,
+    navButtonsFit: true,
+    navLabelsFit: true,
+    shellFitsWidth: true,
+    themeTargetFits: true,
+  });
+}
+
 async function expectInitialFirstLookLayout(page, region, viewport) {
+  await region.evaluate(async (node) => {
+    const finiteAnimations = node.getAnimations({ subtree: true }).filter((animation) => {
+      const endTime = animation.effect?.getComputedTiming().endTime;
+      return typeof endTime === "number" && Number.isFinite(endTime);
+    });
+    await Promise.all(finiteAnimations.map((animation) => (
+      animation.finished.catch(() => undefined)
+    )));
+  });
   const fit = await region.evaluate((node, expectedViewport) => {
     const selectors = [
       ".first-look-primary-wrap",
@@ -488,21 +970,12 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
 
   if (viewport.width > 767) return;
 
-  await page.evaluate(() => window.scrollTo(0, 0));
-  await expect.poll(async () => page.evaluate(() => window.scrollY))
+  await expect.poll(async () => page.evaluate(() => {
+    window.history.scrollRestoration = "manual";
+    window.scrollTo({ top: 0, behavior: "auto" });
+    return window.scrollY;
+  }))
     .toBeLessThanOrEqual(4);
-
-  const actionFit = await region.evaluate((node) => {
-    const actions = node.querySelector(".first-look-actions");
-    const bottomNav = document.querySelector(".app-bottom-nav");
-    if (!actions || !bottomNav) return null;
-    return {
-      actionsBottom: actions.getBoundingClientRect().bottom,
-      bottomNavTop: bottomNav.getBoundingClientRect().top,
-    };
-  });
-  expect(actionFit).not.toBeNull();
-  expect(actionFit.actionsBottom).toBeLessThanOrEqual(actionFit.bottomNavTop - 8);
 
   const obscuredInitialControls = await region.evaluate((node) => {
     const bottomNav = document.querySelector(".app-bottom-nav");
@@ -530,7 +1003,6 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
       })
       .filter((control) => (
         control.visible
-        && control.top < navRect.top
         && control.bottom > navRect.top
         && control.top < navRect.bottom
         && control.right > navRect.left
@@ -541,6 +1013,16 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
   expect(
     obscuredInitialControls,
     "initially visible first-look controls must stay above the fixed bottom navigation",
+  ).toEqual([]);
+
+  const clippedBottomNavLabels = await page.locator(".app-bottom-nav-label")
+    .evaluateAll((labels) => labels.filter((label) => (
+      label.scrollWidth > label.clientWidth + 1
+      || label.scrollHeight > label.clientHeight + 1
+    )).map((label) => label.textContent?.trim()));
+  expect(
+    clippedBottomNavLabels,
+    `${viewport.width}px bottom-navigation labels must not clip`,
   ).toEqual([]);
 }
 
@@ -630,13 +1112,26 @@ async function expectFirstLookBriefing(page, viewport) {
   );
   await expect(page.locator("#score-derivation-household")).toHaveCount(0);
 
-  const signalAlignment = await readSignalAlignment(
-    signalGroup.locator(".first-look-signal-grid"),
-  );
-  expectSignalAlignment(signalAlignment, {
-    alignResults: viewport.width <= 640,
-    context: `${viewport.width}px first-look check`,
-  });
+  if (viewport.width <= 640) {
+    expectMobileSignalStack(
+      await readMobileSignalStack(signalGroup.locator(".first-look-signal-grid")),
+      `${viewport.width}px first-look check`,
+    );
+    await expectMobileBoundaryStack(
+      boundary,
+      `${viewport.width}px first-look check`,
+    );
+    await expectMobileFirstLookTypography(
+      region,
+      `${viewport.width}px first-look check`,
+    );
+  } else {
+    expectSignalAlignment(await readSignalAlignment(
+      signalGroup.locator(".first-look-signal-grid"),
+    ), {
+      context: `${viewport.width}px first-look check`,
+    });
+  }
   await expect(signalGroup.getByText(
     "The same 11 policies, with four pocketbook files double-weighted.",
     { exact: true },
@@ -665,6 +1160,14 @@ async function expectFirstLookBriefing(page, viewport) {
   await approvalButton.click();
   await expect(approvalButton).toHaveAttribute("aria-expanded", "false");
   await expect(page.locator("#approval-signal-detail")).toHaveCount(0);
+
+  if (viewport.width <= 640) {
+    await expectMobileFirstLookControlsReachable(
+      page,
+      region,
+      `${viewport.width}px first-look check`,
+    );
+  }
 
   return { methodRoute, policyRoute, region };
 }
@@ -908,23 +1411,117 @@ test.describe("responsive benchmark controls", () => {
     });
   }
 
-  test("secondary signal rows stay aligned across phone widths", async ({ page }) => {
+  test("secondary signals stack on phones and stay aligned at the desktop boundary", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
-    const widths = [320, 360, 375, 390, 420, 421, 430, 440, 640, 641];
-    await page.setViewportSize({ width: widths[0], height: 812 });
-    await page.goto(routePath({ hash: "#view-scorecard" }));
-    await page.evaluate(async () => {
-      await document.fonts.ready;
+    await page.addInitScript(() => {
+      window.history.scrollRestoration = "manual";
     });
-
-    const signalGrid = firstLookRegion(page).locator(".first-look-signal-grid");
-    await expect(signalGrid).toBeVisible();
-    for (const width of widths) {
-      await page.setViewportSize({ width, height: 812 });
-      expectSignalAlignment(await readSignalAlignment(signalGrid), {
-        alignResults: width <= 640,
-        context: `${width}px width matrix`,
+    const cases = [
+      ...mobileFirstLookViewports,
+      { width: 640, height: 812 },
+      { width: 641, height: 812 },
+      { width: 1280, height: 900 },
+    ];
+    for (const viewport of cases) {
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+      await page.evaluate(async () => {
+        window.scrollTo({ top: 0, behavior: "auto" });
+        await document.fonts.ready;
       });
+
+      const region = firstLookRegion(page);
+      const signalGrid = region.locator(".first-look-signal-grid");
+      const boundary = region.locator(".first-look-boundary");
+      await expect(signalGrid).toBeVisible();
+      const context = `${viewport.width}px width matrix`;
+      if (mobileFirstLookViewports.some(({ width }) => width === viewport.width)) {
+        await expectInitialFirstLookLayout(page, region, viewport);
+      }
+      if (viewport.width <= 640) {
+        expectMobileSignalStack(
+          await readMobileSignalStack(signalGrid),
+          context,
+        );
+        await expectMobileBoundaryStack(boundary, context);
+        await expectMobileFirstLookTypography(region, context);
+        await expectMobileFirstLookControlsReachable(page, region, context);
+      } else {
+        expectSignalAlignment(await readSignalAlignment(signalGrid), { context });
+      }
+      await expectNoOverflow(page);
+    }
+
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("first-look reflows without clipped controls at 200% root text size", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+
+    for (const viewport of mobileFirstLookViewports) {
+      await page.setViewportSize(viewport);
+      await page.goto(routePath({ hash: "#view-scorecard" }));
+      await page.evaluate(async () => {
+        document.documentElement.style.fontSize = "";
+        window.scrollTo(0, 0);
+        await document.fonts.ready;
+      });
+
+      const region = firstLookRegion(page);
+      const signalGrid = region.locator(".first-look-signal-grid");
+      const baseline = await region.evaluate((node) => ({
+        height: node.getBoundingClientRect().height,
+        rootFontSize: Number.parseFloat(getComputedStyle(document.documentElement).fontSize),
+        signalTitleFontSize: Number.parseFloat(
+          getComputedStyle(node.querySelector(".first-look-signal-title")).fontSize,
+        ),
+      }));
+      await page.evaluate(() => {
+        document.documentElement.style.fontSize = "200%";
+        window.scrollTo(0, 0);
+      });
+
+      await expect.poll(async () => region.evaluate(() => (
+        Number.parseFloat(getComputedStyle(document.documentElement).fontSize)
+      ))).toBeGreaterThanOrEqual(baseline.rootFontSize * 1.95);
+      const resizedMeasurements = await region.evaluate((node) => ({
+        height: node.getBoundingClientRect().height,
+        rootFontSize: Number.parseFloat(getComputedStyle(document.documentElement).fontSize),
+        signalTitleFontSize: Number.parseFloat(
+          getComputedStyle(node.querySelector(".first-look-signal-title")).fontSize,
+        ),
+      }));
+      expect(
+        resizedMeasurements.rootFontSize,
+        `${viewport.width}px at 200%: root text size must double`,
+      ).toBeGreaterThanOrEqual(baseline.rootFontSize * 1.95);
+      expect(
+        resizedMeasurements.signalTitleFontSize,
+        `${viewport.width}px at 200%: rem-based signal titles must follow the root size`,
+      ).toBeGreaterThanOrEqual(baseline.signalTitleFontSize * 1.95);
+      expect(
+        resizedMeasurements.height,
+        `${viewport.width}px at 200%: first-look content must reflow instead of staying fixed`,
+      ).toBeGreaterThan(baseline.height);
+
+      await expectInitialFirstLookLayout(page, region, viewport);
+      await expectShellReflowAtTextResize(
+        page,
+        `${viewport.width}px at 200%`,
+      );
+      expectMobileSignalStack(
+        await readMobileSignalStack(signalGrid),
+        `${viewport.width}px at 200%`,
+      );
+      await expectMobileBoundaryStack(
+        region.locator(".first-look-boundary"),
+        `${viewport.width}px at 200%`,
+      );
+      await expectFirstLookControlsReflowAtTextResize(
+        page,
+        region,
+        `${viewport.width}px at 200%`,
+      );
       await expectNoOverflow(page);
     }
 

@@ -4,12 +4,27 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-07-25
+**Last updated:** 2026-07-26
 
 ---
 
 ## Current State
 
+- v5.168 is a mobile-readability candidate responding to a reader who found
+  the default phone text small even though browser zoom worked. Production
+  inspection at `375 x 812` found 45 of 50 visible direct-text elements in the
+  first-look area at 12 pixels or smaller, including 10 at 9 pixels. The
+  candidate replaces the fixed 9-11 pixel mobile overrides with rem-based
+  practical floors, turns the grade boundary and three secondary signals into
+  full-width rows, and tests normal-scroll reachability at `320 x 568`,
+  `375 x 812`, and `390 x 844` plus 200% text resize. Data, 69 app-shell,
+  lint, review-handoff, build, bundle-budget, and 252 browser checks pass.
+  Specification review passed. Standards review returned `REVISE`, its three
+  findings were corrected, and the second pass approved. Claude's read-only
+  bridge review and focused post-fix review both approved. Publication is
+  pending. No score, grade, trigger, or scoring rule changes. The candidate
+  record is
+  [Mobile-Readability-Release-2026-07-26.md](Mobile-Readability-Release-2026-07-26.md).
 - v5.167 is live through product commits `60e8824` and `408e387`, with
   audit-gate correction `16bfa07`. It puts each policy's authored next
   checkpoint beside its verdict, keeps the dated trigger ledger in Evidence
@@ -291,9 +306,10 @@
 
 ## Next
 
-These are on deck after the v5.167 quick-read release and the existing scope split.
+These are on deck after the v5.168 readability candidate and the existing
+scope split.
 
-1. **Run the first-time-reader check on the v5.167 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Record first action, false clicks, signal-role confusion, and freshness confusion. The July 25 screenshot-only proxies answered all seven questions but exposed unequal signal click targets, missing release-date context, and a mobile navigation overlap; v5.167 corrects those defects. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout and routes, but only readers can show whether the new hierarchy is understood quickly.
+1. **Run the first-time-reader check on the v5.168 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Include older readers in the mobile group and record first action, false clicks, signal-role confusion, freshness confusion, default-size comfort, and whether browser zoom is easy to discover. The July 25 screenshot-only proxies answered all seven questions but exposed unequal signal click targets, missing release-date context, and a mobile navigation overlap; v5.167 corrected those defects, while v5.168 addresses the later default-size report. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout, routes, and resize behavior, but only readers can show whether the new hierarchy and default size work in ordinary use.
 
 2. **Observe the four-view policy workspace through the August cycle.** Run the 30-second human-reader test across Housing, Defence & Trade, Promise Delivery, Flagship Delivery, and an ordinary graded dimension. The July 25 browser and AI pass found that Briefing repeated the complete trigger ledger from Evidence and hid the authored next checkpoint after opening a policy; v5.167 corrects that boundary and moves Flagship Delivery's current record into Evidence. Check whether readers now answer grade, reason, latest change, and next checkpoint quickly while still finding the complete policy record. Priority reason: the structural defect is corrected, but reader behavior must show that the split improves comprehension.
 
@@ -324,6 +340,7 @@ These are valid, but not active now.
 10. Refresh the workflow action that still targets deprecated Node.js 20 before GitHub removes forced Node.js 24 compatibility. Priority reason: the v5.164 audit passed, but its artifact-upload step now emits a platform deprecation warning that should not become a future release blocker.
 11. Revisit a secondary-signal subgrid fallback only if an unsupported-browser report shows the cosmetic misalignment still matters in ordinary use. Priority reason: current evergreen browsers support subgrid and older browsers retain readable, functional cards, so a speculative shim ranks below the August cycle.
 12. Run physical interaction checks when targets are available: iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and Windows forced-colors. These remain accepted v5.167 release exceptions, not passes or current blockers. Priority reason: browser emulation covers the application contract but cannot characterize the native platform shell.
+13. Consider an on-page text-size control only if the v5.168 reader check shows that default sizing or browser-zoom discovery remains a real barrier. Tokenize the complete shell before building it so the control changes the whole reading experience rather than one section. Priority reason: the current release fixes the measured default-size problem, while a partial A/A+ control would add another setting without proving that readers need it.
 
 ---
 

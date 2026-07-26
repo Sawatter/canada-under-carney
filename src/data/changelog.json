@@ -1,5 +1,22 @@
 [
   {
+    "date": "2026-07-26",
+    "version": "5.168",
+    "summary": "Made the first-look briefing easier to read on phones with practical type floors and full-width rows for grade boundaries and secondary signals. No scores or scoring rules changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Phone text uses practical reading sizes",
+        "body": "First-look explanations and actions now use practical mobile type floors, while dates and short metadata remain compact. The result and key numbers remain visually distinct."
+      },
+      {
+        "type": "fix",
+        "headline": "Dense three-column sections become full-width rows",
+        "body": "The grade-boundary explanation and the Household Impact, Promise Delivery, and Approval signals now use full-width rows on phones instead of narrow three-column cards. Their controls remain reachable by normal scrolling above the fixed navigation."
+      }
+    ]
+  },
+  {
     "date": "2026-07-25",
     "version": "5.167",
     "summary": "Put each policy's next checkpoint beside its verdict and fixed first-look and policy-workspace interaction gaps. No scores or scoring rules changed.",

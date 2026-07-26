@@ -1,7 +1,7 @@
 [
   {
-    "date": "2026-07-25",
-    "version": "5.167",
+    "date": "2026-07-26",
+    "version": "5.168",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
@@ -9,12 +9,17 @@
       "featuredItems": [
         {
           "type": "product",
-          "headline": "Policy briefings show what happens next",
-          "body": "Each Briefing now pairs the verdict and latest review with the authored next checkpoint. The dated trigger list remains in Evidence instead of being repeated in both views.",
+          "headline": "Phone text uses practical reading sizes",
+          "body": "First-look explanations and actions now use practical mobile type floors, while dates and short metadata remain compact. The result and key numbers remain visually distinct.",
           "itemIndex": 0
         }
       ]
     }
+  },
+  {
+    "date": "2026-07-25",
+    "version": "5.167",
+    "items": []
   },
   {
     "date": "2026-07-24",

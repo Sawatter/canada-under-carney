@@ -66,9 +66,19 @@ it. Lint and build do not count as UI verification.
 - Desktop `1280 x 900`: confirm the Full Policy Audit result is visually
   dominant and the Household, Promise Delivery, and Approval signals remain
   visible in the first viewport with their different roles stated.
-- Mobile `375 x 812`: confirm the result, reason, release state, watch, scoring
-  boundary, and both inspect routes finish above the fixed bottom navigation
-  without horizontal overflow.
+- Mobile `320 x 568`, `375 x 812`, and `390 x 844`: confirm the result remains
+  visually dominant, explanations and actions keep a readable hierarchy, and
+  the grade-boundary rows and secondary-signal cards use the available width.
+  The full briefing and both inspect routes do not need to finish in the
+  initial viewport.
+- Mobile scroll and navigation: confirm the full briefing and both inspect
+  routes are reachable with normal vertical scrolling. Each control must be
+  able to sit fully above the fixed bottom navigation, with no obstruction or
+  horizontal overflow at the three mobile widths.
+- Text resize `200%`: confirm the first-look briefing and shell reflow without
+  two-dimensional scrolling, clipped or overlapping text, obstructed controls,
+  or lost content and functionality. Confirm the inspect routes remain
+  reachable with normal vertical scrolling.
 - Route checks: activate the policy-file route from Scorecard and from another
   top-level view. It must focus the policy heading without adding a history
   entry. Confirm the scoring-method and release-detail routes reach their

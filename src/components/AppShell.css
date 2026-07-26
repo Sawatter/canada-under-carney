@@ -1284,6 +1284,10 @@
 
 @media (max-width: 640px) {
   .app-shell {
+    --first-look-mobile-meta-size: 0.75rem;
+    --first-look-mobile-copy-size: 0.875rem;
+    --first-look-mobile-title-size: 1rem;
+    --first-look-mobile-metric-size: 1.75rem;
     padding: 12px 12px calc(92px + env(safe-area-inset-bottom, 0px)) !important;
   }
 
@@ -1304,14 +1308,14 @@
   .app-shell .header-clarifier {
     max-width: 300px !important;
     margin-bottom: 7px !important;
-    font-size: 12px !important;
-    line-height: 1.35 !important;
+    font-size: var(--first-look-mobile-copy-size) !important;
+    line-height: 1.4 !important;
   }
 
   .app-shell .header-subtitle {
     gap: 4px 6px !important;
-    font-size: 11px !important;
-    line-height: 1.25;
+    font-size: var(--first-look-mobile-meta-size) !important;
+    line-height: 1.35;
   }
 
   .app-shell .header-subtitle > span:nth-child(2) {
@@ -1320,7 +1324,7 @@
   }
 
   .app-shell .header-subtitle > span:nth-child(2) > span {
-    font-size: 10px !important;
+    font-size: var(--first-look-mobile-meta-size) !important;
   }
 
   .app-shell .dashboard-header::before {
@@ -1339,15 +1343,16 @@
 
   .app-shell .first-look-primary-wrap {
     grid-template-areas:
-      "heading heading heading heading result result"
-      "verdict verdict verdict verdict verdict verdict"
-      "updates updates updates updates updates updates"
-      "boundary boundary boundary boundary boundary boundary"
-      "actions actions actions actions math math"
-      "detail detail detail detail detail detail";
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 5px 12px;
-    padding: 9px;
+      "heading result"
+      "verdict verdict"
+      "updates updates"
+      "boundary boundary"
+      "actions actions"
+      "math math"
+      "detail detail";
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 14px;
     border-radius: 17px;
   }
 
@@ -1356,55 +1361,57 @@
   }
 
   .app-shell .first-look-primary-header {
-    align-self: center;
+    align-self: start;
   }
 
   .app-shell .first-look-eyebrow {
     margin-bottom: 3px;
-    font-size: 10px;
+    font-size: var(--first-look-mobile-meta-size);
   }
 
   .app-shell .first-look-primary-header h2 {
-    font-size: 21px;
+    font-size: 1.5rem;
   }
 
   .app-shell .first-look-primary-description {
-    margin-top: 3px;
-    font-size: 11px;
+    margin-top: 5px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.4;
   }
 
   .app-shell .first-look-primary-result {
-    gap: 7px;
+    gap: 10px;
+    align-self: start;
     justify-self: end;
   }
 
   .app-shell .first-look-primary-result .grade-chip {
-    font-size: 25px !important;
-    padding: 6px 10px !important;
+    font-size: 2rem !important;
+    padding: 7px 12px !important;
   }
 
   .app-shell .first-look-primary-score {
-    font-size: 12px;
+    font-size: var(--first-look-mobile-title-size);
   }
 
   .app-shell .first-look-overall-verdict {
-    font-size: 14px;
-    line-height: 1.35;
+    font-size: var(--first-look-mobile-title-size);
+    line-height: 1.45;
   }
 
   .app-shell .first-look-primary-context {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 7px;
+    gap: 10px;
   }
 
   .app-shell .first-look-update,
   .app-shell .first-look-watch {
-    padding: 8px 9px;
-    border-radius: 11px;
+    padding: 12px;
+    border-radius: 12px;
   }
 
   .app-shell .first-look-block-heading {
-    font-size: 10px;
+    font-size: var(--first-look-mobile-meta-size);
   }
 
   .app-shell .first-look-update .first-look-block-heading {
@@ -1418,24 +1425,26 @@
   }
 
   .app-shell .first-look-block-meta {
-    font-size: 9px;
+    font-size: var(--first-look-mobile-meta-size);
   }
 
   .app-shell .first-look-update-summary,
   .app-shell .first-look-next-update {
-    margin-top: 5px;
-    font-size: 11px;
+    margin-top: 7px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.4;
   }
 
   .app-shell .first-look-update-list {
-    margin-top: 4px;
-    padding-left: 14px;
-    font-size: 10px;
+    margin-top: 6px;
+    padding-left: 18px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.4;
   }
 
   .app-shell .first-look-primary-check {
-    margin-top: 6px;
-    padding-top: 6px;
+    margin-top: 8px;
+    padding-top: 8px;
   }
 
   .app-shell .first-look-check-heading {
@@ -1446,7 +1455,15 @@
   .app-shell .first-look-check-heading span:first-child,
   .app-shell .first-look-primary-check p,
   .app-shell .first-look-inline-link {
-    font-size: 10px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.4;
+  }
+
+  .app-shell .first-look-check-heading a,
+  .app-shell .first-look-inline-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
 
   .app-shell .first-look-check-heading .first-look-block-meta {
@@ -1456,26 +1473,42 @@
   }
 
   .app-shell .first-look-boundary {
-    padding: 6px 9px;
-    border-radius: 11px;
+    padding: 12px;
+    border-radius: 12px;
   }
 
   .app-shell .first-look-boundary h3 {
-    margin-bottom: 5px;
-    font-size: 10px;
+    margin-bottom: 2px;
+    font-size: var(--first-look-mobile-meta-size);
   }
 
   .app-shell .first-look-boundary-list {
-    gap: 6px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+
+  .app-shell .first-look-boundary-list div {
+    padding: 10px 0;
+    border-top: 1px solid rgba(159, 45, 45, 0.14);
+  }
+
+  .app-shell .first-look-boundary-list div:first-child {
+    border-top: 0;
+  }
+
+  [data-theme="dark"] .app-shell .first-look-boundary-list div {
+    border-top-color: rgba(202, 112, 101, 0.3);
   }
 
   .app-shell .first-look-boundary-list dt {
-    font-size: 10px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.35;
   }
 
   .app-shell .first-look-boundary-list dd {
-    font-size: 9px;
-    line-height: 1.24;
+    margin-top: 3px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.4;
   }
 
   .app-shell .first-look-actions {
@@ -1486,8 +1519,9 @@
   .app-shell .first-look-action,
   .app-shell .first-look-derivation-toggle {
     min-height: 44px;
-    padding: 7px 8px;
-    font-size: 11px;
+    padding: 9px 11px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.3;
   }
 
   .app-shell .first-look-derivation-toggle {
@@ -1496,60 +1530,47 @@
   }
 
   .app-shell .first-look-signal-group {
-    margin-top: 12px;
+    margin-top: 14px;
   }
 
   .app-shell .first-look-signal-group > h3 {
-    margin-bottom: 6px;
-    font-size: 10px;
+    margin-bottom: 8px;
+    font-size: var(--first-look-mobile-meta-size);
   }
 
   .app-shell .first-look-signal-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    column-gap: 6px;
-    row-gap: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
   }
 
   .app-shell .first-look-signal {
-    display: grid;
-    grid-row: 1 / span 6;
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: subgrid;
-    min-height: 126px;
-    padding: 9px 8px;
-    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 14px;
+    border-radius: 14px;
   }
 
   .app-shell button.first-look-signal {
-    display: grid;
+    display: flex;
   }
 
   .app-shell .first-look-signal-household {
-    grid-template-rows: subgrid;
-  }
-
-  .app-shell .first-look-signal-household header {
-    display: contents;
+    display: flex;
+    flex-direction: column;
   }
 
   .app-shell .first-look-signal-title,
   .app-shell .first-look-signal h4 {
-    grid-row: 1;
-    font-size: 11px;
+    font-size: var(--first-look-mobile-title-size);
+    line-height: 1.3;
   }
 
   .app-shell .first-look-signal-description,
   .app-shell .first-look-signal header p {
-    grid-row: 2;
-    margin: 2px 0 6px;
-    font-size: 9px;
-    line-height: 1.22;
-  }
-
-  .app-shell .first-look-signal-result,
-  .app-shell .first-look-promise-result,
-  .app-shell .first-look-approval-result {
-    grid-row: 3;
+    margin: 4px 0 8px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.4;
   }
 
   .app-shell .first-look-promise-result {
@@ -1557,52 +1578,49 @@
   }
 
   .app-shell .first-look-signal-result {
-    display: grid;
-    gap: 3px;
-    align-content: start;
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    flex-wrap: wrap;
   }
 
   .app-shell .first-look-signal-result .grade-chip {
     width: fit-content;
-    font-size: 12px !important;
-    padding: 3px 7px !important;
+    font-size: 1.5rem !important;
+    padding: 5px 9px !important;
   }
 
   .app-shell .first-look-signal-score {
-    font-size: 9px;
+    font-size: var(--first-look-mobile-copy-size);
   }
 
   .app-shell .first-look-promise-number,
   .app-shell .first-look-approval-positive {
-    font-size: 19px;
+    font-size: var(--first-look-mobile-metric-size) !important;
   }
 
   .app-shell .first-look-promise-number > span,
   .app-shell .first-look-approval-negative {
-    font-size: 11px;
+    font-size: var(--first-look-mobile-title-size);
   }
 
-  .app-shell .first-look-promise-result > span:last-child,
-  .app-shell .first-look-signal-action {
-    font-size: 9px;
+  .app-shell .first-look-promise-result > span:last-child {
+    font-size: var(--first-look-mobile-copy-size);
   }
 
-  .app-shell .first-look-promise-bar,
   .app-shell .first-look-signal-meta {
-    display: none;
-  }
-
-  .app-shell .first-look-signal-approval > .first-look-signal-score {
-    grid-row: 4;
+    font-size: var(--first-look-mobile-meta-size);
+    line-height: 1.35;
   }
 
   .app-shell .first-look-signal-action {
-    grid-row: 6;
-    margin-top: 6px;
+    min-height: 44px;
+    font-size: var(--first-look-mobile-copy-size);
+    line-height: 1.3;
   }
 
   .app-shell button.first-look-signal > .first-look-signal-action {
-    margin-top: 0;
+    margin-top: 8px;
   }
 
   .app-shell .scorecard-trust-frame {
@@ -1737,6 +1755,71 @@
 
   .app-promise-row > div:first-child > div:last-child span {
     white-space: normal !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .app-shell .first-look-primary-wrap {
+    grid-template-areas:
+      "heading"
+      "result"
+      "verdict"
+      "updates"
+      "boundary"
+      "actions"
+      "math"
+      "detail";
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .app-shell .first-look-primary-result {
+    justify-self: start;
+  }
+
+  .app-shell .first-look-primary-context {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .app-shell .first-look-update,
+  .app-shell .first-look-watch {
+    padding: 10px;
+  }
+
+  .app-shell .first-look-primary-check {
+    margin-top: 2px;
+    padding-top: 6px;
+  }
+
+  .app-shell .first-look-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .app-shell .first-look-check-heading {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .app-shell .first-look-check-heading .first-look-block-meta {
+    margin-left: 0;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 340px) {
+  .app-bottom-nav {
+    gap: 2px;
+    padding-right: 2px;
+    padding-left: 2px;
+  }
+
+  .app-bottom-nav button {
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 
