@@ -371,7 +371,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 - Timing fairness: Partially applies. Infrastructure is multi-year. MPO is <1 year old. Cohort progress (rather than completed cycles) is the primary acceleration signal until at least one project completes a full MPO cycle.
 
 **One-notch move triggers:**
-- Up: ≥30% of cohort shows documented post-designation advancement (currently 2 of 15 ≈ 13%), OR first project completes a full MPO cycle, OR first use of national interest designation.
+- Up: ≥30% of cohort shows documented post-designation advancement (currently 5 of 18, about 28%), OR first project completes a full MPO cycle, OR first use of national interest designation.
 - Down: Any project withdrawn from MPO, OR cohort progress reverses (project moved back to designated from a higher stage), OR evidence the framework is being bypassed.
 
 **Biggest confounder:** Pre-existing momentum. The $126B headline is mostly investment decisions made before the MPO existed. A cohort project advancing is not automatically MPO-attributable; weight the credit-claiming penalty when the same project would have advanced without federal intervention.
