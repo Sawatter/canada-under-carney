@@ -9,9 +9,9 @@
       "featuredItems": [
         {
           "type": "method",
-          "headline": "Card text is now checked against the project list",
-          "body": "This was the second release in a row where a number was updated in one place and left stale in another. The data check now reads the project list and rejects any card sentence that quotes a count the list does not support, so the card cannot contradict itself again without the check failing.",
-          "itemIndex": 1
+          "headline": "Climate budget trigger keeps its baseline",
+          "body": "The trigger for Environment and Climate Change Canada getting its budget restored pointed at the 2025-26 departmental plan, while the source list had moved to 2026-27. Restored only means something against the level it is measured from, which is the earlier plan's $3.13 billion and 8,392 staff. Repointing the trigger would have quietly lowered the bar to the newer plan's $1.71 billion. The older plan stays the primary link and the current plan was added beside it, so a reader sees both the bar and today's position.",
+          "itemIndex": 2
         }
       ]
     }

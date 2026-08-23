@@ -10,7 +10,7 @@
         "body": "The last two releases moved a project into the progress count and moved another into construction, but the card's summary line, status text, and two of its why-not lines still quoted the old numbers. A reader saw the metric say five projects and the sentence beside it say four. All of the text now reads from the same counts: five projects with progress after referral, ten above the first stage, five under construction. The counts themselves did not change and neither did the grade."
       },
       {
-        "type": "method",
+        "type": "fix",
         "headline": "Card text is now checked against the project list",
         "body": "This was the second release in a row where a number was updated in one place and left stale in another. The data check now reads the project list and rejects any card sentence that quotes a count the list does not support, so the card cannot contradict itself again without the check failing."
       },
