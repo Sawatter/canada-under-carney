@@ -936,18 +936,26 @@ for (const d of dimensions) {
       if (project?.stageDate && !validDateString(project.stageDate)) {
         err(name, `${where}.stageDate "${project.stageDate}" is not a valid date`);
       }
+      // Equality is suspicious, not automatically wrong. A project can genuinely
+      // reach a stage on the day it is referred. The invariant that matters is
+      // that no advancement credit is taken on an unevidenced same-day date, so
+      // the row may carry the equality if it states the sequence explicitly in
+      // its note. Without that note the equality reads as a data-entry default,
+      // which is how five inherited approvals were once shown as office-era
+      // progress.
       if (
         project?.stage
         && project.stage !== "designated"
         && project.stageDate
         && project.stageDate === project.referredDate
+        && !project.note
       ) {
         err(
           name,
           `${where} has stage "${project.stage}" dated exactly at referredDate `
-          + `(${project.referredDate}). Record the date the stage was actually reached, `
-          + `from a source. If the stage genuinely was reached on the referral date, `
-          + `the row needs an explicit note explaining that.`,
+          + `(${project.referredDate}) with no note. Record the date the stage was `
+          + `actually reached, from a source. If the stage genuinely was reached on `
+          + `the referral date, add a note stating the evidence for that sequence.`,
         );
       }
     });

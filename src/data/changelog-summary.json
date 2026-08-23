@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-08-23",
-    "version": "5.172",
+    "version": "5.173",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
@@ -9,12 +9,17 @@
       "featuredItems": [
         {
           "type": "method",
-          "headline": "Climate budget trigger keeps its baseline",
-          "body": "The trigger for Environment and Climate Change Canada getting its budget restored pointed at the 2025-26 departmental plan, while the source list had moved to 2026-27. Restored only means something against the level it is measured from, which is the earlier plan's $3.13 billion and 8,392 staff. Repointing the trigger would have quietly lowered the bar to the newer plan's $1.71 billion. The older plan stays the primary link and the current plan was added beside it, so a reader sees both the bar and today's position.",
-          "itemIndex": 2
+          "headline": "Same-day milestones need evidence",
+          "body": "A rule added yesterday rejected any project whose stage date matched the day it was referred, because that pattern had been hiding older approvals as new progress. A project can genuinely reach a stage on the day it is referred, so the rule now allows it when the record states the evidence for that order, and still rejects it when the date looks like a default.",
+          "itemIndex": 1
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-23",
+    "version": "5.172",
+    "items": []
   },
   {
     "date": "2026-08-23",

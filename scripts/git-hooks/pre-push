@@ -1,0 +1,48 @@
+#!/bin/sh
+# Blocks a push when the release gates are not green.
+#
+# Why this exists: on 2026-08-23 the browser suite returned exit 1 and the push
+# happened anyway, because the gates were run by hand and the result was read
+# too late. A mobile regression reached production. A gate that a human can
+# forget to read is advisory, not a gate. This makes it binding.
+#
+# Runs the data gate always, and the browser suite when anything that can
+# affect the rendered page has changed. Set SKIP_PREPUSH=1 to override, which
+# should be a deliberate, explained choice and not a habit.
+set -e
+
+if [ "$SKIP_PREPUSH" = "1" ]; then
+  echo "pre-push: SKIPPED by SKIP_PREPUSH=1"
+  exit 0
+fi
+
+range_base=$(git rev-parse --verify --quiet origin/main || echo "")
+if [ -n "$range_base" ]; then
+  changed=$(git diff --name-only "$range_base"..HEAD)
+else
+  changed=$(git diff --name-only HEAD~1..HEAD 2>/dev/null || echo "")
+fi
+
+echo "pre-push: running data gate..."
+if ! npm run test:data >/tmp/prepush-data.log 2>&1; then
+  echo "pre-push: BLOCKED, npm run test:data failed."
+  tail -20 /tmp/prepush-data.log
+  exit 1
+fi
+echo "pre-push: data gate OK"
+
+# The changelog counts here: a changelog entry changes what the first-look
+# briefing renders, and that is exactly what broke the mobile layout in v5.172.
+if printf '%s\n' "$changed" | grep -qE '^(src/|tests/|index\.html|vite\.config|package\.json)'; then
+  echo "pre-push: rendered surface changed, running browser suite..."
+  lsof -ti tcp:4173 2>/dev/null | xargs kill 2>/dev/null || true
+  if ! npx playwright test >/tmp/prepush-browser.log 2>&1; then
+    echo "pre-push: BLOCKED, browser suite failed."
+    grep -E '✘|Error:' /tmp/prepush-browser.log | head -10
+    echo "Full log: /tmp/prepush-browser.log"
+    exit 1
+  fi
+  echo "pre-push: browser suite OK"
+fi
+
+echo "pre-push: gates green"

@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-08-23",
+    "version": "5.173",
+    "summary": "Release checks now block a publish when they fail, instead of only reporting. A project rule was loosened so a genuine same-day milestone is allowed when the record says why. No grade or score changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Failing checks now stop a release",
+        "body": "The build and browser checks were run by hand, so a failure could be missed and the release could still go out. That happened once today and a phone layout problem reached the site. The checks now run automatically before anything is published and stop it when they fail."
+      },
+      {
+        "type": "method",
+        "headline": "Same-day milestones need evidence",
+        "body": "A rule added yesterday rejected any project whose stage date matched the day it was referred, because that pattern had been hiding older approvals as new progress. A project can genuinely reach a stage on the day it is referred, so the rule now allows it when the record states the evidence for that order, and still rejects it when the date looks like a default."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-23",
     "version": "5.172",
     "summary": "Fixed Major Projects card text that still quoted the old project counts after the last two releases, kept the climate budget trigger pointed at the baseline it is measured against, and stopped the link checker failing on healthy pages. No grade or score changed.",
     "items": [
