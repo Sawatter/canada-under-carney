@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-07-19T22:06:29+00:00",
+  "generatedAt": "2026-08-14T17:22:03+00:00",
   "generatedFrom": "src/data/dimensions.json + src/data/approval-polls.json",
   "note": "Registry of monitored source surfaces. Regenerate with `python3 scripts/monitor_sources.py --rebuild-registry` when the cited source base changes. Hand-edits to access notes, methods, or search domains are preserved only if you re-apply them after a rebuild. The monitor never moves grades.",
   "methods": [
@@ -31,7 +31,10 @@
         "https://abacusdata.ca/canadian-politics-carney-government-approval-hits-new-high-as-liberals-lead-conservatives-by-10/",
         "https://abacusdata.ca/canadian-politics-liberals-extend-lead-and-consolidate-support-following-majority-wins/",
         "https://abacusdata.ca/federal-liberal-lead-holds-steady/",
+        "https://abacusdata.ca/federal-liberal-lead-remains-stable-as-canadians-settle-into-a-holding-pattern/",
         "https://abacusdata.ca/liberal-momentum-slows-as-approval-optimism-and-carneys-ratings-retreat/",
+        "https://abacusdata.ca/liberals-hold-a-six-point-lead-as-carney-government-approval-remains-above-50/",
+        "https://abacusdata.ca/liberals-maintain-six-point-lead-as-trump-tariff-threat-and-wildfires-reshape-the-public-agenda/",
         "https://abacusdata.ca/prime-minister-carney-approval-liberals-strengthen-ahead-conservative-convention/"
       ],
       "accessNote": null
@@ -54,6 +57,7 @@
       ],
       "citedUrls": [
         "https://angusreid.org/carney-one-year-approval-campaign-promises-liberals/",
+        "https://angusreid.org/climate-vote-liberal-ndp/",
         "https://angusreid.org/federal-politics-canadians-cooling-on-carney-as-gap-narrows-between-liberals-and-cpc/",
         "https://angusreid.org/federal-politics-carney-receives-post-davos-bump-in-approval/",
         "https://angusreid.org/major-projects-reaction-canada/"
@@ -80,6 +84,25 @@
       "accessNote": null
     },
     {
+      "id": "bchydro-com",
+      "publisher": "bchydro.com",
+      "homeUrl": "https://bchydro.com/",
+      "family": 0,
+      "familyName": "Unclassified",
+      "dimensions": [
+        "major-projects"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "bchydro.com"
+      ],
+      "citedUrls": [
+        "https://www.bchydro.com/content/dam/BCHydro/customer-portal/documents/projects/north-coast-transmission/north-coast-transmission-construction-update-2026-jul-sep.pdf"
+      ],
+      "accessNote": null
+    },
+    {
       "id": "budget-canada-ca",
       "publisher": "Federal Budget",
       "homeUrl": "https://budget.canada.ca/",
@@ -87,7 +110,6 @@
       "familyName": "Operational government data",
       "dimensions": [
         "affordability-response",
-        "climate-environment",
         "defence-trade",
         "economic-policy",
         "fiscal-health",
@@ -101,7 +123,6 @@
       ],
       "citedUrls": [
         "https://budget.canada.ca/2025/report-rapport/anx1-en.html",
-        "https://budget.canada.ca/2025/report-rapport/chap1-en.html",
         "https://budget.canada.ca/2025/report-rapport/chap2-en.html",
         "https://budget.canada.ca/2025/report-rapport/chap4-en.html",
         "https://budget.canada.ca/2025/report-rapport/chap5-en.html",
@@ -136,7 +157,6 @@
       "family": 2,
       "familyName": "Department / press release",
       "dimensions": [
-        "economic-policy",
         "promise-delivery"
       ],
       "method": "search_fanout",
@@ -145,27 +165,7 @@
         "canada.ca"
       ],
       "citedUrls": [
-        "https://www.canada.ca/en/campaign/2-billion-trees.html",
-        "https://www.canada.ca/en/campaign/critical-minerals-in-canada.html"
-      ],
-      "accessNote": null
-    },
-    {
-      "id": "canada-ca-climateaction",
-      "publisher": "Climate action (canada.ca)",
-      "homeUrl": "https://canada.ca/",
-      "family": 2,
-      "familyName": "Department / press release",
-      "dimensions": [
-        "carbon-pricing"
-      ],
-      "method": "search_fanout",
-      "feedUrl": null,
-      "searchDomains": [
-        "canada.ca"
-      ],
-      "citedUrls": [
-        "https://www.canada.ca/climateaction"
+        "https://www.canada.ca/en/campaign/2-billion-trees.html"
       ],
       "accessNote": null
     },
@@ -176,6 +176,7 @@
       "family": 2,
       "familyName": "Department / press release",
       "dimensions": [
+        "affordability-response",
         "carbon-pricing",
         "fiscal-health",
         "promise-delivery"
@@ -187,9 +188,30 @@
       ],
       "citedUrls": [
         "https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html",
+        "https://www.canada.ca/en/department-finance/news/2026/07/following-junes-one-time-payment-canadians-to-start-receiving-first-enriched-quarterly-canada-groceries-and-essentials-benefit-payment-today.html",
         "https://www.canada.ca/en/department-finance/services/publications/annual-financial-report/2025.html",
         "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/03.html",
+        "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/04.html",
         "https://www.canada.ca/en/department-finance/services/publications/report-impact-reducing-lowest-marginal-personal-income-tax-rate-non-refundable-tax-credits.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-employment-social-development",
+      "publisher": "Employment Social Development (canada.ca)",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "housing-supply"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/employment-social-development/news/2026/07/government-of-canada-announces-new-2-billion-funding-for-provinces-and-territories-under-team-canada-strong0.html"
       ],
       "accessNote": null
     },
@@ -213,7 +235,27 @@
         "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html",
         "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2026-2027.html",
         "https://www.canada.ca/en/environment-climate-change/news/2023/12/canadas-electric-vehicle-availability-standard-regulated-targets-for-zero-emission-vehicles.html",
+        "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/carbon-pollution-pricing-federal-benchmark-information.html",
         "https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-government",
+      "publisher": "Government (canada.ca)",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "fiscal-health"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/government/publicservice/workforce/workforce-adjustment/workforce-reductions-federal-public-service.html"
       ],
       "accessNote": null
     },
@@ -234,7 +276,7 @@
       "citedUrls": [
         "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
         "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-open-applications-for-new-development-charge-reduction-program0.html",
-        "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/government-of-canada-marks-royal-assent-of-the-build-canada-homes-act.html"
+        "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-nunavut-partner-to-build-essential-infrastructure-and-more-homes.html"
       ],
       "accessNote": null
     },
@@ -268,7 +310,6 @@
       "familyName": "Department / press release",
       "dimensions": [
         "defence-trade",
-        "economic-policy",
         "promise-delivery"
       ],
       "method": "search_fanout",
@@ -288,6 +329,7 @@
       "family": 2,
       "familyName": "Department / press release",
       "dimensions": [
+        "climate-environment",
         "economic-policy"
       ],
       "method": "search_fanout",
@@ -296,7 +338,9 @@
         "canada.ca"
       ],
       "citedUrls": [
-        "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html"
+        "https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html",
+        "https://www.canada.ca/en/natural-resources-canada/news/2026/07/canada-announces-first-agreement-under-new-canada-critical-minerals-accelerator.html",
+        "https://www.canada.ca/en/natural-resources-canada/news/2026/07/canada-invests-in-the-prince-edward-islandnew-brunswick-interconnection-expansion-project.html"
       ],
       "accessNote": null
     },
@@ -307,6 +351,7 @@
       "family": 2,
       "familyName": "Department / press release",
       "dimensions": [
+        "economic-policy",
         "major-projects"
       ],
       "method": "search_fanout",
@@ -315,7 +360,9 @@
         "canada.ca"
       ],
       "citedUrls": [
-        "https://www.canada.ca/en/one-canadian-economy/news/2026/06/canada-initiates-process-to-list-major-projects-under-the-building-canada-act.html"
+        "https://www.canada.ca/en/one-canadian-economy/news/2026/06/canada-initiates-process-to-list-major-projects-under-the-building-canada-act.html",
+        "https://www.canada.ca/en/one-canadian-economy/services/building-canada-act-projects-national-interest.html",
+        "https://www.canada.ca/en/one-canadian-economy/services/free-trade-labour-mobility-canada-act.html"
       ],
       "accessNote": null
     },
@@ -326,6 +373,7 @@
       "family": 2,
       "familyName": "Department / press release",
       "dimensions": [
+        "carbon-pricing",
         "major-projects"
       ],
       "method": "page_hash",
@@ -334,7 +382,44 @@
         "canada.ca"
       ],
       "citedUrls": [
-        "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html"
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/aesc.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/contrecoeur.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/crawford.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/darlington.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/geo.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/grays-bay.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/ksi-lisims.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/lng-canada.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/mackenzie.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/mcilvenna.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/northcliff.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/nouveau-monde.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/nukkiksautiit.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/other/referred/pathways-plus/memorandum-understanding.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/red-chris.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/roberts-bank.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/taltson.html",
+        "https://www.canada.ca/en/privy-council/major-projects-office/projects/west.html"
+      ],
+      "accessNote": null
+    },
+    {
+      "id": "canada-ca-public-services-procurement",
+      "publisher": "Public Services Procurement (canada.ca)",
+      "homeUrl": "https://canada.ca/",
+      "family": 2,
+      "familyName": "Department / press release",
+      "dimensions": [
+        "defence-trade"
+      ],
+      "method": "search_fanout",
+      "feedUrl": null,
+      "searchDomains": [
+        "canada.ca"
+      ],
+      "citedUrls": [
+        "https://www.canada.ca/en/public-services-procurement/news/2026/07/public-services-and-procurement-canada-launches-new-small-business-procurement-program-measures-to-modernize-federal-contracting-and-boost-access-f.html"
       ],
       "accessNote": null
     },
@@ -364,7 +449,6 @@
       "family": 2,
       "familyName": "Department / press release",
       "dimensions": [
-        "housing-supply",
         "promise-delivery"
       ],
       "method": "search_fanout",
@@ -373,8 +457,7 @@
         "canada.ca"
       ],
       "citedUrls": [
-        "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan/oil-gas-emissions-cap/regulatory-framework.html",
-        "https://www.canada.ca/en/services/jobs/training/support-skilled-trades-apprentices/grants.html"
+        "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan/oil-gas-emissions-cap/regulatory-framework.html"
       ],
       "accessNote": null
     },
@@ -518,27 +601,6 @@
       "accessNote": null
     },
     {
-      "id": "ciec-ccie-parl-gc-ca",
-      "publisher": "Conflict of Interest and Ethics Commissioner",
-      "homeUrl": "https://ciec-ccie.parl.gc.ca/",
-      "family": 4,
-      "familyName": "Independent official / watchdog",
-      "dimensions": [
-        "ethics-transparency"
-      ],
-      "method": "page_hash",
-      "feedUrl": null,
-      "searchDomains": [
-        "ciec-ccie.parl.gc.ca"
-      ],
-      "citedUrls": [
-        "https://ciec-ccie.parl.gc.ca/",
-        "https://ciec-ccie.parl.gc.ca/en/",
-        "https://ciec-ccie.parl.gc.ca/en/Pages/search-recherche.aspx?k=Carney"
-      ],
-      "accessNote": "Host intermittently returns 403/503 to command-line fetchers; browser pull may be needed."
-    },
-    {
       "id": "ckom-com",
       "publisher": "ckom.com",
       "homeUrl": "https://ckom.com/",
@@ -597,8 +659,8 @@
       ],
       "citedUrls": [
         "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2025/cmhc-releases-latest-housing-supply-gaps-report",
-        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-may-2026",
         "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
+        "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-june-2026",
         "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-march-2026"
       ],
       "accessNote": null
@@ -719,6 +781,25 @@
       "accessNote": null
     },
     {
+      "id": "ethicscanada-ca",
+      "publisher": "Conflict of Interest and Ethics Commissioner",
+      "homeUrl": "https://ethicscanada.ca/",
+      "family": 4,
+      "familyName": "Independent official / watchdog",
+      "dimensions": [
+        "ethics-transparency"
+      ],
+      "method": "page_hash",
+      "feedUrl": null,
+      "searchDomains": [
+        "ethicscanada.ca"
+      ],
+      "citedUrls": [
+        "https://www.ethicscanada.ca/en/public-registry"
+      ],
+      "accessNote": null
+    },
+    {
       "id": "foodbankscanada-ca",
       "publisher": "Food Banks Canada",
       "homeUrl": "https://foodbankscanada.ca/",
@@ -816,7 +897,7 @@
       ],
       "citedUrls": [
         "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12",
-        "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03"
+        "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-05"
       ],
       "accessNote": null
     },
@@ -865,7 +946,8 @@
       "family": 3,
       "familyName": "Operational government data",
       "dimensions": [
-        "climate-environment"
+        "climate-environment",
+        "major-projects"
       ],
       "method": "search_fanout",
       "feedUrl": null,
@@ -873,6 +955,7 @@
         "laws-lois.justice.gc.ca"
       ],
       "citedUrls": [
+        "https://laws-lois.justice.gc.ca/eng/acts/B-9.89/FullText.html",
         "https://laws-lois.justice.gc.ca/eng/acts/C-19.3/"
       ],
       "accessNote": null
@@ -989,7 +1072,12 @@
         "https://nanos.co/wp-content/uploads/2026/04/Political-Package-2026-04-10C4prRx3658-FOR-RELEASE.pdf",
         "https://nanos.co/wp-content/uploads/2026/04/Political-Package-mjwf5-2026-04-03-FOR-RELEASE.pdf",
         "https://nanos.co/wp-content/uploads/2026/06/Political-Package-2026-06-26-YS4BV-FOR-RELEASE.pdf",
-        "https://nanos.co/wp-content/uploads/2026/06/Political-Package-xOthfu65-2026-06-19-FOR-RELEASE.pdf"
+        "https://nanos.co/wp-content/uploads/2026/06/Political-Package-xOthfu65-2026-06-19-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-03-qRoku58414-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-17-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-24-GM3LF-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-31-L5D7V-FOR-RELEASE.pdf",
+        "https://nanos.co/wp-content/uploads/2026/07/Political-Package-MoRe853d-2026-07-10-FOR-RELEASE.pdf"
       ],
       "accessNote": null
     },
@@ -1029,7 +1117,7 @@
         "nato.int"
       ],
       "citedUrls": [
-        "https://www.nato.int/content/dam/nato/webready/documents/finance/def-exp-2025-en.pdf",
+        "https://www.nato.int/content/dam/nato/webready/documents/finance/def-exp-2026-en.xlsx",
         "https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada"
       ],
       "accessNote": null
@@ -1112,6 +1200,7 @@
       ],
       "citedUrls": [
         "https://www.parl.ca/LegisInfo/en/bill/45-1/c-5",
+        "https://www.parl.ca/legisinfo/en/bill/45-1/c-15",
         "https://www.parl.ca/legisinfo/en/bill/45-1/c-5"
       ],
       "accessNote": null
@@ -1177,11 +1266,11 @@
         "https://www.pm.gc.ca/en/news/news-releases/2025/09/11/prime-minister-carney-announces-first-projects-be-reviewed-new",
         "https://www.pm.gc.ca/en/news/news-releases/2025/11/13/prime-minister-carney-announces-second-tranche-nation-building-projects",
         "https://www.pm.gc.ca/en/news/news-releases/2026/03/12/prime-minister-carney-announces-ambitious-new-plan-defend-build-and",
-        "https://www.pm.gc.ca/en/news/news-releases/2026/03/26/prime-minister-carney-announces-canada-has-achieved-nato-2-defence",
         "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes",
         "https://www.pm.gc.ca/en/news/news-releases/2026/03/31/prime-minister-carney-launches-new-nature-strategy-protect-canadas",
         "https://www.pm.gc.ca/en/news/news-releases/2026/04/09/prime-minister-carney-breaks-ground-contrecoeur-terminal-expansion",
-        "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity"
+        "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity",
+        "https://www.pm.gc.ca/en/news/speeches/2026/07/06/prime-minister-carney-announces-preferred-supplier-canadian-patrol"
       ],
       "accessNote": null
     },
@@ -1263,25 +1352,6 @@
       ],
       "citedUrls": [
         "https://www.retailcouncil.org/topics/food-grocery/truth-of-canadian-grocery-price-inflation/"
-      ],
-      "accessNote": null
-    },
-    {
-      "id": "scotiabank-com",
-      "publisher": "Scotiabank Economics",
-      "homeUrl": "https://scotiabank.com/",
-      "family": 9,
-      "familyName": "Academic / research / pollsters",
-      "dimensions": [
-        "housing-supply"
-      ],
-      "method": "search_fanout",
-      "feedUrl": null,
-      "searchDomains": [
-        "scotiabank.com"
-      ],
-      "citedUrls": [
-        "https://www.scotiabank.com/ca/en/about/economics/economics-publications/post.other-publications.housing.housing-news-flash.february-18--2026.html"
       ],
       "accessNote": null
     },
@@ -1439,13 +1509,12 @@
         "www150.statcan.gc.ca"
       ],
       "citedUrls": [
-        "https://www150.statcan.gc.ca/n1/daily-quotidien/260227/dq260227a-eng.htm?HPA=1",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260318/dq260318b-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260420/dq260420a-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm",
-        "https://www150.statcan.gc.ca/n1/daily-quotidien/260605/dq260605a-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260617/dq260617a-eng.htm",
-        "https://www150.statcan.gc.ca/n1/daily-quotidien/260622/dq260622a-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260710/dq260710a-eng.htm",
+        "https://www150.statcan.gc.ca/n1/daily-quotidien/260720/dq260720a-eng.htm",
         "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
       ],
       "accessNote": null

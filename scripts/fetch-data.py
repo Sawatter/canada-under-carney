@@ -909,12 +909,9 @@ def diff_mpo_against_cohort(dimensions, mpo_result):
 # The Ethics & Transparency file has a hard trigger around a published
 # Ethics Commissioner review. The office does not provide an RSS feed, so
 # the monthly check scrapes the investigation-report listing page and diffs
-# it against a tiny local cache. Some networks block the host at the TCP
-# layer; failures are reported but do not stop the monthly fetch.
-ETHICS_REPORTS_URL = (
-    "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/"
-    "AllInvestRepAct-TousRapEnqLoi.aspx"
-)
+# it against a tiny local cache. Fetch failures are reported but do not stop
+# the monthly fetch.
+ETHICS_REPORTS_URL = "https://www.ethicscanada.ca/en/report?type=inv"
 # Durable diff cache. Lives under monitoring/ (committed) rather than tmp/
 # (gitignored, not durable in GitHub Actions) so the month-over-month diff
 # survives across CI runs.
@@ -950,9 +947,9 @@ def _ethics_report_key(report):
 def extract_ethics_report_links(html):
     """Extract likely investigation-report links from the listing page.
 
-    The official page is ordinary HTML, not a data API. Keep this parser
-    intentionally permissive: include links under investigations-enquetes
-    and report-like anchor text, then de-duplicate by normalized URL.
+    The official page is ordinary HTML, not a data API. Only accept the
+    current site's detail-link shape so navigation text cannot be mistaken
+    for an investigation report during a site migration.
     """
     reports = []
     seen = set()
@@ -964,21 +961,13 @@ def extract_ethics_report_links(html):
         title = _clean_html_text(body)
         if not href or href.startswith("#") or not title:
             continue
-        href_l = href.lower()
-        title_l = title.lower()
-        looks_like_report = (
-            "investigations-enquetes" in href_l
-            or "report" in title_l
-            or "rapport" in title_l
-            or "examination" in title_l
-            or "enquiry" in title_l
-            or "inquiry" in title_l
-        )
-        if not looks_like_report:
-            continue
-        if "allinstrepact" in href_l or title_l in {"english", "français", "home"}:
-            continue
         url = urljoin(ETHICS_REPORTS_URL, href)
+        if not re.match(
+            r"^https://(?:www\.)?ethicscanada\.ca/(?:en|fr)/report/[a-z0-9]+(?:[?#].*)?$",
+            url,
+            flags=re.IGNORECASE,
+        ):
+            continue
         report = {"title": title, "url": url}
         key = _ethics_report_key(report)
         if not key or key in seen:

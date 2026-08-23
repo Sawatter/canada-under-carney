@@ -1,20 +1,25 @@
 [
   {
-    "date": "2026-07-26",
-    "version": "5.168",
+    "date": "2026-08-14",
+    "version": "5.169",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
       "gradeMoveCount": 0,
       "featuredItems": [
         {
-          "type": "product",
-          "headline": "Phone text uses practical reading sizes",
-          "body": "First-look explanations and actions now use practical mobile type floors, while dates and short metadata remain compact. The result and key numbers remain visually distinct.",
+          "type": "event",
+          "headline": "July evidence cycle closed",
+          "body": "The monthly and event-driven source watches received dated dispositions for July 1-31. Four IRCC downloads and one Moody's detail page remained access exceptions, so no unavailable value was inferred. Each policy file and the 43-promise tracker was reviewed against its published conditions, with no score or status move.",
           "itemIndex": 0
         }
       ]
     }
+  },
+  {
+    "date": "2026-07-26",
+    "version": "5.168",
+    "items": []
   },
   {
     "date": "2026-07-25",

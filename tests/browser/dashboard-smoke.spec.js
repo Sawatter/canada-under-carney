@@ -48,6 +48,7 @@ const expectedHeldReviewIds = [
   "carbon-pricing",
   "climate-environment",
   "defence-trade",
+  "economic-policy",
   "ethics-transparency",
   "execution-delivery",
   "fiscal-health",
@@ -1860,7 +1861,7 @@ test.describe("held policy review summaries", () => {
     test(`held reviews stay secondary and readable on ${viewportName}`, async ({ page }, testInfo) => {
       expect(
         heldReviewDimensions.map((dim) => dim.id).sort(),
-        "the release fixture must include exactly the ten documented held policies",
+        "the release fixture must include all eleven documented held policies",
       ).toEqual(expectedHeldReviewIds);
       const consoleErrors = await installConsoleGuards(page);
       await page.setViewportSize(viewport);
@@ -1888,7 +1889,6 @@ test.describe("held policy review summaries", () => {
         expect(await review.evaluate((node) => node.scrollWidth <= node.clientWidth)).toBe(true);
       }
 
-      await expect(page.locator("#dim-economic-policy .dim-latest-review")).toHaveCount(0);
       await expect(page.locator("#dim-promise-delivery .dim-latest-review")).toHaveCount(0);
       await expectNoOverflow(page);
 

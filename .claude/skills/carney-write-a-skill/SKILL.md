@@ -1,6 +1,7 @@
 ---
-name: write-a-skill
+name: carney-write-a-skill
 description: |
+  CARNEY DASHBOARD ONLY.
   Create or tighten an agent skill with proper structure, a trigger-rich
   description, and this project's house conventions. Triggers on: "write a
   skill", "create a skill", "new skill", "build a skill", "improve this skill",
@@ -33,7 +34,7 @@ allowed-tools: Read Grep Glob Bash [Write] [Agent]
 
 # Title
 ## What it does (one short paragraph)
-## Procedure (numbered, concrete)
+## Procedure (numbered: concrete)
 ## Rules / boundary
 ```
 
@@ -53,7 +54,7 @@ allowed-tools: Read Grep Glob Bash [Write] [Agent]
   "defer to X" instead of re-implementing it.
 - **Three locations when general:** `.claude/skills/<name>/` (Carney-local,
   committed), `~/.claude/skills/<name>/` and `~/.codex/skills/<name>/` (global).
-  Local overrides global — put Carney specifics local, keep globals generic.
+  Local overrides global, put Carney specifics local, keep globals generic.
 
 ## Checklist before shipping
 - [ ] Description has "Triggers on:" phrases

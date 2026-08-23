@@ -4,11 +4,11 @@ Three components are required for every source addition or threading decision.
 
 ---
 
-## Component 1 — Source identity
+## Component 1: Source identity
 
 Every source must have:
 - label: short display name (e.g., "PBO Fiscal Analysis")
-- url: exact publication URL — not a category page, not a homepage
+- url: exact publication URL, not a category page, not a homepage
 - family: one of the 11 defined families (see Source-Architecture-Rules.md)
 - role: one of measurement / policy / execution / independent-challenge / context
 
@@ -25,16 +25,16 @@ context. It cannot be threaded into metric or trigger chains.
 
 ---
 
-## Component 2 — Threading location
+## Component 2: Threading location
 
 Where does this source attach in dimensions.json?
 
-### Option A — Metric threading (v5.61 pattern)
+### Option A: Metric threading (v5.61 pattern)
 metrics[].sourceRefs[]
 Use when the source directly supports the claim made by a specific metric.
 Each sourceRef must have: { label: string, url: string }
 
-### Option B — Trigger threading (v5.64 pattern)
+### Option B: Trigger threading (v5.64 pattern)
 gradeTriggers.up[].additionalSources[] or gradeTriggers.down[].additionalSources[]
 Use when the source would confirm or contradict a specific trigger condition.
 Each additionalSource must have: { label: string, url: string, role: string }
@@ -49,7 +49,7 @@ grade-moving source count.
 
 ---
 
-## Component 3 — Role description
+## Component 3: Role description
 
 Every threading entry (sourceRefs or additionalSources) needs a one-line role
 description explaining the cross-source verification it provides.
@@ -69,7 +69,7 @@ a reader cannot tell why this source was attached to this specific claim.
 
 ---
 
-## Discipline B — Thread before adding
+## Discipline B: Thread before adding
 
 From docs/Bias-Resistance-Protocol.md:
 "Thread existing challenge sources before adding new ones."

@@ -30,30 +30,30 @@ source: compliant, needs threading, wrong family, or flagged for removal.
 
 ## Audit procedure
 
-### Step 1 — Run the script
+### Step 1: Run the script
 ```bash
 node "${CLAUDE_SKILL_DIR}/../../../scripts/audit-bias-resistance.mjs"
 ```
 Report: dimensions audited, dimensions flagged, per-dimension family
 distribution changes vs prior baseline (6 flagged as of v5.66).
 
-### Step 2 — Manual threading check
+### Step 2: Manual threading check
 For each dimension in scope, verify each source in sources[] appears in at
 least one of:
 - metrics[].sourceRefs[] (v5.61 pattern)
 - gradeTriggers.up/down[].additionalSources[] (v5.64 pattern)
 
-If a source is pool-only with no threading, flag it as "unthreaded — consider
+If a source is pool-only with no threading, flag it as "unthreaded, consider
 for next cycle's threading pass under Discipline B."
 
-### Step 3 — URL quality check
+### Step 3: URL quality check
 For every additionalSources and sourceRefs entry, classify the URL as:
 - exact publication / report URL (compliant)
-- report-family or series URL (borderline — flag)
-- category / listing page (non-compliant — flag for replacement)
-- organization homepage (non-compliant — flag for replacement)
+- report-family or series URL (borderline, flag)
+- category / listing page (non-compliant, flag for replacement)
+- organization homepage (non-compliant, flag for replacement)
 
-### Step 4 — Report
+### Step 4: Report
 Return findings grouped by dimension. For each finding:
 - source label
 - current URL classification

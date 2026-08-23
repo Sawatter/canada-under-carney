@@ -27,34 +27,34 @@ explicit editor approval.
 
 ## Evaluation procedure
 
-### Step 1 — Evidence boundary
+### Step 1: Evidence boundary
 State what evidence is being evaluated and whether it is:
 - trigger evidence
 - metric evidence
 - modifier evidence
 - context only
 
-### Step 2 — Trigger check
+### Step 2: Trigger check
 For each relevant trigger, report:
 - trigger text
 - source checked
 - fired / not fired / ambiguous
 - one-line rationale
 
-### Step 3 — Threshold check
+### Step 3: Threshold check
 Compare the evidence to the dimension's published scoring thresholds. Do not
 invent new thresholds. If the evidence does not map cleanly, say so.
 
-### Step 4 — Modifier check
+### Step 4: Modifier check
 Check whether External Constraint, Timing Fairness, Jurisdictional Limits,
 or credit-claiming penalties apply. Modifiers explain what counts and what
 does not count. They should not soften a grade just because context feels hard.
 
-### Step 5 — Party-symmetry check
+### Step 5: Party-symmetry check
 Ask: would the same evidence produce the same grade under a different governing
 party? If no, identify which rule is asymmetric before recommending a grade.
 
-### Step 6 — Recommendation packet
+### Step 6: Recommendation packet
 Return:
 - current grade
 - recommended grade

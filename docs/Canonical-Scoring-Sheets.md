@@ -35,7 +35,7 @@
 | F | No material federal relief or competition response is in place. |
 
 **Modifier rules:**
-- External constraint (+0.3): Applies if tariff-driven costs demonstrably exceed what domestic policy can offset. Currently applicable — tariffs add $1,450-$2,000/yr.
+- External constraint (+0.3): Applies if tariff-driven costs demonstrably exceed what domestic policy can offset. Currently applicable, tariffs add $1,450-$2,000/yr.
 - Jurisdictional limits: Does NOT cap this dimension. Federal relief instruments (GST credit, grocery benefit) are fully within federal control.
 
 **One-notch move triggers:**
@@ -46,7 +46,7 @@
 
 **Confidence default:** High
 
-**Deconfliction rule:** Consumer carbon tax affordability savings ($410-$680/yr) are context only in this dimension — they are primary-homed in Carbon Pricing Policy. Unemployment/wage data is context only — primary-homed in Economic Policy Response.
+**Deconfliction rule:** Consumer carbon tax affordability savings ($410-$680/yr) are context only in this dimension, they are primary-homed in Carbon Pricing Policy. Unemployment/wage data is context only, primary-homed in Economic Policy Response.
 
 **Rater note:** Do not grade the price level. Grade the policy response. A government facing 5% food inflation with a $2,000/household benefit package grades higher than one facing 3% with a $307 benefit. The input is what the government did, not what global markets did.
 
@@ -87,7 +87,7 @@
 
 **Modifier rules:**
 - Timing fairness: Applies. This is a long-lag file. Grade trajectory and adequacy of response, not GDP per capita level. Expires at 24 months (March 2027).
-- External constraint (+0.3): Partially applicable — trade war limits business investment decisions.
+- External constraint (+0.3): Partially applicable, trade war limits business investment decisions.
 
 **One-notch move triggers:**
 - Up: At least 2 core levers remain authorized or executing, at least 1 remains in execution, and business investment records 2 consecutive non-declining quarters
@@ -143,7 +143,7 @@
 
 **Deconfliction rule:** This dimension owns the carbon pricing INSTRUMENT. Climate & Environment owns the emissions FRAMEWORK (caps, mandates, conservation, replacement strategy). If OBPS is tightened, it scores HERE. If emissions rise, it scores in Climate. The effective vs. headline price metric is primary-homed HERE; Climate references it as context only.
 
-**Rater note:** Do not grade emissions outcomes in this dimension. Grade the instrument handling. The consumer elimination can be simultaneously good affordability policy and bad climate policy — those are graded in different dimensions. Do not double-count the affordability benefit (primary home: Affordability Response).
+**Rater note:** Do not grade emissions outcomes in this dimension. Grade the instrument handling. The consumer elimination can be simultaneously good affordability policy and bad climate policy, those are graded in different dimensions. Do not double-count the affordability benefit (primary home: Affordability Response).
 
 ---
 
@@ -181,11 +181,11 @@
 
 **Biggest confounder:** Absence of evidence is not evidence of absence. No proven wrongdoing does NOT mean adequate disclosure. The grade assesses the framework, not whether misconduct occurred. Two raters could reasonably disagree by one full letter grade because the evidence is predominantly qualitative.
 
-**Confidence default:** Medium (lowest in the framework — qualitative evidence, subjective judgment, event-driven cadence)
+**Confidence default:** Medium (lowest in the framework, qualitative evidence, subjective judgment, event-driven cadence)
 
 **Deconfliction rule:** Brookfield conflict perception can be referenced in Carbon Pricing Policy as context for why the industrial OBPS preservation draws scrutiny, but Ethics owns the grade impact. No other dimension grades disclosure or conflict of interest.
 
-**Rater note:** This is the most politically valenced dimension. Grade the framework, not the person. The question is: "Has the PM built an ethics framework adequate to the non-routine disclosure demands created by the officeholder's background?" NOT: "Is Carney corrupt?" The first is gradeable. The second is not this dashboard's job. Do not upgrade based on absence of scandal — upgrade based on positive disclosure actions.
+**Rater note:** This is the most politically valenced dimension. Grade the framework, not the person. The question is: "Has the PM built an ethics framework adequate to the non-routine disclosure demands created by the officeholder's background?" NOT: "Is Carney corrupt?" The first is gradeable. The second is not this dashboard's job. Do not upgrade based on absence of scandal, upgrade based on positive disclosure actions.
 
 ---
 
@@ -291,7 +291,7 @@ If any check fails, demote the dimension in v2 rather than extend the exception.
 **Minimum indicators:**
 - Housing starts annualized (CMHC 34-10-0158-01)
 - CMHC annual need gap
-- BCH units (announced / started / completed — must distinguish)
+- BCH units (announced / started / completed, must distinguish)
 - Federal housing spending trajectory
 - Federal-provincial agreement status
 
@@ -363,6 +363,8 @@ The MPO cohort uses an explicit six-stage ladder. Stages are stored per project 
 | F | No functioning institutional reform is in place and the federal approval environment worsens versus the inherited baseline. |
 
 The cohort total is the universe of projects on the latest live `projectCohort.projects` array. Tranches are not weighted; every cohort project counts equally for the % calculations above. For the advancement thresholds, only later-dated movement after `referredDate` counts as documented post-designation advancement; same-day promoted-stage labels in tranche-announcement sources do not count until a later recorded transition is visible.
+
+**Impact-assessment decisions and the stage ladder (editor rule, 2026-08-19):** A substantive federal impact-assessment (IAAC) decision counts as documented post-referral advancement. An Impact Assessment Decision Statement that authorizes the project to proceed maps to `approved`. A decision that only completes the assessment without authorizing the project to proceed maps to `reviewed`. Procedural or interim IAAC steps do not count: accepting an impact statement, opening a comment period, extending a timeline, or entering the decision-making phase are motion, not advancement. The rule is applied the same way regardless of which government referred the project. First applied to Crawford Nickel, whose July 31, 2026 Decision Statement (project may proceed, effects justified) moved it from `designated` to `approved`; that lifted documented post-referral progress from 4 of 18 to 5 of 18 (~28%), which is still below the 30% B threshold, so the grade held at C.
 
 **Modifier rules:**
 - Credit-claiming penalty (-0.3): Applied. Current C includes penalty (raw = C+). Most cohort projects are pre-existing private-sector initiatives being expedited rather than new federal projects.
@@ -463,7 +465,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 **Confidence default:** High
 
-**Deconfliction rule:** This dimension owns the emissions FRAMEWORK. Carbon Pricing Policy owns the pricing INSTRUMENT. The effective vs. headline carbon price ($20 vs. $95) is referenced here as context only — it is primary-homed in Carbon Pricing.
+**Deconfliction rule:** This dimension owns the emissions FRAMEWORK. Carbon Pricing Policy owns the pricing INSTRUMENT. The effective vs. headline carbon price ($20 vs. $95) is referenced here as context only, it is primary-homed in Carbon Pricing.
 
 **Rater note:** The gap between Carney's pre-political climate career and his governing record is relevant context but should not independently drive the grade. Grade the policy framework, not the hypocrisy. A PM with no climate background who made the same decisions would receive the same grade.
 
@@ -487,7 +489,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 10. Flagship Delivery
 
-## Provisional — Under v2 Review (scoring sheets document current state only)
+## Provisional, Under v2 Review (scoring sheets document current state only)
 
 ---
 
@@ -519,7 +521,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 - Up: Delivery count rises to 18+ of 43 without new abandonments
 - Down: Additional abandonments bring total above 15, OR housing/climate see no movement for another cycle
 
-**Biggest confounder:** This is a derivative dimension. Every promise that delivers or stalls also appears in its home dimension. NATO 2% delivered moves Defence & Trade AND Promise Delivery. Housing scaled back moves Housing Supply AND Promise Delivery. The dimension is not independent — it is a shadow of the other action dimensions.
+**Biggest confounder:** This is a derivative dimension. Every promise that delivers or stalls also appears in its home dimension. NATO 2% delivered moves Defence & Trade AND Promise Delivery. Housing scaled back moves Housing Supply AND Promise Delivery. The dimension is not independent, it is a shadow of the other action dimensions.
 
 **Confidence default:** Medium
 
@@ -547,7 +549,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 - NATO spending as % GDP (confirmed by NATO, not just domestic claim)
 - US export share (StatsCan 12-10-0176-01)
 - Non-US export growth rate
-- EU/CETA-region export growth (Global Affairs Canada Monthly Trade Report; substituted for prior "CETA utilization value" in March 2026 cycle because the $134B figure could not be verified from any accessed source — EU export growth is a verified proxy from the same Tier 1 source)
+- EU/CETA-region export growth (Global Affairs Canada Monthly Trade Report; substituted for prior "CETA utilization value" in March 2026 cycle because the $134B figure could not be verified from any accessed source, EU export growth is a verified proxy from the same Tier 1 source)
 - Defence procurement milestones (DND)
 
 **Sub-score evaluation rule:** Check the active `F` condition first for each sub-score. Otherwise take the highest satisfied band from `A` down to `D`. Sub-scores use whole letters only.
@@ -589,7 +591,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 **Confidence default:** High (defence) / Medium (trade). Blended: High.
 
-**Deconfliction rule:** Defence is clean — nothing else grades it. Trade diversification partially overlaps with Economic Policy Response (interprovincial trade, Buy Canadian). Trade metrics are primary-homed HERE. Economic Policy Response may reference trade context but cannot grade-credit export diversification.
+**Deconfliction rule:** Defence is clean, nothing else grades it. Trade diversification partially overlaps with Economic Policy Response (interprovincial trade, Buy Canadian). Trade metrics are primary-homed HERE. Economic Policy Response may reference trade context but cannot grade-credit export diversification.
 
 **Rater note:** Defence and Trade carry equal weight. If they diverge, the sub-scores make the divergence visible even if the headline grade moves slowly. Watch the live tripwire: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version. A methodology correction to a sub-score does not count as evidence-driven opposite movement.
 
@@ -597,30 +599,30 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 ---
 
-# COMPLETE SUMMARY — ALL 12 DIMENSIONS
+# COMPLETE SUMMARY, ALL 12 DIMENSIONS
 
 ## Stable live (9 dimensions)
 
-1. Fiscal Health — C
-2. Housing Supply — D
-3. Major Projects — C
-4. Immigration — C+
-5. Climate & Environment — D
-6. Affordability Response — D-
-7. Economic Policy Response — C
-8. Carbon Pricing Policy — C
-9. Ethics & Transparency — C
+1. Fiscal Health, C
+2. Housing Supply, D
+3. Major Projects, C
+4. Immigration, C+
+5. Climate & Environment, D
+6. Affordability Response, D-
+7. Economic Policy Response, C
+8. Carbon Pricing Policy, C
+9. Ethics & Transparency, C
 
 ## Probationary (1 dimension)
 
-10. Flagship Delivery — C
+10. Flagship Delivery, C
 
 ## Structural exceptions
 
-- Promise Delivery — ungraded tracker, excluded from aggregate-score math
-- Defence & Trade — combined file with live sub-score / split-promotion tripwire
+- Promise Delivery, ungraded tracker, excluded from aggregate-score math
+- Defence & Trade, combined file with live sub-score / split-promotion tripwire
 
 ---
 
-*Canonical Scoring Sheets v1.0 — April 2026, clarified April 30, 2026*
+*Canonical Scoring Sheets v1.0, April 2026, clarified April 30, 2026*
 *All 11 graded dimensions plus the Promise Delivery tracker exception documented. This is the single reference for grading and tracker-boundary decisions.*

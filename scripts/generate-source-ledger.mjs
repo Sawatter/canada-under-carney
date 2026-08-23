@@ -59,7 +59,7 @@ const PUBLISHER_RULES = [
   [/ekospolitics\.com|Ekos/i, "10-poll-ekos"],
   [/sparkinsights|Spark Insights/i, "10-poll-spark"],
   [/researchco|Research Co\./i, "10-poll-researchco"],
-  [/ciec-ccie\.parl\.gc\.ca|Ethics Commissioner/i, "20-ethics-commissioner"],
+  [/ethicscanada\.ca|ciec-ccie\.parl\.gc\.ca|Ethics Commissioner/i, "20-ethics-commissioner"],
   [/prciec-rpccie\.parl\.gc\.ca|blind[- ]trust|Annex A|PM ethics/i, "21-pm-ethics"],
   [/ourcommons\.ca|House ETHI/i, "22-house-ethi"],
   [/democracywatch\.ca|Democracy Watch/i, "23-democracy-watch"],
@@ -132,7 +132,7 @@ function isAutomated(label, url) {
     return true;
   }
   if (labelText.includes("ethics commissioner reports") ||
-      urlText === "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/pages/allinstrepact-tousrapenqloi.aspx") {
+      urlText === "https://www.ethicscanada.ca/en/report?type=inv") {
     return true;
   }
   // PBO publications landing page + RSS feed are surfaced monthly by
@@ -417,7 +417,7 @@ const monthlyRows = [
     "Check preferred-PM release used as secondary context, not part of the approval mean.",
   ]),
   ["PBO publications", "Fiscal, affordability, promises", "https://www.pbo-dpb.ca/en/publications", "Monthly", "", "", "", "Look for fiscal, costing, or anchor analysis."],
-  ["Ethics Commissioner reports", "Ethics & Transparency", "https://ciec-ccie.parl.gc.ca/en/investigations-enquetes/Pages/AllInvestRepAct-TousRapEnqLoi.aspx", "Monthly", "", "", "", "Fetch script diffs report-list additions/removals against tmp/ethics-reports.json; review any PM-relevant report, examination, or filing."],
+  ["Ethics Commissioner reports", "Ethics & Transparency", "https://www.ethicscanada.ca/en/report?type=inv", "Monthly", "", "", "", "Fetch script diffs report-list additions/removals against monitoring/ethics-reports.json; review any PM-relevant report, examination, or filing."],
   ["Major Projects Office list", "Major Projects", "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html", "Monthly", "", "", "", "Check denominator, additions, and stage changes."],
   ...stalledOrAbandoned.map((promise) => [
     `${promise.status}: ${promise.title}`,

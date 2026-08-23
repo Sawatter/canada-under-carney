@@ -1,5 +1,42 @@
 [
   {
+    "date": "2026-08-14",
+    "version": "5.169",
+    "summary": "Reviewed the July evidence across 11 policy files and 43 promises. No grade or promise-status condition was met; official readings, project records, housing evidence, and approval polling were refreshed.",
+    "items": [
+      {
+        "type": "event",
+        "headline": "July evidence cycle closed",
+        "body": "The monthly and event-driven source watches received dated dispositions for July 1-31. Four IRCC downloads and one Moody's detail page remained access exceptions, so no unavailable value was inferred. Each policy file and the 43-promise tracker was reviewed against its published conditions, with no score or status move."
+      },
+      {
+        "type": "event",
+        "headline": "Major-project list now tracks 18 projects",
+        "body": "The project cohort now matches the official 18-project list. Nine are above the designated stage, but only four show later progress after referral, below the published 30% condition."
+      },
+      {
+        "type": "event",
+        "headline": "Housing evidence remains below its trigger",
+        "body": "June's starts trend was 248,123. A Nunavut agreement added construction-linked evidence, but the public record does not establish enough attribution or scale, and the Ontario agreement, payment, and construction steps remain unproven."
+      },
+      {
+        "type": "minor",
+        "headline": "Official readings refreshed",
+        "body": "Food-store inflation eased to 3.9%, June employment rose by 18,000, NATO's 2025 spending estimate rose to 2.03%, and May trade recorded a $4.2 billion surplus."
+      },
+      {
+        "type": "minor",
+        "headline": "Approval polling extended through July",
+        "body": "Four headline approval records and five Nanos preferred-prime-minister records were added. Nanos remains secondary context and is not averaged into the approval signal."
+      },
+      {
+        "type": "method",
+        "headline": "Editor decisions recorded on four July items",
+        "body": "Four evidence-scope calls were made after the cycle review. The Prince Edward Island to New Brunswick power line and the $2 billion training funding are held as related context, not proof of delivery. A substantive federal impact-assessment decision now counts as project progress, which moved Crawford Nickel to the approved stage and lifted Major Projects progress to 5 of 18, still below the grade threshold, so the grade holds. Research Co. stays outside the approval average because its recent public question asked about one issue rather than overall approval."
+      }
+    ]
+  },
+  {
     "date": "2026-07-26",
     "version": "5.168",
     "summary": "Made the first-look briefing easier to read on phones with practical type floors and full-width rows for grade boundaries and secondary signals. No scores or scoring rules changed.",

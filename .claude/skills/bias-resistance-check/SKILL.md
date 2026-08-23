@@ -27,7 +27,7 @@ node "${CLAUDE_SKILL_DIR}/../../../scripts/audit-bias-resistance.mjs"
 
 Current baseline as of v5.66: 12 dimensions audited, 6 flagged.
 
-The 6 residual flags are pre-existing documented findings — not new problems:
+The 6 residual flags are pre-existing documented findings, not new problems:
 - Carbon Pricing: trigger asymmetry (event-driven convention)
 - Immigration: trigger asymmetry and numeric asymmetry
 - Housing Supply: press release in grade-moving chain, numeric asymmetry
@@ -40,10 +40,10 @@ Any count below 6 means a prior flag was resolved.
 
 ## Finding categories
 Per docs/Bias-Resistance-Protocol.md, every flag must be categorized as:
-- real risk — requires a shipped fix
-- documented convention — honest pattern, surfaced to readers
-- data hygiene gap — script domain rules need updating
-- script artifact — mechanical rule can't read the methodology-appropriate pattern
+- real risk, requires a shipped fix
+- documented convention, honest pattern, surfaced to readers
+- data hygiene gap, script domain rules need updating
+- script artifact, mechanical rule can't read the methodology-appropriate pattern
 
 ## After running
 If new flags appear:
@@ -56,6 +56,6 @@ If new flags appear:
 ```bash
 # Calls the repo-root script in place; no script copy lives inside the skill.
 node "${CLAUDE_SKILL_DIR}/../../../scripts/audit-bias-resistance.mjs"
-# Raw output is gitignored — regenerate on demand
+# Raw output is gitignored: regenerate on demand
 # scripts/output/bias-audit-raw-2026-05.txt
 ```

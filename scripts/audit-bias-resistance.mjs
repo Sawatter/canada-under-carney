@@ -55,6 +55,7 @@ const FAMILY_RULES = [
   { family: 4, name: "Independent official / watchdog", pattern: /oag-bvg\.gc\.ca/i },
   { family: 4, name: "Independent official / watchdog", pattern: /ciec-ccie\.parl\.gc\.ca/i },
   { family: 4, name: "Independent official / watchdog", pattern: /prciec-rpccie\.parl\.gc\.ca/i },
+  { family: 4, name: "Independent official / watchdog", pattern: /ethicscanada\.ca/i },
   // CER (Canada Energy Regulator) is an independent federal agency with
   // arms-length status from the executive; its Energy Future projections
   // are a non-advocacy official benchmark. Added v5.65 with CER threading
@@ -65,6 +66,7 @@ const FAMILY_RULES = [
   // These are neutral records of legislative status. Not critique.
   { family: 5, name: "Procedural parliamentary records", pattern: /parl\.ca\/legisinfo/i },
   { family: 5, name: "Procedural parliamentary records", pattern: /parl\.ca\/.*bill/i },
+  { family: 5, name: "Procedural parliamentary records", pattern: /laws-lois\.justice\.gc\.ca/i },
 
   // Family 6: Parliamentary committee / opposition critique
   // Committee reports (may be consensus or minority), critical statements.

@@ -75,6 +75,11 @@ def main():
         print("   stray dimension ids:", stray)
     rss = [s for s in sources if s["method"] == "rss"]
     check("rss surfaces carry a feedUrl", all(s.get("feedUrl") for s in rss))
+    ethics_surface = next((s for s in sources if s["id"] == "ethicscanada-ca"), None)
+    check("Ethics migration uses the official-watchdog family",
+          bool(ethics_surface) and ethics_surface["family"] == 4)
+    check("Ethics migration uses the page-hash monitor",
+          bool(ethics_surface) and ethics_surface["method"] == "page_hash")
 
     # --- deterministic parse over the fixture ------------------------------ #
     fixture = load(FIXTURE)
@@ -216,6 +221,20 @@ def main():
         encoded = ""
     check("fetch-data json_out serializes set-like parser internals",
           encoded == '{"tokens": ["a", "b"]}')
+
+    ethics_fixture = """
+      <a href="/en/report">Reports</a>
+      <a href="/en/report/16ac877a2bcc8310bfa3f24aed91bf44">
+        <span>The Example Report</span>
+      </a>
+      <a href="/en/about">Report an issue</a>
+    """
+    ethics_reports = fetch_data.extract_ethics_report_links(ethics_fixture)
+    check("ethics parser accepts current detail links", ethics_reports == [{
+        "title": "The Example Report",
+        "url": "https://www.ethicscanada.ca/en/report/16ac877a2bcc8310bfa3f24aed91bf44",
+    }])
+    check("ethics parser rejects listing and navigation links", len(ethics_reports) == 1)
 
     # --- classifier never controls the safety flags ------------------------ #
     check("classifier tool schema cannot set the safety flags",

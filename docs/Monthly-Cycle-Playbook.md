@@ -2,7 +2,7 @@
 
 - **Purpose:** Turn the monthly dashboard update from a "figure it out each time" exercise into a checklist. Every recurring task has a home here; cycle-specific notes go in the changelog entry.
 - **Status:** Active playbook.
-- **Next scheduled cycle:** first day of each month. Next cycle: 2026-08-01 (per `meta.nextUpdate` in [src/data/meta.json](../src/data/meta.json)).
+- **Next scheduled cycle:** first day of each month. Next cycle: 2026-09-01 (per `meta.nextUpdate` in [src/data/meta.json](../src/data/meta.json)).
 - **Depends on:** [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md), [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md).
 
 ---
@@ -24,7 +24,7 @@ Work the sections in order. Each checkbox is a discrete commit-worthy step.
 
 - [ ] Regenerate or update the monthly source ledger from the live data: `npm run source:ledger -- YYYY-MM --force` if starting a clean ledger, or manually migrate new rows into the in-progress ledger if preserving checked rows.
 - [ ] Run `npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md` before assigning review work. This must report zero cited URLs missing from the ledger. The URL universe includes `sources[]`, grade-trigger `sourceUrl`, grade-trigger `additionalSources`, metric `sourceRefs`, project cohort URLs, promise original/status URLs, and Approval Signal poll URLs.
-- [ ] Split the source work into two proofs. Exact-URL recertification confirms each cited URL still resolves and still supports the specific dashboard claim. Publisher-site search checks the relevant source website/index for new evidence in the prior-month window.
+- [ ] Split the source work into two proofs. Exact-URL recertification follows each ledger row's stated cadence; rows that were fully recertified in the prior cycle can be marked `not due` with the last check and next due point. Publisher-site search checks the monthly and event-driven source websites or indexes for evidence in the prior-month window.
 - [ ] Log negative findings. Use the `Result` value `no event observed` for an actively-checked source with nothing new; it only counts when the row's Notes name the source site, the search/index checked, and the date window searched. (Free-text phrases like "no relevant update found" are not valid `Result` values and will fail the ledger check.)
 - [ ] Treat blocked rows as open until they name a fallback action, such as manual browser check, alternate official index, or editor source pull.
 - [ ] Before saying the monthly source cycle is complete, run `npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md --require-closed`. The cycle is not complete while any row has an empty `Result` (rows not due this month must carry the literal value `not due`), any row is still marked `not checked`, any closed row lacks `Date checked`, any cited URL is missing, any blocked row lacks a fallback action, or `Coverage level achieved` is still blank.

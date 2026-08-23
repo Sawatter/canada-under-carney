@@ -1,7 +1,7 @@
 ---
 name: review
 description: |
-  Two-axis review of the current diff against a fixed point — Standards (does
+  Two-axis review of the current diff against a fixed point, Standards (does
   it follow this repo's rules) and Spec (does it do what the editor asked).
   Runs the axes as parallel sub-agents so they don't mask each other. Triggers
   on: "review this", "review the diff", "review since X", "self-review before
@@ -19,8 +19,8 @@ Two-axis review of the diff between HEAD and a fixed point the editor supplies
 (commit, tag, `origin/main`, `HEAD~N`). The axes run as parallel sub-agents so
 they don't pollute each other's context; then this skill aggregates them.
 
-- **Standards** — does the diff follow this repo's documented rules?
-- **Spec** — does the diff do what the editor actually asked for?
+- **Standards**, does the diff follow this repo's documented rules?
+- **Spec**, does the diff do what the editor actually asked for?
 
 ## Process
 
@@ -37,7 +37,7 @@ responsive layout, and interactive states need a browser-capable verification
 pass before the change is called done.
 
 ### 2. Pin the fixed point
-Use what the editor said. If none given, ask: "review against what — origin/main,
+Use what the editor said. If none given, ask: "review against what, origin/main,
 a commit, or HEAD~N?" Capture `git diff <fixed-point>...HEAD` (three-dot) and
 `git log <fixed-point>..HEAD --oneline`.
 
@@ -50,13 +50,13 @@ a commit, or HEAD~N?" Capture `git diff <fixed-point>...HEAD` (three-dot) and
   re-check what tooling already does.
 
 ### 4. Spec source
-The originating editor request — the chat instruction, the changelog-entry
+The originating editor request, the chat instruction, the changelog-entry
 intent, or the governance doc the change implements. If there's no clear spec,
 the Spec axis reports "no spec available."
 
-### 5. Spawn both sub-agents in parallel (one message, two Agent calls)
+### 5. Spawn both sub-agents in parallel (one message: two Agent calls)
 **Standards brief:** "Read the standards docs. Read the diff. Report every place
-it violates a documented rule — frozen-surface edits, voice / consulting-risk
+it violates a documented rule, frozen-surface edits, voice / consulting-risk
 violations, grade or threshold changes without approval, personal-identifier
 leaks. Cite the rule (file + line). Separate hard violations from judgment
 calls. Under 400 words."
@@ -66,7 +66,7 @@ creep); (c) anything implemented but wrong. Quote the request per finding.
 Under 400 words."
 
 ### 6. Aggregate
-Present under `## Standards` and `## Spec`, verbatim. Do not merge or rerank —
+Present under `## Standards` and `## Spec`, verbatim. Do not merge or rerank,
 the axes stay separate so one can't mask the other. End with a one-line
 summary: findings per axis + worst single issue.
 

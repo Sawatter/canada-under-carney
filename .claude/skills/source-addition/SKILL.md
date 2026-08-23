@@ -40,24 +40,24 @@ additions, and ceiling violations.
 
 Every source addition requires all three components:
 
-### Component 1 — Source identity
+### Component 1: Source identity
 - label: short display name (e.g., "PBO Fiscal Analysis")
 - url: exact publication URL, not a category page or homepage
 - family: one of the 11 defined families in Source-Authority-Map.md
 - role: one of measurement / policy / execution / independent-challenge / context
 
-### Component 2 — Threading location
+### Component 2: Threading location
 Where does this source attach in dimensions.json?
-- Option A: metrics[].sourceRefs[] — attach to the specific metric whose
+- Option A: metrics[].sourceRefs[], attach to the specific metric whose
   claim this source supports
-- Option B: gradeTriggers.up/down[].additionalSources[] — attach to the
+- Option B: gradeTriggers.up/down[].additionalSources[], attach to the
   specific trigger this source would confirm or contradict
 
 A source that cannot be attached to a specific metric or trigger belongs in
 sources[] as pool context only. Pool-only additions do NOT count as
 grade-moving evidence and should be noted as such.
 
-### Component 3 — Role description
+### Component 3: Role description
 Every threading entry needs a one-line role description explaining what
 cross-source verification this source provides.
 Example: "Independent fiscal-impact read on levels correction trajectory"

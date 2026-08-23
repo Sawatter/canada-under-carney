@@ -1,12 +1,13 @@
 ---
-name: grill-me
+name: carney-grill
 description: |
+  CARNEY DASHBOARD ONLY.
   Interrogate the editor one question at a time to resolve a decision before
-  acting — methodology calls, grade-move judgment, scope, source choices.
+  acting, methodology calls, grade-move judgment, scope, source choices.
   Triggers on: "grill me", "interrogate me", "stress-test this", "walk me
   through the decision", "help me decide", "grill me on this".
 when_to_use: |
-  When a decision tree needs resolving before work proceeds — especially the
+  When a decision tree needs resolving before work proceeds, especially the
   editor methodology calls this project defers (funded-pathway interpretation,
   effective-price definition, whether a trigger fired, a grade-move judgment).
   Pairs with grade-evaluation: grill-me resolves the judgment, grade-evaluation

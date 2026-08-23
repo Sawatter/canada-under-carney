@@ -1,11 +1,63 @@
 {
-  "asOf": "2026-07-01",
+  "asOf": "2026-07-31",
   "rollingWindowDays": 60,
   "construct": "PM / government job approval (approve vs. disapprove)",
   "inclusionRule": "Canadian polling firms publishing a direct PM or government approval question with both approve and disapprove percentages, disclosed sample size, and published methodology. CRIC accreditation (Canadian Research Insights Council) is preferred but not strictly required — public-interest institutes (Angus Reid Institute) and well-established firms with equivalent transparency (Innovative Research Group) are admissible. Preferred-PM, favourability, and vote-intention polls are tracked separately and not included here.",
   "aggregationRule": "Each poll is weighted by sample size and by recency on a 30-day half-life (a poll loses half its weight every 30 days) within the rolling window. The aggregate is a plain sample-and-recency-weighted mean of the raw polls. House-effect de-housing was tried and reverted in v5.98: with only three firms it over-corrected and pushed the headline above every input poll. De-housing can return, centred, once more firms are tracked. See docs/Polling-Aggregation-Method-2026-06.md.",
   "halfLifeDays": 30,
   "polls": [
+    {
+      "pollster": "Abacus Data",
+      "fieldStart": "2026-07-23",
+      "fieldEnd": "2026-07-29",
+      "approve": 52,
+      "disapprove": 32,
+      "sampleSize": 1910,
+      "methodology": "Online survey via partner panels on PureSpectrum, weighted to census",
+      "marginOfErrorNote": "Comparable probability sample ±2.24 pp",
+      "construct": "Federal government approval",
+      "sourceUrl": "https://abacusdata.ca/liberals-maintain-six-point-lead-as-trump-tariff-threat-and-wildfires-reshape-the-public-agenda/",
+      "sourceLabel": "Abacus Data: July 23-29 government approval"
+    },
+    {
+      "pollster": "Angus Reid Institute",
+      "fieldStart": "2026-07-25",
+      "fieldEnd": "2026-07-27",
+      "approve": 51,
+      "disapprove": 42,
+      "sampleSize": 1770,
+      "methodology": "Online (Angus Reid Forum), weighted to census",
+      "marginOfErrorNote": "±2 pp comparable probability sample",
+      "construct": "PM performance approval",
+      "sourceUrl": "https://angusreid.org/climate-vote-liberal-ndp/",
+      "sourceLabel": "Angus Reid Institute: July 2026 Carney approval"
+    },
+    {
+      "pollster": "Abacus Data",
+      "fieldStart": "2026-07-09",
+      "fieldEnd": "2026-07-16",
+      "approve": 52,
+      "disapprove": 32,
+      "sampleSize": 4205,
+      "methodology": "Online survey via partner panels on PureSpectrum, weighted to census",
+      "marginOfErrorNote": "Comparable probability sample ±1.5 pp",
+      "construct": "Federal government approval",
+      "sourceUrl": "https://abacusdata.ca/liberals-hold-a-six-point-lead-as-carney-government-approval-remains-above-50/",
+      "sourceLabel": "Abacus Data: July 9-16 government approval"
+    },
+    {
+      "pollster": "Abacus Data",
+      "fieldStart": "2026-06-25",
+      "fieldEnd": "2026-07-02",
+      "approve": 54,
+      "disapprove": 31,
+      "sampleSize": 2366,
+      "methodology": "Online survey via partner panels on PureSpectrum, weighted to census",
+      "marginOfErrorNote": "Comparable probability sample ±2.02 pp",
+      "construct": "Federal government approval",
+      "sourceUrl": "https://abacusdata.ca/federal-liberal-lead-remains-stable-as-canadians-settle-into-a-holding-pattern/",
+      "sourceLabel": "Abacus Data: June 25-July 2 government approval"
+    },
     {
       "pollster": "Léger",
       "fieldStart": "2026-06-19",
@@ -349,6 +401,51 @@
     "construct": "Preferred Prime Minister (best-choice question). Different construct from approve/disapprove — a reader picks one leader as their top choice rather than rating the current PM up or down. Tracked here as a secondary context signal. Not averaged into the approval mean above.",
     "source": "Nanos Research weekly tracking (4-week rolling average of 250 respondents each week, RDD land + cell, CRIC accredited).",
     "polls": [
+      {
+        "pollster": "Nanos Research",
+        "fieldEnd": "2026-07-31",
+        "carney": 56,
+        "poilievre": 18.4,
+        "sampleSize": 1037,
+        "sourceUrl": "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-31-L5D7V-FOR-RELEASE.pdf",
+        "sourceLabel": "Nanos Political Package 2026-07-31"
+      },
+      {
+        "pollster": "Nanos Research",
+        "fieldEnd": "2026-07-24",
+        "carney": 54,
+        "poilievre": 18.2,
+        "sampleSize": 1034,
+        "sourceUrl": "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-24-GM3LF-FOR-RELEASE.pdf",
+        "sourceLabel": "Nanos Political Package 2026-07-24"
+      },
+      {
+        "pollster": "Nanos Research",
+        "fieldEnd": "2026-07-17",
+        "carney": 51.7,
+        "poilievre": 22,
+        "sampleSize": 1022,
+        "sourceUrl": "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-17-FOR-RELEASE.pdf",
+        "sourceLabel": "Nanos Political Package 2026-07-17"
+      },
+      {
+        "pollster": "Nanos Research",
+        "fieldEnd": "2026-07-10",
+        "carney": 51.5,
+        "poilievre": 23,
+        "sampleSize": 1018,
+        "sourceUrl": "https://nanos.co/wp-content/uploads/2026/07/Political-Package-MoRe853d-2026-07-10-FOR-RELEASE.pdf",
+        "sourceLabel": "Nanos Political Package 2026-07-10"
+      },
+      {
+        "pollster": "Nanos Research",
+        "fieldEnd": "2026-07-03",
+        "carney": 50.8,
+        "poilievre": 23.7,
+        "sampleSize": 1017,
+        "sourceUrl": "https://nanos.co/wp-content/uploads/2026/07/Political-Package-2026-07-03-qRoku58414-FOR-RELEASE.pdf",
+        "sourceLabel": "Nanos Political Package 2026-07-03"
+      },
       {
         "pollster": "Nanos Research",
         "fieldEnd": "2026-06-26",

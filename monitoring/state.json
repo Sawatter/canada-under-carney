@@ -85,19 +85,16 @@
       ],
       "accessIssue": null
     },
-    "ciec-ccie-parl-gc-ca": {
-      "lastChecked": "2026-08-01T14:41:16+00:00",
-      "lastSuccessfulCheck": null,
+    "ethicscanada-ca": {
+      "lastChecked": "2026-08-14T17:21:47+00:00",
+      "lastSuccessfulCheck": "2026-08-14T17:21:47+00:00",
       "contentHash": null,
       "etag": null,
       "lastModified": null,
-      "lastSurfacedCandidateId": "2026-06-ciec-ccie-parl-gc-ca-e9ba92b0",
-      "lastSurfacedFingerprint": "c3618a03",
-      "surfacedFingerprints": [
-        "d0baf921",
-        "c3618a03"
-      ],
-      "accessIssue": "http_error"
+      "lastSurfacedCandidateId": null,
+      "lastSurfacedFingerprint": null,
+      "surfacedFingerprints": [],
+      "accessIssue": null
     },
     "budget-canada-ca": {
       "lastChecked": "2026-08-01T14:41:18+00:00",

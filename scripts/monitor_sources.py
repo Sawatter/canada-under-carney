@@ -117,7 +117,7 @@ HOST_FAMILY = {
     "canada.ca": 2,
     "pbo-dpb.ca": 4,
     "oag-bvg.gc.ca": 4,
-    "ciec-ccie.parl.gc.ca": 4,
+    "ethicscanada.ca": 4,
     "prciec-rpccie.parl.gc.ca": 4,
     "cer-rec.gc.ca": 4,
     "parl.ca": 5,
@@ -188,7 +188,7 @@ PUBLISHER_NAMES = {
     "international.canada.ca": "Global Affairs Canada",
     "laws-lois.justice.gc.ca": "Justice Laws (consolidated Acts)",
     "pbo-dpb.ca": "Parliamentary Budget Officer",
-    "ciec-ccie.parl.gc.ca": "Conflict of Interest and Ethics Commissioner",
+    "ethicscanada.ca": "Conflict of Interest and Ethics Commissioner",
     "prciec-rpccie.parl.gc.ca": "Public Registry (Ethics Commissioner)",
     "cer-rec.gc.ca": "Canada Energy Regulator",
     "parl.ca": "Parliament of Canada (LEGISinfo)",
@@ -255,7 +255,7 @@ API_HOSTS = {
 # Surface keys checked by a page scrape + diff in fetch-data.py.
 PAGE_HASH_SURFACES = {
     "canada.ca/privy-council",  # Major Projects Office project list
-    "ciec-ccie.parl.gc.ca",  # Ethics Commissioner investigation reports
+    "ethicscanada.ca",  # Ethics Commissioner investigation reports
 }
 
 
@@ -500,7 +500,6 @@ def build_registry(dimensions, approval_polls):
     # known access frictions, recorded so the monitor does not pretend a blocked
     # surface was cleanly checked
     access_notes = {
-        "ciec-ccie.parl.gc.ca": "Host intermittently returns 403/503 to command-line fetchers; browser pull may be needed.",
         "prciec-rpccie.parl.gc.ca": "Host intermittently returns 403/503 to command-line fetchers; browser pull may be needed.",
         "theglobeandmail.com": "Paywalled. Search snippets are provisional discovery only.",
         "nationalobserver.com": "Paywalled. Search snippets are provisional discovery only.",
@@ -1037,11 +1036,11 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
             add(rep.get("url") or "", "ethics_diff",
                 f"New Ethics Commissioner report listing: {rep.get('title')}",
                 "New entry on the investigation-report listing page since the last cache.")
-        mark_checked(state, slugify("ciec-ccie.parl.gc.ca"), True)
+        mark_checked(state, slugify("ethicscanada.ca"), True)
     elif ed:
         access_failures.append({"surface": "Conflict of Interest and Ethics Commissioner",
                                 "method": "page_hash", "detail": ed.get("status")})
-        mark_checked(state, slugify("ciec-ccie.parl.gc.ca"), False,
+        mark_checked(state, slugify("ethicscanada.ca"), False,
                      access_issue=ed.get("status"))
 
     # link-rot: blocked / broken cited URLs become source-health candidates. This

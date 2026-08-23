@@ -15,6 +15,15 @@ No grades, statuses, thresholds, scoring, or dashboard data were changed by this
 **Heads up:**
 - Relevance pass did not complete: Claude request failed: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CdcDURMg1ReHc6dSzBtWy'}. Candidates are unclassified.
 
+## Cycle closeout - 2026-08-14
+
+The failed classification tier was not treated as approval or as a clean run. The editor-directed August evidence cycle reviewed all 187 surfaced candidate records against the July 1-31 evidence window, the mapped grade and promise-status tests, and the separate live-source sweep.
+
+- 7 candidates supplied evidence recorded in v5.169: the June CPI, Labour Force Survey, housing starts, and trade updates; the Critical Minerals Accelerator agreement; the provincial training announcement; and the MPO cohort addition.
+- 180 candidates were closed with no dashboard move because they were outside the July window, duplicated a source already checked, were search noise or background context, or did not cross a published test.
+- 0 candidate records remain unresolved. The exact, exhaustive ID lists and disposition rule are stored in `monitoring/candidates/2026-08.json` under `cycleReview`.
+- Four IRCC binary downloads and the Moody's Canada sovereign detail page remained inaccessible after official-page fallbacks. Those five access limits are release exceptions, not negative evidence; no unavailable value or Moody's rating was inferred.
+
 ## Sources surveyed
 
 68 surfaces in the registry. By method: api 4, page_hash 2, rss 10, search_fanout 52.

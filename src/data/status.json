@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-07-01",
-  "lastSourceScanAt": "2026-07-01",
-  "nextScheduledSourceScanAt": "2026-08-01",
-  "lastEditorReviewedScoreCycleAt": "2026-07-01",
-  "coverageThrough": "2026-06-30",
+  "generatedAt": "2026-08-14",
+  "lastSourceScanAt": "2026-08-14",
+  "nextScheduledSourceScanAt": "2026-09-01",
+  "lastEditorReviewedScoreCycleAt": "2026-08-14",
+  "coverageThrough": "2026-07-31",
   "watchItemsAwaitingReviewCount": 0,
   "disclaimerKey": "scan_vs_review_v1",
   "nextChecks": [
@@ -12,14 +12,14 @@
       "id": "housing-disbursement-watch",
       "label": "Housing disbursement watch",
       "timingLabel": "Event-driven",
-      "status": "Waiting for DCRP agreement, project approval, payment, or construction evidence.",
+      "status": "Waiting for a signed Ontario agreement, project approval, payment, or attributable construction evidence.",
       "href": "#dim-housing-supply-evidence"
     },
     {
-      "id": "august-monthly-cycle",
-      "label": "August monthly cycle",
+      "id": "september-monthly-cycle",
+      "label": "September monthly cycle",
       "dateSource": "nextScheduledSourceScanAt",
-      "status": "Run freshness pulls, source monitor review, and any editor-approved watch items.",
+      "status": "Review August source releases, trigger evidence, polling, and promise records.",
       "href": "#view-changelog"
     }
   ]

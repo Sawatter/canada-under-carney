@@ -120,7 +120,7 @@ The CTM must **not**:
 - **source_document:** Liberal Party 2025 housing plan ([liberal.ca/housing-plan](https://liberal.ca/housing-plan/)), which states verbatim "double the pace of construction to almost 500,000 new homes a year." The [src/data/dimensions.json](../src/data/dimensions.json) promise entry carries this URL as its `originalSourceUrl`. *(Resolved 2026-06-21: prior text "500,000 homes/year over next decade" was a paraphrase that did not appear in the cited Canada Strong PDF; corrected to the platform's verbatim wording and repointed to the page that carries the figure.)*
 - **durability:** Target *(live tag matches PCR tier — PCR names "500K homes/year" as a Target example)*.
 - **home_dimension:** Housing Supply
-- **promise_tracker_entry:** [dimensions.json promises[0]](../src/data/dimensions.json) — text matches verbatim; current status Stalled.
+- **promise_tracker_entry:** [dimensions.json promises[0]](../src/data/dimensions.json) — text matches verbatim; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The scale and effectiveness of federal housing policy interventions relative to identified need" *(verbatim from [Canonical-Scoring-Sheets.md:271](Canonical-Scoring-Sheets.md))*. Specifically the **scale** component — tests whether federal delivery approaches the stated target relative to CMHC's annual need estimate.
 - **primary_indicators:**
   - Housing starts annualized *(CMHC / StatsCan 34-10-0158-01, per [Canonical-Scoring-Sheets.md:280](Canonical-Scoring-Sheets.md))*
@@ -154,7 +154,7 @@ The CTM must **not**:
 - **source_document:** [canada.ca — Build Canada Homes news release](https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html) *(cited in the BCH metric sourceNote in [dimensions.json](../src/data/dimensions.json))*
 - **durability:** Program *(live tag matches PCR tier — PCR names "Build Canada Homes" as a Program example)*.
 - **home_dimension:** Housing Supply
-- **promise_tracker_entry:** [dimensions.json promises[1]](../src/data/dimensions.json) — text matches verbatim; current status In Progress since 2025-09-14.
+- **promise_tracker_entry:** [dimensions.json promises[1]](../src/data/dimensions.json) — text matches verbatim; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The scale and effectiveness of federal housing policy interventions relative to identified need" *(verbatim from [Canonical-Scoring-Sheets.md:271](Canonical-Scoring-Sheets.md))*. Specifically the **federal-program-scale and execution** components — tests whether BCH delivers at a scale proportionate to need, and whether announced pipeline converts to actual construction.
 - **primary_indicators:**
   - BCH units (announced / started / completed — distinguished) *(per [Canonical-Scoring-Sheets.md:282](Canonical-Scoring-Sheets.md))*
@@ -188,7 +188,7 @@ The CTM must **not**:
 - **source_document:** [pm.gc.ca — Canada-Ontario Partnership announcement](https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes) *(cited in Housing Supply sources array in [dimensions.json](../src/data/dimensions.json))*
 - **durability:** Program *(live tag in [dimensions.json promises[2]](../src/data/dimensions.json))*. Matches Promise Coding Rules' "Program" tier (*"Funded program with institutional structure"*).
 - **home_dimension:** Housing Supply
-- **promise_tracker_entry:** [dimensions.json promises[2]](../src/data/dimensions.json) — text matches verbatim; current status In Progress since 2026-03-30.
+- **promise_tracker_entry:** [dimensions.json promises[2]](../src/data/dimensions.json) — text matches verbatim; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The scale and effectiveness of federal housing policy interventions relative to identified need" *(verbatim from [Canonical-Scoring-Sheets.md:271](Canonical-Scoring-Sheets.md))*. Specifically the **federal-provincial-agreement and scale** components — tests the federal contribution to a shared-jurisdiction problem via partnership instruments (development charge reform, HST treatment).
 - **primary_indicators:**
   - Federal-provincial agreement status *(per [Canonical-Scoring-Sheets.md:284](Canonical-Scoring-Sheets.md))*
@@ -222,7 +222,7 @@ The CTM must **not**:
 - **source_document:** Budget 2025 (the live [dimensions.json promises[3]](../src/data/dimensions.json) evidence text names Budget 2025 but there is no specific Budget 2025 URL in the Housing Supply `sources` array; Budget 2025 is cited in the Fiscal Health dimension's sources array as `Budget 2025 — Annex 1`, which is related but not the same citation). **Residual:** specific Budget 2025 chapter citation for the apprenticeship training program needs to be resolved in a next-cycle source-hardening pass.
 - **durability:** Program *(live tag in [dimensions.json promises[3]](../src/data/dimensions.json))*. Matches Promise Coding Rules' "Program" tier.
 - **home_dimension:** Housing Supply
-- **promise_tracker_entry:** [dimensions.json promises[3]](../src/data/dimensions.json) — text matches verbatim; current status In Progress.
+- **promise_tracker_entry:** [dimensions.json promises[3]](../src/data/dimensions.json) — text matches verbatim; live status remains owned by the Promise Tracker.
 - **construct_tested:** This is the **most stress-testing commitment in the Housing Supply pilot**. The Housing Supply construct is *"scale and effectiveness of federal housing policy interventions relative to identified need"* ([Canonical-Scoring-Sheets.md:271](Canonical-Scoring-Sheets.md)). Apprenticeship training is a construction-labour-capacity input to housing delivery — an oblique link to the home construct, not a direct scale or effectiveness measure. The commitment is homed in Housing Supply in the live data; a case could be made for re-homing to Economic Policy Response (productivity / labour-market policy). **Re-homing question flagged as a residual** — the CTM follows the live assignment and surfaces the question without resolving it.
 - **primary_indicators:**
   - The Housing Supply minimum-indicators list in [Canonical-Scoring-Sheets.md:279-284](Canonical-Scoring-Sheets.md) does not currently include an apprenticeship, labour-supply, or construction-workforce indicator. This commitment has **no direct minimum indicator in its current home dimension**. Program enrollment and disbursement data exist but are not minimum indicators under the live CSS. **Residual:** either CSS Housing Supply minimum indicators need a labour-capacity addition, or this commitment should be re-homed. Not resolved by the CTM; surfaced here.
@@ -257,7 +257,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** original campaign platform URL not in the live Fiscal Health `sources` array; flag for next-cycle source-hardening.
 - **durability:** Commitment *(live tag in [dimensions.json](../src/data/dimensions.json))*. **Note:** PCR "Target" tier (stated goal without a legislated mechanism) arguably fits better; re-tag flagged as residual.
 - **home_dimension:** Fiscal Health
-- **promise_tracker_entry:** Fiscal Health `promises[0]` in [dimensions.json](../src/data/dimensions.json); status In Progress as of 2026-05-13.
+- **promise_tracker_entry:** Fiscal Health `promises[0]` in [dimensions.json](../src/data/dimensions.json); live status remains owned by the Promise Tracker.
 - **construct_tested:** "The sustainability of the federal fiscal trajectory and the credibility of the medium-term fiscal plan" *(verbatim from [Canonical-Scoring-Sheets.md:228](Canonical-Scoring-Sheets.md))*. Specifically the **credibility-of-medium-term-anchor** component.
 - **primary_indicators:** PBO fiscal-anchor assessment; deficit (absolute and as % GDP) *(per [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -281,7 +281,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** original platform URL not in live source stack.
 - **durability:** Commitment *(live tag)*. **Note:** "Program" arguably fits once the Budget 2025 spending review became operational; re-tag flagged as residual.
 - **home_dimension:** Fiscal Health
-- **promise_tracker_entry:** Fiscal Health `promises[1]`; status In Progress.
+- **promise_tracker_entry:** Fiscal Health `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:228](Canonical-Scoring-Sheets.md) construct — **spending-path** component.
 - **primary_indicators:** Net debt trajectory; deficit trajectory *(per [CSS:236](Canonical-Scoring-Sheets.md))*. **Gap:** no direct civil-service-headcount indicator in the Fiscal Health minimum-indicators list; commitment tested indirectly via debt/deficit path.
 - **source_roles_required:**
@@ -305,7 +305,7 @@ The CTM must **not**:
 - **source_document:** [Budget 2025 Annex 1](https://budget.canada.ca/2025/report-rapport/anx1-en.html) *(in Fiscal Health `sources` array)*.
 - **durability:** Budget measure *(live tag matches PCR tier)*.
 - **home_dimension:** Fiscal Health
-- **promise_tracker_entry:** Fiscal Health `promises[2]`; status Delivered 2025-11-04.
+- **promise_tracker_entry:** Fiscal Health `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:228](Canonical-Scoring-Sheets.md) construct — **fiscal-policy-instrument** component.
 - **primary_indicators:** Deficit trajectory; debt service costs vs GST revenue *(per [CSS:236](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -328,7 +328,7 @@ The CTM must **not**:
 - **source_document:** [Budget 2025 Annex 1](https://budget.canada.ca/2025/report-rapport/anx1-en.html) *(in Fiscal Health `sources` array)*.
 - **durability:** Budget measure *(live tag matches PCR tier)*.
 - **home_dimension:** Fiscal Health
-- **promise_tracker_entry:** Fiscal Health `promises[3]`; status Delivered 2025-11-04.
+- **promise_tracker_entry:** Fiscal Health `promises[3]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:228](Canonical-Scoring-Sheets.md) construct — **fiscal-policy-instrument** component (revenue reversal).
 - **primary_indicators:** Deficit trajectory; revenue impact on debt service-to-revenue ratio *(per [CSS:236](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -353,7 +353,7 @@ The CTM must **not**:
 - **source_document:** Budget 2025. **Residual:** specific Budget 2025 chapter URL for the benefit is not in the Affordability Response `sources` array; source-hardening candidate.
 - **durability:** Budget measure *(live tag matches PCR tier)*.
 - **home_dimension:** Affordability Response
-- **promise_tracker_entry:** Affordability Response `promises[0]`; status Delivered 2025-11-04.
+- **promise_tracker_entry:** Affordability Response `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The adequacy of the federal government's policy response to household cost pressure from groceries, tariffs, and targeted relief programs" *(verbatim from [Canonical-Scoring-Sheets.md:14](Canonical-Scoring-Sheets.md))*. Specifically the **federal-relief-scale** component.
 - **primary_indicators:** Grocery benefit amount per household (PBO); tariff household cost burden estimate *(per [CSS:22](Canonical-Scoring-Sheets.md))*; food insecurity population (PROOF).
 - **source_roles_required:**
@@ -377,7 +377,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** specific government announcement URL for the Grocery Code launch is not in the Affordability Response `sources` array.
 - **durability:** Framework *(live tag matches PCR tier — voluntary code with institutional structure but not legislated)*.
 - **home_dimension:** Affordability Response
-- **promise_tracker_entry:** Affordability Response `promises[1]`; status Delivered 2026-01-01.
+- **promise_tracker_entry:** Affordability Response `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:14](Canonical-Scoring-Sheets.md) construct — **competition-instrument** component.
 - **primary_indicators:** **Gap:** Affordability Response minimum-indicators list does not include a direct competition-instrument measure for grocery markets. Indirectly tested via food CPI stores YoY and relief-vs-burden ratio. **Residual:** CSS minimum indicators do not cover voluntary competition codes.
 - **source_roles_required:**
@@ -400,7 +400,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** original announcement URL not in live source stack.
 - **durability:** Framework *(live tag matches PCR tier — announced policy framework with institutional direction; binding implementation details pending)*.
 - **home_dimension:** Affordability Response
-- **promise_tracker_entry:** Affordability Response `promises[2]`; status In Progress.
+- **promise_tracker_entry:** Affordability Response `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:14](Canonical-Scoring-Sheets.md) construct — **policy-instrument** component.
 - **primary_indicators:** **Gap:** no direct Affordability Response minimum indicator tests food-labelling effectiveness. **Residual:** indicator anchor is thin.
 - **source_roles_required:**
@@ -425,7 +425,7 @@ The CTM must **not**:
 - **source_document:** [Canada.ca — fuel charge removal effective April 1, 2025](https://www.canada.ca/en/department-finance/news/2025/03/removing-the-consumer-carbon-price-effective-april-1-2025.html) *(in Carbon Pricing `sources` array)*.
 - **durability:** Budget measure *(live tag matches PCR tier — regulatory rate change)*.
 - **home_dimension:** Carbon Pricing Policy
-- **promise_tracker_entry:** Carbon Pricing `promises[0]`; status Delivered 2025-04-01.
+- **promise_tracker_entry:** Carbon Pricing `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The quality of the federal government's handling of carbon pricing as a policy instrument" *(verbatim from [Canonical-Scoring-Sheets.md:102](Canonical-Scoring-Sheets.md))*. Specifically the **consumer-instrument** component.
 - **primary_indicators:** Consumer carbon price status (eliminated/active/modified) *(per [CSS:110](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -448,7 +448,7 @@ The CTM must **not**:
 - **source_document:** [ECCC — Output-Based Pricing System](https://www.canada.ca/en/environment-climate-change/services/climate-change/pricing-pollution-how-it-will-work/output-based-pricing-system.html) *(in Carbon Pricing Policy `sources` array)*.
 - **durability:** Legislated *(live tag matches PCR tier — OBPS is statutorily grounded)*.
 - **home_dimension:** Carbon Pricing Policy
-- **promise_tracker_entry:** Carbon Pricing `promises[1]`; status Delivered 2025-04-01.
+- **promise_tracker_entry:** Carbon Pricing `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:102](Canonical-Scoring-Sheets.md) construct — **industrial-instrument** component (preservation in form AND function).
 - **primary_indicators:** Industrial OBPS headline rate ($/tonne); industrial OBPS effective rate (actual credit trading price); OBPS compliance revenue; free allocation rate *(per [CSS:110](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -472,7 +472,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** Davos speech text / official CBAM announcement not in the Carbon Pricing `sources` array.
 - **durability:** Commitment *(live tag)*. **Note:** "Framework" better-fits once a formal proposal is published.
 - **home_dimension:** Carbon Pricing Policy
-- **promise_tracker_entry:** Carbon Pricing `promises[2]`; status Too Early.
+- **promise_tracker_entry:** Carbon Pricing `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:102](Canonical-Scoring-Sheets.md) construct — **external-instrument** component (border adjustment that would strengthen the industrial instrument).
 - **primary_indicators:** No direct minimum indicator for a future CBAM in current CSS; would anchor to "external constraint +0.3 modifier" if implementation materialized.
 - **source_roles_required:**
@@ -496,7 +496,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** specific announcement URL not in Climate `sources` array.
 - **durability:** Commitment *(live tag)*.
 - **home_dimension:** Climate & Environment
-- **promise_tracker_entry:** Climate `promises[0]`; status Too Early.
+- **promise_tracker_entry:** Climate `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The scale and coherence of the federal environmental policy framework" *(verbatim from [Canonical-Scoring-Sheets.md:400](Canonical-Scoring-Sheets.md))*. Specifically the **replacement-strategy / transition-infrastructure** component.
 - **primary_indicators:** No direct Climate minimum indicator for grid integration at the federal level; indirect via "Replacement strategy: exists (yes/no)" *(per [CSS:408](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -519,7 +519,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** 30x30 conservation program materials not directly in the Climate `sources` array.
 - **durability:** Commitment *(live tag)*. **Note:** "Program" better-fits given funded structure ($3.8B recommitted).
 - **home_dimension:** Climate & Environment
-- **promise_tracker_entry:** Climate `promises[1]`; status Stalled.
+- **promise_tracker_entry:** Climate `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:400](Canonical-Scoring-Sheets.md) construct — **conservation** component.
 - **primary_indicators:** Conservation spending (30x30) *(per [CSS:408](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -543,7 +543,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** Canadian Net-Zero Emissions Accountability Act reference not in Climate `sources` array.
 - **durability:** Target *(live tag matches PCR tier — stated goal)*.
 - **home_dimension:** Climate & Environment
-- **promise_tracker_entry:** Climate `promises[2]`; status Stalled.
+- **promise_tracker_entry:** Climate `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:400](Canonical-Scoring-Sheets.md) construct — **target-commitment** component.
 - **primary_indicators:** CCI projected emissions pathway vs targets; replacement strategy exists (yes/no) *(per [CSS:408](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -566,7 +566,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** formal 2030 NDC target document not in Climate `sources` array.
 - **durability:** Target *(live tag matches PCR tier)*.
 - **home_dimension:** Climate & Environment
-- **promise_tracker_entry:** Climate `promises[3]`; status Stalled since 2025-11-27.
+- **promise_tracker_entry:** Climate `promises[3]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:400](Canonical-Scoring-Sheets.md) construct — **interim-target** component.
 - **primary_indicators:** CCI projected emissions pathway vs 2030 and 2035 targets *(per [CSS:408](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -591,7 +591,7 @@ The CTM must **not**:
 - **source_document:** [IRCC 2026-2028 levels plan](https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/corporate-initiatives/levels/supplementary-immigration-levels-2026-2028.html) *(in Immigration `sources` array)*.
 - **durability:** Commitment *(live tag)*. **Note:** "Target" fits the live evidence (380,000 PR target for 2026-2028); re-tag candidate.
 - **home_dimension:** Immigration
-- **promise_tracker_entry:** Immigration `promises[0]`; status Delivered 2025-11-04.
+- **promise_tracker_entry:** Immigration `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The adequacy and coherence of the federal immigration level correction" *(verbatim from [Canonical-Scoring-Sheets.md:358](Canonical-Scoring-Sheets.md))*. Specifically the **PR-level-correction** component.
 - **primary_indicators:** PR target vs actual admissions (IRCC) *(per [CSS:366](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -614,7 +614,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** original platform target not in Immigration `sources` array; current evidence references StatsCan population series.
 - **durability:** Commitment *(live tag)*. **Note:** "Target" fits (specific numerical goal).
 - **home_dimension:** Immigration
-- **promise_tracker_entry:** Immigration `promises[1]`; status In Progress.
+- **promise_tracker_entry:** Immigration `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:358](Canonical-Scoring-Sheets.md) construct — **temp-resident-correction** component.
 - **primary_indicators:** Temp resident stock and flow (IRCC); population change (StatsCan 17-10-0009-01) *(per [CSS:366](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -637,7 +637,7 @@ The CTM must **not**:
 - **source_document:** IRCC operational changes. **Residual:** specific IRCC policy-change documents not in Immigration `sources` array.
 - **durability:** Commitment *(live tag)*. **Note:** "Framework" or "Program" better-fits as reforms materialize.
 - **home_dimension:** Immigration
-- **promise_tracker_entry:** Immigration `promises[2]`; status In Progress.
+- **promise_tracker_entry:** Immigration `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:358](Canonical-Scoring-Sheets.md) construct — **stream-design / framework** component.
 - **primary_indicators:** Student permit trajectory; temp resident stock/flow *(per [CSS:366](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -662,7 +662,7 @@ The CTM must **not**:
 - **source_document:** [Building Canada Act (Bill C-5)](https://www.parl.ca/legisinfo/en/bill/45-1/c-5) *(in Major Projects `sources` array)*.
 - **durability:** Legislated *(live tag matches PCR tier — MPO created by Building Canada Act; PCR names Building Canada Act as a Legislated example)*.
 - **home_dimension:** Major Projects
-- **promise_tracker_entry:** Major Projects `promises[0]`; status In Progress.
+- **promise_tracker_entry:** Major Projects `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The effectiveness of federal institutional machinery for infrastructure project delivery" *(verbatim from [Canonical-Scoring-Sheets.md:315](Canonical-Scoring-Sheets.md))*. Specifically the **MPO-timeline** component.
 - **primary_indicators:** Mean regulatory approval time vs 2-year target; MPO projects referred and status *(per [CSS:323](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -685,7 +685,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** specific policy framework URL not in Major Projects `sources` array.
 - **durability:** Framework *(live tag matches PCR tier)*.
 - **home_dimension:** Major Projects
-- **promise_tracker_entry:** Major Projects `promises[1]`; status Stalled.
+- **promise_tracker_entry:** Major Projects `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:315](Canonical-Scoring-Sheets.md) construct — **regulatory-harmonization** component.
 - **primary_indicators:** Mean regulatory approval time; new vs pre-existing projects in pipeline *(per [CSS:323](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -708,7 +708,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** Alto concept announcement URL not in Major Projects `sources` array.
 - **durability:** Commitment *(live tag)*. **Note:** "Program" candidate once funding structure and corridor confirmed.
 - **home_dimension:** Major Projects
-- **promise_tracker_entry:** Major Projects `promises[2]`; status Too Early.
+- **promise_tracker_entry:** Major Projects `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:315](Canonical-Scoring-Sheets.md) construct — **flagship-project** component; tests whether MPO machinery accelerates a signature multi-year infrastructure project.
 - **primary_indicators:** National interest designation uses; new vs pre-existing projects in pipeline *(per [CSS:323](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -731,7 +731,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** specific program documentation URL not in Major Projects `sources` array; program referenced in live evidence as operational.
 - **durability:** Program *(live tag matches PCR tier)*.
 - **home_dimension:** Major Projects
-- **promise_tracker_entry:** Major Projects `promises[3]`; status Delivered 2025-06-26.
+- **promise_tracker_entry:** Major Projects `promises[3]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:315](Canonical-Scoring-Sheets.md) construct — **Indigenous-participation** component of institutional machinery.
 - **primary_indicators:** Program disbursement data *(indirect; CSS indicators focus on MPO machinery rather than Indigenous loan program specifically — potential indicator gap)*.
 - **source_roles_required:**
@@ -756,7 +756,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** specific AI compute strategy announcement URL not in Economic Policy Response `sources` array.
 - **durability:** Program *(live tag matches PCR tier — PCR names "$2B AI compute strategy" as a Program example)*. Federal disbursement is not yet confirmed; the funded structure meets the Program threshold.
 - **home_dimension:** Economic Policy Response
-- **promise_tracker_entry:** Economic Policy Response `promises[0]`; status In Progress.
+- **promise_tracker_entry:** Economic Policy Response `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The adequacy of the federal government's policy response to Canada's structural productivity and competitiveness challenges" *(verbatim from [Canonical-Scoring-Sheets.md:59](Canonical-Scoring-Sheets.md))*. Specifically the **AI-compute-fund** component.
 - **primary_indicators:** AI/minerals fund disbursement status (ISED, Treasury Board) *(per [CSS:67](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -779,7 +779,7 @@ The CTM must **not**:
 - **source_document:** [NRCan — critical minerals partnerships](https://www.canada.ca/en/natural-resources-canada/news/2026/03/canada-secures-30-new-critical-minerals-partnerships-and-unlocks-121-billion-in-mining-project-capital.html) *(in Economic Policy Response `sources` array)*.
 - **durability:** Program *(live tag matches PCR tier)*.
 - **home_dimension:** Economic Policy Response
-- **promise_tracker_entry:** Economic Policy Response `promises[1]`; status In Progress.
+- **promise_tracker_entry:** Economic Policy Response `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:59](Canonical-Scoring-Sheets.md) construct — **critical-minerals-instrument** component.
 - **primary_indicators:** AI/minerals fund disbursement status *(per [CSS:67](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -802,12 +802,12 @@ The CTM must **not**:
 - **source_document:** **Residual:** specific announcement URL not in Economic Policy Response `sources` array.
 - **durability:** Framework *(live tag matches PCR tier)*.
 - **home_dimension:** Economic Policy Response
-- **promise_tracker_entry:** Economic Policy Response `promises[2]`; status Too Early.
+- **promise_tracker_entry:** Economic Policy Response `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:59](Canonical-Scoring-Sheets.md) construct — **regulatory-reform** component.
 - **primary_indicators:** No direct CSS Economic Policy Response minimum indicator covers red-tape-review reports; indirect via business-investment response.
 - **source_roles_required:**
   - **Policy (required):** red-tape review framework [QA T1/T4]
-  - **Execution (required, future):** published department reports (not yet public)
+  - **Execution (required):** published department progress reports
   - **Independent challenge (optional):** regulatory-burden analysis
 - **deconfliction_notes:** Primary home Economic Policy Response.
 - **derivative_handling:** Not one of the five flagship files. Aggregated in Promise Delivery.
@@ -826,7 +826,7 @@ The CTM must **not**:
 - **source_document:** [PM blind-trust summary statement](https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf) and [PM Annex A public declaration of agreed measure](https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf) *(in Ethics `sources` array)*.
 - **durability:** Commitment *(live tag)*. **Note:** process construct; PCR's tier definitions do not cleanly map to process-adequacy commitments, so "Commitment" is defensible.
 - **home_dimension:** Ethics & Transparency
-- **promise_tracker_entry:** Ethics `promises[0]`; status Stalled.
+- **promise_tracker_entry:** Ethics `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The adequacy of the PM's ethics framework relative to the novel disclosure requirements of his background" *(verbatim from [Canonical-Scoring-Sheets.md:146](Canonical-Scoring-Sheets.md))*. Specifically the **disclosure-completeness** component.
 - **primary_indicators:** Disclosure completeness (categories disclosed / categories expected); conflict screening status (active/inactive, scope) *(per [CSS:154](Canonical-Scoring-Sheets.md))*. The new official-status anchor metrics (Blind trust status: Established; Agreed measure filing: Filed; Conflict screening scope: Declared in Annex A) are the live anchors for this commitment.
 - **source_roles_required:**
@@ -850,7 +850,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** original platform commitment URL not in Ethics `sources` array. Commitment is implicit in the wider disclosure framework.
 - **durability:** Framework *(live tag matches PCR tier)*.
 - **home_dimension:** Ethics & Transparency
-- **promise_tracker_entry:** Ethics `promises[1]`; status Stalled.
+- **promise_tracker_entry:** Ethics `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:146](Canonical-Scoring-Sheets.md) construct — **independent-review** component.
 - **primary_indicators:** Ethics Commissioner review status (published/not published); independent governance review status *(per [CSS:154](Canonical-Scoring-Sheets.md))*. Current status: both Not published.
 - **source_roles_required:**
@@ -876,7 +876,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** platform commitment URL not in Flagship `sources` array.
 - **durability:** Commitment *(live tag)*. **Note:** slogan-level framing rather than a specific mechanism; PCR might classify as a lower-tier commitment. Genuine Flagship-native commitment (it asks the cross-cutting delivery question directly).
 - **home_dimension:** Flagship Delivery *(live assignment)*. This commitment is Flagship-native in that it addresses the cross-cutting delivery machinery across all five flagship files rather than a specific project's timeline.
-- **promise_tracker_entry:** Flagship Delivery `promises[0]`; status Stalled.
+- **promise_tracker_entry:** Flagship Delivery `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:188](Canonical-Scoring-Sheets.md) construct — **cross-cutting execution** component; tests the full five-flagship-file delivery picture rather than any single file.
 - **primary_indicators:** Per the Combination Rule ([Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md)): flagship file status distribution (delivering / partially delivering / stalled / failing); bills passed vs introduced; federal-provincial coordination quality; fund disbursement rates on flagship programs.
 - **source_roles_required:**
@@ -902,7 +902,7 @@ The CTM must **not**:
 - **source_document:** [NATO Secretary General Annual Report 2025](https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada) and [Budget 2025 Ch.4](https://budget.canada.ca/2025/report-rapport/chap4-en.html) *(in Defence & Trade `sources` array)*.
 - **durability:** Target *(live tag matches PCR tier — binary milestone met/not met)*.
 - **home_dimension:** Defence & Trade — **defence leg**
-- **promise_tracker_entry:** Defence & Trade `promises[0]`; status Delivered 2026-03-26.
+- **promise_tracker_entry:** Defence & Trade `promises[0]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** "The degree to which the federal government has met its stated defence spending commitments and diversified Canada's trade relationships away from single-market dependency" *(verbatim from [Canonical-Scoring-Sheets.md:515](Canonical-Scoring-Sheets.md))*. **Defence leg** — binary milestone on stated NATO spending target.
 - **primary_indicators:** NATO spending as % GDP (confirmed by NATO, not just domestic claim); Defence procurement milestones (DND) *(per [CSS:523](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -926,7 +926,7 @@ The CTM must **not**:
 - **source_document:** [Building Canada Act (Bill C-5) — LEGISinfo](https://www.parl.ca/legisinfo/en/bill/45-1/c-5) *(now in Defence & Trade `sources` array; same URL is also threaded in Major Projects `sources`)*.
 - **durability:** Legislated *(live tag matches PCR tier)*.
 - **home_dimension:** Defence & Trade — **trade leg** *(live assignment)*. **Construct-fit note:** per [CSS:556](Canonical-Scoring-Sheets.md) rater note, interprovincial trade is acknowledged to overlap with Economic Policy Response (productivity/competitiveness). CSS nonetheless primary-homes trade diversification metrics in Defence & Trade. Construct-fit question surfaced, not resolved.
-- **promise_tracker_entry:** Defence & Trade `promises[1]`; status Delivered 2025-06-26.
+- **promise_tracker_entry:** Defence & Trade `promises[1]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:515](Canonical-Scoring-Sheets.md) construct — **trade-diversification** leg, via domestic-market-integration rather than export-share-shift.
 - **primary_indicators:** No direct "interprovincial trade" metric in CSS minimum indicators (which focus on US export share and non-US export growth). **Gap:** interprovincial trade commitment tests the trade leg's construct obliquely. **Residual:** CSS Defence & Trade minimum-indicator list does not cover interprovincial integration.
 - **source_roles_required:**
@@ -949,7 +949,7 @@ The CTM must **not**:
 - **source_document:** [Budget 2025 Ch.2](https://budget.canada.ca/2025/report-rapport/chap2-en.html) and [Transport Canada's March 2026 call for proposals](https://www.canada.ca/en/transport-canada/news/2026/03/government-of-canada-launches-calls-for-proposals-for-the-5-billion-trade-diversification-corridors-fund-and-the-1-billion-arctic-infrastructure-fund.html).
 - **durability:** Program *(live tag matches PCR tier)*.
 - **home_dimension:** Defence & Trade — **trade leg**
-- **promise_tracker_entry:** Defence & Trade `promises[2]`; status In Progress.
+- **promise_tracker_entry:** Defence & Trade `promises[2]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:515](Canonical-Scoring-Sheets.md) construct — **trade-diversification** leg.
 - **primary_indicators:** Non-US export growth rate; EU/CETA-region export growth *(per [CSS:523](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
@@ -972,7 +972,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** Buy Canadian procurement strategy framework URL not directly in Defence & Trade `sources` array.
 - **durability:** Framework *(live tag matches PCR tier)*.
 - **home_dimension:** Defence & Trade *(live assignment)*. **Construct-fit note:** per [CSS:556](Canonical-Scoring-Sheets.md), Buy Canadian is explicitly noted as overlapping Economic Policy Response (productivity / competitiveness); CSS keeps trade-home primacy. Not a dual-leg row because the construct overlap is Defence & Trade vs Economic Policy, not defence-leg vs trade-leg.
-- **promise_tracker_entry:** Defence & Trade `promises[3]`; status In Progress.
+- **promise_tracker_entry:** Defence & Trade `promises[3]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:515](Canonical-Scoring-Sheets.md) construct — **defence-procurement / trade-policy** component (procurement affects both defence-industrial-base and trade-diversification).
 - **primary_indicators:** Defence procurement milestones; no direct "Buy Canadian uptake" indicator in CSS.
 - **source_roles_required:**
@@ -995,7 +995,7 @@ The CTM must **not**:
 - **source_document:** **Residual:** specific announcement URL not in Defence & Trade `sources` array.
 - **durability:** Framework *(live tag matches PCR tier)*.
 - **home_dimension:** Defence & Trade *(defence-leg framing, though foreign policy review is broader than defence alone)*
-- **promise_tracker_entry:** Defence & Trade `promises[4]`; status Too Early.
+- **promise_tracker_entry:** Defence & Trade `promises[4]`; live status remains owned by the Promise Tracker.
 - **construct_tested:** [CSS:515](Canonical-Scoring-Sheets.md) construct — **strategic-framework** component; tests whether the government has articulated a coherent foreign-and-defence posture.
 - **primary_indicators:** No direct CSS minimum indicator tests foreign policy review output. **Gap surfaced.**
 - **source_roles_required:**
@@ -1017,7 +1017,7 @@ The CTM must **not**:
 
 - **Targets with no delivery mechanism** (FISCAL-001, CLIMATE-003, CLIMATE-004, IMMIG-001, IMMIG-002, DEFTRADE-001): handled by marking Policy/Execution roles "not load-bearing for this commitment" and leaning on Measurement + Challenge.
 - **Delivered commitments** (FISCAL-003, FISCAL-004, AFFORD-001, AFFORD-002, CARBON-001, CARBON-002, MPROJ-004, DEFTRADE-001, DEFTRADE-002): update_trigger correctly oriented toward policy-reversal / material-outturn-divergence rather than "first action" triggers.
-- **Too Early commitments** (CARBON-003, CLIMATE-001, MPROJ-003, ECONPOL-003, DEFTRADE-005): Future-tense roles clearly marked; update_trigger names the first-concrete-action thresholds.
+- **Too Early commitments** (CARBON-003, CLIMATE-001, MPROJ-003, DEFTRADE-005): Future-tense roles clearly marked; update_trigger names the first-concrete-action thresholds.
 - **Process-construct commitments** (ETHICS-001, ETHICS-002): Measurement marked "not applicable to this construct" with explicit reference to the Process construct type in SAM; no fake-precision indicator invented.
 - **Derivative/Combination commitments** (FLAG-001): Derivative-home framing held cleanly once the MPO timeline commitment was returned to its proper Major Projects home and left in Flagship as derivative delivery evidence only.
 - **Dual-leg dimension** (Defence & Trade): Each commitment assigned to a single leg (defence or trade); no blended rows. The Defence & Trade pilot did not produce a true dual-leg commitment requiring a cluster split, but the leg-assignment discipline held.
