@@ -27,6 +27,7 @@ Work the sections in order. Each checkbox is a discrete commit-worthy step.
 - [ ] Split the source work into two proofs. Exact-URL recertification follows each ledger row's stated cadence; rows that were fully recertified in the prior cycle can be marked `not due` with the last check and next due point. Publisher-site search checks the monthly and event-driven source websites or indexes for evidence in the prior-month window.
 - [ ] Log negative findings. Use the `Result` value `no event observed` for an actively-checked source with nothing new; it only counts when the row's Notes name the source site, the search/index checked, and the date window searched. (Free-text phrases like "no relevant update found" are not valid `Result` values and will fail the ledger check.)
 - [ ] Treat blocked rows as open until they name a fallback action, such as manual browser check, alternate official index, or editor source pull.
+- [ ] Run `npm run source:links` in the same pass. The ledger check reads the ledger document only. It confirms that every row carries a disposition, and it never opens a link. Those are two different claims. In August 2026 a cycle closed 611 ledger rows clean while 17 of 18 Major Projects cohort links were already returning 404, because the Major Projects Office had moved its project pages. The link checker fetches every cited URL with a browser user agent, falls back to curl when a server refuses the fetcher, and reports four states: OK, REDIRECTED, BLOCKED, and DEAD. It exits non-zero on DEAD. A 200 response is not enough on its own, so the checker also fails a soft 404 and a deep link that now lands on a bare homepage, because both mean the cited document is gone. Do not call the source set clean while any DEAD remains. Review every REDIRECTED row by hand, because the destination may no longer support the claim.
 - [ ] Before saying the monthly source cycle is complete, run `npm run source:ledger:check -- docs/Source-Coverage-Ledger-YYYY-MM.md --require-closed`. The cycle is not complete while any row has an empty `Result` (rows not due this month must carry the literal value `not due`), any row is still marked `not checked`, any closed row lacks `Date checked`, any cited URL is missing, any blocked row lacks a fallback action, or `Coverage level achieved` is still blank.
 
 ### 1. Data review (pre-grade)
@@ -53,7 +54,7 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] Open the dim's entry in [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md).
 - [ ] Re-evaluate the `rationale`, `metrics`, and `gradeBasis` fields against the new data from step 1.
 - [ ] Decide: **no change / grade move / plus-minus revision / modifier activation-or-deactivation**.
-- [ ] Apply [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md) — especially Rule 2 (carry-forward), Rule 4 (confidence revisit), Rule 5 (probation discipline), Rule 6 (same-family concentration).
+- [ ] Apply [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), especially Rule 2 (carry-forward), Rule 4 (confidence revisit), Rule 5 (probation discipline), Rule 6 (same-family concentration).
 - [ ] If a grade moves: update `grade`, `previousGrade`, `trend`, `gradeBasis` (`band`, `plusMinusRationale`, `activeModifiers`), and `rationale` fields together. Do not update one without the others.
 - [ ] Update the dim's `lastUpdated` field to today.
 - [ ] If the rubric was ambiguous enough to need editor judgment: note it in the scratch file for a future Inter-Rater-Reliability-Protocol.md candidate dim.
@@ -62,7 +63,7 @@ For each of the 11 graded dimensions plus Promise Delivery:
 
 - [ ] Open [Commitment-Traceability-Map.md](Commitment-Traceability-Map.md).
 - [ ] For each promise where something happened this cycle: update the `status`, `evidence`, and `history` fields. Thread any new `statusSourceUrl` that emerged.
-- [ ] Check residual-status promises (stalled / abandoned / too-early) — have any moved?
+- [ ] Check residual-status promises (stalled / abandoned / too-early), have any moved?
 - [ ] Do not retroactively edit `since` or `originalSourceUrl` unless they were wrong.
 
 ### 4. Approval Signal refresh
@@ -73,7 +74,7 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] Update `asOf` to the cycle date.
 - [ ] Re-check Pollara, Mainstreet, EKOS, Spark Insights, and Research Co. for any direct approve/disapprove release since last cycle. Research Co. stays excluded unless it surfaces a broad PM/government job-approval pair rather than a narrower issue-approval construct.
 - [ ] Update the `preferredPM.polls` array with new Nanos weekly entries.
-- [ ] Sanity-check the rolling aggregate after data is updated — should move with direction of the new polls.
+- [ ] Sanity-check the rolling aggregate after data is updated, should move with direction of the new polls.
 
 ### 5. Changelog entry
 
@@ -94,17 +95,17 @@ For each of the 11 graded dimensions plus Promise Delivery:
 
 ### 7. Build + local sanity checks
 
-- [ ] `npm run build` — must pass without new warnings.
+- [ ] `npm run build`, must pass without new warnings.
 - [ ] Eyeball the built dashboard: the Change Log tab should show the new changelog entry; the Approval Signal should show the updated rolling window; score cards should reflect the new grades.
 - [ ] Confirm `feed.xml` was regenerated by the prebuild script (contains the new changelog entry).
 - [ ] Confirm the live GoatCounter visitor count is advancing (means the tracking script is still loading).
 
 ### 8. Commit + push
 
-- [ ] Commit messages follow repo style — sentence-case imperative, descriptive, no Conventional Commits prefixes.
-- [ ] One commit per logical concern or one bundled cycle commit — your choice, but keep changelog + meta + dimensions together in a single commit so a reader looking at `git log` sees the whole cycle as one movement.
+- [ ] Commit messages follow repo style, sentence-case imperative, descriptive, no Conventional Commits prefixes.
+- [ ] One commit per logical concern or one bundled cycle commit, your choice, but keep changelog + meta + dimensions together in a single commit so a reader looking at `git log` sees the whole cycle as one movement.
 - [ ] Push to `main` after editor-approved data, source, and grade decisions are reflected. The deploy workflow fires automatically.
-- [ ] Watch the Pages deploy — ~30 seconds. Live URL should reflect the update within a minute.
+- [ ] Watch the Pages deploy, ~30 seconds. Live URL should reflect the update within a minute.
 - [ ] Confirm the live header version matches `src/data/meta.json` before trusting live-tab, bundle, evidence-pack, or `audit:live` findings.
 
 ### 9. Final live desktop/mobile sanity pass
@@ -141,11 +142,11 @@ If any item fails, fix it before treating the cycle as shipped.
 
 First full monthly cycle after the April 19 "ship-readiness" burst. Specific cycle-2 tasks:
 
-- **Approval Signal v2 first production data-add.** The polls file currently runs through March 30, 2026. The May 14 cycle is the first pull that extends past the April 19 signal snapshot. Expect the rolling window to shift forward cleanly — the weighted-mean code already handles it, but spot-check the math once the new polls land.
+- **Approval Signal v2 first production data-add.** The polls file currently runs through March 30, 2026. The May 14 cycle is the first pull that extends past the April 19 signal snapshot. Expect the rolling window to shift forward cleanly, the weighted-mean code already handles it, but spot-check the math once the new polls land.
 - **Ethics & Flagship Delivery probation review.** Both dims are on whole-letter probation per [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md). The May 14 cycle is a good moment to reassess whether the evidence base has thickened enough to move either dim off probation.
 - **Post-majority-government read.** The April 13 majority-government formation may materially change the execution-feasibility picture for several dims. Worth a specific review of Flagship Delivery, Fiscal Health, and Promise Delivery with that lens.
-- **Promise status-source watch list.** All 43 tracked promises now have original-source links, and 42 have `statusSourceUrl`. Keep watching the remaining gap — Carbon Border Adjustment Mechanism — and add a status-evidence link only when a clean official or Tier 2 document appears.
-- **Candidate inter-rater reliability pilot.** Per [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md), cycle 2 or cycle 3 is a reasonable moment for a first v1 rater test. Two-to-three-dim pilot, 2–3 hours of volunteer time.
+- **Promise status-source watch list.** All 43 tracked promises now have original-source links, and 42 have `statusSourceUrl`. Keep watching the remaining gap, Carbon Border Adjustment Mechanism, and add a status-evidence link only when a clean official or Tier 2 document appears.
+- **Candidate inter-rater reliability pilot.** Per [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md), cycle 2 or cycle 3 is a reasonable moment for a first v1 rater test. Two-to-three-dim pilot, 2-3 hours of volunteer time.
 
 ---
 

@@ -1,20 +1,25 @@
 [
   {
-    "date": "2026-08-14",
-    "version": "5.169",
+    "date": "2026-08-23",
+    "version": "5.170",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
       "gradeMoveCount": 0,
       "featuredItems": [
         {
-          "type": "event",
-          "headline": "July evidence cycle closed",
-          "body": "The monthly and event-driven source watches received dated dispositions for July 1-31. Four IRCC downloads and one Moody's detail page remained access exceptions, so no unavailable value was inferred. Each policy file and the 43-promise tracker was reviewed against its published conditions, with no score or status move.",
-          "itemIndex": 0
+          "type": "method",
+          "headline": "Cited links are now opened, not just listed",
+          "body": "The monthly source check confirmed that every source had a note written beside it. It never opened a link. That is how a cycle closed while 17 links were already broken. A new check now fetches every cited link and fails when one is gone. It also fails a link that answers normally but lands on an error page or a site homepage, because the cited document is gone either way. Running it found three more broken citations, including two Ethics Commissioner filings that no longer reach the document.",
+          "itemIndex": 2
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-14",
+    "version": "5.169",
+    "items": []
   },
   {
     "date": "2026-07-26",

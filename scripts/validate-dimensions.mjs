@@ -919,6 +919,45 @@ for (const d of dimensions) {
     }
   });
 
+  // Project cohort integrity. `stageDate` is the date the project actually
+  // reached its current stage, which may legitimately predate MPO referral.
+  // A project sitting at `designated` is dated at referral by definition, so
+  // that equality is fine. Any HIGHER stage dated exactly at referral is the
+  // signature of a data-entry default rather than a sourced date, and it
+  // silently misreports an inherited approval as MPO-era progress. The August
+  // 2026 cycle introduced five such rows at once while re-sourcing to the new
+  // Major Projects Office pages, so this is checked rather than trusted.
+  if (Array.isArray(d.projectCohort?.projects)) {
+    d.projectCohort.projects.forEach((project, i) => {
+      const where = `projectCohort.projects[${i}] (${project?.id || project?.name || "unnamed"})`;
+      if (!project?.id) {
+        err(name, `${where} is missing a stable "id"`);
+      }
+      if (project?.stageDate && !validDateString(project.stageDate)) {
+        err(name, `${where}.stageDate "${project.stageDate}" is not a valid date`);
+      }
+      if (
+        project?.stage
+        && project.stage !== "designated"
+        && project.stageDate
+        && project.stageDate === project.referredDate
+      ) {
+        err(
+          name,
+          `${where} has stage "${project.stage}" dated exactly at referredDate `
+          + `(${project.referredDate}). Record the date the stage was actually reached, `
+          + `from a source. If the stage genuinely was reached on the referral date, `
+          + `the row needs an explicit note explaining that.`,
+        );
+      }
+    });
+    const ids = d.projectCohort.projects.map((p) => p?.id).filter(Boolean);
+    const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
+    if (dupes.length) {
+      err(name, `projectCohort has duplicate project ids: ${[...new Set(dupes)].join(", ")}`);
+    }
+  }
+
   if (Array.isArray(d.metrics)) {
     d.metrics.forEach((m) => {
       if (Array.isArray(m?.sourceRefs)) {

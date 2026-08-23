@@ -709,6 +709,7 @@
       ],
       "projects": [
         {
+          "id": "contrecur-terminal-container-project",
           "name": "Contrecœur Terminal Container Project",
           "sponsor": "Port of Montréal",
           "location": "Contrecœur, Québec",
@@ -716,21 +717,23 @@
           "referredDate": "2025-09-11",
           "stage": "under_construction",
           "stageDate": "2026-04-09",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/contrecoeur.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/contrecoeur.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "darlington-new-nuclear-phase-1",
           "name": "Darlington New Nuclear Phase 1",
           "sponsor": "Ontario Power Generation",
           "location": "Clarington, Ontario",
           "tranche": 1,
           "referredDate": "2025-09-11",
           "stage": "approved",
-          "stageDate": "2025-09-11",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/darlington.html",
+          "stageDate": "2025-04-04",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/darlington.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "lng-canada-phase-2-expansion",
           "name": "LNG Canada Phase 2 Expansion",
           "sponsor": "LNG Canada",
           "location": "Kitimat, British Columbia",
@@ -738,21 +741,23 @@
           "referredDate": "2025-09-11",
           "stage": "designated",
           "stageDate": "2025-09-11",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/lng-canada.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/lng-canada.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "mcilvenna-bay-foran-copper-mine",
           "name": "McIlvenna Bay Foran Copper Mine",
           "sponsor": "Foran Mining",
           "location": "East-Central Saskatchewan",
           "tranche": 1,
           "referredDate": "2025-09-11",
           "stage": "under_construction",
-          "stageDate": "2025-09-11",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/mcilvenna.html",
+          "stageDate": "2024-07-15",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/mcilvenna.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "red-chris-copper-and-gold-mine",
           "name": "Red Chris Copper and Gold Mine",
           "sponsor": "Newmont / Imperial Metals",
           "location": "Northwestern British Columbia",
@@ -760,10 +765,11 @@
           "referredDate": "2025-09-11",
           "stage": "approved",
           "stageDate": "2026-07-02",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/red-chris.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/red-chris.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "north-coast-transmission-line",
           "name": "North Coast Transmission Line",
           "sponsor": "BC Hydro",
           "location": "Northwest British Columbia",
@@ -775,17 +781,19 @@
           "sourceLabel": "BC Hydro construction update, July-September 2026"
         },
         {
+          "id": "ksi-lisims-lng",
           "name": "Ksi Lisims LNG",
           "sponsor": "Nisga'a Nation / Rockies LNG / Western LNG",
           "location": "Pearse Island, British Columbia",
           "tranche": 2,
           "referredDate": "2025-11-13",
           "stage": "approved",
-          "stageDate": "2025-11-13",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/ksi-lisims.html",
+          "stageDate": "2025-09-15",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/ksi-lisims.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "crawford-nickel-project",
           "name": "Crawford Nickel Project",
           "sponsor": "Canada Nickel Company",
           "location": "Timmins, Ontario",
@@ -793,10 +801,11 @@
           "referredDate": "2025-11-13",
           "stage": "approved",
           "stageDate": "2026-07-31",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/crawford.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/crawford.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "matawinie-graphite-mine",
           "name": "Matawinie Graphite Mine",
           "sponsor": "Nouveau Monde Graphite",
           "location": "Saint-Michel-des-Saints, Québec",
@@ -804,21 +813,27 @@
           "referredDate": "2025-11-13",
           "stage": "under_construction",
           "stageDate": "2026-05-19",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/nouveau-monde.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/nouveau-monde.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "sisson-mine",
           "name": "Sisson Mine",
           "sponsor": "Northcliff Resources Ltd.",
           "location": "Sisson Brook, New Brunswick",
           "tranche": 2,
           "referredDate": "2025-11-13",
           "stage": "approved",
-          "stageDate": "2025-11-13",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/northcliff.html",
-          "sourceLabel": "Major Projects Office project page"
+          "stageDate": "2017-06-23",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/northcliff.html",
+          "sourceLabel": "Major Projects Office project page",
+          "formerNames": [
+            "Sisson Tungsten Mine",
+            "Northcliff Resources' Sisson Mine"
+          ]
         },
         {
+          "id": "iqaluit-nukkiksautiit-hydro-project",
           "name": "Iqaluit Nukkiksautiit Hydro Project",
           "sponsor": "Nunavut Nukkiksautiit Corporation",
           "location": "Iqaluit, Nunavut",
@@ -826,10 +841,11 @@
           "referredDate": "2025-11-13",
           "stage": "designated",
           "stageDate": "2025-11-13",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/nukkiksautiit.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/nukkiksautiit.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "mackenzie-valley-highway",
           "name": "Mackenzie Valley Highway",
           "sponsor": "Government of Northwest Territories",
           "location": "Wrigley to Inuvik, Northwest Territories",
@@ -837,10 +853,11 @@
           "referredDate": "2026-03-12",
           "stage": "designated",
           "stageDate": "2026-03-12",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/mackenzie.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/mackenzie.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "grays-bay-road-and-port",
           "name": "Grays Bay Road and Port",
           "sponsor": "West Kitikmeot Resources Corporation",
           "location": "Kitikmeot Region, Nunavut",
@@ -848,10 +865,11 @@
           "referredDate": "2026-03-12",
           "stage": "designated",
           "stageDate": "2026-03-12",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/grays-bay.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/grays-bay.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "arctic-economic-and-security-corridor",
           "name": "Arctic Economic and Security Corridor",
           "sponsor": "Government of Northwest Territories",
           "location": "Northwest Territories to Nunavut",
@@ -859,10 +877,11 @@
           "referredDate": "2026-03-12",
           "stage": "designated",
           "stageDate": "2026-03-12",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/aesc.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/aesc.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "taltson-hydro-expansion-project",
           "name": "Taltson Hydro Expansion Project",
           "sponsor": "Northwest Territories Power Corporation",
           "location": "Northwest Territories",
@@ -870,10 +889,11 @@
           "referredDate": "2026-03-12",
           "stage": "designated",
           "stageDate": "2026-03-12",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/taltson.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/taltson.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "deep-geological-repository",
           "name": "Deep Geological Repository",
           "sponsor": "Nuclear Waste Management Organization",
           "location": "Wabigoon Lake Ojibway Nation and Ignace, Ontario",
@@ -881,10 +901,11 @@
           "referredDate": "2026-06-24",
           "stage": "designated",
           "stageDate": "2026-06-24",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/geo.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/geo.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "west-coast-oil-pipeline",
           "name": "West Coast Oil Pipeline",
           "sponsor": "Government of Alberta",
           "location": "Bruderheim, Alberta to southern British Columbia",
@@ -892,18 +913,19 @@
           "referredDate": "2026-07-02",
           "stage": "designated",
           "stageDate": "2026-07-02",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/west.html",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/west.html",
           "sourceLabel": "Major Projects Office project page"
         },
         {
+          "id": "roberts-bank-terminal-2-project",
           "name": "Roberts Bank Terminal 2 Project",
           "sponsor": "Vancouver Fraser Port Authority",
           "location": "Delta, British Columbia",
           "tranche": "Rolling",
           "referredDate": "2026-07-16",
           "stage": "approved",
-          "stageDate": "2026-07-16",
-          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/roberts-bank.html",
+          "stageDate": "2023-04-20",
+          "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/roberts-bank.html",
           "sourceLabel": "Major Projects Office project page"
         }
       ]

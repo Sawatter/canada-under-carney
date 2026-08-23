@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-08-23",
+    "version": "5.170",
+    "summary": "Corrected five project dates that wrongly showed inherited approvals as progress made after the Major Projects Office took the file, repaired 17 broken source links, and added a check that opens every cited link. No grade or score changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Five project dates corrected",
+        "body": "Five projects in the Major Projects list carried a stage date equal to their referral date, which made an older approval look like it happened when the office picked the project up. The real dates are now recorded from official sources. Ksi Lisims LNG was approved on 2025-09-15, Sisson Mine in 2017, Roberts Bank Terminal 2 in 2023, Darlington in April 2025, and McIlvenna Bay decided to build in July 2024. Every one of these came before the referral, so none of them counts as progress made after referral. The count stays at 5 of 18 and the grade stays the same. The correction matters because it shows in the data which approvals were inherited rather than produced."
+      },
+      {
+        "type": "fix",
+        "headline": "Seventeen broken source links repaired",
+        "body": "The Major Projects Office moved its project pages, so 17 of the 18 project links on the dashboard led to a missing page. Every link now resolves to the current page. The evidence behind each project is unchanged."
+      },
+      {
+        "type": "method",
+        "headline": "Cited links are now opened, not just listed",
+        "body": "The monthly source check confirmed that every source had a note written beside it. It never opened a link. That is how a cycle closed while 17 links were already broken. A new check now fetches every cited link and fails when one is gone. It also fails a link that answers normally but lands on an error page or a site homepage, because the cited document is gone either way. Running it found three more broken citations, including two Ethics Commissioner filings that no longer reach the document."
+      },
+      {
+        "type": "method",
+        "headline": "Project date rule written down and enforced",
+        "body": "A stage date records when a project actually reached that stage, which can be years before the office existed. Dates are never set to the referral date as a shortcut. The data check now rejects any project above the first stage whose date matches its referral date, so this cannot return unnoticed."
+      }
+    ]
+  },
+  {
     "date": "2026-08-14",
     "version": "5.169",
     "summary": "Reviewed the July evidence across 11 policy files and 43 promises. No grade or promise-status condition was met; official readings, project records, housing evidence, and approval polling were refreshed.",
