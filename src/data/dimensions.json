@@ -421,8 +421,8 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "The Major Projects Office is tracking 18 projects. Nine are above the first stage, called designated, but only four show documented progress after referral. No project has completed an entire MPO review cycle, and the government has not used its national-interest designation power.",
-    "verdictLine": "The office tracks 18 projects, but only four show documented progress after referral.",
+    "status": "The Major Projects Office is tracking 18 projects. Ten are above the first stage, called designated, but only five show documented progress after referral. No project has completed an entire MPO review cycle, and the government has not used its national-interest designation power.",
+    "verdictLine": "The office tracks 18 projects, but only five show documented progress after referral.",
     "latestReview": {
       "date": "2026-08-14",
       "outcome": "held",
@@ -439,8 +439,8 @@
       "band": "C",
       "bandCriterion": "There are 18 projects in the pipeline, but fewer than 30% show progress recorded after referral, and the government's national-interest power is still unused.",
       "plusMinusRationale": "Current C includes a credit-claiming penalty. Without that penalty for overstating its role in projects that were already underway, the grade would be a C+.",
-      "whyNotHigher": "The next band needs at least 30% of projects showing documented progress after referral. Four of 18, about 22%, meet that test.",
-      "whyNotLower": "The band below would mean no documented post-referral progress. Contrecœur Terminal, Matawinie Graphite, North Coast Transmission, and Red Chris have later-dated advancement.",
+      "whyNotHigher": "The next band needs at least 30% of projects showing documented progress after referral. Five of 18, about 28%, meet that test.",
+      "whyNotLower": "The band below would mean no documented post-referral progress. Contrecœur Terminal, Matawinie Graphite, North Coast Transmission, Red Chris, and Crawford Nickel have later-dated advancement.",
       "activeModifiers": [
         {
           "name": "Credit-claiming penalty",
@@ -615,7 +615,7 @@
         "lead": true,
         "value": "10 of 18 (56%)",
         "source": "manual",
-        "sourceNote": "Ten projects carry a stage above designated: six approved and four under construction. This distribution is not the threshold metric because stages already reached at referral do not count as later progress.",
+        "sourceNote": "Ten projects carry a stage above designated: five approved and five under construction. This distribution is not the threshold metric because stages already reached at referral do not count as later progress.",
         "automatable": false
       },
       {
@@ -629,9 +629,9 @@
       {
         "label": "Projects under construction",
         "lead": true,
-        "value": "4",
+        "value": "5",
         "source": "pmo",
-        "sourceNote": "Contrecœur Terminal, Matawinie Graphite, and North Coast Transmission moved into construction after referral. McIlvenna Bay was already under construction when it was referred, so it appears in this stage count but not in the post-referral progress numerator.",
+        "sourceNote": "Contrecœur Terminal, Matawinie Graphite, and North Coast Transmission moved into construction after referral. McIlvenna Bay was already under construction when it was referred, and Darlington began construction in May 2025, four months before its referral. Both appear in this stage count but not in the post-referral progress numerator.",
         "automatable": false
       },
       {
@@ -2435,7 +2435,14 @@
           "text": "Environment and Climate Change Canada (ECCC) gets its budget restored",
           "setDate": "2026-04-17",
           "sourceLabel": "ECCC 2025-26 Departmental plan at a glance",
-          "sourceUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html"
+          "sourceUrl": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2025-2026/dp-at-glance.html",
+          "additionalSources": [
+            {
+              "label": "ECCC 2026-27 Departmental Plan",
+              "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2026-2027.html",
+              "role": "Current-year reading for the same condition. The 2025-26 plan stays the primary link because the word restored needs the pre-reduction level it is measured against: $3,127,271,128 in planned spending and 8,392 planned full-time equivalents. The 2026-27 plan, issued 2026-03-13, sets planned spending at $1,711,705,773 with 7,868 planned full-time equivalents, and books spending review reductions of $236,774,916 in 2026-27, $244,390,919 in 2027-28 and $282,647,000 in 2028-29, about 837 fewer full-time equivalents by 2028-29. Most of the gap between the two totals is not program cuts. The 2026-27 plan attributes the $1,491.7 million drop from the 2025-26 forecast mainly to fuel charge proceeds returns finishing, lower output-based pricing payouts, sunsetting initiatives and the spending review. Read the two together: the older plan gives the bar, the newer one gives the current position."
+            }
+          ]
         }
       ],
       "down": [
@@ -2454,6 +2461,11 @@
               "label": "PMO - National Electricity Strategy / CER adjustment announcement (2026-05-14)",
               "url": "https://www.pm.gc.ca/en/news/news-releases/2026/05/14/prime-minister-carney-announces-forthcoming-national-electricity",
               "role": "Active watch evidence (editor decision 2026-06-12): the announced intention to weaken the Clean Electricity Regulations does not fire this trigger on its own. Announced is not done, in both directions. The trigger comes back for adjudication when a materially weakening CER amendment is published in the Canada Gazette or the CER is repealed."
+            },
+            {
+              "label": "ECCC 2026-27 Departmental Plan",
+              "url": "https://www.canada.ca/en/environment-climate-change/corporate/transparency/priorities-management/departmental-plans/2026-2027.html",
+              "role": "Current-year reading for the same condition. The 2025-26 plan stays the primary link because the word more needs a starting list, and that plan is the inventory of programs running when this trigger was written. The 2026-27 plan, issued 2026-03-13, names what has since ended or is winding down, including Enhanced Nature Legacy, the Carbon Pollution Proceeds Return and the Climate Lens initiative, and it plans 7,868 full-time equivalents against 8,392 planned for 2025-26."
             }
           ]
         }

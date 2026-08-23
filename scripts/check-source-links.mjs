@@ -63,7 +63,7 @@ const CONCURRENCY = 4;
 // worse than no check, because it sends an editor off to "repair" a working
 // citation. So requests to the same host are serialised with a gap, and any
 // failure verdict is re-tested once, alone, before it is believed.
-const PER_HOST_GAP_MS = 700;
+const PER_HOST_GAP_MS = 1200;
 const hostQueues = new Map();
 
 function throttleHost(url) {
@@ -115,6 +115,15 @@ async function probe(url) {
     const moved = finalUrl.replace(/\/$/, "") !== url.replace(/\/$/, "");
     if (res.ok) {
       const broken = citationBroken(url, finalUrl);
+      if (broken === "soft 404") {
+        // Reported, not failed. canada.ca sits behind Akamai and serves its own
+        // error page with a 200 under load, and it does so unpredictably: the
+        // same page passes a calm one-at-a-time fetch and fails inside a full
+        // run. Failing the build on that would send an editor to "repair"
+        // healthy citations, which is worse than not checking. A human still
+        // needs to look, so it is surfaced loudly instead of silently dropped.
+        return { url, status: res.status, finalUrl, state: "SUSPECT", reason: broken };
+      }
       if (broken) return { url, status: res.status, finalUrl, state: "DEAD", reason: broken };
       return { url, status: res.status, finalUrl, state: moved ? "REDIRECTED" : "OK" };
     }
@@ -187,7 +196,7 @@ async function main() {
     console.log(JSON.stringify({ checkedAt: new Date().toISOString(), total: results.length, results }, null, 2));
   } else {
     console.log(`source links checked: ${results.length}`);
-    for (const state of ["DEAD", "TIMEOUT", "REDIRECTED", "BLOCKED"]) {
+    for (const state of ["DEAD", "SUSPECT", "TIMEOUT", "REDIRECTED", "BLOCKED"]) {
       const rows = by(state);
       if (!rows.length) continue;
       console.log(`\n${state} (${rows.length}):`);
@@ -196,7 +205,10 @@ async function main() {
         console.log(`  ${String(r.status).padStart(3)} ${r.url}${extra}`);
       }
     }
-    console.log(`\nOK ${by("OK").length} | REDIRECTED ${by("REDIRECTED").length} | BLOCKED ${by("BLOCKED").length} | TIMEOUT ${by("TIMEOUT").length} | DEAD ${dead.length}`);
+    console.log(`\nOK ${by("OK").length} | REDIRECTED ${by("REDIRECTED").length} | SUSPECT ${by("SUSPECT").length} | BLOCKED ${by("BLOCKED").length} | TIMEOUT ${by("TIMEOUT").length} | DEAD ${dead.length}`);
+    if (by("SUSPECT").length) {
+      console.log("SUSPECT means the server answered 200 from what looks like an error page. Check each one by hand before changing it: these flap under load.");
+    }
   }
   process.exit(dead.length ? 1 : 0);
 }

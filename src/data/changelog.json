@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-08-23",
+    "version": "5.172",
+    "summary": "Fixed Major Projects card text that still quoted the old project counts after the last two releases, kept the climate budget trigger pointed at the baseline it is measured against, and stopped the link checker failing on healthy pages. No grade or score changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Major Projects card no longer contradicts itself",
+        "body": "The last two releases moved a project into the progress count and moved another into construction, but the card's summary line, status text, and two of its why-not lines still quoted the old numbers. A reader saw the metric say five projects and the sentence beside it say four. All of the text now reads from the same counts: five projects with progress after referral, ten above the first stage, five under construction. The counts themselves did not change and neither did the grade."
+      },
+      {
+        "type": "method",
+        "headline": "Card text is now checked against the project list",
+        "body": "This was the second release in a row where a number was updated in one place and left stale in another. The data check now reads the project list and rejects any card sentence that quotes a count the list does not support, so the card cannot contradict itself again without the check failing."
+      },
+      {
+        "type": "method",
+        "headline": "Climate budget trigger keeps its baseline",
+        "body": "The trigger for Environment and Climate Change Canada getting its budget restored pointed at the 2025-26 departmental plan, while the source list had moved to 2026-27. Restored only means something against the level it is measured from, which is the earlier plan's $3.13 billion and 8,392 staff. Repointing the trigger would have quietly lowered the bar to the newer plan's $1.71 billion. The older plan stays the primary link and the current plan was added beside it, so a reader sees both the bar and today's position."
+      },
+      {
+        "type": "fix",
+        "headline": "Link checker stops reporting healthy pages as broken",
+        "body": "Some government pages answer with their own error page when several requests arrive together, which the checker read as a broken link. It flagged different healthy pages on each run. Those cases are now marked for a human to look at rather than treated as failures, and only a link that is genuinely gone fails the check. Every cited link currently resolves."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-23",
     "version": "5.171",
     "summary": "Added reader context to two project records, repaired two Ethics Commissioner links that had moved to a new site, and made the new link checker stop reporting healthy pages as broken. No grade or score changed.",
     "items": [

@@ -1,20 +1,25 @@
 [
   {
     "date": "2026-08-23",
-    "version": "5.171",
+    "version": "5.172",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
       "gradeMoveCount": 0,
       "featuredItems": [
         {
-          "type": "product",
-          "headline": "Two projects now explain their own timing",
-          "body": "Darlington is now shown as under construction, which is where it actually sits. Its note records that building began in May 2025, four months before the file reached the Major Projects Office, and that a $2 billion federal investment followed afterward into a project already being built. McIlvenna Bay notes that it produced its first copper on 2026-06-07 but has not declared commercial production, so it is still counted as under construction. Neither note changes the count or the grade.",
-          "itemIndex": 0
+          "type": "method",
+          "headline": "Card text is now checked against the project list",
+          "body": "This was the second release in a row where a number was updated in one place and left stale in another. The data check now reads the project list and rejects any card sentence that quotes a count the list does not support, so the card cannot contradict itself again without the check failing.",
+          "itemIndex": 1
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-23",
+    "version": "5.171",
+    "items": []
   },
   {
     "date": "2026-08-23",

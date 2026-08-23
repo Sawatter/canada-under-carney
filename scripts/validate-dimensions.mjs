@@ -951,6 +951,44 @@ for (const d of dimensions) {
         );
       }
     });
+    // Prose that repeats a cohort count must agree with the cohort. Twice now a
+    // release updated the metric but left verdictLine, status, or a whyNot line
+    // quoting the old number, so the card contradicted itself in public. The
+    // numbers live in one place; every string that restates them is checked
+    // against that place rather than trusted.
+    const cohortProjects = d.projectCohort.projects;
+    const advanced = cohortProjects.filter(
+      (p) => p?.stageDate && p?.referredDate && p.stageDate > p.referredDate,
+    ).length;
+    const aboveDesignated = cohortProjects.filter((p) => p?.stage && p.stage !== "designated").length;
+    const WORD = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
+      "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen"];
+    const claimPattern = /\b(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|\d+)\s+(?:of\s+\d+\s+)?(?:projects?\s+)?(?:show|showing|shows|meet|carry|carries)\b/gi;
+    const advancedWord = WORD[advanced];
+    const aboveWord = WORD[aboveDesignated];
+    const proseFields = [
+      ["verdictLine", d.verdictLine],
+      ["status", d.status],
+      ["gradeBasis.whyNotHigher", d.gradeBasis?.whyNotHigher],
+      ["gradeBasis.whyNotLower", d.gradeBasis?.whyNotLower],
+    ];
+    for (const [field, text] of proseFields) {
+      if (typeof text !== "string") continue;
+      for (const m of text.matchAll(claimPattern)) {
+        const raw = m[1].toLowerCase();
+        const n = /^\d+$/.test(raw) ? Number(raw) : WORD.indexOf(raw);
+        if (n === -1) continue;
+        if (n !== advanced && n !== aboveDesignated) {
+          err(
+            name,
+            `${field} claims "${m[0].trim()}" but the cohort has ${advanced} advanced `
+            + `(${advancedWord}) and ${aboveDesignated} above designated (${aboveWord}). `
+            + `Update the prose when the cohort changes.`,
+          );
+        }
+      }
+    }
+
     const ids = d.projectCohort.projects.map((p) => p?.id).filter(Boolean);
     const dupes = ids.filter((id, i) => ids.indexOf(id) !== i);
     if (dupes.length) {
