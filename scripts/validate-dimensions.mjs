@@ -959,40 +959,74 @@ for (const d of dimensions) {
         );
       }
     });
-    // Prose that repeats a cohort count must agree with the cohort. Twice now a
-    // release updated the metric but left verdictLine, status, or a whyNot line
-    // quoting the old number, so the card contradicted itself in public. The
-    // numbers live in one place; every string that restates them is checked
-    // against that place rather than trusted.
+    // Prose that restates a cohort count must agree with the cohort. Two earlier
+    // attempts failed in opposite directions. Checking a hand-picked list of
+    // fields missed four stale claims. Flagging any number near cohort words
+    // produced false positives on rule text ("at least one project"), durations
+    // ("four months before referral"), a promise name ("One Project, One
+    // Review") and unrelated counts ("seven provincial agreements"). So this
+    // matches the specific SHAPES a cohort claim takes, and nothing else. If a
+    // new phrasing appears that these do not cover, add its shape here rather
+    // than loosening the match.
     const cohortProjects = d.projectCohort.projects;
     const advanced = cohortProjects.filter(
       (p) => p?.stageDate && p?.referredDate && p.stageDate > p.referredDate,
     ).length;
     const aboveDesignated = cohortProjects.filter((p) => p?.stage && p.stage !== "designated").length;
-    const WORD = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
-      "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen"];
-    const claimPattern = /\b(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|\d+)\s+(?:of\s+\d+\s+)?(?:projects?\s+)?(?:show|showing|shows|meet|carry|carries)\b/gi;
-    const advancedWord = WORD[advanced];
-    const aboveWord = WORD[aboveDesignated];
-    const proseFields = [
-      ["verdictLine", d.verdictLine],
-      ["status", d.status],
-      ["gradeBasis.whyNotHigher", d.gradeBasis?.whyNotHigher],
-      ["gradeBasis.whyNotLower", d.gradeBasis?.whyNotLower],
+    const cohortTotal = cohortProjects.length;
+    const WORDS = {
+      one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
+      ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15,
+      sixteen: 16, seventeen: 17, eighteen: 18,
+    };
+    const NUM = "(" + Object.keys(WORDS).join("|") + "|\\d{1,2})";
+    const CLAIM_SHAPES = [
+      // "Five of 18, about 28%" / "four of 18"
+      { re: new RegExp(NUM + "\\s+of\\s+" + cohortTotal + "\\b", "gi"), expect: () => advanced, what: "projects with post-referral advancement" },
+      // "five show documented progress after referral"
+      { re: new RegExp(NUM + "\\s+shows?\\s+(?:documented\\s+)?(?:post-referral\\s+)?(?:progress|advancement)", "gi"), expect: () => advanced, what: "projects with post-referral advancement" },
+      // "Ten carry a stage above designated" / "Ten are above the first stage"
+      { re: new RegExp(NUM + "\\s+(?:carry|carries|are)\\b[^.]{0,40}?\\babove\\b", "gi"), expect: () => aboveDesignated, what: "projects above designated" },
     ];
-    for (const [field, text] of proseFields) {
-      if (typeof text !== "string") continue;
-      for (const m of text.matchAll(claimPattern)) {
-        const raw = m[1].toLowerCase();
-        const n = /^\d+$/.test(raw) ? Number(raw) : WORD.indexOf(raw);
-        if (n === -1) continue;
-        if (n !== advanced && n !== aboveDesignated) {
-          err(
-            name,
-            `${field} claims "${m[0].trim()}" but the cohort has ${advanced} advanced `
-            + `(${advancedWord}) and ${aboveDesignated} above designated (${aboveWord}). `
-            + `Update the prose when the cohort changes.`,
-          );
+    const walkStrings = (node, path, out) => {
+      if (typeof node === "string") {
+        if (node.length > 25 && !/^https?:\/\//.test(node)) out.push([path, node]);
+        return;
+      }
+      if (Array.isArray(node)) {
+        node.forEach((v, i) => walkStrings(v, `${path}[${i}]`, out));
+        return;
+      }
+      if (node && typeof node === "object") {
+        for (const [k, v] of Object.entries(node)) {
+          // Cohort rows are the source of truth. scoring, gradeTriggers and
+          // stageGates define the rules rather than report current state.
+          if (
+            k === "projectCohort" || k === "sourceUrl" || k === "url"
+            || k === "scoring" || k === "gradeTriggers" || k === "stageGates"
+          ) continue;
+          walkStrings(v, path ? `${path}.${k}` : k, out);
+        }
+      }
+    };
+    const strings = [];
+    walkStrings(d, "", strings);
+    for (const [path, text] of strings) {
+      for (const shape of CLAIM_SHAPES) {
+        shape.re.lastIndex = 0;
+        for (const m of text.matchAll(shape.re)) {
+          const raw = m[1].toLowerCase();
+          const value = /^\d+$/.test(raw) ? Number(raw) : WORDS[raw];
+          if (value === undefined) continue;
+          const expected = shape.expect();
+          if (value !== expected) {
+            const around = text.slice(Math.max(0, m.index - 35), m.index + 65).replace(/\s+/g, " ");
+            err(
+              name,
+              `${path} states "${m[0].trim()}" but the cohort has ${expected} ${shape.what}. `
+              + `Context: "...${around}...". Update the prose when the cohort changes.`,
+            );
+          }
         }
       }
     }

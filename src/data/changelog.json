@@ -1,6 +1,23 @@
 [
   {
     "date": "2026-08-23",
+    "version": "5.174",
+    "summary": "Corrected four more places on the Major Projects card that still quoted the old project counts, and rebuilt the check so it reads every sentence rather than a chosen few. No grade or score changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Four more stale counts fixed",
+        "body": "Yesterday's fix updated four sentences on the Major Projects card but left four others behind. The review summary, the reasoning paragraph, and a promise note still said four projects had progressed and nine sat above the first stage. The correct figures are five and ten. The counts themselves never changed, and neither did the grade."
+      },
+      {
+        "type": "method",
+        "headline": "Count check reads every sentence",
+        "body": "The first version of this check looked at four chosen fields, which is why it missed the four sentences above. It now reads every sentence on a policy card and compares any restated project count against the project list itself. It ignores the rules, which describe conditions rather than current counts, and it ignores dates and durations."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-23",
     "version": "5.173",
     "summary": "Release checks now block a publish when they fail, instead of only reporting. A project rule was loosened so a genuine same-day milestone is allowed when the record says why. No grade or score changed.",
     "items": [

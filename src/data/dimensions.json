@@ -426,7 +426,7 @@
     "latestReview": {
       "date": "2026-08-14",
       "outcome": "held",
-      "summary": "The official list grew to 18 projects; four show post-referral advancement, still below the published progress threshold with no designation use."
+      "summary": "The official list grew to 18 projects. Five show post-referral advancement, still below the published progress threshold, and the national-interest power is unused."
     },
     "judgmentCall": "The grade rests on documented progress after a project is added to the list. It does not rest on how many projects were announced, or on whether any project is a good idea.",
     "judgmentDetail": "This grade does not judge whether each project is good policy. It judges the federal delivery process: the 18 projects the Major Projects Office tracks, whether they reached a higher stage on a date after referral, and whether the government used its national-interest power. The editor's judgment enters in two places. A stage already reached when a project joins the list does not count as post-referral progress. And a credit-claiming penalty applies where the government overstates its role in projects that were already moving before it stepped in.",
@@ -537,7 +537,7 @@
         }
       ]
     },
-    "rationale": "The official Major Projects Office list contained 18 projects by July 31. Nine carry a stage above designated, but five had already reached that stage when referred. Four of 18, about 22%, show later-dated progress that counts toward the threshold: Contrecœur Terminal, Matawinie Graphite, and North Coast Transmission moved into construction, while Red Chris received a major federal investment. That remains below the 30% condition for the next band. No project has completed an entire MPO review cycle, no withdrawal or stage regression was found, and the Building Canada Act schedule still shows no national-interest designation. The credit-claiming penalty remains because much of the announced pipeline predates MPO referral.",
+    "rationale": "The official Major Projects Office list contained 18 projects by July 31. Ten carry a stage above designated, but five had already reached that stage when referred. Five of 18, about 28%, show later-dated progress that counts toward the threshold: Contrecœur Terminal, Matawinie Graphite, and North Coast Transmission moved into construction, while Red Chris received a major federal investment. That remains below the 30% condition for the next band. No project has completed an entire MPO review cycle, no withdrawal or stage regression was found, and the Building Canada Act schedule still shows no national-interest designation. The credit-claiming penalty remains because much of the announced pipeline predates MPO referral.",
     "sources": [
       {
         "label": "MPO official referred projects list",
@@ -937,7 +937,7 @@
         "text": "Major Federal Project Office with 2-year decisions",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "The MPO is operational and tracked 18 projects by July 31. Four show documented post-referral advancement, but no project has completed an entire review cycle.",
+        "evidence": "The MPO is operational and tracked 18 projects by July 31. Five show documented post-referral advancement, but no project has completed an entire review cycle.",
         "originalSourceUrl": "https://www.parl.ca/legisinfo/en/bill/45-1/c-5",
         "originalSourceLabel": "Building Canada Act (Bill C-5)",
         "statusSourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html",

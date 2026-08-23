@@ -1,7 +1,7 @@
 [
   {
     "date": "2026-08-23",
-    "version": "5.173",
+    "version": "5.174",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
@@ -9,12 +9,17 @@
       "featuredItems": [
         {
           "type": "method",
-          "headline": "Same-day milestones need evidence",
-          "body": "A rule added yesterday rejected any project whose stage date matched the day it was referred, because that pattern had been hiding older approvals as new progress. A project can genuinely reach a stage on the day it is referred, so the rule now allows it when the record states the evidence for that order, and still rejects it when the date looks like a default.",
+          "headline": "Count check reads every sentence",
+          "body": "The first version of this check looked at four chosen fields, which is why it missed the four sentences above. It now reads every sentence on a policy card and compares any restated project count against the project list itself. It ignores the rules, which describe conditions rather than current counts, and it ignores dates and durations.",
           "itemIndex": 1
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-23",
+    "version": "5.173",
+    "items": []
   },
   {
     "date": "2026-08-23",
