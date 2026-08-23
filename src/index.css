@@ -3514,3 +3514,14 @@ a:hover { text-decoration: underline; }
   [data-theme="dark"] .scorecard-trust-frame { background: rgba(255, 255, 255, 0.03) !important; border-color: var(--border-subtle) !important; }
   [data-theme="dark"] .last-reviewed-pill { background: #172230 !important; border-color: var(--border-strong) !important; color: var(--accent-strong) !important; }
 }
+
+/* Optional one-line context on a cohort project, for facts a stage label
+   cannot carry on its own. Example: a mine that has produced first output
+   but has not declared commercial production, which is not the same as
+   the project being operational. */
+.cohort-project-note {
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--text-muted, #555);
+}

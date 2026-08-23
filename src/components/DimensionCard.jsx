@@ -2406,6 +2406,7 @@ function ProjectCohortSection({ cohort, dimId }) {
                   </div>
                 )}
               </dl>
+              {p.note && <p className="cohort-project-note">{p.note}</p>}
             </article>
           ))}
         </div>

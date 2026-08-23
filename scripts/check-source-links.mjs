@@ -56,7 +56,25 @@ const UA =
   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 " +
   "(KHTML, like Gecko) Chrome/120.0 Safari/537.36";
 const TIMEOUT_MS = 20000;
-const CONCURRENCY = 6;
+const CONCURRENCY = 4;
+// Government hosts rate limit. Hitting canada.ca with several parallel requests
+// makes it serve its own 404 page with a 200 status, which this checker then
+// reports as a soft 404 on a page that is actually fine. That false positive is
+// worse than no check, because it sends an editor off to "repair" a working
+// citation. So requests to the same host are serialised with a gap, and any
+// failure verdict is re-tested once, alone, before it is believed.
+const PER_HOST_GAP_MS = 700;
+const hostQueues = new Map();
+
+function throttleHost(url) {
+  let host;
+  try { host = new URL(url).host; } catch { host = "unknown"; }
+  const prev = hostQueues.get(host) || Promise.resolve();
+  let release;
+  const next = new Promise((r) => { release = r; });
+  hostQueues.set(host, prev.then(() => next));
+  return prev.then(() => ({ done: () => setTimeout(release, PER_HOST_GAP_MS) }));
+}
 
 
 // A 200 does not always mean the citation survived. Two patterns matter:
@@ -121,6 +139,31 @@ async function probe(url) {
   }
 }
 
+// A failure is only reported after a second, unhurried look.
+async function probeConfirmed(url) {
+  const gate = await throttleHost(url);
+  let result;
+  try { result = await probe(url); } finally { gate.done(); }
+  if (result.state !== "DEAD" && result.state !== "TIMEOUT") return result;
+  // canada.ca sits behind Akamai and intermittently serves its own error page
+  // with a 200 status under load. A single flap must not condemn a healthy
+  // citation, so a failure is re-tested up to three times with growing backoff
+  // and the kinder verdict wins. Observed in practice: the same run flagged
+  // different canada.ca pages on each pass while every one of them fetched
+  // cleanly on its own.
+  for (const waitMs of [2500, 6000, 12000]) {
+    await new Promise((r) => setTimeout(r, waitMs));
+    const gate2 = await throttleHost(url);
+    let retry;
+    try { retry = await probe(url); } finally { gate2.done(); }
+    if (retry.state === "OK" || retry.state === "REDIRECTED") {
+      return { ...retry, reason: "healthy on retry, first attempt was throttled" };
+    }
+    result = retry;
+  }
+  return result;
+}
+
 async function main() {
   const entries = extractCitationEntries(repoRoot);
   // uniqueUrls returns entry OBJECTS, not strings. Pull the url field.
@@ -133,7 +176,7 @@ async function main() {
   await Promise.all(Array.from({ length: Math.min(CONCURRENCY, urls.length) }, async () => {
     while (cursor < urls.length) {
       const url = urls[cursor++];
-      results.push(await probe(url));
+      results.push(await probeConfirmed(url));
     }
   }));
 

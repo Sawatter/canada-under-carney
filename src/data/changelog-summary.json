@@ -1,20 +1,25 @@
 [
   {
     "date": "2026-08-23",
-    "version": "5.170",
+    "version": "5.171",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
       "gradeMoveCount": 0,
       "featuredItems": [
         {
-          "type": "method",
-          "headline": "Cited links are now opened, not just listed",
-          "body": "The monthly source check confirmed that every source had a note written beside it. It never opened a link. That is how a cycle closed while 17 links were already broken. A new check now fetches every cited link and fails when one is gone. It also fails a link that answers normally but lands on an error page or a site homepage, because the cited document is gone either way. Running it found three more broken citations, including two Ethics Commissioner filings that no longer reach the document.",
-          "itemIndex": 2
+          "type": "product",
+          "headline": "Two projects now explain their own timing",
+          "body": "Darlington is now shown as under construction, which is where it actually sits. Its note records that building began in May 2025, four months before the file reached the Major Projects Office, and that a $2 billion federal investment followed afterward into a project already being built. McIlvenna Bay notes that it produced its first copper on 2026-06-07 but has not declared commercial production, so it is still counted as under construction. Neither note changes the count or the grade.",
+          "itemIndex": 0
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-23",
+    "version": "5.170",
+    "items": []
   },
   {
     "date": "2026-08-14",

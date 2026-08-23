@@ -27,6 +27,12 @@ const HOST_TIER = {
   "pbo-dpb.ca": "T1", "statcan.gc.ca": "T1", "cmhc-schl.gc.ca": "T1",
   "bankofcanada.ca": "T1", "ciec-ccie.parl.gc.ca": "T1",
   "prciec-rpccie.parl.gc.ca": "T1", "open.canada.ca": "T1",
+  // The Conflict of Interest and Ethics Commissioner migrated off
+  // parl.gc.ca to ethicscanada.ca during 2026. Same officer of
+  // Parliament, same filings, so the tier follows the institution and
+  // not the hostname. Without this the Ethics file silently loses its
+  // Tier 1 anchors on a domain move.
+  "ethicscanada.ca": "T1", "www.ethicscanada.ca": "T1",
   "cer-rec.gc.ca": "T1", "parl.ca": "T1", "ourcommons.ca": "T1",
   "budget.canada.ca": "T1", "imf.org": "T1", "oecd.org": "T1",
   "nato.int": "T1", "international.canada.ca": "T1",

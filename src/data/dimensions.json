@@ -727,10 +727,11 @@
           "location": "Clarington, Ontario",
           "tranche": 1,
           "referredDate": "2025-09-11",
-          "stage": "approved",
-          "stageDate": "2025-04-04",
+          "stage": "under_construction",
+          "stageDate": "2025-05-08",
           "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/darlington.html",
-          "sourceLabel": "Major Projects Office project page"
+          "sourceLabel": "Major Projects Office project page",
+          "note": "Construction began in May 2025, four months before the referral. The federal construction licence was granted on 2025-04-04. A $2B Canada Growth Fund investment followed on 2025-10-23, after the referral, into a project that was already being built."
         },
         {
           "id": "lng-canada-phase-2-expansion",
@@ -754,7 +755,8 @@
           "stage": "under_construction",
           "stageDate": "2024-07-15",
           "sourceUrl": "https://www.canada.ca/en/privy-council/major-projects-office/projects/national/mcilvenna.html",
-          "sourceLabel": "Major Projects Office project page"
+          "sourceLabel": "Major Projects Office project page",
+          "note": "First copper concentrate was produced on 2026-06-07, after the referral. Commercial production has not been declared, so the project is still counted as under construction."
         },
         {
           "id": "red-chris-copper-and-gold-mine",
@@ -3531,7 +3533,7 @@
           "text": "The Prime Minister publishes a full accounting of his Brookfield holdings on his own",
           "setDate": "2026-04-17",
           "sourceLabel": "PM Annex A public declaration of agreed measure",
-          "sourceUrl": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf"
+          "sourceUrl": "https://www.ethicscanada.ca/Declarations/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf"
         }
       ],
       "down": [
@@ -3588,13 +3590,13 @@
       },
       {
         "label": "PM blind-trust summary statement",
-        "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
+        "url": "https://www.ethicscanada.ca/Declarations/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
         "date": "2025-07-11",
         "dateKind": "published"
       },
       {
         "label": "PM Annex A public declaration of agreed measure",
-        "url": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
+        "url": "https://www.ethicscanada.ca/Declarations/43653/Annex%20A%20-%20Public%20Declaration%20of%20Agreed%20Measure.pdf",
         "date": "2025-07-11",
         "dateKind": "published"
       },
@@ -3676,7 +3678,7 @@
         "status": "Stalled",
         "since": "2026-04-14",
         "evidence": "Ethics screen and blind trust established. Democracy Watch and House Ethics Committee have raised concerns about completeness.",
-        "originalSourceUrl": "https://prciec-rpccie.parl.gc.ca/Lists/Declarations/Attachments/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
+        "originalSourceUrl": "https://www.ethicscanada.ca/Declarations/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
         "originalSourceLabel": "PM blind-trust summary statement",
         "statusSourceUrl": "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/",
         "statusSourceLabel": "Democracy Watch critique",

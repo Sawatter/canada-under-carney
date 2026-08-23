@@ -1,6 +1,33 @@
 [
   {
     "date": "2026-08-23",
+    "version": "5.171",
+    "summary": "Added reader context to two project records, repaired two Ethics Commissioner links that had moved to a new site, and made the new link checker stop reporting healthy pages as broken. No grade or score changed.",
+    "items": [
+      {
+        "type": "product",
+        "headline": "Two projects now explain their own timing",
+        "body": "Darlington is now shown as under construction, which is where it actually sits. Its note records that building began in May 2025, four months before the file reached the Major Projects Office, and that a $2 billion federal investment followed afterward into a project already being built. McIlvenna Bay notes that it produced its first copper on 2026-06-07 but has not declared commercial production, so it is still counted as under construction. Neither note changes the count or the grade."
+      },
+      {
+        "type": "fix",
+        "headline": "Two Ethics Commissioner filings reachable again",
+        "body": "The Conflict of Interest and Ethics Commissioner moved to a new website, which broke the links to the Prime Minister's blind trust summary and his conflict screening declaration. Both now point at the same documents on the new site. The filings themselves are unchanged."
+      },
+      {
+        "type": "fix",
+        "headline": "Link checker no longer cries wolf",
+        "body": "The new checker reported healthy government pages as broken. Some government sites answer with an error page when several requests arrive at once, which looked like a dead link. The checker now spaces out requests to the same site and re-tests any failure up to three times before reporting it. A page that answers on a calmer retry is treated as healthy. Every cited link on the dashboard now resolves."
+      },
+      {
+        "type": "fix",
+        "headline": "Ethics sources counted at the right tier again",
+        "body": "The source quality audit rated documents by web address, so the Commissioner's move to a new site made its filings look unclassified and dropped the Ethics file from 63 percent to 38 percent top-tier sourcing. The audit now follows the institution rather than the address."
+      }
+    ]
+  },
+  {
+    "date": "2026-08-23",
     "version": "5.170",
     "summary": "Corrected five project dates that wrongly showed inherited approvals as progress made after the Major Projects Office took the file, repaired 17 broken source links, and added a check that opens every cited link. No grade or score changed.",
     "items": [
