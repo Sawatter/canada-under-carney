@@ -10,24 +10,18 @@
 
 ## Current State
 
-- v5.174 remains live in production through commit `a7805ed`, dated
-  2026-08-23. It closes the August count-drift corrections and makes the cohort
-  guard read every policy-card sentence. The next scheduled evidence update is
-  2026-09-01.
-- The v5.175 candidate is on `main` through commit `65abd85`, but it is not live.
-  Pages run `32934800016` passed build and then correctly blocked deploy when
-  its Linux browser job reproduced a mobile watch-link overlap that macOS did
-  not. Corrective commit `b83fef8` moves the phone watch route to the dedicated
-  action area, stacks the mobile briefing controls through the 640-pixel phone
-  range, and completes the no-route, ancestor-hidden, audit-contract, and
-  workflow-action hardening. The deprecated warning concerned the artifact
-  action's internal runtime, which the correction replaces. The workflows'
-  explicit `node-version: 20` pins remain supported app and test runtime choices,
-  not the warning target. Local gates pass, including 256 browser cases and
-  `358/358` coverage checks, and Claude approved the final seven-file diff. The
-  repeated static and action labels were retained for exact route traceability
-  because no reader has reported confusion. The correction is committed
-  locally but not yet on `main`, so production remains v5.174.
+- v5.175 is live through release correction `b83fef8` and closeout commit
+  `4d0b326`. Pages run `32983288985` passed review-handoff, build, 256 browser
+  cases with 2 intentional skips, and deploy. The production header reports
+  v5.175. At `421 x 812` and `640 x 812`, the first-look briefing has no
+  interactive overlap with the fixed navigation, no page overflow, and exactly
+  one accessible Housing watch route. At `1280 x 900`, the normal watch route
+  is visible, and the mobile route is hidden. The route opens the Housing Supply
+  Evidence workspace at the exact hash. A direct post-deploy audit passed
+  `358/358` checks. Automatic Live Dashboard Audit run `32983983025` and manual
+  recovery run `32984452288` are queued without jobs during GitHub's active
+  Actions major outage, so the hosted audit copy remains an open release gate.
+  The next scheduled evidence update is 2026-09-01.
 - v5.166 is live through implementation commit `3c329c9` and browser-gate
   follow-up `6e8891f`. It aligns the titles, descriptions, visible results, and
   actions in the three secondary signal cards after a reader screenshot showed
@@ -105,6 +99,14 @@
 ---
 
 ## Recently Completed
+
+- July source-monitor reconciliation and PR close - commit `4d0b326` preserves
+  the July packet and ledger without importing older monitoring state. The 67
+  surfaced records close as 8 exact matches, 10 superseded records, 44
+  family-batch closures, and 5 manual reviews. Final outcomes are 7 dashboard
+  incorporations, 2 cycle-report records, 58 no-move decisions, and 0
+  unresolved. The 57 suppressed records remain for traceability. PR 30 closed
+  without merge on 2026-08-26, and PR 31 was already closed stale.
 
 - v2 tri-lens closure - the deferred first monthly shadow cycle is formally
   closed rather than reconstructed with hindsight. The required post-mortem
@@ -334,28 +336,17 @@
 
 ## Now
 
-1. **Complete the replacement v5.175 publication gate.** Commit `65abd85`
-   reached `main`, but Pages run `32934800016` correctly blocked before deploy
-   when the long mobile release fixture put the Housing watch link under the
-   fixed navigation on Linux. The root fix and maintenance hardening pass the
-   local app-shell, responsive browser, build, monitor, lint, visual, and
-   `358/358` local coverage gates. Corrective commit `b83fef8` also closes the
-   audit-locator and 420/421 breakpoint findings from the Claude rounds, and the
-   final review returned `VERDICT: APPROVED`. Priority reason: production
-   remains v5.174 until the correction reaches `main` and a clean Pages run and
-   live audit prove the replacement.
+1. **Complete the hosted v5.175 audit after GitHub Actions recovers.** Production
+   v5.175, the Linux browser gate, direct browser checks, and the direct
+   `358/358` production audit are green. Automatic run `32983983025` and manual
+   recovery run `32984452288` are queued without jobs during the active Actions
+   major outage. Priority reason: a queued or non-answer run is not approval.
+   close the release gate only after one hosted report passes at `358/358`.
 
 2. **Select the outside red-team reviewer.** The invite is ready, but the repo,
    git history, and project memory contain no recipient or send channel. Send
    only after the editor names both. Priority reason: external contact cannot
    be completed by guessing who should receive it.
-
-3. **Publish the July reconciliation and close PR 30.** The corrected ledger
-   partitions all 67 surfaced candidates into 8 exact matches, 10 superseded
-   records, 44 family-batch closures, and 5 manual reviews. Final outcomes are
-   7 dashboard incorporations, 2 cycle-report records, 58 no-move decisions,
-   and 0 unresolved. PR 31 is already closed. Priority reason: PR 30 remains
-   open until the records reach `main` and the external close action succeeds.
 
 ---
 
@@ -395,8 +386,8 @@ completed. Resume them only on later editor instruction.
 
 ## Next
 
-No additional autonomous item is scheduled before the replacement release gate
-closes or the editor resumes one of the parked items.
+No additional autonomous item is scheduled before the hosted audit closes or
+the editor resumes one of the parked items.
 
 ---
 ## Later

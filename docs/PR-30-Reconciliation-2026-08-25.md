@@ -4,10 +4,9 @@
 
 **Final reconciliation:** 2026-08-26
 
-**Decision state:** Reconciliation complete; external close pending. The July
-packet and candidate ledger are prepared for `main`, with a dated closeout.
-PR 30 closes only after those records reach `main`. Its older
-`monitoring/state.json` was not imported.
+**Decision state:** Complete. The July packet and candidate ledger reached
+`main` in commit `4d0b326`, with a dated closeout. PR 30 closed without merge on
+2026-08-26 at 15:17:37 UTC. Its older `monitoring/state.json` was not imported.
 
 ## Result
 
@@ -93,6 +92,9 @@ and its state was older. It was closed as stale without merge.
 ## Evidence
 
 - PR 30 head: `75e8e3cf493397ca29504b5e19bfd7a6ddf70d9e`
+- Reconciliation commit on `main`: `4d0b326db0eed3b394487ed906a5b03d7dbe5afb`
+- PR 30: [closed without merge](https://github.com/Sawatter/canada-under-carney/pull/30) on 2026-08-26 at 15:17:37 UTC
+- PR 31: [closed without merge](https://github.com/Sawatter/canada-under-carney/pull/31) on 2026-08-26 at 05:57:38 UTC
 - July packet: [Source-Monitoring-Candidates-2026-07.md](Source-Monitoring-Candidates-2026-07.md)
 - July ledger: `monitoring/candidates/2026-07.json`
 - [July monthly cycle report](July-Monthly-Cycle-Report-2026-07-01.md)
