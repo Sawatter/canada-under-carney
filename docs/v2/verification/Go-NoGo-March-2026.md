@@ -2,6 +2,7 @@
 
 - **Purpose:** Determine which dimensions can be scored, which should be held, and what blocking items remain.
 - **Date:** 2026-04-15
+- **Status:** Historical March 2026 cycle record. It does not direct current scoring or v2 work.
 - **Basis:** March 2026 evidence-pack manifest + March 2026 verification ledger + frozen baseline ledger
 
 ---

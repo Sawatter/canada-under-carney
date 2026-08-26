@@ -1,12 +1,18 @@
 # Monthly Cycle Checklist
 
-- **Purpose:** Step-by-step checklist for a normal monthly dashboard update. Print and check off.
-- **Status:** Active — governs all cycles from May 2026 onward.
-- **Last updated:** 2026-04-16
+- **Purpose:** Preserve the proposed checklist for a normal monthly dashboard update.
+- **Status:** Historical operations design artifact. It did not govern live monthly cycles.
+- **Last updated:** 2026-08-26
 - **Depends on:** Monthly-Operations-Mode.md, Source-Verification-Protocol.md, Carry-Forward-Rules.md, Exception-Queue-Definition.md
-- **Used by:** Editor during each monthly cycle
+- **Used by:** Historical v2 operations review only
 
 ---
+
+> **Retirement note (2026-08-26):** This proposed checklist was not wired into
+> the canonical monthly process and did not govern the May through August 2026
+> cycles. Use [Monthly-Cycle-Playbook.md](../../Monthly-Cycle-Playbook.md) for
+> current operations. See the
+> [v2 closure post-mortem](../V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
 
 ## Pre-Cycle (5 min)
 

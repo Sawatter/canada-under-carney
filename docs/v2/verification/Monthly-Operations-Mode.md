@@ -1,12 +1,18 @@
 # Monthly Operations Mode
 
-- **Purpose:** Define the steady-state monthly model for dashboard updates. Replaces the remediation-era workflow with a sustainable operating system.
-- **Status:** Active — governs all cycles from May 2026 onward.
-- **Last updated:** 2026-04-16
-- **Depends on:** Source-Verification-Protocol.md, Verification-Workflow.md, Carry-Forward-Rules.md, Exception-Queue-Definition.md
-- **Used by:** Monthly-Cycle-Checklist.md, Shadow-Run-Workflow.md, MONTHLY-UPDATE-GUIDE.md
+- **Purpose:** Preserve the proposed monthly model and define verification tiers still cited by Carry-Forward-Rules.md.
+- **Status:** Section 7 is an active companion reference for carry-forward tier definitions. All other sections are historical operations design and do not govern the current cycle.
+- **Last updated:** 2026-08-26
+- **Depends on:** Source-Verification-Protocol.md, Carry-Forward-Rules.md, Exception-Queue-Definition.md
+- **Used by:** Carry-Forward-Rules.md for verification tier definitions
 
 ---
+
+> **Authority note (2026-08-26):** Section 7 supplies the tier definitions used
+> by `Carry-Forward-Rules.md`. This file does not replace or add close gates to
+> [Monthly-Cycle-Playbook.md](../../Monthly-Cycle-Playbook.md). Its broader
+> operations model is retained as design history. See the
+> [v2 closure post-mortem](../V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
 
 ## 1. Cycle Types
 
@@ -15,7 +21,7 @@ Every monthly cycle is one of two types. Determine which at the start of the cyc
 | Type | Definition | Verification scope | Time target |
 |---|---|---|---|
 | **Quiet cycle** | No dimension has new grade-moving evidence. All metrics hold. No new or escalated blocking exceptions. (Carried-forward non-blocking exceptions E1, E3, E5, E6, E7, E8 are permitted.) | Carry forward all verified claims. Changed-source scan only. No new ledger rows required. | 20-30 min total (v1 + verification) |
-| **Active cycle** | At least one dimension has new grade-moving evidence, a triggered exception, or a proposed grade change. | Full verification for moved dimensions. Carry forward for held dimensions. New ledger rows for new claims. | 45-75 min total (v1 + verification + v2 shadow) |
+| **Active cycle** | At least one dimension has new grade-moving evidence, a triggered exception, or a proposed grade change. | Full verification for moved dimensions. Carry forward for held dimensions. New ledger rows for new claims. | Historical estimate: 45-75 min total. The closed v2 shadow work is excluded from current operations. |
 
 **How to determine cycle type:** After running the data fetch script and scanning the source monitoring stack, answer: "Did any primary metric change, did any event-driven trigger fire, or did any exception escalate to blocking severity (E2 or E4-if-grade-moving)?" If yes → active cycle. If no (including when only low-severity non-blocking exceptions E1, E3, E5, E6, E7, E8 are carried forward with unchanged severity) → quiet cycle.
 
@@ -62,7 +68,7 @@ These items do NOT get re-verified monthly. They are rechecked only when a speci
 | **Ethics Commissioner review** | Ethics Commissioner publishes a review | Verify the content. Update Ethics & Transparency dimension. Log in ledger. |
 | **IRCC primary page (403)** | IRCC restores the levels plan page | Re-attempt verification of PR target from primary source. Update sourceNote if confirmed. |
 | **Methodology docs** | A scoring rule, rubric threshold, or deconfliction assignment is changed | Update the relevant methodology doc. Check whether any dashboard metric or rationale text needs to change as a result. |
-| **v2 shadow architecture** | A design decision from Open-Design-Decisions.md is resolved | Update the relevant v2 doc. Does not affect v1 dashboard unless explicitly promoted. |
+| **Historical v2 architecture** | Not an operational trigger | Any restart is a new design project under the closure post-mortem. Historical files do not direct current cycle work. |
 
 ---
 

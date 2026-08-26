@@ -1,5 +1,20 @@
 # Trust and Bias-Resistance Plan — 2026-05
 
+> **Status: Historical as of 2026-08-25.** This file preserves the work sequence used
+> for the May 2026 bias-resistance cycle. It does not govern current cycles or hold
+> the active backlog.
+>
+> **Canonical replacements:**
+> - May 2026 outcomes and residuals: [Bias-Resistance-Cycle-2026-05-Closure.md](Bias-Resistance-Cycle-2026-05-Closure.md)
+> - Recurring bias-resistance rules: [Bias-Resistance-Protocol.md](Bias-Resistance-Protocol.md)
+> - Monthly cycle execution: [Monthly-Cycle-Playbook.md](Monthly-Cycle-Playbook.md)
+> - Grade-change release gates: [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md)
+> - Outside red-team mechanism: [Grade-Change-Red-Team-Protocol.md](Grade-Change-Red-Team-Protocol.md)
+> - Active priorities: [Current-Roadmap.md](Current-Roadmap.md)
+>
+> If this plan conflicts with a canonical document above, the canonical document
+> controls. Keep this file for provenance only.
+
 **Purpose:** A planning artifact only. This doc sequences the work that came out of the May bias-resistance discussion. It does not change grades, sources, thresholds, formulas, methodology rules, or UI. It is a floor to stand on before any of those changes are proposed.
 
 ## Guardrail

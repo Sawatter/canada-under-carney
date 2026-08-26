@@ -125,9 +125,9 @@
 |---|---|
 | **Status** | Decision landed |
 | **Unresolved issue** | Structural overlap risk remains. The July 1 exit test passed, but the dimension still has to keep adding a distinct cross-file execution read without double-counting home-dimension outcomes. |
-| **What needs doing** | Apply the published Combination Rule mechanically each cycle and keep the deconfliction check explicit. If a future cycle needs an ad hoc override, contradicts the underlying file-status movement, adds no cross-file execution insight, or breaks deconfliction, demote or remove in v2. |
+| **What needs doing** | Apply the published Combination Rule mechanically each cycle and keep the deconfliction check explicit. If a future cycle needs an ad hoc override, contradicts the underlying file-status movement, adds no cross-file execution insight, or breaks deconfliction, hold the existing live grade and queue an explicit editor decision on replacement or demotion. |
 | **Before next cycle?** | Apply Combination Rule mechanically: yes. Structural change: no unless a future cycle fails the retention checks. |
-| **Affects** | Live model + v2 exception watch |
+| **Affects** | Live model and retention watch |
 
 ### 12. Promise Delivery (ungraded tracker)
 

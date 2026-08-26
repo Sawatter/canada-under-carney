@@ -1,12 +1,17 @@
 # Core Tri-Lens Architecture
 
-- **Purpose:** Define the three scoring lenses (Commitment, Execution, Outcome), their evidence rules, governance inheritance, composite design, and double-counting prevention for v2 shadow scoring.
-- **Status:** Draft — not for public use. Shadow scoring only.
-- **Last updated:** 2026-04-15
+- **Purpose:** Preserve the proposed three-lens architecture and its evidence, composite, and double-counting rules.
+- **Status:** Historical design artifact. The tri-lens shadow run was closed on 2026-08-26.
+- **Last updated:** 2026-08-26
 - **Depends on:** Scoring-Rubric-v1.1.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Measure-Selection-Rules.md, V2-Scoring-Architecture-Brief.md
-- **Used by:** Dimension-Applicability-Matrix.md, Pilot-Templates.md, Shadow-Run-Workflow.md, Open-Design-Decisions.md
+- **Used by:** Historical v2 design review only
 
 ---
+
+> **Closure note (2026-08-26):** This architecture was not tested in a real
+> monthly tri-lens cycle. It remains an internal design record and has no
+> authority over the live v1 dashboard. See
+> [V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md](V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
 
 ## 1. Lens Definitions
 

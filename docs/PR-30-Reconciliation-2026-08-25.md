@@ -1,73 +1,59 @@
 # PR 30 Reconciliation
 
-**Date:** 2026-08-25
+**Drafted:** 2026-08-25
 
-**Decision state:** Editor-parked on 2026-08-25. The proposed batch rule and
-four individual candidates are deferred, not cancelled or completed. No GitHub
-write action was taken.
+**Final reconciliation:** 2026-08-26
+
+**Decision state:** Reconciliation complete; external close pending. The July
+packet and candidate ledger are prepared for `main`, with a dated closeout.
+PR 30 closes only after those records reach `main`. Its older
+`monitoring/state.json` was not imported.
 
 ## Result
 
-Do not merge PR 30 as written. Its July monitoring state contains 61 sources
-and 379 surfaced fingerprints. The current August state contains 65 sources and
-533 surfaced fingerprints. Merging the state file would move the monitor
-backward.
-
 The PR contains 124 records: 67 surfaced candidates and 57 mechanically
-suppressed records. The surfaced set breaks down as follows:
+suppressed records. The surfaced set is fully closed:
 
-| Bucket | Count | Disposition |
-|---|---:|---|
-| Exact August matches | 8 | Reuse the August disposition |
-| Later evidence or same-locator successor | 10 | Close as superseded after confirming the named later record |
-| Context candidates covered by later publisher-family review | 45 | Batch-close only if the editor accepts the rule below |
-| Individual editor review | 4 | Adjudicate one by one |
-| Surfaced total | 67 | Open until the editor records the final dispositions |
-| Mechanically suppressed | 57 | Retain for audit only |
-| PR total | 124 | 67 surfaced plus 57 suppressed |
+| Disposition | Count |
+|---|---:|
+| Evidence incorporated into the dashboard | 7 |
+| Evidence recorded in the July cycle report only | 2 |
+| Closed with no dashboard move | 58 |
+| Unresolved | 0 |
+| Surfaced total | 67 |
+| Mechanically suppressed and retained | 57 |
+| PR total | 124 |
 
-The count check was computed from the PR JSON:
+The count check was computed from the July ledger:
 
 ```text
-8 + 10 + 45 + 4 = 67
+7 + 2 + 58 = 67
 67 + 57 = 124
 ```
 
-## Exact Matches
+Exact candidate ID lists and the final rule are stored in
+`monitoring/candidates/2026-07.json` under `cycleReview`.
 
-These eight records match an August candidate on source, discovery method,
-normalized URL, title, and snippet. Use the August disposition rather than
-reviewing the same signal twice.
+The process-bucket partition is also exhaustive:
 
-| July candidate | Signal |
-|---|---|
-| `2026-07-www150-statcan-gc-ca-404671aa` | StatCan quarterly population estimate |
-| `2026-07-pbo-dpb-ca-efd49216` | PBO automatic federal benefits report |
-| `2026-07-canada-ca-privy-council-f8fd9e9a` | Deep Geological Repository on the MPO list |
-| `2026-07-fraserinstitute-org-83e868f8` | Blocked Fraser Major Projects citation |
-| `2026-07-fraserinstitute-org-a695813c` | Blocked Fraser GST citation |
-| `2026-07-retailcouncil-org-e7eea8a4` | Blocked Retail Council grocery citation |
-| `2026-07-fraserinstitute-org-c80e2407` | Blocked Fraser EV mandate citation |
-| `2026-07-iisd-org-9ccb0b0e` | Blocked IISD carbon-pricing citation |
+```text
+8 exact matches + 10 superseded + 44 batch + 5 manual = 67
+```
 
-## Superseded Set
+## Incorporated Evidence
 
-Five records have a later release at the same locator: CPI, housing starts,
-the IISD climate-target page, the CSLS natural-capital PDF, and Transport
-Canada's 2025 annual report.
+The seven dashboard incorporations are the three StatCan updates for CPI,
+population, and housing starts; Deep Geological Repository; the Building
+Canada Act project list; Build Canada Homes Royal Assent; and the Toronto DCRP
+announcement.
 
-Five more are represented by later evidence already on `main`: the Building
-Canada Act project list, Build Canada Homes Royal Assent, the Build Canada
-Homes agency page, the Toronto DCRP announcement, and the Canada-US engagement
-page.
+The Build Canada Homes agency page and the Canada-US engagement page are the
+two cycle-report-only items. They were reviewed and recorded in the July cycle
+report but did not create a separate dashboard move.
 
-These ten can be closed as superseded once the final disposition record names
-the later evidence. Do not import PR 30's `monitoring/state.json`.
+## Batch Closure
 
-## Proposed Batch Rule
-
-The remaining 45 context-class candidates can be batch-closed only if the
-editor accepts this rule:
+The 44-item context batch is accepted under this rule:
 
 > A July context candidate may close without individual adjudication when the
 > same publisher family received a documented July recertification and a later
@@ -75,37 +61,43 @@ editor accepts this rule:
 > signal, and the candidate is not a trigger watch, metric update, promise
 > status, source-balance issue, or requested manual browser pull.
 
-This is a proposed editorial rule and is currently editor-parked. It is not
-proof that each item was read on its own. If the rule is rejected after work
-resumes, all 45 return to individual review.
+This is family-level adjudication. It is not proof that each page was read
+separately. The July publisher-family recertification and the August review of
+all scored files and 187 monitor candidates support the rule. Search-only
+provisional records are excluded from batch treatment.
 
-## Editor Queue
+## Manual Reviews
 
-These four calls are editor-parked with the proposed batch rule.
-
-| Candidate | Required call |
+| Candidate | Final call |
 |---|---|
-| `2026-07-cdhowe-org-7a0189aa` | Classify the C.D. Howe trade article |
-| `2026-07-canada-ca-department-finance-452dc4ff` | Complete the requested EV Affordability Program browser pull |
-| `2026-07-canada-ca-housing-infrastructure-communities-a55591dc` | Adjudicate the Housing legislation trigger watch |
-| `2026-07-retailcouncil-org-b7edaa93` | Complete the requested Retail Conditions Quarterly browser pull |
+| C.D. Howe trade article | Context for Defence and Trade, no move. It is analysis, not primary outcome evidence. |
+| Electric Vehicle Affordability Program | Context for Climate and Environment, no move. A funded vehicle incentive does not replace a climate strategy. |
+| Bill C-26 housing legislation | No move. Royal Assent and a funding envelope do not establish a signed agreement, payment, or construction. |
+| Retail Conditions Quarterly | Context for Affordability Response, no move. Retailer sentiment and cost pressure do not cross a published policy-response trigger. |
+| Competition Bureau news-release index | Official index and the June 16 food-supply-chain examination and June 22 Sobeys property-controls investigation reviewed on 2026-08-26. The examination seeks input and plans a spring 2027 report. The investigation has evidence-production orders but no finding of wrongdoing. Neither is a required grocery competition measure passed into law, changes the measured relief share, or crosses another published trigger. Affordability and Economic Policy context, no move. |
 
-## PR 31
+No grade, promise status, threshold, formula, or monitoring state changed from
+these five calls.
 
-PR 31 has no unique patch outside what is already on `main`. It can be closed
-as stale, but no close action was taken in this review.
+## Branch Disposition
+
+PR 30 was not merged because its July `monitoring/state.json` contains 61
+sources and 379 surfaced fingerprints. The current August state contains 65
+sources and 533 surfaced fingerprints. Merging the state file would move the
+monitor backward.
+
+PR 31 had no unique evidence outside `main`. Its ledger matched the August
+ledger after removing `cycleReview`, its packet lacked only the later closeout,
+and its state was older. It was closed as stale without merge.
 
 ## Evidence
 
 - PR 30 head: `75e8e3cf493397ca29504b5e19bfd7a6ddf70d9e`
-- PR 30 state on 2026-08-25: open, draft, and conflicting
-- July state: last run 2026-07-01, 61 sources, 379 surfaced fingerprints
-- August state on `main`: last run 2026-08-01, 65 sources, 533 surfaced
-  fingerprints
+- July packet: [Source-Monitoring-Candidates-2026-07.md](Source-Monitoring-Candidates-2026-07.md)
+- July ledger: `monitoring/candidates/2026-07.json`
 - [July monthly cycle report](July-Monthly-Cycle-Report-2026-07-01.md)
 - [August monthly cycle report](August-Monthly-Cycle-Report-2026-08-14.md)
+- [Housing trigger decision](Trigger-Verification-2026-06-09.md)
 
-Claude authentication is restored. After the accepted findings were corrected,
-the round 4 read-only v5.175 review returned `VERDICT: APPROVED`. This document
-remains an editor-parked record. No PR close, merge, or candidate disposition
-was performed.
+The 57 suppressed records remain in the July ledger. No unavailable page was
+treated as negative evidence.

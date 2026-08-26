@@ -1,12 +1,17 @@
 # Verification Ledger Template
 
 - **Purpose:** Reusable ledger for recording the verification status of every metric and claim used in a monthly scoring cycle. One row per atomic claim. This is the audit trail.
-- **Status:** Draft — first version for pilot cycle use.
+- **Status:** Historical pilot template. It is not part of the current monthly cycle.
+- **Retired:** 2026-08-26
 - **Last updated:** 2026-04-15
 - **Depends on:** Source-Verification-Protocol.md (claim status categories, match status, quality criteria), Evidence-Pack-Manifest-Template.md (each entry references a manifest source)
 - **Used by:** Verification-Workflow.md (filled out during verification steps), Shadow-Run-Workflow.md (verification must be complete before scoring)
 
 ---
+
+> Current cycle evidence records follow
+> [Monthly-Cycle-Playbook.md](../../Monthly-Cycle-Playbook.md) and the dated
+> source-coverage ledger. Do not copy this template into a current cycle.
 
 ## How to use this template
 

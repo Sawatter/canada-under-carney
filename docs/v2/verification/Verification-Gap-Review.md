@@ -1,12 +1,16 @@
 # Verification Gap Review
 
 - **Purpose:** Assess what is still missing or risky in the current verification layer. Identify weak spots, mandatory manual review areas, and what should be added in future versions.
-- **Status:** Draft — first assessment, to be updated after first live cycle.
+- **Status:** Historical pilot assessment. It is not an active gap list.
+- **Retired:** 2026-08-26
 - **Last updated:** 2026-04-15
 - **Depends on:** Source-Verification-Protocol.md, Evidence-Pack-Manifest-Template.md, Verification-Ledger-Template.md, Verification-Workflow.md, DATA-SOURCES.md, Canonical-Scoring-Sheets.md
 - **Used by:** Open-Design-Decisions.md (for tracking verification design decisions)
 
 ---
+
+> Use [Current-Roadmap.md](../../Current-Roadmap.md) for current gaps. The
+> recommendations below preserve the April 2026 pilot assessment only.
 
 ## 1. Source Stack Weak Spots
 

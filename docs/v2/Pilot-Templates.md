@@ -1,12 +1,17 @@
 # Pilot Templates
 
-- **Purpose:** Provide full operational scoring templates for the five pilot constructs, including lens definitions, metrics, source rules, blocking conditions, deconfliction, triggers, and worked examples.
-- **Status:** Draft — not for public use. Shadow scoring only.
-- **Last updated:** 2026-04-15
+- **Purpose:** Preserve the proposed scoring templates for the five pilot constructs, including lens definitions, metrics, source rules, blocking conditions, deconfliction, triggers, and worked examples.
+- **Status:** Historical design artifact. The tri-lens shadow run was closed on 2026-08-26.
+- **Last updated:** 2026-08-26
 - **Depends on:** Core-Tri-Lens-Architecture.md, Dimension-Applicability-Matrix.md, Canonical-Scoring-Sheets.md, Deconfliction-Matrix.md, Measure-Selection-Rules.md, QA-Gatekeeping-Rules.md
-- **Used by:** Shadow-Run-Workflow.md, Open-Design-Decisions.md
+- **Used by:** Historical v2 design review only
 
 ---
+
+> **Closure note (2026-08-26):** These templates were used for the April
+> retrospective baseline only. They were not tested in a real monthly
+> tri-lens cycle and do not govern live scoring. See
+> [V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md](V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
 
 ## Common Rules (apply to all pilot templates)
 

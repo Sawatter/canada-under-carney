@@ -227,7 +227,9 @@
 3. The cycle yields at least one cross-file execution insight spanning two or more flagship files that is not already obvious from any single home-dimension card.
 4. No unresolved deconfliction breach is found. No metric can do double duty as both primary outcome evidence in a home dimension and independent grade-moving outcome evidence here.
 
-If any check fails, demote the dimension in v2 rather than extend the exception.
+If any check fails, hold the existing live grade and queue an explicit editor
+decision on replacement or demotion. The closed tri-lens pilot is not a default
+destination.
 
 ---
 

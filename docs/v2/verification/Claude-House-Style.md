@@ -2,7 +2,7 @@
 
 - **Purpose:** Operating instruction file for how Claude performs bounded repo edit tasks. Ensures work closes cleanly, avoids stale contradictions, and reports residual issues honestly.
 - **Status:** Active — governs all future Claude edit tasks in this repo.
-- **Last updated:** 2026-04-18
+- **Last updated:** 2026-08-26
 
 ---
 
@@ -12,7 +12,7 @@
 
 **Strict mode:** Required for high-risk work where accuracy and cross-file consistency matter more than speed. High-risk work includes:
 - Methodology changes (rubric, scoring sheets, pilot templates, deconfliction, measure selection)
-- Verification rules (protocol, workflow, exception queue, carry-forward rules)
+- Verification rules (protocol, exception queue, carry-forward rules)
 - Source-chain corrections (sourceNote, source attribution, metric label/value/URL changes)
 - Scoring logic (grade thresholds, modifier application, composite calculations, GPA arithmetic)
 - Dashboard-factual corrections (any change to a displayed metric value, rationale, or claim)
@@ -44,12 +44,15 @@ If unsure whether strict mode applies, use strict mode.
 
 When files conflict, resolve in this order:
 
-1. **Governing methodology docs** — Scoring-Rubric-v1.1.md, Canonical-Scoring-Sheets.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Measure-Selection-Rules.md, Pilot-Templates.md
-2. **Governing verification/workflow docs** — Source-Verification-Protocol.md, Verification-Workflow.md, Monthly-Operations-Mode.md, Exception-Queue-Definition.md, Carry-Forward-Rules.md
-3. **Live implementation files** — src/data/dimensions.json, src/data/meta.json, src/data/changelog.json
-4. **Prior summaries or handoff notes** — Go-NoGo notes, remediation briefs, shadow release logs, ledgers
+1. **Live governing methodology and process docs**: Scoring-Rubric-v1.1.md, Canonical-Scoring-Sheets.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, Measure-Selection-Rules.md, Monthly-Cycle-Playbook.md
+2. **Live implementation files**: src/data/dimensions.json, src/data/meta.json, src/data/changelog.json
+3. **Companion rules explicitly invoked by a live governing doc**: Source-Verification-Protocol.md, Carry-Forward-Rules.md, Monthly-Operations-Mode.md tier definitions, Exception-Queue-Definition.md categories
+4. **Historical records and design artifacts**: tri-lens architecture files, Pilot-Templates.md, the retired Monthly-Cycle-Checklist.md, Go-NoGo notes, remediation briefs, shadow release logs, ledgers
 
-If the live dashboard contradicts the methodology, the methodology governs. Fix the dashboard, not the methodology — unless the methodology itself is being intentionally changed by the current task.
+If the live dashboard contradicts live governing methodology, the methodology
+governs. Fix the dashboard, not the methodology, unless the current task is an
+approved methodology change. A historical v2 artifact never overrides a live
+governing doc or live implementation file.
 
 ---
 

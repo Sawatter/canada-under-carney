@@ -1,11 +1,16 @@
 # Remediation Brief — April 2026 Baseline Verification
 
 - **Purpose:** List every blocking or high-risk dashboard issue surfaced by the baseline verification pass. Recommend remediation order before the next live cycle.
-- **Status:** Actionable. All items drawn from the frozen baseline ledger and manifest.
+- **Status:** Historical April 2026 remediation record. It is not a current action list.
+- **Retired:** 2026-08-26
 - **Last updated:** 2026-04-15
 - **Source of truth:** ledgers/2026-04-baseline-ledger.md, evidence-packs/2026-04-baseline-manifest.md
 
 ---
+
+> Current issue state must be read from live data, dated cycle records, and
+> [Current-Roadmap.md](../../Current-Roadmap.md). The actions below preserve the
+> baseline finding state only.
 
 ## Summary
 

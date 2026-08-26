@@ -1,5 +1,11 @@
 # V2 Scoring Architecture Brief
 
+> **Status: Historical design brief as of 2026-08-26.** The recommendation and
+> implementation moves below preserve the design state that led to the tri-lens
+> pilot. They are not current instructions. The pilot closed without a real
+> monthly cycle. See
+> [V2 Tri-Lens Shadow Run Closure Post-Mortem](v2/V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
+
 ## Primary Inputs Used
 
 - `Scoring-Rubric-v1.1.md`

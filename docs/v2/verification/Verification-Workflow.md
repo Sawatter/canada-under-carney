@@ -1,12 +1,18 @@
 # Verification Workflow
 
-- **Purpose:** Define the step-by-step monthly verification process. This is the workflow — the sequence of operations. The rules are in Source-Verification-Protocol.md.
-- **Status:** Draft — first version for pilot cycle use.
+- **Purpose:** Preserve the proposed step-by-step verification workflow from the closed pilot.
+- **Status:** Historical pilot workflow. It is not part of the current monthly cycle and its v2 handoff is closed.
+- **Retired:** 2026-08-26
 - **Last updated:** 2026-04-15
-- **Depends on:** Source-Verification-Protocol.md (rules), Evidence-Pack-Manifest-Template.md (manifest structure), Verification-Ledger-Template.md (ledger structure), MONTHLY-UPDATE-GUIDE.md (v1 process), Shadow-Run-Workflow.md (v2 process)
-- **Used by:** MONTHLY-UPDATE-GUIDE.md (verification integrates into the existing monthly cycle)
+- **Historical inputs:** Source-Verification-Protocol.md, Evidence-Pack-Manifest-Template.md, Verification-Ledger-Template.md, MONTHLY-UPDATE-GUIDE.md, and Shadow-Run-Workflow.md
+- **Current use:** None. The live update guide does not invoke this workflow.
 
 ---
+
+> Current cycle execution follows
+> [Monthly-Cycle-Playbook.md](../../Monthly-Cycle-Playbook.md). Current
+> claim-level source checks use `Source-Verification-Protocol.md` only where
+> live QA rules invoke them. Do not run the v2 handoff in this file.
 
 ## Where verification fits in the monthly cycle
 

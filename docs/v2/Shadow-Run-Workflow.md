@@ -1,18 +1,27 @@
 # Shadow Run Workflow
 
-- **Purpose:** Define the monthly workflow for running v2 tri-lens shadow scoring alongside v1, including sequence of operations, QA integration, logging, conflict resolution, and promotion criteria.
-- **Status:** Draft — not for public use. Shadow scoring only.
-- **Last updated:** 2026-04-15
+- **Purpose:** Preserve the proposed monthly workflow for v2 tri-lens shadow scoring alongside v1.
+- **Status:** Historical design artifact. Closed without a real monthly run on 2026-08-26.
+- **Last updated:** 2026-08-26
 - **Depends on:** Core-Tri-Lens-Architecture.md, Pilot-Templates.md, Dimension-Applicability-Matrix.md, QA-Gatekeeping-Rules.md, Deconfliction-Matrix.md, MONTHLY-UPDATE-GUIDE.md, v2-Shadow-Test-Plan.md
-- **Used by:** Open-Design-Decisions.md
+- **Used by:** Historical v2 design review only
 
-**Relationship to v2-Shadow-Test-Plan.md:** The existing shadow test plan covers two specific v1 structural tests (Promise Delivery GPA removal and Defence & Trade sub-scoring). This workflow is broader — it covers the full tri-lens shadow scoring process for the five pilot dimensions. The two v1 shadow tests should run concurrently within Step 2 of this workflow during the first cycle.
+**Historical relationship to v2-Shadow-Test-Plan.md:** That plan covered two
+v1 structural tests (Promise Delivery GPA removal and Defence and Trade
+sub-scoring). This proposed workflow would have added tri-lens shadow scoring
+for five pilot constructs. The combined first-cycle run did not occur.
+
+> **Closure note (2026-08-26):** This workflow was never run as a real monthly
+> tri-lens cycle. Do not use it as a current checklist or reconstruct missed
+> cycles from it. See
+> [V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md](V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
 
 ---
 
 ## 1. Monthly Cycle Timeline
 
-The v2 shadow cycle runs inside the v1 monthly cycle, not as a separate process. Target: adds ~45-60 minutes to the existing ~30-minute v1 update process.
+The proposed v2 shadow cycle would have run inside the v1 monthly cycle, not as
+a separate process. Its estimated added time was 45 to 60 minutes.
 
 | Step | Timing | Duration | Description |
 |---|---|---|---|

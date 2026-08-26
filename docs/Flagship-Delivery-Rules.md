@@ -101,7 +101,9 @@ Flagship Delivery cleared its first full monthly review on **2026-07-01** and ex
 3. The cycle yields at least one cross-file execution insight spanning two or more flagship files that is not already obvious from any single home-dimension card.
 4. The deconfliction matrix holds with no unresolved breach. No metric can do double duty as both primary outcome evidence in a home dimension and independent grade-moving outcome evidence in Flagship Delivery.
 
-If a future cycle fails any of those checks, Flagship Delivery should be demoted in v2.0 rather than put back into open-ended limbo.
+If a future cycle fails any of those checks, hold the existing live grade and
+queue an explicit editor decision on replacement or demotion. The closed
+tri-lens pilot is not a default destination.
 
 ---
 

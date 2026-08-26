@@ -1,15 +1,21 @@
 # Shadow Release Log — April 2026 (Initial Decomposition)
 
 - **Purpose:** Retrospective decomposition of existing v1 evidence into initial shadow lens grades for the five pilot constructs. This is Task 1 from Open-Design-Decisions.md — baseline setting, not a real monthly cycle.
-- **Status:** Initial decomposition. No new evidence applied. Grades derived from existing Canonical-Scoring-Sheets.md and dimensions.json evidence as of April 2026.
-- **Last updated:** 2026-04-15
+- **Status:** Historical baseline only. This was not a real monthly cycle, and the tri-lens shadow run closed on 2026-08-26.
+- **Last updated:** 2026-08-26
 - **Method:** Option A from Open-Design-Decisions.md Decision 5 — retrospective decomposition of v1 evidence base.
 
 ---
 
+> **Closure note (2026-08-26):** No later monthly tri-lens log was created.
+> This baseline remains internal and must not be described as a completed
+> monthly cycle. See
+> [V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md](../V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
+
 ## Computation Rules
 
-These rules govern all math in this log and in future shadow cycles.
+These rules govern the math in this historical baseline. They were intended
+for later shadow cycles, but no later cycle occurred.
 
 **1. Lens GPA values (whole-letter only):**
 A = 4.0, B = 3.0, C = 2.0, D = 1.0, F = 0.0. No plus/minus in v2.

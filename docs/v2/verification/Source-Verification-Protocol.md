@@ -1,18 +1,25 @@
 # Source Verification Protocol
 
-- **Purpose:** Define what must be verified before a metric, claim, or fact is safe to use in v1 scoring or v2 shadow scoring. This is the rules file. The workflow is in Verification-Workflow.md.
-- **Status:** Draft — first version for pilot cycle use.
-- **Last updated:** 2026-04-18
+- **Purpose:** Define the claim-level checks used when current QA rules require source review.
+- **Status:** Active narrow companion to QA-Gatekeeping-Rules.md. It does not invoke the closed v2 shadow cycle or replace the monthly playbook.
+- **Last updated:** 2026-08-26
 - **Depends on:** QA-Gatekeeping-Rules.md, Measure-Selection-Rules.md, Deconfliction-Matrix.md, DATA-SOURCES.md, Scoring-Rubric-v1.1.md, Source-Authority-Map.md
-- **Used by:** Verification-Workflow.md, Verification-Ledger-Template.md, Evidence-Pack-Manifest-Template.md, Shadow-Run-Workflow.md, MONTHLY-UPDATE-GUIDE.md
+- **Used by:** QA-Gatekeeping-Rules.md and Carry-Forward-Rules.md. Historical workflow and template files retain references for provenance only.
 
 ---
+
+> **Current cycle record (2026-08-26):** Record each claim-level outcome in the
+> affected URL row's `Notes` in `Source-Coverage-Ledger-YYYY-MM.md`. Add a row
+> when a source is new to the cycle. Record scoring decisions,
+> exceptions, carry-forward, the cutoff, and late additions in the dated monthly
+> cycle report. User-visible corrections also enter `changelog.json`. No
+> separate verification ledger or evidence-pack manifest is created.
 
 ## 1. Conservative Default (blocking condition)
 
 **If label, value, unit, or time window cannot be reconciled cleanly between the source and the dashboard, the fact does not move the score.**
 
-This is not a guideline. It is a blocking condition. A fact that fails verification stays out of scoring until the issue is resolved. The editor may still record it in the ledger as context, but it cannot be marked "safe for scoring."
+This is not a guideline. It is a blocking condition. A fact that fails verification stays out of scoring until the issue is resolved. The editor may still record it in the current cycle record as context, but it cannot be marked "safe for scoring."
 
 Origin: EFCSN Code of Standards (evidentiary support required for all pertinent factual statements); project QA-Gatekeeping-Rules.md Rule 6 (automatic blocking conditions).
 
@@ -20,13 +27,13 @@ Origin: EFCSN Code of Standards (evidentiary support required for all pertinent 
 
 ## 2. Claim Status Categories
 
-Every fact entered in the verification ledger must be assigned exactly one claim status.
+Every fact entered in the current cycle record must be assigned exactly one claim status.
 
 | Status | Meaning | Safe for scoring? |
 |---|---|---|
 | **Supported** | Claim is fully entailed by a cited primary source. The source label, value, unit, and time window all match. | Yes |
 | **Unsupported** | Source is accessible and relevant, but the claim is not fully entailed. The claim overclaims, adds causal interpretation, drops a qualifier, or extends beyond what the source actually says. | **No — blocked** |
-| **Transformed-valid** | Claim derives from the source via a documented, reproducible calculation (e.g., SAAR conversion, YoY change, share calculation). The transformation method is recorded in the ledger. | Yes |
+| **Transformed-valid** | Claim derives from the source via a documented, reproducible calculation (e.g., SAAR conversion, YoY change, share calculation). The transformation method is recorded in the current source row's `Notes`. | Yes |
 | **Context-only** | Claim is real and verified, but not grade-moving for this lens or dimension per deconfliction or lens assignment rules. | No (display only) |
 | **Contradicted** | Claim directly conflicts with what the cited source says. | **No — blocked** |
 | **Unverifiable** | Source is inaccessible, broken, paywalled, or content is ambiguous enough that multiple valid readings exist. | **No — blocked** |
@@ -153,7 +160,7 @@ A transformation is any operation that changes a source value before it appears 
 A transformation is valid when:
 1. The source value is verified as exact match to the original
 2. The transformation method is standard and reproducible (e.g., YoY calculation, SAAR conversion, percentage share calculation)
-3. The transformation method is documented in the verification ledger
+3. The transformation method is documented in the current source row's `Notes`
 4. A reader with access to the source could reproduce the dashboard value
 
 ### 7b. When transformation is blocked
@@ -194,7 +201,7 @@ Every metric must carry a revision tag:
 | **Final** | No further revisions expected | Safe for scoring. |
 | **Unknown** | Revision status not determinable | Flag for manual review. |
 
-**Revision logging rule:** When a previously used value is revised by the source, the correction must be logged visibly — not silently absorbed. The verification ledger records the old value, the new value, the revision date, and whether the revision changed any score.
+**Revision logging rule:** When a previously used value is revised by the source, the correction must be logged visibly, not silently absorbed. The current source row's `Notes` records the old value, the new value, and the revision date. The monthly cycle report records whether the revision changed any score. A user-visible correction also enters `changelog.json`.
 
 ### 8b. Staleness rules
 
@@ -205,7 +212,7 @@ Every metric must carry a revision tag:
 | Annual data (R&D spending, emissions, food insecurity) | >18 months old | Flag as stale. May use with qualifier. Note: annual data is inherently lower-frequency; staleness does not block scoring if no newer release exists. |
 | Event-driven data (credit ratings, Ethics Commissioner) | No fixed staleness | Valid until superseded by a new event. |
 
-**Stale data that is the most recent available:** If a source is stale but no newer release exists, it may be used with a staleness qualifier in the ledger and on the dashboard. The claim status is Supported (with staleness note), not Stale. Stale status is reserved for cases where a newer release exists but was not used.
+**Stale data that is the most recent available:** If a source is stale but no newer release exists, it may be used with a staleness qualifier in the current source row's `Notes` and on the dashboard. The claim status is Supported (with staleness note), not Stale. Stale status is reserved for cases where a newer release exists but was not used.
 
 Origin: Statistics Canada Quality Guidelines (timeliness); project Measure-Selection-Rules.md (PBO staleness rule); IMF DQAF (serviceability dimension — timeliness and periodicity).
 
@@ -232,8 +239,8 @@ Many government and news pages are not immutable. PDFs get replaced, tables get 
 
 | Scenario | Action |
 |---|---|
-| Source value is revised after access but before publication | Update the ledger with the revised value. If the revision changes the claim status or score, log the change as a correction. |
-| Source page is removed after access | The logged ledger entry (with access date and exact value) stands as the audit record. Flag in notes. |
+| Source value is revised after access but before publication | Update the current source row's `Notes` with the revised value. If the revision changes the claim status or score, record the correction in the monthly cycle report and `changelog.json`. |
+| Source page is removed after access | The current source-coverage ledger row, with its access date and exact value, stands as the provenance record. Flag the removal and fallback in `Notes`. |
 | Source PDF is replaced with updated version | Treat as a revision. Log old and new values. Use the newer version for scoring. |
 
 Origin: AP verification practice (verification as workflow); Full Fact (corrections discipline); GUARDRAILS.md pattern (append-only logging).
@@ -248,7 +255,7 @@ Origin: AP verification practice (verification as workflow); Full Fact (correcti
 | Source is paywalled | Claim status = Unverifiable unless the editor can access and verify. Flag for mandatory human review. |
 | Source is behind institutional login | Claim status = Unverifiable unless verified by a human with access. Flag for mandatory human review. |
 | Source exists but the specific table/page cannot be located | Claim status = Unverifiable. Blocked from scoring. |
-| Source organization has reorganized URLs | Attempt to find new URL. If found, update the ledger. If not, treat as broken. |
+| Source organization has reorganized URLs | Attempt to find a new URL. If found, update the current source-coverage ledger row. If not, treat as broken and record the fallback in `Notes`. |
 
 **Rule:** An unverifiable source cannot support a grade-moving claim. Period.
 
@@ -307,9 +314,9 @@ Model-only verification is insufficient for these cases. Human review is require
 | 4 | Transformed claim combining values from 2+ separate sources | That the combination is valid, the sources are compatible, and the transformation is documented. | Log: "Multi-source transformation reviewed [date]. Sources: [A, B]. Method: [X]. Confirmed valid / blocked." |
 | 5 | Contradiction between newly verified source value and existing dashboard language | Whether the dashboard language needs correction or the new source is anomalous. | Log: "Contradiction reviewed [date]. Resolution: [dashboard corrected / source anomaly noted / blocked]." |
 | 6 | Claim based on a dynamic web page with no stable versioning | That the content at access time is recorded and the claim is accurately captured. | Log: "Dynamic source reviewed [date]. Content snapshot: [method]. Confirmed / blocked." |
-| 7 | Verification certainty is `low` (recorded in ledger) | The specific match or interpretation that is uncertain. A `low` certainty means the source is ambiguous, the label match is uncertain, or multiple valid readings exist. The verifier must assign a certainty of `high`, `medium`, or `low` for every claim; `low` automatically triggers human review. | Log: "Low-certainty match reviewed [date]. Resolution: [confirmed / corrected / blocked]. Certainty upgraded to [high/medium] or claim blocked." |
+| 7 | Verification certainty is `low` (recorded in the current source row's `Notes`) | The specific match or interpretation that is uncertain. A `low` certainty means the source is ambiguous, the label match is uncertain, or multiple valid readings exist. The verifier must assign a certainty of `high`, `medium`, or `low` for every claim; `low` automatically triggers human review. | Log: "Low-certainty match reviewed [date]. Resolution: [confirmed / corrected / blocked]. Certainty upgraded to [high/medium] or claim blocked." |
 
-**If the reviewer disagrees with the model's assessment:** The reviewer's judgment overrides. The disagreement is logged in the ledger notes with the reason. The claim status is updated to reflect the reviewer's decision.
+**If the reviewer disagrees with the model's assessment:** The reviewer's judgment overrides. The disagreement is logged in the current source row's `Notes` with the reason. The claim status is updated to reflect the reviewer's decision.
 
 Origin: EFCSN (assessment procedures for disputed claims); Full Fact (senior review of corrections); GUARDRAILS.md (human approval for guardrail violations).
 
@@ -339,27 +346,27 @@ Origin: EFCSN (corrections with visible notes, public corrections record, annual
 
 ---
 
-## 15. Evidence-Pack Boundary Rules
+## 15. Cycle Evidence Boundary Rules
 
 ### 15a. Definition
 
-The evidence pack is the explicit set of source documents, data releases, and reports that constitute the scoring evidence for a specific monthly cycle. It is assembled at the start of the cycle and logged as a manifest (see Evidence-Pack-Manifest-Template.md).
+The cycle evidence set is the explicit set of source documents, data releases, and reports considered for scoring in a specific monthly cycle. It is assembled before scoring and recorded in the current source-coverage ledger. The dated monthly cycle report records the cutoff, inclusions, exclusions, late additions, and resulting decisions.
 
 ### 15b. Boundary rules
 
 | Rule | Detail |
 |---|---|
-| **No claim outside the evidence pack is grade-moving.** | If a source was not included in the pack, it cannot move a score. It can be noted for the next cycle. |
-| **Cutoff is explicit.** | The manifest specifies a cutoff date and time. Sources published after the cutoff are excluded. |
-| **Pack is assembled before scoring.** | Source gathering and scoring are separate steps. The pack must be complete before any scoring decisions begin. |
-| **Pack is reviewable.** | A third party could inspect the manifest and verify which sources were included, which were excluded, and why. |
+| **No claim outside the cycle evidence set is grade-moving.** | If a source was not included in the current source-coverage ledger, it cannot move a score. It can be noted for the next cycle. |
+| **Cutoff is explicit.** | The monthly cycle report specifies a cutoff date and time. Sources published after the cutoff are excluded. |
+| **The evidence set is assembled before scoring.** | Source gathering and scoring are separate steps. The source-coverage ledger must contain the evidence set before scoring decisions begin. |
+| **The evidence set is reviewable.** | A third party can inspect the source-coverage ledger and monthly cycle report to see which sources were included, which were excluded, and why. |
 
 ### 15c. Post-cutoff scenarios
 
 | Scenario | Action |
 |---|---|
-| Source is corrected after pack closes | Note the correction in the manifest. If the correction is material, the editor may choose to reopen the pack and rerun verification for that claim. If minor, carry forward to the next cycle. |
-| Source becomes available after cutoff but before publication | Exclude from this cycle's pack. Include in the next cycle. Exception: if the source is a critical Tier 1 release that would change a score, the editor may add it with a manifest note explaining the late inclusion. |
-| Source in the pack is removed from the web after pack closes | The manifest entry (with access date and logged values) serves as the audit record. |
+| Source is corrected after the evidence set closes | Note the correction in the affected ledger row's `Notes` and the monthly cycle report. If the correction is material, the editor may reopen the evidence set and rerun verification for that claim. If minor, carry it to the next cycle. |
+| Source becomes available after cutoff but before publication | Exclude it and add it to the next cycle. Exception: if it is a critical Tier 1 release that would change a score, the editor may add a ledger row and record the late inclusion in the monthly cycle report. |
+| Source in the evidence set is removed from the web after close | The source-coverage ledger row, with its access date and logged values, remains the provenance record. Record the removal and fallback in `Notes` and the monthly cycle report. |
 
-Origin: Google FACTS Grounding (evidence-pack-first model — every claim must be checkable against the supplied document set); AP (verification as workflow with defined inputs).
+Origin: Google FACTS Grounding (evidence-set-first model, where each claim must be checkable against the supplied document set); AP (verification as workflow with defined inputs).

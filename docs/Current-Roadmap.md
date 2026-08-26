@@ -4,23 +4,30 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-08-25
+**Last updated:** 2026-08-26
 
 ---
 
 ## Current State
 
-- v5.174 is live in production through commit `a7805ed`, dated 2026-08-23. It
-  closes the August count-drift corrections and makes the cohort guard read
-  every policy-card sentence. The next scheduled evidence update is 2026-09-01.
-- A mobile first-look correction is present only as a local, unreleased v5.175
-  candidate. It also adds a durable monthly exception report for every cited
-  link that needs manual follow-up. The data, app-shell, lint, monitor, build,
-  255-case browser, source-report smoke, and local visual gates pass. A local
-  run of the post-deploy harness passed `358/358`. Claude's round 4 read-only
-  review returned `VERDICT: APPROVED` after the accepted findings were fixed.
-  Production remains v5.174. No commit, push, Pages run, or production check
-  has been performed for v5.175.
+- v5.174 remains live in production through commit `a7805ed`, dated
+  2026-08-23. It closes the August count-drift corrections and makes the cohort
+  guard read every policy-card sentence. The next scheduled evidence update is
+  2026-09-01.
+- The v5.175 candidate is on `main` through commit `65abd85`, but it is not live.
+  Pages run `32934800016` passed build and then correctly blocked deploy when
+  its Linux browser job reproduced a mobile watch-link overlap that macOS did
+  not. Corrective commit `b83fef8` moves the phone watch route to the dedicated
+  action area, stacks the mobile briefing controls through the 640-pixel phone
+  range, and completes the no-route, ancestor-hidden, audit-contract, and
+  workflow-action hardening. The deprecated warning concerned the artifact
+  action's internal runtime, which the correction replaces. The workflows'
+  explicit `node-version: 20` pins remain supported app and test runtime choices,
+  not the warning target. Local gates pass, including 256 browser cases and
+  `358/358` coverage checks, and Claude approved the final seven-file diff. The
+  repeated static and action labels were retained for exact route traceability
+  because no reader has reported confusion. The correction is committed
+  locally but not yet on `main`, so production remains v5.174.
 - v5.166 is live through implementation commit `3c329c9` and browser-gate
   follow-up `6e8891f`. It aligns the titles, descriptions, visible results, and
   actions in the three secondary signal cards after a reader screenshot showed
@@ -98,6 +105,19 @@
 ---
 
 ## Recently Completed
+
+- v2 tri-lens closure - the deferred first monthly shadow cycle is formally
+  closed rather than reconstructed with hindsight. The required post-mortem
+  records the operating failure without claiming the untested architecture
+  failed. The unused monthly checklist and tri-lens files are historical;
+  three definitions still cited by live QA now carry narrow companion status.
+  See the [closure post-mortem](v2/V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
+
+- External governance cleanup - the old Trust and Bias Resistance Plan is now
+  historical and points to the current protocol, playbook, and gate documents.
+  The separate red-team invite remains unsent because no recipient or channel
+  is recorded. See the
+  [historical plan](Trust-And-Bias-Resistance-Plan-2026-05.md).
 
 - v5.174 count-consistency correction - four remaining stale Major Projects
   statements were corrected, and the cohort guard now reads every policy-card
@@ -314,18 +334,34 @@
 
 ## Now
 
-1. **Hold v5.175 for explicit publication instruction.** The local candidate
-   has passed its deterministic, visual, local post-deploy, and different-AI
-   gates. Claude round 4 returned `VERDICT: APPROVED`. Before any push, run the
-   staged diff and personal-identifier checks. After a push, require the Pages
-   and production live gates. Priority reason: publication is external and was
-   not authorized in the 2026-08-25 instruction.
+1. **Complete the replacement v5.175 publication gate.** Commit `65abd85`
+   reached `main`, but Pages run `32934800016` correctly blocked before deploy
+   when the long mobile release fixture put the Housing watch link under the
+   fixed navigation on Linux. The root fix and maintenance hardening pass the
+   local app-shell, responsive browser, build, monitor, lint, visual, and
+   `358/358` local coverage gates. Corrective commit `b83fef8` also closes the
+   audit-locator and 420/421 breakpoint findings from the Claude rounds, and the
+   final review returned `VERDICT: APPROVED`. Priority reason: production
+   remains v5.174 until the correction reaches `main` and a clean Pages run and
+   live audit prove the replacement.
+
+2. **Select the outside red-team reviewer.** The invite is ready, but the repo,
+   git history, and project memory contain no recipient or send channel. Send
+   only after the editor names both. Priority reason: external contact cannot
+   be completed by guessing who should receive it.
+
+3. **Publish the July reconciliation and close PR 30.** The corrected ledger
+   partitions all 67 surfaced candidates into 8 exact matches, 10 superseded
+   records, 44 family-batch closures, and 5 manual reviews. Final outcomes are
+   7 dashboard incorporations, 2 cycle-report records, 58 no-move decisions,
+   and 0 unresolved. PR 31 is already closed. Priority reason: PR 30 remains
+   open until the records reach `main` and the external close action succeeds.
 
 ---
 
 ## Editor-Parked (2026-08-25)
 
-These five items are deferred by editor instruction. They are not cancelled or
+These three items are deferred by editor instruction. They are not cancelled or
 completed. Resume them only on later editor instruction.
 
 1. **Inter-rater clarification and return date.** The final v1 packet was frozen
@@ -336,28 +372,7 @@ completed. Resume them only on later editor instruction.
    resumed, record those facts before treating the pilot as waiting on a dated
    return, then process any worksheets against the frozen packet.
 
-2. **v2 run-or-close decision.** Decide whether to run the first full tri-lens
-   shadow cycle or formally close it with the required post-mortem. If the
-   cycle runs, first record the August 22 setup controls: check the frozen April
-   baseline against known answers, write each lens's strengths and weaknesses
-   before assigning its letter, and give questions A-E to a separate grader
-   context. Exactly four v2 verification files claim they govern all cycles
-   from May 2026 onward: [Monthly-Cycle-Checklist.md](v2/verification/Monthly-Cycle-Checklist.md),
-   [Monthly-Operations-Mode.md](v2/verification/Monthly-Operations-Mode.md),
-   [Carry-Forward-Rules.md](v2/verification/Carry-Forward-Rules.md), and
-   [Exception-Queue-Definition.md](v2/verification/Exception-Queue-Definition.md).
-   Do not mark them historical until the editor records the decision.
-
-3. **PR 30 batch rule and four candidates.** Do not merge PR 30 as written
-   because its July monitoring state would replace the newer August state. Of
-   67 surfaced candidates, 8 exactly match August candidates, 10 have later or
-   same-locator evidence, 45 can use a publisher-family batch closure only if
-   the editor accepts the proposed rule, and 4 need individual review. Retain
-   the 57 mechanically suppressed records for audit. The computed breakdown,
-   proposed rule, and four-item queue are in
-   [PR-30-Reconciliation-2026-08-25.md](PR-30-Reconciliation-2026-08-25.md).
-
-4. **September cycle.** When resumed, retry the four IRCC binary downloads and
+2. **September cycle.** When resumed, retry the four IRCC binary downloads and
    the Moody's Canada detail page, generate the ledger for the August 1-31
    window, check whether the dated history reads as one sequence, and evaluate
    Decision Brief reuse only if another consequential review fits the existing
@@ -365,33 +380,30 @@ completed. Resume them only on later editor instruction.
    parked. Its August 25 official-page result is a dated hold, not proof, and it
    must not move a grade automatically.
 
-5. **Combined reader study.** In one sitting, test the first-look briefing with
+3. **Combined reader study.** In one sitting, test the first-look briefing with
    four first-time readers at `375 x 812` and four at `1280 x 900`, then run the
    30-second workspace task across Housing, Defence & Trade, Promise Delivery,
    Flagship Delivery, and one ordinary graded dimension. Record first action,
    false clicks, signal-role and freshness confusion, default-size comfort,
    whether readers find the grade, reason, latest change, next checkpoint, and
    complete record, and whether they distinguish announcements from delivery
-   evidence. AI reader proxies do not close this item.
+   evidence. Recruit readers with different political priors and use the
+   published perceived-bias survey questions in the same sitting. AI reader
+   proxies do not close this item.
 
 ---
 
 ## Next
 
-The parked work above is not active in this lane.
-
-1. **Resolve the remaining external/editor queue.** Send the prepared red-team
-   invite to an editor-selected recipient, then decide whether to mark the old
-   Trust and Bias Resistance Plan historical while keeping the audit brief and
-   validation templates separate. Priority reason: neither external contact nor
-   governance retirement should happen silently.
+No additional autonomous item is scheduled before the replacement release gate
+closes or the editor resumes one of the parked items.
 
 ---
 ## Later
 
 These are valid, but not active now.
 
-1. Keep Flagship Delivery only while future cycles pass the published retention checks. If a required check fails, demote it in v2 instead of reviving probation. Priority reason: retain the exception only while its evidence test continues to work.
+1. Keep Flagship Delivery only while future cycles pass the published retention checks. If a required check fails, queue an explicit editor decision on replacement or demotion instead of reviving probation. Priority reason: retain the exception only while its evidence test continues to work.
 2. Revisit small rubric maintenance only if later audits show a repeated failure pattern. Priority reason: avoid speculative scoring changes.
 3. Watch the next few Pages deploys with the browser-smoke CI gate, with attention to runtime cost. Priority reason: the new data boundary needs ordinary production observation after publication.
 4. Start the polish lane with shared motion tokens and one reduced-motion source of truth, then consider a bounded card-to-workspace transition. Keep mobile drag-to-dismiss and animated panel changes deferred until the new navigation has ordinary use evidence. Priority reason: motion should clarify the reading transition, not create another interaction layer.
@@ -404,21 +416,15 @@ These are valid, but not active now.
    reason: do not add schema, interface, and monthly retirement work for a
    reader problem that has not been observed.
 9. Reconsider a local read-only MCP adapter only after repeated review work shows that selective reads are materially better than targeted files or the tracked-file bundle. Any return needs a filtered input set, symlink and special-file policy, locked tool dependencies, a disclosure smoke test, local `stdio`, and another different-AI review. Priority reason: do not rebuild an optional access path without measured need.
-10. Refresh the workflow action that still targets deprecated Node.js 20 before GitHub removes forced Node.js 24 compatibility. Priority reason: the v5.164 audit passed, but its artifact-upload step now emits a platform deprecation warning that should not become a future release blocker.
-11. Revisit a secondary-signal subgrid fallback only if an unsupported-browser report shows the cosmetic misalignment still matters in ordinary use. Priority reason: current evergreen browsers support subgrid and older browsers retain readable, functional cards, so a speculative shim ranks below the August cycle.
-12. Run one physical-device pass when targets are available: confirm that a
+10. Revisit a secondary-signal subgrid fallback only if an unsupported-browser report shows the cosmetic misalignment still matters in ordinary use. Priority reason: current evergreen browsers support subgrid and older browsers retain readable, functional cards, so a speculative shim ranks below the August cycle.
+11. Run one physical-device pass when targets are available: confirm that a
    native share target preserves the detached text and exact deep link, then
    check iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and
    Windows forced-colors. These remain release exceptions, not passes or current
    blockers. Priority reason: browser emulation cannot characterize the native
    platform shell or target-specific share rewriting.
-13. Consider an on-page text-size control only if the combined reader study shows that default sizing or browser-zoom discovery remains a real barrier. Tokenize the complete shell before building it so the control changes the whole reading experience rather than one section. Priority reason: the current release fixes the measured default-size problem, while a partial A/A+ control would add another setting without proving that readers need it.
-14. Before the next first-look structure change, cover a valid primary next
-    check with no route, make geometry filters ignore elements hidden by an
-    ancestor, and strengthen the live-audit contract so it asserts the required
-    visibility field is used in the failure list. These are latent test and
-    audit hardening items, not current v5.175 defects. Priority reason: avoid a
-    future false release failure without reopening the approved candidate.
+12. Consider an on-page text-size control only if the combined reader study shows that default sizing or browser-zoom discovery remains a real barrier. Tokenize the complete shell before building it so the control changes the whole reading experience rather than one section. Priority reason: the current release fixes the measured default-size problem, while a partial A/A+ control would add another setting without proving that readers need it.
+13. Run the foundational methodology audit no later than 2027, or sooner if the scoring rubric moves to a new major version. Priority reason: the scaffold sets an annual editor gate, not a monthly task, and it should not disappear when the May planning file becomes historical.
 
 ---
 
@@ -427,7 +433,8 @@ These are valid, but not active now.
 Do not reopen these unless a later audit forces it.
 
 - Full rubric rewrite
-- v2 implementation before the run-or-close decision is recorded
+- Restarting the closed tri-lens pilot without a new dated baseline, owner,
+  contemporaneous cycle, and canonical workflow gate
 - Defence & Trade full split unless the canonical tripwire fires: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version
 - Carbon Pricing / Climate merge
 - Promise Delivery redesign

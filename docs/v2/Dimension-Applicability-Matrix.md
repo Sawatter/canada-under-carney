@@ -1,12 +1,16 @@
 # Dimension Applicability Matrix
 
-- **Purpose:** Map all current dimensions to their tri-lens suitability, primary scoring lens, key constraints, and pilot scope.
-- **Status:** Draft — not for public use. Shadow scoring only.
-- **Last updated:** 2026-04-15
+- **Purpose:** Preserve the proposed map of dimensions to tri-lens suitability, primary lens, constraints, and pilot scope.
+- **Status:** Historical design artifact. The tri-lens shadow run was closed on 2026-08-26.
+- **Last updated:** 2026-08-26
 - **Depends on:** Core-Tri-Lens-Architecture.md, V2-Scoring-Architecture-Brief.md, Canonical-Scoring-Sheets.md, Dimension-Status-Register.md
-- **Used by:** Pilot-Templates.md, Shadow-Run-Workflow.md, Open-Design-Decisions.md
+- **Used by:** Historical v2 design review only
 
 ---
+
+> **Closure note (2026-08-26):** This matrix records the planned pilot scope.
+> It does not govern the live dimension model or scoring process. See
+> [V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md](V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
 
 ## 1. Applicability Table
 
@@ -37,10 +41,10 @@
 
 **Primary lens:** The lens that should carry the most weight in any shadow composite for this dimension. Determined by the dimension's construct type (from Scoring-Rubric-v1.1.md) and the suitability assessment (from V2-Scoring-Architecture-Brief.md Section 4).
 
-**Pilot scope:**
-- **Now** = included in the first shadow cycle pilot (Immigration, Housing Supply, Fiscal Health, Defence, Trade Diversification)
-- **Later** = suitable for v2 treatment but deferred until the pilot proves the architecture works
-- **Exception** = not a standard tri-lens candidate; requires bounded or alternative treatment
+**Historical pilot-scope labels:**
+- **Now** = was selected for the planned first shadow cycle (Immigration, Housing Supply, Fiscal Health, Defence, Trade Diversification)
+- **Later** = was considered suitable for later v2 treatment if the pilot worked
+- **Exception** = was not treated as a standard tri-lens candidate
 
 ---
 
@@ -56,7 +60,9 @@ The five pilot constructs were selected to test different architectural demands:
 | Defence | Execution-heavy milestone scoring — tests how a permanent milestone (NATO 2%) behaves under tri-lens where outcome sensitivity is limited. |
 | Trade Diversification | Outcome-heavy, attribution-sensitive scoring — tests the hardest outcome case in the pilot: externally influenced, volatile data, shared attribution. |
 
-If these five constructs produce stable, defensible shadow scores through one real cycle, the architecture is viable for extension. If any of them fail, the failure mode will be informative about which design constraints need tightening before extending to the "Later" dimensions.
+These five constructs were intended to test whether the architecture was viable
+for extension. The real cycle did not occur, so the planned test produced no
+result.
 
 ---
 
@@ -67,14 +73,14 @@ If these five constructs produce stable, defensible shadow scores through one re
 - Remains a bounded qualitative process assessment in v2.
 - Does NOT receive tri-lens scoring.
 - The current v1 whole-letter grade (C) continues as the only score.
-- If a semi-quantitative indicator is developed (e.g., disclosure completeness score, Ethics Commissioner recommendations addressed), a future version may introduce a limited Execution lens. That decision is parked in Open-Design-Decisions.md.
+- A semi-quantitative indicator was the stated prerequisite for any limited Execution lens. That work did not occur in this pilot.
 
 ### Flagship Delivery
 
 - Cleared the July 2026 exit test and no longer sits on probation.
 - The Combination Rule (5-file mechanical scoring) continues to produce its v1 grade.
 - Does NOT receive independent tri-lens scoring. The Combination Rule already functions as a synthetic execution lens.
-- Its relationship to v2 can be reassessed later, but only if future cycles still show a distinct cross-file execution read and no deconfliction breach. If a future cycle fails those checks, demote it in v2 rather than extend the exception.
+- Its relationship to v2 was left unresolved. No tri-lens cycle produced evidence for that decision.
 
 ### Promise Delivery
 
@@ -85,9 +91,10 @@ If these five constructs produce stable, defensible shadow scores through one re
 
 ---
 
-## 5. Dimensions Deferred to Later Pilot Waves
+## 5. Dimensions Planned for Later Pilot Waves
 
-These dimensions are all tagged "Execution" as primary lens. They are deferred because they share common challenges that should be addressed after the first pilot proves the base architecture:
+These dimensions were tagged "Execution" as the primary lens and were left
+outside the planned first cycle. No later pilot wave was run.
 
 | Dimension | Why deferred |
 |---|---|

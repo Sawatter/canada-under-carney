@@ -1,12 +1,17 @@
 # Evidence Pack Manifest Template
 
 - **Purpose:** Reusable template for logging the exact set of sources that constitute the scoring evidence for each monthly cycle. One manifest per cycle.
-- **Status:** Draft — first version for pilot cycle use.
+- **Status:** Historical pilot template. It is not part of the current monthly cycle.
+- **Retired:** 2026-08-26
 - **Last updated:** 2026-04-15
-- **Depends on:** Source-Verification-Protocol.md (Section 15, evidence-pack boundary rules)
+- **Depends on:** Source-Verification-Protocol.md (Section 15, cycle evidence boundary rules)
 - **Used by:** Verification-Workflow.md (Step 1: evidence-pack assembly), Verification-Ledger-Template.md (each ledger entry references this manifest)
 
 ---
+
+> Current cycle evidence records follow
+> [Monthly-Cycle-Playbook.md](../../Monthly-Cycle-Playbook.md) and the dated
+> source-coverage ledger. Do not copy this template into a current cycle.
 
 ## How to use this template
 

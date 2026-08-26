@@ -1,12 +1,27 @@
 # Open Design Decisions
 
-- **Purpose:** Track unresolved design decisions that require editorial judgment before or during v2 shadow scoring. Each decision includes the options, trade-offs, and a recommendation where one exists.
-- **Status:** Living document — updated after each shadow cycle.
-- **Last updated:** 2026-04-15
+- **Purpose:** Preserve the tri-lens design questions, options, trade-offs, and closure disposition.
+- **Status:** Closed historical decision record. The tri-lens shadow run was closed on 2026-08-26.
+- **Last updated:** 2026-08-26
 - **Depends on:** Core-Tri-Lens-Architecture.md, Dimension-Applicability-Matrix.md, Pilot-Templates.md, Shadow-Run-Workflow.md, V2-Scoring-Architecture-Brief.md
-- **Used by:** Editor for design resolution during and after shadow cycles
+- **Used by:** Historical design review only
 
 ---
+
+## Closure Decision
+
+On 2026-08-26, the editor directed completion of the v2 governance decision.
+The integrator selected formal closure because the missed monthly cycles could
+not be reconstructed under contemporaneous controls. Task 2 was not run in
+May, June, July, or August 2026, and those cycles will not be reconstructed
+after the fact. The reasons, consequences, and artifact disposition are
+recorded in
+[V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md](V2-Tri-Lens-Closure-Post-Mortem-2026-08-25.md).
+
+The decision entries below preserve the design state as it stood before the
+close. A status described as unresolved, deferred, parked, or recommended in
+the original text is not an active task. The specific closure status beneath
+each decision controls.
 
 ## Decision 1: Publish Separate Lens Scores or Combine Them?
 
@@ -24,7 +39,7 @@
 - Pro: Readers who want simplicity get one number. Readers who want decomposition can expand. Preserves the v2 analytical value without overwhelming the default view.
 - Con: Additional UI complexity. Requires clear labeling to avoid confusion between v1 and v2 grades during any transition period.
 
-**Current status:** Unresolved. Decision deferred until at least 2 shadow cycles are complete and the lens-weighted composite has been tested for stability.
+**Closure status:** Closed without resolution. The required shadow cycles did not occur, and no v2 score will be published.
 
 **Depends on:** Whether the lens-weighted composite (Option 1 from Core-Tri-Lens-Architecture.md Section 3.2) proves stable and defensible in shadow testing.
 
@@ -46,7 +61,7 @@
 - Pro: Commitment only affects the composite when it represents real change, not structural stability.
 - Con: Complex. The composite formula changes cycle to cycle. Harder to explain to readers.
 
-**Current status:** Unresolved. The first shadow cycle should test all three options by computing all three composite variants and comparing results. If the difference between Options A and B is consistently less than 0.3 GPA, the choice may not matter in practice.
+**Closure status:** Closed without resolution. The composite variants were not tested in a real monthly cycle.
 
 ---
 
@@ -66,7 +81,7 @@
 - Pro: Preserves v1 stability while testing the split in shadow. Uses the existing decision gate rather than making a premature call.
 - Con: Delays a decision that may already be justified by construct analysis.
 
-**Current status:** Deferred to the existing decision gate. The v2 shadow cycle will produce the data needed to trigger or not trigger the split.
+**Closure status:** Closed as a v2 question. No tri-lens cycle produced split evidence. This close decision does not alter the live v1 Defence and Trade tripwire.
 
 **Decision gate (from v2-Decision-Memo-Defence-Trade.md):** If Defence and Trade sub-scores diverge by >1.0 GPA for 2 consecutive monthly cycles, the dimension is automatically queued for full split.
 
@@ -90,7 +105,7 @@
 
 **Recommendation:** Option A for the first pilot cycle (monthly with attribution qualifier and 3-month trend requirement from Pilot-Templates.md blocking conditions). If the Outcome lens proves too volatile or uninformative after 2 cycles, move to Option B.
 
-**Current status:** Unresolved. Will be tested in the first shadow cycle. The Pilot Template blocking condition ("blocked if assessment uses a single monthly SAAR print without 3-month trend context") provides a practical guard against monthly noise.
+**Closure status:** Closed without resolution. Monthly Housing outcome scoring was not tested under the tri-lens pilot.
 
 ---
 
@@ -108,7 +123,7 @@
 
 **Recommendation:** Option A. The point of the shadow cycle is to test whether tri-lens scoring adds analytical value over blended v1 scoring. Starting from a decomposition of existing evidence makes the comparison meaningful from cycle 1. The decomposition should be documented in the first shadow release log with explicit reasoning.
 
-**Current status:** Resolved (recommendation). This should be treated as the default unless the editor identifies a specific reason to deviate.
+**Closure status:** Completed for the April baseline only. The retrospective method was used in `shadow-logs/2026-04-initial.md`; it did not produce a real monthly cycle.
 
 ---
 
@@ -124,7 +139,7 @@
 - Pro: The composite reflects what is actually known this cycle.
 - Con: Complex. Weight changes cycle to cycle make the composite non-comparable. Creates a new source of editorial judgment and potential manipulation.
 
-**Current status:** Resolved (recommendation). Use fixed weights. If a lens has no new evidence in a cycle, the prior cycle's grade carries forward at full weight. This is analogous to how v1 handles dimensions with no new evidence — the grade persists.
+**Closure status:** Historical recommendation only. Fixed weights were used in the April baseline but were not tested across monthly cycles.
 
 ---
 
@@ -146,7 +161,7 @@
 - A post-mortem is written documenting what failed and why
 - No v2 scores are ever published
 
-**Current status:** Pre-resolved. These criteria are set before the pilot begins so that the decision to continue or discontinue is based on pre-committed standards, not post-hoc rationalization.
+**Closure status:** Applied to the operational close. The pilot was discontinued before Task 2 ran, so no empirical failure indicator is claimed as measured. The post-mortem records the operating failure and applies the required retention and non-publication consequences.
 
 ---
 
@@ -163,7 +178,7 @@
 
 **Most likely lens:** Execution (bounded). If the indicator measures whether the government is following its own transparency commitments, that is an execution question.
 
-**Current status:** Parked until the indicator is developed. This is listed as handoff brief item #4 (before second cycle, June 2026).
+**Closure status:** Closed without implementation. No indicator was developed for this pilot.
 
 ---
 
@@ -177,11 +192,14 @@
 **Scenario B — Flagship retains independent value.** If the Combination Rule captures something the individual Execution lenses miss (cross-cutting delivery capacity, patterns across files), Flagship retains value as a synthetic indicator.
 - Action: Keep Flagship Delivery in v1 but do not give it tri-lens treatment. It remains a bounded whole-letter grade.
 
-**Current status:** Deferred until Flagship Delivery's July 2026 probation exit test. If the Combination Rule cannot run unchanged, contradicts the file-status movement underneath it, adds no cross-file execution insight, or fails deconfliction, Scenario A is likely. If it clears those checks and adds independent insight, Scenario B is likely.
+**Closure status:** Closed as a v2 question. Live Flagship Delivery retention is governed outside this historical design record.
 
 ---
 
-## Recommended Pilot Dimensions for the First Shadow Cycle
+## Historical Pilot Scope
+
+The five constructs below were the planned scope. They were decomposed for the
+April baseline but were not scored in a real monthly tri-lens cycle.
 
 1. **Immigration** — full tri-lens (Commitment: Yes, Execution: Yes, Outcome: Yes). Tests the strongest case.
 2. **Housing Supply** — execution-led with cautious outcome (Execution: Yes, Outcome: Partial). Tests attribution limits.
@@ -193,25 +211,32 @@ These five constructs cover the four major architectural patterns (full tri-lens
 
 ---
 
-## First 3 Implementation Tasks
+## Historical Implementation Tasks
 
-### Task 1: Set Initial Shadow Lens Grades (before first shadow cycle)
+### Task 1: Set Initial Shadow Lens Grades (completed for April baseline)
 
 Retrospectively decompose the existing v1 evidence base for all five pilot dimensions into Commitment, Execution, and Outcome lens grades. Use the grade thresholds from Pilot-Templates.md. Document the decomposition rationale in the first shadow release log.
 
 **Estimated effort:** 60-90 minutes.
 **Prerequisite:** None. Can be done immediately using existing Canonical-Scoring-Sheets.md evidence.
 
-### Task 2: Run the First Full Shadow Cycle (May 2026)
+### Task 2: Run the First Full Shadow Cycle (closed, not run)
 
 Execute the Shadow-Run-Workflow.md Steps 1-8 alongside the May v1 update. This is the first real test of whether the tri-lens architecture produces defensible, distinct scores.
+
+**Closure:** Not run. No May through August monthly shadow log exists. Under
+the editor's 2026-08-26 direction to complete the v2 governance decision, the
+integrator closed this task and rejected retroactive reconstruction.
 
 **Estimated effort:** 45-60 minutes additional to the v1 cycle.
 **Prerequisite:** Task 1 (initial grades set). May data fetch and v1 scoring complete.
 
-### Task 3: Review and Update Design Decisions (after first shadow cycle)
+### Task 3: Review and Update Design Decisions (closed, prerequisite not met)
 
 After the first shadow cycle, review each open decision in this document. Update the status of decisions that became clearer. Add any new design questions surfaced during the cycle. Update Pilot-Templates.md if any lens thresholds or blocking conditions proved too tight or too loose.
+
+**Closure:** Not run because Task 2 did not occur. This 2026-08-26 close record
+replaces the planned post-cycle review.
 
 **Estimated effort:** 30 minutes.
 **Prerequisite:** Task 2 complete. Shadow release log from first cycle available.
