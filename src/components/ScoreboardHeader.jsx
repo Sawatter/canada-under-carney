@@ -1,6 +1,7 @@
 import GradeChip from "./GradeChip";
 import ScoreDerivation from "./ScoreDerivation";
 import { ApprovalCard, ApprovalDetail } from "./ApprovalSignal";
+import ReleaseUpdate from "./ReleaseUpdate";
 import { STATUS_COLORS } from "../constants";
 
 const STATUS_BAR_ORDER = ["Delivered", "In Progress", "Stalled", "Abandoned"];
@@ -27,23 +28,6 @@ function isOrdinaryActivation(event) {
     && !event.altKey;
 }
 
-function releaseSummary(firstLook) {
-  if (firstLook.mode === "grade-moves") {
-    const count = firstLook.gradeMoveCount || 0;
-    return `${count} grade ${count === 1 ? "move" : "moves"} in this release`;
-  }
-
-  if (firstLook.mode === "maintenance-only") {
-    return "Maintenance-only release";
-  }
-
-  if (firstLook.mode === "no-grade-moves") {
-    return "No grade moves in this release";
-  }
-
-  return firstLook.summary || "Latest release summary";
-}
-
 function DerivationToggle({ variant, derivationOpen, onToggle }) {
   const isOpen = derivationOpen === variant;
   const label = variant === "overall"
@@ -66,47 +50,6 @@ function DerivationToggle({ variant, derivationOpen, onToggle }) {
   );
 }
 
-function ReleaseUpdate({ latestRelease }) {
-  const firstLook = latestRelease?.firstLook || {};
-  const featuredItems = Array.isArray(firstLook.featuredItems)
-    ? firstLook.featuredItems
-    : [];
-
-  return (
-    <div className="first-look-update">
-      <div className="first-look-block-heading">
-        <span>This release</span>
-        {latestRelease?.version && (
-          <span className="first-look-block-meta">
-            v{latestRelease.version}
-            {latestRelease.date && (
-              <>
-                <span aria-hidden="true"> · </span>
-                <time dateTime={latestRelease.date}>
-                  {formatDate(latestRelease.date)}
-                </time>
-              </>
-            )}
-          </span>
-        )}
-      </div>
-      <p className="first-look-update-summary">{releaseSummary(firstLook)}</p>
-      {featuredItems.length > 0 && (
-        <ul className="first-look-update-list">
-          {featuredItems.map((item, index) => (
-            <li key={`${item.type || "item"}-${item.itemIndex ?? index}`}>
-              {item.headline || item.body}
-            </li>
-          ))}
-        </ul>
-      )}
-      <a className="first-look-inline-link" href="#view-changelog">
-        Read release details
-      </a>
-    </div>
-  );
-}
-
 function NextWatch({ nextUpdate, primaryNextCheck, primaryNextCheckTiming }) {
   const timing = primaryNextCheckTiming?.kind === "date"
     ? formatDate(primaryNextCheckTiming.value)
@@ -124,7 +67,15 @@ function NextWatch({ nextUpdate, primaryNextCheck, primaryNextCheckTiming }) {
         <div className="first-look-primary-check">
           <div className="first-look-check-heading">
             {primaryNextCheck.href ? (
-              <a href={primaryNextCheck.href}>{checkLabel}</a>
+              <>
+                <a
+                  className="first-look-watch-route"
+                  href={primaryNextCheck.href}
+                >
+                  {checkLabel}
+                </a>
+                <span className="first-look-narrow-label">{checkLabel}</span>
+              </>
             ) : (
               <span>{checkLabel}</span>
             )}
@@ -240,17 +191,19 @@ export default function ScoreboardHeader({
   return (
     <section className="first-look-briefing" aria-label="Scorecard briefing">
       <div className="first-look-primary-wrap">
-        <header className="first-look-primary-header">
-          <p className="first-look-eyebrow">Scorecard briefing</p>
-          <h2>Full Policy Audit</h2>
-          <p className="first-look-primary-description">
-            Performance across 11 graded policy files.
-          </p>
-        </header>
+        <div className="first-look-score-summary">
+          <header className="first-look-primary-header">
+            <p className="first-look-eyebrow">Scorecard briefing</p>
+            <h2>Full Policy Audit</h2>
+            <p className="first-look-primary-description">
+              Performance across 11 graded policy files.
+            </p>
+          </header>
 
-        <div className="first-look-primary-result">
-          <GradeChip grade={overallGrade} size="lg" />
-          <p className="first-look-primary-score">Score: {overallGPA}</p>
+          <div className="first-look-primary-result">
+            <GradeChip grade={overallGrade} size="lg" />
+            <p className="first-look-primary-score">Score: {overallGPA}</p>
+          </div>
         </div>
 
         <p className="first-look-overall-verdict">{overallVerdictLine}</p>
@@ -281,6 +234,20 @@ export default function ScoreboardHeader({
           >
             Read the scoring method
           </a>
+          <a
+            className="first-look-action first-look-narrow-action"
+            href="#view-changelog"
+          >
+            Read release details
+          </a>
+          {primaryNextCheck?.href && (
+            <a
+              className="first-look-action first-look-narrow-action"
+              href={primaryNextCheck.href}
+            >
+              {primaryNextCheck.label || "Published watch item"}
+            </a>
+          )}
         </div>
 
         {onToggleDerivation && (

@@ -436,23 +436,49 @@ async function auditGlobalSurfaces(page, viewportName) {
         ".first-look-action",
         ".first-look-signal",
       ];
+      const requiredVisibleSelectors = [
+        ".first-look-primary-wrap",
+        ".first-look-update",
+        ".first-look-watch",
+        ".first-look-boundary",
+        ".first-look-signal",
+        'a.first-look-action[href="#policy-grades-heading"]',
+        'a.first-look-action[href="#methodology-safeguards"]',
+      ];
       const boxes = selectors.flatMap((selector) => (
-        [...briefing.querySelectorAll(selector)].map((node) => {
+        [...briefing.querySelectorAll(selector)]
+          .filter((node) => {
+            const style = getComputedStyle(node);
+            return style.display !== "none" && style.visibility !== "hidden";
+          })
+          .map((node) => {
+            const rect = node.getBoundingClientRect();
+            return {
+              bottom: rect.bottom,
+              height: rect.height,
+              left: rect.left,
+              right: rect.right,
+              top: rect.top,
+              width: rect.width,
+            };
+          })
+      ));
+      const missingVisibleSelectors = requiredVisibleSelectors.filter((selector) => (
+        ![...briefing.querySelectorAll(selector)].some((node) => {
+          const style = getComputedStyle(node);
           const rect = node.getBoundingClientRect();
-          return {
-            bottom: rect.bottom,
-            height: rect.height,
-            left: rect.left,
-            right: rect.right,
-            top: rect.top,
-            width: rect.width,
-          };
+          return style.display !== "none"
+            && style.visibility !== "hidden"
+            && rect.width > 0
+            && rect.height > 0;
         })
       ));
       const primary = briefing.querySelector(".first-look-primary-wrap").getBoundingClientRect();
       return {
         allHaveArea: boxes.every((box) => box.width > 0 && box.height > 0),
         allFitWidth: boxes.every((box) => box.left >= -1 && box.right <= window.innerWidth + 1),
+        allRequiredVisible: missingVisibleSelectors.length === 0,
+        missingVisibleSelectors,
         primaryIntersectsInitialViewport: primary.top < window.innerHeight && primary.bottom > 0,
         scrollWidth: document.documentElement.scrollWidth,
         clientWidth: document.documentElement.clientWidth,
@@ -461,6 +487,9 @@ async function auditGlobalSurfaces(page, viewportName) {
     const failures = [
       fit.allHaveArea ? "" : "one or more briefing elements had no rendered area",
       fit.allFitWidth ? "" : "one or more briefing elements exceeded the viewport width",
+      fit.allRequiredVisible
+        ? ""
+        : `required briefing elements were missing or hidden: ${fit.missingVisibleSelectors.join(", ")}`,
       fit.primaryIntersectsInitialViewport ? "" : "primary result missed the initial viewport",
       fit.scrollWidth <= fit.clientWidth ? "" : "document overflowed horizontally",
     ].filter(Boolean);

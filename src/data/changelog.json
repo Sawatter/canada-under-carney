@@ -1,5 +1,27 @@
 [
   {
+    "date": "2026-08-25",
+    "version": "5.175",
+    "summary": "Corrected the mobile first look so release notes of different lengths keep controls clear of the fixed navigation at 320, 375, and 390 pixels wide. Monthly source checks now keep a durable queue for every link that needs follow-up. No score or scoring rule changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Mobile controls clear the fixed navigation",
+        "body": "The title and score now wrap when space permits. Checks cover quiet releases, long headlines, and releases with two prominent items at 320, 375, and 390 pixels wide, and confirm that controls stay clear of the fixed bottom navigation. Enlarged text remains readable. No score or scoring rule changed."
+      },
+      {
+        "type": "method",
+        "headline": "Source-link follow-up has a durable queue",
+        "body": "Monthly link checks now write every redirect, blocked page, timeout, suspected soft error, and dead link to a dated exception report with the affected citations. Each row needs a recorded follow-up before the source cycle can close, while only a confirmed dead link stops the checker automatically."
+      },
+      {
+        "type": "fix",
+        "headline": "Lint stays inside the active worktree",
+        "body": "The lint command was scanning a separate agent worktree and its generated build files, which made the active release fail on code outside its scope. It now ignores tool-created worktrees while keeping the same rules on the active source tree."
+      }
+    ]
+  },
+  {
     "date": "2026-08-23",
     "version": "5.174",
     "summary": "Corrected four more places on the Major Projects card that still quoted the old project counts, and rebuilt the check so it reads every sentence rather than a chosen few. No grade or score changed.",

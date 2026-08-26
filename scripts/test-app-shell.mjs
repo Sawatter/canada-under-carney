@@ -18,6 +18,7 @@ const sources = {
   app: read("src/App.jsx"),
   dashboard: read("src/components/Dashboard.jsx"),
   scoreboardHeader: read("src/components/ScoreboardHeader.jsx"),
+  releaseUpdate: read("src/components/ReleaseUpdate.jsx"),
   dashboardStatus: read("src/components/DashboardStatus.jsx"),
   approvalSignal: read("src/components/ApprovalSignal.jsx"),
   promises: read("src/components/PromiseTracker.jsx"),
@@ -30,6 +31,7 @@ const sources = {
   changelogSummary: read("src/data/changelog-summary.json"),
   meta: read("src/data/meta.json"),
   status: read("src/data/status.json"),
+  liveAudit: read("scripts/audit-live-dashboard-coverage.mjs"),
   gradeMoves: read("src/gradeMoves.js"),
   sinceLastVisit: read("src/components/SinceLastVisit.jsx"),
   sinceLastVisitHelpers: read("src/sinceLastVisit.js"),
@@ -39,6 +41,7 @@ const publicJsPath = [
   sources.app,
   sources.dashboard,
   sources.scoreboardHeader,
+  sources.releaseUpdate,
   sources.dashboardStatus,
   sources.approvalSignal,
   sources.promises,
@@ -266,8 +269,9 @@ check(
   "Dashboard must feed ScoreboardHeader the canonical compact release projection, authored reason, next update, and primary next check.",
 );
 check(
-  sources.scoreboardHeader.includes("latestRelease?.firstLook")
-    && !sources.scoreboardHeader.includes("latestRelease?.items")
+  imports(sources.scoreboardHeader, "ReleaseUpdate")
+    && sources.releaseUpdate.includes("latestRelease?.firstLook")
+    && !sources.releaseUpdate.includes("latestRelease?.items")
     && sources.scoreboardHeader.includes("{overallVerdictLine}")
     && sources.scoreboardHeader.includes("<ReleaseUpdate latestRelease={latestRelease} />")
     && sources.scoreboardHeader.includes("primaryNextCheck={primaryNextCheck}")
@@ -643,6 +647,28 @@ check(
     && firstLookForcedColorsContract.includes(".app-shell .first-look-action:focus-visible")
     && firstLookForcedColorsContract.includes("outline: 2px solid Highlight"),
   "The first-look briefing must retain explicit forced-colors surfaces and keyboard focus treatment.",
+);
+const liveFirstLookFitContract = sourceAround(
+  sources.liveAudit,
+  "const requiredVisibleSelectors = [",
+  500,
+  3000,
+);
+check(
+  /querySelectorAll\(selector\)\]\s*\.filter\(\(node\) => \{[\s\S]*?getComputedStyle\(node\)[\s\S]*?style\.display !== "none" && style\.visibility !== "hidden";[\s\S]*?\}\)\s*\.map\(\(node\) => \{[\s\S]*?getBoundingClientRect\(\)/.test(
+    liveFirstLookFitContract,
+  )
+    && liveFirstLookFitContract.includes(
+      'a.first-look-action[href="#policy-grades-heading"]',
+    )
+    && liveFirstLookFitContract.includes(
+      'a.first-look-action[href="#methodology-safeguards"]',
+    )
+    && liveFirstLookFitContract.includes("missingVisibleSelectors")
+    && liveFirstLookFitContract.includes(
+      "allRequiredVisible: missingVisibleSelectors.length === 0",
+    ),
+  "The live first-look audit must filter CSS-hidden alternates before geometry checks and fail when a required route has no visible rendered control.",
 );
 const bodyLockContract = sourceAround(
   sources.dashboard,

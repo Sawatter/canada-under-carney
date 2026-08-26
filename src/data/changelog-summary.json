@@ -1,7 +1,7 @@
 [
   {
-    "date": "2026-08-23",
-    "version": "5.174",
+    "date": "2026-08-25",
+    "version": "5.175",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
@@ -9,12 +9,17 @@
       "featuredItems": [
         {
           "type": "method",
-          "headline": "Count check reads every sentence",
-          "body": "The first version of this check looked at four chosen fields, which is why it missed the four sentences above. It now reads every sentence on a policy card and compares any restated project count against the project list itself. It ignores the rules, which describe conditions rather than current counts, and it ignores dates and durations.",
+          "headline": "Source-link follow-up has a durable queue",
+          "body": "Monthly link checks now write every redirect, blocked page, timeout, suspected soft error, and dead link to a dated exception report with the affected citations. Each row needs a recorded follow-up before the source cycle can close, while only a confirmed dead link stops the checker automatically.",
           "itemIndex": 1
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-23",
+    "version": "5.174",
+    "items": []
   },
   {
     "date": "2026-08-23",

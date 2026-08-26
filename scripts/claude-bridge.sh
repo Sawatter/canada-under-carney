@@ -19,12 +19,15 @@
 #
 # Tunables (env):
 #   CLAUDE_BRIDGE_TIMEOUT  hard cap in seconds (default 600)
-#   CLAUDE_BRIDGE_MODEL    model alias/id (default claude-opus-4-8)
+#   CLAUDE_BRIDGE_MODEL    model alias/id (default: the "opus" alias)
 #   CLAUDE_BRIDGE_PERM     permission mode (default plan = read-only review)
 set -uo pipefail
 
 TIMEOUT="${CLAUDE_BRIDGE_TIMEOUT:-600}"
-MODEL="${CLAUDE_BRIDGE_MODEL:-claude-opus-4-8}"
+# Use the moving alias, not a pinned version id. A pinned id (this was
+# claude-opus-4-8) silently goes stale when the model line moves, and the
+# bridge then fails for a reason that looks like an auth problem.
+MODEL="${CLAUDE_BRIDGE_MODEL:-opus}"
 PERM="${CLAUDE_BRIDGE_PERM:-plan}"
 
 # --- resolve the prompt: -f FILE, first arg, or piped stdin ---
@@ -42,6 +45,28 @@ fi
 if ! command -v claude >/dev/null 2>&1; then
   echo "claude-bridge: 'claude' CLI not found on PATH." >&2
   exit 127
+fi
+
+# Check sign-in BEFORE spending a timeout on a call that cannot succeed. An
+# expired or absent session is the most common bridge failure, and the raw
+# error ("OAuth session expired") does not say what to do about it.
+if command -v node >/dev/null 2>&1; then
+  AUTH_JSON="$(claude auth status 2>/dev/null || true)"
+  case "$AUTH_JSON" in
+    *'"loggedIn": false'*|*'"loggedIn":false'*)
+      cat >&2 <<'AUTHMSG'
+claude-bridge: NOT SIGNED IN, so no review can be produced. This is not a
+timeout and must not be read as approval.
+
+The human running this machine needs to run ONE of these in a terminal:
+  claude auth login      # interactive browser sign-in
+  claude setup-token     # long-lived token, better for unattended runs
+
+Then confirm with: claude auth status   (expect "loggedIn": true)
+AUTHMSG
+      exit 3
+      ;;
+  esac
 fi
 
 OUT="$(mktemp)"; trap 'rm -f "$OUT"' EXIT

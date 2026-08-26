@@ -1,4 +1,4 @@
-# Inter-Rater Pilot — Editor-Side Errata (2026-08)
+# Inter-Rater Pilot: Editor-Side Errata (2026-08)
 
 **Status:** Editor-only. Do NOT send to the rater. Written 2026-08-01, before any
 worksheets were received, after a four-way staleness check of the packet against
@@ -10,6 +10,10 @@ defects, which are rule drift, and how each affects scoring the rater's
 worksheets against `Inter-Rater-Pilot-Results-Template-2026-05.md`. Writing this
 down before the worksheets arrive is the point: it prevents post-hoc scoring
 choices.
+
+**Communication record:** the final packet was sent 2026-06-07 and the rater
+acknowledged it 2026-07-24. The repo does not establish whether the later
+clarification described below was sent or whether a return date was agreed.
 
 **Headline verdict from the staleness check:** the frozen comparison is still
 valid. No packet metric was ever found wrong-at-the-time (every later
@@ -86,9 +90,9 @@ differ from the packet's values.
 ## 4. Small live-link and figure caveats
 
 - The CRA benefit page (modified 2026-06-08) now shows post-snapshot program
-  news ("Starts July 2026... a 25% increase"). The reply to the rater includes
-  the line: if a live page shows different numbers than the packet, use the
-  packet's.
+  news ("Starts July 2026... a 25% increase"). A later clarification was drafted
+  with this line: if a live page shows different numbers than the packet, use
+  the packet's. The repo does not establish that the clarification was sent.
 - The $307/household grocery-benefit figure does not appear verbatim on the
   cited PBO HTML page (only the $12.4B aggregate); it is costing-derived.
   Re-certified with caveat in the July ledger.
@@ -122,4 +126,4 @@ worksheets never arrive.
   C after the 2026-05-13 move; both July reviews were holds on the other two).
 - Temporal contamination is expected (the rater has lived through May-July
   news). The mitigation is the packet's own "use only this packet" rule plus
-  the snapshot line added in the 2026-08 reply.
+  the snapshot line drafted for the later clarification.

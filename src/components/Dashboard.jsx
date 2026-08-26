@@ -1007,7 +1007,7 @@ export default function Dashboard() {
       <div className="app-workspace-main">
       <VisitorCount />
       {/* Header */}
-      <header className="dashboard-header" style={{ textAlign: "center", marginBottom: "32px" }}>
+      <header className="dashboard-header" style={{ textAlign: "center" }}>
         <button
           type="button"
           className="theme-toggle"

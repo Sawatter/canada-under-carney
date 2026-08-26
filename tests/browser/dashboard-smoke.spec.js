@@ -2,6 +2,8 @@ import { expect, test } from "@playwright/test";
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { renderToStaticMarkup } from "react-dom/server";
+import { createServer as createViteServer } from "vite";
 import { getCurrentGradeMoves } from "../../src/gradeMoves.js";
 import { resolveNoticeState } from "../../src/sinceLastVisit.js";
 import {
@@ -82,6 +84,60 @@ const mobileFirstLookViewports = [
   { width: 375, height: 812 },
   { width: 390, height: 844 },
 ];
+
+const mobileReleaseShapeFixtures = [
+  {
+    name: "quiet",
+    summary: "Maintenance-only release",
+    headlines: [],
+    firstLook: {
+      mode: "maintenance-only",
+      featuredItems: [],
+    },
+  },
+  {
+    name: "long",
+    summary: "No grade moves in this release",
+    headlines: [
+      "A deliberately long release headline that wraps over several lines on a narrow phone and tests the tall content shape without changing its meaning",
+    ],
+    firstLook: {
+      mode: "no-grade-moves",
+      featuredItems: [
+        {
+          type: "product",
+          itemIndex: 0,
+          headline: "A deliberately long release headline that wraps over several lines on a narrow phone and tests the tall content shape without changing its meaning",
+        },
+      ],
+    },
+  },
+  {
+    name: "two-item",
+    summary: "2 grade moves in this release",
+    headlines: [
+      "Housing delivery evidence changed this month",
+      "Fiscal reporting evidence changed this month",
+    ],
+    firstLook: {
+      mode: "grade-moves",
+      gradeMoveCount: 2,
+      featuredItems: [
+        {
+          type: "grade",
+          itemIndex: 0,
+          headline: "Housing delivery evidence changed this month",
+        },
+        {
+          type: "grade",
+          itemIndex: 1,
+          headline: "Fiscal reporting evidence changed this month",
+        },
+      ],
+    },
+  },
+];
+let mobileReleaseShapeMarkupPromise;
 
 const policyDetailSections = ["Briefing", "Evidence", "History", "Method"];
 
@@ -667,10 +723,18 @@ async function expectMobileFirstLookTypography(region, context) {
     16,
     `${context} signal titles`,
   );
+  if (await region.locator(".first-look-narrow-label:visible").count() > 0) {
+    await expectTextFloor(
+      region,
+      ".first-look-narrow-label",
+      14,
+      `${context} narrow watch label`,
+    );
+  }
 }
 
 async function expectMobileFirstLookControlsReachable(page, region, context) {
-  const controls = region.locator("a[href], button:not([disabled])");
+  const controls = region.locator("a[href]:visible, button:not([disabled]):visible");
   const controlCount = await controls.count();
   expect(
     controlCount,
@@ -744,7 +808,7 @@ async function expectMobileFirstLookControlsReachable(page, region, context) {
 }
 
 async function expectFirstLookControlsReflowAtTextResize(page, region, context) {
-  const controls = region.locator("a[href], button:not([disabled])");
+  const controls = region.locator("a[href]:visible, button:not([disabled]):visible");
   const controlCount = await controls.count();
   expect(
     controlCount,
@@ -933,9 +997,20 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
       animation.finished.catch(() => undefined)
     )));
   });
+  const scoreSummary = region.locator(".first-look-score-summary");
+  const scoreTitle = scoreSummary.locator(".first-look-primary-header h2");
+  const scoreGrade = scoreSummary.locator(".first-look-primary-result .grade-chip");
+  await expect(scoreSummary).toHaveCount(1);
+  await expect(scoreTitle).toHaveCount(1);
+  await expect(scoreTitle).toBeVisible();
+  await expect(scoreGrade).toHaveCount(1);
+  await expect(scoreGrade).toBeVisible();
+
   const fit = await region.evaluate((node, expectedViewport) => {
     const selectors = [
       ".first-look-primary-wrap",
+      ".first-look-primary-header",
+      ".first-look-primary-result",
       ".first-look-update",
       ".first-look-watch",
       ".first-look-boundary",
@@ -943,17 +1018,52 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
       ".first-look-signal",
     ];
     const boxes = selectors.flatMap((selector) => (
-      [...node.querySelectorAll(selector)].map((element) => {
-        const rect = element.getBoundingClientRect();
-        return {
-          bottom: rect.bottom,
-          height: rect.height,
-          left: rect.left,
-          right: rect.right,
-          width: rect.width,
-        };
-      })
+      [...node.querySelectorAll(selector)]
+        .filter((element) => {
+          const style = getComputedStyle(element);
+          return style.display !== "none" && style.visibility !== "hidden";
+        })
+        .map((element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            bottom: rect.bottom,
+            height: rect.height,
+            left: rect.left,
+            right: rect.right,
+            width: rect.width,
+          };
+        })
     ));
+    const measureRequiredElement = (selector) => {
+      const element = node.querySelector(selector);
+      if (!element) return null;
+      const rect = element.getBoundingClientRect();
+      const style = getComputedStyle(element);
+      const hasArea = rect.width > 0 && rect.height > 0;
+      return {
+        bottom: rect.bottom,
+        fitsWidth: rect.left >= -1 && rect.right <= expectedViewport.width + 1,
+        hasArea,
+        hasRequiredArea: style.display === "contents" || hasArea,
+        left: rect.left,
+        right: rect.right,
+        top: rect.top,
+        visible: (
+          style.display !== "none"
+          && style.visibility === "visible"
+          && Number.parseFloat(style.opacity) > 0
+        ),
+      };
+    };
+    const title = measureRequiredElement(".first-look-primary-header h2");
+    const grade = measureRequiredElement(".first-look-primary-result .grade-chip");
+    const summary = measureRequiredElement(".first-look-score-summary");
+    const titleAndGradeOverlap = title && grade && (
+      title.left < grade.right
+      && title.right > grade.left
+      && title.top < grade.bottom
+      && title.bottom > grade.top
+    );
     return {
       allHaveArea: boxes.every((box) => box.width > 0 && box.height > 0),
       allFitWidth: boxes.every((box) => (
@@ -961,15 +1071,43 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
       )),
       noDocumentOverflow:
         document.documentElement.scrollWidth <= document.documentElement.clientWidth,
+      scoreSummary: {
+        gradeExists: Boolean(grade),
+        gradeFitsWidth: grade?.fitsWidth ?? false,
+        gradeHasArea: grade?.hasArea ?? false,
+        gradeVisible: grade?.visible ?? false,
+        containerExists: Boolean(summary),
+        containerHasRequiredArea: summary?.hasRequiredArea ?? false,
+        containerVisible: summary?.visible ?? false,
+        titleAndGradeClear: Boolean(title && grade) && !titleAndGradeOverlap,
+        titleExists: Boolean(title),
+        titleFitsWidth: title?.fitsWidth ?? false,
+        titleHasArea: title?.hasArea ?? false,
+        titleVisible: title?.visible ?? false,
+      },
     };
   }, viewport);
   expect(fit).toEqual({
     allHaveArea: true,
     allFitWidth: true,
     noDocumentOverflow: true,
+    scoreSummary: {
+      gradeExists: true,
+      gradeFitsWidth: true,
+      gradeHasArea: true,
+      gradeVisible: true,
+      containerExists: true,
+      containerHasRequiredArea: true,
+      containerVisible: true,
+      titleAndGradeClear: true,
+      titleExists: true,
+      titleFitsWidth: true,
+      titleHasArea: true,
+      titleVisible: true,
+    },
   });
 
-  if (viewport.width > 767) return;
+  if (!mobileFirstLookViewports.some(({ width }) => width === viewport.width)) return;
 
   await expect.poll(async () => page.evaluate(() => {
     window.history.scrollRestoration = "manual";
@@ -1025,6 +1163,100 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
     clippedBottomNavLabels,
     `${viewport.width}px bottom-navigation labels must not clip`,
   ).toEqual([]);
+}
+
+async function expectFirstLookActionVariants(region, viewport) {
+  const actions = region.locator(".first-look-actions");
+  const normalReleaseAction = region.locator(
+    '.first-look-update .first-look-inline-link[href="#view-changelog"]',
+  );
+  const normalWatchAction = region.locator(
+    ".first-look-watch .first-look-watch-route",
+  );
+  const narrowReleaseAction = actions.locator(
+    '.first-look-narrow-action[href="#view-changelog"]',
+  );
+  const narrowWatchAction = actions.locator(".first-look-narrow-action")
+    .filter({ hasText: primaryNextCheck.label });
+  const accessibleReleaseActions = region.getByRole("link", {
+    name: "Read release details",
+    exact: true,
+  });
+  const accessibleWatchActions = region.getByRole("link", {
+    name: primaryNextCheck.label,
+    exact: true,
+  });
+
+  expect(primaryNextCheck.href, "the primary watch must expose a route").toBeTruthy();
+  await expect(actions).toHaveCount(1);
+  await expect(actions).toBeVisible();
+  await expect(normalReleaseAction).toHaveCount(1);
+  await expect(normalWatchAction).toHaveCount(1);
+  await expect(normalWatchAction).toHaveAttribute("href", primaryNextCheck.href);
+  await expect(narrowReleaseAction).toHaveCount(1);
+  await expect(narrowWatchAction).toHaveCount(1);
+  await expect(narrowWatchAction).toHaveAttribute("href", primaryNextCheck.href);
+
+  if (viewport.width <= 340) {
+    await expect(narrowReleaseAction).toBeVisible();
+    await expect(narrowWatchAction).toBeVisible();
+    await expect(normalReleaseAction).toBeHidden();
+    await expect(normalWatchAction).toBeHidden();
+    expect(await Promise.all([
+      normalReleaseAction.evaluate((link) => link.getClientRects().length),
+      normalWatchAction.evaluate((link) => link.getClientRects().length),
+    ])).toEqual([0, 0]);
+  } else {
+    await expect(normalReleaseAction).toBeVisible();
+    await expect(normalWatchAction).toBeVisible();
+    await expect(narrowReleaseAction).toBeHidden();
+    await expect(narrowWatchAction).toBeHidden();
+    expect(await actions.locator(".first-look-narrow-action").evaluateAll((links) => (
+      links.map((link) => link.getClientRects().length)
+    ))).toEqual([0, 0]);
+  }
+
+  await expect(accessibleReleaseActions).toHaveCount(1);
+  await expect(accessibleReleaseActions).toBeVisible();
+  await expect(accessibleWatchActions).toHaveCount(1);
+  await expect(accessibleWatchActions).toBeVisible();
+}
+
+async function applyMobileReleaseShapeFixture(page, fixture) {
+  if (!mobileReleaseShapeMarkupPromise) {
+    mobileReleaseShapeMarkupPromise = (async () => {
+      const viteServer = await createViteServer({
+        appType: "custom",
+        logLevel: "silent",
+        root: repoRoot,
+        server: { middlewareMode: true },
+      });
+      try {
+        // Vite SSR loads the production module without Playwright rewriting its elements.
+        const { default: renderReleaseUpdate } = await viteServer.ssrLoadModule(
+          "/src/components/ReleaseUpdate.jsx",
+        );
+        return new Map(mobileReleaseShapeFixtures.map((shape) => [
+          shape.name,
+          renderToStaticMarkup(renderReleaseUpdate({
+            latestRelease: {
+              version: "fixture",
+              date: "2026-08-25",
+              firstLook: shape.firstLook,
+            },
+          })),
+        ]));
+      } finally {
+        await viteServer.close();
+      }
+    })();
+  }
+  const markup = (await mobileReleaseShapeMarkupPromise).get(fixture.name);
+  expect(markup, `missing production release fixture ${fixture.name}`).toBeTruthy();
+  await page.locator(".first-look-update").evaluate((node, fixtureMarkup) => {
+    // Replace outside React so fixtures use production markup without adding test state to the app.
+    node.outerHTML = fixtureMarkup;
+  }, markup);
 }
 
 async function expectFirstLookBriefing(page, viewport) {
@@ -1435,8 +1667,9 @@ test.describe("responsive benchmark controls", () => {
       const signalGrid = region.locator(".first-look-signal-grid");
       const boundary = region.locator(".first-look-boundary");
       await expect(signalGrid).toBeVisible();
+      await expectFirstLookActionVariants(region, viewport);
       const context = `${viewport.width}px width matrix`;
-      if (mobileFirstLookViewports.some(({ width }) => width === viewport.width)) {
+      if (viewport.width <= 640) {
         await expectInitialFirstLookLayout(page, region, viewport);
       }
       if (viewport.width <= 640) {
@@ -1451,6 +1684,40 @@ test.describe("responsive benchmark controls", () => {
         expectSignalAlignment(await readSignalAlignment(signalGrid), { context });
       }
       await expectNoOverflow(page);
+    }
+
+    expect(consoleErrors).toEqual([]);
+  });
+
+  test("quiet, long, and two-item releases stay clear of the mobile navigation", async ({ page }) => {
+    const consoleErrors = await installConsoleGuards(page);
+    await page.addInitScript(() => {
+      window.history.scrollRestoration = "manual";
+    });
+
+    for (const fixture of mobileReleaseShapeFixtures) {
+      for (const viewport of mobileFirstLookViewports) {
+        for (const rootTextScale of [1, 2]) {
+          await page.setViewportSize(viewport);
+          await page.goto(
+            `?playwrightCacheBust=${fixture.name}-${viewport.width}-${rootTextScale}#view-scorecard`,
+          );
+          await page.evaluate(async (scale) => {
+            document.documentElement.style.fontSize = scale === 2 ? "200%" : "";
+            window.scrollTo({ top: 0, behavior: "auto" });
+            await document.fonts.ready;
+          }, rootTextScale);
+
+          const region = firstLookRegion(page);
+          await applyMobileReleaseShapeFixture(page, fixture);
+          await expect(region.locator(".first-look-update-summary"))
+            .toHaveText(fixture.summary);
+          await expect(region.locator(".first-look-update-list li"))
+            .toHaveCount(fixture.headlines.length);
+          await expectInitialFirstLookLayout(page, region, viewport);
+          await expectNoOverflow(page);
+        }
+      }
     }
 
     expect(consoleErrors).toEqual([]);

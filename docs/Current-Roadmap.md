@@ -4,56 +4,23 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-08-14
+**Last updated:** 2026-08-25
 
 ---
 
 ## Current State
 
-- v5.169 is the August evidence-cycle release candidate. The July 1-31 sweep
-  gives all 611 ledger rows a dated disposition, checks all 11 graded files and
-  all 43 promises, and explicitly closes all 187 source-monitor candidates.
-  June CPI, labour, housing-starts, and trade releases plus July execution
-  evidence were incorporated without moving a grade or promise status. Four
-  linked IRCC binary downloads and the Moody's Canada detail page remained
-  inaccessible after official-page fallbacks; they are named access exceptions,
-  not negative findings. Frozen scoring surfaces are unchanged. Production
-  remains v5.168 until the application, browser, different-AI, push, and live
-  gates pass. The cycle record is
-  [August-Monthly-Cycle-Report-2026-08-14.md](August-Monthly-Cycle-Report-2026-08-14.md).
-- v5.168 is live through product commit `9061bb2` and Linux correction
-  `5000b8f`. It responds to a reader who found the default phone text small
-  even though browser zoom worked. The release replaces measured 9-11 pixel
-  first-look overrides with practical mobile type floors, turns the grade
-  boundary and three secondary signals into full-width rows, and tests normal
-  scrolling at `320 x 568`, `375 x 812`, and `390 x 844` plus 200% text
-  resize. Initial Pages run `30218318675` correctly blocked deployment when
-  Linux font metrics clipped the Scorecard label at the 320-pixel floor. The
-  corrected grid keeps the label at 12 pixels and gives its known longest
-  first cell more width. Replacement Pages run `30218716905` passed
-  review-handoff, build, 252 browser checks, and deployment. Live Dashboard
-  Audit run `30218889844` passed `356/356` checks. Direct production inspection
-  confirmed v5.168 at the three phone widths and `1280 x 900`, with no
-  horizontal overflow, no initial fixed-navigation overlap, full-width mobile
-  signal rows, and unclipped navigation labels. Specification, Standards, and
-  three Claude bridge reviews approved after their accepted findings were
-  corrected. No score, grade, trigger, or scoring rule changed. The release
-  record is
-  [Mobile-Readability-Release-2026-07-26.md](Mobile-Readability-Release-2026-07-26.md).
-- v5.167 is live through product commits `60e8824` and `408e387`, with
-  audit-gate correction `16bfa07`. It puts each policy's authored next
-  checkpoint beside its verdict, keeps the dated trigger ledger in Evidence
-  instead of repeating it in Briefing, moves Flagship Delivery's current
-  five-file record to Evidence, and corrects first-look and mobile-focus
-  interaction gaps found in the July 25 observation pass. Pages run
-  `30181762251` passed review-handoff, build, 249 browser checks, and deploy.
-  Live Dashboard Audit run `30181903904` passed `356/356` checks. Direct
-  production inspection confirmed the release date, no horizontal overflow,
-  working Household open and close behavior, the Housing next watch, and the
-  intended Flagship Evidence and Method split. The Housing disbursement trigger
-  remains off after a dated official-page check. No score, grade, trigger, or
-  scoring rule changed. The release record is
-  [Policy-Quick-Read-Release-2026-07-25.md](Policy-Quick-Read-Release-2026-07-25.md).
+- v5.174 is live in production through commit `a7805ed`, dated 2026-08-23. It
+  closes the August count-drift corrections and makes the cohort guard read
+  every policy-card sentence. The next scheduled evidence update is 2026-09-01.
+- A mobile first-look correction is present only as a local, unreleased v5.175
+  candidate. It also adds a durable monthly exception report for every cited
+  link that needs manual follow-up. The data, app-shell, lint, monitor, build,
+  255-case browser, source-report smoke, and local visual gates pass. A local
+  run of the post-deploy harness passed `358/358`. Claude's round 4 read-only
+  review returned `VERDICT: APPROVED` after the accepted findings were fixed.
+  Production remains v5.174. No commit, push, Pages run, or production check
+  has been performed for v5.175.
 - v5.166 is live through implementation commit `3c329c9` and browser-gate
   follow-up `6e8891f`. It aligns the titles, descriptions, visible results, and
   actions in the three secondary signal cards after a reader screenshot showed
@@ -131,6 +98,40 @@
 ---
 
 ## Recently Completed
+
+- v5.174 count-consistency correction - four remaining stale Major Projects
+  statements were corrected, and the cohort guard now reads every policy-card
+  sentence instead of selected fields. This advances data consistency without
+  changing a grade or score.
+
+- v5.173 release-gate correction - required checks now block publication when
+  they fail, and same-day project milestones require an evidence note. This
+  advances release discipline without changing a grade or score.
+
+- v5.172 card-consistency correction - Major Projects text was aligned with
+  the project list, the climate budget trigger retained its stated baseline,
+  and healthy official pages stopped producing false link failures. This
+  advances traceability and exposed the need for broader count checks.
+
+- v5.171 project-context and source-link correction - Darlington and McIlvenna
+  Bay gained timing context, two Ethics Commissioner links were repaired, and
+  source-tier handling followed the institution after its site move. This
+  advances evidence inspectability without changing a grade or score.
+
+- v5.170 inherited-date and source-link correction - five project dates were
+  corrected so inherited approvals no longer looked like later progress, 17
+  moved project links were repaired, and cited links gained an opening check.
+  This advances source integrity without changing a grade or score.
+
+- v5.169 August evidence cycle - the July 1-31 evidence window closed across
+  the 11 graded files and 43 promises, with no grade or promise-status move.
+  The cycle advanced the monthly evidence ledger and retained five named access
+  exceptions for the next due check.
+
+- v5.168 mobile-readability release - practical phone type floors, full-width
+  signal rows, and fixed-navigation clearance checks improved the first look at
+  `320 x 568`, `375 x 812`, and `390 x 844`. The release advanced mobile
+  readability and exposed the need for content-shape fixtures.
 
 - v5.167 policy quick-read release - the July 25 pass checked the active Housing
   trigger, first-look hierarchy, and the five-policy four-view workspace before
@@ -313,72 +314,77 @@
 
 ## Now
 
-1. **Keep the Housing disbursement watch current.** The August 14 official-page
-   check found no published signed Canada-Ontario BCSF agreement, completed
-   DCRP project approval, signed Toronto transfer-payment agreement, first
-   payment, or attributable DCRP construction evidence on the checked pages.
-   Treat that dated absence as evidence, not proof, and do not move the grade
-   automatically. Priority reason: this remains the clearest event-driven
-   trigger between monthly cycles.
+1. **Hold v5.175 for explicit publication instruction.** The local candidate
+   has passed its deterministic, visual, local post-deploy, and different-AI
+   gates. Claude round 4 returned `VERDICT: APPROVED`. Before any push, run the
+   staged diff and personal-identifier checks. After a push, require the Pages
+   and production live gates. Priority reason: publication is external and was
+   not authorized in the 2026-08-25 instruction.
 
-2. **Prepare the September 1 source cycle.** Retry the four IRCC binary
-   downloads and the Moody's Canada detail page before using any new value,
-   then generate the September ledger for the August 1-31 window. Priority
-   reason: access exceptions should be retried at the next due point rather
-   than silently carried forward.
+---
 
-3. **Interpretation candidates: all four resolved 2026-08-19** (recorded in the
-   August cycle report's Resolved Editor Decisions section). Crawford IAAC:
-   a substantive impact-assessment decision now counts as post-referral
-   progress under a durable rule in Canonical-Scoring-Sheets.md section 8;
-   Crawford moved to approved and the progress count is 5 of 18 (~28%), grade
-   held C. The PEI-New Brunswick intertie and the $2B training announcement:
-   both held as related context, not attributable delivery, with reader-facing
-   evidence notes carrying the reasoning. Research Co.: held excluded on
-   construct grounds under the published inclusion rule; re-check when a broad
-   direct-approval pair surfaces. No frozen surface was reopened.
+## Editor-Parked (2026-08-25)
 
-4. **Announcement watch surface (editor idea, 2026-08-19): make the
-   announced-but-not-delivery pile visible per dimension.** Each graded card
-   would show a small count of current announcements that map to that file but
-   cannot move the grade because announcements alone are not delivery evidence
-   (the August cycle had 7 across 5 dimensions: submarine supplier, Buy
-   Canadian measures, Critical Minerals Accelerator agreement, BCH Nunavut
-   agreement, oil sands MOU, PEI-NB intertie, $2B training). Expanding the
-   count lists each item with its date, source link, and the one-line reason
-   it does not count yet, in the same considered-but-held register the promise
-   evidence notes already use. Design constraints: authored and validated data
-   (a per-dimension announcementWatch array with the same grade-token and
-   urgency guards as verdictLine; no synthesis at render), wording that never
-   implies momentum or a pending upgrade (no advocacy; "announcements alone do
-   not move grades" stated on the surface), items retire when they either
-   convert to delivery evidence or go stale. This makes the dashboard's
-   announced-is-not-done discipline inspectable instead of invisible. Build as
-   the next product release after v5.169 ships, through the normal design,
-   validator, browser-gate, and cross-AI review loop.
+These five items are deferred by editor instruction. They are not cancelled or
+completed. Resume them only on later editor instruction.
+
+1. **Inter-rater clarification and return date.** The final v1 packet was frozen
+   in the repo on 2026-06-07. The August errata records a rater acknowledgement
+   on 2026-07-24, but the results template has no send date and no other repo
+   record proves when the packet was sent. The repo also does not establish
+   whether the later clarification was sent or a return date was agreed. When
+   resumed, record those facts before treating the pilot as waiting on a dated
+   return, then process any worksheets against the frozen packet.
+
+2. **v2 run-or-close decision.** Decide whether to run the first full tri-lens
+   shadow cycle or formally close it with the required post-mortem. If the
+   cycle runs, first record the August 22 setup controls: check the frozen April
+   baseline against known answers, write each lens's strengths and weaknesses
+   before assigning its letter, and give questions A-E to a separate grader
+   context. Exactly four v2 verification files claim they govern all cycles
+   from May 2026 onward: [Monthly-Cycle-Checklist.md](v2/verification/Monthly-Cycle-Checklist.md),
+   [Monthly-Operations-Mode.md](v2/verification/Monthly-Operations-Mode.md),
+   [Carry-Forward-Rules.md](v2/verification/Carry-Forward-Rules.md), and
+   [Exception-Queue-Definition.md](v2/verification/Exception-Queue-Definition.md).
+   Do not mark them historical until the editor records the decision.
+
+3. **PR 30 batch rule and four candidates.** Do not merge PR 30 as written
+   because its July monitoring state would replace the newer August state. Of
+   67 surfaced candidates, 8 exactly match August candidates, 10 have later or
+   same-locator evidence, 45 can use a publisher-family batch closure only if
+   the editor accepts the proposed rule, and 4 need individual review. Retain
+   the 57 mechanically suppressed records for audit. The computed breakdown,
+   proposed rule, and four-item queue are in
+   [PR-30-Reconciliation-2026-08-25.md](PR-30-Reconciliation-2026-08-25.md).
+
+4. **September cycle.** When resumed, retry the four IRCC binary downloads and
+   the Moody's Canada detail page, generate the ledger for the August 1-31
+   window, check whether the dated history reads as one sequence, and evaluate
+   Decision Brief reuse only if another consequential review fits the existing
+   structure. The separate Housing watch automation remains active and is not
+   parked. Its August 25 official-page result is a dated hold, not proof, and it
+   must not move a grade automatically.
+
+5. **Combined reader study.** In one sitting, test the first-look briefing with
+   four first-time readers at `375 x 812` and four at `1280 x 900`, then run the
+   30-second workspace task across Housing, Defence & Trade, Promise Delivery,
+   Flagship Delivery, and one ordinary graded dimension. Record first action,
+   false clicks, signal-role and freshness confusion, default-size comfort,
+   whether readers find the grade, reason, latest change, next checkpoint, and
+   complete record, and whether they distinguish announcements from delivery
+   evidence. AI reader proxies do not close this item.
 
 ---
 
 ## Next
 
-These are on deck after the v5.169 evidence-cycle release and the existing
-scope split.
+The parked work above is not active in this lane.
 
-0. **Fix the first-look briefing's mobile height tolerance.** This is a defect, not a preference. On a 375 by 812 phone the fixed bottom navigation covers roughly the last 65 pixels, and the briefing's controls must not sit in that band at first paint. Two mechanisms were measured, and the second is worse than the first. Headline length matters: a 48-character headline pushes controls under the navigation at 375 by 812 and a 33-character one does not. More seriously, the tightest case is 320 by 568, and there the briefing fails when a release has NO prominent items. Items typed product or method render in full while fix, docs and minor fold away, so an all-quiet release shrinks the update block and pulls the controls below it UP into the navigation band. A release with nothing prominent to say therefore breaks the layout, which is backwards. Verified by holding the wording fixed and changing only item types: two quiet items fail, one prominent item passes. The consequence is that an editorial choice, meaning how a release is described, decides whether a control can be tapped. Two releases have now had their wording or item types shaped to fit the layout, which is backwards. The fix is a layout that tolerates the longest valid changelog entry, for example by bounding the briefing height on small screens, by reserving the navigation band so no control can land inside it, or by moving the secondary signal cards fully below the fold. Priority reason: readers rely on release notes being accurate rather than short, so the pressure to shorten them is a product defect.
-
-1. **Run the first-time-reader check on the v5.168 briefing.** Use four first-time readers at `375 x 812` and four at `1280 x 900`, following the timed questions in [First-Look-Modernization-Review-2026-07-23.md](First-Look-Modernization-Review-2026-07-23.md). Include older readers in the mobile group and record first action, false clicks, signal-role confusion, freshness confusion, default-size comfort, and whether browser zoom is easy to discover. The July 25 screenshot-only proxies answered all seven questions but exposed unequal signal click targets, missing release-date context, and a mobile navigation overlap; v5.167 corrected those defects, while v5.168 addresses the later default-size report. AI reader proxies do not close this item. Priority reason: deterministic and browser checks can prove layout, routes, and resize behavior, but only readers can show whether the new hierarchy and default size work in ordinary use.
-
-2. **Observe the four-view policy workspace through the August cycle.** Run the 30-second human-reader test across Housing, Defence & Trade, Promise Delivery, Flagship Delivery, and an ordinary graded dimension. The July 25 browser and AI pass found that Briefing repeated the complete trigger ledger from Evidence and hid the authored next checkpoint after opening a policy; v5.167 corrects that boundary and moves Flagship Delivery's current record into Evidence. Check whether readers now answer grade, reason, latest change, and next checkpoint quickly while still finding the complete policy record. Priority reason: the structural defect is corrected, but reader behavior must show that the split improves comprehension.
-
-3. **Check history growth before adding charts or another event type.** Use the August cycle to confirm that grade moves, held reviews, and Housing's detailed evidence review read as one dated sequence. Define a provenance rule before any new history event is introduced. Priority reason: the workspace exposed that history is still shallow, so visual trend treatment would imply more continuity than the record supports.
-
-4. **Evaluate Decision Brief reuse during the August cycle.** Add a second brief only if another consequential evidence review benefits from the same credit / limiting / unproven / outcome structure. Do not backfill other policies. Before adding one, decide explicitly how it belongs in the shared History view without duplicating the latest-review summary. Priority reason: one real follow-up should test whether this is a useful repeatable trust pattern before the optional schema spreads.
-
-5. **Observe v5.160 contextual sharing on a physical iOS or Android target when one becomes available.** Record whether the native target preserves the detached text and exact deep link, and roll back to title plus URL if the target drops or mangles the context. This is a release exception, not a current blocker or a claimed pass. Priority reason: production checks cover the browser contract, while only a physical target can characterize target-specific rewriting.
-
-6. **Process the inter-rater pilot return.** When the worksheets arrive, compare them with the frozen packet and classify each mismatch as rubric clarity, source ambiguity, application error, or genuine disagreement. Priority reason: this is the largest open independent-replication gap, but it depends on an external return.
-
-7. **Resolve the remaining external/editor queue.** The About funding disclosure, direct continuity pointer, Defence mixed-construct explanation, and desktop tab order are complete. What remains is sending the prepared red-team invite to an editor-selected recipient and deciding whether to mark the old Trust and Bias Resistance Plan historical while keeping the audit brief and validation templates separate. Priority reason: one item is an external send and the other is a governance-retirement decision, so neither should happen silently.
+1. **Resolve the remaining external/editor queue.** Send the prepared red-team
+   invite to an editor-selected recipient, then decide whether to mark the old
+   Trust and Bias Resistance Plan historical while keeping the audit brief and
+   validation templates separate. Priority reason: neither external contact nor
+   governance retirement should happen silently.
 
 ---
 ## Later
@@ -392,12 +398,27 @@ These are valid, but not active now.
 5. Consider explicit metric-to-sub-score provenance for Defence & Trade only if reader observation shows the flat lead metrics are being misread. Do not infer that mapping in the UI from labels or source context. Priority reason: the current data does not encode that relationship, and presentation must not manufacture methodology.
 6. Add a reusable Comet review-prompt template if live app-feel review becomes a recurring monthly process. Priority reason: process tooling should follow repeated use, not precede it.
 7. Reconsider hero collapse for returning readers after the next live review. Priority reason: it could reduce repeat-visit scroll cost, but it adds client state and hides a trust frame that helped first-time readers.
-8. Keep the v2 tri-lens architecture docs frozen as design artifacts. Priority reason: v5.163 addresses the measured drawer problem without reopening the scoring architecture.
+8. Consider an announcement-watch surface only if the combined human study
+   finds observed confusion between announcements and delivery evidence. Until
+   then, retain the existing considered-but-held evidence notes. Priority
+   reason: do not add schema, interface, and monthly retirement work for a
+   reader problem that has not been observed.
 9. Reconsider a local read-only MCP adapter only after repeated review work shows that selective reads are materially better than targeted files or the tracked-file bundle. Any return needs a filtered input set, symlink and special-file policy, locked tool dependencies, a disclosure smoke test, local `stdio`, and another different-AI review. Priority reason: do not rebuild an optional access path without measured need.
 10. Refresh the workflow action that still targets deprecated Node.js 20 before GitHub removes forced Node.js 24 compatibility. Priority reason: the v5.164 audit passed, but its artifact-upload step now emits a platform deprecation warning that should not become a future release blocker.
 11. Revisit a secondary-signal subgrid fallback only if an unsupported-browser report shows the cosmetic misalignment still matters in ordinary use. Priority reason: current evergreen browsers support subgrid and older browsers retain readable, functional cards, so a speculative shim ranks below the August cycle.
-12. Run physical interaction checks when targets are available: iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and Windows forced-colors. These remain accepted v5.168 release exceptions, not passes or current blockers. Priority reason: browser emulation covers the application contract but cannot characterize the native platform shell.
-13. Consider an on-page text-size control only if the v5.168 reader check shows that default sizing or browser-zoom discovery remains a real barrier. Tokenize the complete shell before building it so the control changes the whole reading experience rather than one section. Priority reason: the current release fixes the measured default-size problem, while a partial A/A+ control would add another setting without proving that readers need it.
+12. Run one physical-device pass when targets are available: confirm that a
+   native share target preserves the detached text and exact deep link, then
+   check iOS edge-swipe and sheet overscroll, Android pull-to-refresh, and
+   Windows forced-colors. These remain release exceptions, not passes or current
+   blockers. Priority reason: browser emulation cannot characterize the native
+   platform shell or target-specific share rewriting.
+13. Consider an on-page text-size control only if the combined reader study shows that default sizing or browser-zoom discovery remains a real barrier. Tokenize the complete shell before building it so the control changes the whole reading experience rather than one section. Priority reason: the current release fixes the measured default-size problem, while a partial A/A+ control would add another setting without proving that readers need it.
+14. Before the next first-look structure change, cover a valid primary next
+    check with no route, make geometry filters ignore elements hidden by an
+    ancestor, and strengthen the live-audit contract so it asserts the required
+    visibility field is used in the failure list. These are latent test and
+    audit hardening items, not current v5.175 defects. Priority reason: avoid a
+    future false release failure without reopening the approved candidate.
 
 ---
 
@@ -406,7 +427,7 @@ These are valid, but not active now.
 Do not reopen these unless a later audit forces it.
 
 - Full rubric rewrite
-- v2 architecture redesign
+- v2 implementation before the run-or-close decision is recorded
 - Defence & Trade full split unless the canonical tripwire fires: if the defence and trade sub-scores move in opposite directions, or differ by more than 1.0 GPA points (about one full letter grade), for two consecutive monthly review cycles, queue the split for promotion to live separate files in the next version
 - Carbon Pricing / Climate merge
 - Promise Delivery redesign
