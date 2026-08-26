@@ -32,6 +32,7 @@ const sources = {
   meta: read("src/data/meta.json"),
   status: read("src/data/status.json"),
   liveAudit: read("scripts/audit-live-dashboard-coverage.mjs"),
+  liveAuditWorkflow: read(".github/workflows/live-dashboard-audit.yml"),
   gradeMoves: read("src/gradeMoves.js"),
   sinceLastVisit: read("src/components/SinceLastVisit.jsx"),
   sinceLastVisitHelpers: read("src/sinceLastVisit.js"),
@@ -651,13 +652,17 @@ check(
 const liveFirstLookFitContract = sourceAround(
   sources.liveAudit,
   "const requiredVisibleSelectors = [",
-  500,
+  1000,
   3000,
 );
 check(
-  /querySelectorAll\(selector\)\]\s*\.filter\(\(node\) => \{[\s\S]*?getComputedStyle\(node\)[\s\S]*?style\.display !== "none" && style\.visibility !== "hidden";[\s\S]*?\}\)\s*\.map\(\(node\) => \{[\s\S]*?getBoundingClientRect\(\)/.test(
-    liveFirstLookFitContract,
-  )
+  liveFirstLookFitContract.includes("const hasVisibleGeometry = (node) => {")
+    && liveFirstLookFitContract.includes("node.getClientRects().length === 0")
+    && liveFirstLookFitContract.includes(
+      'getComputedStyle(node).visibility === "visible"',
+    )
+    && liveFirstLookFitContract.includes(".filter(hasVisibleGeometry)")
+    && liveFirstLookFitContract.includes("return hasVisibleGeometry(node)")
     && liveFirstLookFitContract.includes(
       'a.first-look-action[href="#policy-grades-heading"]',
     )
@@ -668,7 +673,50 @@ check(
     && liveFirstLookFitContract.includes(
       "allRequiredVisible: missingVisibleSelectors.length === 0",
     ),
-  "The live first-look audit must filter CSS-hidden alternates before geometry checks and fail when a required route has no visible rendered control.",
+  "The live first-look audit must exclude ancestor-hidden alternates before geometry checks and track missing required controls.",
+);
+const liveFirstLookFailureContract = sourceAround(
+  sources.liveAudit,
+  "fit.allRequiredVisible",
+  300,
+  500,
+);
+check(
+  /const\s+failures\s*=\s*\[[\s\S]*?fit\.allRequiredVisible[\s\S]*?\]\.filter\(Boolean\)/.test(
+    liveFirstLookFailureContract,
+  ),
+  "The live first-look audit must wire allRequiredVisible into its reported failures.",
+);
+const livePrimaryNextCheckContract = sourceAround(
+  sources.liveAudit,
+  "const check = primaryNextCheck;",
+  0,
+  2600,
+);
+check(
+  livePrimaryNextCheckContract.includes("if (!check.href)")
+    && livePrimaryNextCheckContract.includes(
+      'const briefing = page.getByRole("region", { name: "Scorecard briefing" })',
+    )
+    && livePrimaryNextCheckContract.includes(
+      'const watch = briefing.locator(".first-look-watch")',
+    )
+    && livePrimaryNextCheckContract.includes("getByText(check.label, { exact: true })")
+    && livePrimaryNextCheckContract.includes(
+      'const matchingLinkCount = await briefing\n        .getByRole("link", { name: check.label, exact: true })',
+    )
+    && livePrimaryNextCheckContract.includes(
+      'const link = briefing.getByRole("link", { name: check.label, exact: true })',
+    )
+    && livePrimaryNextCheckContract.includes("const linkCount = await link.count()")
+    && livePrimaryNextCheckContract.includes("linkCount !== 1")
+    && livePrimaryNextCheckContract.includes("check.href.replace"),
+  "The live audit must inspect the one accessible briefing route, or accept route-less static watch text with no duplicate briefing link.",
+);
+check(
+  sources.liveAuditWorkflow.includes("uses: actions/upload-artifact@v7")
+    && !sources.liveAuditWorkflow.includes("uses: actions/upload-artifact@v4"),
+  "The live audit workflow must keep the reviewed upload-artifact v7 pin.",
 );
 const bodyLockContract = sourceAround(
   sources.dashboard,

@@ -2,12 +2,12 @@
   {
     "date": "2026-08-25",
     "version": "5.175",
-    "summary": "Corrected the mobile first look so release notes of different lengths keep controls clear of the fixed navigation at 320, 375, and 390 pixels wide. Monthly source checks now keep a durable queue for every link that needs follow-up. No score or scoring rule changed.",
+    "summary": "Corrected the mobile first look so release notes of different lengths keep controls clear of the fixed navigation across phone widths through 640 pixels. Monthly source checks now keep a durable queue for every link that needs follow-up. No score or scoring rule changed.",
     "items": [
       {
         "type": "fix",
         "headline": "Mobile controls clear the fixed navigation",
-        "body": "The title and score now wrap when space permits. Checks cover quiet releases, long headlines, and releases with two prominent items at 320, 375, and 390 pixels wide, and confirm that controls stay clear of the fixed bottom navigation. Enlarged text remains readable. No score or scoring rule changed."
+        "body": "The title and score now wrap when space permits. Checks cover quiet releases, long headlines, and releases with two prominent items at 320, 375, 390, 420, 421, and 640 pixels wide. Through the phone range, the update, watch, and action areas stack, and the watch route moves to one full-width action below the briefing content. Enlarged text remains readable. No score or scoring rule changed."
       },
       {
         "type": "method",

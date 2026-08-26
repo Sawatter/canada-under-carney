@@ -242,7 +242,7 @@ export default function ScoreboardHeader({
           </a>
           {primaryNextCheck?.href && (
             <a
-              className="first-look-action first-look-narrow-action"
+              className="first-look-action first-look-narrow-action first-look-watch-action"
               href={primaryNextCheck.href}
             >
               {primaryNextCheck.label || "Published watch item"}

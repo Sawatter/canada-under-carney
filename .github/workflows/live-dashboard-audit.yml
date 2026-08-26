@@ -29,7 +29,7 @@ jobs:
         run: LIVE_AUDIT_URL=https://sawatter.github.io/canada-under-carney/ npm run audit:live
       - name: Upload audit report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: live-dashboard-audit
           path: tmp/live-coverage-audit

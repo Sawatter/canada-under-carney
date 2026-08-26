@@ -428,6 +428,10 @@ async function auditGlobalSurfaces(page, viewportName) {
   await auditStep(Object.assign(async () => {
     const fit = await page.evaluate(() => {
       const briefing = document.querySelector(".first-look-briefing");
+      const hasVisibleGeometry = (node) => {
+        if (node.getClientRects().length === 0) return false;
+        return getComputedStyle(node).visibility === "visible";
+      };
       const selectors = [
         ".first-look-primary-wrap",
         ".first-look-update",
@@ -447,10 +451,7 @@ async function auditGlobalSurfaces(page, viewportName) {
       ];
       const boxes = selectors.flatMap((selector) => (
         [...briefing.querySelectorAll(selector)]
-          .filter((node) => {
-            const style = getComputedStyle(node);
-            return style.display !== "none" && style.visibility !== "hidden";
-          })
+          .filter(hasVisibleGeometry)
           .map((node) => {
             const rect = node.getBoundingClientRect();
             return {
@@ -465,10 +466,8 @@ async function auditGlobalSurfaces(page, viewportName) {
       ));
       const missingVisibleSelectors = requiredVisibleSelectors.filter((selector) => (
         ![...briefing.querySelectorAll(selector)].some((node) => {
-          const style = getComputedStyle(node);
           const rect = node.getBoundingClientRect();
-          return style.display !== "none"
-            && style.visibility !== "hidden"
+          return hasVisibleGeometry(node)
             && rect.width > 0
             && rect.height > 0;
         })
@@ -660,11 +659,43 @@ async function auditGlobalSurfaces(page, viewportName) {
   await auditStep(Object.assign(async () => {
     await gotoApp(page);
     const check = primaryNextCheck;
-    const link = page.locator(".first-look-watch").getByRole("link", { name: check.label });
-    await link.click();
+    const briefing = page.getByRole("region", { name: "Scorecard briefing" });
+    const watch = briefing.locator(".first-look-watch");
+    if (!check.href) {
+      const label = watch.getByText(check.label, { exact: true });
+      const labelCount = await label.count();
+      const labelVisible = labelCount > 0 && await label.first().isVisible();
+      const matchingLinkCount = await briefing
+        .getByRole("link", { name: check.label, exact: true })
+        .count();
+      const result = {
+        label: check.label,
+        labelVisible,
+        matchingLinkCount,
+        route: "none",
+      };
+      const failed = !labelVisible || matchingLinkCount !== 0;
+      addRow({
+        surface: "Primary next-check display",
+        viewport: viewportName,
+        action: "Read the primary data-driven watch item without a route",
+        observed: JSON.stringify(result),
+        status: failed ? rowStatus.issue : rowStatus.pass,
+        severity: failed ? "P2" : "",
+        recommendation: failed
+          ? "Render the route-less watch label as visible static text without a link."
+          : "",
+      });
+      return;
+    }
+    const link = briefing.getByRole("link", { name: check.label, exact: true });
+    const linkCount = await link.count();
+    if (linkCount === 1) await link.click();
     const targetId = check.href.replace(/^#/, "");
     const target = page.locator(`#${targetId}`);
-    await target.waitFor({ state: "visible", timeout: 10_000 }).catch(() => {});
+    if (linkCount === 1) {
+      await target.waitFor({ state: "visible", timeout: 10_000 }).catch(() => {});
+    }
     const hash = await page.evaluate(() => window.location.hash);
     const targetCount = await target.count();
     const targetVisible = targetCount > 0 && await target.isVisible();
@@ -672,10 +703,14 @@ async function auditGlobalSurfaces(page, viewportName) {
       label: check.label,
       expected: check.href,
       actual: hash,
+      linkCount,
       targetFound: targetCount > 0,
       targetVisible,
     };
-    const failed = result.actual !== result.expected || !result.targetFound || !result.targetVisible;
+    const failed = linkCount !== 1
+      || result.actual !== result.expected
+      || !result.targetFound
+      || !result.targetVisible;
     addRow({
       surface: "Primary next-check route",
       viewport: viewportName,

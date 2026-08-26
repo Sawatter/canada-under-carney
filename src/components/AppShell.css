@@ -1410,7 +1410,7 @@
   }
 
   .app-shell .first-look-primary-context {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
   }
 
@@ -1459,6 +1459,18 @@
 
   .app-shell .first-look-check-heading {
     display: block;
+  }
+
+  .app-shell .first-look-check-heading .first-look-watch-route {
+    display: none;
+  }
+
+  .app-shell .first-look-check-heading .first-look-narrow-label {
+    display: inline;
+  }
+
+  .app-shell .first-look-actions .first-look-watch-action {
+    display: inline-flex;
   }
 
   .app-shell .first-look-check-heading a,
@@ -1523,6 +1535,7 @@
   }
 
   .app-shell .first-look-actions {
+    grid-template-columns: minmax(0, 1fr);
     gap: 7px;
     align-self: stretch;
   }
@@ -1820,10 +1833,6 @@
     padding-top: 6px;
   }
 
-  .app-shell .first-look-actions {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .app-shell .first-look-check-heading {
     display: flex;
     align-items: flex-start;
@@ -1838,13 +1847,8 @@
 }
 
 @media (max-width: 340px) {
-  .app-shell .first-look-update .first-look-inline-link,
-  .app-shell .first-look-check-heading .first-look-watch-route {
+  .app-shell .first-look-update .first-look-inline-link {
     display: none;
-  }
-
-  .app-shell .first-look-check-heading .first-look-narrow-label {
-    display: inline;
   }
 
   .app-shell .first-look-actions .first-look-narrow-action {

@@ -83,6 +83,9 @@ const mobileFirstLookViewports = [
   { width: 320, height: 568 },
   { width: 375, height: 812 },
   { width: 390, height: 844 },
+  { width: 420, height: 812 },
+  { width: 421, height: 812 },
+  { width: 640, height: 812 },
 ];
 
 const mobileReleaseShapeFixtures = [
@@ -138,6 +141,7 @@ const mobileReleaseShapeFixtures = [
   },
 ];
 let mobileReleaseShapeMarkupPromise;
+let noRouteFirstLookMarkupPromise;
 
 const policyDetailSections = ["Briefing", "Evidence", "History", "Method"];
 
@@ -1007,6 +1011,10 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
   await expect(scoreGrade).toBeVisible();
 
   const fit = await region.evaluate((node, expectedViewport) => {
+    const hasVisibleGeometry = (element) => {
+      if (element.getClientRects().length === 0) return false;
+      return getComputedStyle(element).visibility === "visible";
+    };
     const selectors = [
       ".first-look-primary-wrap",
       ".first-look-primary-header",
@@ -1019,10 +1027,7 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
     ];
     const boxes = selectors.flatMap((selector) => (
       [...node.querySelectorAll(selector)]
-        .filter((element) => {
-          const style = getComputedStyle(element);
-          return style.display !== "none" && style.visibility !== "hidden";
-        })
+        .filter(hasVisibleGeometry)
         .map((element) => {
           const rect = element.getBoundingClientRect();
           return {
@@ -1166,6 +1171,7 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
 }
 
 async function expectFirstLookActionVariants(region, viewport) {
+  const hasWatchRoute = Boolean(primaryNextCheck.href);
   const actions = region.locator(".first-look-actions");
   const normalReleaseAction = region.locator(
     '.first-look-update .first-look-inline-link[href="#view-changelog"]',
@@ -1187,39 +1193,45 @@ async function expectFirstLookActionVariants(region, viewport) {
     exact: true,
   });
 
-  expect(primaryNextCheck.href, "the primary watch must expose a route").toBeTruthy();
   await expect(actions).toHaveCount(1);
   await expect(actions).toBeVisible();
   await expect(normalReleaseAction).toHaveCount(1);
-  await expect(normalWatchAction).toHaveCount(1);
-  await expect(normalWatchAction).toHaveAttribute("href", primaryNextCheck.href);
   await expect(narrowReleaseAction).toHaveCount(1);
-  await expect(narrowWatchAction).toHaveCount(1);
-  await expect(narrowWatchAction).toHaveAttribute("href", primaryNextCheck.href);
+  await expect(normalWatchAction).toHaveCount(hasWatchRoute ? 1 : 0);
+  await expect(narrowWatchAction).toHaveCount(hasWatchRoute ? 1 : 0);
+  if (hasWatchRoute) {
+    await expect(normalWatchAction).toHaveAttribute("href", primaryNextCheck.href);
+    await expect(narrowWatchAction).toHaveAttribute("href", primaryNextCheck.href);
+  }
 
   if (viewport.width <= 340) {
     await expect(narrowReleaseAction).toBeVisible();
-    await expect(narrowWatchAction).toBeVisible();
     await expect(normalReleaseAction).toBeHidden();
-    await expect(normalWatchAction).toBeHidden();
-    expect(await Promise.all([
-      normalReleaseAction.evaluate((link) => link.getClientRects().length),
-      normalWatchAction.evaluate((link) => link.getClientRects().length),
-    ])).toEqual([0, 0]);
+    expect(await normalReleaseAction.evaluate((link) => link.getClientRects().length)).toBe(0);
   } else {
     await expect(normalReleaseAction).toBeVisible();
-    await expect(normalWatchAction).toBeVisible();
     await expect(narrowReleaseAction).toBeHidden();
+  }
+
+  if (hasWatchRoute && viewport.width <= 640) {
+    await expect(narrowWatchAction).toBeVisible();
+    await expect(normalWatchAction).toBeHidden();
+    expect(await normalWatchAction.evaluate((link) => link.getClientRects().length)).toBe(0);
+  } else if (hasWatchRoute) {
+    await expect(normalWatchAction).toBeVisible();
     await expect(narrowWatchAction).toBeHidden();
+  }
+
+  if (viewport.width > 640) {
     expect(await actions.locator(".first-look-narrow-action").evaluateAll((links) => (
-      links.map((link) => link.getClientRects().length)
-    ))).toEqual([0, 0]);
+      links.every((link) => link.getClientRects().length === 0)
+    ))).toBe(true);
   }
 
   await expect(accessibleReleaseActions).toHaveCount(1);
   await expect(accessibleReleaseActions).toBeVisible();
-  await expect(accessibleWatchActions).toHaveCount(1);
-  await expect(accessibleWatchActions).toBeVisible();
+  await expect(accessibleWatchActions).toHaveCount(hasWatchRoute ? 1 : 0);
+  if (hasWatchRoute) await expect(accessibleWatchActions).toBeVisible();
 }
 
 async function applyMobileReleaseShapeFixture(page, fixture) {
@@ -1259,6 +1271,48 @@ async function applyMobileReleaseShapeFixture(page, fixture) {
   }, markup);
 }
 
+async function getNoRouteFirstLookMarkup() {
+  if (!noRouteFirstLookMarkupPromise) {
+    noRouteFirstLookMarkupPromise = (async () => {
+      const viteServer = await createViteServer({
+        appType: "custom",
+        logLevel: "silent",
+        root: repoRoot,
+        server: { middlewareMode: true },
+      });
+      try {
+        const { default: renderScoreboardHeader } = await viteServer.ssrLoadModule(
+          "/src/components/ScoreboardHeader.jsx",
+        );
+        return renderToStaticMarkup(renderScoreboardHeader({
+          overallGrade: "C",
+          overallGPA: "2.0",
+          overallVerdictLine: "Fixture verdict",
+          latestRelease: {
+            version: "fixture",
+            date: "2026-08-25",
+            firstLook: { mode: "maintenance-only", featuredItems: [] },
+          },
+          nextUpdate: "2026-09-01",
+          primaryNextCheck: {
+            label: "Route-less publication watch",
+            status: "Waiting for the next official release.",
+          },
+          primaryNextCheckTiming: { kind: "cadence", value: "Event-driven" },
+          pocketbookGrade: "C",
+          pocketbookGPA: "2.0",
+          promiseCounts: { Delivered: 1, "In progress": 1 },
+          totalPromises: 2,
+          approvalExpanded: false,
+        }));
+      } finally {
+        await viteServer.close();
+      }
+    })();
+  }
+  return noRouteFirstLookMarkupPromise;
+}
+
 async function expectFirstLookBriefing(page, viewport) {
   const region = firstLookRegion(page);
   const update = region.locator(".first-look-update");
@@ -1294,8 +1348,12 @@ async function expectFirstLookBriefing(page, viewport) {
     : primaryNextCheckTiming.value;
   await expect(watch.getByText(expectedTiming, { exact: true })).toBeVisible();
   if (primaryNextCheck.href) {
-    await expect(watch.getByRole("link", { name: primaryNextCheck.label }))
+    await expect(region.getByRole("link", { name: primaryNextCheck.label }))
       .toHaveAttribute("href", primaryNextCheck.href);
+  } else {
+    await expect(watch.getByText(primaryNextCheck.label, { exact: true })).toBeVisible();
+    await expect(watch.getByRole("link", { name: primaryNextCheck.label, exact: true }))
+      .toHaveCount(0);
   }
 
   await expect(boundary.getByRole("heading", { name: "What affects the grades" }))
@@ -1538,6 +1596,29 @@ test.describe("dashboard route matrix", () => {
 });
 
 test.describe("responsive benchmark controls", () => {
+  test("primary next check without a route remains visible static text", async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== "chromium", "The production SSR branch is project-independent.");
+    const viewport = { width: 320, height: 568 };
+    await page.setViewportSize(viewport);
+    await page.goto(routePath({ hash: "#view-scorecard" }));
+    await firstLookRegion(page).evaluate((node, fixtureMarkup) => {
+      node.outerHTML = fixtureMarkup;
+    }, await getNoRouteFirstLookMarkup());
+
+    const region = page.getByRole("region", { name: "Scorecard briefing" });
+    const watch = region.locator(".first-look-watch");
+    const label = "Route-less publication watch";
+    await expect(watch.getByText(label, { exact: true })).toBeVisible();
+    await expect(watch).toContainText("Waiting for the next official release.");
+    await expect(watch).toContainText("Event-driven");
+    await expect(watch.getByRole("link", { name: label, exact: true })).toHaveCount(0);
+    await expect(watch.locator(".first-look-watch-route")).toHaveCount(0);
+    await expect(region.locator(".first-look-narrow-action").filter({ hasText: label }))
+      .toHaveCount(0);
+    await expectInitialFirstLookLayout(page, region, viewport);
+    await expectNoOverflow(page);
+  });
+
   for (const [viewportName, viewport] of viewports) {
     test(`policy-file route focuses the policy heading without changing ${viewportName} history`, async ({ page }) => {
       const consoleErrors = await installConsoleGuards(page);
@@ -1651,7 +1732,6 @@ test.describe("responsive benchmark controls", () => {
     });
     const cases = [
       ...mobileFirstLookViewports,
-      { width: 640, height: 812 },
       { width: 641, height: 812 },
       { width: 1280, height: 900 },
     ];
