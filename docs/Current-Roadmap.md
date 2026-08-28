@@ -4,25 +4,32 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-08-26
+**Last updated:** 2026-08-27
 
 ---
 
 ## Current State
 
-- v5.175 is live through release correction `b83fef8` and closeout commit
-  `4d0b326`. Pages run `32983288985` passed review-handoff, build, 256 browser
-  cases with 2 intentional skips, and deploy. The production header reports
-  v5.175. At `421 x 812` and `640 x 812`, the first-look briefing has no
-  interactive overlap with the fixed navigation, no page overflow, and exactly
-  one accessible Housing watch route. At `1280 x 900`, the normal watch route
-  is visible, and the mobile route is hidden. The route opens the Housing Supply
-  Evidence workspace at the exact hash. A direct post-deploy audit and hosted
-  Live Dashboard Audit run `33011050751` each passed `358/358` checks against
-  v5.175. The hosted report artifact is `9622600202`. GitHub's Actions incident
-  is resolved; the two outage-era audit entries remain stranded in the queue but
-  no longer block acceptance because the newer hosted run passed. The next
-  scheduled evidence update is 2026-09-01.
+- v5.176 is live through release commit `c73ca98`. Pages run `33136261054`
+  passed build, 264 browser cases with 262 passes and 2 intentional skips, and
+  deploy. The production header reports v5.176, and the live deployment marker
+  resolves to full commit `c73ca9898eb4177ae01b358dbf28bc984e60ddc6`.
+  Hosted Live Dashboard Audit run `33136664394` passed `362/362` checks against
+  that exact commit; its report artifact is `9672382988`. A manual live browser
+  check at `1280 x 900` and `390 x 844` found no horizontal overflow. Mobile
+  controls in the first-look action row remained 44 pixels high. The Housing
+  watch stayed clear of the fixed navigation and opened the Evidence workspace
+  at `#dim-housing-supply-evidence`. The next scheduled evidence update is
+  2026-09-01.
+- Three outage-era Actions records remain stranded in a contradictory state:
+  Pages run `32985532383` at `d6f7c70` and audit runs `32984452288` and
+  `32983983025` at `4d0b326` report `queued` but expose zero jobs, check runs,
+  or artifacts, with no timestamp movement since creation. On 2026-08-27,
+  normal cancellation said they were complete and force-cancellation said they
+  were not queued. Later v5.176 deploy and audit runs passed, so these are
+  stranded metadata rather than an active release gate. Leave the records
+  untouched. If any gains a job or affects checks or queue reporting, escalate
+  the contradictory state to GitHub Support and rerun production acceptance.
 - Inspectability structure is live across the dashboard.
 - Ethics & Transparency is normalized to a true whole-letter `C` with GPA `2.0`.
 - Flagship Delivery is normalized to a true whole-letter `C` with GPA `2.0`.
@@ -67,12 +74,23 @@
 
 ## Recently Completed
 
+- v5.176 source-record and release-check hardening - release commit `c73ca98`
+  names all five Major Projects with post-referral advancement, refreshes the
+  monthly source inputs without changing a grade or score, and requires browser
+  release checks to bind to the expected deployed commit. Pages run
+  `33136261054` and hosted audit run `33136664394` passed. The hosted report
+  recorded `362/362` checks against the exact release commit in artifact
+  `9672382988`. Desktop and mobile live checks also passed the affected
+  first-look and Housing route. Claude independently rechecked the release facts
+  and live sanity surfaces and returned `VERDICT: APPROVED`.
+
 - v5.175 mobile first-look correction - release correction `b83fef8` moves the
   Housing watch route into a dedicated mobile action and stacks the first-look
   grids through 640 pixels without changing the watch wording. Pages run
   `32983288985` passed review-handoff, build, 256 browser cases with 2 intentional
-  skips, and deploy. Hosted audit run `33011050751` then passed `358/358` checks
-  against current `main`, closing the release gate.
+  skips, and deploy. Hosted audit run `33011050751`, dispatched at `d6f7c70`,
+  then passed `358/358` checks against the live v5.175 deployment from Pages run
+  `32983288985` at `4d0b326`, closing the release gate.
 
 - July source-monitor reconciliation and PR close - commit `4d0b326` preserves
   the July packet and ledger without importing older monitoring state. The 67
@@ -232,7 +250,7 @@
 
 - MCP-vs-scripts decision and connector hold - current primary-source research rejected the claim that MCP is obsolete but accepted scripts, direct APIs, CLIs, and skills as this repo's default. The optional filesystem bridge was found outside every product and operations path, while its old snapshot copied ignored local files and its tunnel lacked compatible authentication. The launcher now blocks every connector mode; external review uses targeted files, the tracked-file bundle, rendered evidence, and a live browser tab. Claude returned REVISE on the first adversarial pass, all four findings were corrected, and the second pass returned APPROVED. The record is [MCP-vs-Scripts-Decision-2026-07-19.md](MCP-vs-Scripts-Decision-2026-07-19.md). No dashboard, grade, scoring, source, promise, or frozen surface changed.
 
-- Architectural release package (v5.155) - route-level splitting keeps the Change Log, Promises, Rubric, and About views off the initial scorecard path. A generated grade-change summary preserves first-paint status and returning-reader behavior without loading the full history. DM Sans, DM Mono, and DM Serif Display are local Vite assets. Policy cards own deep links with Back, focus restoration, and Share. A route error boundary contains failed deferred chunks. The manifest-based build gate checks the entry graph and four deferred routes. v5.155 is the expected live version. Its physical iOS edge-swipe and sheet-overscroll checks were not recorded as complete and remain editor-only release checks.
+- Architectural release package (v5.155) - route-level splitting keeps the Change Log, Promises, Rubric, and About views off the initial scorecard path. A generated grade-change summary preserves first-paint status and returning-reader behavior without loading the full history. DM Sans, DM Mono, and DM Serif Display are local Vite assets. Policy cards own deep links with Back, focus restoration, and Share. A route error boundary contains failed deferred chunks. The manifest-based build gate checks the entry graph and four deferred routes. v5.155 was the expected live version for this package. Its physical iOS edge-swipe and sheet-overscroll checks were not recorded as complete and remain editor-only release checks.
 - v5.156 bundle, history, and wording follow-through is live as commit `bd01c46`. The initial graph is 345,966 bytes, down from 535,131 bytes, and the 241,544-byte canonical policy data is deferred without raising either budget. Deterministic parity checks cover 12 dimensions, 43 promise totals and counts, headline GPA inputs, grade moves, and closed-card fields. Four history defects are fixed, and 117 browser tests pass across the default, reduced-motion, and dark Chromium profiles. Meaning-changing readability edits were corrected without changing grades, thresholds, formulas, weights, promise statuses, source stacks, or dimension-model rules. GitHub Pages run `29704209449` passed and the live metadata reports v5.156. The different-AI post-publication review later found no blocker and produced four accepted hardening fixes for v5.157. The review record is [Review-Adjudication-2026-07-19.md](Review-Adjudication-2026-07-19.md).
 
 - v5.157 follow-up is live through commit `faf1bab`. Drawer focus now survives delayed policy-detail loading, retry callbacks are stale-guarded, and the bundle sentinel handles escaped Unicode. Safe readability work is complete for Housing, Ethics, and Promise Delivery. The About page links directly to the continuity plan. August prep corrected the TDCF and CSLS citations and registered House ETHI and Transparency International Canada. The final integrated Claude review approved commit `54e591f` with no blocker after checking the full `d62e1ff..54e591f` diff. Pages run `29708095551` passed, and the live header reports v5.157. No grade, threshold, formula, weight, modifier, trigger, promise status, or dimension-model rule changed.
@@ -312,13 +330,7 @@
 
 ## Now
 
-1. **Finish v5.176 release acceptance.** Keep v5.175 recorded as live until
-   the candidate passes one final integrated review and the deterministic data,
-   monitor, app-shell, lint, build, and browser checks. Then commit and publish
-   the candidate, watch the Pages deployment, confirm the production header
-   reports v5.176, and require the hosted acceptance check to pass against the
-   exact deployed commit before closing the release. Priority reason: candidate
-   checks and a prepared changelog are not production acceptance.
+No autonomous release item is active.
 
 ---
 
@@ -378,7 +390,14 @@ completed. Resume them only on later editor instruction.
 
 ## Next
 
-No additional autonomous item is scheduled.
+1. **Harden release-audit edge cases.** Add an optional target commit for manual
+   runs, prevent a same-commit skip from cancelling an active audit, report a
+   missing deployment marker directly, give the browser catch in
+   `scripts/audit-live-dashboard-coverage.mjs` its own neutral error filename,
+   and strengthen historical-record and secondary rationale-name fixtures.
+   Priority reason: the current paths fail closed and v5.176 passed the
+   exact-commit audit, so these are maintainability improvements rather than
+   release blockers.
 
 ---
 ## Later
