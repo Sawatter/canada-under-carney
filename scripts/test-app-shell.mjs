@@ -1,12 +1,24 @@
+import { spawnSync } from "node:child_process";
 import fs from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import process from "node:process";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import {
   buildFirstLookProjection,
   resolveNextCheckTiming,
   selectPrimaryNextCheck,
 } from "../src/firstLook.js";
+import {
+  assertLoadedDocumentSha,
+  deploymentMetadataUrl,
+  fixedNavigationSafetyGap,
+  isDirectCliInvocation,
+  isFixedNavigationObstruction,
+  parseExpectedDeployedSha,
+  verifyDeployedCommit,
+  writeDeploymentMetadata,
+} from "./audit-live-dashboard-coverage.mjs";
 
 const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -33,6 +45,7 @@ const sources = {
   status: read("src/data/status.json"),
   liveAudit: read("scripts/audit-live-dashboard-coverage.mjs"),
   liveAuditWorkflow: read(".github/workflows/live-dashboard-audit.yml"),
+  deployWorkflow: read(".github/workflows/deploy.yml"),
   gradeMoves: read("src/gradeMoves.js"),
   sinceLastVisit: read("src/components/SinceLastVisit.jsx"),
   sinceLastVisitHelpers: read("src/sinceLastVisit.js"),
@@ -717,6 +730,332 @@ check(
   sources.liveAuditWorkflow.includes("uses: actions/upload-artifact@v7")
     && !sources.liveAuditWorkflow.includes("uses: actions/upload-artifact@v4"),
   "The live audit workflow must keep the reviewed upload-artifact v7 pin.",
+);
+const expectedDeployShaExpression = "${{ github.event.workflow_run.head_sha || github.sha }}";
+check(
+  sources.liveAuditWorkflow.includes(
+    `group: live-dashboard-audit-${expectedDeployShaExpression}`,
+  )
+    && !/^\s*group:\s*live-dashboard-audit\s*$/m.test(sources.liveAuditWorkflow)
+    && sources.liveAuditWorkflow.includes("cancel-in-progress: true"),
+  "The live audit workflow must cancel same-commit duplicates without allowing different commits to cancel each other.",
+);
+check(
+  sources.liveAuditWorkflow.includes(
+    `EXPECTED_DEPLOY_SHA: ${expectedDeployShaExpression}`,
+  ),
+  "Automatic and manual live audits must pass their exact expected deployed commit SHA.",
+);
+check(
+  sources.deployWorkflow.includes("DEPLOYED_COMMIT_SHA: ${{ github.sha }}")
+    && sources.deployWorkflow.includes("- run: npm run test:app-shell")
+    && sources.deployWorkflow.includes(
+      "node scripts/audit-live-dashboard-coverage.mjs --write-deployment-metadata dist",
+    ),
+  "The Pages build must use the tested deployment-metadata writer.",
+);
+check(
+  parseExpectedDeployedSha(undefined) === null
+    && parseExpectedDeployedSha("") === null
+    && parseExpectedDeployedSha("a".repeat(40)) === "a".repeat(40),
+  "The deployed-SHA parser must preserve direct audits while accepting exact lowercase commit SHAs.",
+);
+let malformedExpectedShaError = "";
+try {
+  parseExpectedDeployedSha("abc123");
+} catch (error) {
+  malformedExpectedShaError = error.message;
+}
+check(
+  malformedExpectedShaError.includes("40-character lowercase Git commit SHA"),
+  "The live audit must reject malformed expected commit SHAs.",
+);
+const expectedDeploymentSha = "1".repeat(40);
+const otherDeploymentSha = "2".repeat(40);
+const auditScriptPath = path.join(repoRoot, "scripts", "audit-live-dashboard-coverage.mjs");
+const auditScriptUrl = pathToFileURL(auditScriptPath);
+const cliFixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), "ccc-live-audit-cli-"));
+try {
+  const auditSymlinkPath = path.join(cliFixtureDir, "audit-live-symlink.mjs");
+  fs.symlinkSync(auditScriptPath, auditSymlinkPath);
+  check(
+    isDirectCliInvocation(auditScriptUrl, auditSymlinkPath)
+      && !isDirectCliInvocation(auditScriptUrl, fileURLToPath(import.meta.url)),
+    "Direct CLI detection must resolve symlinks and reject an importing module.",
+  );
+
+  const directResult = spawnSync(
+    process.execPath,
+    [auditSymlinkPath, "--self-test-cli"],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+  check(
+    directResult.status === 0 && directResult.stdout.trim() === "DIRECT_CLI=1",
+    "A symlinked CLI invocation must enter the audit command dispatcher.",
+  );
+
+  const importResult = spawnSync(
+    process.execPath,
+    [
+      "--input-type=module",
+      "-e",
+      `await import(${JSON.stringify(auditScriptUrl.href)});`,
+    ],
+    { cwd: repoRoot, encoding: "utf8" },
+  );
+  check(
+    importResult.status === 0 && importResult.stdout.trim() === "",
+    "Importing the audit module must not start the CLI or emit a false success.",
+  );
+} finally {
+  fs.rmSync(cliFixtureDir, { recursive: true, force: true });
+}
+
+const deploymentFixtureDir = fs.mkdtempSync(path.join(os.tmpdir(), "ccc-deployment-marker-"));
+let generatedDeploymentPayload;
+try {
+  fs.writeFileSync(
+    path.join(deploymentFixtureDir, "index.html"),
+    "<!doctype html><html><head><title>Fixture</title></head><body></body></html>\n",
+    "utf8",
+  );
+  await writeDeploymentMetadata({
+    commitSha: expectedDeploymentSha,
+    distDir: deploymentFixtureDir,
+  });
+  generatedDeploymentPayload = JSON.parse(
+    fs.readFileSync(path.join(deploymentFixtureDir, "deployment.json"), "utf8"),
+  );
+  const generatedIndex = fs.readFileSync(
+    path.join(deploymentFixtureDir, "index.html"),
+    "utf8",
+  );
+  check(
+    generatedDeploymentPayload.commitSha === expectedDeploymentSha
+      && generatedIndex.includes(
+        `<meta name="deployed-commit-sha" content="${expectedDeploymentSha}" />`,
+      ),
+    "The deployment writer must stamp the same exact SHA into deployment.json and index.html.",
+  );
+} finally {
+  fs.rmSync(deploymentFixtureDir, { recursive: true, force: true });
+}
+
+check(
+  assertLoadedDocumentSha(null, null).checked === false
+    && assertLoadedDocumentSha(expectedDeploymentSha, expectedDeploymentSha).checked,
+  "Unbound audits must skip the document marker while bound audits accept an exact match.",
+);
+let missingDocumentShaError = "";
+try {
+  assertLoadedDocumentSha(expectedDeploymentSha, null);
+} catch (error) {
+  missingDocumentShaError = error.message;
+}
+let mismatchedDocumentShaError = "";
+try {
+  assertLoadedDocumentSha(expectedDeploymentSha, otherDeploymentSha);
+} catch (error) {
+  mismatchedDocumentShaError = error.message;
+}
+check(
+  missingDocumentShaError.includes("loaded document has no deployed-commit-sha")
+    && mismatchedDocumentShaError.includes(`loaded document exposes ${otherDeploymentSha}`),
+  "A bound audit must reject missing and mismatched SHA markers from the loaded document.",
+);
+
+let directAuditFetchCalled = false;
+const directDeploymentCheck = await verifyDeployedCommit({
+  liveUrl: "https://example.test/dashboard/",
+  expectedSha: null,
+  fetchImpl: async () => {
+    directAuditFetchCalled = true;
+    throw new Error("Direct audits must not fetch deployment metadata.");
+  },
+});
+check(
+  directDeploymentCheck.checked === false && directAuditFetchCalled === false,
+  "A local direct audit without EXPECTED_DEPLOY_SHA must skip deployment metadata.",
+);
+let requestedDeploymentUrl = "";
+const matchingDeploymentCheck = await verifyDeployedCommit({
+  liveUrl: "https://example.test/dashboard",
+  expectedSha: expectedDeploymentSha,
+  attempts: 1,
+  nonceFactory: () => "matching-fixture",
+  fetchImpl: async (url) => {
+    requestedDeploymentUrl = url;
+    return {
+      ok: true,
+      status: 200,
+      json: async () => generatedDeploymentPayload,
+    };
+  },
+});
+check(
+  matchingDeploymentCheck.checked
+    && matchingDeploymentCheck.deployedSha === expectedDeploymentSha
+    && requestedDeploymentUrl === deploymentMetadataUrl(
+      "https://example.test/dashboard",
+      expectedDeploymentSha,
+      "matching-fixture",
+    )
+    && requestedDeploymentUrl.includes(
+      "/dashboard/deployment.json?expectedSha=1111111111111111111111111111111111111111&cacheBust=matching-fixture",
+    )
+    && deploymentMetadataUrl(
+      "https://example.test/dashboard/index.html",
+      expectedDeploymentSha,
+      "file-url-fixture",
+    ).includes("/dashboard/deployment.json?"),
+  "The live audit must read cache-busted deployment metadata beneath the production base path.",
+);
+let retryFetchCount = 0;
+const retriedDeploymentCheck = await verifyDeployedCommit({
+  liveUrl: "https://example.test/dashboard/",
+  expectedSha: expectedDeploymentSha,
+  attempts: 2,
+  nonceFactory: (attempt) => `retry-${attempt}`,
+  sleepImpl: async () => {},
+  fetchImpl: async () => {
+    retryFetchCount += 1;
+    if (retryFetchCount === 1) return { ok: false, status: 404 };
+    return {
+      ok: true,
+      status: 200,
+      json: async () => ({ commitSha: expectedDeploymentSha }),
+    };
+  },
+});
+check(
+  retriedDeploymentCheck.checked && retryFetchCount === 2,
+  "The deployment metadata preflight must retry a propagation miss before failing.",
+);
+let mismatchedDeploymentError = "";
+try {
+  await verifyDeployedCommit({
+    liveUrl: "https://example.test/dashboard/",
+    expectedSha: expectedDeploymentSha,
+    attempts: 1,
+    fetchImpl: async () => ({
+      ok: true,
+      status: 200,
+      json: async () => ({ commitSha: otherDeploymentSha }),
+    }),
+  });
+} catch (error) {
+  mismatchedDeploymentError = error.message;
+}
+check(
+  mismatchedDeploymentError.includes(`expected ${expectedDeploymentSha}`)
+    && mismatchedDeploymentError.includes(`production exposes ${otherDeploymentSha}`),
+  "The live audit must fail when production exposes a different deployed commit SHA.",
+);
+let missingDeploymentMetadataError = "";
+try {
+  await verifyDeployedCommit({
+    liveUrl: "https://example.test/dashboard/",
+    expectedSha: expectedDeploymentSha,
+    attempts: 1,
+    fetchImpl: async () => ({ ok: false, status: 404 }),
+  });
+} catch (error) {
+  missingDeploymentMetadataError = error.message;
+}
+check(
+  missingDeploymentMetadataError.includes("HTTP 404"),
+  "The live audit must fail when production does not expose deployment metadata.",
+);
+const malformedMetadataCases = [
+  {
+    label: "invalid JSON",
+    response: {
+      ok: true,
+      status: 200,
+      json: async () => {
+        throw new SyntaxError("fixture JSON failure");
+      },
+    },
+    expectedMessage: "not valid JSON",
+  },
+  {
+    label: "missing commitSha",
+    response: { ok: true, status: 200, json: async () => ({}) },
+    expectedMessage: "no valid commitSha",
+  },
+  {
+    label: "uppercase commitSha",
+    response: {
+      ok: true,
+      status: 200,
+      json: async () => ({ commitSha: "A".repeat(40) }),
+    },
+    expectedMessage: "no valid commitSha",
+  },
+];
+for (const fixture of malformedMetadataCases) {
+  let message = "";
+  try {
+    await verifyDeployedCommit({
+      liveUrl: "https://example.test/dashboard/",
+      expectedSha: expectedDeploymentSha,
+      attempts: 1,
+      fetchImpl: async () => fixture.response,
+    });
+  } catch (error) {
+    message = error.message;
+  }
+  check(
+    message.includes(fixture.expectedMessage),
+    `The deployment metadata preflight must reject ${fixture.label}.`,
+  );
+}
+check(
+  fixedNavigationSafetyGap === 8
+    && !isFixedNavigationObstruction(
+      { top: 400, bottom: 412, left: 20, right: 100 },
+      { top: 420, bottom: 500, left: 0, right: 320 },
+    )
+    && isFixedNavigationObstruction(
+      { top: 400, bottom: 413, left: 20, right: 100 },
+      { top: 420, bottom: 500, left: 0, right: 320 },
+    )
+    && !isFixedNavigationObstruction(
+      { top: 400, bottom: 430, left: 321, right: 400 },
+      { top: 420, bottom: 500, left: 0, right: 320 },
+    ),
+  "The live obstruction predicate must enforce the 8px safety zone only where controls cross the fixed navigation.",
+);
+check(
+  [
+    '{ name: "mobile-320", width: 320, height: 568 }',
+    '{ name: "mobile-421", width: 421, height: 812 }',
+    '{ name: "mobile-640", width: 640, height: 812 }',
+  ].every((contract) => sources.liveAudit.includes(contract))
+    && sources.liveAudit.includes(".app-bottom-nav")
+    && sources.liveAudit.includes("auditFirstLookFixedNavigation(page, ctx)")
+    && sources.liveAudit.includes('node.scrollIntoView({ behavior: "auto", block: "center"')
+    && sources.liveAudit.includes("totalControlCount")
+    && sources.liveAudit.includes("unreachableControls")
+    && sources.liveAudit.includes('reducedMotion: "reduce"'),
+  "The live audit must find and scroll-check first-look controls above fixed navigation at 320x568, 421x812, and 640x812.",
+);
+check(
+  sources.liveAudit.includes('meta[name="deployed-commit-sha"]')
+    && sources.liveAudit.includes("assertLoadedDocumentSha")
+    && sources.liveAudit.includes("await assertPageDocumentSha(page)")
+    && sources.liveAudit.includes('url.searchParams.set("liveAuditRun"'),
+  "Every bound browser navigation must be cache-busted and verify the loaded document SHA marker.",
+);
+const reloadDocumentShaContract = sourceAround(
+  sources.liveAudit,
+  'await page.reload({ waitUntil: "domcontentloaded" })',
+  0,
+  240,
+);
+check(
+  reloadDocumentShaContract.includes("await assertPageDocumentSha(page)"),
+  "A bound audit must recheck the loaded document SHA after an in-audit page reload.",
 );
 const bodyLockContract = sourceAround(
   sources.dashboard,

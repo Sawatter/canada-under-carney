@@ -87,6 +87,9 @@ const mobileFirstLookViewports = [
   { width: 421, height: 812 },
   { width: 640, height: 812 },
 ];
+const mobileNavSafetyGap = 8;
+// Scroll past the target so subpixel rounding cannot weaken the asserted gap.
+const mobileNavScrollHeadroom = 2;
 
 const mobileReleaseShapeFixtures = [
   {
@@ -756,7 +759,7 @@ async function expectMobileFirstLookControlsReachable(page, region, context) {
       node.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
     });
     await expect.poll(
-      async () => control.evaluate((node) => {
+      async () => control.evaluate((node, safetyGap) => {
         const rect = node.getBoundingClientRect();
         const bottomNav = document.querySelector(".app-bottom-nav");
         const navRect = bottomNav?.getBoundingClientRect();
@@ -784,7 +787,7 @@ async function expectMobileFirstLookControlsReachable(page, region, context) {
         return {
           aboveFixedNav: Boolean(navRect)
             && rect.top >= -1
-            && rect.bottom <= navRect.top - 1,
+            && rect.bottom <= navRect.top - safetyGap,
           contentFits: (
             node.scrollWidth <= node.clientWidth + 1
             && node.scrollHeight <= node.clientHeight + 1
@@ -794,9 +797,9 @@ async function expectMobileFirstLookControlsReachable(page, region, context) {
           insideViewportWidth: rect.left >= -1 && rect.right <= window.innerWidth + 1,
           noHorizontalScroll: window.scrollX === 0,
         };
-      }),
+      }, mobileNavSafetyGap),
       {
-        message: `${context}: "${label}" must scroll fully above the fixed navigation without clipping`,
+        message: `${context}: "${label}" must scroll at least ${mobileNavSafetyGap}px above the fixed navigation without clipping`,
       },
     ).toEqual({
       aboveFixedNav: true,
@@ -838,19 +841,22 @@ async function expectFirstLookControlsReflowAtTextResize(page, region, context) 
       { message: `${context}: "${label}" top edge must remain reachable` },
     ).toBe(true);
 
-    await control.evaluate((node) => {
+    await control.evaluate((node, { safetyGap, scrollHeadroom }) => {
       node.scrollIntoView({ behavior: "auto", block: "end", inline: "nearest" });
       const bottomNav = document.querySelector(".app-bottom-nav");
       if (bottomNav) {
         window.scrollBy({
           behavior: "auto",
           left: 0,
-          top: bottomNav.getBoundingClientRect().height + 8,
+          top: bottomNav.getBoundingClientRect().height + safetyGap + scrollHeadroom,
         });
       }
+    }, {
+      safetyGap: mobileNavSafetyGap,
+      scrollHeadroom: mobileNavScrollHeadroom,
     });
     await expect.poll(
-      async () => control.evaluate((node) => {
+      async () => control.evaluate((node, safetyGap) => {
         const rect = node.getBoundingClientRect();
         const bottomNav = document.querySelector(".app-bottom-nav");
         const navRect = bottomNav?.getBoundingClientRect();
@@ -876,7 +882,8 @@ async function expectFirstLookControlsReflowAtTextResize(page, region, context) 
           ancestor = ancestor.parentElement;
         }
         return {
-          bottomEdgeAboveNav: Boolean(navRect) && rect.bottom <= navRect.top - 1,
+          bottomEdgeAboveNav: Boolean(navRect)
+            && rect.bottom <= navRect.top - safetyGap,
           contentFitsControl: (
             node.scrollWidth <= node.clientWidth + 1
             && node.scrollHeight <= node.clientHeight + 1
@@ -887,9 +894,9 @@ async function expectFirstLookControlsReflowAtTextResize(page, region, context) 
           insideViewportWidth: rect.left >= -1 && rect.right <= window.innerWidth + 1,
           noHorizontalScroll: window.scrollX === 0,
         };
-      }),
+      }, mobileNavSafetyGap),
       {
-        message: `${context}: "${label}" must reflow without clipped content or fixed-nav obstruction`,
+        message: `${context}: "${label}" must reflow with ${mobileNavSafetyGap}px fixed-nav clearance and no clipped content`,
       },
     ).toEqual({
       bottomEdgeAboveNav: true,
@@ -1121,7 +1128,7 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
   }))
     .toBeLessThanOrEqual(4);
 
-  const obscuredInitialControls = await region.evaluate((node) => {
+  const obscuredInitialControls = await region.evaluate((node, safetyGap) => {
     const bottomNav = document.querySelector(".app-bottom-nav");
     if (!bottomNav) return null;
     const navRect = bottomNav.getBoundingClientRect();
@@ -1147,16 +1154,16 @@ async function expectInitialFirstLookLayout(page, region, viewport) {
       })
       .filter((control) => (
         control.visible
-        && control.bottom > navRect.top
+        && control.bottom > navRect.top - safetyGap
         && control.top < navRect.bottom
         && control.right > navRect.left
         && control.left < navRect.right
       ));
-  });
+  }, mobileNavSafetyGap);
   expect(obscuredInitialControls).not.toBeNull();
   expect(
     obscuredInitialControls,
-    "initially visible first-look controls must stay above the fixed bottom navigation",
+    `initially visible first-look controls must stay ${mobileNavSafetyGap}px above the fixed bottom navigation`,
   ).toEqual([]);
 
   const clippedBottomNavLabels = await page.locator(".app-bottom-nav-label")
@@ -1769,13 +1776,13 @@ test.describe("responsive benchmark controls", () => {
     expect(consoleErrors).toEqual([]);
   });
 
-  test("quiet, long, and two-item releases stay clear of the mobile navigation", async ({ page }) => {
-    const consoleErrors = await installConsoleGuards(page);
-    await page.addInitScript(() => {
-      window.history.scrollRestoration = "manual";
-    });
+  for (const fixture of mobileReleaseShapeFixtures) {
+    test(`${fixture.name} release stays clear of the mobile navigation`, async ({ page }) => {
+      const consoleErrors = await installConsoleGuards(page);
+      await page.addInitScript(() => {
+        window.history.scrollRestoration = "manual";
+      });
 
-    for (const fixture of mobileReleaseShapeFixtures) {
       for (const viewport of mobileFirstLookViewports) {
         for (const rootTextScale of [1, 2]) {
           await page.setViewportSize(viewport);
@@ -1790,18 +1797,28 @@ test.describe("responsive benchmark controls", () => {
 
           const region = firstLookRegion(page);
           await applyMobileReleaseShapeFixture(page, fixture);
-          await expect(region.locator(".first-look-update-summary"))
-            .toHaveText(fixture.summary);
-          await expect(region.locator(".first-look-update-list li"))
-            .toHaveCount(fixture.headlines.length);
+          const updateSummary = region.locator(".first-look-update-summary");
+          const updateItems = region.locator(".first-look-update-list li");
+          await expect(updateSummary).toHaveText(fixture.summary);
+          await expect(updateItems).toHaveCount(fixture.headlines.length);
           await expectInitialFirstLookLayout(page, region, viewport);
+          const context = `${fixture.name}, ${viewport.width}px, ${rootTextScale * 100}%`;
+          if (viewport.width <= 640) {
+            if (rootTextScale === 1) {
+              await expectMobileFirstLookControlsReachable(page, region, context);
+            } else {
+              await expectFirstLookControlsReflowAtTextResize(page, region, context);
+            }
+          }
+          await expect(updateSummary).toHaveText(fixture.summary);
+          await expect(updateItems).toHaveCount(fixture.headlines.length);
           await expectNoOverflow(page);
         }
       }
-    }
 
-    expect(consoleErrors).toEqual([]);
-  });
+      expect(consoleErrors).toEqual([]);
+    });
+  }
 
   test("first-look reflows without clipped controls at 200% root text size", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);

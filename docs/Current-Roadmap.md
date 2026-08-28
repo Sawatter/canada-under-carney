@@ -17,38 +17,12 @@
   interactive overlap with the fixed navigation, no page overflow, and exactly
   one accessible Housing watch route. At `1280 x 900`, the normal watch route
   is visible, and the mobile route is hidden. The route opens the Housing Supply
-  Evidence workspace at the exact hash. A direct post-deploy audit passed
-  `358/358` checks. Automatic Live Dashboard Audit run `32983983025` and manual
-  recovery run `32984452288` are queued without jobs during GitHub's active
-  Actions major outage, so the hosted audit copy remains an open release gate.
-  The next scheduled evidence update is 2026-09-01.
-- v5.166 is live through implementation commit `3c329c9` and browser-gate
-  follow-up `6e8891f`. It aligns the titles, descriptions, visible results, and
-  actions in the three secondary signal cards after a reader screenshot showed
-  Promise Delivery and Approval vertically centred beside the top-aligned
-  Household card. Replacement Pages run `30114357988` passed build, 249 browser
-  checks, and deploy after the initial run correctly blocked on an over-tight
-  cross-platform glyph tolerance. Live Dashboard Audit run `30114654381`
-  reports `356/356` checks. At a 390-pixel production viewport, all three titles
-  start at 9.5 pixels, descriptions at 24.75, visible results at 69.68, and
-  action centres 32.13 pixels from the card bottom; actions are 44 pixels high,
-  cards are 178.08 pixels high, and no card overflows. No score, signal value,
-  or scoring rule changed.
-- v5.165 is live through commit `2addd47`. It corrects the Household Impact
-  score-math control that the v5.164 mobile layout forced into a narrow implicit
-  grid column. The control now spans the card content width while retaining its
-  existing explanation, and it meets the 44-pixel minimum target in both
-  dimensions. Pages run `30059642493` passed build, 246 browser checks, and
-  deploy. Live Dashboard Audit run `30059851691` passed `356/356` checks. No
-  score or scoring rule changed.
-- The v5.164 first-look briefing is live. It puts the
-  Full Policy Audit result, authored reason, newest release state, next update,
-  primary published watch, scoring boundary, and inspect routes before the
-  policy grid. Household Impact, Promise Delivery, and Approval remain visible
-  with their different scoring roles stated. Release commit `985765b` and
-  audit-harness follow-up `d622df0` are on `main`. Pages run `30056858119` and
-  Live Dashboard Audit run `30057055063` passed, with the latter reporting
-  `356/356` checks. No scoring surface changed.
+  Evidence workspace at the exact hash. A direct post-deploy audit and hosted
+  Live Dashboard Audit run `33011050751` each passed `358/358` checks against
+  v5.175. The hosted report artifact is `9622600202`. GitHub's Actions incident
+  is resolved; the two outage-era audit entries remain stranded in the queue but
+  no longer block acceptance because the newer hosted run passed. The next
+  scheduled evidence update is 2026-09-01.
 - Inspectability structure is live across the dashboard.
 - Ethics & Transparency is normalized to a true whole-letter `C` with GPA `2.0`.
 - Flagship Delivery is normalized to a true whole-letter `C` with GPA `2.0`.
@@ -84,14 +58,7 @@
 - Bundle generator (`npm run bundle`) builds a multi-megabyte markdown bundle of every git-tracked text file in the repo for handing to external AI reviewers. Output writes to `tmp/perplexity-bundle.md` plus copies to `~/Downloads` and `~/Desktop`. The Claude Code `/bundle` slash command wraps this.
 - Monthly source monitor is live. `scripts/monitor_sources.py` reads the deterministic pullers in `fetch-data.py` (now via `--json-out`), adds a Tavily search fan-out over the feed-less and blocked surfaces, runs a `claude-opus-4-8` relevance pass that only routes candidates, and writes a candidate ledger plus an editor packet under `monitoring/` and `docs/Source-Monitoring-Candidates-YYYY-MM.md`. State lives in `monitoring/state.json` and `monitoring/sources.json` (registry built from the cited URLs). The Ethics diff cache moved from `tmp/` to `monitoring/`. The monthly workflow opens a `source-monitor/YYYY-MM` review PR and never pushes to main or moves a grade. Missing API keys skip a tier with an explicit packet note rather than reporting a clean cycle. Full design in [Source-Monitoring-System.md](Source-Monitoring-System.md). Offline checks: `npm run test:monitor`.
 - Dated source stacks are live. Cited sources carry `date` / `dateKind` metadata, and the source-date follow-up gate is closed with zero `needsManualDate` flags. Living pages use `as-of`; updated-only pages use `updated`; static releases and filings use `published`. The source-ordering metadata is display-only and does not move grades, statuses, thresholds, or source order. The review record is [Source-Dates-Review.md](Source-Dates-Review.md).
-- The v5.163 dimension-content modernization is live. It replaces the disclosure-heavy policy detail stack with four flat sibling views: Briefing for the verdict and decision logic, Evidence for canonical records, History for one dated sequence, and Method for thresholds, rules, and scope. It changes presentation and navigation only. It does not change a grade, threshold, formula, source order, promise status, or the dimension model.
 - The app shell is live at the root (v5.119 cutover, v5.120 post-cutover polish), with the classic rollback route retired in v5.142 after a clean June 29 route-exit audit. v5.120 added mobile navigation icons, a promise active-filter return affordance, bottom-navigation re-entry motion, semantic section navigation, and the viewport-flip body-lock and history fix. The opened-dimension drawer was then reworked across v5.121-v5.126: evidence-leads information architecture with a check-this-grade layer and score-leads hero (v5.121), a headline commitment row showing stated target vs. result (v5.122), a dimension-scoped Promises filter (v5.123), Red Tape Review and Foreign Policy Review promise status-evidence updates (v5.123, v5.125), and a display-only drawer typography pass (v5.126). Later releases layered on Kit signup, clickable Promises, title clarification, dark theme, app-card polish, dashboard status, source freshness, drawer reading order, the v5.139-v5.140 plain-language passes, the v5.141 data-driven next-checks strip and manual Playwright browser smoke, then the v5.142 browser-smoke CI gate. v5.143 adds the sourced grade-move evidence loop, v5.144 adds the first beauty / identity pass, v5.145 fixes mobile drawer containment after that pass, v5.146 fixes the mobile header badge collision, v5.147 makes that header spacing rule cross-viewport with browser-smoke coverage, v5.148 lands the June 30 review follow-through on the live surface, v5.149 adds the full-changelog link (published to `main` with the v5.150 push), and v5.150 is the separate July monthly-cycle factual refresh with no grade moves. The same evening, v5.151 landed the app-workspace release: a fixed desktop sidebar on wide screens that stays visible while a dimension is open (phones keep the bottom navigation, mid-size screens keep the top tabs), an authored one-line verdict on each graded card checked by the data validator so it can never carry a grade letter or urgency wording, a per-card next-check line taken word for word from the existing trigger data, a client-only since-your-last-visit note whose last-seen marker stays on the reader's device, and a deterministic .ics calendar file for the next update in the footer follow block; web push was considered and rejected because a static site would need a third-party push service, which fails the privacy bar. v5.152 then landed the trust surfaces: every up and down trigger shows the date its condition was published, the score-derivation panel carries a matching one-line provenance statement, the Change Log opens on the newest twelve entries with documentation and minor items folded per entry and earlier history behind an explicit button, returning readers who are caught up see one quiet line with the next scheduled update date, and the theme button cycles light, dark, and system. No scoring, formula, threshold, weight, or dimension-model change is part of any of these releases; v5.150 only refreshed factual source data and methodology state, and v5.151 and v5.152 are product and presentation work with no grade moves and no methodology change.
-- v5.155 was the prior live version. It reduced the prior 781 KB single chunk by deferring later views, moved fonts to local Vite assets, added policy-card links and Share behavior, and contained lazy-route failures inside the dashboard shell.
-- v5.159 is live on `main` through commit `01cfb8c`. GitHub Pages run `29862076550` passed its review-handoff, build, 141-test browser, and deploy jobs on attempt 2 after the first runner stalled during Chromium installation. The production header reports v5.159 dated 2026-07-21, and the live coverage audit reports 530 passes and zero issues. Economic Policy is corrected from D to C with its declining trend retained; Defence A and Trade B now average mechanically to A-; and House ETHI Report 5 is counted consistently while Ethics remains C. The aggregate formula, weights, dimension model, and July 1 history snapshot are unchanged. After publication, an authenticated read-only Claude review of the committed release and deployment record returned `VERDICT: APPROVED` with no release defect; the original blocked attempt and editor exception remain recorded as release-time facts. The release record is [Frozen-Rule-Adjudication-2026-07-21.md](Frozen-Rule-Adjudication-2026-07-21.md).
-- v5.160 is live on `main` through commit `a1eb18f`. GitHub Pages run `29884796740` passed its review-handoff, build, 156-test browser, and deploy jobs. The production header reports v5.160, the live Housing Share control measured `93x44` CSS pixels without horizontal overflow, and Live Dashboard Audit run `29884939039` reports 530 passes and zero issues across desktop and mobile. Contextual Share payloads now carry the policy name, grade or tracker label, trend, review date, and exact evidence link. The unavailable physical iOS and Android share-target checks were explicitly accepted as a release exception after the gap was named. They are not claimed as passes. No scoring or frozen-surface change was part of the release. The decision record is [Instagram-Pattern-Decision-2026-07-21.md](Instagram-Pattern-Decision-2026-07-21.md).
-- v5.161 is live on `main` through commit `0da9cc5`. GitHub Pages run `29933724138` passed its review-handoff, build, 162-test browser, and deploy jobs. The production header reports v5.161 dated 2026-07-22, and Live Dashboard Audit run `29933987972` reports 530 passes and zero issues across desktop and mobile. Housing now carries a dated Decision Brief that separates evidence earning credit, evidence limiting credit, unproven steps, the scorecard read, outcome, and next check. The UI no longer invents source-authority tiers from hostnames, and desktop readers can move Previous or Next across the 11 graded policies without adding one history entry per switch. Mobile keeps the existing full-screen policy sheet without those controls. Authenticated Claude review returned `VERDICT: APPROVED` with no blocking defect. No grade, threshold, formula, weight, modifier, promise status, source stack, trigger, or dimension-model rule changed. The release record is [Policy-Decision-Brief-Release-2026-07-22.md](Policy-Decision-Brief-Release-2026-07-22.md).
-- v5.162 is live on `main` through commit `8c87779`. GitHub Pages run `29946680527` passed its review-handoff, build, 174-test browser, and deploy jobs. The production header reports v5.162 dated 2026-07-22, and Live Dashboard Audit run `29946942650` reports 530 passes and zero issues across desktop and mobile. Ten held policy grades now carry a dated, authored explanation of what the latest review decided; Economic Policy remains on its existing correction trail and Promise Delivery remains an ungraded tracker. Closed cards keep the explanation to one line, opened policies show the full reason, and Housing defers to its existing Decision Brief instead of duplicating the outcome. Review dates are separate from file-edit dates and flow into sharing and policy-source downloads. Independent Standards and Spec reviews approved the staged diff after one accepted documentation correction, and authenticated Claude review returned `VERDICT: APPROVED` with no blocking findings. No scoring or frozen surface changed. The release record is [Held-Grade-Review-Release-2026-07-22.md](Held-Grade-Review-Release-2026-07-22.md).
-- v5.163 is live on `main` through commit `d091fc3`. GitHub Pages run `30013234857` passed its review-handoff, build, 231-case browser, and deploy jobs. The production header reports v5.163, a direct production audit passed 348 checks with zero issues across desktop and mobile, and Live Dashboard Audit run `30013591946` passed its separate post-deploy check. Standards, Spec, and authenticated Claude reviews approved the candidate. The release keeps the four sibling policy-detail views and preserves special handling for Defence & Trade sub-scores, the Promise Delivery tracker, the Flagship Combination Rule, and Housing's dated evidence review. No grade, threshold, formula, weight, modifier, promise status, source stack, trigger, or dimension-model rule changed. The release record is [Dimension-Briefing-Workspace-Release-2026-07-22.md](Dimension-Briefing-Workspace-Release-2026-07-22.md).
 - Repo-local Agent Skills for source workflows are live in `.claude/skills/`: `source-addition`, `source-audit`, `grade-evaluation`, `monthly-cycle`, `bias-resistance-check`, `scope-guard` (explicit-invocation only). Plus the Nate-inspired AI workflow layer: `project-room` (with the four-artifact discipline: source inventory table, conflict log, missing context list, duplicates report) and `ai-question-method`. The scope-guard runs against `origin/main...HEAD` for push-bound commits.
 - The optional Perplexity / Comet / Claude Desktop filesystem MCP bridge is paused. A July 19 review found that the non-writable snapshot still copied ignored local identity, personal-context, machine-path, generated-output, test-result, and scratch files; direct modes were write-capable; and public tunnels lacked compatible authentication. The launcher now exits without starting any connector mode, and [Perplexity-MCP-Setup.md](Perplexity-MCP-Setup.md) routes remote review through the tracked-file bundle, rendered evidence pack, and live browser tab. The decision record is [MCP-vs-Scripts-Decision-2026-07-19.md](MCP-vs-Scripts-Decision-2026-07-19.md).
 - May source-health recertification (v5.70) refreshed broken source URLs across the Signal49, IRCC Open Data, Maytree, The Narwhal, and ECCC climate-promise entries. June carry-forward freshness candidates logged in [Source-Recertification-2026-05-25.md](Source-Recertification-2026-05-25.md): April 2026 Food CPI, Q1 2026 population data, April 2026 housing starts, March 2026 trade data, PBO fuel-excise-tax note, new approval polling releases.
@@ -99,6 +66,13 @@
 ---
 
 ## Recently Completed
+
+- v5.175 mobile first-look correction - release correction `b83fef8` moves the
+  Housing watch route into a dedicated mobile action and stacks the first-look
+  grids through 640 pixels without changing the watch wording. Pages run
+  `32983288985` passed review-handoff, build, 256 browser cases with 2 intentional
+  skips, and deploy. Hosted audit run `33011050751` then passed `358/358` checks
+  against current `main`, closing the release gate.
 
 - July source-monitor reconciliation and PR close - commit `4d0b326` preserves
   the July packet and ledger without importing older monitoring state. The 67
@@ -198,8 +172,10 @@
   outside the limit. Focused checks passed with both local and hosted-equivalent
   concurrency, and the full two-worker matrix passed `249/249`. Independent
   re-review and a focused authenticated Claude review approved the portability
-  correction. This advances the first-look readability goal and exposes no
-  content or scoring change.
+  correction. Replacement Pages run `30114357988` passed build, 249 browser
+  checks, and deploy. Live Dashboard Audit run `30114654381` then passed
+  `356/356` checks. This advances the first-look readability goal and exposes
+  no content or scoring change.
 
 - v5.165 Household control correction and local regression - a reader screenshot
   exposed that the shared `grid-area: math` rule created an unintended second
@@ -336,17 +312,28 @@
 
 ## Now
 
-1. **Complete the hosted v5.175 audit after GitHub Actions recovers.** Production
-   v5.175, the Linux browser gate, direct browser checks, and the direct
-   `358/358` production audit are green. Automatic run `32983983025` and manual
-   recovery run `32984452288` are queued without jobs during the active Actions
-   major outage. Priority reason: a queued or non-answer run is not approval.
-   close the release gate only after one hosted report passes at `358/358`.
+1. **Finish v5.176 release acceptance.** Keep v5.175 recorded as live until
+   the candidate passes one final integrated review and the deterministic data,
+   monitor, app-shell, lint, build, and browser checks. Then commit and publish
+   the candidate, watch the Pages deployment, confirm the production header
+   reports v5.176, and require the hosted acceptance check to pass against the
+   exact deployed commit before closing the release. Priority reason: candidate
+   checks and a prepared changelog are not production acceptance.
 
-2. **Select the outside red-team reviewer.** The invite is ready, but the repo,
-   git history, and project memory contain no recipient or send channel. Send
-   only after the editor names both. Priority reason: external contact cannot
-   be completed by guessing who should receive it.
+---
+
+## Editor Decision
+
+1. **Major Projects denominator, threshold, and referral-stage rules.** Review
+   the
+   [August decision packet](Major-Projects-Threshold-Decision-Packet-2026-08.md).
+   No outcome is recorded. The denominator, threshold, and `stageAtReferral`
+   questions are frozen and editor-gated. Before any backfill, define how a
+   facility-wide approval applies to a later project phase, when early physical
+   work crosses a stage boundary, and what counts as major federal financing.
+   Five known rows were already above designated at referral and also require
+   historical stage research. Priority reason: do not infer referral stages or
+   change scoring rules after seeing the result.
 
 ---
 
@@ -355,21 +342,26 @@
 These three items are deferred by editor instruction. They are not cancelled or
 completed. Resume them only on later editor instruction.
 
-1. **Inter-rater clarification and return date.** The final v1 packet was frozen
-   in the repo on 2026-06-07. The August errata records a rater acknowledgement
-   on 2026-07-24, but the results template has no send date and no other repo
-   record proves when the packet was sent. The repo also does not establish
-   whether the later clarification was sent or a return date was agreed. When
-   resumed, record those facts before treating the pilot as waiting on a dated
-   return, then process any worksheets against the frozen packet.
+1. **Inter-rater clarification and return date.** The editor communication
+   record says the final v1 packet was sent on 2026-06-07 and acknowledged on
+   2026-07-24. Tracked repository artifacts independently prove the final
+   packet was frozen on June 7 and record the July 24 acknowledgement, while
+   the results template's send-date field remains blank. The repo does not
+   establish whether the later clarification was sent or a return date was
+   agreed. Those two follow-ups remain parked. When resumed, record those facts
+   before treating the pilot as waiting on a dated return, then process any
+   worksheets against the frozen packet.
 
 2. **September cycle.** When resumed, retry the four IRCC binary downloads and
    the Moody's Canada detail page, generate the ledger for the August 1-31
    window, check whether the dated history reads as one sequence, and evaluate
    Decision Brief reuse only if another consequential review fits the existing
    structure. The separate Housing watch automation remains active and is not
-   parked. Its August 25 official-page result is a dated hold, not proof, and it
-   must not move a grade automatically.
+   parked. Its August 26 official-page result adds Vaughan as conditional
+   selection-stage evidence, but the bilateral agreement, federal project
+   approval, municipal TPA, first payment, and attributable construction remain
+   unconfirmed. This dated hold is not proof and must not move a grade
+   automatically.
 
 3. **Combined reader study.** In one sitting, test the first-look briefing with
    four first-time readers at `375 x 812` and four at `1280 x 900`, then run the
@@ -386,8 +378,7 @@ completed. Resume them only on later editor instruction.
 
 ## Next
 
-No additional autonomous item is scheduled before the hosted audit closes or
-the editor resumes one of the parked items.
+No additional autonomous item is scheduled.
 
 ---
 ## Later
@@ -416,6 +407,12 @@ These are valid, but not active now.
    platform shell or target-specific share rewriting.
 12. Consider an on-page text-size control only if the combined reader study shows that default sizing or browser-zoom discovery remains a real barrier. Tokenize the complete shell before building it so the control changes the whole reading experience rather than one section. Priority reason: the current release fixes the measured default-size problem, while a partial A/A+ control would add another setting without proving that readers need it.
 13. Run the foundational methodology audit no later than 2027, or sooner if the scoring rubric moves to a new major version. Priority reason: the scaffold sets an annual editor gate, not a monthly task, and it should not disappear when the May planning file becomes historical.
+14. Recruit an outside red-team reviewer for a cycle that changes a published
+    grade, as required by the
+    [grade-change protocol](Grade-Change-Red-Team-Protocol.md). If no reviewer is
+    available when the trigger fires, use the editor-applied party-symmetry line
+    and record that the external pass was unavailable. Priority reason: this is
+    a grade-change trigger, not standing work.
 
 ---
 

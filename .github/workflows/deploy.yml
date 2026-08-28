@@ -23,8 +23,13 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - run: npm run test:app-shell
       - run: npm run test:review-handoff
       - run: npm run build
+      - name: Write deployment metadata
+        env:
+          DEPLOYED_COMMIT_SHA: ${{ github.sha }}
+        run: node scripts/audit-live-dashboard-coverage.mjs --write-deployment-metadata dist
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist

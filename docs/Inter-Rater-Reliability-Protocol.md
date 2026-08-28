@@ -1,8 +1,8 @@
 # Inter-Rater Reliability Protocol
 
 - **Purpose:** Turn the dashboard's disclosure that "external inter-rater reliability has not been tested" into something testable. Define the process for a second reader (the rater) to independently apply the published rubric to a subset of dimensions, and the criteria for comparing their grades against the editor's.
-- **Status:** Active protocol. AI packet QA and the 2026-06-06 cleanup were completed before the final v1 packet was frozen in the repo on 2026-06-07. The August errata records that the rater acknowledged the packet on 2026-07-24, but the results template has no send date and no other repo record proves when the packet was sent. The repo does not establish whether the later clarification was sent or whether a return date was agreed. The editor parked clarification and return-date work on 2026-08-25. It is deferred, not cancelled or completed. No worksheets are recorded as received.
-- **Last updated:** 2026-08-25
+- **Status:** Active protocol. AI packet QA and the 2026-06-06 cleanup were completed before the final v1 packet was frozen in the repo on 2026-06-07. The editor communication record says the packet was sent on June 7 and acknowledged on 2026-07-24. Tracked repository artifacts independently prove the June 7 freeze and record the July 24 acknowledgement, while the results template's send-date field remains blank. The repo does not establish whether the later clarification was sent or whether a return date was agreed. The editor parked those follow-ups on 2026-08-25. They are deferred, not cancelled or completed. No worksheets are recorded as received.
+- **Last updated:** 2026-08-26
 - **Editor dependencies, not rater materials:** [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md), [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [Plus-Minus-Decision-Rules.md](Plus-Minus-Decision-Rules.md)
 - **Used by:** Product Thesis claims about editorial vs. statistical rigor. Methodology tab "Limits of this model" block.
 

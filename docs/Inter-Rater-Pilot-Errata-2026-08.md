@@ -11,9 +11,11 @@ worksheets against `Inter-Rater-Pilot-Results-Template-2026-05.md`. Writing this
 down before the worksheets arrive is the point: it prevents post-hoc scoring
 choices.
 
-**Communication record:** the final packet was sent 2026-06-07 and the rater
-acknowledged it 2026-07-24. The repo does not establish whether the later
-clarification described below was sent or whether a return date was agreed.
+**Communication record:** the editor communication record says the final packet
+was sent 2026-06-07 and acknowledged 2026-07-24. Tracked repository artifacts
+independently prove the packet was frozen on June 7 and record the July 24
+acknowledgement. They do not establish whether the later clarification
+described below was sent or whether a return date was agreed.
 
 **Headline verdict from the staleness check:** the frozen comparison is still
 valid. No packet metric was ever found wrong-at-the-time (every later
@@ -26,8 +28,9 @@ updates to the rater (that would unblind the 2026-07-21 adjudication).
 **Rater packet version confirmed:** the rater quoted the packet back in her
 2026-07-24 email and it contains the "Do not substitute U.S. household
 tariff-cost estimates" instruction, which only exists in the final ef1ea80
-(2026-06-07) revision. She holds the final version. (The results template's
-"Date packet sent" field was never filled; it is 2026-06-07.)
+(2026-06-07) revision. She holds the final version. The results template's
+"Date packet sent" field remains blank and does not independently record that
+date.
 
 ---
 

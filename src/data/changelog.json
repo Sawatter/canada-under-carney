@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-08-26",
+    "version": "5.176",
+    "summary": "Corrected the Major Projects explanation so the five counted projects are named. Release checks now confirm the browser loaded the expected deployment and keep phone controls clear of fixed navigation. Monthly source tools were refreshed. No grade or score changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Five counted projects are named",
+        "body": "The Major Projects explanation said five projects showed later progress but named only four. Crawford Nickel Project is now included, and the older August cycle note now uses the same final count. The cohort, percentage, grade, and score did not change. A data check now requires the explanation to name each counted project."
+      },
+      {
+        "type": "fix",
+        "headline": "Live release checks follow the deployed build",
+        "body": "The hosted check now fails unless the page loaded in the browser identifies the exact commit that the run expects. Phone checks cover the critical widths from 320 through 640 pixels, confirm the navigation keeps the required eight-pixel gap, and confirm that controls below the first screen remain reachable."
+      },
+      {
+        "type": "method",
+        "headline": "Monthly source tools use current inputs",
+        "body": "The monitor registry was rebuilt from the current 186 cited links. Nineteen moved links were replaced without losing a citation, and the generated ledger now asks for newer evidence without carrying June-specific wording into later cycles."
+      },
+      {
+        "type": "docs",
+        "headline": "Old cycle instructions are labelled as history",
+        "body": "The active playbook and dimension register no longer present unfinished May planning text as the next cycle. They keep unresolved historical checks open, point current work back to the roadmap, and retain September 1 as the next scheduled evidence date."
+      }
+    ]
+  },
+  {
     "date": "2026-08-25",
     "version": "5.175",
     "summary": "Corrected the mobile first look so release notes of different lengths keep controls clear of the fixed navigation across phone widths through 640 pixels. Monthly source checks now keep a durable queue for every link that needs follow-up. No score or scoring rule changed.",
@@ -149,7 +176,7 @@
       {
         "type": "event",
         "headline": "Major-project list now tracks 18 projects",
-        "body": "The project cohort now matches the official 18-project list. Nine are above the designated stage, but only four show later progress after referral, below the published 30% condition."
+        "body": "The project cohort now matches the official 18-project list. Ten are above the designated stage, but only five show later progress after referral, below the published 30% condition."
       },
       {
         "type": "event",

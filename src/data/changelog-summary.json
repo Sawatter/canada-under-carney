@@ -1,7 +1,7 @@
 [
   {
-    "date": "2026-08-25",
-    "version": "5.175",
+    "date": "2026-08-26",
+    "version": "5.176",
     "items": [],
     "firstLook": {
       "mode": "no-grade-moves",
@@ -9,12 +9,17 @@
       "featuredItems": [
         {
           "type": "method",
-          "headline": "Source-link follow-up has a durable queue",
-          "body": "Monthly link checks now write every redirect, blocked page, timeout, suspected soft error, and dead link to a dated exception report with the affected citations. Each row needs a recorded follow-up before the source cycle can close, while only a confirmed dead link stops the checker automatically.",
-          "itemIndex": 1
+          "headline": "Monthly source tools use current inputs",
+          "body": "The monitor registry was rebuilt from the current 186 cited links. Nineteen moved links were replaced without losing a citation, and the generated ledger now asks for newer evidence without carrying June-specific wording into later cycles.",
+          "itemIndex": 2
         }
       ]
     }
+  },
+  {
+    "date": "2026-08-25",
+    "version": "5.175",
+    "items": []
   },
   {
     "date": "2026-08-23",

@@ -58,10 +58,14 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] Open the dim's entry in [Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md).
 - [ ] Re-evaluate the `rationale`, `metrics`, and `gradeBasis` fields against the new data from step 1.
 - [ ] Decide: **no change / grade move / plus-minus revision / modifier activation-or-deactivation**.
-- [ ] Apply [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), especially Rule 2 (carry-forward), Rule 4 (confidence revisit), Rule 5 (probation discipline), Rule 6 (same-family concentration).
+- [ ] Apply [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), especially Rule 2 (carry-forward), Rule 4 (confidence revisit), Rule 5 (probation discipline), and Rule 6 (release-blocking conditions).
 - [ ] If a grade moves: update `grade`, `previousGrade`, `trend`, `gradeBasis` (`band`, `plusMinusRationale`, `activeModifiers`), and `rationale` fields together. Do not update one without the others.
 - [ ] Update the dim's `lastUpdated` field to today.
 - [ ] If the rubric was ambiguous enough to need editor judgment: note it in the scratch file for a future Inter-Rater-Reliability-Protocol.md candidate dim.
+
+After all 12 dimension reviews:
+
+- [ ] Run the [Deconfliction-Matrix.md](Deconfliction-Matrix.md) check on every metric or event cited in the release. Confirm one primary scoring home, label secondary mentions as context, and treat unresolved double-counting as a release block under Rule 6 of [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md).
 
 ### 3. Promise status review
 
@@ -86,12 +90,12 @@ For each of the 11 graded dimensions plus Promise Delivery:
 - [ ] Prepend a new entry with this month's `date` and a one-paragraph `summary` in *plain reader language* (no "hidden C- behind displayed C" governance jargon).
 - [ ] Add `items[]` entries for every grade move, metric update, event, and launch.
 - [ ] Grade moves use `type: "grade"` with `dimensionId`, `dimensionName`, `from`, `to`, `headline`, `body`, and optional `drivers[]` / `link`.
-- [ ] Non-grade updates use `type: "event"`, `"product"`, `"method"`, or `"minor"` with a plain-language `headline` and `body`.
+- [ ] Non-grade updates use `type: "event"`, `"product"`, `"method"`, `"fix"`, `"docs"`, or `"minor"` with a plain-language `headline` and `body`.
 
 ### 6. Meta bump
 
 - [ ] Open [src/data/meta.json](../src/data/meta.json).
-- [ ] Increment `version` by 0.1 (e.g., 5.5 → 5.6 for a regular cycle; 5.5 → 6.0 for a rubric revision).
+- [ ] Advance `version` to the next unused value in the current release sequence, for example from 5.175 to 5.176. A major methodology revision and any corresponding major version change require explicit editor approval.
 - [ ] Set `lastUpdated` to today.
 - [ ] Set `coveragePeriod.end` to today or the most recent material event date, whichever is later.
 - [ ] Set `nextUpdate` to the next scheduled cycle date.
@@ -143,15 +147,15 @@ If any item fails, fix it before treating the cycle as shipped.
 
 ---
 
-## What's different about cycle 2 (May 14, 2026)
+## Historical record: cycle 2 (May 14, 2026)
 
-First full monthly cycle after the April 19 "ship-readiness" burst. Specific cycle-2 tasks:
+This was the first full monthly cycle after the April 19 ship-readiness work. The notes below record cycle-specific work and outcomes. They are not instructions for the next cycle, which is scheduled for 2026-09-01 in the front matter above.
 
-- **Approval Signal v2 first production data-add.** The polls file currently runs through March 30, 2026. The May 14 cycle is the first pull that extends past the April 19 signal snapshot. Expect the rolling window to shift forward cleanly, the weighted-mean code already handles it, but spot-check the math once the new polls land.
-- **Ethics & Flagship Delivery probation review.** Both dims are on whole-letter probation per [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md). The May 14 cycle is a good moment to reassess whether the evidence base has thickened enough to move either dim off probation.
-- **Post-majority-government read.** The April 13 majority-government formation may materially change the execution-feasibility picture for several dims. Worth a specific review of Flagship Delivery, Fiscal Health, and Promise Delivery with that lens.
-- **Promise status-source watch list.** All 43 tracked promises now have original-source links, and 42 have `statusSourceUrl`. Keep watching the remaining gap, Carbon Border Adjustment Mechanism, and add a status-evidence link only when a clean official or Tier 2 document appears.
-- **Candidate inter-rater reliability pilot.** Per [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md), cycle 2 or cycle 3 is a reasonable moment for a first v1 rater test. Two-to-three-dim pilot, 2-3 hours of volunteer time.
+- **Approval Signal v2 first production data-add:** Completed in the May cycle. Four newer polls were added and the weighted rolling window was checked. See [May-2026-Source-Refresh-Notes.md](May-2026-Source-Refresh-Notes.md).
+- **Ethics & Flagship Delivery probation review:** The May record does not prove this review happened. Ethics remains on probation. Flagship Delivery later passed its first full monthly retention check on July 1 under [Flagship-Delivery-Rules.md](Flagship-Delivery-Rules.md).
+- **Post-majority-government read:** The April 13 majority-government formation was planned as a May-specific review lens for Flagship Delivery, Fiscal Health, and Promise Delivery. The record does not establish whether that lens was applied, so this is retained as historical context only.
+- **Promise status-source watch list:** At the May 16 snapshot, all 43 tracked promises had original-source links and 40 had status-evidence links. Subsequent source work reduced those three gaps to one current gap, Carbon Border Adjustment Mechanism.
+- **Candidate inter-rater reliability pilot:** The editor communication record says the final packet was sent on 2026-06-07 and acknowledged on 2026-07-24. Tracked repository artifacts independently prove the final packet was frozen on June 7 and record the July 24 acknowledgement, while the results template's send-date field remains blank. The later clarification send and return date are unproved and parked. No completed external worksheet is recorded. Current communication status is in [Inter-Rater-Pilot-Errata-2026-08.md](Inter-Rater-Pilot-Errata-2026-08.md), and the review method remains in [Inter-Rater-Reliability-Protocol.md](Inter-Rater-Reliability-Protocol.md).
 
 ---
 

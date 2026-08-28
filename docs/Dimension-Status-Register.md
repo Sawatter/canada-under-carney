@@ -2,7 +2,9 @@
 
 **Purpose:** Register the structural status of every dimension. The active work queue lives in [Current-Roadmap.md](Current-Roadmap.md); this file prevents old structural concerns from being mistaken for current blockers.
 
-**Last updated:** July 21, 2026
+**Last updated:** August 26, 2026
+
+**Next scheduled cycle:** September 1, 2026, per `meta.nextUpdate` in [src/data/meta.json](../src/data/meta.json).
 
 ---
 
@@ -13,7 +15,7 @@
 | **Stable** | Operational. No structural issues. Minor wording tightening only. |
 | **Tightening** | Live and gradeable, but construct, scope, or indicator stack needs sharpening before next cycle. |
 | **Probation** | Live but structural weakness identified. Must prove value in next cycle or face removal. |
-| **v2 Queue** | Structural redesign needed. Decision memo written. Do not change live model yet. |
+| **Editor-gated** | A documented decision is open on a frozen methodology or scoring surface. Keep the live model unchanged until the editor records an outcome. |
 
 ---
 
@@ -33,11 +35,11 @@
 
 | Field | Value |
 |---|---|
-| **Status** | Stable |
-| **Unresolved issue** | Credit-claiming penalty documentation. Must stay explicit that C includes -0.3 penalty (raw = C+). |
-| **What needs doing** | Keep penalty evidence tied to specific sources each cycle. Verify no new projects are genuinely MPO-accelerated. |
-| **Before next cycle?** | Tighten language in release log: yes. Structural change: no. |
-| **Affects** | Live model only |
+| **Status** | Editor-gated methodology decision |
+| **Unresolved issue** | The cohort denominator, threshold height, and `stageAtReferral` definition and evidence standard remain undecided. The options and current evidence are documented in the [Major Projects Threshold Decision Packet](Major-Projects-Threshold-Decision-Packet-2026-08.md). |
+| **What needs doing** | The editor must decide whether and when to adopt a denominator rule, whether threshold values change, and how `stageAtReferral` is defined before any backfill or depth weighting. Keep the current grade, denominator, thresholds, and stage data unchanged until those decisions are recorded. |
+| **Before next cycle?** | Editor gate remains open. Do not apply a denominator, threshold, `stageAtReferral`, or resulting grade change automatically. |
+| **Affects** | Editor-gated methodology and live model |
 
 ### 3. Fiscal Health (C)
 
@@ -77,7 +79,7 @@
 | **Unresolved issue** | Carbon Pricing / Climate overlap remains possible, but the live scoring guardrails now assign the pricing instrument to Carbon Pricing and the emissions framework to Climate. |
 | **What needs doing** | Enforce deconfliction during each cycle. If OBPS tightening is announced, score it in Carbon Pricing. If emissions or climate-framework credibility changes, score that in Climate. |
 | **Before next cycle?** | Enforce boundary. Merge into Climate: no. |
-| **Affects** | Live model + shadow model (merge test) |
+| **Affects** | Live model only |
 
 ### 7. Climate & Environment (D)
 
@@ -136,14 +138,14 @@
 | **Status** | Decision landed |
 | **Unresolved issue** | No GPA issue remains. Promise Delivery is intentionally derivative and kept outside the aggregate scores. |
 | **What needs doing** | Maintain promise statuses, original-source links, and status-evidence links during the monthly cycle. Keep status changes deconflicted to their home dimensions. |
-| **Before next cycle?** | Review promise statuses and the three remaining status-evidence gaps; no shadow GPA run required. |
+| **Before next cycle?** | At the next cycle, review promise statuses and the one remaining status-evidence gap, Carbon Border Adjustment Mechanism. No shadow GPA run is required. |
 | **Affects** | Accountability tracker only |
 
 ---
 
-## Master Checklist: Before Next Release
+## Historical April/May 2026 Checklist Status
 
-These items must be completed before the May 2026 cycle:
+These were April and May release-readiness items. Their recorded status is retained as history, not as the current work queue. Recurring controls remain in [Monthly-Cycle-Playbook.md](Monthly-Cycle-Playbook.md).
 
 - [x] **Affordability Response:** Define scope boundary (groceries + tariff costs + targeted relief; NOT rents, utilities, insurance)
 - [x] **Economic Policy Response:** Enforce QA Rule 2 (no grade moves on announcements alone)
@@ -151,40 +153,44 @@ These items must be completed before the May 2026 cycle:
 - [x] **Ethics & Transparency:** Add one anchored indicator
 - [x] **Defence & Trade:** Add reproducible whole-letter sub-scores (Defence: A, Trade: B) and equal-weight headline arithmetic
 - [x] **Flagship Delivery:** Apply Combination Rule mechanically to produce grade
-- [ ] **Promise Delivery:** Review tracker statuses and remaining status-evidence gaps
-- [ ] **Fiscal Health:** Incorporate April 28 economic update data
+- [ ] **Promise Delivery:** The May record does not prove that all 43 tracker statuses were reviewed. The [May 16 source recertification](Source-Recertification-2026-05-16.md) counted 40/43 status-evidence links and three gaps. Subsequent work raised the current count to 42/43; the live row above names the one remaining gap.
+- [x] **Fiscal Health:** Spring Economic Update data was incorporated in the May 13 review. See [May-2026-Source-Refresh-Notes.md](May-2026-Source-Refresh-Notes.md).
 - [x] **Housing Supply:** Enforce announced ≠ started ≠ completed language
 - [x] **Major Projects:** Confirm credit-claiming penalty documented in release log
-- [ ] **All dimensions:** Run deconfliction check on every metric cited in release
+- [ ] **All dimensions:** No per-release completion record was found for the original check on every cited metric. [Deconfliction-Matrix.md](Deconfliction-Matrix.md) and Rule 6 of [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md) define the control; the active playbook now requires the check each cycle.
 
 ---
 
-## v2 Parking Lot
+## Historical Design Options and Later Triggers
 
-Ideas that are valid but must NOT leak into the live cycle. These are queued for v2 design work only.
+The 2026 tri-lens shadow design is closed. The rows below preserve its outcomes
+as history or route still-valid ideas to the live roadmap's existing trigger
+conditions. None is active v2 work, and nothing here authorizes a shadow cycle.
 
-| Item | Source | Status |
+| Item | Historical source | Current status |
 |---|---|---|
-| Promise Delivery → ungraded tracker | Decision memo, ChatGPT consensus | Implemented |
-| Defence & Trade → full split | Decision memo, methods panel | Only if live split tripwire fires |
-| Carbon Pricing → merge into Climate | Methods panel shadow test A | Shadow only; merging buries a policy win |
-| Flagship Delivery → remove entirely | Methods panel shadow test B | Revisit only if a future cycle fails the retention checks |
-| Attribution-adjusted weighting → headline | Methods panel shadow test C | Shadow only; negligible GPA impact |
-| Regional distribution (provincial breakdowns) | ChatGPT research | Future feature, not v2 |
-| Implementation burden dimension | ChatGPT methods panel | Future consideration |
-| Durability-weighted promise scoring | Promise Coding Rules | Future enhancement |
-| Time-series trend charts | Needs 3+ months data | After July 2026 |
-| Inter-rater reliability testing | Methods panel | Needs human raters |
+| Promise Delivery as an ungraded tracker | Decision memo, ChatGPT consensus | Implemented in the live model |
+| Defence and Trade split | Decision memo, methods panel | Trigger-gated by the live split tripwire |
+| Carbon Pricing merge into Climate | Methods panel shadow test A | Closed design option, do not reopen unless a later methodology review forces it |
+| Flagship Delivery removal | Methods panel shadow test B | Trigger-gated only if the retention conditions fail |
+| Attribution-adjusted headline weighting | Methods panel shadow test C | Closed design option, no active shadow run |
+| Regional distribution (provincial breakdowns) | ChatGPT research | Later product candidate, roadmap controls priority |
+| Implementation burden dimension | ChatGPT methods panel | Later methodology candidate, editor gate required |
+| Durability-weighted promise scoring | Promise Coding Rules | Later methodology candidate, editor gate required |
+| Time-series trend charts | Needs 3+ months data | Later product candidate, roadmap controls priority |
+| Inter-rater reliability testing | Methods panel | Active protocol is separate from v2, editor follow-up is parked |
 
 ---
 
 ## 3 Highest Risk Dimensions for Next Monthly Update
 
-1. **Flagship Delivery (C)** — July 1 exit test passed. Next risk is overlap drift or a future cycle where the Combination Rule stops adding a distinct cross-file execution read.
+1. **Major Projects (C):** The denominator, threshold height, and
+   `stageAtReferral` evidence rule remain editor-gated. Keep the live model
+   frozen until the editor records an outcome.
 
-2. **Carbon Pricing Policy (C)** — The Pack 4 drill blocked this dimension for double-counting. The deconfliction fix must hold under real evidence.
+2. **Carbon Pricing Policy (C):** The Pack 4 drill blocked this dimension for double-counting. The deconfliction fix must hold under real evidence.
 
-3. **Economic Policy Response (C)** — The Pack 2 drill showed how easily AI/minerals announcements can be argued into a grade move. The QA gatekeeping rules must resist announcement bias with real data.
+3. **Economic Policy Response (C):** The Pack 2 drill showed how easily AI/minerals announcements can be argued into a grade move. The QA gatekeeping rules must resist announcement bias with real data.
 
 ---
 

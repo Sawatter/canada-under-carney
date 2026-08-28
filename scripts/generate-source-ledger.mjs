@@ -520,7 +520,7 @@ const twiceYearlyRows = [
     "",
     "",
     "",
-    `Citation field: ${source.field}. Confirm exact URL supports the dashboard claim and check publisher for June-period replacement evidence.`,
+    `Citation field: ${source.field}. Confirm exact URL supports the dashboard claim and check the publisher for newer replacement evidence.`,
   ]),
   ...majorProjectRows().map((project) => [
     project.label,

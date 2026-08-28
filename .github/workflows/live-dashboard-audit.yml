@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: live-dashboard-audit-${{ github.event.workflow_run.head_sha || github.sha }}
+  cancel-in-progress: true
+
 jobs:
   live-audit:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
@@ -26,7 +30,10 @@ jobs:
       - name: Wait for Pages propagation
         run: sleep 60
       - name: Audit live dashboard
-        run: LIVE_AUDIT_URL=https://sawatter.github.io/canada-under-carney/ npm run audit:live
+        env:
+          EXPECTED_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          LIVE_AUDIT_URL: https://sawatter.github.io/canada-under-carney/
+        run: npm run audit:live
       - name: Upload audit report
         if: always()
         uses: actions/upload-artifact@v7

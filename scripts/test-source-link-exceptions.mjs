@@ -1,5 +1,13 @@
 import assert from "node:assert/strict";
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  mkdtempSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -13,7 +21,9 @@ import {
   writeExceptionReport,
 } from "./check-source-links.mjs";
 
-const scriptPath = join(dirname(fileURLToPath(import.meta.url)), "check-source-links.mjs");
+const scriptsDirectory = dirname(fileURLToPath(import.meta.url));
+const projectRoot = dirname(scriptsDirectory);
+const scriptPath = join(scriptsDirectory, "check-source-links.mjs");
 
 const results = [
   {
@@ -274,8 +284,41 @@ try {
     readExceptionReportClosure(mismatchedPath).issues[0],
     /filename must be source-link-exceptions-2026-09\.json/,
   );
+
+  const generatorRoot = join(temporaryRoot, "ledger-generator");
+  mkdirSync(join(generatorRoot, "scripts"), { recursive: true });
+  mkdirSync(join(generatorRoot, "src", "data"), { recursive: true });
+  mkdirSync(join(generatorRoot, "docs"), { recursive: true });
+  for (const filename of ["generate-source-ledger.mjs", "source-ledger-utils.mjs"]) {
+    cpSync(join(scriptsDirectory, filename), join(generatorRoot, "scripts", filename));
+  }
+  for (const filename of ["dimensions.json", "approval-polls.json", "meta.json"]) {
+    cpSync(join(projectRoot, "src", "data", filename), join(generatorRoot, "src", "data", filename));
+  }
+
+  const generatorCli = spawnSync(process.execPath, [
+    join(generatorRoot, "scripts", "generate-source-ledger.mjs"),
+    "2099-09",
+    "--force",
+  ], { encoding: "utf8" });
+  assert.equal(generatorCli.status, 0, generatorCli.stderr || generatorCli.stdout);
+
+  const generatedLedger = readFileSync(
+    join(generatorRoot, "docs", "Source-Coverage-Ledger-2099-09.md"),
+    "utf8",
+  );
+  assert.match(
+    generatedLedger,
+    /check the publisher for newer replacement evidence\./,
+    "generated recertification notes must use cycle-neutral replacement wording",
+  );
+  assert.doesNotMatch(
+    generatedLedger,
+    /\b(?:January|February|March|April|May|June|July|August|September|October|November|December)-period replacement evidence\b/i,
+    "generated recertification notes must not retain month-specific replacement wording",
+  );
 } finally {
   rmSync(temporaryRoot, { recursive: true, force: true });
 }
 
-console.log("Source-link exception report tests passed (full-run output, cycle naming, closure, and exit semantics).");
+console.log("Source recertification tests passed (link exceptions and cycle-neutral ledger wording).");

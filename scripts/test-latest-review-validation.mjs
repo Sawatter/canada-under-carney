@@ -215,6 +215,17 @@ const invalidFixtures = [
       });
     },
   },
+  {
+    name: "major-projects-rationale-omits-advanced-project",
+    expected: "rationale omits projects counted as post-referral advancement: Crawford Nickel Project",
+    mutate: (fixture) => {
+      const majorProjects = dimension(fixture, "major-projects");
+      majorProjects.rationale = majorProjects.rationale.replace(
+        "Crawford Nickel Project",
+        "the omitted project",
+      );
+    },
+  },
   ...gradeTokenFixtures,
   ...urgencyFixtures,
 ];

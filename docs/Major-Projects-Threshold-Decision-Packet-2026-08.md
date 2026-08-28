@@ -290,16 +290,16 @@ Two conditions on the recommendation. They are part of it, not decoration.
 
 ## Execution checklist, if the editor says yes to Option 1
 
-Ordered so each step is mechanical. Nothing below is done yet.
+Ordered so each step is mechanical. The independent current-copy corrections are complete. The denominator, threshold, grade, and `stageAtReferral` decisions remain open and editor-gated. Nothing in the completed copy correction adopts a methodology option or changes the grade.
 
 ### Data
 
 1. `src/data/dimensions.json`, `major-projects.projectCohort`: add the locked-denominator block. Record the lock date `2026-05-13`, the locked seat count `15`, and the 15 locked seat ids. Mark the three August arrivals (`deep-geological-repository`, `west-coast-oil-pipeline`, `roberts-bank-terminal-2-project`) as pending entry.
 2. Same file: add `formerNames` to any row whose display name has changed across cycles. `sisson-mine` has carried three strings and is the known case.
 3. Same file, `major-projects.metrics`: update the lead metric "Projects with documented progress after being added" from `5 of 18 (~28%)` to the locked reading, and rewrite its `sourceNote` to name the locked denominator.
-4. Same file, `major-projects.gradeBasis`: update `band`, `bandCriterion`, `plusMinusRationale`, `whyNotHigher`, and `whyNotLower`. Note that `whyNotHigher` currently reads "Four of 18, about 22%" and `whyNotLower` names four projects, while the metrics block and the up-trigger both say five. That is a stale-copy inconsistency from the Crawford Nickel update and needs correcting whichever option the editor picks.
-5. Same file: set `grade` to `B-`, `previousGrade` to `C`, `trend` to `up`, and rewrite `status`. The current `status` string also says "only four show documented progress after referral" and carries the same stale count.
-6. Same file: rewrite `verdictLine`. It currently reads "only four show documented progress after referral," which is stale on both the count and the band. Keep it at 110 characters or fewer, with no grade letters and no urgency wording.
+4. Same file, `major-projects.gradeBasis`: if Option 1 is approved, update `band`, `bandCriterion`, `plusMinusRationale`, `whyNotHigher`, and `whyNotLower` for the locked denominator. The independent copy correction is already applied: `whyNotHigher` now says five of 18, about 28%, and `whyNotLower` names Contrecœur Terminal, Matawinie Graphite, North Coast Transmission, Red Chris, and Crawford Nickel.
+5. Same file: if Option 1 is approved, set `grade` to `B-`, `previousGrade` to `C`, `trend` to `up`, and rewrite `status` for that decision. The current C-grade status is already corrected to say that five of 18 show documented progress after referral.
+6. Same file: if Option 1 is approved, rewrite `verdictLine` for the resulting denominator and band. Its current C-grade copy is already corrected to say that five projects show documented progress after referral. Keep any later rewrite at 110 characters or fewer, with no grade letters and no urgency wording.
 7. Same file, `gradeTriggers.up[0]`: the text currently reads "currently 5 of 18, about 28%". Update the parenthetical to the locked reading. Keep `setDate` unchanged, because the condition itself is not new.
 8. Same file: update `judgmentDetail`, which names "the 18 projects the Major Projects Office tracks", and set `lastUpdated`.
 
@@ -335,8 +335,8 @@ Ordered so each step is mechanical. Nothing below is done yet.
 
 ## Followups regardless of which option is chosen
 
-- Fix the stale "four" count in `verdictLine`, `status`, `gradeBasis.whyNotHigher`, and `gradeBasis.whyNotLower`. Those four strings disagree with the metrics block and the up-trigger, which both say five. This is a correctness defect on a live card and it is independent of the denominator decision.
-- Fix two more stale counts in `major-projects.metrics`, found while computing the arithmetic for this packet. The stage counts in the cohort are 5 under construction, 5 approved, 8 designated. The metric labelled "Projects under construction" reads `4`, and the `sourceNote` under "Projects above designated status" reads "six approved and four under construction". Both disagree with the cohort rows they summarise. The `10 of 18 (56%)` headline on that metric is correct.
+- Completed independently of the methodology decision: `verdictLine`, `status`, `gradeBasis.whyNotHigher`, and `gradeBasis.whyNotLower` now use five of 18, about 28%, and name the five counted projects where the explanation calls for names. The grade remains C.
+- Completed independently of the methodology decision: `major-projects.metrics` now reports 5 under construction, 5 approved, and 8 designated. The `10 of 18 (56%)` headline remains unchanged.
 - Queue the `stageAtReferral` field and its backfill. Depth weighting stays blocked until it exists.
 - Queue a threshold-height packet for the B-to-A severity gap, to be written against a depth-weighted numerator rather than against the current flat count.
 - Watch the seat-sprawl condition described in the denominator policy, reviewed once a year rather than each cycle.

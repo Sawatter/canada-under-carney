@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 import { chromium } from "@playwright/test";
-import { mkdir, writeFile } from "node:fs/promises";
+import { realpathSync } from "node:fs";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import { fileURLToPath } from "node:url";
@@ -9,7 +10,8 @@ import {
   selectPrimaryNextCheck,
 } from "../src/firstLook.js";
 
-const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
+const auditFilePath = fileURLToPath(import.meta.url);
+const repoRoot = path.resolve(path.dirname(auditFilePath), "..");
 const [
   { default: dimensions },
   { default: meta },
@@ -31,11 +33,22 @@ const baseUrl = process.env.LIVE_AUDIT_URL || "https://sawatter.github.io/canada
 const generatedAt = new Date();
 const stamp = generatedAt.toISOString().replace(/[:.]/g, "-");
 const outDir = path.join(repoRoot, "tmp", "live-coverage-audit", stamp);
+let requiredDocumentDeploySha = null;
+let navigationSequence = 0;
 
 const contexts = [
   { name: "desktop", width: 1280, height: 900 },
   { name: "mobile", width: 375, height: 812 },
 ];
+
+const firstLookObstructionContexts = [
+  { name: "mobile-320", width: 320, height: 568 },
+  { name: "mobile-375", width: 375, height: 812 },
+  { name: "mobile-421", width: 421, height: 812 },
+  { name: "mobile-640", width: 640, height: 812 },
+];
+
+export const fixedNavigationSafetyGap = 8;
 
 const rowStatus = {
   pass: "PASS",
@@ -60,8 +73,191 @@ const issues = [];
 
 function dashboardUrl(hash = "") {
   const url = new URL(baseUrl);
+  if (requiredDocumentDeploySha) {
+    navigationSequence += 1;
+    url.searchParams.set("liveAuditSha", requiredDocumentDeploySha);
+    url.searchParams.set("liveAuditRun", `${stamp}-${navigationSequence}`);
+  }
   url.hash = hash;
   return url.toString();
+}
+
+export function isDirectCliInvocation(moduleUrl, argvPath = process.argv[1]) {
+  if (!argvPath) return false;
+  try {
+    const modulePath = moduleUrl instanceof URL
+      ? fileURLToPath(moduleUrl)
+      : fileURLToPath(new URL(moduleUrl));
+    return realpathSync(argvPath) === realpathSync(modulePath);
+  } catch {
+    return false;
+  }
+}
+
+export function parseExpectedDeployedSha(value) {
+  if (value === undefined || value === null || value === "") return null;
+  if (!/^[0-9a-f]{40}$/.test(value)) {
+    throw new Error("EXPECTED_DEPLOY_SHA must be a 40-character lowercase Git commit SHA.");
+  }
+  return value;
+}
+
+export async function writeDeploymentMetadata({ distDir, commitSha }) {
+  if (!/^[0-9a-f]{40}$/.test(commitSha || "")) {
+    throw new Error("DEPLOYED_COMMIT_SHA must be a 40-character lowercase Git commit SHA.");
+  }
+
+  const indexPath = path.join(distDir, "index.html");
+  const metadataPath = path.join(distDir, "deployment.json");
+  const indexHtml = await readFile(indexPath, "utf8");
+  const marker = `<meta name="deployed-commit-sha" content="${commitSha}" />`;
+  const existingMarker = /<meta\s+name=["']deployed-commit-sha["']\s+content=["'][^"']*["']\s*\/?>/i;
+  let stampedIndex;
+  if (existingMarker.test(indexHtml)) {
+    stampedIndex = indexHtml.replace(existingMarker, marker);
+  } else if (indexHtml.includes("</head>")) {
+    stampedIndex = indexHtml.replace("</head>", `    ${marker}\n  </head>`);
+  } else {
+    throw new Error(`Cannot stamp deployed commit SHA because ${indexPath} has no closing head tag.`);
+  }
+
+  await Promise.all([
+    writeFile(metadataPath, `${JSON.stringify({ commitSha })}\n`, "utf8"),
+    writeFile(indexPath, stampedIndex, "utf8"),
+  ]);
+  return { indexPath, metadataPath };
+}
+
+export function assertLoadedDocumentSha(expectedSha, loadedSha) {
+  const parsedExpectedSha = parseExpectedDeployedSha(expectedSha);
+  if (!parsedExpectedSha) {
+    return { checked: false, expectedSha: null, loadedSha: null };
+  }
+  if (!loadedSha) {
+    throw new Error(
+      `Expected deployed commit SHA ${parsedExpectedSha}, but the loaded document has no deployed-commit-sha marker.`,
+    );
+  }
+  if (loadedSha !== parsedExpectedSha) {
+    throw new Error(
+      `Document SHA mismatch: expected ${parsedExpectedSha}, loaded document exposes ${loadedSha}.`,
+    );
+  }
+  return { checked: true, expectedSha: parsedExpectedSha, loadedSha };
+}
+
+export function deploymentMetadataUrl(liveUrl, expectedSha, cacheBust = "") {
+  const root = new URL(liveUrl);
+  root.hash = "";
+  root.search = "";
+  if (!root.pathname.endsWith("/")) {
+    root.pathname = path.posix.extname(root.pathname)
+      ? `${path.posix.dirname(root.pathname)}/`
+      : `${root.pathname}/`;
+  }
+  const metadataUrl = new URL("deployment.json", root);
+  if (expectedSha) metadataUrl.searchParams.set("expectedSha", expectedSha);
+  if (cacheBust) metadataUrl.searchParams.set("cacheBust", cacheBust);
+  return metadataUrl.toString();
+}
+
+export async function verifyDeployedCommit({
+  liveUrl,
+  expectedSha,
+  attempts = 5,
+  retryDelayMs = 3_000,
+  fetchImpl = globalThis.fetch,
+  nonceFactory = (attempt) => `${Date.now()}-${attempt}`,
+  sleepImpl = (delayMs) => new Promise((resolve) => setTimeout(resolve, delayMs)),
+}) {
+  const parsedExpectedSha = parseExpectedDeployedSha(expectedSha);
+  if (!parsedExpectedSha) {
+    return {
+      checked: false,
+      deployedSha: null,
+      expectedSha: null,
+      metadataUrl: null,
+    };
+  }
+
+  if (!Number.isInteger(attempts) || attempts < 1) {
+    throw new Error("Deployment metadata attempts must be a positive integer.");
+  }
+
+  let lastError;
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    const metadataUrl = deploymentMetadataUrl(
+      liveUrl,
+      parsedExpectedSha,
+      nonceFactory(attempt),
+    );
+    try {
+      const response = await fetchImpl(metadataUrl, {
+        cache: "no-store",
+        headers: {
+          accept: "application/json",
+          "cache-control": "no-cache",
+          pragma: "no-cache",
+        },
+      });
+      if (!response.ok) {
+        throw new Error(
+          `Production deployment metadata returned HTTP ${response.status} at ${metadataUrl}.`,
+        );
+      }
+
+      let payload;
+      try {
+        payload = await response.json();
+      } catch (error) {
+        throw new Error(
+          `Production deployment metadata is not valid JSON at ${metadataUrl}: ${error.message}`,
+        );
+      }
+
+      const deployedSha = payload?.commitSha;
+      if (!/^[0-9a-f]{40}$/.test(deployedSha || "")) {
+        throw new Error(
+          `Production deployment metadata has no valid commitSha at ${metadataUrl}.`,
+        );
+      }
+      if (deployedSha !== parsedExpectedSha) {
+        throw new Error(
+          `Deployment SHA mismatch: expected ${parsedExpectedSha}, production exposes ${deployedSha} at ${metadataUrl}.`,
+        );
+      }
+
+      return {
+        checked: true,
+        deployedSha,
+        expectedSha: parsedExpectedSha,
+        metadataUrl,
+      };
+    } catch (error) {
+      lastError = error.message.startsWith("Production deployment")
+        ? error
+        : new Error(
+          `Could not read production deployment metadata at ${metadataUrl}: ${error.message}`,
+        );
+    }
+
+    if (attempt < attempts) {
+      await sleepImpl(retryDelayMs * attempt);
+    }
+  }
+
+  throw lastError;
+}
+
+export function isFixedNavigationObstruction(
+  controlRect,
+  navigationRect,
+  safetyGap = fixedNavigationSafetyGap,
+) {
+  return controlRect.bottom > navigationRect.top - safetyGap
+    && controlRect.top < navigationRect.bottom
+    && controlRect.right > navigationRect.left
+    && controlRect.left < navigationRect.right;
 }
 
 function addRow({ surface, viewport, action, observed, status = rowStatus.pass, severity = "", recommendation = "" }) {
@@ -287,8 +483,18 @@ async function installRoutes(context) {
   });
 }
 
+async function assertPageDocumentSha(page) {
+  if (requiredDocumentDeploySha) {
+    const loadedSha = await page
+      .locator('meta[name="deployed-commit-sha"]')
+      .getAttribute("content");
+    assertLoadedDocumentSha(requiredDocumentDeploySha, loadedSha);
+  }
+}
+
 async function gotoApp(page, hash = "view-scorecard") {
   await page.goto(dashboardUrl(hash), { waitUntil: "domcontentloaded" });
+  await assertPageDocumentSha(page);
   await page.locator(".app-shell").waitFor({ state: "visible", timeout: 15_000 });
   await page.getByRole("heading", { name: "Canada Under Carney", level: 1 }).waitFor({ timeout: 15_000 });
   await page.evaluate(async () => {
@@ -512,6 +718,7 @@ async function auditGlobalSurfaces(page, viewportName) {
     const htmlAfter = await page.locator("html").getAttribute("data-theme");
     const savedAfter = await page.evaluate(() => window.localStorage.getItem("ccc-theme"));
     await page.reload({ waitUntil: "domcontentloaded" });
+    await assertPageDocumentSha(page);
     await page.locator(".app-shell").waitFor({ state: "visible" });
     const labelReloaded = await page.locator(".theme-toggle").getAttribute("aria-label");
     const htmlReloaded = await page.locator("html").getAttribute("data-theme");
@@ -721,6 +928,189 @@ async function auditGlobalSurfaces(page, viewportName) {
       recommendation: failed ? "Fix status.nextChecks[0].href or its rendered target." : "",
     });
   }, { surface: "Primary next-check route", viewport: viewportName, action: "Click link" }));
+}
+
+async function auditFirstLookFixedNavigation(page, viewport) {
+  await auditStep(Object.assign(async () => {
+    await gotoApp(page, "");
+    await page.evaluate(async () => {
+      window.history.scrollRestoration = "manual";
+      window.scrollTo({ top: 0, behavior: "auto" });
+      await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    });
+
+    const measured = await page.evaluate(() => {
+      const briefing = document.querySelector(".first-look-briefing");
+      const navigation = document.querySelector(".app-bottom-nav");
+      const visibleGeometry = (node) => {
+        if (node.getClientRects().length === 0) return false;
+        let current = node;
+        while (current && current !== document.documentElement) {
+          const style = getComputedStyle(current);
+          if (
+            style.display === "none"
+            || style.visibility === "hidden"
+            || Number.parseFloat(style.opacity) === 0
+            || current.getAttribute("aria-hidden") === "true"
+          ) {
+            return false;
+          }
+          current = current.parentElement;
+        }
+        return true;
+      };
+      const navigationRect = navigation?.getBoundingClientRect();
+      const renderedControls = briefing
+        ? [...briefing.querySelectorAll("a[href], button:not([disabled])")]
+          .filter(visibleGeometry)
+          .map((control) => {
+            const rect = control.getBoundingClientRect();
+            return {
+              bottom: rect.bottom,
+              label: (control.getAttribute("aria-label") || control.textContent || control.tagName)
+                .replace(/\s+/g, " ")
+                .trim()
+                .slice(0, 100),
+              left: rect.left,
+              right: rect.right,
+              top: rect.top,
+            };
+          })
+        : [];
+      const initialControls = renderedControls.filter(
+        (control) => control.bottom > 0 && control.top < window.innerHeight,
+      );
+      return {
+        briefingPresent: Boolean(briefing),
+        initialControls,
+        navigationPosition: navigation ? getComputedStyle(navigation).position : "missing",
+        navigationPresent: Boolean(navigation),
+        navigationRect: navigationRect
+          ? {
+            bottom: navigationRect.bottom,
+            left: navigationRect.left,
+            right: navigationRect.right,
+            top: navigationRect.top,
+          }
+          : null,
+        navigationVisible: Boolean(navigation && visibleGeometry(navigation)),
+        renderedControlCount: renderedControls.length,
+        scrollY: window.scrollY,
+      };
+    });
+
+    const obstructedInitialControls = measured.navigationRect
+      ? measured.initialControls.filter((control) => (
+        isFixedNavigationObstruction(control, measured.navigationRect)
+      ))
+      : [];
+    const controls = page.locator(
+      ".first-look-briefing a[href]:visible, .first-look-briefing button:not([disabled]):visible",
+    );
+    const totalControlCount = await controls.count();
+    const unreachableControls = [];
+    for (let index = 0; index < totalControlCount; index += 1) {
+      const control = controls.nth(index);
+      const label = await control.evaluate((node) => (
+        node.getAttribute("aria-label")
+        || node.textContent
+        || `${node.tagName.toLowerCase()} ${node.getAttribute("href") || ""}`
+      ).replace(/\s+/g, " ").trim().slice(0, 100));
+      await control.evaluate((node) => {
+        node.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
+      });
+      await page.evaluate(async () => {
+        await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+      });
+      const state = await control.evaluate((node, safetyGap) => {
+        const rect = node.getBoundingClientRect();
+        const navigation = document.querySelector(".app-bottom-nav");
+        const navigationRect = navigation?.getBoundingClientRect();
+        const centerX = rect.left + (rect.width / 2);
+        const centerY = rect.top + (rect.height / 2);
+        const hit = document.elementFromPoint(centerX, centerY);
+        let ancestor = node.parentElement;
+        let insideClippingAncestors = true;
+        while (ancestor && ancestor !== document.body) {
+          const style = getComputedStyle(ancestor);
+          const clipsX = /(auto|clip|hidden|scroll)/.test(style.overflowX);
+          const clipsY = /(auto|clip|hidden|scroll)/.test(style.overflowY);
+          if (clipsX || clipsY) {
+            const ancestorRect = ancestor.getBoundingClientRect();
+            if (
+              (clipsX && (rect.left < ancestorRect.left - 1 || rect.right > ancestorRect.right + 1))
+              || (clipsY && (rect.top < ancestorRect.top - 1 || rect.bottom > ancestorRect.bottom + 1))
+            ) {
+              insideClippingAncestors = false;
+              break;
+            }
+          }
+          ancestor = ancestor.parentElement;
+        }
+        return {
+          aboveFixedNavigation: Boolean(navigationRect)
+            && rect.top >= -1
+            && rect.bottom <= navigationRect.top - safetyGap,
+          contentFits: (
+            node.scrollWidth <= node.clientWidth + 1
+            && node.scrollHeight <= node.clientHeight + 1
+          ),
+          hitTarget: node === hit || node.contains(hit),
+          insideClippingAncestors,
+          insideViewportWidth: rect.left >= -1 && rect.right <= window.innerWidth + 1,
+          noHorizontalScroll: window.scrollX === 0,
+        };
+      }, fixedNavigationSafetyGap);
+      if (Object.values(state).some((value) => !value)) {
+        unreachableControls.push({ label, ...state });
+      }
+    }
+
+    const failures = [
+      measured.briefingPresent ? "" : "first-look briefing is missing",
+      measured.navigationPresent ? "" : "mobile bottom navigation is missing",
+      measured.navigationVisible ? "" : "mobile bottom navigation is hidden",
+      measured.navigationPosition === "fixed"
+        ? ""
+        : `bottom navigation position is ${measured.navigationPosition}`,
+      measured.scrollY <= 4 ? "" : `initial scroll position is ${measured.scrollY}`,
+      totalControlCount > 0 ? "" : "no rendered first-look controls were available to test",
+      measured.renderedControlCount === totalControlCount
+        ? ""
+        : `DOM and Playwright visible-control counts differ (${measured.renderedControlCount} vs ${totalControlCount})`,
+      obstructedInitialControls.length
+        ? `${obstructedInitialControls.length} initially visible control(s) enter the ${fixedNavigationSafetyGap}px navigation safety zone`
+        : "",
+      unreachableControls.length
+        ? `${unreachableControls.length} control(s) could not be scrolled clear of fixed navigation`
+        : "",
+    ].filter(Boolean);
+    addRow({
+      surface: "First-look fixed-navigation clearance",
+      viewport: `${viewport.width}x${viewport.height}`,
+      action: `Measure initially visible controls against the fixed navigation with a ${fixedNavigationSafetyGap}px safety gap`,
+      observed: JSON.stringify({
+        briefingPresent: measured.briefingPresent,
+        initialControlCount: measured.initialControls.length,
+        navigationPosition: measured.navigationPosition,
+        navigationPresent: measured.navigationPresent,
+        navigationRect: measured.navigationRect,
+        navigationVisible: measured.navigationVisible,
+        obstructedInitialControls,
+        renderedControlCount: measured.renderedControlCount,
+        scrollY: measured.scrollY,
+        totalControlCount,
+        unreachableControls,
+      }),
+      status: failures.length ? rowStatus.issue : rowStatus.pass,
+      severity: failures.length ? "P1" : "",
+      recommendation: failures.length ? failures.join("; ") : "",
+    });
+  }, {
+    surface: "First-look fixed-navigation clearance",
+    viewport: `${viewport.width}x${viewport.height}`,
+    action: "Measure mobile fixed-navigation obstruction",
+  }));
 }
 
 async function auditTabs(page, viewportName) {
@@ -1492,9 +1882,50 @@ function escapePipe(value) {
 }
 
 async function run() {
+  requiredDocumentDeploySha = parseExpectedDeployedSha(process.env.EXPECTED_DEPLOY_SHA);
   await mkdir(outDir, { recursive: true });
+  let deploymentCheck;
+  try {
+    deploymentCheck = await verifyDeployedCommit({
+      liveUrl: baseUrl,
+      expectedSha: requiredDocumentDeploySha,
+    });
+  } catch (error) {
+    await writeFile(
+      path.join(outDir, "deployment-integrity-error.txt"),
+      `${error.message}\n`,
+      "utf8",
+    );
+    throw error;
+  }
+  if (deploymentCheck.checked) {
+    console.log(
+      `Verified deployed commit SHA ${deploymentCheck.deployedSha} via ${deploymentCheck.metadataUrl}`,
+    );
+  } else {
+    console.log("Skipping deployed commit SHA check because EXPECTED_DEPLOY_SHA was not supplied.");
+  }
+
   const browser = await chromium.launch();
   try {
+    if (requiredDocumentDeploySha) {
+      const context = await browser.newContext({
+        viewport: { width: 1280, height: 900 },
+        colorScheme: "light",
+        reducedMotion: "reduce",
+      });
+      try {
+        await installRoutes(context);
+        const page = await context.newPage();
+        await gotoApp(page, "");
+        console.log(
+          `Verified loaded document SHA ${requiredDocumentDeploySha} through Chromium.`,
+        );
+      } finally {
+        await context.close();
+      }
+    }
+
     for (const ctx of contexts) {
       console.log(`Starting ${ctx.name} audit (${ctx.width}x${ctx.height})`);
       const context = await browser.newContext({
@@ -1516,6 +1947,26 @@ async function run() {
 
       await context.close();
     }
+
+    for (const ctx of firstLookObstructionContexts) {
+      console.log(`Starting first-look obstruction audit (${ctx.width}x${ctx.height})`);
+      const context = await browser.newContext({
+        viewport: { width: ctx.width, height: ctx.height },
+        colorScheme: "light",
+        reducedMotion: "reduce",
+      });
+      await installRoutes(context);
+      const page = await context.newPage();
+      await auditFirstLookFixedNavigation(page, ctx);
+      await context.close();
+    }
+  } catch (error) {
+    await writeFile(
+      path.join(outDir, "deployment-integrity-error.txt"),
+      `${error.message}\n`,
+      "utf8",
+    );
+    throw error;
   } finally {
     await browser.close();
   }
@@ -1523,6 +1974,9 @@ async function run() {
   const summary = {
     generatedAt: generatedAt.toISOString(),
     baseUrl,
+    deployedSha: deploymentCheck.deployedSha,
+    deploymentShaChecked: deploymentCheck.checked,
+    expectedDeployedSha: deploymentCheck.expectedSha,
     expectedVersion: meta.version,
     latestChangelogDate: changelog[0]?.date,
     totalRows: rows.length,
@@ -1535,6 +1989,8 @@ async function run() {
     "",
     `Generated: ${summary.generatedAt}`,
     `URL: ${baseUrl}`,
+    `Expected deployed commit SHA: ${summary.expectedDeployedSha || "not supplied"}`,
+    `Production deployed commit SHA: ${summary.deployedSha || "not checked"}`,
     `Expected version: v${summary.expectedVersion}`,
     `Latest changelog date: ${summary.latestChangelogDate}`,
     "",
@@ -1564,4 +2020,27 @@ async function run() {
   if (issues.length > 0) process.exitCode = 1;
 }
 
-await run();
+async function dispatchCli() {
+  const command = process.argv[2] || "";
+  if (command === "--self-test-cli") {
+    console.log("DIRECT_CLI=1");
+    return;
+  }
+  if (command === "--write-deployment-metadata") {
+    const distDir = path.resolve(process.argv[3] || "dist");
+    await writeDeploymentMetadata({
+      distDir,
+      commitSha: process.env.DEPLOYED_COMMIT_SHA,
+    });
+    console.log(`Deployment metadata written to ${distDir}`);
+    return;
+  }
+  if (command) {
+    throw new Error(`Unknown live-audit command: ${command}`);
+  }
+  await run();
+}
+
+if (isDirectCliInvocation(import.meta.url)) {
+  await dispatchCli();
+}

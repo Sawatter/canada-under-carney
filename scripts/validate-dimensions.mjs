@@ -972,8 +972,25 @@ for (const d of dimensions) {
     const advanced = cohortProjects.filter(
       (p) => p?.stageDate && p?.referredDate && p.stageDate > p.referredDate,
     ).length;
+    const advancedProjects = cohortProjects.filter(
+      (p) => p?.stageDate && p?.referredDate && p.stageDate > p.referredDate,
+    );
     const aboveDesignated = cohortProjects.filter((p) => p?.stage && p.stage !== "designated").length;
     const cohortTotal = cohortProjects.length;
+
+    // The rationale names the projects behind its progress count. An accurate
+    // number with an incomplete list is still not inspectable by a reader.
+    const missingRationaleProjects = advancedProjects.filter(
+      (project) => !d.rationale?.includes(project.name),
+    );
+    if (missingRationaleProjects.length) {
+      err(
+        name,
+        `rationale omits projects counted as post-referral advancement: `
+        + missingRationaleProjects.map((project) => project.name).join(", "),
+      );
+    }
+
     const WORDS = {
       one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9,
       ten: 10, eleven: 11, twelve: 12, thirteen: 13, fourteen: 14, fifteen: 15,
