@@ -92,6 +92,18 @@ class StatCanMetricContractTests(unittest.TestCase):
         errors = statcan_metric_contract_errors(self.dimensions)
         self.assertEqual([], errors, "\n".join(errors))
 
+    def test_trade_binding_uses_principal_partner_table(self):
+        table = FETCH_DATA.STATCAN_VECTORS["trade"]
+        self.assertEqual("12-10-0011-01", table["pid"])
+        self.assertEqual(
+            "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101",
+            table["url"],
+        )
+        references = FETCH_DATA.collect_statcan_dashboard_references(
+            self.dimensions, table["pid"]
+        )
+        self.assertEqual(2, len(references))
+
     def test_missing_source_id_binding_fails(self):
         table_name, table = self.table_items[0]
         pid = table["pid"]

@@ -775,12 +775,20 @@ def deterministic_success_shape_errors(results):
     ircc_keys = DETERMINISTIC_OBJECT_RESULT_FAMILIES[1][1]
     for key in ircc_keys:
         value = results.get(key)
-        if not isinstance(value, dict) or value.get("status") != "success":
+        if not isinstance(value, dict):
+            continue
+        status = value.get("status")
+        if status == "malformed_data":
+            detail = value.get("error")
+            suffix = f": {detail}" if isinstance(detail, str) and detail.strip() else ""
+            errors.append(f"{key} returned malformed_data{suffix}")
+            continue
+        if status != "success":
             continue
         rows = value.get("rows")
         if isinstance(rows, bool) or not isinstance(rows, int) or rows <= 0:
             errors.append(f"{key} success result has no positive row count")
-        for field in ("header", "last_row"):
+        for field in ("header", "last_row", "latest_period"):
             if not isinstance(value.get(field), str) or not value[field].strip():
                 errors.append(f"{key} success result is missing {field}")
 
@@ -1438,6 +1446,21 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
                 f"cited on the dashboard. Released {meta.get('releaseTime')}."
             )
             add(url, "statcan_wds", title, snippet, published=meta.get("releaseTime"))
+
+    # IRCC failures are retained as access or data-quality exceptions even when
+    # the result family is structurally present.
+    for key in DETERMINISTIC_OBJECT_RESULT_FAMILIES[1][1]:
+        value = results.get(key)
+        if not isinstance(value, dict) or value.get("status") == "success":
+            continue
+        detail = value.get("status") or "missing status"
+        if value.get("error"):
+            detail = f"{detail}: {value['error']}"
+        access_failures.append({
+            "surface": key,
+            "method": "csv",
+            "detail": detail,
+        })
 
     # PBO feed -> publications not already cited
     pbo = results.get("pbo_feed") or {}

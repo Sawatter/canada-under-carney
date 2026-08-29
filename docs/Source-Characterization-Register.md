@@ -171,7 +171,7 @@ Granularity rule:
 - **Dimensions used:** Defence & Trade
 - **Institution type:** Federal department (executive branch)
 - **Ownership / funding:** Government of Canada
-- **Editorial independence / governance:** Executive department; Monthly Trade Report is a data-driven publication based on StatsCan table 12-10-0176-01
+- **Editorial independence / governance:** Executive department; Monthly Trade Report is a data-driven publication based on StatsCan table 12-10-0011-01
 - **Grounded ideological tendency:** None
 - **Best-use boundary:** Grade-moving for the Monthly Trade Report series (Tier 1, data-driven); ministerial statements would be Tier 4
 - **Strongest SAM-role fit:** Measurement truth

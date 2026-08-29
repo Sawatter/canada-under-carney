@@ -551,7 +551,7 @@ The cohort total is the universe of projects on the latest live `projectCohort.p
 
 **Minimum indicators:**
 - NATO spending as % GDP (confirmed by NATO, not just domestic claim)
-- US export share (StatsCan 12-10-0176-01)
+- US export share (StatsCan 12-10-0011-01)
 - Non-US export growth rate
 - EU/CETA-region export growth (Global Affairs Canada Monthly Trade Report; substituted for prior "CETA utilization value" in March 2026 cycle because the $134B figure could not be verified from any accessed source, EU export growth is a verified proxy from the same Tier 1 source)
 - Defence procurement milestones (DND)

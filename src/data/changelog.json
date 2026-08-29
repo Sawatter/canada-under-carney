@@ -1,5 +1,32 @@
 [
   {
+    "date": "2026-08-28",
+    "version": "5.177",
+    "summary": "Corrected the source contracts behind the trade and immigration metrics and recorded the August 28 September-cycle checkpoint. The trade monitor now follows the StatCan partner table named by Global Affairs Canada, and the immigration decline figures now link to direct IRCC new-arrival counts. No grade or score changed.",
+    "items": [
+      {
+        "type": "fix",
+        "headline": "Trade monitoring follows the partner table",
+        "body": "The trade monitor was pointed at a StatCan industry table that could not support U.S. and non-U.S. export shares. It now uses table 12-10-0011-01, the principal-trading-partner table named in Global Affairs Canada's December 2025 report. The published values and grade are unchanged."
+      },
+      {
+        "type": "fix",
+        "headline": "Immigration declines link to direct IRCC counts",
+        "body": "The two decline metrics now link to IRCC's official January through September 2025 new-arrival counts. Their notes no longer claim that separate permit-holder downloads reproduce those figures, and the metrics are correctly marked for manual review. The displayed values are unchanged."
+      },
+      {
+        "type": "fix",
+        "headline": "IRCC freshness uses the newest dated row",
+        "body": "IRCC downloads are not sorted by date. The fetch check now reads every row and reports the newest year and month instead of treating the final physical row as the latest observation. A malformed or empty file stops the check."
+      },
+      {
+        "type": "docs",
+        "headline": "September evidence checkpoint recorded",
+        "body": "The August 28 checkpoint records 15 official evidence families and a 560-row source ledger. The August 29 through 31 window, September 1 scout, editor questions, and final grade or status calls remain open."
+      }
+    ]
+  },
+  {
     "date": "2026-08-26",
     "version": "5.176",
     "summary": "Corrected the Major Projects explanation so the five counted projects are named. Release checks now confirm the browser loaded the expected deployment and keep phone controls clear of fixed navigation. Monthly source tools were refreshed. No grade or score changed.",

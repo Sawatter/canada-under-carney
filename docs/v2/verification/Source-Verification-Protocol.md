@@ -2,7 +2,7 @@
 
 - **Purpose:** Define the claim-level checks used when current QA rules require source review.
 - **Status:** Active narrow companion to QA-Gatekeeping-Rules.md. It does not invoke the closed v2 shadow cycle or replace the monthly playbook.
-- **Last updated:** 2026-08-26
+- **Last updated:** 2026-08-28
 - **Depends on:** QA-Gatekeeping-Rules.md, Measure-Selection-Rules.md, Deconfliction-Matrix.md, DATA-SOURCES.md, Scoring-Rubric-v1.1.md, Source-Authority-Map.md
 - **Used by:** QA-Gatekeeping-Rules.md and Carry-Forward-Rules.md. Historical workflow and template files retain references for provenance only.
 
@@ -99,7 +99,7 @@ A single authoritative source is sufficient when the claim is a direct value fro
 | Employment/unemployment | Statistics Canada | 14-10-0287-01 |
 | Population estimates | Statistics Canada | 17-10-0009-01 |
 | Housing starts | CMHC via StatsCan | 34-10-0158-01 |
-| Trade by country | Statistics Canada | 12-10-0176-01 |
+| Trade by principal trading partner | Statistics Canada | 12-10-0011-01 |
 | GDP per capita | Statistics Canada | 36-10-0104-01 |
 | Defence spending % GDP | NATO Annual Report / World Bank | MS.MIL.XPND.GD.ZS |
 | Federal deficit | PBO or Finance Canada Fiscal Monitor | Per publication |

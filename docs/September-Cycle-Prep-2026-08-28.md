@@ -2,7 +2,8 @@
 
 **Evidence window:** 2026-08-01 through 2026-08-31
 **Preparation checkpoint:** 2026-08-28
-**Dashboard baseline:** v5.176 at commit `51b26ee`
+**Dashboard baseline:** v5.176 repository state at commit `b80c9a0`; the
+user-facing v5.176 content last changed at release commit `c73ca98`
 **Decision boundary:** Evidence preparation only. No grade, promise-status,
 methodology, threshold, or frozen-surface call is made here.
 
@@ -14,12 +15,13 @@ negative findings must be refreshed after the full evidence window ends.
 
 | Work item | Checkpoint result | Remaining gate |
 |---|---|---|
-| Four IRCC downloads | All four official binaries returned and parsed | Compare the June 2026 data during editor-gated September adjudication |
+| Four IRCC downloads | All four official binaries returned and parsed; freshness now uses the newest dated row rather than file order | Compare the June 2026 permit-holder data during editor-gated September adjudication |
 | Moody's sovereign watch | Official Ratings News search returned no matching August action; issuer detail remains sign-in gated | Retain the access exception and do not infer a rating |
 | Housing DCRP watch | Three new conditional municipal allocations found; disbursement and construction condition remains unmet | Recheck after August 31 and on any new official event |
-| Source ledger | 540 rows at the checkpoint; open validator passes | Close August 29-31, run the September 1 scout, adjudicate candidates, then require all rows closed |
+| Official publisher sweep | 15 new evidence families were found for August 15-28; 10 are evidence-only, 4 need active editor review, and 1 remains parked with Major Projects | Recheck August 29-31, adjudicate the four active questions, and keep the fifth parked |
+| Source ledger | 560 rows; 531 have dated dispositions, including 475 rows deferred by cadence; 29 remain open | Close August 29-31, run the September 1 scout, adjudicate candidates, then require all rows closed |
 | Policy history | Three chronology defects confirmed | Editor must define date semantics before data correction |
-| Monthly scout | August run was fail-open after Anthropic reported insufficient credit | Fail-closed code must pass, and the Anthropic account needs usable API credit before September 1 |
+| Monthly scout | Fail-closed hardening and deterministic checks are in the accepted branch state | The Anthropic account still needs usable API credit before September 1, and the hardened workflow needs a live run |
 
 ## Source Results
 
@@ -39,6 +41,12 @@ provide independent cached copies.
 Every row had the expected column count. No blank records or invalid date rows
 were found. The prior binary-download exception is resolved. These access and
 shape checks do not decide whether the data changes the Immigration grade.
+
+The three temporary-resident downloads contain permit-holder records, including
+renewals. The permanent-resident file contains admissions. None reproduces the
+dashboard's two new-arrival decline metrics. Those metrics now cite IRCC's
+direct January through September 2025 new-arrival counts and are marked for
+manual review. The displayed 53% and 60% values did not change.
 
 ### Moody's
 
@@ -70,6 +78,12 @@ says provinces submit priority projects after agreements are signed. The
 [Ontario DCRP page](https://www.ontario.ca/page/development-charge-reduction-program)
 lists no approval, TPA, payment, or construction register.
 
+Toronto's [development-charges control page](https://www.toronto.ca/city-government/budget-finances/city-finance/development-charges/)
+says the amended by-law remains subject to a Transfer Payment Agreement with
+Ontario and that more information will follow once the agreement is received.
+This is dated support for the hold, not proof that no unpublished agreement
+exists.
+
 The [Ontario guidelines](https://www.ontario.ca/files/2026-06/mmah-dcrp-application-guidelines-and-faq-en-2026-06-01.pdf)
 say TPAs had to be executed before August 15, 2026. The August 26 and 28
 releases still describe them as future conditions. No official amendment or
@@ -82,6 +96,43 @@ construction was found on the checked pages. The Housing disbursement or
 construction condition remains unmet. This dated hold is not proof that no
 unpublished action exists, and it does not move the grade automatically.
 
+The separate July starts release exposed a measure conflict. The live Housing
+rationale says the dashboard reads CMHC's six-month trend, while
+`docs/Measure-Selection-Rules.md` names monthly SAAR as the primary starts
+measure. July's SAAR was 229,074 and the trend was 247,377, placing the two
+measures on opposite sides of the 240,000 condition. No trigger treatment is
+applied until the editor resolves the governing measure.
+
+## August 15-28 Official Sweep
+
+A code-reconciled sweep covered 241 federal archive rows and 63 Ontario archive
+rows. It produced 15 new evidence families across 17 official URLs. None of the
+new URLs was already in the prep baseline, and all four known DCRP duplicates
+were correctly excluded from the new set.
+
+Ten evidence-only families are recorded in the ledger: July CPI, Ontario
+infrastructure funding, the tariff-response package, internal-trade execution,
+the Q2 current account, the Craig Mine milestone, two conservation outcomes,
+Q2 GDP and investment, and the June Fiscal Monitor. They supply current facts
+or context but do not make a grade or promise-status decision.
+
+Four questions enter active September adjudication. One remains editor-parked:
+
+1. Whether the Labrador Trough clean-energy package belongs inside the existing
+   national-grid promise scope.
+2. Whether Housing's 240,000 condition is governed by monthly SAAR or CMHC's
+   six-month trend.
+3. Whether Ottawa's August 19 page proves construction when it calls the event
+   a groundbreaking but also says construction is expected later in 2026 and
+   federal funding remains conditional.
+4. Whether the new goods-and-services non-U.S. share from State of Trade 2026
+   should sit beside or replace the current goods-only measure.
+5. How the August 28 Building Canada Act pre-listing notices affect the Major
+   Projects cohort. This remains parked with the wider Major Projects rules.
+
+No direct material event was found for Carbon Pricing Policy, Immigration,
+Ethics & Transparency, or standalone Flagship Delivery during this sweep.
+
 ## Ledger State
 
 The generated ledger now names its prior-calendar-month evidence window and
@@ -90,8 +141,11 @@ source rows and order remain stable across month boundaries.
 
 Checkpoint facts, computed by the scripts:
 
-- 540 rows: 45 monthly, 16 event-driven, 137 quarterly, and 342 twice-yearly.
-- 186 unique cited URLs across 339 citation surfaces.
+- 560 rows: 63 monthly, 16 event-driven, 137 quarterly, and 344 twice-yearly.
+- 531 rows have dated dispositions. Of those, 475 were marked `not due` because
+  the July 1 recertification remains current and no early trigger was found.
+- 29 monthly or event-driven rows remain open for the full-window pass.
+- 186 unique cited URLs across 341 citation surfaces.
 - The canonical fetch result was generated on 2026-08-28.
 - Link scan checked 150 URLs: 144 live, 6 blocked, 0 broken, and 0 errors.
 - Bias-resistance audit flagged 8 of 12 dimensions, the same total recorded for
@@ -101,8 +155,10 @@ Checkpoint facts, computed by the scripts:
   `--require-closed` gate until the full window is reviewed.
 
 The canonical fetch also flagged newer StatCan periods for CPI, Labour Force
-Survey, population, housing starts, and trade. These are September 1 evidence
-candidates, not automatic dashboard updates.
+Survey, population, housing starts, and trade. The trade binding was corrected
+from an industry table to StatCan table 12-10-0011-01, the principal trading
+partner table named in Global Affairs Canada's December 2025 report. These are
+September 1 evidence candidates, not automatic dashboard updates.
 
 ## History Sequence
 
@@ -187,7 +243,7 @@ insufficient-credit error. The workflow still ended successfully because the
 monitor treated classification failure as a warning. That is a release-control
 defect.
 
-The current hardening work makes live and backtest runs fail when required
+The accepted hardening makes live and backtest runs fail when required
 Tavily search or Anthropic classification does not complete. It also prevents
 failed candidates from advancing monitor state, so a retry cannot suppress
 unclassified evidence and pass with an empty result. Strict deterministic runs
@@ -204,7 +260,8 @@ dashboard metric with the matching `sourceId` and a parseable reference period.
 
 Repository secrets for Tavily and Anthropic exist, but secret presence does not
 prove usable Anthropic credit. The September 1 scout remains externally blocked
-until the account can complete a classified request.
+until the account can complete a classified request. No post-hardening workflow
+run has yet proved the live path.
 
 ## September 1 Runbook
 

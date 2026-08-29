@@ -42,7 +42,7 @@
 **Trade sub-score:**
 - Primary: US share of Canadian merchandise exports (annual average)
 - Exact label: "US export share (annual avg)"
-- Source: StatsCan Table 12-10-0176-01, annual average from December trade release
+- Source: StatsCan Table 12-10-0011-01, annual average from December trade release
 - Comparison window: Full-year annual average. Do NOT use a single month to claim annual trend.
 - Fallback: Monthly trade data — context for direction of travel, labeled "monthly, volatile"
 

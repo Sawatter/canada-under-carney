@@ -37,7 +37,7 @@ the live source.
 | StatCan Labour Force Survey | Monthly LFS release | Economic Policy Response | Automated WDS metadata check in script; exact value still editor-reviewed | Employment change, unemployment rate table freshness | Labour-market metric changes materially |
 | StatCan population | Table 17-10-0009-01 | Immigration | Automated WDS metadata check in script; exact value still editor-reviewed | Temporary resident share context table freshness | TR-share threshold or context changes |
 | StatCan housing starts | Table 34-10-0158-01 plus CMHC release | Housing Supply | Automated WDS metadata check in script; CMHC release manual | Six-month trend and monthly SAAR table freshness | Starts trend crosses trigger floor |
-| StatCan merchandise trade | Table 12-10-0176-01 | Defence & Trade | Automated WDS metadata check in script; exact value still editor-reviewed | U.S. export share / non-U.S. share table freshness | Trade-share trigger movement |
+| StatCan merchandise trade | Table 12-10-0011-01 | Defence & Trade | Automated WDS metadata check in script; exact value still editor-reviewed | U.S. export share / non-U.S. share table freshness | Trade-share trigger movement |
 | IRCC PR admissions | IRCC open-data CSV | Immigration | Downloaded by script | PR admission pace | PR-target interpretation changes |
 | IRCC work and study permits | IRCC open-data CSVs | Immigration | Downloaded by script | Temporary-resident pressure | Permit trends change enough to affect status |
 | Bank of Canada FX | Valet `FXCADUSD` | Economic / immigration context | Automated | CAD/USD observation | Context only unless cited metric changes |

@@ -353,12 +353,13 @@
    [August 28 preparation checkpoint](September-Cycle-Prep-2026-08-28.md)
    resolved all four IRCC binary-download exceptions, recorded the Moody's
    detail-page exception, added three conditional DCRP municipal allocations,
-   generated a valid 540-row ledger, and identified three history chronology
-   defects. The ledger remains open for August 29-31, the September 1 scout,
-   candidate adjudication, and editor-gated grade or status calls. The scout
-   must fail closed, and its Anthropic account needs usable API credit before
-   the run. Priority reason: the evidence window cannot be closed early or by
-   inference.
+   and reconciled 15 official evidence families from August 15-28. The valid
+   560-row ledger has 531 dated dispositions, including 475 cadence deferrals,
+   with 29 monthly or event-driven rows still open. The ledger remains open for
+   August 29-31, the September 1 scout, candidate adjudication, and editor-gated
+   grade or status calls. The scout must fail closed, and its Anthropic account
+   needs usable API credit before the run. Priority reason: the evidence window
+   cannot be closed early or by inference.
 
 ---
 
@@ -373,6 +374,17 @@
    before any correction release. Priority reason: history must not be silently
    rewritten without one durable date rule or an explicit override of the
    existing no-rewrite policies.
+
+2. **Adjudicate four evidence-scope questions after the final August sweep.**
+   Decide whether the Labrador Trough package belongs under the national-grid
+   promise, whether Housing's 240,000 condition uses monthly SAAR or the
+   six-month trend, whether the August 19 Ottawa page establishes construction,
+   and whether State of Trade 2026's goods-and-services share belongs beside or
+   instead of the current goods-only measure. The Building Canada Act
+   pre-listing question remains parked with the wider Major Projects rules.
+   Priority reason: the official evidence is recorded, but these scope and
+   measure choices cannot be inferred without changing how the dashboard reads
+   it.
 
 ---
 

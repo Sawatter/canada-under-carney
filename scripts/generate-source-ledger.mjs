@@ -393,7 +393,7 @@ const monthlyRows = [
   ["StatCan Labour Force Survey", "Economic Policy Response", "Statistics Canada LFS release", "Monthly", "", "", "", "Check employment change and unemployment rate; fetch script flags newer WDS cubeEndDate."],
   ["StatCan population", "Immigration", "Table 17-10-0009-01", "Monthly / quarterly data", "", "", "", "Check temporary-resident share context when new data lands; fetch script flags newer WDS cubeEndDate."],
   ["StatCan housing starts", "Housing Supply", "Table 34-10-0158-01 plus CMHC release", "Monthly", "", "", "", "Check monthly SAAR and six-month trend; fetch script flags newer WDS cubeEndDate."],
-  ["StatCan merchandise trade", "Defence & Trade", "Table 12-10-0176-01", "Monthly", "", "", "", "Check U.S. export share and non-U.S. share; fetch script flags newer WDS cubeEndDate."],
+  ["StatCan merchandise trade", "Defence & Trade", "Table 12-10-0011-01", "Monthly", "", "", "", "Check U.S. export share and non-U.S. share; fetch script flags newer WDS cubeEndDate."],
   ["IRCC PR admissions", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check PR admission pace."],
   ["IRCC IMP work permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
   ["IRCC TFWP work permits", "Immigration", "IRCC open-data CSV", "Monthly", "", "", "", "Check temporary-resident pressure."],
@@ -603,7 +603,7 @@ const output = `# Source Coverage Ledger - ${monthName}
 **Cycle month:** ${monthArg}
 **Evidence window:** ${evidenceWindow}
 **Generated:** ${new Date().toISOString().slice(0, 10)}
-**Live dashboard version:** v${meta.version} (as of ${meta.lastUpdated})
+**Repository version:** v${meta.version} (as of ${meta.lastUpdated})
 **Total source rows:** ${allRows.length} (Monthly ${monthlyRowsSorted.length}, Event-Driven ${eventRowsSorted.length}, Quarterly ${quarterlyRowsSorted.length}, Twice-Yearly ${twiceYearlyRowsSorted.length})
 **Automation split:** ${automatedCount} automated by \`scripts/fetch-data.py\`, ${manualCount} manual
 **Coverage level achieved:** fill in after cycle closes

@@ -44,6 +44,7 @@ const openRows = [];
 const notCheckedRows = [];
 const closedRowsWithoutDate = [];
 const blockedWithoutFallback = [];
+const notDueWithoutNextDue = [];
 
 for (const row of ledgerRows) {
   if (row.result && !RESULT_VALUES.has(row.result)) {
@@ -60,6 +61,9 @@ for (const row of ledgerRows) {
   }
   if (requireClosed && row.result === "blocked" && !`${row.action} ${row.notes}`.trim()) {
     blockedWithoutFallback.push(row);
+  }
+  if (row.result === "not due" && !/\bnext due\b/i.test(`${row.action} ${row.notes}`)) {
+    notDueWithoutNextDue.push(row);
   }
 }
 
@@ -81,6 +85,17 @@ if (invalidResults.length) {
     console.error(`- ${row.result} :: ${row.source}`);
   }
   if (invalidResults.length > 20) console.error(`...and ${invalidResults.length - 20} more`);
+}
+
+if (notDueWithoutNextDue.length) {
+  failed = true;
+  console.error(`Not-due row(s) without a next due point: ${notDueWithoutNextDue.length}`);
+  for (const row of notDueWithoutNextDue.slice(0, 20)) {
+    console.error(`- ${row.source} (${row.cadence})`);
+  }
+  if (notDueWithoutNextDue.length > 20) {
+    console.error(`...and ${notDueWithoutNextDue.length - 20} more`);
+  }
 }
 
 if (requireClosed && openRows.length) {

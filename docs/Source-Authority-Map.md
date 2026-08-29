@@ -418,7 +418,7 @@ Source: [docs/Canonical-Scoring-Sheets.md](Canonical-Scoring-Sheets.md:515)
 
 | Role | Preferred primary | Acceptable corroborators |
 |---|---|---|
-| Measurement truth | NATO annual defence-spending tables [QA T1]; StatsCan trade by country table 12-10-0176-01 [QA T1]; Global Affairs Monthly Trade Report [QA T1 when used as the official synthesis of the StatsCan data] | Additional Global Affairs trade releases [QA T1] |
+| Measurement truth | NATO annual defence-spending tables [QA T1]; StatsCan principal trading partner table 12-10-0011-01 [QA T1]; Global Affairs Monthly Trade Report [QA T1 when used as the official synthesis of the StatsCan data] | Additional Global Affairs trade releases [QA T1] |
 | Policy truth | Budget 2025 defence/trade commitments [QA T1/T4 depending document type]; official legislation and government program documents for interprovincial reform and trade diversification [QA T1/T4 depending document type] | PMO announcement pages [QA T4 as context/policy corroboration only] |
 | Execution truth | NATO annual report confirmation of 2% delivery [QA T1]; official trade data showing export-share movement [QA T1]; direct procurement milestone reporting [QA T1/T4 depending document type] | Legislative completion evidence for interprovincial trade reform [QA T1] |
 | Independent challenge truth | Policy Options / IRPP [QA T2]; other disclosed-methodology institutional analysis on defence affordability or trade-driver attribution [QA T2] | Academic or think-tank scrutiny of accounting caveats, funding paths, or trade-war confounding [QA T2/T3] |

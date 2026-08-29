@@ -16,6 +16,8 @@ Outputs (in scripts/output/):
 """
 
 import argparse
+import csv
+import io
 import json
 import os
 import re
@@ -71,11 +73,11 @@ STATCAN_VECTORS = {
         "description": "Canada Mortgage and Housing Corporation, housing starts",
         "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410015801",
     },
-    # International merchandise trade by country
+    # International merchandise trade by principal trading partner
     "trade": {
-        "pid": "12-10-0176-01",
-        "description": "Merchandise imports and exports by country",
-        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601",
+        "pid": "12-10-0011-01",
+        "description": "International merchandise trade by principal trading partner",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101",
     },
 }
 
@@ -97,6 +99,15 @@ IRCC_DATASETS = {
         "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-IS_PT_study.csv",
         "description": "Study permit holders by province/territory and study level, monthly",
     },
+}
+
+IRCC_MONTH_NUMBERS = {
+    month: index
+    for index, month in enumerate(
+        ("Jan", "Feb", "Mar", "Apr", "May", "Jun",
+         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"),
+        start=1,
+    )
 }
 
 # --- Bank of Canada Valet API ---
@@ -288,12 +299,50 @@ def fetch_ircc_csv(dataset_key):
     try:
         resp = requests.get(info["url"], timeout=30)
         if resp.status_code == 200:
-            lines = resp.text.strip().split("\n")
+            lines = [line for line in resp.text.splitlines() if line.strip()]
+            if not lines:
+                return {"status": "malformed_data", "error": "empty response"}
+
+            reader = csv.DictReader(io.StringIO("\n".join(lines)), delimiter="\t")
+            required_fields = {"EN_YEAR", "EN_MONTH"}
+            if not reader.fieldnames or not required_fields.issubset(reader.fieldnames):
+                return {
+                    "status": "malformed_data",
+                    "error": "missing EN_YEAR or EN_MONTH column",
+                }
+
+            rows = list(reader)
+            if not rows:
+                return {"status": "malformed_data", "error": "no data rows"}
+
+            parsed_periods = []
+            for row in rows:
+                try:
+                    year = int((row.get("EN_YEAR") or "").strip())
+                except ValueError:
+                    continue
+                month_token = (row.get("EN_MONTH") or "").strip()[:3].title()
+                month = IRCC_MONTH_NUMBERS.get(month_token)
+                if month:
+                    parsed_periods.append((year, month))
+
+            if len(parsed_periods) != len(rows):
+                return {
+                    "status": "malformed_data",
+                    "error": (
+                        f"{len(rows) - len(parsed_periods)} row(s) have an invalid period"
+                    ),
+                }
+
+            latest_year, latest_month = max(parsed_periods)
             return {
                 "status": "success",
-                "rows": len(lines) - 1,  # exclude header
-                "header": lines[0] if lines else "",
-                "last_row": lines[-1] if len(lines) > 1 else "",
+                "rows": len(rows),
+                "header": lines[0],
+                # Kept for the strict monitor result-shape contract. IRCC files
+                # are not sorted chronologically, so this is never freshness.
+                "last_row": lines[-1] if rows else "",
+                "latest_period": f"{latest_year:04d}-{latest_month:02d}",
             }
         return {"status": "http_error", "code": resp.status_code}
     except Exception as e:
@@ -1324,8 +1373,8 @@ def generate_fetch_report(dimensions, results):
         rows = result.get("rows", "?")
         lines.append(f"  [{key}] {info['description']}")
         lines.append(f"    Status: {status} ({rows} rows)")
-        if result.get("last_row"):
-            lines.append(f"    Latest row: {result['last_row'][:100]}")
+        if result.get("latest_period"):
+            lines.append(f"    Latest period: {result['latest_period']}")
         lines.append("")
 
     # Bank of Canada

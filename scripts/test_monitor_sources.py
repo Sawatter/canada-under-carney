@@ -128,15 +128,19 @@ def complete_fetch_payload(seed=None, coverage=None):
         },
         "ircc_permanent_residents": {
             "status": "success", "rows": 1, "header": "header", "last_row": "row",
+            "latest_period": "2026-06",
         },
         "ircc_work_permits_imp": {
             "status": "success", "rows": 1, "header": "header", "last_row": "row",
+            "latest_period": "2026-06",
         },
         "ircc_work_permits_tfwp": {
             "status": "success", "rows": 1, "header": "header", "last_row": "row",
+            "latest_period": "2026-06",
         },
         "ircc_study_permits": {
             "status": "success", "rows": 1, "header": "header", "last_row": "row",
+            "latest_period": "2026-06",
         },
         "boc_fx": {
             "status": "success",
@@ -662,6 +666,30 @@ def main():
 
     check("complete deterministic fixture satisfies strict coverage",
           not strict_payload_errors(complete_zero_fetch))
+
+    missing_latest_period = complete_fetch_payload(
+        coverage=deterministic_coverage)
+    del missing_latest_period["results"]["ircc_permanent_residents"]["latest_period"]
+    missing_latest_errors = strict_payload_errors(missing_latest_period)
+    check("IRCC success payload requires latest period",
+          any("ircc_permanent_residents success result is missing latest_period" in error
+              for error in missing_latest_errors))
+
+    malformed_ircc_fetch = complete_fetch_payload(
+        coverage=deterministic_coverage)
+    malformed_ircc_fetch["results"]["ircc_permanent_residents"] = {
+        "status": "malformed_data",
+        "error": "empty response",
+    }
+    malformed_ircc_run = run_acceptance_fixture(
+        malformed_ircc_fetch, search_result=([], []))
+    check("malformed IRCC data fails strict acceptance and records the exception",
+          malformed_ircc_run["result"] == 1 and
+          "returned malformed_data: empty response" in
+          malformed_ircc_run["ledger"]["tiers"]["deterministic"] and
+          malformed_ircc_run["ledger"]["counts"]["accessFailures"] == 1)
+    check("malformed IRCC data does not advance state",
+          malformed_ircc_run["state"] == malformed_ircc_run["initialState"])
 
     truncated_success_cases = (
         ("StatCan", "statcan_food_cpi", {"status": "accessible"}),

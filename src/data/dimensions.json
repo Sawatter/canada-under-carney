@@ -92,7 +92,7 @@
           "text": "Trade sub-score: the annual non-U.S. export-share gain reaches roughly 5 points or more and holds beyond one-month volatility",
           "setDate": "2026-07-21",
           "sourceLabel": "StatsCan trade data and Global Affairs annual synthesis",
-          "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
+          "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101"
         }
       ],
       "down": [
@@ -106,7 +106,7 @@
           "text": "Trade sub-score: the annual non-U.S. export-share movement no longer meets the roughly 1-to-5-point gain with execution required for B",
           "setDate": "2026-07-21",
           "sourceLabel": "StatsCan trade data and Global Affairs annual synthesis",
-          "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
+          "sourceUrl": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101"
         }
       ]
     },
@@ -132,8 +132,8 @@
       },
       {
         "label": "StatsCan trade data",
-        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601",
-        "date": "2026-06-14",
+        "url": "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101",
+        "date": "2026-08-28",
         "dateKind": "as-of"
       },
       {
@@ -193,7 +193,7 @@
         "lead": true,
         "value": "71.7%",
         "source": "global-affairs-canada",
-        "sourceId": "12-10-0176-01",
+        "sourceId": "12-10-0011-01",
         "sourceNote": "Global Affairs Canada's December 2025 report says the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025. The May 2026 report shows U.S. exports of $53.724 billion out of $77.099 billion in total goods exports, about 69.7% for that month. The dashboard does not use a single-month share for the grade trigger.",
         "automatable": true,
         "sourceRefs": [
@@ -208,7 +208,7 @@
         "lead": true,
         "value": "+17.2%",
         "source": "global-affairs-canada",
-        "sourceId": "12-10-0176-01",
+        "sourceId": "12-10-0011-01",
         "sourceNote": "Global Affairs Canada's December 2025 report says annual goods exports to non-U.S. countries rose 17.2% to an all-time high. The May 2026 report shows $23.375 billion in non-U.S. goods exports for the month; the annual figure remains the grading evidence.",
         "automatable": true,
         "sourceRefs": [
@@ -2925,20 +2925,34 @@
         "automatable": false
       },
       {
-        "label": "Temp arrivals change (Jan-Sep 2025 vs 2024)",
+        "label": "New student and worker arrivals change (Jan-Sep 2025 vs 2024)",
         "lead": true,
         "value": "-53%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 53% decline in new international students and temporary workers, Jan-Sep 2025 vs same period 2024. IRCC open data portal pages cover work permits and study permits. Note: IRCC open data shows a 55% work permit decline and a 76% study permit decline for Jan-Jun 2025 vs Jan-Jun 2024. The 53% figure covers a broader group (students and workers combined) over a longer period (Jan-Sep).",
-        "automatable": true
+        "sourceNote": "The dashboard sums IRCC's 100,580 new student arrivals and 171,815 new worker arrivals from January through September 2025 to 272,395. IRCC says the combined total was 308,880 lower than in the same 2024 period, implying a 581,275 baseline and a 53.1% decline. Permit-holder downloads cannot reproduce this new-arrival measure, so it is reviewed manually.",
+        "sourceRefs": [
+          {
+            "primary": true,
+            "label": "IRCC Temporary Resident Targets, December 4, 2025",
+            "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html"
+          }
+        ],
+        "automatable": false
       },
       {
-        "label": "Student permits change (Jan-Sep 2025 vs 2024)",
+        "label": "New international student arrivals change (Jan-Sep 2025 vs 2024)",
         "lead": true,
         "value": "-60%",
         "source": "ircc",
-        "sourceNote": "IRCC data via media reporting (Dec 2025): 60% decline in new international student arrivals, Jan-Sep 2025 vs same period 2024 (150,220 fewer students). IRCC open data portal provides the study-permit series. Note: IRCC open data shows a 76% decline for the Jan-Jun period specifically. The 60% figure covers the longer Jan-Sep window.",
-        "automatable": true
+        "sourceNote": "IRCC reported 100,580 new international student arrivals from January through September 2025, 150,220 fewer than in the same 2024 period. That is a 59.9% decline from the implied 250,800 baseline. This is a new-arrival measure, not all permits issued or all permit holders, so it is reviewed manually.",
+        "sourceRefs": [
+          {
+            "primary": true,
+            "label": "IRCC Temporary Resident Targets, December 4, 2025",
+            "url": "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/transparency/committees/cimm-dec-04-2025/temporary-resident-target.html"
+          }
+        ],
+        "automatable": false
       },
       {
         "label": "Population change (2025)",
@@ -2990,7 +3004,7 @@
         "text": "Student/TFW/asylum stream reform",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Student permits down 60%. TFW program tightened. Asylum stream reforms pending.",
+        "evidence": "New international student arrivals down 60%. TFW program tightened. Asylum stream reforms pending.",
         "durability": "Commitment",
         "history": [
           {

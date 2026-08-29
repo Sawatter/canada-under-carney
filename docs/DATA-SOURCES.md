@@ -73,7 +73,7 @@ Inclusion here is not an endorsement; it is a record of families that have been 
 | Employment/Unemployment | Statistics Canada | 14-10-0287-01 | Monthly | [Link](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1410028701) |
 | Population estimates | Statistics Canada | 17-10-0009-01 | Quarterly | [Link](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1710000901) |
 | Housing starts | CMHC via StatCan | 34-10-0158-01 | Monthly | [Link](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3410015801) |
-| Trade by country | Statistics Canada | 12-10-0176-01 | Monthly | [Link](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601) |
+| Trade by principal trading partner | Statistics Canada | 12-10-0011-01 | Monthly | [Link](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101) |
 | GDP per capita | Statistics Canada | 36-10-0104-01 | Quarterly | [Link](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=3610010401) |
 | R&D spending | Statistics Canada | 27-10-0273-01 | Annual | [Link](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=2710027301) |
 | PR admissions | IRCC Open Data | Monthly CSV | Monthly | [Link](https://open.canada.ca/data/en/dataset/f7e5498e-0ad8-4417-85c9-9b8aff9b9eda) |

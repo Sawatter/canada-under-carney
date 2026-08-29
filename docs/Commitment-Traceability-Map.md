@@ -642,7 +642,7 @@ The CTM must **not**:
 - **primary_indicators:** Student permit trajectory; temp resident stock/flow *(per [CSS:366](Canonical-Scoring-Sheets.md))*.
 - **source_roles_required:**
   - **Policy (required):** IRCC stream-specific framework changes [QA T1]
-  - **Execution (required):** IRCC permit-issuance and processing data by stream [QA T1]; live evidence shows student permits down 60%, TFW tightened, asylum stream pending
+  - **Execution (required):** IRCC arrival and processing data by stream [QA T1]; live evidence shows new international student arrivals down 60%, TFW tightened, asylum stream pending
   - **Measurement (required):** IRCC open-data series on work permits, study permits
   - **Independent challenge (optional):** sector-impact analysis (higher education, agriculture, healthcare)
 - **deconfliction_notes:** Stream reforms → primary home Immigration; secondary Flagship Delivery.
@@ -937,7 +937,7 @@ The CTM must **not**:
 - **deconfliction_notes:** Trade diversification metrics → primary home Defence & Trade; **blocked from Economic Policy Response** per [Deconfliction-Matrix.md](Deconfliction-Matrix.md). Even though interprovincial trade has productivity implications, Economic Policy Response cannot grade-credit export-diversification or interprovincial-integration effects; they must stay in Defence & Trade's trade leg.
 - **derivative_handling:** Flagship Delivery does not treat interprovincial trade reform as one of the five flagship files' sub-indicators directly. Aggregated in Promise Delivery.
 - **update_trigger:** Material provincial non-cooperation that blocks implementation; formal repeal; documented interprovincial-trade-volume shift attributable to the Act.
-- **measurement_rules_notes:** [Measure-Selection-Rules.md §Defence & Trade](Measure-Selection-Rules.md) — US export share (annual avg, StatsCan 12-10-0176-01) is the primary trade-diversification measure; interprovincial-integration does not yet have a canonical MSR measure. **Residual:** MSR extension candidate if this becomes grade-moving.
+- **measurement_rules_notes:** [Measure-Selection-Rules.md §Defence & Trade](Measure-Selection-Rules.md) - US export share (annual avg, StatsCan 12-10-0011-01) is the primary trade-diversification measure; interprovincial-integration does not yet have a canonical MSR measure. **Residual:** MSR extension candidate if this becomes grade-moving.
 
 ---
 

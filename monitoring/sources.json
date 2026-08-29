@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-08-26T20:47:23+00:00",
+  "generatedAt": "2026-08-29T04:50:44+00:00",
   "generatedFrom": "src/data/dimensions.json + src/data/approval-polls.json",
   "note": "Registry of monitored source surfaces. Regenerate with `python3 scripts/monitor_sources.py --rebuild-registry` when the cited source base changes. Hand-edits to access notes, methods, or search domains are preserved only if you re-apply them after a rebuild. The monitor never moves grades.",
   "methods": [
@@ -1497,7 +1497,7 @@
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260617/dq260617a-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260710/dq260710a-eng.htm",
         "https://www150.statcan.gc.ca/n1/daily-quotidien/260720/dq260720a-eng.htm",
-        "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601"
+        "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101"
       ],
       "accessNote": null
     }

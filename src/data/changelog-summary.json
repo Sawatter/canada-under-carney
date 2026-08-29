@@ -1,20 +1,18 @@
 [
   {
-    "date": "2026-08-26",
-    "version": "5.176",
+    "date": "2026-08-28",
+    "version": "5.177",
     "items": [],
     "firstLook": {
-      "mode": "no-grade-moves",
+      "mode": "maintenance-only",
       "gradeMoveCount": 0,
-      "featuredItems": [
-        {
-          "type": "method",
-          "headline": "Monthly source tools use current inputs",
-          "body": "The monitor registry was rebuilt from the current 186 cited links. Nineteen moved links were replaced without losing a citation, and the generated ledger now asks for newer evidence without carrying June-specific wording into later cycles.",
-          "itemIndex": 2
-        }
-      ]
+      "featuredItems": []
     }
+  },
+  {
+    "date": "2026-08-26",
+    "version": "5.176",
+    "items": []
   },
   {
     "date": "2026-08-25",

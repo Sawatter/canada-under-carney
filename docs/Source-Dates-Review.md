@@ -1,6 +1,6 @@
 # Source Dates Review
 
-Updated: 2026-06-15T02:01:00+00:00
+Updated: 2026-08-29T04:48:57+00:00
 
 Phase 1 plus follow-up review record. The dated rows from this table have been applied to `src/data/dimensions.json`. This review did not change grades, thresholds, statuses, scoring, GPA math, or source order.
 
@@ -8,13 +8,17 @@ Sources reviewed: 99. Manual-date flags: 0.
 
 Follow-up gate closed 2026-06-15: no `needsManualDate` flags remain in `src/data/dimensions.json`.
 
+The StatsCan trade binding was corrected on 2026-08-28. Its current row below
+replaces the industry-table URL recorded in the June review. Git history retains
+the original review state.
+
 | Source | Dimension | Proposed date | dateKind | How derived | Confidence |
 |---|---|---:|---|---|---|
 | [NATO Secretary General Annual Report 2025](https://www.nato.int/en/news-and-events/articles/news/2026/03/26/nato-secretary-generals-annual-report-shows-significant-increase-in-defence-investment-from-europe-and-canada) | Defence & Trade | 2026-03-26 | published | url full date | high |
 | [PMO NATO 2% announcement](https://www.pm.gc.ca/en/news/news-releases/2026/03/26/prime-minister-carney-announces-canada-has-achieved-nato-2-defence) | Defence & Trade | 2026-03-26 | published | url full date | high |
 | [Budget 2025 Ch.4](https://budget.canada.ca/2025/report-rapport/chap4-en.html) | Defence & Trade | 2025-11-04 | published | manual: applied v5.114 date review | review |
 | [Building Canada Act (Bill C-5)](https://www.parl.ca/legisinfo/en/bill/45-1/c-5) | Defence & Trade | 2026-06-14 | as-of | manual: living source | review |
-| [StatsCan trade data](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210017601) | Defence & Trade | 2026-06-14 | as-of | manual: living source | review |
+| [StatsCan trade data](https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1210001101) | Defence & Trade | 2026-08-28 | as-of | manual: replacement living source checked | review |
 | [Global Affairs Canada Monthly Trade Report (December 2025)](https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2025-12) | Defence & Trade | 2025-12 | published | url month | medium |
 | [PBO — Spring Economic Update Major Capital Priorities](https://www.pbo-dpb.ca/en/publications/NT-2627-003-S--pbo-assessment-spring-economic-update-government-major-capital-priorities--evaluation-dpb-mise-jour-economique-printemps-principales-priorites-investissement-gouvernement-dans) | Defence & Trade | 2026-05-04 | published | manual: applied v5.114 date review | review |
 | [Global Affairs Canada Monthly Trade Report (March 2026)](https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-03) | Defence & Trade | 2026-03 | published | url month | medium |

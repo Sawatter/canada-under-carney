@@ -8,6 +8,7 @@ import {
   mkdtempSync,
   readFileSync,
   rmSync,
+  writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
@@ -61,6 +62,24 @@ try {
   );
   assert.equal(validation.status, 0, validation.stderr || validation.stdout);
   assert.match(validation.stdout, /OK\. Ledger covers \d+ unique cited URLs/);
+
+  const missingNextDueRow =
+    "| Fixture cadence row | Fixture | https://example.com/not-due | Quarterly | " +
+    "2026-08-28 | not due | Deferred by cadence | Last checked 2026-07-01. |";
+  writeFileSync(
+    join(temporaryRoot, "docs", "Source-Coverage-Ledger-2026-09.md"),
+    septemberLedger.replace("## Excluded Evidence", `${missingNextDueRow}\n\n## Excluded Evidence`),
+  );
+  const missingNextDueValidation = spawnSync(
+    process.execPath,
+    [join(temporaryRoot, "scripts", "validate-source-ledger.mjs"), "2026-09"],
+    { encoding: "utf8" },
+  );
+  assert.equal(missingNextDueValidation.status, 1);
+  assert.match(
+    missingNextDueValidation.stderr,
+    /Not-due row\(s\) without a next due point: 1/,
+  );
 
   assert.match(
     septemberLedger,
