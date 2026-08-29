@@ -105,9 +105,13 @@ jobs:
           if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
             git fetch origin "$BRANCH"
             git checkout -B "$BRANCH" "origin/main"
-            # Keep the previous monitor state from the open monthly PR, but run
-            # the current main-branch code and workflow every time.
+            # Keep the previous monitor state and in-progress ledger from the
+            # open monthly PR, but run current main-branch code every time.
             git checkout "origin/$BRANCH" -- monitoring/state.json monitoring/ethics-reports.json 2>/dev/null || true
+            LEDGER="docs/Source-Coverage-Ledger-$CYCLE_MONTH.md"
+            if git cat-file -e "origin/$BRANCH:$LEDGER" 2>/dev/null; then
+              git checkout "origin/$BRANCH" -- "$LEDGER"
+            fi
           else
             git checkout -B "$BRANCH" "origin/main"
           fi
@@ -118,7 +122,14 @@ jobs:
 
       - name: Generate source ledger
         if: env.BACKTEST_LABEL == ''
-        run: node scripts/generate-source-ledger.mjs "$CYCLE_MONTH" --force
+        run: |
+          set -euo pipefail
+          LEDGER="docs/Source-Coverage-Ledger-$CYCLE_MONTH.md"
+          if [[ -f "$LEDGER" ]]; then
+            echo "Using existing source ledger: $LEDGER"
+          else
+            node scripts/generate-source-ledger.mjs "$CYCLE_MONTH"
+          fi
 
       - name: Validate source ledger coverage
         if: env.BACKTEST_LABEL == ''
@@ -132,7 +143,9 @@ jobs:
         run: |
           python3 scripts/monitor_sources.py \
             --cycle "$CYCLE_MONTH" \
-            --fetch-results scripts/output/fetch-results.json
+            --fetch-results scripts/output/fetch-results.json \
+            --require-keys \
+            --require-complete
 
       - name: Reconstruct backtest source registry
         if: env.BACKTEST_LABEL != ''
@@ -166,6 +179,7 @@ jobs:
             --no-deterministic
             --adjacent
             --require-keys
+            --require-complete
             --compare-sources-file monitoring/sources.json
             --title-note "Backtest $BACKTEST_LABEL. Registry ref: $REGISTRY_REF. Window: $WINDOW_START to $WINDOW_END."
           )
@@ -196,7 +210,7 @@ jobs:
       - name: Guard committed files for local paths
         if: env.BACKTEST_LABEL == ''
         run: |
-          FILES=$(git status --porcelain -- monitoring docs/Source-Monitoring-Candidates-*.md | awk '{print $2}')
+          FILES=$(git status --porcelain -- monitoring docs/Source-Monitoring-Candidates-*.md "docs/Source-Coverage-Ledger-$CYCLE_MONTH.md" | awk '{print $2}')
           if [ -z "$FILES" ]; then
             echo "No monitoring changes to guard."
             exit 0
@@ -223,7 +237,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add monitoring docs/Source-Monitoring-Candidates-"$CYCLE_MONTH".md
+          git add monitoring \
+            docs/Source-Coverage-Ledger-"$CYCLE_MONTH".md \
+            docs/Source-Monitoring-Candidates-"$CYCLE_MONTH".md
           if git diff --cached --quiet; then
             echo "No monitoring changes this run. Not opening a PR."
             exit 0

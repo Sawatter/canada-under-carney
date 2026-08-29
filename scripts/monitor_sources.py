@@ -37,9 +37,11 @@ Usage:
 import argparse
 import hashlib
 import json
+import math
 import os
 import re
 import sys
+import time
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -60,9 +62,60 @@ DEFAULT_FETCH_RESULTS = SCRIPT_DIR / "output" / "fetch-results.json"
 DEFAULT_MODEL = "claude-opus-4-8"
 SCHEMA_VERSION = 1
 TAVILY_ENDPOINT = "https://api.tavily.com/search"
+TAVILY_SEARCH_ATTEMPTS = 2
+TAVILY_RETRY_DELAY_SECONDS = 1
 NORMAL_SURFACE_THRESHOLD = 0.15
 EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
 LOCAL_PATH_RE = re.compile(r"(^|[\s(\"'])((?:/Users|/home)/[^\s)\"']+)")
+
+# These keys mirror the result families always emitted by fetch-data.py. A
+# blocked source still emits its result with a non-success status, so strict
+# completeness checks structure rather than requiring source access to succeed.
+DETERMINISTIC_OBJECT_RESULT_FAMILIES = (
+    ("Statistics Canada", (
+        "statcan_food_cpi",
+        "statcan_unemployment",
+        "statcan_population",
+        "statcan_housing_starts",
+        "statcan_trade",
+    )),
+    ("IRCC", (
+        "ircc_permanent_residents",
+        "ircc_work_permits_imp",
+        "ircc_work_permits_tfwp",
+        "ircc_study_permits",
+    )),
+    ("Bank of Canada", ("boc_fx",)),
+    ("PBO", ("pbo_feed",)),
+    ("Major Projects Office", ("mpo_page",)),
+    ("Ethics Commissioner", ("ethics_reports_page", "ethics_reports_diff")),
+)
+DETERMINISTIC_LIST_RESULT_FAMILIES = (
+    ("pollster feeds", "pollster_feeds", True),
+    ("excluded pollster feeds", "excluded_pollster_feeds", True),
+    ("policy feeds", "policy_feeds", True),
+    ("LEGISinfo", "legisinfo", False),
+)
+EXPECTED_DETERMINISTIC_FEED_URLS = {
+    "pollster_feeds": {
+        "https://abacusdata.ca/feed/",
+        "https://leger360.com/en/feed/",
+        "https://angusreid.org/feed/",
+    },
+    "excluded_pollster_feeds": {
+        "https://www.pollara.com/feed/",
+        "https://www.ipsos.com/en-ca/rss.xml",
+        "https://innovativeresearch.ca/feed/",
+    },
+    "policy_feeds": {
+        "https://www.cdhowe.org/feed/",
+        "https://www.fraserinstitute.org/rss.xml",
+        "https://thehub.ca/feed/",
+        "https://democracywatch.ca/feed/",
+        "https://proof.utoronto.ca/feed/",
+        "https://thenarwhal.ca/feed/",
+    },
+}
 
 # Monitoring methods a source surface can carry.
 VALID_METHODS = {"rss", "api", "sitemap", "page_hash", "search_fanout", "manual"}
@@ -625,6 +678,431 @@ def already_seen_in_ledger(candidate, seen):
 # --------------------------------------------------------------------------- #
 # deterministic tier  (consume scripts/output/fetch-results.json)
 # --------------------------------------------------------------------------- #
+def expected_deterministic_coverage(dimensions):
+    """Return the URL and bill identities fetch-data.py must inspect."""
+    link_urls = set()
+    legisinfo = set()
+    bill_pattern = re.compile(r"bill/(\d+-\d+)/([cs]-\d+)", re.IGNORECASE)
+
+    def add(url, *, bill=True):
+        if not isinstance(url, str) or not url.startswith("http"):
+            return
+        link_urls.add(url)
+        hostname = (urlparse(url).hostname or "").lower()
+        if bill and (hostname == "parl.ca" or hostname.endswith(".parl.ca")):
+            match = bill_pattern.search(url)
+            if match:
+                legisinfo.add(f"{match.group(1)}/{match.group(2).lower()}")
+
+    for dimension in dimensions or []:
+        for source in dimension.get("sources") or []:
+            add(source.get("url"))
+        triggers = dimension.get("gradeTriggers") or {}
+        for side in ("up", "down"):
+            for trigger in triggers.get(side) or []:
+                if isinstance(trigger, dict):
+                    add(trigger.get("sourceUrl"))
+        for promise in dimension.get("promises") or []:
+            add(promise.get("originalSourceUrl"))
+            add(promise.get("statusSourceUrl"))
+        for project in (dimension.get("projectCohort") or {}).get("projects") or []:
+            add(project.get("sourceUrl"), bill=False)
+
+    return {"link_urls": link_urls, "legisinfo": legisinfo}
+
+
+def _coverage_delta(label, expected, actual):
+    """Describe a coverage mismatch without putting hundreds of URLs in output."""
+    missing = sorted(expected - actual)
+    unexpected = sorted(actual - expected)
+    if not missing and not unexpected:
+        return None
+    parts = []
+    if missing:
+        parts.append(f"{len(missing)} missing ({', '.join(missing[:3])})")
+    if unexpected:
+        parts.append(f"{len(unexpected)} unexpected ({', '.join(unexpected[:3])})")
+    return f"{label} coverage mismatch: {'; '.join(parts)}"
+
+
+def deterministic_success_shape_errors(results):
+    """Require the useful payload fields promised by successful fetch results."""
+    errors = []
+
+    def has_text(record, field):
+        return (isinstance(record, dict) and isinstance(record.get(field), str) and
+                bool(record[field].strip()))
+
+    def has_url(record):
+        return has_text(record, "url") and record["url"].startswith("http")
+
+    statcan_keys = DETERMINISTIC_OBJECT_RESULT_FAMILIES[0][1]
+    for key in statcan_keys:
+        value = results.get(key)
+        if not isinstance(value, dict) or value.get("status") != "accessible":
+            continue
+        if not isinstance(value.get("url"), str) or not value["url"].strip():
+            errors.append(f"{key} accessible result is missing url")
+        references = value.get("dashboard_references")
+        if not isinstance(references, list) or not references:
+            errors.append(f"{key} accessible result is missing dashboard_references")
+        elif any(
+                not has_text(reference, "dimension") or
+                not has_text(reference, "label") or
+                not has_text(reference, "periodDate")
+                for reference in references):
+            errors.append(f"{key} dashboard_references contains an unusable entry")
+        for field in ("metadata", "freshness"):
+            nested = value.get(field)
+            if (not isinstance(nested, dict) or
+                    not isinstance(nested.get("status"), str) or
+                    not nested["status"].strip()):
+                errors.append(f"{key} accessible result is missing {field} status")
+        metadata = value.get("metadata")
+        if isinstance(metadata, dict) and metadata.get("status") == "success":
+            product_id = metadata.get("productId")
+            if (isinstance(product_id, bool) or not isinstance(product_id, int) or
+                    product_id <= 0 or not has_text(metadata, "cubeEndDate") or
+                    not has_text(metadata, "releaseTime")):
+                errors.append(f"{key} metadata success result is missing cube identity")
+        freshness = value.get("freshness")
+        if (isinstance(freshness, dict) and
+                freshness.get("status") == "newer_data_available" and
+                (not has_text(freshness, "cubeEndDate") or
+                 not has_text(freshness, "latestDashboardReference"))):
+            errors.append(f"{key} newer-data result is missing freshness dates")
+
+    ircc_keys = DETERMINISTIC_OBJECT_RESULT_FAMILIES[1][1]
+    for key in ircc_keys:
+        value = results.get(key)
+        if not isinstance(value, dict) or value.get("status") != "success":
+            continue
+        rows = value.get("rows")
+        if isinstance(rows, bool) or not isinstance(rows, int) or rows <= 0:
+            errors.append(f"{key} success result has no positive row count")
+        for field in ("header", "last_row"):
+            if not isinstance(value.get(field), str) or not value[field].strip():
+                errors.append(f"{key} success result is missing {field}")
+
+    boc = results.get("boc_fx")
+    if isinstance(boc, dict) and boc.get("status") == "success":
+        latest = boc.get("latest")
+        observation = latest.get("FXCADUSD") if isinstance(latest, dict) else None
+        if (not isinstance(latest, dict) or
+                not isinstance(latest.get("d"), str) or not latest["d"].strip() or
+                not isinstance(observation, dict) or
+                not isinstance(observation.get("v"), str) or not observation["v"].strip()):
+            errors.append("boc_fx success result is missing the latest FXCADUSD observation")
+
+    pbo = results.get("pbo_feed")
+    if isinstance(pbo, dict) and pbo.get("status") == "success":
+        publications = pbo.get("publications")
+        count = pbo.get("count")
+        if not isinstance(publications, list) or not publications:
+            errors.append("pbo_feed success result has no publications")
+        if (isinstance(count, bool) or not isinstance(count, int) or
+                not isinstance(publications, list) or count != len(publications)):
+            errors.append("pbo_feed success result count does not match publications")
+        if isinstance(publications, list) and any(
+                not has_text(publication, "title") or
+                not has_text(publication, "link") or
+                not publication["link"].startswith("http") or
+                not has_text(publication, "pubDate")
+                for publication in publications):
+            errors.append("pbo_feed publications contains an unusable entry")
+
+    mpo_page = results.get("mpo_page")
+    if isinstance(mpo_page, dict) and mpo_page.get("status") == "success":
+        projects = mpo_page.get("projects")
+        count = mpo_page.get("count")
+        if not isinstance(projects, list) or not projects:
+            errors.append("mpo_page success result has no projects")
+        if (isinstance(count, bool) or not isinstance(count, int) or
+                not isinstance(projects, list) or count != len(projects)):
+            errors.append("mpo_page success result count does not match projects")
+        if isinstance(projects, list) and any(
+                not has_text(project, "display") or
+                not isinstance(project.get("tokens"), list) or
+                not project["tokens"] or
+                any(not isinstance(token, str) or not token.strip()
+                    for token in project["tokens"])
+                for project in projects):
+            errors.append("mpo_page projects contains an unusable entry")
+
+    mpo_diff = results.get("mpo_diff")
+    if isinstance(mpo_diff, dict) and mpo_diff.get("status") == "success":
+        for field in ("matched", "mpo_only", "cohort_only"):
+            if not isinstance(mpo_diff.get(field), list):
+                errors.append(f"mpo_diff success result is missing {field}")
+        for field in ("mpo_count", "cohort_count"):
+            value = mpo_diff.get(field)
+            if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                errors.append(f"mpo_diff success result is missing {field}")
+        matched = mpo_diff.get("matched")
+        if isinstance(matched, list) and any(
+                not isinstance(pair, list) or len(pair) != 2 or
+                any(not isinstance(name, str) or not name.strip() for name in pair)
+                for pair in matched):
+            errors.append("mpo_diff matched contains an unusable entry")
+        for field in ("mpo_only", "cohort_only"):
+            projects = mpo_diff.get(field)
+            if isinstance(projects, list) and any(
+                    not has_text(project, "display") or
+                    not isinstance(project.get("tokens"), list) or
+                    not project["tokens"]
+                    for project in projects):
+                errors.append(f"mpo_diff {field} contains an unusable entry")
+        if (isinstance(matched, list) and
+                isinstance(mpo_diff.get("mpo_only"), list) and
+                isinstance(mpo_diff.get("mpo_count"), int) and
+                mpo_diff["mpo_count"] != len(matched) + len(mpo_diff["mpo_only"])):
+            errors.append("mpo_diff mpo_count is inconsistent with project rows")
+        if (isinstance(matched, list) and
+                isinstance(mpo_diff.get("cohort_only"), list) and
+                isinstance(mpo_diff.get("cohort_count"), int) and
+                mpo_diff["cohort_count"] != len(matched) + len(mpo_diff["cohort_only"])):
+            errors.append("mpo_diff cohort_count is inconsistent with project rows")
+
+    ethics_page = results.get("ethics_reports_page")
+    if isinstance(ethics_page, dict) and ethics_page.get("status") == "success":
+        reports = ethics_page.get("reports")
+        count = ethics_page.get("count")
+        if (not isinstance(ethics_page.get("url"), str) or
+                not ethics_page["url"].strip()):
+            errors.append("ethics_reports_page success result is missing url")
+        if not isinstance(reports, list) or not reports:
+            errors.append("ethics_reports_page success result has no reports")
+        if (isinstance(count, bool) or not isinstance(count, int) or
+                not isinstance(reports, list) or count != len(reports)):
+            errors.append(
+                "ethics_reports_page success result count does not match reports")
+        if isinstance(reports, list) and any(
+                not has_text(report, "title") or not has_url(report)
+                for report in reports):
+            errors.append("ethics_reports_page reports contains an unusable entry")
+
+    ethics_diff = results.get("ethics_reports_diff")
+    if isinstance(ethics_diff, dict) and ethics_diff.get("status") == "success":
+        for field in ("additions", "removals"):
+            if not isinstance(ethics_diff.get(field), list):
+                errors.append(f"ethics_reports_diff success result is missing {field}")
+            elif any(
+                    not has_text(report, "title") or not has_url(report)
+                    for report in ethics_diff[field]):
+                errors.append(
+                    f"ethics_reports_diff {field} contains an unusable entry")
+        current_count = ethics_diff.get("currentCount")
+        if (isinstance(current_count, bool) or not isinstance(current_count, int) or
+                current_count < 0):
+            errors.append("ethics_reports_diff success result is missing currentCount")
+        if not isinstance(ethics_diff.get("priorCacheFound"), bool):
+            errors.append("ethics_reports_diff success result is missing priorCacheFound")
+
+    for key in EXPECTED_DETERMINISTIC_FEED_URLS:
+        value = results.get(key)
+        if not isinstance(value, list):
+            continue
+        for index, entry in enumerate(value):
+            if isinstance(entry, dict) and entry.get("status") == "success":
+                items = entry.get("items")
+                if not isinstance(items, list):
+                    errors.append(f"{key}[{index}] success result is missing items")
+                    continue
+                if any(
+                        not has_text(item, "title") or
+                        not has_text(item, "link") or
+                        not item["link"].startswith("http")
+                        for item in items):
+                    errors.append(f"{key}[{index}] items contains an unusable entry")
+                if key == "policy_feeds":
+                    count = entry.get("count")
+                    topic_count = entry.get("topic_count")
+                    if (isinstance(count, bool) or not isinstance(count, int) or
+                            count != len(items) or isinstance(topic_count, bool) or
+                            not isinstance(topic_count, int) or
+                            not 0 <= topic_count <= count):
+                        errors.append(f"{key}[{index}] success counts are inconsistent")
+                else:
+                    all_count = entry.get("all_count")
+                    relevant_count = entry.get("relevant_count")
+                    if (isinstance(all_count, bool) or not isinstance(all_count, int) or
+                            isinstance(relevant_count, bool) or
+                            not isinstance(relevant_count, int) or
+                            relevant_count != len(items) or all_count < relevant_count):
+                        errors.append(f"{key}[{index}] success counts are inconsistent")
+                    if key == "pollster_feeds":
+                        new_count = entry.get("new_count")
+                        cited_count = entry.get("cited_count")
+                        if (isinstance(new_count, bool) or
+                                not isinstance(new_count, int) or
+                                isinstance(cited_count, bool) or
+                                not isinstance(cited_count, int) or
+                                new_count + cited_count != relevant_count):
+                            errors.append(
+                                f"{key}[{index}] citation counts are inconsistent")
+
+    return errors
+
+
+def deterministic_payload_errors(payload, *, expected_cycle=None,
+                                 require_link_rot=False,
+                                 expected_link_urls=None,
+                                 expected_legisinfo=None):
+    """Return structural errors that make a deterministic run incomplete."""
+    if not isinstance(payload, dict):
+        return ["fetch-results payload is not an object"]
+
+    errors = []
+    generated_at = payload.get("generatedAt")
+    if not isinstance(generated_at, str) or not generated_at.strip():
+        errors.append("generatedAt is missing")
+    else:
+        try:
+            generated_cycle = datetime.fromisoformat(
+                generated_at.replace("Z", "+00:00")).strftime("%Y-%m")
+        except ValueError:
+            errors.append("generatedAt is not a valid ISO timestamp")
+        else:
+            payload_cycle = payload.get("cycle")
+            if isinstance(payload_cycle, str) and generated_cycle != payload_cycle:
+                errors.append(
+                    f"generatedAt month {generated_cycle} does not match payload cycle "
+                    f"{payload_cycle}")
+
+    payload_cycle = payload.get("cycle")
+    if not isinstance(payload_cycle, str) or not payload_cycle.strip():
+        errors.append("cycle is missing")
+    elif not re.fullmatch(r"\d{4}-(?:0[1-9]|1[0-2])", payload_cycle):
+        errors.append(f"cycle is invalid: {payload_cycle}")
+    elif expected_cycle and payload_cycle != expected_cycle:
+        errors.append(
+            f"payload cycle {payload_cycle} does not match requested cycle {expected_cycle}")
+
+    if not isinstance(payload.get("linkRot"), bool):
+        errors.append("linkRot completion marker is missing")
+    elif require_link_rot and payload.get("linkRot") is not True:
+        errors.append("linkRot must be true for strict deterministic acceptance")
+
+    results = payload.get("results")
+    if not isinstance(results, dict):
+        errors.append("results is not an object")
+        return errors
+    if not results:
+        errors.append("results object is empty")
+        return errors
+
+    errors.extend(deterministic_success_shape_errors(results))
+
+    for family, keys in DETERMINISTIC_OBJECT_RESULT_FAMILIES:
+        missing = [key for key in keys if key not in results]
+        if missing:
+            errors.append(f"{family} results missing: {', '.join(missing)}")
+        for key in keys:
+            if key not in results:
+                continue
+            value = results[key]
+            if not isinstance(value, dict):
+                errors.append(f"{key} is not an object")
+            elif not isinstance(value.get("status"), str) or not value["status"].strip():
+                errors.append(f"{key} status is missing")
+
+    for family, key, require_entries in DETERMINISTIC_LIST_RESULT_FAMILIES:
+        if key not in results:
+            errors.append(f"{family} results missing: {key}")
+            continue
+        value = results[key]
+        if not isinstance(value, list):
+            errors.append(f"{key} is not a list")
+            continue
+        if require_entries and not value:
+            errors.append(f"{key} is empty")
+            continue
+        if any(not isinstance(entry, dict) for entry in value):
+            errors.append(f"{key} contains a non-object result")
+            continue
+        if key != "legisinfo" and any(
+                not isinstance(entry.get("status"), str) or not entry["status"].strip()
+                for entry in value):
+            errors.append(f"{key} contains a result without status")
+
+        expected_feeds = EXPECTED_DETERMINISTIC_FEED_URLS.get(key)
+        if expected_feeds is not None:
+            actual_feeds = {
+                entry.get("url") for entry in value
+                if isinstance(entry.get("url"), str) and entry.get("url")
+            }
+            mismatch = _coverage_delta(key, expected_feeds, actual_feeds)
+            if mismatch:
+                errors.append(mismatch)
+
+    legisinfo = results.get("legisinfo")
+    if isinstance(legisinfo, list) and all(isinstance(entry, dict) for entry in legisinfo):
+        actual_legisinfo = {
+            f"{entry.get('parl')}/{str(entry.get('bill') or '').lower()}"
+            for entry in legisinfo if entry.get("parl") and entry.get("bill")
+        }
+        if len(actual_legisinfo) != len(legisinfo):
+            errors.append("legisinfo contains missing or duplicate bill identities")
+        if any(
+                not isinstance(entry.get("record"), dict) or
+                not isinstance(entry["record"].get("status"), str) or
+                not entry["record"]["status"].strip()
+                for entry in legisinfo):
+            errors.append("legisinfo contains a result without record status")
+        if any(
+                entry.get("record", {}).get("status") == "success" and (
+                    not isinstance(entry["record"].get("url"), str) or
+                    not entry["record"]["url"].startswith("http") or
+                    not isinstance(entry["record"].get("number_code"), str) or
+                    not entry["record"]["number_code"].strip() or
+                    not isinstance(entry["record"].get("current_status"), str) or
+                    not entry["record"]["current_status"].strip()
+                )
+                for entry in legisinfo):
+            errors.append("legisinfo contains an unusable successful record")
+        if expected_legisinfo is not None:
+            mismatch = _coverage_delta(
+                "legisinfo", set(expected_legisinfo), actual_legisinfo)
+            if mismatch:
+                errors.append(mismatch)
+
+    mpo_page = results.get("mpo_page")
+    mpo_diff = results.get("mpo_diff")
+    if isinstance(mpo_page, dict) and mpo_page.get("status") == "success":
+        if not isinstance(mpo_diff, dict):
+            errors.append("mpo_diff is missing after a successful MPO page fetch")
+        elif not isinstance(mpo_diff.get("status"), str) or not mpo_diff["status"].strip():
+            errors.append("mpo_diff status is missing")
+    elif mpo_diff is not None and not isinstance(mpo_diff, dict):
+        errors.append("mpo_diff is not an object")
+
+    if payload.get("linkRot") is True:
+        link_rot = results.get("link_rot")
+        if not isinstance(link_rot, list):
+            errors.append("link_rot results are missing")
+        elif not link_rot:
+            errors.append("link_rot results are empty")
+        elif any(not isinstance(entry, dict) for entry in link_rot):
+            errors.append("link_rot contains a non-object result")
+        elif any(not isinstance(entry.get("status"), str) or not entry["status"].strip()
+                 for entry in link_rot):
+            errors.append("link_rot contains a result without status")
+        else:
+            actual_link_urls = {
+                entry.get("url") for entry in link_rot
+                if isinstance(entry.get("url"), str) and entry.get("url")
+            }
+            if len(actual_link_urls) != len(link_rot):
+                errors.append("link_rot contains missing or duplicate URL identities")
+            if expected_link_urls is not None:
+                mismatch = _coverage_delta(
+                    "link_rot", set(expected_link_urls), actual_link_urls)
+                if mismatch:
+                    errors.append(mismatch)
+
+    return errors
+
+
 def _candidate(cycle, source_id, discovery, title, url, snippet,
                published=None, provisional=False, dims=None):
     clean_title = scrub_public_text(title).strip()[:300]
@@ -1088,6 +1566,44 @@ def search_window_dates(state, source_id, fixed_window=None):
     return start.isoformat(), end.isoformat()
 
 
+def _request_tavily(requests, payload):
+    """Return one usable response, retrying a transient failure once."""
+    last_error = None
+    for attempt in range(TAVILY_SEARCH_ATTEMPTS):
+        transient = False
+        try:
+            response = requests.post(TAVILY_ENDPOINT, json=payload, timeout=40)
+        except requests.RequestException as exc:
+            last_error = f"tavily request failed: {exc}"
+            transient = True
+        except Exception as exc:
+            return None, f"tavily request failed: {exc}"
+        else:
+            if response.status_code != 200:
+                last_error = f"tavily http {response.status_code}"
+                transient = response.status_code == 429 or 500 <= response.status_code < 600
+                if not transient:
+                    return None, last_error
+            else:
+                try:
+                    data = response.json()
+                except ValueError as exc:
+                    last_error = f"tavily json failed: {exc}"
+                    transient = True
+                else:
+                    if isinstance(data, dict) and isinstance(data.get("results"), list):
+                        return data, None
+                    last_error = "tavily json response is missing a results list"
+                    transient = True
+
+        if transient and attempt + 1 < TAVILY_SEARCH_ATTEMPTS:
+            time.sleep(TAVILY_RETRY_DELAY_SECONDS)
+            continue
+        break
+
+    return None, f"{last_error} after {TAVILY_SEARCH_ATTEMPTS} attempts"
+
+
 def run_search_fanout(registry, state, cycle, api_key, max_results=5,
                       fixed_window=None, adjacent_entries=None):
     """Domain-restricted, time-windowed Tavily queries over feed-less / blocked
@@ -1119,20 +1635,11 @@ def run_search_fanout(registry, state, cycle, api_key, max_results=5,
             "include_answer": False,
             "include_raw_content": False,
         }
-        try:
-            resp = requests.post(TAVILY_ENDPOINT, json=payload, timeout=40)
-            if resp.status_code != 200:
-                access_failures.append({"surface": src["publisher"],
-                                        "method": "search_fanout",
-                                        "detail": f"tavily http {resp.status_code}"})
-                mark_checked(state, src["id"], False,
-                             access_issue=f"tavily http {resp.status_code}")
-                continue
-            data = resp.json()
-        except Exception as e:  # network / json
+        data, error = _request_tavily(requests, payload)
+        if error:
             access_failures.append({"surface": src["publisher"],
-                                    "method": "search_fanout", "detail": str(e)})
-            mark_checked(state, src["id"], False, access_issue=str(e))
+                                    "method": "search_fanout", "detail": error})
+            mark_checked(state, src["id"], False, access_issue=error)
             continue
 
         hits = data.get("results", []) or []
@@ -1228,6 +1735,90 @@ CLASSIFIER_SYSTEM = (
 )
 
 
+def normalize_classifier_rows(rows, chunk_ids, dimension_ids):
+    """Validate one tool response before any candidate state is mutated."""
+    if not isinstance(rows, list):
+        return [], "Claude response classifications is not a list"
+
+    expected_ids = set(chunk_ids)
+    normalized = []
+    seen_ids = set()
+    row_errors = []
+
+    for index, row in enumerate(rows):
+        errors = []
+        if not isinstance(row, dict):
+            row_errors.append(f"row {index} is not an object")
+            continue
+
+        candidate_id = row.get("candidate_id")
+        if not isinstance(candidate_id, str) or candidate_id not in expected_ids:
+            errors.append("candidate_id is missing or outside the requested batch")
+        elif candidate_id in seen_ids:
+            errors.append("candidate_id is duplicated")
+
+        classification = row.get("classification")
+        if classification not in VALID_CLASSIFICATIONS:
+            errors.append("classification is invalid")
+
+        raw_dimensions = row.get("affected_dimensions")
+        normalized_dimensions = []
+        if not isinstance(raw_dimensions, list) or any(
+                not isinstance(dimension, str) for dimension in raw_dimensions):
+            errors.append("affected_dimensions must be a list of dimension ids")
+        else:
+            normalized_dimensions = sorted(set(raw_dimensions))
+            unknown_dimensions = set(normalized_dimensions) - dimension_ids
+            if unknown_dimensions:
+                errors.append("affected_dimensions contains an unknown dimension id")
+            if classification != "irrelevant" and not normalized_dimensions:
+                errors.append("affected_dimensions is empty for a relevant classification")
+
+        raw_score = row.get("relevance_score")
+        score = None
+        if isinstance(raw_score, bool) or not isinstance(raw_score, (int, float)):
+            errors.append("relevance_score must be a number from 0 to 1")
+        else:
+            score = float(raw_score)
+            if not math.isfinite(score) or not 0 <= score <= 1:
+                errors.append("relevance_score must be a number from 0 to 1")
+
+        raw_reason = row.get("reason")
+        reason = scrub_public_text(raw_reason).strip()[:600]
+        if not isinstance(raw_reason, str) or not reason:
+            errors.append("reason must be a nonempty string")
+
+        raw_limitations = row.get("evidence_limitations")
+        if raw_limitations is not None and not isinstance(raw_limitations, str):
+            errors.append("evidence_limitations must be a string when provided")
+        limitations = scrub_public_text(raw_limitations).strip()[:400]
+
+        if errors:
+            row_errors.append(f"row {index}: {', '.join(errors)}")
+            continue
+
+        seen_ids.add(candidate_id)
+        normalized.append({
+            "candidate_id": candidate_id,
+            "classification": classification,
+            "affected_dimensions": normalized_dimensions,
+            "relevance_score": round(score, 3),
+            "reason": reason,
+            "evidence_limitations": limitations,
+        })
+
+    normalized_ids = {row["candidate_id"] for row in normalized}
+    missing = sorted(expected_ids - normalized_ids)
+    if row_errors:
+        detail = "; ".join(row_errors[:3])
+        if len(row_errors) > 3:
+            detail += f"; {len(row_errors) - 3} more invalid row(s)"
+        return [], f"Claude response contained invalid classifications: {detail}"
+    if missing:
+        return [], f"Claude response omitted classifications for {len(missing)} candidate(s)"
+    return normalized, None
+
+
 def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
     """Run the relevance pass. Returns (classified_candidates, error_or_None).
     Hard-sets the safety invariants regardless of model output."""
@@ -1238,6 +1829,11 @@ def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
 
     client = anthropic.Anthropic(api_key=api_key)
     by_id = {c["candidate_id"]: c for c in candidates}
+    classified_ids = set()
+    dimension_ids = {
+        dimension.get("id") for dimension in dim_context
+        if isinstance(dimension, dict) and dimension.get("id")
+    }
     context_json = json.dumps(dim_context, ensure_ascii=False)
 
     ids = list(by_id.keys())
@@ -1274,28 +1870,72 @@ def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
         rows = []
         for block in resp.content:
             if getattr(block, "type", None) == "tool_use":
-                rows = block.input.get("classifications", [])
+                tool_input = getattr(block, "input", None)
+                rows = tool_input.get("classifications", []) if isinstance(
+                    tool_input, dict) else None
                 break
 
-        for row in rows:
-            cand = by_id.get(row.get("candidate_id"))
-            if not cand:
-                continue
-            cls = row.get("classification")
-            cand["classification"] = cls if cls in VALID_CLASSIFICATIONS else "manual_browser_pull"
-            dims = row.get("affected_dimensions") or cand["affected_dimensions"]
-            cand["affected_dimensions"] = sorted(set(dims))
-            try:
-                cand["relevance_score"] = round(float(row.get("relevance_score")), 3)
-            except (TypeError, ValueError):
-                cand["relevance_score"] = None
-            cand["reason"] = scrub_public_text(row.get("reason")).strip()[:600]
-            cand["evidence_limitations"] = scrub_public_text(row.get("evidence_limitations")).strip()[:400]
+        normalized_rows, row_error = normalize_classifier_rows(
+            rows, chunk_ids, dimension_ids)
+        if row_error:
+            return candidates, row_error
+
+        for row in normalized_rows:
+            cand = by_id[row["candidate_id"]]
+            cand["classification"] = row["classification"]
+            cand["affected_dimensions"] = row["affected_dimensions"]
+            cand["relevance_score"] = row["relevance_score"]
+            cand["reason"] = row["reason"]
+            cand["evidence_limitations"] = row["evidence_limitations"]
             # safety invariants are never delegated to the model
             cand["requires_editor_review"] = True
             cand["can_move_grade_automatically"] = False
+            classified_ids.add(cand["candidate_id"])
+
+    missing = sorted(set(by_id) - classified_ids)
+    if missing:
+        return (list(by_id.values()),
+                f"Claude response omitted classifications for {len(missing)} candidate(s)")
 
     return list(by_id.values()), None
+
+
+def required_tier_errors(tiers, candidate_count, *, expect_deterministic,
+                         expect_search, expect_classification, require_keys,
+                         require_complete, tavily_key, anthropic_key):
+    """Return fail-closed acceptance errors for explicitly required live tiers."""
+    errors = []
+    deterministic_status = tiers.get("deterministic", "not_run")
+    search_status = tiers.get("search_fanout", "not_run")
+    classification_status = tiers.get("classification", "not_run")
+
+    tavily_missing = expect_search and not tavily_key
+    anthropic_missing = expect_classification and not anthropic_key
+
+    if require_keys and tavily_missing:
+        errors.append("TAVILY_API_KEY required but not set")
+    if require_keys and anthropic_missing:
+        errors.append("ANTHROPIC_API_KEY required but not set")
+
+    if (require_complete and expect_deterministic and
+            not deterministic_status.startswith("run (")):
+        errors.append(
+            f"Deterministic tier required but did not complete: {deterministic_status}")
+
+    if require_complete and expect_search and not search_status.startswith("run ("):
+        if not (require_keys and tavily_missing):
+            errors.append(f"Search fan-out required but did not complete: {search_status}")
+
+    classification_complete = classification_status.startswith("run (")
+    accepted_empty_skip = (candidate_count == 0 and
+                           classification_status == "skipped (no candidates)")
+    if (require_complete and expect_classification and
+            not classification_complete and not accepted_empty_skip):
+        if not (require_keys and anthropic_missing):
+            errors.append(
+                f"Classification required but did not complete: {classification_status}")
+
+    return errors
 
 
 # --------------------------------------------------------------------------- #
@@ -1615,6 +2255,10 @@ def main(argv=None):
     parser.add_argument("--out-suffix", default="", help="Suffix for output filenames, e.g. -dryrun.")
     parser.add_argument("--model", default=DEFAULT_MODEL, help="Claude model id for the relevance pass.")
     parser.add_argument("--require-keys", action="store_true", help="Exit non-zero if a needed API key is missing.")
+    parser.add_argument(
+        "--require-complete", action="store_true",
+        help=("Exit non-zero unless expected deterministic, search, and classification "
+              "tiers complete. Classification may skip only with zero candidates."))
     parser.add_argument("--dimensions-file", default=str(DIMENSIONS_FILE), help="dimensions.json path override.")
     parser.add_argument("--approval-file", default=str(APPROVAL_POLLS_FILE), help="approval-polls.json path override.")
     parser.add_argument("--sources-file", default=str(SOURCES_FILE), help="Source registry path override.")
@@ -1681,6 +2325,10 @@ def main(argv=None):
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     do_search = not args.dry_run and not args.no_search
     do_classify = not args.dry_run and not args.no_classify
+    required_key_preflight_failed = args.require_keys and (
+        (do_search and not tavily_key) or
+        (do_classify and not anthropic_key)
+    )
 
     warnings = []
     tiers = {}
@@ -1704,14 +2352,37 @@ def main(argv=None):
         warnings.append("Deterministic tier intentionally skipped for a historical/windowed run; "
                         "live endpoint state cannot be reconstructed for a past window.")
     elif results_payload:
-        det_candidates, det_failures = candidates_from_fetch_results(
-            results_payload, registry, state, cycle)
-        tiers["deterministic"] = f"run ({fetch_path.name})"
+        expected_coverage = expected_deterministic_coverage(dimensions)
+        payload_errors = deterministic_payload_errors(
+            results_payload,
+            expected_cycle=cycle,
+            require_link_rot=args.require_complete,
+            expected_link_urls=expected_coverage["link_urls"],
+            expected_legisinfo=expected_coverage["legisinfo"],
+        )
+        if isinstance(results_payload, dict):
+            det_candidates, det_failures = candidates_from_fetch_results(
+                results_payload, registry, state, cycle)
+        else:
+            det_candidates, det_failures = [], []
+        if payload_errors:
+            tiers["deterministic"] = f"failed ({'; '.join(payload_errors)})"
+            warnings.append(
+                "Deterministic tier payload is incomplete. Parsed results are retained "
+                "for diagnosis, but strict acceptance and state advancement are blocked.")
+        else:
+            tiers["deterministic"] = f"run ({fetch_path.name})"
     else:
         det_candidates, det_failures = [], []
         tiers["deterministic"] = "not_run (no fetch-results file)"
         warnings.append("Deterministic tier did not run: no fetch-results file. "
                         "Run `fetch-data.py --json-out` first. This is not a clean cycle.")
+
+    deterministic_preflight_failed = (
+        args.require_complete and
+        not args.no_deterministic and
+        not tiers["deterministic"].startswith("run (")
+    )
 
     candidates = list(det_candidates)
     access_failures = list(det_failures)
@@ -1719,20 +2390,35 @@ def main(argv=None):
     # --- search fan-out tier -------------------------------------------------
     if not do_search:
         tiers["search_fanout"] = "skipped (dry-run)" if args.dry_run else "skipped (--no-search)"
+    elif deterministic_preflight_failed:
+        tiers["search_fanout"] = "skipped (deterministic preflight failed)"
+        warnings.append("Search fan-out tier skipped before paid work because the "
+                        "strict deterministic preflight failed.")
+    elif required_key_preflight_failed:
+        if not tavily_key:
+            tiers["search_fanout"] = "skipped (TAVILY_API_KEY not set)"
+            warnings.append("Search fan-out tier skipped: TAVILY_API_KEY not set. "
+                            "Feed-less and blocked surfaces were not surveyed this run.")
+        else:
+            tiers["search_fanout"] = "skipped (required API key preflight failed)"
+            warnings.append("Search fan-out tier skipped before paid work because another "
+                            "required API key is missing.")
     elif not tavily_key:
         tiers["search_fanout"] = "skipped (TAVILY_API_KEY not set)"
         warnings.append("Search fan-out tier skipped: TAVILY_API_KEY not set. "
                         "Feed-less and blocked surfaces were not surveyed this run.")
-        if args.require_keys:
-            print("ERROR: TAVILY_API_KEY required but not set", file=sys.stderr)
-            return 1
     else:
         search_candidates, search_failures = run_search_fanout(
             registry, state, cycle, tavily_key, fixed_window=fixed_window,
             adjacent_entries=adjacent_entries)
         candidates.extend(search_candidates)
         access_failures.extend(search_failures)
-        tiers["search_fanout"] = f"run ({len(search_candidates)} hits)"
+        if search_failures:
+            tiers["search_fanout"] = (
+                f"failed ({len(search_failures)} query errors; "
+                f"{len(search_candidates)} hits retained)")
+        else:
+            tiers["search_fanout"] = f"run ({len(search_candidates)} hits)"
 
     candidates = assign_candidate_labels(
         candidates, registry, window_start=window_start_date,
@@ -1744,31 +2430,55 @@ def main(argv=None):
     # --- relevance pass ------------------------------------------------------
     if not do_classify:
         tiers["classification"] = "skipped (dry-run)" if args.dry_run else "skipped (--no-classify)"
+    elif deterministic_preflight_failed:
+        tiers["classification"] = "skipped (deterministic preflight failed)"
+        warnings.append("Relevance pass skipped before paid work because the strict "
+                        "deterministic preflight failed.")
+    elif required_key_preflight_failed:
+        if not anthropic_key:
+            tiers["classification"] = "skipped (ANTHROPIC_API_KEY not set)"
+            warnings.append("Relevance pass skipped: ANTHROPIC_API_KEY not set. "
+                            "Candidates are carried through unclassified.")
+        else:
+            tiers["classification"] = "skipped (required API key preflight failed)"
+            warnings.append("Relevance pass skipped before paid work because another "
+                            "required API key is missing.")
     elif not anthropic_key:
         tiers["classification"] = "skipped (ANTHROPIC_API_KEY not set)"
         warnings.append("Relevance pass skipped: ANTHROPIC_API_KEY not set. "
                         "Candidates are carried through unclassified.")
-        if args.require_keys:
-            print("ERROR: ANTHROPIC_API_KEY required but not set", file=sys.stderr)
-            return 1
     elif not candidates:
         tiers["classification"] = "skipped (no candidates)"
     else:
         dim_context = build_dimension_context(dimensions)
         candidates, err = classify_candidates(candidates, dim_context, args.model, anthropic_key)
         if err:
-            tiers["classification"] = f"skipped ({err})"
+            tiers["classification"] = f"failed ({err})"
             warnings.append(f"Relevance pass did not complete: {err}. Candidates are unclassified.")
         else:
             tiers["classification"] = f"run (model {args.model})"
 
     # --- split, write --------------------------------------------------------
     surfaced, suppressed = _suppressed(candidates, threshold=args.surface_threshold)
-    state["lastRun"] = now_iso()
-    # Remember every processed candidate, including low-relevance suppressions,
-    # so unchanged items do not consume editor/model attention again next cycle.
-    for c in surfaced + suppressed:
-        remember_candidate(state, c)
+    acceptance_errors = required_tier_errors(
+        tiers, len(candidates),
+        expect_deterministic=not args.no_deterministic,
+        expect_search=do_search,
+        expect_classification=do_classify,
+        require_keys=args.require_keys,
+        require_complete=args.require_complete,
+        tavily_key=tavily_key,
+        anthropic_key=anthropic_key,
+    )
+    for error in acceptance_errors:
+        warnings.append(f"Required tier acceptance failed: {error}.")
+
+    if not acceptance_errors:
+        state["lastRun"] = now_iso()
+        # Remember processed candidates only after required tiers pass. Otherwise
+        # a retry could suppress failed, unclassified candidates and pass empty.
+        for c in surfaced + suppressed:
+            remember_candidate(state, c)
 
     suffix = args.out_suffix
     cand_path = Path(args.ledger_path) if args.ledger_path else CANDIDATES_DIR / f"{cycle}{suffix}.json"
@@ -1784,6 +2494,11 @@ def main(argv=None):
         "noDeterministic": bool(args.no_deterministic),
         "titleNote": args.title_note,
         "sourceSetDelta": delta,
+        "acceptance": {
+            "required": bool(args.require_keys or args.require_complete),
+            "passed": not acceptance_errors,
+            "errors": acceptance_errors,
+        },
     }
 
     write_candidate_json(cand_path, cycle, tiers, surfaced, access_failures, suppressed,
@@ -1798,16 +2513,22 @@ def main(argv=None):
                               show_borderline=args.surface_threshold < NORMAL_SURFACE_THRESHOLD)
     packet_path.parent.mkdir(parents=True, exist_ok=True)
     packet_path.write_text(packet)
-    write_json(args.state_file, state)
+    if not acceptance_errors:
+        write_json(args.state_file, state)
 
     print(f"Cycle {cycle}: {len(surfaced)} candidates surfaced, "
           f"{len(suppressed)} suppressed, {len(access_failures)} access failures.")
     print(f"  candidates: {cand_path}")
     print(f"  packet:     {packet_path}")
-    print(f"  state:      {args.state_file}")
+    if acceptance_errors:
+        print(f"  state:      {args.state_file} (not advanced)")
+    else:
+        print(f"  state:      {args.state_file}")
     for w in warnings:
         print(f"  warning: {w}")
-    return 0
+    for error in acceptance_errors:
+        print(f"ERROR: {error}", file=sys.stderr)
+    return 1 if acceptance_errors else 0
 
 
 if __name__ == "__main__":

@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-08-27
+**Last updated:** 2026-08-28
 
 ---
 
@@ -330,31 +330,58 @@
 
 ## Now
 
-No autonomous release item is active.
+1. **Complete the September evidence cycle after the August 31 boundary.** The
+   [August 28 preparation checkpoint](September-Cycle-Prep-2026-08-28.md)
+   resolved all four IRCC binary-download exceptions, recorded the Moody's
+   detail-page exception, added three conditional DCRP municipal allocations,
+   generated a valid 540-row ledger, and identified three history chronology
+   defects. The ledger remains open for August 29-31, the September 1 scout,
+   candidate adjudication, and editor-gated grade or status calls. The scout
+   must fail closed, and its Anthropic account needs usable API credit before
+   the run. Priority reason: the evidence window cannot be closed early or by
+   inference.
+
+2. **Harden release-audit edge cases.** Add an optional target commit for manual
+   runs, prevent a same-commit skip from cancelling an active audit, report a
+   missing deployment marker directly, give the browser catch in
+   `scripts/audit-live-dashboard-coverage.mjs` its own neutral error filename,
+   and strengthen historical-record and secondary rationale-name fixtures.
+   Priority reason: September preparation is complete to the date boundary, so
+   the next autonomous lane is release-audit maintenance.
 
 ---
 
 ## Editor Decision
 
-1. **Major Projects denominator, threshold, and referral-stage rules.** Review
-   the
-   [August decision packet](Major-Projects-Threshold-Decision-Packet-2026-08.md).
-   No outcome is recorded. The denominator, threshold, and `stageAtReferral`
-   questions are frozen and editor-gated. Before any backfill, define how a
-   facility-wide approval applies to a later project phase, when early physical
-   work crosses a stage boundary, and what counts as major federal financing.
-   Five known rows were already above designated at referral and also require
-   historical stage research. Priority reason: do not infer referral stages or
-   change scoring rules after seeing the result.
+1. **Define review, snapshot, and publication dates.** The September prep found
+   that the August report claims an August 14 close while carrying August 19
+   editor decisions and first landing on August 22. May and June are missing
+   from `history.json`, and the April Climate move is effective April 15 but
+   appears as an April 19 grade item. Review the exact additive recommendation in
+   [September-Cycle-Prep-2026-08-28.md](September-Cycle-Prep-2026-08-28.md)
+   before any correction release. Priority reason: history must not be silently
+   rewritten without one durable date rule or an explicit override of the
+   existing no-rewrite policies.
 
 ---
 
-## Editor-Parked (2026-08-25)
+## Editor-Parked (2026-08-28)
 
-These three items are deferred by editor instruction. They are not cancelled or
-completed. Resume them only on later editor instruction.
+On 2026-08-28 the editor explicitly kept these three items parked. They are not
+cancelled or completed. Resume them only on later editor instruction.
 
-1. **Inter-rater clarification and return date.** The editor communication
+1. **Major Projects denominator, threshold, and referral-stage rules.** Review
+   the
+   [August decision packet](Major-Projects-Threshold-Decision-Packet-2026-08.md)
+   only when the lane is resumed. The denominator, threshold, and
+   `stageAtReferral` questions are frozen and editor-gated. Before any backfill,
+   define how a facility-wide approval applies to a later project phase, when
+   early physical work crosses a stage boundary, and what counts as major
+   federal financing. Five known rows were already above designated at referral
+   and also require historical stage research. Priority reason: do not infer
+   referral stages or change scoring rules after seeing the result.
+
+2. **Inter-rater clarification and return date.** The editor communication
    record says the final v1 packet was sent on 2026-06-07 and acknowledged on
    2026-07-24. Tracked repository artifacts independently prove the final
    packet was frozen on June 7 and record the July 24 acknowledgement, while
@@ -363,17 +390,6 @@ completed. Resume them only on later editor instruction.
    agreed. Those two follow-ups remain parked. When resumed, record those facts
    before treating the pilot as waiting on a dated return, then process any
    worksheets against the frozen packet.
-
-2. **September cycle.** When resumed, retry the four IRCC binary downloads and
-   the Moody's Canada detail page, generate the ledger for the August 1-31
-   window, check whether the dated history reads as one sequence, and evaluate
-   Decision Brief reuse only if another consequential review fits the existing
-   structure. The separate Housing watch automation remains active and is not
-   parked. Its August 26 official-page result adds Vaughan as conditional
-   selection-stage evidence, but the bilateral agreement, federal project
-   approval, municipal TPA, first payment, and attributable construction remain
-   unconfirmed. This dated hold is not proof and must not move a grade
-   automatically.
 
 3. **Combined reader study.** In one sitting, test the first-look briefing with
    four first-time readers at `375 x 812` and four at `1280 x 900`, then run the
@@ -390,14 +406,7 @@ completed. Resume them only on later editor instruction.
 
 ## Next
 
-1. **Harden release-audit edge cases.** Add an optional target commit for manual
-   runs, prevent a same-commit skip from cancelling an active audit, report a
-   missing deployment marker directly, give the browser catch in
-   `scripts/audit-live-dashboard-coverage.mjs` its own neutral error filename,
-   and strengthen historical-record and secondary rationale-name fixtures.
-   Priority reason: the current paths fail closed and v5.176 passed the
-   exact-commit audit, so these are maintainability improvements rather than
-   release blockers.
+No additional autonomous item is queued behind the current `Now` work.
 
 ---
 ## Later

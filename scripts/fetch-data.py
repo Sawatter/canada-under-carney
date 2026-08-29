@@ -24,7 +24,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, date
 from html import unescape
 from pathlib import Path
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 try:
     import requests
@@ -660,7 +660,10 @@ def collect_cited_bills(dimensions):
     bill_re = re.compile(r"bill/(\d+-\d+)/([cs]-\d+)", re.IGNORECASE)
 
     def add(label, url, dim_name):
-        if not url or "parl.ca" not in url.lower():
+        if not isinstance(url, str) or not url.startswith("http"):
+            return
+        hostname = (urlparse(url).hostname or "").lower()
+        if hostname != "parl.ca" and not hostname.endswith(".parl.ca"):
             return
         m = bill_re.search(url)
         if not m:

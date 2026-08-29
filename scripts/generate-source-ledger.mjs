@@ -14,7 +14,7 @@ const repoRoot = resolve(__dirname, "..");
 
 const args = process.argv.slice(2);
 const force = args.includes("--force");
-const monthArg = args.find((arg) => /^\d{4}-\d{2}$/.test(arg));
+const monthArg = args.find((arg) => /^\d{4}-(?:0[1-9]|1[0-2])$/.test(arg));
 
 if (!monthArg) {
   console.error("Usage: node scripts/generate-source-ledger.mjs YYYY-MM [--force]");
@@ -238,6 +238,9 @@ const monthName = monthDate.toLocaleString("en-CA", {
   year: "numeric",
   timeZone: "UTC",
 });
+const evidenceWindowStart = new Date(Date.UTC(year, month - 2, 1));
+const evidenceWindowEnd = new Date(Date.UTC(year, month - 1, 0));
+const evidenceWindow = `${evidenceWindowStart.toISOString().slice(0, 10)} through ${evidenceWindowEnd.toISOString().slice(0, 10)}`;
 const outPath = resolve(repoRoot, `docs/Source-Coverage-Ledger-${monthArg}.md`);
 
 if (existsSync(outPath) && !force) {
@@ -434,7 +437,7 @@ const monthlyRows = [
 
 const eventRows = [
   ["Fitch Canada sovereign page", "Fiscal Health", "https://www.fitchratings.com/", "Event-driven", "", "", "", "Rating downgrade, outlook change, or rating-committee action."],
-  ["Moody's Canada sovereign page", "Fiscal Health", "https://www.moodys.com/", "Event-driven", "", "", "", "Rating downgrade, outlook change, or rating-committee action."],
+  ["Moody's Canada sovereign page", "Fiscal Health", "https://ratings.moodys.com/ratings-news", "Event-driven", "", "", "", "Rating downgrade, outlook change, or rating-committee action."],
   ["S&P Canada sovereign page", "Fiscal Health", "https://www.spglobal.com/ratings/", "Event-driven", "", "", "", "Rating downgrade, outlook change, or rating-committee action."],
   ["ECCC announcements", "Climate & Environment, Carbon Pricing Policy", "https://www.canada.ca/en/environment-climate-change/news.html", "Event-driven", "", "", "", "Plan, budget, climate-strategy, OBPS, or fuel-charge policy change."],
   ["Federal climate plan pages", "Climate & Environment", "https://www.canada.ca/en/services/environment/weather/climatechange/climate-plan.html", "Event-driven", "", "", "", "Replacement climate strategy or plan revision."],
@@ -598,6 +601,7 @@ const output = `# Source Coverage Ledger - ${monthName}
 **Purpose:** Working checklist for the ${monthName} source cycle. This file is generated from \`docs/Recurring-Source-Checklist.md\` and live dashboard data so bundled source families become auditable source-level rows.
 
 **Cycle month:** ${monthArg}
+**Evidence window:** ${evidenceWindow}
 **Generated:** ${new Date().toISOString().slice(0, 10)}
 **Live dashboard version:** v${meta.version} (as of ${meta.lastUpdated})
 **Total source rows:** ${allRows.length} (Monthly ${monthlyRowsSorted.length}, Event-Driven ${eventRowsSorted.length}, Quarterly ${quarterlyRowsSorted.length}, Twice-Yearly ${twiceYearlyRowsSorted.length})
@@ -632,6 +636,22 @@ ${table(quarterlyRowsSorted)}
 Run after the budget / fiscal update cycle and once mid-year. If not due this month, mark \`not due\` rather than leaving the row ambiguous.
 
 ${table(twiceYearlyRowsSorted)}
+
+## Excluded Evidence
+
+Record each source or item considered for inclusion but not used. Leave the table empty when nothing was excluded.
+
+| Evidence / source | Dashboard area | Decision | Rationale |
+|---|---|---|---|
+
+## Bias-Resistance Review
+
+- **Audit script run date and dimensions flagged count:**
+- **New flags surfaced this cycle:**
+- **Fixes made this cycle:**
+- **Party-symmetry line for any grade move:**
+- **Excluded evidence this cycle:**
+- **Open carry-forward items:**
 
 ## Cycle Closeout
 
