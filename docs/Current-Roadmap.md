@@ -13,14 +13,18 @@
 - v5.176 user-facing content remains at release commit `c73ca98`. The September
   preparation and source-monitor hardening package deployed at commit
   `879ffd4c1dd9773a8f4f77b12916dccd1fa61440` through Pages run
-  `33226290171`. The production header still reports v5.176, and hosted Live
-  Dashboard Audit run `33226574585` passed against that exact deployment
-  marker. A manual live browser
-  check at `1280 x 900` and `390 x 844` found no horizontal overflow. Mobile
-  controls in the first-look action row remained 44 pixels high. The Housing
-  watch stayed clear of the fixed navigation and opened the Evidence workspace
-  at `#dim-housing-supply-evidence`. The next scheduled evidence update is
-  2026-09-01.
+  `33226290171`, with hosted audit run `33226574585` passing against that exact
+  deployment marker. Release-audit hardening then deployed at commit
+  `cab562b8b32338586a2a0b58fe72e4e6e91f255d` through Pages run
+  `33228763272`. Automatic audit run `33229128825` and manual exact-commit audit
+  run `33229379418` each passed `362/362` checks against that commit. The
+  production header still reports v5.176. A manual live browser check against
+  the `c73ca98` user-facing release at `1280 x 900` and `390 x 844` found no
+  horizontal overflow. Mobile controls in the first-look action row remained 44
+  pixels high. The Housing watch stayed clear of the fixed navigation and
+  opened the Evidence workspace at `#dim-housing-supply-evidence`. The later
+  commits changed only evidence-preparation, test, workflow, and roadmap files,
+  not the rendered UI. The next scheduled evidence update is 2026-09-01.
 - Three outage-era Actions records remain stranded in a contradictory state:
   Pages run `32985532383` at `d6f7c70` and audit runs `32984452288` and
   `32983983025` at `4d0b326` report `queued` but expose zero jobs, check runs,
@@ -73,6 +77,21 @@
 ---
 
 ## Recently Completed
+
+- Release-audit hardening acceptance - implementation commit `cab562b` makes
+  the optional manual target commit control checkout, job concurrency, and the
+  deployed-marker comparison. Job-level concurrency keeps a skipped Pages event
+  from cancelling an active audit. Missing-marker, browser-lifecycle,
+  historical-record, secondary-rationale, and workflow-structure regressions
+  now have focused coverage. The final read-only Claude review is preserved in
+  [Release-Audit-Hardening-Review-2026-08-28.md](Release-Audit-Hardening-Review-2026-08-28.md).
+  Pages run `33228763272` passed. Automatic audit run `33229128825`,
+  artifact `9707963341`, and manual exact-commit audit run `33229379418`, artifact
+  `9708040440`, each recorded `362/362` passing checks against the exact deployed
+  commit. Negative acceptance run `33229384616` used a malformed target and
+  failed at checkout as intended instead of silently auditing another commit.
+  No user-facing content, grade, score, status, methodology, frozen surface, or
+  version changed.
 
 - v5.176 source-record and release-check hardening - release commit `c73ca98`
   names all five Major Projects with post-referral advancement, refreshes the
@@ -340,17 +359,6 @@
    must fail closed, and its Anthropic account needs usable API credit before
    the run. Priority reason: the evidence window cannot be closed early or by
    inference.
-
-2. **Complete release-audit hardening acceptance.** The candidate lets a manual
-   audit target one commit and uses that SHA for checkout, concurrency, and the
-   deployed-marker comparison. Job-level concurrency prevents a skipped Pages
-   event from cancelling an active audit. Missing-marker, browser-lifecycle,
-   historical-record, and secondary-rationale regressions now have focused
-   coverage. Data, 105-check app-shell, 189-check monitor, workflow parsing,
-   lint with zero errors, build, and bundle-budget gates passed. Keep this item
-   open until Claude returns `VERDICT: APPROVED` and the landed commit passes an
-   exact-SHA hosted audit. Priority reason: local structural checks cannot prove
-   the GitHub event path that this change hardens.
 
 ---
 
