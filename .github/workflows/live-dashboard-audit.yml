@@ -5,22 +5,26 @@ on:
     workflows: ["Deploy to GitHub Pages"]
     types: [completed]
   workflow_dispatch:
+    inputs:
+      target_commit:
+        description: Commit SHA to audit (defaults to the dispatched ref)
+        required: false
+        type: string
 
 permissions:
   contents: read
-
-concurrency:
-  group: live-dashboard-audit-${{ github.event.workflow_run.head_sha || github.sha }}
-  cancel-in-progress: true
 
 jobs:
   live-audit:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
+    concurrency:
+      group: live-dashboard-audit-${{ inputs.target_commit || github.event.workflow_run.head_sha || github.sha }}
+      cancel-in-progress: true
     steps:
       - uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+          ref: ${{ inputs.target_commit || github.event.workflow_run.head_sha || github.sha }}
       - uses: actions/setup-node@v6
         with:
           node-version: 20
@@ -31,7 +35,7 @@ jobs:
         run: sleep 60
       - name: Audit live dashboard
         env:
-          EXPECTED_DEPLOY_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
+          EXPECTED_DEPLOY_SHA: ${{ inputs.target_commit || github.event.workflow_run.head_sha || github.sha }}
           LIVE_AUDIT_URL: https://sawatter.github.io/canada-under-carney/
         run: npm run audit:live
       - name: Upload audit report

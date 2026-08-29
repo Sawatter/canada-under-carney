@@ -49,6 +49,8 @@ const firstLookObstructionContexts = [
 ];
 
 export const fixedNavigationSafetyGap = 8;
+export const deploymentIntegrityErrorFilename = "deployment-integrity-error.txt";
+export const browserAuditErrorFilename = "browser-audit-error.txt";
 
 const rowStatus = {
   pass: "PASS",
@@ -201,6 +203,11 @@ export async function verifyDeployedCommit({
         },
       });
       if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error(
+            `Production deployment marker is missing: deployment.json returned HTTP 404 at ${metadataUrl}.`,
+          );
+        }
         throw new Error(
           `Production deployment metadata returned HTTP ${response.status} at ${metadataUrl}.`,
         );
@@ -247,6 +254,59 @@ export async function verifyDeployedCommit({
   }
 
   throw lastError;
+}
+
+export async function runBrowserAuditLifecycle({
+  outDir: lifecycleOutDir,
+  launchBrowser = () => chromium.launch(),
+  auditBrowser,
+  closeBrowser = (browser) => browser.close(),
+  writeFileImpl = writeFile,
+  reportSecondaryError = (error) => {
+    console.error(
+      `Could not write browser audit error artifact: ${error?.message || String(error)}`,
+    );
+  },
+}) {
+  let browser;
+  let primaryError;
+  let closeError;
+
+  try {
+    browser = await launchBrowser();
+    await auditBrowser(browser);
+  } catch (error) {
+    primaryError = error;
+  }
+
+  if (browser) {
+    try {
+      await closeBrowser(browser);
+    } catch (error) {
+      closeError = error;
+    }
+  }
+
+  const lifecycleError = primaryError || closeError;
+  if (!lifecycleError) return;
+
+  const messages = [primaryError, closeError]
+    .filter(Boolean)
+    .map((error) => error?.message || String(error));
+  try {
+    await writeFileImpl(
+      path.join(lifecycleOutDir, browserAuditErrorFilename),
+      `${messages.join("\n")}\n`,
+      "utf8",
+    );
+  } catch (artifactWriteError) {
+    try {
+      await reportSecondaryError(artifactWriteError);
+    } catch {
+      // Secondary diagnostics must never replace the lifecycle failure.
+    }
+  }
+  throw lifecycleError;
 }
 
 export function isFixedNavigationObstruction(
@@ -1892,7 +1952,7 @@ async function run() {
     });
   } catch (error) {
     await writeFile(
-      path.join(outDir, "deployment-integrity-error.txt"),
+      path.join(outDir, deploymentIntegrityErrorFilename),
       `${error.message}\n`,
       "utf8",
     );
@@ -1906,70 +1966,64 @@ async function run() {
     console.log("Skipping deployed commit SHA check because EXPECTED_DEPLOY_SHA was not supplied.");
   }
 
-  const browser = await chromium.launch();
-  try {
-    if (requiredDocumentDeploySha) {
-      const context = await browser.newContext({
-        viewport: { width: 1280, height: 900 },
-        colorScheme: "light",
-        reducedMotion: "reduce",
-      });
-      try {
+  await runBrowserAuditLifecycle({
+    outDir,
+    launchBrowser: () => chromium.launch(),
+    auditBrowser: async (browser) => {
+      if (requiredDocumentDeploySha) {
+        const context = await browser.newContext({
+          viewport: { width: 1280, height: 900 },
+          colorScheme: "light",
+          reducedMotion: "reduce",
+        });
+        try {
+          await installRoutes(context);
+          const page = await context.newPage();
+          await gotoApp(page, "");
+          console.log(
+            `Verified loaded document SHA ${requiredDocumentDeploySha} through Chromium.`,
+          );
+        } finally {
+          await context.close();
+        }
+      }
+
+      for (const ctx of contexts) {
+        console.log(`Starting ${ctx.name} audit (${ctx.width}x${ctx.height})`);
+        const context = await browser.newContext({
+          viewport: { width: ctx.width, height: ctx.height },
+          acceptDownloads: true,
+          colorScheme: "light",
+        });
         await installRoutes(context);
         const page = await context.newPage();
-        await gotoApp(page, "");
-        console.log(
-          `Verified loaded document SHA ${requiredDocumentDeploySha} through Chromium.`,
-        );
-      } finally {
+
+        await auditGlobalSurfaces(page, ctx.name);
+        await auditTabs(page, ctx.name);
+        await auditPromises(page, ctx.name);
+        await auditChangesAndDocs(page, ctx.name);
+        await auditDimensions(page, ctx.name);
+        await auditInternalTriggerTargets(page, ctx.name);
+        await auditExternalLinkSamples(page, ctx.name);
+        await auditKeyboard(page, ctx.name);
+
         await context.close();
       }
-    }
 
-    for (const ctx of contexts) {
-      console.log(`Starting ${ctx.name} audit (${ctx.width}x${ctx.height})`);
-      const context = await browser.newContext({
-        viewport: { width: ctx.width, height: ctx.height },
-        acceptDownloads: true,
-        colorScheme: "light",
-      });
-      await installRoutes(context);
-      const page = await context.newPage();
-
-      await auditGlobalSurfaces(page, ctx.name);
-      await auditTabs(page, ctx.name);
-      await auditPromises(page, ctx.name);
-      await auditChangesAndDocs(page, ctx.name);
-      await auditDimensions(page, ctx.name);
-      await auditInternalTriggerTargets(page, ctx.name);
-      await auditExternalLinkSamples(page, ctx.name);
-      await auditKeyboard(page, ctx.name);
-
-      await context.close();
-    }
-
-    for (const ctx of firstLookObstructionContexts) {
-      console.log(`Starting first-look obstruction audit (${ctx.width}x${ctx.height})`);
-      const context = await browser.newContext({
-        viewport: { width: ctx.width, height: ctx.height },
-        colorScheme: "light",
-        reducedMotion: "reduce",
-      });
-      await installRoutes(context);
-      const page = await context.newPage();
-      await auditFirstLookFixedNavigation(page, ctx);
-      await context.close();
-    }
-  } catch (error) {
-    await writeFile(
-      path.join(outDir, "deployment-integrity-error.txt"),
-      `${error.message}\n`,
-      "utf8",
-    );
-    throw error;
-  } finally {
-    await browser.close();
-  }
+      for (const ctx of firstLookObstructionContexts) {
+        console.log(`Starting first-look obstruction audit (${ctx.width}x${ctx.height})`);
+        const context = await browser.newContext({
+          viewport: { width: ctx.width, height: ctx.height },
+          colorScheme: "light",
+          reducedMotion: "reduce",
+        });
+        await installRoutes(context);
+        const page = await context.newPage();
+        await auditFirstLookFixedNavigation(page, ctx);
+        await context.close();
+      }
+    },
+  });
 
   const summary = {
     generatedAt: generatedAt.toISOString(),

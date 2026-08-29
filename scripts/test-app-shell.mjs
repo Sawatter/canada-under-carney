@@ -11,11 +11,14 @@ import {
 } from "../src/firstLook.js";
 import {
   assertLoadedDocumentSha,
+  browserAuditErrorFilename,
+  deploymentIntegrityErrorFilename,
   deploymentMetadataUrl,
   fixedNavigationSafetyGap,
   isDirectCliInvocation,
   isFixedNavigationObstruction,
   parseExpectedDeployedSha,
+  runBrowserAuditLifecycle,
   verifyDeployedCommit,
   writeDeploymentMetadata,
 } from "./audit-live-dashboard-coverage.mjs";
@@ -89,6 +92,18 @@ function sourceAround(source, marker, before = 0, after = 2000) {
   if (markerIndex === -1) return "";
   return source.slice(Math.max(0, markerIndex - before), markerIndex + marker.length + after);
 }
+
+function hasActiveYamlLine(source, expectedLine, indentation) {
+  const expected = `${" ".repeat(indentation)}${expectedLine}`;
+  return source.split("\n").some((line) => line === expected);
+}
+
+check(
+  hasActiveYamlLine("    ref: fixture", "ref: fixture", 4)
+    && !hasActiveYamlLine("    # ref: fixture", "ref: fixture", 4)
+    && !hasActiveYamlLine("ref: fixture", "ref: fixture", 4),
+  "Workflow contract checks must require active YAML at the expected indentation.",
+);
 
 check(
   imports(sources.app, "Dashboard") && renders(sources.app, "Dashboard"),
@@ -731,20 +746,67 @@ check(
     && !sources.liveAuditWorkflow.includes("uses: actions/upload-artifact@v4"),
   "The live audit workflow must keep the reviewed upload-artifact v7 pin.",
 );
-const expectedDeployShaExpression = "${{ github.event.workflow_run.head_sha || github.sha }}";
+const expectedDeployShaExpression = "${{ inputs.target_commit || github.event.workflow_run.head_sha || github.sha }}";
+const workflowDispatchContract = sourceAround(
+  sources.liveAuditWorkflow,
+  "  workflow_dispatch:",
+  0,
+  500,
+);
 check(
-  sources.liveAuditWorkflow.includes(
-    `group: live-dashboard-audit-${expectedDeployShaExpression}`,
-  )
-    && !/^\s*group:\s*live-dashboard-audit\s*$/m.test(sources.liveAuditWorkflow)
-    && sources.liveAuditWorkflow.includes("cancel-in-progress: true"),
+  hasActiveYamlLine(workflowDispatchContract, "workflow_dispatch:", 2)
+    && hasActiveYamlLine(workflowDispatchContract, "inputs:", 4)
+    && hasActiveYamlLine(workflowDispatchContract, "target_commit:", 6)
+    && hasActiveYamlLine(workflowDispatchContract, "required: false", 8)
+    && hasActiveYamlLine(workflowDispatchContract, "type: string", 8),
+  "Manual live audits must expose an optional string target_commit input.",
+);
+const liveAuditJobContract = sourceAround(
+  sources.liveAuditWorkflow,
+  "  live-audit:",
+  0,
+  2600,
+);
+const checkoutStepContract = sourceAround(
+  liveAuditJobContract,
+  "- uses: actions/checkout@v6",
+  0,
+  350,
+);
+const auditStepContract = sourceAround(
+  liveAuditJobContract,
+  "- name: Audit live dashboard",
+  0,
+  500,
+);
+check(
+  !/^concurrency:/m.test(sources.liveAuditWorkflow)
+    && hasActiveYamlLine(liveAuditJobContract, "concurrency:", 4)
+    && hasActiveYamlLine(
+      liveAuditJobContract,
+      `group: live-dashboard-audit-${expectedDeployShaExpression}`,
+      6,
+    )
+    && !hasActiveYamlLine(liveAuditJobContract, "group: live-dashboard-audit", 6)
+    && hasActiveYamlLine(liveAuditJobContract, "cancel-in-progress: true", 6),
   "The live audit workflow must cancel same-commit duplicates without allowing different commits to cancel each other.",
 );
 check(
-  sources.liveAuditWorkflow.includes(
-    `EXPECTED_DEPLOY_SHA: ${expectedDeployShaExpression}`,
+  hasActiveYamlLine(checkoutStepContract, `ref: ${expectedDeployShaExpression}`, 10)
+    && hasActiveYamlLine(
+      auditStepContract,
+      `EXPECTED_DEPLOY_SHA: ${expectedDeployShaExpression}`,
+      10,
+    ),
+  "Automatic and manual live audits must use the common target SHA for checkout and EXPECTED_DEPLOY_SHA.",
+);
+check(
+  hasActiveYamlLine(
+    liveAuditJobContract,
+    "if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'",
+    4,
   ),
-  "Automatic and manual live audits must pass their exact expected deployed commit SHA.",
+  "Automatic live audits must run only after a successful Pages workflow_run event.",
 );
 check(
   sources.deployWorkflow.includes("DEPLOYED_COMMIT_SHA: ${{ github.sha }}")
@@ -911,12 +973,16 @@ check(
   "The live audit must read cache-busted deployment metadata beneath the production base path.",
 );
 let retryFetchCount = 0;
+const retryDelays = [];
 const retriedDeploymentCheck = await verifyDeployedCommit({
   liveUrl: "https://example.test/dashboard/",
   expectedSha: expectedDeploymentSha,
   attempts: 2,
   nonceFactory: (attempt) => `retry-${attempt}`,
-  sleepImpl: async () => {},
+  retryDelayMs: 7,
+  sleepImpl: async (delayMs) => {
+    retryDelays.push(delayMs);
+  },
   fetchImpl: async () => {
     retryFetchCount += 1;
     if (retryFetchCount === 1) return { ok: false, status: 404 };
@@ -928,7 +994,9 @@ const retriedDeploymentCheck = await verifyDeployedCommit({
   },
 });
 check(
-  retriedDeploymentCheck.checked && retryFetchCount === 2,
+  retriedDeploymentCheck.checked
+    && retryFetchCount === 2
+    && JSON.stringify(retryDelays) === JSON.stringify([7]),
   "The deployment metadata preflight must retry a propagation miss before failing.",
 );
 let mismatchedDeploymentError = "";
@@ -952,19 +1020,193 @@ check(
   "The live audit must fail when production exposes a different deployed commit SHA.",
 );
 let missingDeploymentMetadataError = "";
+let missingDeploymentFetchCount = 0;
+const missingDeploymentRetryDelays = [];
 try {
   await verifyDeployedCommit({
     liveUrl: "https://example.test/dashboard/",
     expectedSha: expectedDeploymentSha,
-    attempts: 1,
-    fetchImpl: async () => ({ ok: false, status: 404 }),
+    attempts: 3,
+    retryDelayMs: 5,
+    sleepImpl: async (delayMs) => {
+      missingDeploymentRetryDelays.push(delayMs);
+    },
+    fetchImpl: async () => {
+      missingDeploymentFetchCount += 1;
+      return { ok: false, status: 404 };
+    },
   });
 } catch (error) {
   missingDeploymentMetadataError = error.message;
 }
 check(
-  missingDeploymentMetadataError.includes("HTTP 404"),
-  "The live audit must fail when production does not expose deployment metadata.",
+  missingDeploymentMetadataError.includes(
+    "Production deployment marker is missing: deployment.json returned HTTP 404",
+  )
+    && missingDeploymentMetadataError.includes("/dashboard/deployment.json?")
+    && missingDeploymentFetchCount === 3
+    && JSON.stringify(missingDeploymentRetryDelays) === JSON.stringify([5, 10]),
+  "A missing deployment marker must report HTTP 404 directly after exhausting propagation retries.",
+);
+const deploymentErrorArtifactContract = sourceAround(
+  sources.liveAudit,
+  "deploymentCheck = await verifyDeployedCommit",
+  0,
+  900,
+);
+const browserLifecycleWrites = [];
+let browserLifecycleAuditCalled = false;
+let browserLifecycleCloseCalled = false;
+let browserLaunchError = "";
+try {
+  await runBrowserAuditLifecycle({
+    outDir: "/tmp/live-audit-fixture",
+    launchBrowser: async () => {
+      throw new Error("browser launch fixture failed");
+    },
+    auditBrowser: async () => {
+      browserLifecycleAuditCalled = true;
+    },
+    closeBrowser: async () => {
+      browserLifecycleCloseCalled = true;
+    },
+    writeFileImpl: async (...args) => {
+      browserLifecycleWrites.push(args);
+    },
+  });
+} catch (error) {
+  browserLaunchError = error.message;
+}
+check(
+  browserLaunchError === "browser launch fixture failed"
+    && !browserLifecycleAuditCalled
+    && !browserLifecycleCloseCalled
+    && browserLifecycleWrites.length === 1
+    && browserLifecycleWrites[0][0] === path.join(
+      "/tmp/live-audit-fixture",
+      browserAuditErrorFilename,
+    )
+    && browserLifecycleWrites[0][1] === "browser launch fixture failed\n"
+    && browserLifecycleWrites[0][2] === "utf8",
+  "A browser launch failure must write the browser audit error artifact before rethrowing.",
+);
+
+async function runBrowserLifecycleFailureFixture({
+  auditError,
+  closeError,
+  artifactWriteError,
+}) {
+  const browser = { fixture: true };
+  const writes = [];
+  const secondaryErrors = [];
+  let closeCalls = 0;
+  let thrownError;
+  try {
+    await runBrowserAuditLifecycle({
+      outDir: "/tmp/live-audit-fixture",
+      launchBrowser: async () => browser,
+      auditBrowser: async (receivedBrowser) => {
+        if (receivedBrowser !== browser) throw new Error("wrong browser fixture");
+        if (auditError) throw auditError;
+      },
+      closeBrowser: async (receivedBrowser) => {
+        closeCalls += 1;
+        if (receivedBrowser !== browser) throw new Error("wrong close fixture");
+        if (closeError) throw closeError;
+      },
+      writeFileImpl: async (...args) => {
+        writes.push(args);
+        if (artifactWriteError) throw artifactWriteError;
+      },
+      reportSecondaryError: async (error) => {
+        secondaryErrors.push(error);
+      },
+    });
+  } catch (error) {
+    thrownError = error;
+  }
+  return { closeCalls, secondaryErrors, thrownError, writes };
+}
+
+const auditFailure = new Error("browser audit fixture failed");
+const auditFailureResult = await runBrowserLifecycleFailureFixture({
+  auditError: auditFailure,
+});
+check(
+  auditFailureResult.thrownError === auditFailure
+    && auditFailureResult.closeCalls === 1
+    && auditFailureResult.writes.length === 1
+    && auditFailureResult.writes[0][1] === "browser audit fixture failed\n"
+    && auditFailureResult.secondaryErrors.length === 0,
+  "A browser audit failure must close the browser, write its artifact, and remain the primary error.",
+);
+
+const closeFailure = new Error("browser close fixture failed");
+const closeFailureResult = await runBrowserLifecycleFailureFixture({
+  closeError: closeFailure,
+});
+check(
+  closeFailureResult.thrownError === closeFailure
+    && closeFailureResult.closeCalls === 1
+    && closeFailureResult.writes.length === 1
+    && closeFailureResult.writes[0][1] === "browser close fixture failed\n",
+  "A browser close failure must write its artifact and remain the primary error.",
+);
+
+const combinedAuditFailure = new Error("combined audit fixture failed");
+const combinedCloseFailure = new Error("combined close fixture failed");
+const combinedFailureResult = await runBrowserLifecycleFailureFixture({
+  auditError: combinedAuditFailure,
+  closeError: combinedCloseFailure,
+});
+check(
+  combinedFailureResult.thrownError === combinedAuditFailure
+    && combinedFailureResult.closeCalls === 1
+    && combinedFailureResult.writes.length === 1
+    && combinedFailureResult.writes[0][1]
+      === "combined audit fixture failed\ncombined close fixture failed\n",
+  "Combined audit and close failures must keep the audit error primary and record both messages.",
+);
+
+const artifactRootFailure = new Error("artifact write fixture failed");
+const preservedAuditFailure = new Error("preserved audit fixture failed");
+const artifactFailureResult = await runBrowserLifecycleFailureFixture({
+  auditError: preservedAuditFailure,
+  artifactWriteError: artifactRootFailure,
+});
+check(
+  artifactFailureResult.thrownError === preservedAuditFailure
+    && artifactFailureResult.closeCalls === 1
+    && artifactFailureResult.writes.length === 1
+    && artifactFailureResult.secondaryErrors.length === 1
+    && artifactFailureResult.secondaryErrors[0] === artifactRootFailure,
+  "An artifact-write failure must be reported secondarily without masking the browser failure.",
+);
+const browserErrorArtifactContract = sourceAround(
+  sources.liveAudit,
+  "export async function runBrowserAuditLifecycle",
+  0,
+  1800,
+);
+const browserLifecycleInvocationContract = sourceAround(
+  sources.liveAudit,
+  "await runBrowserAuditLifecycle({",
+  0,
+  7000,
+);
+check(
+  deploymentIntegrityErrorFilename === "deployment-integrity-error.txt"
+    && browserAuditErrorFilename === "browser-audit-error.txt"
+    && deploymentIntegrityErrorFilename !== browserAuditErrorFilename
+    && deploymentErrorArtifactContract.includes("deploymentIntegrityErrorFilename")
+    && !deploymentErrorArtifactContract.includes("browserAuditErrorFilename")
+    && browserErrorArtifactContract.includes("browserAuditErrorFilename")
+    && !browserErrorArtifactContract.includes("deploymentIntegrityErrorFilename")
+    && browserLifecycleInvocationContract.includes(
+      "launchBrowser: () => chromium.launch()",
+    )
+    && browserLifecycleInvocationContract.includes("auditBrowser: async (browser)"),
+  "Deployment preflight and browser/runtime failures must write distinct, accurately named artifacts.",
 );
 const malformedMetadataCases = [
   {

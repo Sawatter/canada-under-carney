@@ -226,6 +226,17 @@ const invalidFixtures = [
       );
     },
   },
+  {
+    name: "major-projects-rationale-omits-red-chris",
+    expected: "rationale omits projects counted as post-referral advancement: Red Chris Copper and Gold Mine",
+    mutate: (fixture) => {
+      const majorProjects = dimension(fixture, "major-projects");
+      majorProjects.rationale = majorProjects.rationale.replace(
+        "Red Chris Copper and Gold Mine",
+        "the secondary omitted project",
+      );
+    },
+  },
   ...gradeTokenFixtures,
   ...urgencyFixtures,
 ];

@@ -10,12 +10,12 @@
 
 ## Current State
 
-- v5.176 is live through release commit `c73ca98`. Pages run `33136261054`
-  passed build, 264 browser cases with 262 passes and 2 intentional skips, and
-  deploy. The production header reports v5.176, and the live deployment marker
-  resolves to full commit `c73ca9898eb4177ae01b358dbf28bc984e60ddc6`.
-  Hosted Live Dashboard Audit run `33136664394` passed `362/362` checks against
-  that exact commit; its report artifact is `9672382988`. A manual live browser
+- v5.176 user-facing content remains at release commit `c73ca98`. The September
+  preparation and source-monitor hardening package deployed at commit
+  `879ffd4c1dd9773a8f4f77b12916dccd1fa61440` through Pages run
+  `33226290171`. The production header still reports v5.176, and hosted Live
+  Dashboard Audit run `33226574585` passed against that exact deployment
+  marker. A manual live browser
   check at `1280 x 900` and `390 x 844` found no horizontal overflow. Mobile
   controls in the first-look action row remained 44 pixels high. The Housing
   watch stayed clear of the fixed navigation and opened the Evidence workspace
@@ -341,13 +341,16 @@
    the run. Priority reason: the evidence window cannot be closed early or by
    inference.
 
-2. **Harden release-audit edge cases.** Add an optional target commit for manual
-   runs, prevent a same-commit skip from cancelling an active audit, report a
-   missing deployment marker directly, give the browser catch in
-   `scripts/audit-live-dashboard-coverage.mjs` its own neutral error filename,
-   and strengthen historical-record and secondary rationale-name fixtures.
-   Priority reason: September preparation is complete to the date boundary, so
-   the next autonomous lane is release-audit maintenance.
+2. **Complete release-audit hardening acceptance.** The candidate lets a manual
+   audit target one commit and uses that SHA for checkout, concurrency, and the
+   deployed-marker comparison. Job-level concurrency prevents a skipped Pages
+   event from cancelling an active audit. Missing-marker, browser-lifecycle,
+   historical-record, and secondary-rationale regressions now have focused
+   coverage. Data, 105-check app-shell, 189-check monitor, workflow parsing,
+   lint with zero errors, build, and bundle-budget gates passed. Keep this item
+   open until Claude returns `VERDICT: APPROVED` and the landed commit passes an
+   exact-SHA hosted audit. Priority reason: local structural checks cannot prove
+   the GitHub event path that this change hardens.
 
 ---
 
