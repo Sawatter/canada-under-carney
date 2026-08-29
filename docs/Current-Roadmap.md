@@ -10,21 +10,21 @@
 
 ## Current State
 
-- v5.176 user-facing content remains at release commit `c73ca98`. The September
-  preparation and source-monitor hardening package deployed at commit
-  `879ffd4c1dd9773a8f4f77b12916dccd1fa61440` through Pages run
-  `33226290171`, with hosted audit run `33226574585` passing against that exact
-  deployment marker. Release-audit hardening then deployed at commit
-  `cab562b8b32338586a2a0b58fe72e4e6e91f255d` through Pages run
-  `33228763272`. Automatic audit run `33229128825` and manual exact-commit audit
-  run `33229379418` each passed `362/362` checks against that commit. The
-  production header still reports v5.176. A manual live browser check against
-  the `c73ca98` user-facing release at `1280 x 900` and `390 x 844` found no
-  horizontal overflow. Mobile controls in the first-look action row remained 44
-  pixels high. The Housing watch stayed clear of the fixed navigation and
-  opened the Evidence workspace at `#dim-housing-supply-evidence`. The later
-  commits changed only evidence-preparation, test, workflow, and roadmap files,
-  not the rendered UI. The next scheduled evidence update is 2026-09-01.
+- v5.177 is live at release commit
+  `a082446ccc0a93cd8101e20080c21e0e59752306`. It corrects the Defence &
+  Trade source contract to StatCan table 12-10-0011-01, corrects the two
+  Immigration metrics to new-arrival language and direct official sources, and
+  makes IRCC freshness use the maximum valid period instead of the final file
+  row. Pages run `33235403800`, artifact `9709757738`, and deployment
+  `6152596687` passed. Automatic Live Dashboard Audit run `33235702687`,
+  artifact `9709904616`, then recorded `362/362` passing checks against that
+  exact deployed commit. Claude returned `VERDICT: APPROVED` after the new IRCC
+  contract test was staged. Manual live checks at `1280 x 900` and `390 x 844`
+  found no horizontal overflow or console errors in the changed Defence & Trade
+  and Immigration Evidence views. The production header reports v5.177. No
+  grade, score, promise status, methodology, threshold, formula, weight, or
+  dimension-model change was made. The next scheduled evidence update is
+  2026-09-01.
 - Three outage-era Actions records remain stranded in a contradictory state:
   Pages run `32985532383` at `d6f7c70` and audit runs `32984452288` and
   `32983983025` at `4d0b326` report `queued` but expose zero jobs, check runs,
@@ -77,6 +77,19 @@
 ---
 
 ## Recently Completed
+
+- v5.177 source-contract and September-preparation release - release commit
+  `a082446` replaces the incorrect StatCan industry-table binding with the
+  principal-trading-partner table, fixes Immigration source attribution and
+  wording, fails malformed IRCC data closed, and records the August 28 evidence
+  checkpoint without making an editor decision. The 560-row September ledger
+  has 531 dated dispositions, 475 cadence deferrals with explicit next-due
+  dates, and 29 rows still open through the August 31 boundary. Pages run
+  `33235403800`, artifact `9709757738`, and deployment `6152596687` passed.
+  Automatic audit run `33235702687`, artifact `9709904616`, matched the exact
+  deployed commit and passed `362/362` checks. Desktop and mobile live checks of
+  the changed Evidence views also passed. Claude's final binary gate returned
+  `VERDICT: APPROVED`.
 
 - Release-audit hardening acceptance - implementation commit `cab562b` makes
   the optional manual target commit control checkout, job concurrency, and the
@@ -429,7 +442,13 @@ cancelled or completed. Resume them only on later editor instruction.
 
 ## Next
 
-No additional autonomous item is queued behind the current `Now` work.
+1. **Fail IRCC access errors closed in the monthly monitor.** The v5.177 Claude
+   review confirmed that `malformed_data` blocks acceptance and preserves the
+   prior state, but isolated `http_error` and generic `error` results still
+   record a soft access failure, return success, and advance monitor state. Make
+   those outcomes fail deterministic acceptance, prevent state advancement, and
+   add monitor-level regressions for both paths. Priority reason: an inaccessible
+   required source must not produce a successful monthly checkpoint.
 
 ---
 ## Later
