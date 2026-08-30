@@ -1,7 +1,7 @@
 # September Cycle Preparation - 2026-08-28
 
 **Evidence window:** 2026-08-01 through 2026-08-31
-**Preparation checkpoint:** 2026-08-28
+**Latest preparation checkpoint:** 2026-08-29
 **Dashboard baseline:** v5.176 repository state at commit `b80c9a0`; the
 user-facing v5.176 content last changed at release commit `c73ca98`
 **Decision boundary:** Evidence preparation only. No grade, promise-status,
@@ -10,7 +10,7 @@ methodology, threshold, or frozen-surface call is made here.
 ## Current State
 
 The September ledger is generated and structurally valid. Point-in-time checks
-through August 28 are recorded. The cycle cannot close before August 31, and
+through August 29 are recorded. The cycle cannot close before August 31, and
 negative findings must be refreshed after the full evidence window ends.
 
 | Work item | Checkpoint result | Remaining gate |
@@ -18,10 +18,10 @@ negative findings must be refreshed after the full evidence window ends.
 | Four IRCC downloads | All four official binaries returned and parsed; freshness now uses the newest dated row rather than file order | Compare the June 2026 permit-holder data during editor-gated September adjudication |
 | Moody's sovereign watch | Official Ratings News search returned no matching August action; issuer detail remains sign-in gated | Retain the access exception and do not infer a rating |
 | Housing DCRP watch | Three new conditional municipal allocations found; disbursement and construction condition remains unmet | Recheck after August 31 and on any new official event |
-| Official publisher sweep | 15 new evidence families were found for August 15-28; 10 are evidence-only, 4 need active editor review, and 1 remains parked with Major Projects | Recheck August 29-31, adjudicate the four active questions, and keep the fifth parked |
+| Official publisher sweep | The August 29 pass checked all 29 still-open monthly and event-driven rows; 12 carried a new release, 13 recorded no event observed, 2 remained OK, and 2 were blocked | Refresh every open row after the August 31 boundary, adjudicate the active questions, and keep Major Projects parked |
 | Source ledger | 560 rows; 531 have dated dispositions, including 475 rows deferred by cadence; 29 remain open | Close August 29-31, run the September 1 scout, adjudicate candidates, then require all rows closed |
 | Policy history | Three chronology defects confirmed | Editor must define date semantics before data correction |
-| Monthly scout | Fail-closed hardening and deterministic checks are in the accepted branch state | The Anthropic account still needs usable API credit before September 1, and the hardened workflow needs a live run |
+| Monthly scout | The local fail-closed candidate passes its source-contract checks, but hosted workflow security remediation remains under review | The Anthropic account still needs usable API credit before September 1, then the accepted workflow needs a hosted run |
 
 ## Source Results
 
@@ -133,6 +133,58 @@ Four questions enter active September adjudication. One remains editor-parked:
 No direct material event was found for Carbon Pricing Policy, Immigration,
 Ethics & Transparency, or standalone Flagship Delivery during this sweep.
 
+## August 29 Open-Row Checkpoint
+
+All 29 monthly and event-driven rows that remained open were checked against
+their live publisher controls on August 29. This checkpoint does not populate
+the ledger's final Result cells because doing so would make the closed-ledger
+validator treat the August 31 evidence boundary as complete.
+
+The row reconciliation was computed as 12 `new release found`, 13
+`no event observed`, 2 `OK`, and 2 `blocked`, for 29 total rows.
+
+| Checkpoint result | Rows checked |
+|---|---|
+| `new release found` | CMHC housing starts; Abacus; Innovative Research; Leger; Nanos; EV policy; Finance announcements; PMO defence announcements; PMO major announcements; National Defence releases; ECCC announcements; department release pages |
+| `no event observed` | Angus Reid broad approval; Ipsos broad approval; Ethics Commissioner review; 2030 and 2035 climate targets; net-zero commitment; Flagship execution; NATO verification; carbon border adjustment; Paris status; Fitch sovereign action; S&P sovereign action; federal climate plan; OBPS and fuel-charge policy |
+| `OK` | 2 Billion Trees control; Major Projects Office national list |
+| `blocked` | Full financial disclosure control; official support for the current emissions-cap promise label |
+
+The four official IRCC binaries were rechecked and again returned HTTP 200.
+They retained the same valid shapes and June 2026 latest periods recorded above:
+3,867 permanent-resident rows, 49,150 IMP rows, 6,419 TFWP rows, and 5,495
+study-permit rows. No malformed rows were found. This does not decide the
+Immigration grade.
+
+[Moody's Ratings News](https://ratings.moodys.com/ratings-news) returned no
+matching Canada sovereign action. The
+[issuer search](https://ratings.moodys.com/ratings/search) still redirected to
+sign-in, so the current-detail access exception remains `blocked`. This is a
+dated negative search, not proof that no action occurred.
+
+The [Ontario DCRP page](https://www.ontario.ca/page/development-charge-reduction-program),
+[federal agreements index](https://housing-infrastructure.canada.ca/bcsf-fbcf/provincial-territorial/index-eng.html),
+and the Vaughan, Hamilton, and Bradford West Gwillimbury releases were
+rechecked. They still do not establish a signed Ontario agreement, completed
+federal approval, signed municipal transfer-payment agreement, first payment,
+or DCRP-attributable construction. The Housing condition therefore remains a
+dated hold as of August 29, not proof of no unpublished action.
+
+The checkpoint preserved the four existing editor questions and surfaced these
+additional decisions for the final cycle review:
+
+1. Whether the Abacus and Leger releases enter the approval mean, while the
+   Innovative trade-response release remains outside that construct and Nanos
+   stays secondary preferred-PM context.
+2. Whether the Coast Guard icebreaker contract belongs inside the current
+   Defence scope.
+3. Whether the official evidence changes the Promise Delivery treatment for
+   2 Billion Trees, the emissions cap, or the replaced EV standard.
+
+No grade, promise status, threshold, methodology rule, or frozen surface moved.
+Every negative finding must be refreshed after August 31, and the September 1
+scout remains open.
+
 ## Ledger State
 
 The generated ledger now names its prior-calendar-month evidence window and
@@ -243,13 +295,28 @@ insufficient-credit error. The workflow still ended successfully because the
 monitor treated classification failure as a warning. That is a release-control
 defect.
 
-The accepted hardening makes live and backtest runs fail when required
+The hardening candidate makes live and backtest runs fail when required
 Tavily search or Anthropic classification does not complete. It also prevents
 failed candidates from advancing monitor state, so a retry cannot suppress
 unclassified evidence and pass with an empty result. Strict deterministic runs
 must match the requested cycle, include every configured feed and cited bill,
 and complete the requested link scan against every cited URL. Malformed or
 partial classifier rows also fail before candidate state is mutated.
+
+The final race-safety pass adds a host-local exclusive run lock before monitor
+input parsing or paid work. A concurrent process using the same case-normalized
+resolved state path exits nonzero, so it cannot overwrite accepted output from a
+stale state snapshot. The operating system releases that lock when the process
+ends.
+Existing state paths that are symbolic links or have hard-link aliases are
+rejected. A missing state under a symbolic-linked parent is canonicalized once
+for locking, marker placement, state writes, and rollback.
+
+The later retry-safety pass adds a separate persistent recovery marker before
+accepted state replacement. Accepted outputs or exact rollback clear it. A
+failed rollback or marker cleanup leaves it in place, and a same-state retry
+stops before deterministic input or paid work until the prior state, packet, and
+ledger are reconciled.
 
 Transient Tavily 429, 5xx, network, or JSON failures retry once. An exhausted
 retry still fails the cycle. A failed strict deterministic preflight stops

@@ -16,7 +16,7 @@
     "source:ledger:check": "node scripts/validate-source-ledger.mjs",
     "source:links": "node scripts/check-source-links.mjs",
     "monitor:registry": "python3 scripts/monitor_sources.py --rebuild-registry",
-    "monitor:dryrun": "python3 scripts/monitor_sources.py --dry-run --out-suffix=-dryrun --fetch-results scripts/fixtures/fetch-results-sample.json",
+    "monitor:dryrun": "python3 scripts/monitor_sources.py --cycle 2026-09 --dry-run --require-complete --fetch-results scripts/fixtures/fetch-results-dryrun.json --ethics-prior-cache scripts/fixtures/ethics-reports-prior.json --state-file scripts/fixtures/monitor-state-empty.json --ledger-path tmp/monitor-dryrun-candidates.json --packet-path tmp/monitor-dryrun-candidates.md",
     "setup:hooks": "git config core.hooksPath scripts/git-hooks; chmod +x scripts/git-hooks/pre-commit scripts/git-hooks/block-dangerous-git.sh 2>/dev/null; git checkout -- scripts/git-hooks 2>/dev/null; echo 'hooks installed (hooksPath set; exec bit from git)'",
     "bundle": "bash scripts/build-bundle.sh",
     "test:review-handoff": "node scripts/test-review-handoff.mjs",

@@ -4,7 +4,7 @@
 
 **Status:** Active working roadmap for the live dashboard.
 
-**Last updated:** 2026-08-28
+**Last updated:** 2026-08-29
 
 ---
 
@@ -67,7 +67,7 @@
 - Frozen-surface protection. `src/utils.js` opens with a FROZEN SURFACE comment block naming the four protected functions and the test-update protocol. `scripts/test-gpa-frozen-surface.mjs` runs 56 assertions across 9 test groups and is wired into `npm run test:data` and the prebuild. `scripts/validate-dimensions.mjs` imports `POCKETBOOK_DIMS` from a single source of truth and now warns on malformed `metric.sourceRefs`, `gradeTriggers.additionalSources`, and the `gradeBasis` operationalization structured fields. `eslint.config.js` warns on inline hex color literals in components.
 - About page now opens with an editor disclosure (independent business and operations consultant), political affiliation, professional conflicts, funding, AI-assistance disclosure, and recusal policy. The "what this does not grade" list explicitly names Indigenous reconciliation, healthcare federal-provincial transfers, public-sector bargaining, pre-designation pipeline announcements, foreign policy beyond defence/trade, and specific defence procurement contracts, each with a published rationale for exclusion. Past Versions surface points readers to the Change Log, GitHub commit history, the data folder at any commit, and per-cycle closure memos.
 - Bundle generator (`npm run bundle`) builds a multi-megabyte markdown bundle of every git-tracked text file in the repo for handing to external AI reviewers. Output writes to `tmp/perplexity-bundle.md` plus copies to `~/Downloads` and `~/Desktop`. The Claude Code `/bundle` slash command wraps this.
-- Monthly source monitor is live. `scripts/monitor_sources.py` reads the deterministic pullers in `fetch-data.py` (now via `--json-out`), adds a Tavily search fan-out over the feed-less and blocked surfaces, runs a `claude-opus-4-8` relevance pass that only routes candidates, and writes a candidate ledger plus an editor packet under `monitoring/` and `docs/Source-Monitoring-Candidates-YYYY-MM.md`. State lives in `monitoring/state.json` and `monitoring/sources.json` (registry built from the cited URLs). The Ethics diff cache moved from `tmp/` to `monitoring/`. The monthly workflow opens a `source-monitor/YYYY-MM` review PR and never pushes to main or moves a grade. Missing API keys skip a tier with an explicit packet note rather than reporting a clean cycle. Full design in [Source-Monitoring-System.md](Source-Monitoring-System.md). Offline checks: `npm run test:monitor`.
+- Monthly source monitor is live. `scripts/monitor_sources.py` reads the deterministic pullers in `fetch-data.py` (now via `--json-out`), adds a Tavily search fan-out over the feed-less and blocked surfaces, runs a `claude-opus-4-8` relevance pass that only routes candidates, and writes a candidate ledger plus an editor packet under `monitoring/` and `docs/Source-Monitoring-Candidates-YYYY-MM.md`. State lives in `monitoring/state.json` and `monitoring/sources.json` (registry built from the cited URLs). The Ethics diff cache lives in `monitoring/`. The hardening candidate separates read-only analysis from review-branch publication. Privacy-cleared failed diagnostics remain explicitly not accepted, while successful live analysis may pass five fixed monitoring files to a separate guarded publish job. The workflow never pushes to `main` or moves a grade. The live workflow requires both paid-tier API keys and complete tiers. Missing keys prevent publication. Optional local diagnostics may record skipped tiers, but cannot advance `monitoring/state.json`. Full design in [Source-Monitoring-System.md](Source-Monitoring-System.md). Offline checks: `npm run test:monitor`.
 - Dated source stacks are live. Cited sources carry `date` / `dateKind` metadata, and the source-date follow-up gate is closed with zero `needsManualDate` flags. Living pages use `as-of`; updated-only pages use `updated`; static releases and filings use `published`. The source-ordering metadata is display-only and does not move grades, statuses, thresholds, or source order. The review record is [Source-Dates-Review.md](Source-Dates-Review.md).
 - The app shell is live at the root (v5.119 cutover, v5.120 post-cutover polish), with the classic rollback route retired in v5.142 after a clean June 29 route-exit audit. v5.120 added mobile navigation icons, a promise active-filter return affordance, bottom-navigation re-entry motion, semantic section navigation, and the viewport-flip body-lock and history fix. The opened-dimension drawer was then reworked across v5.121-v5.126: evidence-leads information architecture with a check-this-grade layer and score-leads hero (v5.121), a headline commitment row showing stated target vs. result (v5.122), a dimension-scoped Promises filter (v5.123), Red Tape Review and Foreign Policy Review promise status-evidence updates (v5.123, v5.125), and a display-only drawer typography pass (v5.126). Later releases layered on Kit signup, clickable Promises, title clarification, dark theme, app-card polish, dashboard status, source freshness, drawer reading order, the v5.139-v5.140 plain-language passes, the v5.141 data-driven next-checks strip and manual Playwright browser smoke, then the v5.142 browser-smoke CI gate. v5.143 adds the sourced grade-move evidence loop, v5.144 adds the first beauty / identity pass, v5.145 fixes mobile drawer containment after that pass, v5.146 fixes the mobile header badge collision, v5.147 makes that header spacing rule cross-viewport with browser-smoke coverage, v5.148 lands the June 30 review follow-through on the live surface, v5.149 adds the full-changelog link (published to `main` with the v5.150 push), and v5.150 is the separate July monthly-cycle factual refresh with no grade moves. The same evening, v5.151 landed the app-workspace release: a fixed desktop sidebar on wide screens that stays visible while a dimension is open (phones keep the bottom navigation, mid-size screens keep the top tabs), an authored one-line verdict on each graded card checked by the data validator so it can never carry a grade letter or urgency wording, a per-card next-check line taken word for word from the existing trigger data, a client-only since-your-last-visit note whose last-seen marker stays on the reader's device, and a deterministic .ics calendar file for the next update in the footer follow block; web push was considered and rejected because a static site would need a third-party push service, which fails the privacy bar. v5.152 then landed the trust surfaces: every up and down trigger shows the date its condition was published, the score-derivation panel carries a matching one-line provenance statement, the Change Log opens on the newest twelve entries with documentation and minor items folded per entry and earlier history behind an explicit button, returning readers who are caught up see one quiet line with the next scheduled update date, and the theme button cycles light, dark, and system. No scoring, formula, threshold, weight, or dimension-model change is part of any of these releases; v5.150 only refreshed factual source data and methodology state, and v5.151 and v5.152 are product and presentation work with no grade moves and no methodology change.
 - Repo-local Agent Skills for source workflows are live in `.claude/skills/`: `source-addition`, `source-audit`, `grade-evaluation`, `monthly-cycle`, `bias-resistance-check`, `scope-guard` (explicit-invocation only). Plus the Nate-inspired AI workflow layer: `project-room` (with the four-artifact discipline: source inventory table, conflict log, missing context list, duplicates report) and `ai-question-method`. The scope-guard runs against `origin/main...HEAD` for push-bound commits.
@@ -363,16 +363,17 @@
 ## Now
 
 1. **Complete the September evidence cycle after the August 31 boundary.** The
-   [August 28 preparation checkpoint](September-Cycle-Prep-2026-08-28.md)
-   resolved all four IRCC binary-download exceptions, recorded the Moody's
-   detail-page exception, added three conditional DCRP municipal allocations,
-   and reconciled 15 official evidence families from August 15-28. The valid
-   560-row ledger has 531 dated dispositions, including 475 cadence deferrals,
-   with 29 monthly or event-driven rows still open. The ledger remains open for
-   August 29-31, the September 1 scout, candidate adjudication, and editor-gated
-   grade or status calls. The scout must fail closed, and its Anthropic account
-   needs usable API credit before the run. Priority reason: the evidence window
-   cannot be closed early or by inference.
+   [August 29 checkpoint](September-Cycle-Prep-2026-08-28.md) rechecked all 29
+   still-open monthly and event-driven rows: 12 had a new release, 13 recorded
+   no event observed, 2 remained OK, and 2 were blocked. It also rechecked the
+   four valid IRCC files, Moody's access exception, and the Housing DCRP hold.
+   The valid 560-row ledger still has 531 dated dispositions, including 475
+   cadence deferrals, because the checkpoint did not close the August evidence
+   window early. The ledger remains open for August 30-31, the September 1
+   scout, candidate adjudication, and editor-gated grade or status calls. The
+   scout must fail closed, and its Anthropic account needs usable API credit
+   before the run. Priority reason: the evidence window cannot be closed early
+   or by inference.
 
 ---
 
@@ -388,12 +389,16 @@
    rewritten without one durable date rule or an explicit override of the
    existing no-rewrite policies.
 
-2. **Adjudicate four evidence-scope questions after the final August sweep.**
+2. **Adjudicate seven evidence-scope questions after the final August sweep.**
    Decide whether the Labrador Trough package belongs under the national-grid
    promise, whether Housing's 240,000 condition uses monthly SAAR or the
    six-month trend, whether the August 19 Ottawa page establishes construction,
    and whether State of Trade 2026's goods-and-services share belongs beside or
-   instead of the current goods-only measure. The Building Canada Act
+   instead of the current goods-only measure. Also decide whether the Abacus and
+   Leger releases enter the approval mean, whether the Coast Guard icebreaker
+   contract belongs inside the current Defence scope, and whether the official
+   evidence changes Promise Delivery treatment for 2 Billion Trees, the
+   emissions cap, or the replaced EV standard. The Building Canada Act
    pre-listing question remains parked with the wider Major Projects rules.
    Priority reason: the official evidence is recorded, but these scope and
    measure choices cannot be inferred without changing how the dashboard reads
@@ -442,13 +447,58 @@ cancelled or completed. Resume them only on later editor instruction.
 
 ## Next
 
-1. **Fail IRCC access errors closed in the monthly monitor.** The v5.177 Claude
-   review confirmed that `malformed_data` blocks acceptance and preserves the
-   prior state, but isolated `http_error` and generic `error` results still
-   record a soft access failure, return success, and advance monitor state. Make
-   those outcomes fail deterministic acceptance, prevent state advancement, and
-   add monitor-level regressions for both paths. Priority reason: an inaccessible
-   required source must not produce a successful monthly checkpoint.
+1. **Complete source-monitor hardening acceptance.** The first two completed
+   2026-08-29 read-only Claude reviews each ended with the literal result
+   `VERDICT: REVISE`, so acceptance remains open. A later saved response ended
+   with `VERDICT: APPROVED`, but its bridge exit code was not recorded and the
+   response does not count as approval. Finding 1 reproduced a local-path false
+   positive on ordinary
+   public URL pathnames. The working-tree scanner now exempts `home` or `users`
+   path segments only inside a public URL pathname that starts with `http://`
+   or `https://` and has a non-empty host, while actual, encoded,
+   HTML-reference, and repeated-separator local-path forms remain blocked. The
+   workflow guard now scans the exact current live or backtest artifact payload,
+   not unrelated historical monitoring files. Finding 2's GitHub Actions
+   precedence mechanism was rejected against the official runner code. The
+   candidate still removes empty job-level Ethics and carry-forward values to
+   eliminate ambiguity, then writes and consumes those dynamic paths explicitly.
+   Finding 3 was a tolerable cost exposure: the private-rule secret was checked
+   after paid work. The candidate now creates an owner-only private file and uses
+   the pinned scanner to parse its active regexes before dependency installation,
+   branch preparation, fetch, Tavily, or Anthropic work. It removes that file
+   before the next step. The existing IRCC, feed, PBO, Ethics,
+   normalized-fingerprint, finite-threshold, PR-state, and branch-lease controls
+   remain part of the candidate. Missing branch protection for `main` is a
+   tolerable repository-level residual, not a blocker for this candidate.
+   Parallel code review then found two retry-safety defects: a failed final
+   artifact write could leave accepted state advanced, and a prior ledger whose
+   acceptance passed but whose state persistence failed could suppress the same
+   evidence on retry. The candidate now restores exact pre-run state after a
+   final output failure and ignores nonpersistent prior ledgers for deduplication.
+   A later parallel retry review found that a failed rollback could still leave
+   advanced local state without a durable warning. The candidate now writes a
+   persistent recovery marker before state replacement, clears it only after
+   accepted outputs or exact rollback, and blocks any same-state retry before
+   deterministic input or paid work while the marker remains. A final parallel
+   race review found that two processes could both read the old state before the
+   late marker existed. The candidate now takes a host-local exclusive run lock
+   before monitor input parsing or paid work, rejects a concurrent process using
+   the same case-normalized state path, and rejects every output-to-input path
+   collision, including capitalization and existing hard-link aliases, before
+   work begins. Existing state paths that are symbolic links or have hard-link
+   aliases are rejected. Missing state paths under symbolic-linked parents are
+   canonicalized once for locking, marker placement, state writes, and rollback.
+   A separate privacy review found HTML-reference and repeated-separator bypasses,
+   which are now blocked. The later saved Claude response also identified three
+   tolerable defense-in-depth gaps. The bootstrap trusted scanner hash now names
+   the approved scanner instead of an older internal snapshot. The configured
+   local hook now requires a non-empty private identity-rule file. The review
+   sequence is now recorded across the active operating documents. Keep the
+   current candidate. The complete worktree monitor suite passes 551 checks and
+   parses all three workflow files. Keep this item open until post-fix staged
+   checks pass, Claude returns a completed approval with a recorded exit code,
+   and hosted workflow acceptance passes. Priority reason: inspectable
+   working-tree behavior is not release evidence.
 
 ---
 ## Later

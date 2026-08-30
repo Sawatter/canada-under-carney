@@ -4,67 +4,121 @@
 # Identity-neutral by design: this file is committed to a public repo, so it
 # contains NO names or locations. It blocks the categorically-bad leak class
 # (absolute local paths), runs the data-integrity and whitespace checks, and
-# optionally reads editor-identity patterns from a gitignored file so those
-# literals never enter the repo.
+# requires editor-identity patterns from a gitignored file so those literals
+# never enter the repo or silently drop out of configured local commits.
 #
 # Install:  npm run setup:hooks   (sets core.hooksPath to scripts/git-hooks)
+# Requires: .identity-patterns with at least one active regular expression
 # Bypass :  git commit --no-verify   (genuine emergencies only)
 
 fail=0
 
-# Staged added lines only (new content being introduced this commit).
-added=$(git diff --cached --unified=0 --no-color | grep '^+' | grep -v '^+++' || true)
+# 1. Scan staged filenames and Git blobs for local paths, emails, and required
+#    local identity patterns. The committed and staged scanners must match the
+#    reviewed transition hashes below.
+scanner_tmp=$(mktemp "${TMPDIR:-/tmp}/cuc-privacy-scan.XXXXXX") || {
+  echo "pre-commit: BLOCKED: could not create the privacy scanner copy."
+  exit 1
+}
+staged_scanner_tmp=$(mktemp "${TMPDIR:-/tmp}/cuc-staged-privacy-scan.XXXXXX") || {
+  echo "pre-commit: BLOCKED: could not create the staged scanner copy."
+  rm -f "$scanner_tmp"
+  exit 1
+}
+trap 'rm -f "$scanner_tmp" "$staged_scanner_tmp"' EXIT HUP INT TERM
 
-# 1. Absolute local-machine paths never belong in a public repo. This was the
-#    v5.72 leak class (an editor home path in a doc code block). The trailing
-#    [A-Za-z] requires a real directory name, so documented scan-regex literals
-#    that mention the bare path token are not false-positives.
-leak=$(printf '%s\n' "$added" | grep -nE '(^|[[:space:]"'\''=:({[])(/Users/[A-Za-z]|/home/[A-Za-z])' || true)
-if [ -n "$leak" ]; then
-  echo "pre-commit: BLOCKED — staged change adds an absolute local path:"
-  printf '%s\n' "$leak"
-  echo "Scrub it (use <repo-root> or a relative path), then re-commit."
-  fail=1
+staged_mode=$(git ls-files --stage -- scripts/privacy_scan.py | awk 'NR == 1 {print $1}')
+case "$staged_mode" in
+  100644|100755) ;;
+  *)
+    echo "pre-commit: BLOCKED: the staged privacy scanner is not a regular file."
+    exit 1
+    ;;
+esac
+if ! git show :scripts/privacy_scan.py > "$staged_scanner_tmp" 2>/dev/null; then
+  echo "pre-commit: BLOCKED: the staged privacy scanner is unavailable."
+  exit 1
 fi
 
-# 2. Optional local identity-pattern check. The patterns live in a gitignored
-#    file so the editor's name/location never get committed. Create it locally
-#    with one grep -E pattern per line, e.g. your surname and city.
-patterns_file="$(git rev-parse --show-toplevel)/.identity-patterns"
-if [ -f "$patterns_file" ]; then
-  hit=$(printf '%s\n' "$added" | grep -nEf "$patterns_file" || true)
-  if [ -n "$hit" ]; then
-    echo "pre-commit: BLOCKED — staged change matches a local identity pattern:"
-    printf '%s\n' "$hit"
-    echo "Scrub it, then re-commit."
-    fail=1
+# On first installation both hashes name the approved scanner. A later reviewed
+# replacement sets trusted to the current HEAD scanner and approved to the new one.
+trusted_scanner_sha256="80e7ec01716367e1469135ce038f349a777c83c2d7bbdb17e1bd9a1b8767bcf1"
+approved_scanner_sha256="80e7ec01716367e1469135ce038f349a777c83c2d7bbdb17e1bd9a1b8767bcf1"
+actual_staged_scanner_sha256=$(python3 -c 'import hashlib, sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$staged_scanner_tmp") || {
+  echo "pre-commit: BLOCKED: the staged privacy scanner could not be hashed."
+  exit 1
+}
+if [ "$actual_staged_scanner_sha256" != "$approved_scanner_sha256" ]; then
+  echo "pre-commit: BLOCKED: the staged privacy scanner does not match the reviewed hash."
+  exit 1
+fi
+
+if git cat-file -e HEAD:scripts/privacy_scan.py 2>/dev/null; then
+  trusted_mode=$(git ls-tree HEAD -- scripts/privacy_scan.py | awk 'NR == 1 {print $1}')
+  case "$trusted_mode" in
+    100644|100755) ;;
+    *)
+      echo "pre-commit: BLOCKED: the committed privacy scanner is not a regular file."
+      exit 1
+      ;;
+  esac
+  if ! git show HEAD:scripts/privacy_scan.py > "$scanner_tmp" 2>/dev/null; then
+    echo "pre-commit: BLOCKED: the committed privacy scanner is unavailable."
+    exit 1
+  fi
+  actual_trusted_scanner_sha256=$(python3 -c 'import hashlib, sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$scanner_tmp") || {
+    echo "pre-commit: BLOCKED: the committed privacy scanner could not be hashed."
+    exit 1
+  }
+  if [ "$actual_trusted_scanner_sha256" != "$trusted_scanner_sha256" ] &&
+     [ "$actual_trusted_scanner_sha256" != "$approved_scanner_sha256" ]; then
+    echo "pre-commit: BLOCKED: the committed privacy scanner does not match the reviewed hash."
+    exit 1
+  fi
+else
+  if ! cp "$staged_scanner_tmp" "$scanner_tmp"; then
+    echo "pre-commit: BLOCKED: the staged privacy scanner could not be copied."
+    exit 1
+  fi
+  actual_copied_scanner_sha256=$(python3 -c 'import hashlib, sys; print(hashlib.sha256(open(sys.argv[1], "rb").read()).hexdigest())' "$scanner_tmp") || {
+    echo "pre-commit: BLOCKED: the copied privacy scanner could not be hashed."
+    exit 1
+  }
+  if [ "$actual_copied_scanner_sha256" != "$approved_scanner_sha256" ]; then
+    echo "pre-commit: BLOCKED: the copied privacy scanner failed its integrity check."
+    exit 1
   fi
 fi
 
-# 3. Whitespace errors.
+if ! python3 "$scanner_tmp" staged --root . --require-identity-patterns; then
+  echo "pre-commit: BLOCKED: staged privacy scan failed."
+  exit 1
+fi
+
+# 2. Whitespace errors.
 if ! git diff --cached --check; then
-  echo "pre-commit: BLOCKED — whitespace errors above."
+  echo "pre-commit: BLOCKED: whitespace errors above."
   fail=1
 fi
 
-# 4. Data integrity — only when data files are staged (keeps the hook fast).
+# 3. Data integrity, only when data files are staged (keeps the hook fast).
 if git diff --cached --name-only | grep -q '^src/data/.*\.json$'; then
-  echo "pre-commit: src/data changed — running test:data..."
+  echo "pre-commit: src/data changed, running test:data..."
   if ! npm run test:data --silent >/dev/null 2>&1; then
-    echo "pre-commit: BLOCKED — test:data failed. Run 'npm run test:data' to see why."
+    echo "pre-commit: BLOCKED: test:data failed. Run 'npm run test:data' to see why."
     fail=1
   fi
 fi
 
-# 5. Workflow YAML — only when a workflow file is staged. A broken block scalar
+# 4. Workflow YAML, only when a workflow file is staged. A broken block scalar
 #    (a heredoc body at column 0, say) makes the whole workflow unparseable and
 #    GitHub Actions refuses to run it, so catch it before it lands. Skips
 #    gracefully if PyYAML is not installed locally; CI still runs the same check.
 if git diff --cached --name-only | grep -qE '^\.github/workflows/.*\.ya?ml$'; then
   if python3 -c 'import yaml' >/dev/null 2>&1; then
-    echo "pre-commit: workflow YAML changed — parsing it..."
+    echo "pre-commit: workflow YAML changed, parsing it..."
     if ! python3 scripts/validate_workflow_yaml.py >/dev/null 2>&1; then
-      echo "pre-commit: BLOCKED — a workflow YAML file failed to parse. Run 'python3 scripts/validate_workflow_yaml.py'."
+      echo "pre-commit: BLOCKED: a workflow YAML file failed to parse. Run 'python3 scripts/validate_workflow_yaml.py'."
       fail=1
     fi
   else

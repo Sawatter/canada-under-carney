@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Canada Under Carney — Monthly Data Fetch Script
+Canada Under Carney: Monthly Data Fetch Script
 
 Checks government data endpoints (Statistics Canada, IRCC, Bank of Canada,
 Parliamentary Budget Officer RSS) and generates draft files for human
@@ -11,12 +11,13 @@ Usage:
     python scripts/fetch-data.py
 
 Outputs (in scripts/output/):
-    draft-dimensions.json   — copy of current dimensions for manual edits
-    fetch-report.txt        — human-readable source-availability report
+    draft-dimensions.json: copy of current dimensions for manual edits
+    fetch-report.txt: human-readable source-availability report
 """
 
 import argparse
 import csv
+import hashlib
 import io
 import json
 import os
@@ -24,9 +25,10 @@ import re
 import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, date
+from email.utils import parsedate_to_datetime
 from html import unescape
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from urllib.parse import unquote_plus, urljoin, urlparse
 
 try:
     import requests
@@ -82,22 +84,39 @@ STATCAN_VECTORS = {
 }
 
 # --- IRCC Open Data ---
+IRCC_COMMON_COLUMNS = {
+    "EN_YEAR",
+    "EN_QUARTER",
+    "EN_MONTH",
+    "EN_PROVINCE_TERRITORY",
+    "TOTAL",
+}
 IRCC_DATASETS = {
     "permanent_residents": {
         "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-PR-Gender.csv",
         "description": "Permanent resident admissions by gender, monthly",
+        "required_columns": IRCC_COMMON_COLUMNS | {"EN_GENDER"},
     },
     "work_permits_imp": {
         "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Work-IMP-PT_program.csv",
         "description": "International Mobility Program work permit holders by province/territory and program, monthly",
+        "required_columns": IRCC_COMMON_COLUMNS | {
+            "EN_PROGRAM_LEVEL_2", "EN_PROGRAM_LEVEL_3",
+            "EN_PROGRAM_LEVEL_4", "EN_PROGRAM_LEVEL_5",
+        },
     },
     "work_permits_tfwp": {
         "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Work-TFWP-PT_program.csv",
         "description": "Temporary Foreign Worker Program work permit holders by province/territory and program, monthly",
+        "required_columns": IRCC_COMMON_COLUMNS | {
+            "EN_PROGRAM_LEVEL_2", "EN_PROGRAM_LEVEL_3",
+            "EN_PROGRAM_LEVEL_4", "EN_PROGRAM_LEVEL_5",
+        },
     },
     "study_permits": {
         "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-IS_PT_study.csv",
         "description": "Study permit holders by province/territory and study level, monthly",
+        "required_columns": IRCC_COMMON_COLUMNS | {"EN_STUDY_LEVEL"},
     },
 }
 
@@ -109,6 +128,81 @@ IRCC_MONTH_NUMBERS = {
         start=1,
     )
 }
+IRCC_MAX_REPORTING_LAG_MONTHS = 3
+
+TRACKING_QUERY_PARAMETERS = {"fbclid", "gclid", "mc_cid", "mc_eid"}
+ISO_DATE_RE = re.compile(
+    r"\d{4}-\d{2}-\d{2}(?:[T ]\d{2}:\d{2}"
+    r"(?::\d{2}(?:\.\d{1,6})?)?"
+    r"(?:Z|[+-]\d{2}(?::?\d{2})?)?)?"
+)
+RFC_2822_DATE_RE = re.compile(
+    r"(?:(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s+)?"
+    r"(?:0?[1-9]|[12]\d|3[01])\s+"
+    r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+"
+    r"\d{4}\s+(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?\s+"
+    r"(?:UT|GMT|[ECMP][SD]T|[+-]\d{4})",
+    re.IGNORECASE,
+)
+
+
+def _ircc_month_index(cycle):
+    """Return a calendar-month index for a 20xx YYYY-MM token."""
+    if not isinstance(cycle, str) or not re.fullmatch(
+            r"20\d{2}-(?:0[1-9]|1[0-2])", cycle):
+        return None
+    year, month = map(int, cycle.split("-"))
+    return year * 12 + month - 1
+
+
+def parse_publication_date(value):
+    """Parse an ISO or RFC 2822 publication date, or return None."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    if ISO_DATE_RE.fullmatch(text):
+        iso_text = f"{text[:-1]}+00:00" if text.endswith("Z") else text
+        try:
+            return datetime.fromisoformat(iso_text)
+        except ValueError:
+            return None
+    if not RFC_2822_DATE_RE.fullmatch(text):
+        return None
+    try:
+        return parsedate_to_datetime(text)
+    except (TypeError, ValueError, OverflowError):
+        return None
+
+
+def _strip_tracking_query(query):
+    """Remove known tracking fields without rewriting other query fields."""
+    kept = []
+    for field in query.split("&"):
+        if not field:
+            continue
+        key = unquote_plus(field.partition("=")[0]).lower()
+        if key.startswith("utm_") or key in TRACKING_QUERY_PARAMETERS:
+            continue
+        kept.append(field)
+    return "&".join(kept)
+
+
+def normalize_cited_url(url):
+    """Return a cited-URL key that ignores only known tracking fields."""
+    text = (url or "").strip()
+    if not text:
+        return ""
+    try:
+        parsed = urlparse(text)
+    except (TypeError, ValueError):
+        return text.lower().rstrip("/")
+    path = (parsed.path or "").rstrip("/")
+    return parsed._replace(
+        scheme=parsed.scheme.lower(),
+        netloc=parsed.netloc.lower(),
+        path=path,
+        query=_strip_tracking_query(parsed.query),
+    ).geturl()
 
 # --- Bank of Canada Valet API ---
 BOC_BASE = "https://www.bankofcanada.ca/valet/observations"
@@ -293,9 +387,13 @@ def statcan_metadata_refresh_flag(metadata, references):
     }
 
 
-def fetch_ircc_csv(dataset_key):
+def fetch_ircc_csv(dataset_key, cycle=None):
     """Download an IRCC open data CSV and return basic stats."""
     info = IRCC_DATASETS[dataset_key]
+    cycle = cycle or date.today().strftime("%Y-%m")
+    cycle_index = _ircc_month_index(cycle)
+    if cycle_index is None:
+        return {"status": "malformed_data", "error": "invalid reporting cycle"}
     try:
         resp = requests.get(info["url"], timeout=30)
         if resp.status_code == 200:
@@ -310,21 +408,49 @@ def fetch_ircc_csv(dataset_key):
                     "status": "malformed_data",
                     "error": "missing EN_YEAR or EN_MONTH column",
                 }
+            columns = list(reader.fieldnames)
+            if len(columns) != len(set(columns)):
+                return {"status": "malformed_data", "error": "duplicate header column"}
+            missing_columns = sorted(info["required_columns"] - set(columns))
+            if missing_columns:
+                return {
+                    "status": "malformed_data",
+                    "error": f"missing required columns: {', '.join(missing_columns)}",
+                }
 
             rows = list(reader)
             if not rows:
                 return {"status": "malformed_data", "error": "no data rows"}
+            if any(
+                    None in row or any(value is None for value in row.values())
+                    for row in rows):
+                return {"status": "malformed_data", "error": "ragged data row"}
+            if any(
+                    not (row.get(column) or "").strip()
+                    for row in rows for column in info["required_columns"]):
+                return {
+                    "status": "malformed_data",
+                    "error": "blank required identity value",
+                }
 
             parsed_periods = []
+            invalid_quarters = 0
+            invalid_totals = 0
             for row in rows:
-                try:
-                    year = int((row.get("EN_YEAR") or "").strip())
-                except ValueError:
+                year_token = (row.get("EN_YEAR") or "").strip()
+                month_token = (row.get("EN_MONTH") or "").strip()
+                if not re.fullmatch(r"20\d{2}", year_token):
                     continue
-                month_token = (row.get("EN_MONTH") or "").strip()[:3].title()
                 month = IRCC_MONTH_NUMBERS.get(month_token)
                 if month:
+                    year = int(year_token)
                     parsed_periods.append((year, month))
+                    expected_quarter = f"Q{((month - 1) // 3) + 1}"
+                    if (row.get("EN_QUARTER") or "").strip().upper() != expected_quarter:
+                        invalid_quarters += 1
+                total = (row.get("TOTAL") or "").strip()
+                if not re.fullmatch(r"(?:\d+|--)", total):
+                    invalid_totals += 1
 
             if len(parsed_periods) != len(rows):
                 return {
@@ -333,12 +459,54 @@ def fetch_ircc_csv(dataset_key):
                         f"{len(rows) - len(parsed_periods)} row(s) have an invalid period"
                     ),
                 }
+            if invalid_quarters:
+                return {
+                    "status": "malformed_data",
+                    "error": f"{invalid_quarters} row(s) have an inconsistent quarter",
+                }
+            if invalid_totals:
+                return {
+                    "status": "malformed_data",
+                    "error": f"{invalid_totals} row(s) have an invalid TOTAL value",
+                }
 
-            latest_year, latest_month = max(parsed_periods)
+            distinct_periods = sorted(set(parsed_periods))
+            if len(distinct_periods) < 12:
+                return {
+                    "status": "malformed_data",
+                    "error": "fewer than 12 distinct monthly periods",
+                }
+            first_index = distinct_periods[0][0] * 12 + distinct_periods[0][1] - 1
+            last_index = distinct_periods[-1][0] * 12 + distinct_periods[-1][1] - 1
+            if len(distinct_periods) != last_index - first_index + 1:
+                return {
+                    "status": "malformed_data",
+                    "error": "monthly period coverage is not contiguous",
+                }
+
+            earliest_year, earliest_month = distinct_periods[0]
+            latest_year, latest_month = distinct_periods[-1]
+            reporting_lag = cycle_index - last_index
+            if reporting_lag < 0:
+                return {
+                    "status": "malformed_data",
+                    "error": "latest monthly period is in the future",
+                }
+            if reporting_lag > IRCC_MAX_REPORTING_LAG_MONTHS:
+                return {
+                    "status": "malformed_data",
+                    "error": "latest monthly period exceeds the 3-month reporting lag",
+                }
             return {
                 "status": "success",
+                "dataset_key": dataset_key,
+                "source_url": info["url"],
                 "rows": len(rows),
+                "period_count": len(distinct_periods),
+                "earliest_period": f"{earliest_year:04d}-{earliest_month:02d}",
                 "header": lines[0],
+                "columns": columns,
+                "response_sha256": hashlib.sha256(resp.text.encode("utf-8")).hexdigest(),
                 # Kept for the strict monitor result-shape contract. IRCC files
                 # are not sorted chronologically, so this is never freshness.
                 "last_row": lines[-1] if rows else "",
@@ -394,6 +562,16 @@ def fetch_pbo_feed(limit=20):
             title = (title_el.text or "").strip() if title_el is not None else ""
             link = (link_el.text or "").strip() if link_el is not None else ""
             pubdate = (pubdate_el.text or "").strip() if pubdate_el is not None else ""
+            if not title or not link or not pubdate:
+                return {
+                    "status": "malformed_data",
+                    "error": "RSS item is missing title, link, or publication date",
+                }
+            if parse_publication_date(pubdate) is None:
+                return {
+                    "status": "malformed_data",
+                    "error": "RSS item has an unparseable publication date",
+                }
             publications.append(
                 {
                     "title": title or "(untitled)",
@@ -423,7 +601,7 @@ POLLSTER_FEEDS = [
     {"name": "Angus Reid Institute", "url": "https://angusreid.org/feed/", "domain": "angusreid.org"},
 ]
 
-# Excluded pollsters — not currently cited in approval-polls.json, but
+# Excluded pollsters are not currently cited in approval-polls.json, but
 # the recurring checklist requires a quarterly scan in case they
 # publish federal-approval content worth pulling into the dashboard.
 # Mainstreet Research and EKOS Politics do not publish a public RSS
@@ -459,7 +637,7 @@ def _is_approval_relevant(title):
     ]
     if not any(k in t for k in federal_keywords):
         return False
-    # Strong federal signal — keep regardless of provincial keywords.
+    # Strong federal signal. Keep regardless of provincial keywords.
     federal_anchor = any(
         k in t for k in ["carney", "federal", "ottawa", "house of commons",
                          "house majority", "trudeau", "poilievre"]
@@ -510,6 +688,16 @@ def fetch_pollster_feed(pollster, limit=15):
             title = (title_el.text or "").strip() if title_el is not None else ""
             link = (link_el.text or "").strip() if link_el is not None else ""
             pubdate = (pubdate_el.text or "").strip() if pubdate_el is not None else ""
+            if not title or not link or not pubdate:
+                return {
+                    "status": "malformed_data",
+                    "error": "RSS item is missing title, link, or publication date",
+                }
+            if parse_publication_date(pubdate) is None:
+                return {
+                    "status": "malformed_data",
+                    "error": "RSS item has an unparseable publication date",
+                }
             all_items.append({"title": title, "link": link, "pubDate": pubdate})
         relevant = [i for i in all_items if _is_approval_relevant(i["title"])]
         return {
@@ -527,12 +715,12 @@ def collect_cited_pollster_urls(approval_polls, domain):
     are already cited in approval-polls.json."""
     cited = set()
     for p in approval_polls.get("polls", []):
-        url = (p.get("sourceUrl") or "").lower().rstrip("/")
-        if domain in url:
+        url = normalize_cited_url(p.get("sourceUrl"))
+        if domain in url.lower():
             cited.add(url)
     for p in (approval_polls.get("preferredPM") or {}).get("polls", []):
-        url = (p.get("sourceUrl") or "").lower().rstrip("/")
-        if domain in url:
+        url = normalize_cited_url(p.get("sourceUrl"))
+        if domain in url.lower():
             cited.add(url)
     return cited
 
@@ -554,7 +742,7 @@ def check_pollster_feeds():
         cited = collect_cited_pollster_urls(approval_polls, pollster["domain"])
         if rec.get("status") == "success":
             for item in rec.get("items", []):
-                normalized = item.get("link", "").lower().rstrip("/")
+                normalized = normalize_cited_url(item.get("link"))
                 item["is_cited"] = normalized in cited
             new_count = sum(1 for i in rec.get("items", []) if not i["is_cited"])
             rec["new_count"] = new_count
@@ -566,7 +754,7 @@ def check_pollster_feeds():
 def check_excluded_pollster_feeds():
     """Walk EXCLUDED_POLLSTER_FEEDS, fetch each feed, surface any
     federal-approval-relevant posts. These pollsters are not currently
-    cited in approval-polls.json — the editor decides each cycle
+    cited in approval-polls.json. The editor decides each cycle
     whether a release crosses the bar for inclusion. The quarterly
     recurring-source-checklist row makes this an editor responsibility
     every three cycles; running it every monthly cycle is cheap and
@@ -598,10 +786,10 @@ POLICY_RSS_FEEDS = [
 def _is_dashboard_topic_relevant(title):
     """Heuristic filter: does this title look like content the
     dashboard could cite? Federal politics, fiscal policy, climate,
-    housing, immigration, defence, trade — the 11 graded dimensions
+    housing, immigration, defence, and trade across the 11 graded dimensions
     plus the promise tracker.
 
-    Used as a tag (`[TOPIC]` vs `[OTHER]`), not a hard exclude —
+    Used as a tag (`[TOPIC]` vs `[OTHER]`), not a hard exclude.
     every item is surfaced so the editor can see what each org
     is publishing, with topic-matching items called out."""
     t = (title or "").lower().strip()
@@ -649,7 +837,7 @@ def fetch_policy_feed(feed, limit=8):
         )
         if resp.status_code != 200:
             return {"status": "http_error", "code": resp.status_code}
-        # Some endpoints return HTML when challenged — verify XML.
+        # Some endpoints return HTML when challenged. Verify XML.
         if not resp.content.lstrip().startswith(b"<?xml") and b"<rss" not in resp.content[:300]:
             return {"status": "not_xml"}
         root = ET.fromstring(resp.content)
@@ -662,6 +850,16 @@ def fetch_policy_feed(feed, limit=8):
             title = (title_el.text or "").strip() if title_el is not None else ""
             link = (link_el.text or "").strip() if link_el is not None else ""
             pubdate = (pubdate_el.text or "").strip() if pubdate_el is not None else ""
+            if not title or not link or not pubdate:
+                return {
+                    "status": "malformed_data",
+                    "error": "RSS item is missing title, link, or publication date",
+                }
+            if parse_publication_date(pubdate) is None:
+                return {
+                    "status": "malformed_data",
+                    "error": "RSS item has an unparseable publication date",
+                }
             out.append({
                 "title": title,
                 "link": link,
@@ -990,7 +1188,7 @@ def _clean_html_text(raw):
 
 def _ethics_report_key(report):
     """Stable comparison key for one parsed ethics report link."""
-    url_path = re.sub(r"https?://[^/]+", "", report.get("url", "").lower()).rstrip("/")
+    url_path = urlparse(report.get("url", "")).path.lower().rstrip("/")
     if url_path:
         return url_path
     return re.sub(r"[^a-z0-9]+", "-", report.get("title", "").lower()).strip("-")
@@ -1020,6 +1218,8 @@ def extract_ethics_report_links(html):
             flags=re.IGNORECASE,
         ):
             continue
+        parsed_url = urlparse(url)
+        url = parsed_url._replace(query="", fragment="").geturl()
         report = {"title": title, "url": url}
         key = _ethics_report_key(report)
         if not key or key in seen:
@@ -1040,6 +1240,12 @@ def fetch_ethics_reports_page(timeout=20):
         if resp.status_code != 200:
             return {"status": "http_error", "code": resp.status_code, "url": ETHICS_REPORTS_URL}
         reports = extract_ethics_report_links(resp.text)
+        if not reports:
+            return {
+                "status": "malformed_data",
+                "error": "no Ethics report links found",
+                "url": ETHICS_REPORTS_URL,
+            }
         return {
             "status": "success",
             "url": ETHICS_REPORTS_URL,
@@ -1061,14 +1267,68 @@ def diff_ethics_reports_against_cache(fetch_result, cache_path=ETHICS_REPORTS_CA
     if prior_exists:
         try:
             cache = json.loads(cache_path.read_text())
-            prior = cache.get("reports") or []
-        except Exception:
-            prior = []
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            return {
+                "status": "invalid_cache",
+                "error": "existing Ethics reports cache is unreadable or malformed",
+                "cachePath": _repo_rel(cache_path),
+            }
+        if (not isinstance(cache, dict) or
+                not isinstance(cache.get("reports"), list) or
+                not cache["reports"]):
+            return {
+                "status": "invalid_cache",
+                "error": "existing Ethics reports cache has an invalid structure",
+                "cachePath": _repo_rel(cache_path),
+            }
+        prior = cache["reports"]
+        valid_prior = all(
+            isinstance(report, dict) and
+            isinstance(report.get("title"), str) and report["title"].strip() and
+            isinstance(report.get("url"), str) and re.fullmatch(
+                r"https://(?:www\.)?ethicscanada\.ca/(?:en|fr)/report/[a-z0-9]+"
+                r"(?:[?#].*)?",
+                report["url"], flags=re.IGNORECASE)
+            for report in prior
+        )
+        if not valid_prior:
+            return {
+                "status": "invalid_cache",
+                "error": "existing Ethics reports cache contains an invalid report",
+                "cachePath": _repo_rel(cache_path),
+            }
+
+        prior_keys = [_ethics_report_key(report) for report in prior]
+        if len(prior_keys) != len(set(prior_keys)):
+            return {
+                "status": "invalid_cache",
+                "error": "existing Ethics reports cache contains duplicate report keys",
+                "cachePath": _repo_rel(cache_path),
+            }
 
     current_by_key = {_ethics_report_key(r): r for r in current}
     prior_by_key = {_ethics_report_key(r): r for r in prior}
+    if len(current_by_key) != len(current):
+        return {
+            "status": "malformed_data",
+            "error": "current Ethics report list contains duplicate report keys",
+            "cachePath": _repo_rel(cache_path),
+        }
     additions = [current_by_key[k] for k in sorted(current_by_key.keys() - prior_by_key.keys())]
     removals = [prior_by_key[k] for k in sorted(prior_by_key.keys() - current_by_key.keys())]
+
+    if prior_exists and removals:
+        return {
+            "status": "suspicious_removal",
+            "error": (
+                f"current Ethics report list omitted {len(removals)} report(s) "
+                "from the accepted cache"
+            ),
+            "priorCount": len(prior),
+            "currentCount": len(current),
+            "missingCount": len(removals),
+            "cachePath": _repo_rel(cache_path),
+        }
 
     cache_path.parent.mkdir(parents=True, exist_ok=True)
     cache_path.write_text(json.dumps({
@@ -1082,6 +1342,8 @@ def diff_ethics_reports_against_cache(fetch_result, cache_path=ETHICS_REPORTS_CA
         "priorCacheFound": prior_exists,
         "priorCount": len(prior),
         "currentCount": len(current),
+        "priorReportKeys": sorted(prior_by_key),
+        "currentReportKeys": sorted(current_by_key),
         "additions": additions if prior_exists else [],
         "removals": removals if prior_exists else [],
         "cachePath": _repo_rel(cache_path),
@@ -1136,7 +1398,7 @@ def check_url_with_wayback(url, timeout=10):
     if primary["live"]:
         return {"status": "live", "http_code": primary["http_code"]}
 
-    # Primary probe failed — retry with browser UA to distinguish scanner
+    # Primary probe failed. Retry with browser UA to distinguish scanner
     # anti-bot false positives from real link rot.
     fallback = _probe(FALLBACK_UA)
     if fallback["live"]:
@@ -1157,7 +1419,7 @@ def check_url_with_wayback(url, timeout=10):
 
     headers = {"User-Agent": FALLBACK_UA}
 
-    # URL appears broken or blocked — try Wayback availability API
+    # URL appears broken or blocked. Try Wayback availability API.
     try:
         wb = requests.get(
             "http://archive.org/wayback/available",
@@ -1260,7 +1522,7 @@ def collect_cited_pbo_urls(dimensions):
 
     def add(url):
         if url and "pbo-dpb.ca" in url.lower():
-            cited.add(url.lower().rstrip("/"))
+            cited.add(normalize_cited_url(url))
 
     for dim in dimensions:
         for s in dim.get("sources") or []:
@@ -1304,7 +1566,7 @@ def generate_fetch_report(dimensions, results):
     now = datetime.now().strftime("%Y-%m-%d %H:%M")
     lines = [
         f"{'=' * 60}",
-        f"  DATA FETCH REPORT — {now}",
+        f"  DATA FETCH REPORT: {now}",
         f"{'=' * 60}",
         "",
         "This report shows which data sources were checked and their",
@@ -1395,7 +1657,7 @@ def generate_fetch_report(dimensions, results):
         cited_pbo = collect_cited_pbo_urls(dimensions)
         new_count = sum(
             1 for pub in pbo.get("publications", [])
-            if pub.get("link", "").lower().rstrip("/") not in cited_pbo
+            if normalize_cited_url(pub.get("link")) not in cited_pbo
         )
         lines.append(
             f"  Status: success ({pbo['count']} recent publications, {new_count} not yet cited)"
@@ -1404,7 +1666,7 @@ def generate_fetch_report(dimensions, results):
         lines.append("  Recent PBO publications (newest first):")
         lines.append("")
         for pub in pbo.get("publications", []):
-            normalized = pub.get("link", "").lower().rstrip("/")
+            normalized = normalize_cited_url(pub.get("link"))
             marker = "[CITED]" if normalized in cited_pbo else "[NEW]  "
             title = pub.get("title", "(untitled)")[:88]
             lines.append(f"    {marker} {title}")
@@ -1451,7 +1713,7 @@ def generate_fetch_report(dimensions, results):
                 lines.append("")
     lines.append("")
 
-    # Excluded-pollster quarterly revisit — Pollara, Ipsos, Innovative
+    # Excluded-pollster quarterly revisit: Pollara, Ipsos, Innovative
     lines.append("EXCLUDED POLLSTER RSS FEEDS (quarterly revisit)")
     lines.append("-" * 40)
     excluded_data = results.get("excluded_pollster_feeds") or []
@@ -1465,7 +1727,7 @@ def generate_fetch_report(dimensions, results):
             "  currently cited. Editor decides each cycle whether to add."
         )
         lines.append(
-            "  Mainstreet Research and EKOS Politics: no public RSS — manual."
+            "  Mainstreet Research and EKOS Politics: no public RSS, manual."
         )
         lines.append("")
         for entry in excluded_data:
@@ -1636,6 +1898,13 @@ def generate_fetch_report(dimensions, results):
         else:
             lines.append("  No previous cache found; wrote initial cache for future diffs.")
         lines.append(f"  Cache: {ethics_diff.get('cachePath')}")
+    elif ethics_page.get("status") == "success":
+        lines.append(
+            f"  Ethics reports diff failed: {ethics_diff.get('status', 'not checked')}"
+        )
+        if ethics_diff.get("error"):
+            lines.append(f"  Error: {ethics_diff['error']}")
+        lines.append(f"  Cache unchanged: {ethics_diff.get('cachePath', '?')}")
     else:
         lines.append(f"  Ethics reports fetch failed: {ethics_page.get('status', 'not checked')}")
         if ethics_page.get("error"):
@@ -1660,7 +1929,7 @@ def generate_fetch_report(dimensions, results):
         lines.append(f"  URLs scanned: {len(scan)}")
         lines.append(f"  Live: {live}")
         lines.append(f"  Broken (404 / 5xx): {broken_archive + broken_no}  ({broken_archive} with Wayback snapshot)")
-        lines.append(f"  Blocked (403 — may still load in browser): {blocked_archive + blocked_no}  ({blocked_archive} with Wayback snapshot)")
+        lines.append(f"  Blocked (403, may still load in browser): {blocked_archive + blocked_no}  ({blocked_archive} with Wayback snapshot)")
         lines.append(f"  Errors: {errors}")
         lines.append("")
         non_live = [r for r in scan if r["status"] != "live"]
@@ -1763,8 +2032,9 @@ def main():
         help="Also write the full machine-readable results to this path. monitor_sources.py reads it as the deterministic tier.",
     )
     args = parser.parse_args()
+    run_cycle = date.today().strftime("%Y-%m")
 
-    print("Canada Under Carney — Monthly Data Fetch")
+    print("Canada Under Carney: Monthly Data Fetch")
     print("=" * 45)
     print()
 
@@ -1802,9 +2072,9 @@ def main():
         results[f"statcan_{key}"] = result
         freshness = result["freshness"].get("status")
         if freshness == "newer_data_available":
-            print(f"{result['status']} — NEWER DATA")
+            print(f"{result['status']}: NEWER DATA")
         elif metadata.get("status") == "success":
-            print(f"{result['status']} — metadata OK")
+            print(f"{result['status']}: metadata OK")
         else:
             print(result["status"])
 
@@ -1814,7 +2084,7 @@ def main():
     print("Checking IRCC open data...")
     for key in IRCC_DATASETS:
         print(f"  Downloading {key}...", end=" ")
-        result = fetch_ircc_csv(key)
+        result = fetch_ircc_csv(key, cycle=run_cycle)
         results[f"ircc_{key}"] = result
         status = result["status"]
         if status == "success":
@@ -1840,7 +2110,7 @@ def main():
         cited = collect_cited_pbo_urls(dimensions)
         new_count = sum(
             1 for pub in pbo_result.get("publications", [])
-            if pub.get("link", "").lower().rstrip("/") not in cited
+            if normalize_cited_url(pub.get("link")) not in cited
         )
         print(
             f"  PBO feed: OK ({pbo_result['count']} recent publications, "
@@ -1982,12 +2252,12 @@ def main():
         print(f"  Scanned {len(scan)} cited URLs.")
         print(f"  Live: {live}")
         print(f"  Broken (404 / 5xx): {broken_archive + broken_no} ({broken_archive} have Wayback snapshot)")
-        print(f"  Blocked (403 — may still load in browser): {blocked_archive + blocked_no} ({blocked_archive} have Wayback snapshot)")
+        print(f"  Blocked (403, may still load in browser): {blocked_archive + blocked_no} ({blocked_archive} have Wayback snapshot)")
         print(f"  Errors: {errors}")
         print()
 
     # Generate outputs
-    # 1. Draft dimensions (copy of current — user edits this)
+    # 1. Draft dimensions (copy of current, user edits this)
     draft_path = OUTPUT_DIR / "draft-dimensions.json"
     with open(draft_path, "w") as f:
         json.dump(dimensions, f, indent=2, ensure_ascii=False)
@@ -2022,7 +2292,7 @@ def main():
     if args.json_out:
         json_payload = {
             "generatedAt": datetime.now().isoformat(timespec="seconds"),
-            "cycle": date.today().strftime("%Y-%m"),
+            "cycle": run_cycle,
             "linkRot": bool(args.link_rot),
             "results": results,
         }

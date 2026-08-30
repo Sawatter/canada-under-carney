@@ -1,9 +1,16 @@
 name: Monthly source scout
 
 # Runs on the first day of each month after the prior month has closed.
-# It surveys cited sources for new dimension-relevant material and opens a
-# review PR with an editor-adjudicated candidate packet. It never edits
-# dashboard data, moves grades, or pushes to main.
+# It checks configured deterministic and search tiers for new
+# dimension-relevant material. An invalid deterministic contract skips candidate
+# extraction except safe IRCC diagnostics. Strict search stops after the first
+# terminal or retry-exhausted target failure and skips relevance classification.
+# An accepted live run with staged monitoring changes commits and pushes its
+# review branch, then attempts to open or update a draft PR. Publication exits
+# without a PR update only when the five fixed staged monitoring files match
+# main. Zero candidates alone do not establish no change. A failed acceptance
+# run does not reach the branch-push step. The workflow never edits dashboard
+# data, moves grades, or pushes to main.
 
 on:
   schedule:
@@ -25,11 +32,18 @@ on:
         required: false
         default: ""
       surface_threshold:
-        description: "Backtest surface threshold."
+        description: "Backtest surface threshold, a finite number from 0 through 1 inclusive."
         required: false
         default: "0.08"
       seen_ledger_path:
-        description: "Optional prior candidate ledger to dedupe against."
+        description: >-
+          A prior ledger suppresses fingerprints and normalized URLs when
+          metadata.acceptance.passed is true. A legacy ledger suppresses only
+          when both acceptance and statePersistence metadata are absent.
+          statePersistence without acceptance is invalid. Explicit false is
+          diagnostic only: it contributes no suppression keys and lets
+          corrected retries resurface candidates. Do not infer acceptance from
+          tier text. Missing or invalid input fails before monitor work.
         required: false
         default: ""
       registry_ref:
@@ -37,15 +51,30 @@ on:
         required: false
         default: ""
 
-# Least privilege for opening a review branch and PR. No write to main happens;
-# the deploy workflow is the only thing that builds from main.
-permissions:
-  contents: write
-  pull-requests: write
+# One live run per cycle may change the review branch at a time. Backtests with
+# the same label are also serialized, while distinct labels can run in parallel.
+concurrency:
+  group: monthly-source-scout-${{ inputs.label || 'live' }}
+  cancel-in-progress: false
+
+# Jobs opt into only the permissions needed for their separate trust boundaries.
+permissions: {}
 
 jobs:
-  source-scout:
+  source-analysis:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      artifact_name: ${{ steps.cycle.outputs.artifact_name }}
+      backtest_mode: ${{ steps.cycle.outputs.backtest_mode }}
+      branch_exists: ${{ steps.continuity.outputs.branch_exists }}
+      cycle_month: ${{ steps.cycle.outputs.cycle_month }}
+      observed_branch_sha: ${{ steps.continuity.outputs.observed_branch_sha }}
+      observed_pr_number: ${{ steps.continuity.outputs.observed_pr_number }}
+      review_branch: ${{ steps.continuity.outputs.review_branch }}
     env:
       BACKTEST_LABEL: ${{ inputs.label || '' }}
       WINDOW_START: ${{ inputs.window_start || '' }}
@@ -54,18 +83,57 @@ jobs:
       SEEN_LEDGER_PATH: ${{ inputs.seen_ledger_path || '' }}
       REGISTRY_REF: ${{ inputs.registry_ref || '' }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
         with:
           fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ github.sha }}
 
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
         with:
           node-version: 20
           cache: npm
 
-      - uses: actions/setup-python@v6
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.12"
+
+      - name: Preflight private identity patterns
+        env:
+          PRIVATE_IDENTITY_PATTERNS: ${{ secrets.PRIVACY_IDENTITY_PATTERNS }}
+        run: |
+          set -euo pipefail
+          cleanup_identity_patterns() {
+            rm -f .identity-patterns
+          }
+          trap cleanup_identity_patterns EXIT HUP INT TERM
+          if [ -z "$PRIVATE_IDENTITY_PATTERNS" ]; then
+            echo "::error::PRIVACY_IDENTITY_PATTERNS is required"
+            exit 1
+          fi
+          cleanup_identity_patterns
+          umask 077
+          printf '%s\n' "$PRIVATE_IDENTITY_PATTERNS" > .identity-patterns
+          if [ -L .identity-patterns ] || [ ! -f .identity-patterns ] || [ "$(stat -c '%a' .identity-patterns)" != "600" ]; then
+            echo "::error::Private identity patterns were not created as an owner-only regular file."
+            exit 1
+          fi
+          if [ -L scripts/privacy_scan.py ] || [ ! -f scripts/privacy_scan.py ]; then
+            echo "::error::The privacy scanner is not a regular file."
+            exit 1
+          fi
+          approved_scanner_sha256="80e7ec01716367e1469135ce038f349a777c83c2d7bbdb17e1bd9a1b8767bcf1"
+          actual_scanner_sha256=$(sha256sum scripts/privacy_scan.py | awk '{print $1}')
+          if [ "$actual_scanner_sha256" != "$approved_scanner_sha256" ]; then
+            echo "::error::The privacy scanner does not match the reviewed hash."
+            exit 1
+          fi
+          python3 scripts/privacy_scan.py files \
+            --root . \
+            --require-identity-patterns \
+            scripts/privacy_scan.py
+          cleanup_identity_patterns
+          trap - EXIT HUP INT TERM
 
       - name: Install dependencies
         run: |
@@ -77,14 +145,26 @@ jobs:
         run: python3 scripts/validate_workflow_yaml.py
 
       - name: Determine cycle month
+        id: cycle
         run: |
+          set -euo pipefail
           if [ -n "$BACKTEST_LABEL" ]; then
-            echo "CYCLE_MONTH=$BACKTEST_LABEL" >> "$GITHUB_ENV"
-            echo "BACKTEST_MODE=true" >> "$GITHUB_ENV"
+            if [[ ! "$BACKTEST_LABEL" =~ ^[a-z0-9-]+$ ]]; then
+              echo "::error::label must match ^[a-z0-9-]+$"
+              exit 1
+            fi
+            cycle_month="$BACKTEST_LABEL"
+            backtest_mode=true
           else
-            echo "CYCLE_MONTH=$(date -u +'%Y-%m')" >> "$GITHUB_ENV"
-            echo "BACKTEST_MODE=false" >> "$GITHUB_ENV"
+            cycle_month="$(date -u +'%Y-%m')"
+            backtest_mode=false
           fi
+          artifact_name="monthly-source-scout-$cycle_month-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          echo "CYCLE_MONTH=$cycle_month" >> "$GITHUB_ENV"
+          echo "BACKTEST_MODE=$backtest_mode" >> "$GITHUB_ENV"
+          echo "artifact_name=$artifact_name" >> "$GITHUB_OUTPUT"
+          echo "backtest_mode=$backtest_mode" >> "$GITHUB_OUTPUT"
+          echo "cycle_month=$cycle_month" >> "$GITHUB_OUTPUT"
 
       - name: Validate backtest inputs
         if: env.BACKTEST_LABEL != ''
@@ -94,31 +174,166 @@ jobs:
           git cat-file -e "$REGISTRY_REF^{commit}"
 
       - name: Prepare review branch
+        id: continuity
         if: env.BACKTEST_LABEL == ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           BRANCH="source-monitor/$CYCLE_MONTH"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git fetch origin main
+          LEDGER="docs/Source-Coverage-Ledger-$CYCLE_MONTH.md"
+          CANDIDATE_LEDGER="monitoring/candidates/$CYCLE_MONTH.json"
+          CANDIDATE_PACKET="docs/Source-Monitoring-Candidates-$CYCLE_MONTH.md"
+          CARRY_FORWARD_INPUT="$RUNNER_TEMP/carry-forward-$CYCLE_MONTH.json"
 
-          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null 2>&1; then
-            git fetch origin "$BRANCH"
-            git checkout -B "$BRANCH" "origin/main"
-            # Keep the previous monitor state and in-progress ledger from the
-            # open monthly PR, but run current main-branch code every time.
-            git checkout "origin/$BRANCH" -- monitoring/state.json monitoring/ethics-reports.json 2>/dev/null || true
-            LEDGER="docs/Source-Coverage-Ledger-$CYCLE_MONTH.md"
-            if git cat-file -e "origin/$BRANCH:$LEDGER" 2>/dev/null; then
-              git checkout "origin/$BRANCH" -- "$LEDGER"
+          export BRANCH
+          review_pr_details() {
+            gh pr list \
+              --repo "$GITHUB_REPOSITORY" \
+              --base main \
+              --state open \
+              --limit 1000 \
+              --json number,isDraft,headRefName,headRepository,isCrossRepository \
+              --jq '[.[] | select(.headRefName == env.BRANCH and .headRepository.nameWithOwner == env.GITHUB_REPOSITORY and .isCrossRepository == false)] | [length, (.[0].number // 0), (.[0].isDraft // false)] | @tsv'
+          }
+
+          write_pending_artifacts() {
+            python3 - "$CANDIDATE_LEDGER" "$CANDIDATE_PACKET" "$CYCLE_MONTH" <<'PY'
+          import json
+          import sys
+          from datetime import datetime, timezone
+          from pathlib import Path
+
+          ledger_path = Path(sys.argv[1])
+          packet_path = Path(sys.argv[2])
+          cycle = sys.argv[3]
+          blocker = "Workflow did not reach a completed monitor result."
+          ledger_path.parent.mkdir(parents=True, exist_ok=True)
+          packet_path.parent.mkdir(parents=True, exist_ok=True)
+          ledger_path.write_text(json.dumps({
+              "cycle": cycle,
+              "generatedAt": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+              "tiers": {"workflow": "pending"},
+              "counts": {"surfaced": 0, "suppressed": 0, "accessFailures": 0},
+              "candidates": [],
+              "accessFailures": [],
+              "suppressed": [],
+              "skippedSeenLedger": [],
+              "metadata": {
+                  "acceptance": {
+                      "required": True,
+                      "passed": False,
+                      "errors": [blocker],
+                  },
+                  "statePersistence": {
+                      "eligible": False,
+                      "blockers": [blocker],
+                  },
+              },
+          }, indent=2) + "\n")
+          packet_path.write_text(
+              f"# Source Monitoring Candidates, {cycle}\n\n"
+              f"**NOT ACCEPTED.** {blocker}\n")
+          PY
+          }
+
+          # Establish a current failed marker before any network or branch step.
+          write_pending_artifacts
+          echo "branch_exists=false" >> "$GITHUB_OUTPUT"
+          echo "observed_branch_sha=" >> "$GITHUB_OUTPUT"
+          echo "observed_pr_number=0" >> "$GITHUB_OUTPUT"
+          echo "review_branch=$BRANCH" >> "$GITHUB_OUTPUT"
+
+          set +e
+          branch_lookup=$(git ls-remote --exit-code --heads origin "$BRANCH" 2>/dev/null)
+          branch_status=$?
+          set -e
+          if ! pr_details=$(review_pr_details)
+          then
+            echo "::error::Could not check the open review PR for $BRANCH."
+            exit 1
+          fi
+          IFS=$'\t' read -r open_pr_count open_pr_number open_pr_is_draft <<< "$pr_details"
+          if [ "$open_pr_count" -gt 1 ]; then
+            echo "::error::Existing review branch $BRANCH has more than one open same-repository PR against main."
+            exit 1
+          fi
+          if [ "$open_pr_count" -eq 1 ] && [ "$open_pr_is_draft" != "true" ]; then
+            echo "::error::Existing review PR $open_pr_number is no longer a draft."
+            exit 1
+          fi
+
+          if [ "$branch_status" -eq 0 ]; then
+            observed_branch_sha=$(printf '%s\n' "$branch_lookup" | awk 'NF >= 2 {print $1}')
+            branch_line_count=$(printf '%s\n' "$branch_lookup" | awk 'NF >= 2 {count += 1} END {print count + 0}')
+            if [ "$branch_line_count" -ne 1 ] || [[ ! "$observed_branch_sha" =~ ^[0-9a-f]{40}$ ]]; then
+              echo "::error::Existing review branch returned an invalid remote SHA."
+              exit 1
             fi
+            git fetch origin "refs/heads/$BRANCH:refs/remotes/origin/$BRANCH"
+            fetched_branch_sha=$(git rev-parse "refs/remotes/origin/$BRANCH")
+            if [ "$fetched_branch_sha" != "$observed_branch_sha" ]; then
+              echo "::error::Review branch changed while continuity was being prepared."
+              exit 1
+            fi
+            echo "branch_exists=true" >> "$GITHUB_OUTPUT"
+            echo "observed_branch_sha=$observed_branch_sha" >> "$GITHUB_OUTPUT"
+            if [ "$open_pr_count" -eq 1 ]; then
+              git checkout -B "$BRANCH" "$GITHUB_SHA"
+              write_pending_artifacts
+              # Keep the open PR's accepted state, pre-acceptance Ethics cache,
+              # source ledger, and prior candidates while running current code.
+              for REQUIRED_FILE in \
+                monitoring/state.json \
+                monitoring/ethics-reports.json \
+                "$LEDGER" \
+                "$CANDIDATE_LEDGER"
+              do
+                if ! git cat-file -e "$observed_branch_sha:$REQUIRED_FILE" 2>/dev/null; then
+                  echo "::error::Existing review branch is missing required continuity file: $REQUIRED_FILE"
+                  exit 1
+                fi
+              done
+              git show "$observed_branch_sha:$CANDIDATE_LEDGER" > "$CARRY_FORWARD_INPUT"
+              for RESTORE_FILE in monitoring/state.json monitoring/ethics-reports.json "$LEDGER"
+              do
+                git checkout "$observed_branch_sha" -- "$RESTORE_FILE"
+              done
+              echo "CARRY_FORWARD_LEDGER=$CARRY_FORWARD_INPUT" >> "$GITHUB_ENV"
+              echo "observed_pr_number=$open_pr_number" >> "$GITHUB_OUTPUT"
+            elif [ "$open_pr_count" -eq 0 ]; then
+              echo "Existing review branch $BRANCH has no open same-repository PR. Starting clean from main."
+              git checkout -B "$BRANCH" "$GITHUB_SHA"
+              write_pending_artifacts
+            fi
+          elif [ "$branch_status" -eq 2 ]; then
+            if [ "$open_pr_count" -ne 0 ]; then
+              echo "::error::An open review PR exists but its remote branch is missing."
+              exit 1
+            fi
+            git checkout -B "$BRANCH" "$GITHUB_SHA"
+            write_pending_artifacts
           else
-            git checkout -B "$BRANCH" "origin/main"
+            echo "::error::Could not determine whether review branch $BRANCH exists."
+            exit "$branch_status"
           fi
 
       - name: Run source fetch and link-rot scan
         if: env.BACKTEST_LABEL == ''
-        run: python3 scripts/fetch-data.py --link-rot --json-out scripts/output/fetch-results.json
+        run: |
+          set -euo pipefail
+          ETHICS_PRIOR_CACHE="$RUNNER_TEMP/ethics-prior-$CYCLE_MONTH.json"
+          if [ ! -f monitoring/ethics-reports.json ]; then
+            echo "::error::Accepted Ethics cache is missing."
+            exit 1
+          fi
+          if [ -L monitoring/ethics-reports.json ]; then
+            echo "::error::Accepted Ethics cache is not a regular file."
+            exit 1
+          fi
+          cp monitoring/ethics-reports.json "$ETHICS_PRIOR_CACHE"
+          echo "ETHICS_PRIOR_CACHE=$ETHICS_PRIOR_CACHE" >> "$GITHUB_ENV"
+          python3 scripts/fetch-data.py --link-rot --json-out scripts/output/fetch-results.json
 
       - name: Generate source ledger
         if: env.BACKTEST_LABEL == ''
@@ -141,11 +356,26 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
         run: |
-          python3 scripts/monitor_sources.py \
-            --cycle "$CYCLE_MONTH" \
-            --fetch-results scripts/output/fetch-results.json \
-            --require-keys \
+          set -euo pipefail
+          ethics_prior_cache="${ETHICS_PRIOR_CACHE:-}"
+          carry_forward_ledger="${CARRY_FORWARD_LEDGER:-}"
+          if [ -z "$ethics_prior_cache" ]; then
+            echo "::error::The accepted Ethics cache snapshot path is missing."
+            exit 1
+          fi
+          args=(
+            --cycle "$CYCLE_MONTH"
+            --fetch-results scripts/output/fetch-results.json
+            --ethics-prior-cache "$ethics_prior_cache"
+            --ledger-path "monitoring/candidates/$CYCLE_MONTH.json"
+            --packet-path "docs/Source-Monitoring-Candidates-$CYCLE_MONTH.md"
+            --require-keys
             --require-complete
+          )
+          if [ -n "$carry_forward_ledger" ]; then
+            args+=(--carry-forward-ledger "$carry_forward_ledger")
+          fi
+          python3 scripts/monitor_sources.py "${args[@]}"
 
       - name: Reconstruct backtest source registry
         if: env.BACKTEST_LABEL != ''
@@ -167,8 +397,9 @@ jobs:
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
         run: |
           set -euo pipefail
+          backtest_cycle="${WINDOW_START:0:7}"
           args=(
-            --cycle "$BACKTEST_LABEL"
+            --cycle "$backtest_cycle"
             --sources-file "monitoring/backtest/sources-$BACKTEST_LABEL.json"
             --state-file "monitoring/backtest/state-$BACKTEST_LABEL.json"
             --ledger-path "monitoring/backtest/$BACKTEST_LABEL.json"
@@ -181,18 +412,105 @@ jobs:
             --require-keys
             --require-complete
             --compare-sources-file monitoring/sources.json
-            --title-note "Backtest $BACKTEST_LABEL. Registry ref: $REGISTRY_REF. Window: $WINDOW_START to $WINDOW_END."
+            --title-note "Backtest $BACKTEST_LABEL. Cycle: $backtest_cycle. Registry ref: $REGISTRY_REF. Window: $WINDOW_START to $WINDOW_END."
           )
           if [ -n "$SEEN_LEDGER_PATH" ]; then
             args+=(--seen-ledger "$SEEN_LEDGER_PATH")
           fi
           python3 scripts/monitor_sources.py "${args[@]}"
 
-      - name: Upload source-scout artifacts
+      - name: Guard current upload artifacts
+        id: privacy-guard
         if: always()
-        uses: actions/upload-artifact@v7
+        env:
+          PRIOR_STEPS_STATUS: ${{ job.status }}
+          PRIVATE_IDENTITY_PATTERNS: ${{ secrets.PRIVACY_IDENTITY_PATTERNS }}
+        run: |
+          set -euo pipefail
+          cleanup_identity_patterns() {
+            rm -f .identity-patterns
+          }
+          trap cleanup_identity_patterns EXIT HUP INT TERM
+          if [ -z "$PRIVATE_IDENTITY_PATTERNS" ]; then
+            echo "::error::PRIVACY_IDENTITY_PATTERNS is required"
+            exit 1
+          fi
+          cleanup_identity_patterns
+          umask 077
+          printf '%s\n' "$PRIVATE_IDENTITY_PATTERNS" > .identity-patterns
+          if [ -L .identity-patterns ] || [ ! -f .identity-patterns ] || [ "$(stat -c '%a' .identity-patterns)" != "600" ]; then
+            echo "::error::Private identity patterns were not created as an owner-only regular file."
+            exit 1
+          fi
+          if [ -L scripts/privacy_scan.py ] || [ ! -f scripts/privacy_scan.py ]; then
+            echo "::error::The privacy scanner is not a regular file."
+            exit 1
+          fi
+          approved_scanner_sha256="80e7ec01716367e1469135ce038f349a777c83c2d7bbdb17e1bd9a1b8767bcf1"
+          actual_scanner_sha256=$(sha256sum scripts/privacy_scan.py | awk '{print $1}')
+          if [ "$actual_scanner_sha256" != "$approved_scanner_sha256" ]; then
+            echo "::error::The privacy scanner does not match the reviewed hash."
+            exit 1
+          fi
+          cycle_month="${CYCLE_MONTH:-}"
+          if [ -z "$cycle_month" ]; then
+            echo "::error::The current artifact cycle was not determined."
+            exit 1
+          fi
+          if [ -z "$BACKTEST_LABEL" ]; then
+            ARTIFACT_FILES=(
+              scripts/output/fetch-report.txt
+              scripts/output/fetch-results.json
+              scripts/output/draft-changelog-entry.json
+              scripts/output/draft-dimensions.json
+              "docs/Source-Coverage-Ledger-$cycle_month.md"
+              "docs/Source-Monitoring-Candidates-$cycle_month.md"
+              "monitoring/candidates/$cycle_month.json"
+              monitoring/ethics-reports.json
+              monitoring/state.json
+            )
+          else
+            ARTIFACT_FILES=(
+              "docs/Source-Monitoring-Backtest-$cycle_month.md"
+              "monitoring/backtest/$cycle_month.json"
+              "monitoring/backtest/state-$cycle_month.json"
+              "monitoring/backtest/sources-$cycle_month.json"
+            )
+          fi
+          FILES=()
+          for FILE in "${ARTIFACT_FILES[@]}"; do
+            if [ -L "$FILE" ]; then
+              echo "::error::Current upload artifact is a symbolic link: $FILE"
+              exit 1
+            elif [ -f "$FILE" ]; then
+              FILES+=("$FILE")
+            elif [ -e "$FILE" ]; then
+              echo "::error::Current upload artifact is not a regular file: $FILE"
+              exit 1
+            elif [ "$PRIOR_STEPS_STATUS" = "success" ]; then
+              echo "::error::Required current upload artifact is missing: $FILE"
+              exit 1
+            fi
+          done
+          if [ "${#FILES[@]}" -eq 0 ]; then
+            echo "No current-run artifact files to guard."
+            cleanup_identity_patterns
+            trap - EXIT HUP INT TERM
+            exit 0
+          fi
+          python3 scripts/privacy_scan.py files \
+            --root . \
+            --require-identity-patterns \
+            "${FILES[@]}"
+          cleanup_identity_patterns
+          trap - EXIT HUP INT TERM
+
+      - name: Upload live source-scout artifacts
+        if: always() && steps.privacy-guard.outcome == 'success' && env.BACKTEST_LABEL == ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: monthly-source-scout-${{ env.CYCLE_MONTH }}
+          name: ${{ steps.cycle.outputs.artifact_name }}
+          if-no-files-found: error
           path: |
             scripts/output/fetch-report.txt
             scripts/output/fetch-results.json
@@ -201,63 +519,221 @@ jobs:
             docs/Source-Coverage-Ledger-${{ env.CYCLE_MONTH }}.md
             docs/Source-Monitoring-Candidates-${{ env.CYCLE_MONTH }}.md
             monitoring/candidates/${{ env.CYCLE_MONTH }}.json
+            monitoring/ethics-reports.json
             monitoring/state.json
+
+      - name: Upload backtest source-scout artifacts
+        if: always() && steps.privacy-guard.outcome == 'success' && env.BACKTEST_LABEL != ''
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: ${{ steps.cycle.outputs.artifact_name }}
+          if-no-files-found: error
+          path: |
             docs/Source-Monitoring-Backtest-${{ env.CYCLE_MONTH }}.md
             monitoring/backtest/${{ env.CYCLE_MONTH }}.json
             monitoring/backtest/state-${{ env.CYCLE_MONTH }}.json
             monitoring/backtest/sources-${{ env.CYCLE_MONTH }}.json
 
-      - name: Guard committed files for local paths
-        if: env.BACKTEST_LABEL == ''
+  publish-review:
+    needs: source-analysis
+    if: needs.source-analysis.result == 'success' && needs.source-analysis.outputs.backtest_mode == 'false' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    env:
+      BRANCH_EXISTS: ${{ needs.source-analysis.outputs.branch_exists }}
+      CYCLE_MONTH: ${{ needs.source-analysis.outputs.cycle_month }}
+      OBSERVED_BRANCH_SHA: ${{ needs.source-analysis.outputs.observed_branch_sha }}
+      OBSERVED_PR_NUMBER: ${{ needs.source-analysis.outputs.observed_pr_number }}
+      REVIEW_BRANCH: ${{ needs.source-analysis.outputs.review_branch }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          fetch-depth: 1
+          persist-credentials: false
+          ref: ${{ github.sha }}
+
+      - name: Download guarded live source-scout artifact
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: ${{ needs.source-analysis.outputs.artifact_name }}
+          path: .
+
+      - name: Stage and guard live publish payload
+        id: publish-guard
+        env:
+          PRIVATE_IDENTITY_PATTERNS: ${{ secrets.PRIVACY_IDENTITY_PATTERNS }}
         run: |
-          FILES=$(git status --porcelain -- monitoring docs/Source-Monitoring-Candidates-*.md "docs/Source-Coverage-Ledger-$CYCLE_MONTH.md" | awk '{print $2}')
-          if [ -z "$FILES" ]; then
-            echo "No monitoring changes to guard."
-            exit 0
-          fi
-          # Block an absolute local path leaking into committed state. That is the
-          # one identity vector that could reach generated files. The editor's
-          # name / email / city patterns live in the gitignored .identity-patterns
-          # and are enforced by the local pre-commit hook. That file is not on the
-          # runner, and a generic email scan would false-positive on scraped
-          # snippet text and fail the PR, so it is intentionally not run here.
-          if grep -nE '(^|[[:space:]"'\''=:({[])(/Users/[A-Za-z]|/home/[A-Za-z])' $FILES; then
-            echo "::error::Found an absolute local path in monitoring output. Stopping."
+          set -euo pipefail
+          BRANCH="source-monitor/$CYCLE_MONTH"
+          if [[ ! "$CYCLE_MONTH" =~ ^[0-9]{4}-(0[1-9]|1[0-2])$ ]]; then
+            echo "::error::Live cycle month is invalid."
             exit 1
           fi
-          echo "Guard passed."
+          if [ "$REVIEW_BRANCH" != "$BRANCH" ]; then
+            echo "::error::Review branch output does not match the live cycle."
+            exit 1
+          fi
+          if [ "$(git rev-parse HEAD)" != "$GITHUB_SHA" ]; then
+            echo "::error::Publish checkout does not match the reviewed workflow SHA."
+            exit 1
+          fi
+          REQUIRED_FILES=(
+            monitoring/state.json
+            monitoring/ethics-reports.json
+            "monitoring/candidates/$CYCLE_MONTH.json"
+            "docs/Source-Coverage-Ledger-$CYCLE_MONTH.md"
+            "docs/Source-Monitoring-Candidates-$CYCLE_MONTH.md"
+          )
+          for FILE in "${REQUIRED_FILES[@]}"; do
+            if [ -L "$FILE" ] || [ ! -f "$FILE" ]; then
+              echo "::error::Guarded publish artifact is missing a required regular file: $FILE"
+              exit 1
+            fi
+          done
+
+          git checkout -B "$BRANCH" "$GITHUB_SHA"
+          git add -- "${REQUIRED_FILES[@]}"
+          if git diff --cached --quiet; then
+            echo "No monitoring changes this run. Not opening a PR."
+            echo "has_changes=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          cleanup_identity_patterns() {
+            rm -f .identity-patterns
+          }
+          trap cleanup_identity_patterns EXIT HUP INT TERM
+          if [ -z "$PRIVATE_IDENTITY_PATTERNS" ]; then
+            echo "::error::PRIVACY_IDENTITY_PATTERNS is required"
+            exit 1
+          fi
+          cleanup_identity_patterns
+          umask 077
+          printf '%s\n' "$PRIVATE_IDENTITY_PATTERNS" > .identity-patterns
+          if [ -L .identity-patterns ] || [ ! -f .identity-patterns ] || [ "$(stat -c '%a' .identity-patterns)" != "600" ]; then
+            echo "::error::Private identity patterns were not created as an owner-only regular file."
+            exit 1
+          fi
+          if [ -L scripts/privacy_scan.py ] || [ ! -f scripts/privacy_scan.py ]; then
+            echo "::error::The privacy scanner is not a regular file."
+            exit 1
+          fi
+          approved_scanner_sha256="80e7ec01716367e1469135ce038f349a777c83c2d7bbdb17e1bd9a1b8767bcf1"
+          actual_scanner_sha256=$(sha256sum scripts/privacy_scan.py | awk '{print $1}')
+          if [ "$actual_scanner_sha256" != "$approved_scanner_sha256" ]; then
+            echo "::error::The privacy scanner does not match the reviewed hash."
+            exit 1
+          fi
+          python3 scripts/privacy_scan.py staged --root . --require-identity-patterns
+          cleanup_identity_patterns
+          trap - EXIT HUP INT TERM
+          git diff --cached --check
+          echo "has_changes=true" >> "$GITHUB_OUTPUT"
 
       - name: Open or update the review PR
-        if: env.BACKTEST_LABEL == ''
+        if: steps.publish-guard.outputs.has_changes == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
           BRANCH="source-monitor/$CYCLE_MONTH"
+          if [ "$REVIEW_BRANCH" != "$BRANCH" ]; then
+            echo "::error::Review branch output does not match the live cycle."
+            exit 1
+          fi
+          case "$BRANCH_EXISTS" in
+            true)
+              if [[ ! "$OBSERVED_BRANCH_SHA" =~ ^[0-9a-f]{40}$ ]]; then
+                echo "::error::Observed review-branch SHA is invalid."
+                exit 1
+              fi
+              lease="--force-with-lease=refs/heads/$BRANCH:$OBSERVED_BRANCH_SHA"
+              ;;
+            false)
+              if [ -n "$OBSERVED_BRANCH_SHA" ]; then
+                echo "::error::An absent review branch cannot carry an observed SHA."
+                exit 1
+              fi
+              lease="--force-with-lease=refs/heads/$BRANCH:"
+              ;;
+            *)
+              echo "::error::Review-branch existence output is invalid."
+              exit 1
+              ;;
+          esac
+          if [[ ! "$OBSERVED_PR_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "::error::Observed review PR number is invalid."
+            exit 1
+          fi
+
+          export BRANCH
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          git add monitoring \
-            docs/Source-Coverage-Ledger-"$CYCLE_MONTH".md \
-            docs/Source-Monitoring-Candidates-"$CYCLE_MONTH".md
-          if git diff --cached --quiet; then
-            echo "No monitoring changes this run. Not opening a PR."
-            exit 0
-          fi
-
-          git commit -m "Source monitor: $CYCLE_MONTH candidates (editor review, no data moved)"
-          # The review branch is rebased onto origin/main each run (see Prepare
-          # review branch), so a plain push is non-fast-forward on a re-dispatch
-          # in the same month. force-with-lease updates the disposable branch and
-          # still aborts if someone pushed to it since the fetch above.
-          git push --force-with-lease -u origin "$BRANCH"
-
-          if gh pr view "$BRANCH" >/dev/null 2>&1; then
-            echo "PR already open for $BRANCH; the push updated it."
-          else
-            gh pr create \
+          review_pr_details() {
+            gh pr list \
+              --repo "$GITHUB_REPOSITORY" \
               --base main \
-              --head "$BRANCH" \
+              --state open \
+              --limit 1000 \
+              --json number,isDraft,headRefName,headRepository,isCrossRepository \
+              --jq '[.[] | select(.headRefName == env.BRANCH and .headRepository.nameWithOwner == env.GITHUB_REPOSITORY and .isCrossRepository == false)] | [length, (.[0].number // 0), (.[0].isDraft // false)] | @tsv'
+          }
+
+          assert_expected_pr_state() {
+            local details count number is_draft
+            if ! details=$(review_pr_details); then
+              echo "::error::Could not check the open review PR for $BRANCH."
+              return 1
+            fi
+            IFS=$'\t' read -r count number is_draft <<< "$details"
+            if [ "$OBSERVED_PR_NUMBER" -eq 0 ]; then
+              if [ "$count" -ne 0 ]; then
+                echo "::error::A matching review PR appeared after analysis."
+                return 1
+              fi
+              return 0
+            fi
+            if [ "$count" -ne 1 ] || [ "$number" -ne "$OBSERVED_PR_NUMBER" ]; then
+              echo "::error::The analyzed review PR changed before publication."
+              return 1
+            fi
+            if [ "$is_draft" != "true" ]; then
+              echo "::error::Existing review PR $number is no longer a draft."
+              return 1
+            fi
+          }
+
+          assert_expected_pr_state
+          git commit -m "Source monitor: $CYCLE_MONTH candidates (editor review, no data moved)"
+          # Recheck immediately before mutation. The explicit lease remains the
+          # SHA observed by analysis and is never refreshed in this job.
+          assert_expected_pr_state
+          gh auth setup-git
+          git push "$lease" -u origin "HEAD:refs/heads/$BRANCH"
+
+          if ! post_push_details=$(review_pr_details); then
+            echo "::error::Could not check for an open review PR after the push."
+            exit 1
+          fi
+          IFS=$'\t' read -r post_push_count post_push_number post_push_is_draft <<< "$post_push_details"
+          if [ "$OBSERVED_PR_NUMBER" -ne 0 ]; then
+            if [ "$post_push_count" -ne 1 ] || [ "$post_push_number" -ne "$OBSERVED_PR_NUMBER" ]; then
+              echo "::error::The expected review PR was not found after the push."
+              exit 1
+            fi
+            if [ "$post_push_is_draft" != "true" ]; then
+              echo "::error::Existing review PR $post_push_number is no longer a draft."
+              exit 1
+            fi
+            echo "Draft PR $post_push_number already open for $BRANCH; the push updated it."
+          elif [ "$post_push_count" -eq 0 ]; then
+            gh pr create \
+              --repo "$GITHUB_REPOSITORY" \
+              --base main \
+              --head "$GITHUB_REPOSITORY_OWNER:$BRANCH" \
               --draft \
               --title "Source monitor: $CYCLE_MONTH candidates" \
               --body "$(printf '%s\n' \
@@ -269,5 +745,8 @@ jobs:
                 '- Candidate ledger: monitoring/candidates/<cycle>.json' \
                 '- Per-source state: monitoring/state.json' \
                 '' \
-                'If the search or relevance tier was skipped (missing API key), the packet says so near the top under Run status. Search-fan-out snippets are provisional discovery only and need a browser pull plus editor verification before anything is cited.')"
+                'The live monthly workflow requires both API keys and complete accepted tiers. A failed acceptance run, including one with a missing key, stops before PR creation. Optional local runs may omit keys and record skipped search or relevance tiers under Run status. Search-fan-out snippets are provisional discovery only and need a browser pull plus editor verification before anything is cited.')"
+          else
+            echo "::error::A matching review PR appeared after publication began."
+            exit 1
           fi

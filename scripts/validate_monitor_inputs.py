@@ -3,6 +3,7 @@
 
 from datetime import date
 from pathlib import PurePosixPath
+import math
 import os
 import re
 import sys
@@ -27,6 +28,14 @@ def valid_seen_ledger_path(value):
         and path.suffix == ".json"
         and all(part not in {"", ".", ".."} for part in path.parts)
     )
+
+
+def valid_surface_threshold(value):
+    try:
+        threshold = float(value)
+    except (TypeError, ValueError):
+        return False
+    return math.isfinite(threshold) and 0 <= threshold <= 1
 
 
 def main():
@@ -65,10 +74,8 @@ def main():
         print("::error::window_start must be on or before window_end")
         return 1
 
-    try:
-        float(surface_threshold)
-    except ValueError:
-        print("::error::surface_threshold must be numeric")
+    if not valid_surface_threshold(surface_threshold):
+        print("::error::surface_threshold must be a finite number from 0 through 1")
         return 1
 
     return 0

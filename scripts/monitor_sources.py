@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Monthly source monitor for Canada Under Carney.
 
-Every cycle this surveys each cited source surface for new dimension-relevant
-material, classifies what it finds, and writes an editor-adjudicated candidate
-packet. It never moves a grade, threshold, status, or any dashboard data.
+Each cycle this combines the enabled deterministic results and configured search
+targets, classifies new dimension-relevant material, and writes a candidate
+packet for editor adjudication. It never moves a grade, threshold, status, or
+any dashboard data.
 
 It is the relevance/triage layer on top of the deterministic pullers in
 scripts/fetch-data.py. The split is deliberate:
@@ -15,36 +16,41 @@ scripts/fetch-data.py. The split is deliberate:
         |  reads those results (deterministic tier),
         |  adds a Tavily search fan-out for feed-less / paywalled / blocked
         |  surfaces, runs a Claude relevance pass, and writes:
-        |    - monitoring/state.json                (durable per-source state)
+        |    - monitoring/state.json                (accepted per-source state)
         |    - monitoring/candidates/YYYY-MM.json   (structured candidate ledger)
         |    - docs/Source-Monitoring-Candidates-YYYY-MM.md  (editor packet)
         v
   editor adjudicates. No automatic dashboard change happens.
 
-Tiers degrade safely. With no TAVILY_API_KEY the search fan-out is skipped and
-the packet says so. With no ANTHROPIC_API_KEY the relevance pass is skipped and
-candidates are carried through unclassified, again noted. --dry-run forces both
-off so the whole thing runs offline with no secrets.
+Optional runs degrade safely. With no TAVILY_API_KEY the search fan-out is
+skipped and the packet says so. With no ANTHROPIC_API_KEY the relevance pass is
+skipped and candidates are carried through unclassified. An incomplete optional
+run never updates durable state. --dry-run forces both paid tiers off, runs
+offline with no secrets, and never updates durable state.
 
 Usage:
   python3 scripts/monitor_sources.py --rebuild-registry
   python3 scripts/monitor_sources.py --cycle 2026-06 \
       --fetch-results scripts/output/fetch-results.json
-  python3 scripts/monitor_sources.py --dry-run --out-suffix -dryrun \
-      --fetch-results scripts/fixtures/fetch-results-sample.json
+  npm run monitor:dryrun
 """
 
 import argparse
+import fcntl
 import hashlib
 import json
 import math
 import os
 import re
+import stat
 import sys
+import tempfile
 import time
+import unicodedata
 from datetime import datetime, timedelta, timezone
+from email.utils import parsedate_to_datetime
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import unquote_plus, urlparse
 
 # --- Paths ---
 SCRIPT_DIR = Path(__file__).parent
@@ -61,6 +67,11 @@ DEFAULT_FETCH_RESULTS = SCRIPT_DIR / "output" / "fetch-results.json"
 
 DEFAULT_MODEL = "claude-opus-4-8"
 SCHEMA_VERSION = 1
+RECOVERY_MARKER_SUFFIX = ".recovery-pending"
+CYCLE_RE = re.compile(r"\d{4}-(?:0[1-9]|1[0-2])")
+SAFE_CANDIDATE_ID_RE = re.compile(r"[A-Za-z0-9][A-Za-z0-9._:-]{0,499}")
+SAFE_FINGERPRINT_RE = re.compile(r"[A-Fa-f0-9]{8,64}")
+SAFE_DIMENSION_ID_RE = re.compile(r"[a-z0-9][a-z0-9-]{0,99}")
 TAVILY_ENDPOINT = "https://api.tavily.com/search"
 TAVILY_SEARCH_ATTEMPTS = 2
 TAVILY_RETRY_DELAY_SECONDS = 1
@@ -68,9 +79,9 @@ NORMAL_SURFACE_THRESHOLD = 0.15
 EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
 LOCAL_PATH_RE = re.compile(r"(^|[\s(\"'])((?:/Users|/home)/[^\s)\"']+)")
 
-# These keys mirror the result families always emitted by fetch-data.py. A
-# blocked source still emits its result with a non-success status, so strict
-# completeness checks structure rather than requiring source access to succeed.
+# These keys mirror the result families always emitted by fetch-data.py. Most
+# blocked sources remain structurally complete with a non-success status. The
+# four required IRCC downloads are the exception and must return success.
 DETERMINISTIC_OBJECT_RESULT_FAMILIES = (
     ("Statistics Canada", (
         "statcan_food_cpi",
@@ -96,24 +107,97 @@ DETERMINISTIC_LIST_RESULT_FAMILIES = (
     ("policy feeds", "policy_feeds", True),
     ("LEGISinfo", "legisinfo", False),
 )
-EXPECTED_DETERMINISTIC_FEED_URLS = {
+EXPECTED_DETERMINISTIC_FEEDS = {
     "pollster_feeds": {
-        "https://abacusdata.ca/feed/",
-        "https://leger360.com/en/feed/",
-        "https://angusreid.org/feed/",
+        "https://abacusdata.ca/feed/": "Abacus Data",
+        "https://leger360.com/en/feed/": "Léger",
+        "https://angusreid.org/feed/": "Angus Reid Institute",
     },
     "excluded_pollster_feeds": {
-        "https://www.pollara.com/feed/",
-        "https://www.ipsos.com/en-ca/rss.xml",
-        "https://innovativeresearch.ca/feed/",
+        "https://www.pollara.com/feed/": "Pollara Strategic Insights",
+        "https://www.ipsos.com/en-ca/rss.xml": "Ipsos Canada",
+        "https://innovativeresearch.ca/feed/": "Innovative Research Group",
     },
     "policy_feeds": {
-        "https://www.cdhowe.org/feed/",
-        "https://www.fraserinstitute.org/rss.xml",
-        "https://thehub.ca/feed/",
-        "https://democracywatch.ca/feed/",
-        "https://proof.utoronto.ca/feed/",
-        "https://thenarwhal.ca/feed/",
+        "https://www.cdhowe.org/feed/": "C.D. Howe Institute",
+        "https://www.fraserinstitute.org/rss.xml": "Fraser Institute",
+        "https://thehub.ca/feed/": "The Hub",
+        "https://democracywatch.ca/feed/": "Democracy Watch",
+        "https://proof.utoronto.ca/feed/": "PROOF (Food Insecurity)",
+        "https://thenarwhal.ca/feed/": "The Narwhal",
+    },
+}
+EXPECTED_DETERMINISTIC_FEED_URLS = {
+    key: set(feeds) for key, feeds in EXPECTED_DETERMINISTIC_FEEDS.items()
+}
+DETERMINISTIC_FEED_STATUSES = {
+    "pollster_feeds": {"success", "http_error", "malformed_data", "error"},
+    "excluded_pollster_feeds": {
+        "success", "http_error", "malformed_data", "error",
+    },
+    "policy_feeds": {
+        "success", "http_error", "malformed_data", "not_xml", "error",
+    },
+}
+ETHICS_REPORTS_URL = "https://www.ethicscanada.ca/en/report?type=inv"
+ETHICS_REPORT_URL_RE = re.compile(
+    r"https://(?:www\.)?ethicscanada\.ca/(?:en|fr)/report/[a-z0-9]+"
+    r"(?:[?#].*)?", re.IGNORECASE)
+ETHICS_REPORT_KEY_RE = re.compile(
+    r"/(?:en|fr)/report/[a-z0-9]+", re.IGNORECASE)
+IRCC_MAX_REPORTING_LAG_MONTHS = 3
+TRACKING_QUERY_PARAMETERS = {"fbclid", "gclid", "mc_cid", "mc_eid"}
+ISO_DATE_RE = re.compile(
+    r"\d{4}-\d{2}-\d{2}(?:[T ]\d{2}:\d{2}"
+    r"(?::\d{2}(?:\.\d{1,6})?)?"
+    r"(?:Z|[+-]\d{2}(?::?\d{2})?)?)?"
+)
+ISO_TIMESTAMP_RE = re.compile(
+    r"\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}"
+    r"(?::\d{2}(?:\.\d{1,6})?)?"
+    r"(?:Z|[+-]\d{2}(?::?\d{2})?)?"
+)
+RFC_2822_DATE_RE = re.compile(
+    r"(?:(?:Mon|Tue|Wed|Thu|Fri|Sat|Sun),\s+)?"
+    r"(?:0?[1-9]|[12]\d|3[01])\s+"
+    r"(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+"
+    r"\d{4}\s+(?:[01]\d|2[0-3]):[0-5]\d(?::[0-5]\d)?\s+"
+    r"(?:UT|GMT|[ECMP][SD]T|[+-]\d{4})",
+    re.IGNORECASE,
+)
+IRCC_COMMON_COLUMNS = {
+    "EN_YEAR", "EN_QUARTER", "EN_MONTH", "EN_PROVINCE_TERRITORY", "TOTAL",
+}
+IRCC_RESULT_CONTRACTS = {
+    "ircc_permanent_residents": {
+        "dataset_key": "permanent_residents",
+        "source_url": ("https://www.ircc.canada.ca/opendata-donneesouvertes/"
+                       "data/ODP-PR-Gender.csv"),
+        "required_columns": IRCC_COMMON_COLUMNS | {"EN_GENDER"},
+    },
+    "ircc_work_permits_imp": {
+        "dataset_key": "work_permits_imp",
+        "source_url": ("https://www.ircc.canada.ca/opendata-donneesouvertes/"
+                       "data/ODP-TR-Work-IMP-PT_program.csv"),
+        "required_columns": IRCC_COMMON_COLUMNS | {
+            "EN_PROGRAM_LEVEL_2", "EN_PROGRAM_LEVEL_3",
+            "EN_PROGRAM_LEVEL_4", "EN_PROGRAM_LEVEL_5",
+        },
+    },
+    "ircc_work_permits_tfwp": {
+        "dataset_key": "work_permits_tfwp",
+        "source_url": ("https://www.ircc.canada.ca/opendata-donneesouvertes/"
+                       "data/ODP-TR-Work-TFWP-PT_program.csv"),
+        "required_columns": IRCC_COMMON_COLUMNS | {
+            "EN_PROGRAM_LEVEL_2", "EN_PROGRAM_LEVEL_3",
+            "EN_PROGRAM_LEVEL_4", "EN_PROGRAM_LEVEL_5",
+        },
+    },
+    "ircc_study_permits": {
+        "dataset_key": "study_permits",
+        "source_url": ("https://www.ircc.canada.ca/opendata-donneesouvertes/"
+                       "data/ODP-TR-Study-IS_PT_study.csv"),
+        "required_columns": IRCC_COMMON_COLUMNS | {"EN_STUDY_LEVEL"},
     },
 }
 
@@ -326,10 +410,264 @@ def load_json(path, default=None):
     return json.loads(p.read_text())
 
 
+def display_path(path):
+    """Return a useful path label without leaking an absolute local repo path."""
+    p = Path(path)
+    try:
+        return str(p.resolve().relative_to(PROJECT_DIR.resolve()))
+    except ValueError:
+        return p.name or str(p)
+
+
+def monitor_path_identity(path):
+    """Return one conservative identity across path spelling and case aliases."""
+    resolved = str(Path(path).expanduser().resolve())
+    return unicodedata.normalize(
+        "NFC", unicodedata.normalize("NFC", resolved).casefold()
+    )
+
+
+def monitor_paths_overlap(first, second):
+    """Detect spelling aliases and existing filesystem aliases such as hard links."""
+    if monitor_path_identity(first) == monitor_path_identity(second):
+        return True
+    try:
+        return os.path.samefile(first, second)
+    except OSError:
+        return False
+
+
+def canonical_monitor_state_path(path):
+    """Resolve one safe state path, rejecting leaf aliases that break transactions."""
+    raw_path = Path(path).expanduser()
+    label = display_path(raw_path)
+    if os.path.lexists(raw_path):
+        try:
+            path_stat = raw_path.lstat()
+        except OSError as exc:
+            detail = scrub_public_text(exc.strerror or exc)
+            return None, f"could not inspect monitor state path {label}: {detail}"
+        if stat.S_ISLNK(path_stat.st_mode):
+            return None, f"monitor state path must not be a symbolic link: {label}"
+        if not stat.S_ISREG(path_stat.st_mode):
+            return None, f"monitor state path must be a regular file: {label}"
+        if path_stat.st_nlink != 1:
+            return None, f"monitor state path must not have hard-link aliases: {label}"
+    try:
+        return raw_path.resolve(), None
+    except OSError as exc:
+        detail = scrub_public_text(exc.strerror or exc)
+        return None, f"could not resolve monitor state path {label}: {detail}"
+
+
+def load_fetch_results(path):
+    """Load fetch-results JSON with a precise operator-facing error."""
+    p = Path(path)
+    label = display_path(p)
+    if not p.exists():
+        return None, f"fetch-results file not found: {label}"
+    try:
+        raw = p.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        return (None, f"fetch-results file is not valid UTF-8 at byte offset "
+                f"{exc.start}: {label}")
+    except OSError as exc:
+        detail = scrub_public_text(exc.strerror or exc)
+        return None, f"could not read fetch-results file {label}: {detail}"
+    if not raw.strip():
+        return None, f"fetch-results file is empty: {label}"
+    try:
+        return json.loads(raw), None
+    except json.JSONDecodeError as exc:
+        return (None, f"fetch-results file is malformed JSON at line {exc.lineno}, "
+                f"column {exc.colno}: {label}")
+
+
+def canonical_ethics_report_key(record):
+    """Return the canonical official report path for one Ethics record."""
+    if not isinstance(record, dict) or not isinstance(record.get("url"), str):
+        return None
+    if not ETHICS_REPORT_URL_RE.fullmatch(record["url"].strip()):
+        return None
+    try:
+        parsed = urlparse(record["url"].strip())
+    except (TypeError, ValueError):
+        return None
+    if (parsed.scheme.lower() != "https" or
+            (parsed.hostname or "").lower() not in {
+                "ethicscanada.ca", "www.ethicscanada.ca",
+            }):
+        return None
+    key = parsed.path.lower().rstrip("/")
+    return key if ETHICS_REPORT_KEY_RE.fullmatch(key) else None
+
+
+def load_ethics_prior_cache(path):
+    """Read and validate an immutable pre-fetch Ethics cache snapshot."""
+    p = Path(path)
+    label = display_path(p)
+    if not p.exists():
+        return None, f"Ethics prior cache snapshot not found: {label}"
+    try:
+        raw = p.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        return (None, f"Ethics prior cache snapshot is not valid UTF-8 at byte "
+                f"offset {exc.start}: {label}")
+    except OSError as exc:
+        detail = scrub_public_text(exc.strerror or exc)
+        return None, f"could not read Ethics prior cache snapshot {label}: {detail}"
+    if not raw.strip():
+        return None, f"Ethics prior cache snapshot is empty: {label}"
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        return (None, f"Ethics prior cache snapshot is malformed JSON at line "
+                f"{exc.lineno}, column {exc.colno}: {label}")
+    reports = payload.get("reports") if isinstance(payload, dict) else None
+    if not isinstance(reports, list) or not reports:
+        return None, f"Ethics prior cache snapshot has no reports: {label}"
+    if any(
+            not isinstance(report, dict) or
+            not isinstance(report.get("title"), str) or
+            not report["title"].strip()
+            for report in reports):
+        return None, f"Ethics prior cache snapshot has an invalid report: {label}"
+    keys = [canonical_ethics_report_key(report) for report in reports]
+    if any(key is None for key in keys):
+        return None, f"Ethics prior cache snapshot has an invalid report URL: {label}"
+    if len(keys) != len(set(keys)):
+        return None, f"Ethics prior cache snapshot has duplicate report keys: {label}"
+    return sorted(keys), None
+
+
 def write_json(path, data):
     p = Path(path)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+
+
+def write_json_atomic(path, data):
+    """Atomically replace JSON after its temporary file reaches stable storage.
+
+    This protects readers and the prior file from process-level interruption
+    before replacement. It does not claim power-loss durability for the parent
+    directory entry because no post-replacement directory fsync is performed.
+    """
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                mode="w", encoding="utf-8", dir=p.parent,
+                prefix=f".{p.name}.", suffix=".tmp", delete=False) as handle:
+            temp_path = Path(handle.name)
+            handle.write(json.dumps(data, indent=2, ensure_ascii=False) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        if p.exists():
+            temp_path.chmod(p.stat().st_mode & 0o777)
+        os.replace(temp_path, p)
+        temp_path = None
+    finally:
+        if temp_path is not None:
+            temp_path.unlink(missing_ok=True)
+
+
+def state_recovery_marker_path(path):
+    """Return the persistent marker for an unresolved state/output transaction."""
+    p = Path(path).expanduser().resolve()
+    return p.with_name(f"{p.name}{RECOVERY_MARKER_SUFFIX}")
+
+
+def recovery_marker_exists(path):
+    """Treat every filesystem entry, including a dangling symlink, as a marker."""
+    return os.path.lexists(Path(path))
+
+
+def create_state_recovery_marker(path):
+    """Persist a fail-closed marker before replacing accepted monitor state."""
+    p = Path(path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    marker_bytes = (
+        b'{"schemaVersion":1,'
+        b'"status":"pending-state-output-transaction"}\n'
+    )
+    fd = os.open(p, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    try:
+        with os.fdopen(fd, "wb") as handle:
+            fd = None
+            handle.write(marker_bytes)
+            handle.flush()
+            os.fsync(handle.fileno())
+    finally:
+        if fd is not None:
+            os.close(fd)
+
+
+def clear_state_recovery_marker(path):
+    """Clear the marker only after outputs succeed or exact rollback succeeds."""
+    Path(path).unlink()
+
+
+def monitor_run_lock_path(state_path):
+    """Return a host-local lock path keyed to the resolved monitor state path."""
+    state_key = hashlib.sha256(
+        monitor_path_identity(state_path).encode("utf-8")
+    ).hexdigest()
+    lock_dir = Path(tempfile.gettempdir()) / (
+        f"canada-under-carney-monitor-locks-{os.getuid()}"
+    )
+    return lock_dir / f"{state_key}.lock"
+
+
+def acquire_monitor_run_lock(state_path):
+    """Reject a second process before it can read inputs or start paid work."""
+    lock_path = monitor_run_lock_path(state_path)
+    lock_path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    lock_path.parent.chmod(0o700)
+    flags = os.O_RDWR | os.O_CREAT | getattr(os, "O_NOFOLLOW", 0)
+    fd = os.open(lock_path, flags, 0o600)
+    try:
+        os.fchmod(fd, 0o600)
+        fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BaseException:
+        os.close(fd)
+        raise
+    return fd
+
+
+def release_monitor_run_lock(fd):
+    """Release a process lock acquired by acquire_monitor_run_lock."""
+    try:
+        fcntl.flock(fd, fcntl.LOCK_UN)
+    finally:
+        os.close(fd)
+
+
+def restore_file_snapshot_atomic(path, *, existed, data=None, mode=None):
+    """Restore exact pre-run bytes after a later output write fails."""
+    p = Path(path)
+    if not existed:
+        p.unlink(missing_ok=True)
+        return
+    if data is None or mode is None:
+        raise ValueError("existing file snapshots require bytes and mode")
+    p.parent.mkdir(parents=True, exist_ok=True)
+    temp_path = None
+    try:
+        with tempfile.NamedTemporaryFile(
+                mode="wb", dir=p.parent, prefix=f".{p.name}.",
+                suffix=".rollback.tmp", delete=False) as handle:
+            temp_path = Path(handle.name)
+            handle.write(data)
+            handle.flush()
+            os.fsync(handle.fileno())
+        temp_path.chmod(mode)
+        os.replace(temp_path, p)
+        temp_path = None
+    finally:
+        if temp_path is not None:
+            temp_path.unlink(missing_ok=True)
 
 
 def sha256_short(text):
@@ -399,6 +737,19 @@ def slugify(text):
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
 
 
+def _strip_tracking_query(query):
+    """Remove known tracking fields without rewriting other query fields."""
+    kept = []
+    for field in query.split("&"):
+        if not field:
+            continue
+        key = unquote_plus(field.partition("=")[0]).lower()
+        if key.startswith("utm_") or key in TRACKING_QUERY_PARAMETERS:
+            continue
+        kept.append(field)
+    return "&".join(kept)
+
+
 def normalize_url(url):
     """Stable URL key for cross-surface dedupe.
 
@@ -416,16 +767,61 @@ def normalize_url(url):
     if host.startswith("www."):
         host = host[4:]
     path = (parsed.path or "").rstrip("/")
-    query = f"?{parsed.query}" if parsed.query else ""
+    clean_query = _strip_tracking_query(parsed.query)
+    query = f"?{clean_query}" if clean_query else ""
     if host:
         return f"{scheme}://{host}{path}{query}"
     return (url or "").strip().lower().rstrip("/")
+
+
+def normalized_candidate_fingerprint(candidate):
+    """Fingerprint candidate content after removing URL tracking fields."""
+    if not isinstance(candidate, dict):
+        return None
+    source_id = candidate.get("sourceId")
+    discovery = candidate.get("discovery")
+    title = candidate.get("title")
+    snippet = candidate.get("snippet")
+    normalized_url = normalize_url(
+        candidate.get("normalizedUrl") or candidate.get("url"))
+    if (not all(isinstance(value, str)
+                for value in (source_id, discovery, title, snippet)) or
+            not normalized_url):
+        return None
+    basis = json.dumps(
+        [source_id, discovery, normalized_url, title, snippet],
+        ensure_ascii=False,
+        separators=(",", ":"),
+    )
+    return hashlib.sha256(basis.encode("utf-8")).hexdigest()
+
+
+def parse_publication_date(value):
+    """Parse a complete ISO or RFC 2822 publication date."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    text = value.strip()
+    if ISO_DATE_RE.fullmatch(text):
+        iso_text = f"{text[:-1]}+00:00" if text.endswith("Z") else text
+        try:
+            return datetime.fromisoformat(iso_text).date()
+        except ValueError:
+            return None
+    if not RFC_2822_DATE_RE.fullmatch(text):
+        return None
+    try:
+        return parsedate_to_datetime(text).date()
+    except (TypeError, ValueError, OverflowError):
+        return None
 
 
 def parse_dateish(value):
     if not value:
         return None
     text = str(value)
+    publication_date = parse_publication_date(text)
+    if publication_date is not None:
+        return publication_date
     match = re.search(r"(20\d{2})[-/](\d{1,2})[-/](\d{1,2})", text)
     if not match:
         return None
@@ -596,16 +992,74 @@ def empty_source_state():
         "lastSurfacedCandidateId": None,
         "lastSurfacedFingerprint": None,
         "surfacedFingerprints": [],
+        "surfacedNormalizedFingerprints": [],
         "accessIssue": None,
     }
 
 
 def load_state(path=STATE_FILE):
-    state = load_json(path)
-    if not state:
-        state = {"schemaVersion": SCHEMA_VERSION, "lastRun": None, "sources": {}}
-    state.setdefault("sources", {})
-    return state
+    p = Path(path)
+    empty = {"schemaVersion": SCHEMA_VERSION, "lastRun": None, "sources": {}}
+    if not p.exists():
+        return empty, None
+
+    label = display_path(p)
+    try:
+        raw = p.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        return (None, f"state file is not valid UTF-8 at byte offset "
+                f"{exc.start}: {label}")
+    except OSError as exc:
+        detail = scrub_public_text(exc.strerror or exc)
+        return None, f"could not read state file {label}: {detail}"
+    if not raw.strip():
+        return None, f"state file is empty: {label}"
+    try:
+        state = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        return (None, f"state file is malformed JSON at line {exc.lineno}, "
+                f"column {exc.colno}: {label}")
+    if not isinstance(state, dict):
+        return None, "state file root is not an object"
+    schema_version = state.get("schemaVersion")
+    if type(schema_version) is not int or schema_version != SCHEMA_VERSION:
+        return None, f"state file schemaVersion must equal {SCHEMA_VERSION}"
+    if "lastRun" not in state or not (
+            state["lastRun"] is None or
+            isinstance(state["lastRun"], str) and state["lastRun"].strip()):
+        return None, "state file lastRun is missing or invalid"
+    sources = state.get("sources")
+    if not isinstance(sources, dict):
+        return None, "state file sources is not an object"
+    nullable_text_fields = (
+        "lastChecked", "lastSuccessfulCheck", "contentHash", "etag",
+        "lastModified", "lastSurfacedCandidateId", "lastSurfacedFingerprint",
+        "accessIssue",
+    )
+    for source_id, source_state in sources.items():
+        if not isinstance(source_id, str) or not source_id.strip():
+            return None, "state file contains an invalid source id"
+        if not isinstance(source_state, dict):
+            return None, f"state file source {source_id} is not an object"
+        fingerprints = source_state.get("surfacedFingerprints")
+        if (not isinstance(fingerprints, list) or
+                any(not isinstance(value, str) or not value.strip()
+                    for value in fingerprints)):
+            return None, (f"state file source {source_id} has invalid "
+                          "surfacedFingerprints")
+        normalized_fingerprints = source_state.get(
+            "surfacedNormalizedFingerprints", [])
+        if (not isinstance(normalized_fingerprints, list) or
+                any(not isinstance(value, str) or
+                    not SAFE_FINGERPRINT_RE.fullmatch(value)
+                    for value in normalized_fingerprints)):
+            return None, (f"state file source {source_id} has invalid "
+                          "surfacedNormalizedFingerprints")
+        for field in nullable_text_fields:
+            value = source_state.get(field)
+            if value is not None and not isinstance(value, str):
+                return None, f"state file source {source_id} has invalid {field}"
+    return state, None
 
 
 def mark_checked(state, source_id, ok, content_hash=None, access_issue=None):
@@ -618,7 +1072,7 @@ def mark_checked(state, source_id, ok, content_hash=None, access_issue=None):
             s["contentHash"] = content_hash
         s["accessIssue"] = None
     else:
-        s["accessIssue"] = access_issue or "fetch failed"
+        s["accessIssue"] = scrub_public_text(access_issue or "fetch failed")
     return s
 
 
@@ -632,7 +1086,11 @@ def already_surfaced(state, candidate):
     source_state = (state.get("sources") or {}).get(candidate.get("sourceId")) or {}
     seen = set(source_state.get("surfacedFingerprints") or [])
     fp = candidate.get("candidateFingerprint")
-    return bool(fp and fp in seen)
+    normalized_seen = set(
+        source_state.get("surfacedNormalizedFingerprints") or [])
+    normalized_fp = normalized_candidate_fingerprint(candidate)
+    return bool((fp and fp in seen) or
+                (normalized_fp and normalized_fp in normalized_seen))
 
 
 def remember_candidate(state, candidate, limit=80):
@@ -645,25 +1103,393 @@ def remember_candidate(state, candidate, limit=80):
     if fp not in fingerprints:
         fingerprints.append(fp)
     source_state["surfacedFingerprints"] = fingerprints[-limit:]
+    normalized_fp = normalized_candidate_fingerprint(candidate)
+    normalized_fingerprints = list(
+        source_state.get("surfacedNormalizedFingerprints") or [])
+    if normalized_fp and normalized_fp not in normalized_fingerprints:
+        normalized_fingerprints.append(normalized_fp)
+    source_state["surfacedNormalizedFingerprints"] = (
+        normalized_fingerprints[-limit:])
     source_state["lastSurfacedFingerprint"] = fp
     source_state["lastSurfacedCandidateId"] = candidate.get("candidate_id")
 
 
 def load_seen_ledger(path):
-    """Load candidate fingerprints and URLs from a prior candidate ledger."""
-    if not path:
-        return {"fingerprints": set(), "urls": set()}
-    payload = load_json(path, default={}) or {}
+    """Load suppression keys from one accepted or legacy candidate ledger."""
     seen = {"fingerprints": set(), "urls": set()}
+    if not path:
+        return seen, None
+
+    p = Path(path)
+    label = display_path(p)
+    if not p.exists():
+        return None, f"seen-ledger file not found: {label}"
+    try:
+        raw = p.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        return (None, f"seen-ledger file is not valid UTF-8 at byte offset "
+                f"{exc.start}: {label}")
+    except OSError as exc:
+        detail = scrub_public_text(exc.strerror or exc)
+        return None, f"could not read seen-ledger file {label}: {detail}"
+    if not raw.strip():
+        return None, f"seen-ledger file is empty: {label}"
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        return (None, f"seen-ledger file is malformed JSON at line {exc.lineno}, "
+                f"column {exc.colno}: {label}")
+    if not isinstance(payload, dict):
+        return None, "seen-ledger root is not an object"
+
+    metadata = payload.get("metadata")
+    if metadata is not None and not isinstance(metadata, dict):
+        return None, "seen-ledger metadata is not an object"
+    has_acceptance = isinstance(metadata, dict) and "acceptance" in metadata
+    has_state_persistence = (
+        isinstance(metadata, dict) and "statePersistence" in metadata)
+    if has_state_persistence and not has_acceptance:
+        return None, "seen-ledger state persistence exists without acceptance"
+    acceptance = metadata.get("acceptance") if has_acceptance else None
+    if has_acceptance:
+        passed = acceptance.get("passed") if isinstance(acceptance, dict) else None
+        if passed is not True and passed is not False:
+            return None, "seen-ledger acceptance is not true or false"
+    if isinstance(acceptance, dict) and acceptance.get("passed") is False:
+        seen["ignoredReason"] = "prior ledger acceptance failed"
+        return seen, None
+    if has_state_persistence:
+        persistence = metadata.get("statePersistence")
+        eligible = (
+            persistence.get("eligible")
+            if isinstance(persistence, dict) else None)
+        blockers = (
+            persistence.get("blockers")
+            if isinstance(persistence, dict) else None)
+        if (type(eligible) is not bool or not isinstance(blockers, list) or
+                any(not isinstance(item, str) or not item.strip()
+                    for item in blockers)):
+            return None, "seen-ledger state persistence is invalid"
+        if eligible and blockers:
+            return None, "seen-ledger eligible state persistence has blockers"
+        if not eligible:
+            seen["ignoredReason"] = "prior ledger state persistence failed"
+            return seen, None
+
     for key in ("candidates", "suppressed"):
-        for cand in payload.get(key, []) or []:
-            if cand.get("candidateFingerprint"):
-                seen["fingerprints"].add(cand["candidateFingerprint"])
-            if cand.get("url"):
-                seen["urls"].add(normalize_url(cand["url"]))
-            if cand.get("normalizedUrl"):
-                seen["urls"].add(cand["normalizedUrl"])
-    return seen
+        rows = payload.get(key)
+        if not isinstance(rows, list):
+            return None, f"seen-ledger {key} is not a list"
+        for index, cand in enumerate(rows):
+            if not isinstance(cand, dict):
+                return None, f"seen-ledger {key}[{index}] is not an object"
+            fingerprint = cand.get("candidateFingerprint")
+            if fingerprint is not None:
+                if (not isinstance(fingerprint, str) or not fingerprint.strip() or
+                        any(ord(char) < 32 for char in fingerprint)):
+                    return None, (f"seen-ledger {key}[{index}] has an unsafe "
+                                  "fingerprint")
+                seen["fingerprints"].add(fingerprint)
+            supplied_url = cand.get("url")
+            supplied_normalized = cand.get("normalizedUrl")
+            if supplied_url is not None and supplied_normalized is not None:
+                clean_url = _safe_carry_url(supplied_url)
+                clean_normalized = _safe_carry_url(supplied_normalized)
+                if (not clean_url or not clean_normalized or
+                        normalize_url(clean_normalized) !=
+                        normalize_url(clean_url)):
+                    return None, (f"seen-ledger {key}[{index}] has an "
+                                  "inconsistent normalizedUrl")
+            for field in ("url", "normalizedUrl"):
+                value = cand.get(field)
+                if value is None:
+                    continue
+                clean_url = _safe_carry_url(value)
+                if not clean_url:
+                    return None, (f"seen-ledger {key}[{index}] has an unsafe "
+                                  f"{field}")
+                seen["urls"].add(normalize_url(clean_url))
+            if (fingerprint is None and cand.get("url") is None and
+                    cand.get("normalizedUrl") is None):
+                return None, f"seen-ledger {key}[{index}] has no suppression key"
+    return seen, None
+
+
+def _safe_carry_url(value):
+    if not isinstance(value, str) or not value.strip():
+        return None
+    if EMAIL_RE.search(value) or LOCAL_PATH_RE.search(value):
+        return None
+    try:
+        parsed = urlparse(value.strip())
+    except (TypeError, ValueError):
+        return None
+    if (parsed.scheme.lower() not in ("http", "https") or not parsed.hostname or
+            parsed.username is not None or parsed.password is not None):
+        return None
+    if any(ord(char) < 32 for char in value):
+        return None
+    return value.strip()
+
+
+def _clean_carry_candidate(row, *, cycle, bucket, index, valid_dimension_ids):
+    """Validate and normalize one prior accepted candidate for safe reuse."""
+    label = f"{bucket}[{index}]"
+    if not isinstance(row, dict):
+        return None, f"carry-forward ledger {label} is not an object"
+
+    candidate_id = row.get("candidate_id")
+    if (not isinstance(candidate_id, str) or
+            not SAFE_CANDIDATE_ID_RE.fullmatch(candidate_id) or
+            not candidate_id.startswith(f"{cycle}-")):
+        return None, f"carry-forward ledger {label} has an unsafe candidate_id"
+
+    fingerprint = row.get("candidateFingerprint")
+    if (not isinstance(fingerprint, str) or
+            not SAFE_FINGERPRINT_RE.fullmatch(fingerprint)):
+        return None, f"carry-forward ledger {label} has an unsafe fingerprint"
+
+    structural = {}
+    for field in ("sourceId", "discovery"):
+        value = row.get(field)
+        if not isinstance(value, str) or not SAFE_CANDIDATE_ID_RE.fullmatch(value):
+            return None, f"carry-forward ledger {label} has an unsafe {field}"
+        structural[field] = value
+
+    url = _safe_carry_url(row.get("url"))
+    if not url:
+        return None, f"carry-forward ledger {label} has an unsafe URL"
+    normalized_url = normalize_url(url)
+    supplied_normalized = row.get("normalizedUrl")
+    if (supplied_normalized is not None and
+            (not isinstance(supplied_normalized, str) or
+             normalize_url(supplied_normalized) != normalized_url)):
+        return None, f"carry-forward ledger {label} has an unsafe normalized URL"
+
+    dimensions = row.get("affected_dimensions")
+    if (not isinstance(dimensions, list) or
+            any(not isinstance(value, str) or
+                not SAFE_DIMENSION_ID_RE.fullmatch(value)
+                for value in dimensions)):
+        return None, f"carry-forward ledger {label} has unsafe affected_dimensions"
+    if set(dimensions) - valid_dimension_ids:
+        return None, f"carry-forward ledger {label} has unknown affected_dimensions"
+
+    classification = row.get("classification")
+    if (not isinstance(classification, str) or
+            classification not in VALID_CLASSIFICATIONS):
+        return None, f"carry-forward ledger {label} has an unsafe classification"
+
+    relevance_score = row.get("relevance_score")
+    if (isinstance(relevance_score, bool) or
+            not isinstance(relevance_score, (int, float)) or
+            not math.isfinite(relevance_score) or
+            not 0 <= relevance_score <= 1):
+        return None, f"carry-forward ledger {label} has an unsafe relevance_score"
+    if classification != "irrelevant" and not dimensions:
+        return None, f"carry-forward ledger {label} has no affected dimensions"
+
+    provisional = row.get("provisional", False)
+    if not isinstance(provisional, bool):
+        return None, f"carry-forward ledger {label} has an unsafe provisional flag"
+    if ("requires_editor_review" in row and
+            row.get("requires_editor_review") is not True):
+        return None, f"carry-forward ledger {label} weakens editor review"
+    if ("can_move_grade_automatically" in row and
+            row.get("can_move_grade_automatically") is not False):
+        return None, f"carry-forward ledger {label} permits an automatic grade move"
+
+    def clean_text(field, limit, *, required=False):
+        value = row.get(field)
+        if value is None and not required:
+            return None, None
+        if not isinstance(value, str):
+            return None, f"carry-forward ledger {label} has an unsafe {field}"
+        cleaned = scrub_public_text(value).strip()[:limit]
+        if required and not cleaned:
+            return None, f"carry-forward ledger {label} has an empty {field}"
+        return cleaned, None
+
+    title, error = clean_text("title", 300, required=True)
+    if error:
+        return None, error
+    snippet, error = clean_text("snippet", 600)
+    if error:
+        return None, error
+    reason, error = clean_text("reason", 1200, required=True)
+    if error:
+        return None, error
+    evidence_limitations, error = clean_text("evidence_limitations", 1200)
+    if error:
+        return None, error
+    source_relationship, error = clean_text("sourceRelationship", 120)
+    if error:
+        return None, error
+    timing_confidence_value, error = clean_text("timingConfidence", 120)
+    if error:
+        return None, error
+    published_date, error = clean_text("publishedDate", 120)
+    if error:
+        return None, error
+
+    collapsed_urls = row.get("collapsedUrls", [])
+    if not isinstance(collapsed_urls, list):
+        return None, f"carry-forward ledger {label} has unsafe collapsedUrls"
+    clean_collapsed_urls = []
+    for collapsed_url in collapsed_urls:
+        clean_url = _safe_carry_url(collapsed_url)
+        if not clean_url:
+            return None, f"carry-forward ledger {label} has an unsafe collapsed URL"
+        clean_collapsed_urls.append(clean_url)
+
+    clean = {
+        "candidate_id": candidate_id,
+        "candidateFingerprint": fingerprint.lower(),
+        "sourceId": structural["sourceId"],
+        "discovery": structural["discovery"],
+        "title": title,
+        "url": url,
+        "normalizedUrl": normalized_url,
+        "publishedDate": published_date,
+        "snippet": snippet or "",
+        "provisional": provisional,
+        "sourceRelationship": source_relationship,
+        "timingConfidence": timing_confidence_value,
+        "classification": classification,
+        "affected_dimensions": sorted(set(dimensions)),
+        "relevance_score": relevance_score,
+        "reason": reason,
+        "evidence_limitations": evidence_limitations,
+        "requires_editor_review": True,
+        "can_move_grade_automatically": False,
+    }
+    if clean_collapsed_urls:
+        clean["collapsedUrls"] = clean_collapsed_urls
+    return clean, None
+
+
+def load_carry_forward_ledger(path, expected_cycle, valid_dimension_ids):
+    """Load one accepted same-cycle ledger before any monitor tier runs."""
+    empty = {"candidates": [], "suppressed": []}
+    if not path:
+        return empty, None
+
+    p = Path(path)
+    label = display_path(p)
+    if not p.exists():
+        return None, f"carry-forward ledger file not found: {label}"
+    try:
+        raw = p.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        return (None, f"carry-forward ledger is not valid UTF-8 at byte offset "
+                f"{exc.start}: {label}")
+    except OSError as exc:
+        detail = scrub_public_text(exc.strerror or exc)
+        return None, f"could not read carry-forward ledger {label}: {detail}"
+    if not raw.strip():
+        return None, f"carry-forward ledger is empty: {label}"
+    try:
+        payload = json.loads(raw)
+    except json.JSONDecodeError as exc:
+        return (None, f"carry-forward ledger is malformed JSON at line {exc.lineno}, "
+                f"column {exc.colno}: {label}")
+    if not isinstance(payload, dict):
+        return None, "carry-forward ledger root is not an object"
+    if payload.get("cycle") != expected_cycle:
+        return None, f"carry-forward ledger cycle does not match {expected_cycle}"
+
+    metadata = payload.get("metadata", {})
+    if not isinstance(metadata, dict):
+        return None, "carry-forward ledger metadata is not an object"
+    has_acceptance = "acceptance" in metadata
+    has_state_persistence = "statePersistence" in metadata
+    if has_acceptance or has_state_persistence:
+        acceptance = metadata.get("acceptance")
+        if not isinstance(acceptance, dict) or acceptance.get("passed") is not True:
+            return None, "carry-forward ledger acceptance did not pass"
+        state_persistence = metadata.get("statePersistence")
+        if (not isinstance(state_persistence, dict) or
+                state_persistence.get("eligible") is not True or
+                state_persistence.get("blockers") != []):
+            return None, "carry-forward ledger state persistence did not pass"
+
+    carried = {}
+    for bucket in ("candidates", "suppressed"):
+        rows = payload.get(bucket)
+        if not isinstance(rows, list):
+            return None, f"carry-forward ledger {bucket} is not a list"
+        clean_rows = []
+        for index, row in enumerate(rows):
+            clean, error = _clean_carry_candidate(
+                row, cycle=expected_cycle, bucket=bucket, index=index,
+                valid_dimension_ids=valid_dimension_ids)
+            if error:
+                return None, error
+            clean_rows.append(clean)
+        carried[bucket] = clean_rows
+    return carried, None
+
+
+def merge_carry_forward(current_surfaced, current_suppressed, carried):
+    """Append prior rows without reclassification, with current rows winning."""
+    surfaced = list(current_surfaced)
+    suppressed = list(current_suppressed)
+    fingerprints = set()
+    urls = set()
+
+    def remember(row):
+        fingerprint = row.get("candidateFingerprint")
+        normalized_url = row.get("normalizedUrl") or normalize_url(row.get("url"))
+        if fingerprint:
+            fingerprints.add(fingerprint.lower())
+        if normalized_url:
+            urls.add(normalized_url)
+
+    def collides(row):
+        fingerprint = row.get("candidateFingerprint")
+        normalized_url = row.get("normalizedUrl") or normalize_url(row.get("url"))
+        return bool(
+            (fingerprint and fingerprint.lower() in fingerprints) or
+            (normalized_url and normalized_url in urls)
+        )
+
+    for row in surfaced + suppressed:
+        remember(row)
+
+    counts = {
+        "inputSurfaced": len(carried.get("candidates", [])),
+        "inputSuppressed": len(carried.get("suppressed", [])),
+        "carriedSurfaced": 0,
+        "carriedSuppressed": 0,
+        "deduplicated": 0,
+    }
+    for bucket, target, count_key in (
+            ("candidates", surfaced, "carriedSurfaced"),
+            ("suppressed", suppressed, "carriedSuppressed")):
+        for row in carried.get(bucket, []):
+            if collides(row):
+                counts["deduplicated"] += 1
+                continue
+            target.append(row)
+            remember(row)
+            counts[count_key] += 1
+    return surfaced, suppressed, counts
+
+
+def remember_accepted_candidates(state, surfaced, suppressed,
+                                 current_surfaced_count,
+                                 current_suppressed_count):
+    """Remember older carried rows first so current-cycle rows survive the cap."""
+    carried_rows = (
+        surfaced[current_surfaced_count:] +
+        suppressed[current_suppressed_count:]
+    )
+    current_rows = (
+        surfaced[:current_surfaced_count] +
+        suppressed[:current_suppressed_count]
+    )
+    for candidate in carried_rows + current_rows:
+        remember_candidate(state, candidate)
 
 
 def already_seen_in_ledger(candidate, seen):
@@ -725,9 +1551,20 @@ def _coverage_delta(label, expected, actual):
     return f"{label} coverage mismatch: {'; '.join(parts)}"
 
 
-def deterministic_success_shape_errors(results):
+def deterministic_success_shape_errors(
+        results, *, cycle=None, ethics_prior_report_keys=None,
+        require_ethics_prior_cache=False):
     """Require the useful payload fields promised by successful fetch results."""
     errors = []
+
+    if (ethics_prior_report_keys is not None and
+            (not isinstance(ethics_prior_report_keys, list) or
+             not ethics_prior_report_keys or
+             any(not isinstance(key, str) or not ETHICS_REPORT_KEY_RE.fullmatch(key)
+                 for key in ethics_prior_report_keys) or
+             len(ethics_prior_report_keys) != len(set(ethics_prior_report_keys)))):
+        errors.append("pre-fetch Ethics cache snapshot has invalid report keys")
+        ethics_prior_report_keys = None
 
     def has_text(record, field):
         return (isinstance(record, dict) and isinstance(record.get(field), str) and
@@ -735,6 +1572,11 @@ def deterministic_success_shape_errors(results):
 
     def has_url(record):
         return has_text(record, "url") and record["url"].startswith("http")
+
+    def canonical_ethics_report_url(record):
+        return (has_text(record, "url") and re.fullmatch(
+            r"https://(?:www\.)?ethicscanada\.ca/(?:en|fr)/report/[a-z0-9]+",
+            record["url"], flags=re.IGNORECASE) is not None)
 
     statcan_keys = DETERMINISTIC_OBJECT_RESULT_FAMILIES[0][1]
     for key in statcan_keys:
@@ -778,19 +1620,71 @@ def deterministic_success_shape_errors(results):
         if not isinstance(value, dict):
             continue
         status = value.get("status")
-        if status == "malformed_data":
-            detail = value.get("error")
-            suffix = f": {detail}" if isinstance(detail, str) and detail.strip() else ""
-            errors.append(f"{key} returned malformed_data{suffix}")
-            continue
         if status != "success":
+            detail = value.get("error")
+            if not detail and value.get("code") is not None:
+                detail = f"HTTP {value['code']}"
+            status_label = status if isinstance(status, str) and status.strip() else "missing status"
+            status_label = scrub_public_text(status_label)
+            detail = scrub_public_text(detail) if detail else None
+            suffix = f": {detail}" if isinstance(detail, str) and detail.strip() else ""
+            errors.append(f"{key} returned {status_label}{suffix}")
             continue
         rows = value.get("rows")
         if isinstance(rows, bool) or not isinstance(rows, int) or rows <= 0:
             errors.append(f"{key} success result has no positive row count")
-        for field in ("header", "last_row", "latest_period"):
+        contract = IRCC_RESULT_CONTRACTS[key]
+        if value.get("dataset_key") != contract["dataset_key"]:
+            errors.append(f"{key} success result has the wrong dataset key")
+        if value.get("source_url") != contract["source_url"]:
+            errors.append(f"{key} success result has the wrong source URL")
+        columns = value.get("columns")
+        if (not isinstance(columns, list) or
+                any(not isinstance(column, str) or not column for column in columns) or
+                len(columns) != len(set(columns)) or
+                not contract["required_columns"].issubset(set(columns))):
+            errors.append(f"{key} success result has an invalid column contract")
+        if (isinstance(columns, list) and
+                isinstance(value.get("header"), str) and
+                value["header"].split("\t") != columns):
+            errors.append(f"{key} success header does not match its columns")
+        response_hash = value.get("response_sha256")
+        if (not isinstance(response_hash, str) or
+                not re.fullmatch(r"[0-9a-f]{64}", response_hash)):
+            errors.append(f"{key} success result has an invalid response hash")
+        period_count = value.get("period_count")
+        if (isinstance(period_count, bool) or not isinstance(period_count, int) or
+                period_count < 12 or not isinstance(rows, int) or period_count > rows):
+            errors.append(
+                f"{key} success result has fewer than 12 distinct monthly periods")
+        for field in ("header", "last_row", "earliest_period", "latest_period"):
             if not isinstance(value.get(field), str) or not value[field].strip():
                 errors.append(f"{key} success result is missing {field}")
+        earliest_period = value.get("earliest_period")
+        latest_period = value.get("latest_period")
+        if (not isinstance(earliest_period, str) or
+                not re.fullmatch(r"20\d{2}-(?:0[1-9]|1[0-2])", earliest_period) or
+                not isinstance(latest_period, str) or
+                not re.fullmatch(r"20\d{2}-(?:0[1-9]|1[0-2])", latest_period) or
+                earliest_period >= latest_period):
+            errors.append(f"{key} success result has invalid period coverage")
+        elif isinstance(period_count, int):
+            earliest_year, earliest_month = map(int, earliest_period.split("-"))
+            latest_year, latest_month = map(int, latest_period.split("-"))
+            expected_periods = (
+                (latest_year - earliest_year) * 12 + latest_month - earliest_month + 1)
+            if period_count != expected_periods:
+                errors.append(f"{key} success result has inconsistent period coverage")
+            if isinstance(cycle, str) and CYCLE_RE.fullmatch(cycle):
+                cycle_year, cycle_month = map(int, cycle.split("-"))
+                cycle_index = cycle_year * 12 + cycle_month - 1
+                latest_index = latest_year * 12 + latest_month - 1
+                reporting_lag = cycle_index - latest_index
+                if reporting_lag < 0:
+                    errors.append(f"{key} success latest period is in the future")
+                elif reporting_lag > IRCC_MAX_REPORTING_LAG_MONTHS:
+                    errors.append(
+                        f"{key} success latest period exceeds the 3-month reporting lag")
 
     boc = results.get("boc_fx")
     if isinstance(boc, dict) and boc.get("status") == "success":
@@ -814,10 +1708,28 @@ def deterministic_success_shape_errors(results):
         if isinstance(publications, list) and any(
                 not has_text(publication, "title") or
                 not has_text(publication, "link") or
-                not publication["link"].startswith("http") or
-                not has_text(publication, "pubDate")
+                not publication["link"].startswith(("http://", "https://")) or
+                not has_text(publication, "pubDate") or
+                parse_publication_date(publication.get("pubDate")) is None
                 for publication in publications):
             errors.append("pbo_feed publications contains an unusable entry")
+        if isinstance(publications, list):
+            publication_links = [
+                publication.get("link") for publication in publications
+                if isinstance(publication, dict) and
+                isinstance(publication.get("link"), str)
+            ]
+            normalized_links = [normalize_url(link) for link in publication_links]
+            if len(normalized_links) != len(set(normalized_links)):
+                errors.append(
+                    "pbo_feed publications contains duplicate normalized links")
+            official_host = host_of(RSS_FEEDS["pbo-dpb.ca"])
+            if any(
+                    host_of(link) != official_host and
+                    not host_of(link).endswith(f".{official_host}")
+                    for link in publication_links):
+                errors.append(
+                    "pbo_feed publications contains a link from the wrong host")
 
     mpo_page = results.get("mpo_page")
     if isinstance(mpo_page, dict) and mpo_page.get("status") == "success":
@@ -872,25 +1784,66 @@ def deterministic_success_shape_errors(results):
             errors.append("mpo_diff cohort_count is inconsistent with project rows")
 
     ethics_page = results.get("ethics_reports_page")
-    if isinstance(ethics_page, dict) and ethics_page.get("status") == "success":
+    ethics_diff = results.get("ethics_reports_diff")
+    reports = None
+    page_status = ethics_page.get("status") if isinstance(ethics_page, dict) else None
+    diff_status = ethics_diff.get("status") if isinstance(ethics_diff, dict) else None
+    page_statuses = {"success", "http_error", "malformed_data", "error"}
+    diff_statuses = {
+        "success", "http_error", "malformed_data", "error",
+        "invalid_cache", "suspicious_removal",
+    }
+
+    if isinstance(ethics_page, dict):
+        if page_status not in page_statuses:
+            errors.append("ethics_reports_page has an unknown status")
+        elif page_status != "success":
+            detail = scrub_public_text(
+                ethics_page.get("error") or
+                ethics_page.get("code") or
+                "Ethics reports page fetch failed")
+            errors.append(f"ethics_reports_page returned {page_status}: {detail}")
+    if isinstance(ethics_diff, dict):
+        if diff_status not in diff_statuses:
+            errors.append("ethics_reports_diff has an unknown status")
+        elif diff_status != "success":
+            detail = scrub_public_text(
+                ethics_diff.get("error") or "Ethics reports diff failed")
+            errors.append(f"ethics_reports_diff returned {diff_status}: {detail}")
+
+    if page_status in page_statuses and diff_status in diff_statuses:
+        valid_diff_statuses = (
+            {"success", "invalid_cache", "malformed_data", "suspicious_removal"}
+            if page_status == "success" else {page_status}
+        )
+        if diff_status not in valid_diff_statuses:
+            errors.append(
+                "Ethics page and diff status pair is invalid: "
+                f"page {page_status}, diff {diff_status}")
+
+    if isinstance(ethics_page, dict) and page_status == "success":
         reports = ethics_page.get("reports")
         count = ethics_page.get("count")
-        if (not isinstance(ethics_page.get("url"), str) or
-                not ethics_page["url"].strip()):
-            errors.append("ethics_reports_page success result is missing url")
+        if ethics_page.get("url") != ETHICS_REPORTS_URL:
+            errors.append("ethics_reports_page success result has the wrong url")
         if not isinstance(reports, list) or not reports:
             errors.append("ethics_reports_page success result has no reports")
         if (isinstance(count, bool) or not isinstance(count, int) or
                 not isinstance(reports, list) or count != len(reports)):
             errors.append(
                 "ethics_reports_page success result count does not match reports")
-        if isinstance(reports, list) and any(
-                not has_text(report, "title") or not has_url(report)
-                for report in reports):
-            errors.append("ethics_reports_page reports contains an unusable entry")
+        if isinstance(reports, list):
+            if any(
+                    not has_text(report, "title") or
+                    not canonical_ethics_report_url(report)
+                    for report in reports):
+                errors.append("ethics_reports_page reports contains an unusable entry")
+            report_urls = [report.get("url") for report in reports
+                           if isinstance(report, dict)]
+            if len(report_urls) != len(set(report_urls)):
+                errors.append("ethics_reports_page contains duplicate reports")
 
-    ethics_diff = results.get("ethics_reports_diff")
-    if isinstance(ethics_diff, dict) and ethics_diff.get("status") == "success":
+    if isinstance(ethics_diff, dict) and diff_status == "success":
         for field in ("additions", "removals"):
             if not isinstance(ethics_diff.get(field), list):
                 errors.append(f"ethics_reports_diff success result is missing {field}")
@@ -905,38 +1858,149 @@ def deterministic_success_shape_errors(results):
             errors.append("ethics_reports_diff success result is missing currentCount")
         if not isinstance(ethics_diff.get("priorCacheFound"), bool):
             errors.append("ethics_reports_diff success result is missing priorCacheFound")
+        prior_count = ethics_diff.get("priorCount")
+        if (isinstance(prior_count, bool) or not isinstance(prior_count, int) or
+                prior_count < 0):
+            errors.append("ethics_reports_diff success result is missing priorCount")
+        additions = ethics_diff.get("additions")
+        removals = ethics_diff.get("removals")
+        if isinstance(removals, list) and removals:
+            errors.append("ethics_reports_diff success result contains removals")
+        if isinstance(additions, list):
+            addition_urls = [report.get("url") for report in additions
+                             if isinstance(report, dict)]
+            if len(addition_urls) != len(set(addition_urls)):
+                errors.append("ethics_reports_diff contains duplicate additions")
+            if (isinstance(reports, list) and
+                    not set(addition_urls).issubset({
+                        report.get("url") for report in reports
+                        if isinstance(report, dict)
+                    })):
+                errors.append("ethics_reports_diff additions are missing from the page")
+        prior_found = ethics_diff.get("priorCacheFound")
+        prior_keys = ethics_diff.get("priorReportKeys")
+        current_keys = ethics_diff.get("currentReportKeys")
+        for field, keys in (
+                ("priorReportKeys", prior_keys),
+                ("currentReportKeys", current_keys)):
+            if (not isinstance(keys, list) or
+                    any(not isinstance(key, str) or
+                        not ETHICS_REPORT_KEY_RE.fullmatch(key) for key in keys) or
+                    len(keys) != len(set(keys))):
+                errors.append(f"ethics_reports_diff success result has invalid {field}")
+        page_keys = []
+        if isinstance(reports, list):
+            page_keys = [urlparse(report.get("url", "")).path.lower().rstrip("/")
+                         for report in reports if isinstance(report, dict)]
+        addition_keys = []
+        if isinstance(additions, list):
+            addition_keys = [urlparse(report.get("url", "")).path.lower().rstrip("/")
+                             for report in additions if isinstance(report, dict)]
+        if isinstance(current_keys, list) and set(current_keys) != set(page_keys):
+            errors.append("ethics_reports_diff current report keys do not match the page")
+        if isinstance(prior_keys, list) and isinstance(prior_count, int) and (
+                prior_count != len(prior_keys)):
+            errors.append("ethics_reports_diff prior report keys do not match priorCount")
+        if isinstance(current_keys, list) and isinstance(current_count, int) and (
+                current_count != len(current_keys)):
+            errors.append("ethics_reports_diff current report keys do not match currentCount")
+        if (isinstance(prior_found, bool) and isinstance(prior_count, int) and
+                isinstance(current_count, int) and isinstance(additions, list)):
+            if prior_found and current_count != prior_count + len(additions):
+                errors.append("ethics_reports_diff counts are inconsistent")
+            if not prior_found and (prior_count != 0 or additions):
+                errors.append("ethics_reports_diff initial-cache counts are inconsistent")
+        if (prior_found is True and isinstance(prior_keys, list) and
+                isinstance(current_keys, list) and
+                set(addition_keys) != set(current_keys) - set(prior_keys)):
+            errors.append("ethics_reports_diff additions do not match the report-key delta")
+        if prior_found is False and prior_keys != []:
+            errors.append("ethics_reports_diff initial cache has prior report keys")
+        if ethics_prior_report_keys is None:
+            if require_ethics_prior_cache:
+                errors.append(
+                    "ethics_reports_diff requires a pre-fetch cache snapshot")
+        elif (ethics_prior_report_keys is not None and
+              isinstance(prior_keys, list) and
+              set(prior_keys) != set(ethics_prior_report_keys)):
+            errors.append(
+                "ethics_reports_diff prior report keys do not match the pre-fetch cache snapshot")
+        if (isinstance(ethics_page, dict) and
+                ethics_page.get("status") == "success" and
+                isinstance(ethics_page.get("count"), int) and
+                isinstance(current_count, int) and
+                ethics_page["count"] != current_count):
+            errors.append(
+                "Ethics page and diff current counts are inconsistent")
 
     for key in EXPECTED_DETERMINISTIC_FEED_URLS:
         value = results.get(key)
         if not isinstance(value, list):
             continue
         for index, entry in enumerate(value):
-            if isinstance(entry, dict) and entry.get("status") == "success":
+            if not isinstance(entry, dict):
+                continue
+            status = entry.get("status")
+            if status not in DETERMINISTIC_FEED_STATUSES[key]:
+                errors.append(f"{key}[{index}] has an unknown status")
+                continue
+            feed_url = entry.get("url")
+            expected_name = EXPECTED_DETERMINISTIC_FEEDS[key].get(feed_url)
+            name_field = "publisher" if key == "policy_feeds" else "pollster"
+            if expected_name is not None and entry.get(name_field) != expected_name:
+                errors.append(f"{key}[{index}] has the wrong publisher identity")
+            if status != "success" and entry.get("items") not in (None, []):
+                errors.append(f"{key}[{index}] failed result contains items")
+            if status == "success":
                 items = entry.get("items")
                 if not isinstance(items, list):
                     errors.append(f"{key}[{index}] success result is missing items")
                     continue
-                if any(
+                items_usable = not any(
                         not has_text(item, "title") or
                         not has_text(item, "link") or
-                        not item["link"].startswith("http")
-                        for item in items):
+                        not item["link"].startswith("http") or
+                        not has_text(item, "pubDate") or
+                        parse_publication_date(item.get("pubDate")) is None
+                        for item in items)
+                if not items_usable:
                     errors.append(f"{key}[{index}] items contains an unusable entry")
+                if items_usable:
+                    item_urls = [normalize_url(item.get("link")) for item in items]
+                    if len(item_urls) != len(set(item_urls)):
+                        errors.append(f"{key}[{index}] contains duplicate item links")
+                    expected_host = host_of(feed_url)
+                    if any(
+                            not host_of(item.get("link")) or
+                            (host_of(item.get("link")) != expected_host and
+                             not host_of(item.get("link")).endswith(
+                                 f".{expected_host}"))
+                            for item in items):
+                        errors.append(
+                            f"{key}[{index}] contains an item from the wrong host")
                 if key == "policy_feeds":
                     count = entry.get("count")
                     topic_count = entry.get("topic_count")
                     if (isinstance(count, bool) or not isinstance(count, int) or
-                            count != len(items) or isinstance(topic_count, bool) or
-                            not isinstance(topic_count, int) or
-                            not 0 <= topic_count <= count):
+                            count <= 0 or count != len(items) or
+                            isinstance(topic_count, bool) or
+                            not isinstance(topic_count, int) or count > 8 or
+                            (items_usable and any(
+                                not isinstance(item.get("topic_match"), bool)
+                                for item in items)) or
+                            (items_usable and topic_count != sum(
+                                1 for item in items
+                                if item.get("topic_match") is True))):
                         errors.append(f"{key}[{index}] success counts are inconsistent")
                 else:
                     all_count = entry.get("all_count")
                     relevant_count = entry.get("relevant_count")
                     if (isinstance(all_count, bool) or not isinstance(all_count, int) or
+                            all_count <= 0 or
                             isinstance(relevant_count, bool) or
                             not isinstance(relevant_count, int) or
-                            relevant_count != len(items) or all_count < relevant_count):
+                            relevant_count != len(items) or all_count < relevant_count or
+                            all_count > 15):
                         errors.append(f"{key}[{index}] success counts are inconsistent")
                     if key == "pollster_feeds":
                         new_count = entry.get("new_count")
@@ -945,7 +2009,15 @@ def deterministic_success_shape_errors(results):
                                 not isinstance(new_count, int) or
                                 isinstance(cited_count, bool) or
                                 not isinstance(cited_count, int) or
-                                new_count + cited_count != relevant_count):
+                                (items_usable and any(
+                                    not isinstance(item.get("is_cited"), bool)
+                                    for item in items)) or
+                                (items_usable and cited_count != sum(
+                                    1 for item in items
+                                    if item.get("is_cited") is True)) or
+                                (items_usable and new_count != sum(
+                                    1 for item in items
+                                    if item.get("is_cited") is False))):
                             errors.append(
                                 f"{key}[{index}] citation counts are inconsistent")
 
@@ -955,7 +2027,9 @@ def deterministic_success_shape_errors(results):
 def deterministic_payload_errors(payload, *, expected_cycle=None,
                                  require_link_rot=False,
                                  expected_link_urls=None,
-                                 expected_legisinfo=None):
+                                 expected_legisinfo=None,
+                                 ethics_prior_report_keys=None,
+                                 require_ethics_prior_cache=False):
     """Return structural errors that make a deterministic run incomplete."""
     if not isinstance(payload, dict):
         return ["fetch-results payload is not an object"]
@@ -964,10 +2038,12 @@ def deterministic_payload_errors(payload, *, expected_cycle=None,
     generated_at = payload.get("generatedAt")
     if not isinstance(generated_at, str) or not generated_at.strip():
         errors.append("generatedAt is missing")
+    elif not ISO_TIMESTAMP_RE.fullmatch(generated_at.strip()):
+        errors.append("generatedAt is not a valid ISO timestamp")
     else:
         try:
             generated_cycle = datetime.fromisoformat(
-                generated_at.replace("Z", "+00:00")).strftime("%Y-%m")
+                generated_at.strip().replace("Z", "+00:00")).strftime("%Y-%m")
         except ValueError:
             errors.append("generatedAt is not a valid ISO timestamp")
         else:
@@ -980,7 +2056,7 @@ def deterministic_payload_errors(payload, *, expected_cycle=None,
     payload_cycle = payload.get("cycle")
     if not isinstance(payload_cycle, str) or not payload_cycle.strip():
         errors.append("cycle is missing")
-    elif not re.fullmatch(r"\d{4}-(?:0[1-9]|1[0-2])", payload_cycle):
+    elif not CYCLE_RE.fullmatch(payload_cycle):
         errors.append(f"cycle is invalid: {payload_cycle}")
     elif expected_cycle and payload_cycle != expected_cycle:
         errors.append(
@@ -999,7 +2075,16 @@ def deterministic_payload_errors(payload, *, expected_cycle=None,
         errors.append("results object is empty")
         return errors
 
-    errors.extend(deterministic_success_shape_errors(results))
+    validation_cycle = (
+        expected_cycle if isinstance(expected_cycle, str) and
+        CYCLE_RE.fullmatch(expected_cycle) else payload_cycle
+    )
+    errors.extend(deterministic_success_shape_errors(
+        results,
+        cycle=validation_cycle,
+        ethics_prior_report_keys=ethics_prior_report_keys,
+        require_ethics_prior_cache=require_ethics_prior_cache,
+    ))
 
     for family, keys in DETERMINISTIC_OBJECT_RESULT_FAMILIES:
         missing = [key for key in keys if key not in results]
@@ -1039,6 +2124,8 @@ def deterministic_payload_errors(payload, *, expected_cycle=None,
                 entry.get("url") for entry in value
                 if isinstance(entry.get("url"), str) and entry.get("url")
             }
+            if len(actual_feeds) != len(value):
+                errors.append(f"{key} contains missing or duplicate feed identities")
             mismatch = _coverage_delta(key, expected_feeds, actual_feeds)
             if mismatch:
                 errors.append(mismatch)
@@ -1058,7 +2145,8 @@ def deterministic_payload_errors(payload, *, expected_cycle=None,
                 for entry in legisinfo):
             errors.append("legisinfo contains a result without record status")
         if any(
-                entry.get("record", {}).get("status") == "success" and (
+                isinstance(entry.get("record"), dict) and
+                entry["record"].get("status") == "success" and (
                     not isinstance(entry["record"].get("url"), str) or
                     not entry["record"]["url"].startswith("http") or
                     not isinstance(entry["record"].get("number_code"), str) or
@@ -1397,15 +2485,54 @@ def _source_id_and_dims(url, reg_by_surface):
     return sk, dims
 
 
+def ircc_access_failures_from_fetch_results(results_payload):
+    """Extract safe IRCC diagnostics without traversing other result families."""
+    if not isinstance(results_payload, dict):
+        return []
+    results = results_payload.get("results")
+    if not isinstance(results, dict):
+        return []
+
+    failures = []
+    for key in DETERMINISTIC_OBJECT_RESULT_FAMILIES[1][1]:
+        value = results.get(key)
+        if not isinstance(value, dict) or value.get("status") == "success":
+            continue
+        status = value.get("status")
+        detail = status if isinstance(status, str) and status.strip() else "missing status"
+        error = value.get("error")
+        if isinstance(error, str) and error.strip():
+            detail = f"{detail}: {error}"
+        elif value.get("code") is not None:
+            detail = f"{detail}: HTTP {value['code']}"
+        failures.append({
+            "surface": key,
+            "method": "csv",
+            "detail": scrub_public_text(detail),
+        })
+    return failures
+
+
 def candidates_from_fetch_results(results_payload, registry, state, cycle):
     """Turn the deterministic pullers' output into candidates and update state.
     Returns (candidates, access_failures)."""
     candidates = []
-    access_failures = []
-    if not results_payload:
+    access_failures = ircc_access_failures_from_fetch_results(results_payload)
+    if not isinstance(results_payload, dict) or not results_payload:
         return candidates, access_failures
 
     results = results_payload.get("results", results_payload)
+    if not isinstance(results, dict):
+        return candidates, access_failures
+
+    def object_result(key):
+        value = results.get(key)
+        return value if isinstance(value, dict) else {}
+
+    def list_result(key):
+        value = results.get(key)
+        return value if isinstance(value, list) else []
+
     reg_by_surface = {s["id"]: s for s in registry.get("sources", [])}
 
     # every URL already cited on the dashboard, so RSS feeds surface only what
@@ -1413,10 +2540,10 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
     cited = set()
     for s in registry.get("sources", []):
         for u in s.get("citedUrls", []) or []:
-            cited.add((u or "").lower().rstrip("/"))
+            cited.add(normalize_url(u))
 
     def is_new(url):
-        return (url or "").lower().rstrip("/") not in cited
+        return normalize_url(url) not in cited
 
     def add(url, discovery, title, snippet, published=None, provisional=False):
         sid, dims = _source_id_and_dims(url, reg_by_surface)
@@ -1433,9 +2560,11 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
             continue
         if not isinstance(val, dict):
             continue
-        fresh = (val.get("freshness") or {}).get("status")
+        freshness = val.get("freshness")
+        fresh = freshness.get("status") if isinstance(freshness, dict) else None
         url = val.get("url") or ""
-        meta = val.get("metadata") or {}
+        metadata = val.get("metadata")
+        meta = metadata if isinstance(metadata, dict) else {}
         ok = val.get("status") == "accessible"
         sid = slugify(surface_key(url)) if url else key
         mark_checked(state, sid, ok, access_issue=None if ok else val.get("status"))
@@ -1447,25 +2576,13 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
             )
             add(url, "statcan_wds", title, snippet, published=meta.get("releaseTime"))
 
-    # IRCC failures are retained as access or data-quality exceptions even when
-    # the result family is structurally present.
-    for key in DETERMINISTIC_OBJECT_RESULT_FAMILIES[1][1]:
-        value = results.get(key)
-        if not isinstance(value, dict) or value.get("status") == "success":
-            continue
-        detail = value.get("status") or "missing status"
-        if value.get("error"):
-            detail = f"{detail}: {value['error']}"
-        access_failures.append({
-            "surface": key,
-            "method": "csv",
-            "detail": detail,
-        })
-
     # PBO feed -> publications not already cited
-    pbo = results.get("pbo_feed") or {}
+    pbo = object_result("pbo_feed")
     if pbo.get("status") == "success":
-        for pub in pbo.get("publications", [])[:30]:
+        publications = pbo.get("publications")
+        for pub in publications[:30] if isinstance(publications, list) else []:
+            if not isinstance(pub, dict):
+                continue
             link = pub.get("link") or ""
             if not link or not is_new(link):
                 continue
@@ -1481,23 +2598,38 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
 
     # Pollster feeds -> approval-relevant items not already cited.
     # fetch-data.py already filters items to approval-relevant and tags is_cited.
-    for entry in results.get("pollster_feeds", []) or []:
+    for entry in list_result("pollster_feeds"):
+        if not isinstance(entry, dict):
+            continue
         ok = entry.get("status") == "success"
-        for item in (entry.get("items") or []):
+        if not ok:
+            access_failures.append({"surface": entry.get("pollster"),
+                                    "method": "rss", "detail": entry.get("status")})
+            continue
+        items = entry.get("items")
+        for item in items if isinstance(items, list) else []:
+            if not isinstance(item, dict):
+                continue
             link = item.get("link") or ""
             if not link or item.get("is_cited") or not is_new(link):
                 continue
             add(link, "rss", item.get("title"),
                 f"{entry.get('pollster')} approval-relevant post, not yet cited.",
                 published=item.get("pubDate"))
-        if not ok:
-            access_failures.append({"surface": entry.get("pollster"),
-                                    "method": "rss", "detail": entry.get("status")})
 
     # Policy / journalism feeds -> topic-relevant items not already cited.
-    for entry in results.get("policy_feeds", []) or []:
+    for entry in list_result("policy_feeds"):
+        if not isinstance(entry, dict):
+            continue
         ok = entry.get("status") == "success"
-        for item in (entry.get("items") or []):
+        if not ok:
+            access_failures.append({"surface": entry.get("publisher"),
+                                    "method": "rss", "detail": entry.get("status")})
+            continue
+        items = entry.get("items")
+        for item in items if isinstance(items, list) else []:
+            if not isinstance(item, dict):
+                continue
             if not item.get("topic_match"):
                 continue
             link = item.get("link") or ""
@@ -1506,13 +2638,13 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
             add(link, "rss", item.get("title"),
                 f"{entry.get('publisher')} post flagged dashboard-topic-relevant.",
                 published=item.get("pubDate"))
-        if not ok:
-            access_failures.append({"surface": entry.get("publisher"),
-                                    "method": "rss", "detail": entry.get("status")})
 
     # LEGISinfo bill status
-    for entry in results.get("legisinfo", []) or []:
-        rec = entry.get("record", {}) or {}
+    for entry in list_result("legisinfo"):
+        if not isinstance(entry, dict):
+            continue
+        record = entry.get("record")
+        rec = record if isinstance(record, dict) else {}
         if rec.get("status") == "success":
             url = rec.get("url") or ""
             title = (f"{rec.get('number_code', entry.get('bill', '?'))}: "
@@ -1521,7 +2653,7 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
                 f"Latest stage: {rec.get('latest_stage')}. Ongoing: {rec.get('ongoing_stage')}.")
 
     # MPO page diff (projects only on the live page, not in the cohort)
-    mpo = results.get("mpo_diff") or {}
+    mpo = object_result("mpo_diff")
     if mpo.get("status") == "success":
         mpo_url = "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html"
         for proj in mpo.get("mpo_only", []) or []:
@@ -1531,9 +2663,12 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
         mark_checked(state, slugify(surface_key(mpo_url)), True)
 
     # Ethics Commissioner additions
-    ed = results.get("ethics_reports_diff") or {}
+    ed = object_result("ethics_reports_diff")
     if ed.get("status") == "success":
-        for rep in ed.get("additions", []) or []:
+        additions = ed.get("additions")
+        for rep in additions if isinstance(additions, list) else []:
+            if not isinstance(rep, dict):
+                continue
             add(rep.get("url") or "", "ethics_diff",
                 f"New Ethics Commissioner report listing: {rep.get('title')}",
                 "New entry on the investigation-report listing page since the last cache.")
@@ -1549,7 +2684,9 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
     # mutate per-source state. Letting it would contradict a successful page or
     # feed pull on the same host in the same run (e.g. the Ethics page diff
     # succeeds while one cited Ethics URL 403s).
-    for entry in results.get("link_rot", []) or []:
+    for entry in list_result("link_rot"):
+        if not isinstance(entry, dict):
+            continue
         status = entry.get("status", "")
         if status in ("broken_no_archive", "broken_with_archive",
                       "blocked_no_archive", "blocked_with_archive"):
@@ -1628,7 +2765,8 @@ def _request_tavily(requests, payload):
 
 
 def run_search_fanout(registry, state, cycle, api_key, max_results=5,
-                      fixed_window=None, adjacent_entries=None):
+                      fixed_window=None, adjacent_entries=None,
+                      stop_on_failure=False):
     """Domain-restricted, time-windowed Tavily queries over feed-less / blocked
     surfaces. Results are provisional discovery, never citation-ready."""
     import requests  # already a project dependency
@@ -1663,6 +2801,8 @@ def run_search_fanout(registry, state, cycle, api_key, max_results=5,
             access_failures.append({"surface": src["publisher"],
                                     "method": "search_fanout", "detail": error})
             mark_checked(state, src["id"], False, access_issue=error)
+            if stop_on_failure:
+                break
             continue
 
         hits = data.get("results", []) or []
@@ -1926,7 +3066,7 @@ def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
 def required_tier_errors(tiers, candidate_count, *, expect_deterministic,
                          expect_search, expect_classification, require_keys,
                          require_complete, tavily_key, anthropic_key):
-    """Return fail-closed acceptance errors for explicitly required live tiers."""
+    """Return fail-closed errors for deterministic and explicitly required tiers."""
     errors = []
     deterministic_status = tiers.get("deterministic", "not_run")
     search_status = tiers.get("search_fanout", "not_run")
@@ -1939,26 +3079,73 @@ def required_tier_errors(tiers, candidate_count, *, expect_deterministic,
         errors.append("TAVILY_API_KEY required but not set")
     if require_keys and anthropic_missing:
         errors.append("ANTHROPIC_API_KEY required but not set")
+    if errors:
+        return errors
 
-    if (require_complete and expect_deterministic and
-            not deterministic_status.startswith("run (")):
-        errors.append(
-            f"Deterministic tier required but did not complete: {deterministic_status}")
+    if expect_deterministic and not deterministic_status.startswith("run ("):
+        return [f"Deterministic tier required but did not complete: "
+                f"{deterministic_status}"]
 
     if require_complete and expect_search and not search_status.startswith("run ("):
-        if not (require_keys and tavily_missing):
-            errors.append(f"Search fan-out required but did not complete: {search_status}")
+        return [f"Search fan-out required but did not complete: {search_status}"]
 
     classification_complete = classification_status.startswith("run (")
     accepted_empty_skip = (candidate_count == 0 and
                            classification_status == "skipped (no candidates)")
     if (require_complete and expect_classification and
             not classification_complete and not accepted_empty_skip):
-        if not (require_keys and anthropic_missing):
-            errors.append(
-                f"Classification required but did not complete: {classification_status}")
+        errors.append(
+            f"Classification required but did not complete: {classification_status}")
 
     return errors
+
+
+def state_persistence_blockers(tiers, candidate_count, *, expect_deterministic,
+                               expect_search, expect_classification, dry_run,
+                               no_search, no_classify):
+    """Return reasons this diagnostic run cannot update durable monitor state."""
+    blockers = []
+    completed_tiers = 0
+    deterministic_status = tiers.get("deterministic", "not_run")
+    search_status = tiers.get("search_fanout", "not_run")
+    classification_status = tiers.get("classification", "not_run")
+
+    if expect_deterministic:
+        if deterministic_status.startswith("run ("):
+            completed_tiers += 1
+        else:
+            blockers.append(
+                f"Deterministic tier did not complete: {deterministic_status}")
+
+    if expect_search:
+        if search_status.startswith("run ("):
+            completed_tiers += 1
+        else:
+            blockers.append(f"Search fan-out tier did not complete: {search_status}")
+
+    if expect_classification:
+        if classification_status.startswith("run ("):
+            completed_tiers += 1
+        elif not (candidate_count == 0 and
+                  classification_status == "skipped (no candidates)"):
+            blockers.append(
+                f"Classification tier did not complete: {classification_status}")
+
+    expected_tiers = expect_deterministic or expect_search or expect_classification
+    if not expected_tiers:
+        blockers.append("No monitor tiers were enabled")
+    elif completed_tiers == 0:
+        blockers.append("No monitor tier completed")
+
+    if dry_run:
+        blockers.append("--dry-run never advances monitor state")
+    else:
+        if no_search:
+            blockers.append("--no-search prevents monitor state advancement")
+        if no_classify:
+            blockers.append("--no-classify prevents monitor state advancement")
+
+    return blockers
 
 
 # --------------------------------------------------------------------------- #
@@ -2009,6 +3196,7 @@ def source_set_delta(registry, compare_registry):
 
 def write_candidate_json(path, cycle, tiers, candidates, access_failures, suppressed,
                          skipped_seen=None, metadata=None):
+    clean_access_failures = scrub_access_failures(access_failures)
     payload = {
         "schemaVersion": SCHEMA_VERSION,
         "cycle": cycle,
@@ -2019,13 +3207,13 @@ def write_candidate_json(path, cycle, tiers, candidates, access_failures, suppre
         "counts": {
             "surfaced": len(candidates),
             "suppressed": len(suppressed),
-            "accessFailures": len(access_failures),
+            "accessFailures": len(clean_access_failures),
             "skippedSeenLedger": len(skipped_seen or []),
         },
         "candidates": candidates,
         "suppressed": suppressed,
         "skippedSeenLedger": skipped_seen or [],
-        "accessFailures": access_failures,
+        "accessFailures": clean_access_failures,
     }
     write_json(path, payload)
 
@@ -2039,12 +3227,22 @@ def _md_table(rows, headers):
     return "\n".join(out)
 
 
+def scrub_access_failures(access_failures):
+    """Redact free text before failures reach a ledger or uploaded packet."""
+    return [{
+        "surface": scrub_public_text(failure.get("surface")),
+        "method": scrub_public_text(failure.get("method")),
+        "detail": scrub_public_text(failure.get("detail")),
+    } for failure in access_failures if isinstance(failure, dict)]
+
+
 def render_packet_md(cycle, tiers, registry, candidates, access_failures,
                      suppressed, dry_run, warnings, title_note=None,
                      surface_threshold=NORMAL_SURFACE_THRESHOLD,
                      normal_threshold=NORMAL_SURFACE_THRESHOLD,
                      skipped_seen=None, source_delta=None,
                      show_borderline=False):
+    access_failures = scrub_access_failures(access_failures)
     surveyed = registry.get("sources", [])
     by_method = {}
     for s in surveyed:
@@ -2057,8 +3255,9 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
         lines.append(f"> {title_note}")
         lines.append("")
     if dry_run:
-        lines.append("> DRY RUN. The search fan-out and the relevance pass did not run. "
-                     "This packet shows the format and the deterministic-tier output only.")
+        lines.append("> DRY RUN. No durable monitor state was changed. The search fan-out "
+                     "and relevance pass did not run. This packet contains diagnostic "
+                     "output from any enabled deterministic tier.")
         lines.append("")
     lines.append(f"_Generated {now_iso()}._")
     lines.append("")
@@ -2080,7 +3279,7 @@ def render_packet_md(cycle, tiers, registry, candidates, access_failures,
         lines.append("")
 
     # sources surveyed
-    lines.append("## Sources surveyed")
+    lines.append("## Source registry")
     lines.append("")
     lines.append(f"{len(surveyed)} surfaces in the registry. By method: " +
                  ", ".join(f"{m} {by_method[m]}" for m in sorted(by_method)) + ".")
@@ -2266,12 +3465,45 @@ def default_cycle():
     return datetime.now(timezone.utc).strftime("%Y-%m")
 
 
-def main(argv=None):
-    parser = argparse.ArgumentParser(description="Monthly source monitor for Canada Under Carney")
-    parser.add_argument("--cycle", default=default_cycle(), help="Cycle month, YYYY-MM. Defaults to the current month.")
+MONITOR_INPUT_PATH_OPTIONS = (
+    ("--fetch-results", "fetch_results"),
+    ("--ethics-prior-cache", "ethics_prior_cache"),
+    ("--dimensions-file", "dimensions_file"),
+    ("--approval-file", "approval_file"),
+    ("--sources-file", "sources_file"),
+    ("--seen-ledger", "seen_ledger"),
+    ("--carry-forward-ledger", "carry_forward_ledger"),
+    ("--adjacent-file", "adjacent_file"),
+    ("--compare-sources-file", "compare_sources_file"),
+)
+
+
+def monitor_input_paths(args):
+    """Return every file input path that monitor outputs must not replace."""
+    return {
+        option: Path(value).expanduser().resolve()
+        for option, attribute in MONITOR_INPUT_PATH_OPTIONS
+        if (value := getattr(args, attribute))
+    }
+
+
+def _main_unlocked(argv=None, *, canonical_state_path=None):
+    parser = argparse.ArgumentParser(
+        description="Monthly source monitor for Canada Under Carney",
+        allow_abbrev=False,
+    )
+    parser.add_argument("--cycle", default=default_cycle(),
+                        help="Cycle month in YYYY-MM format. Defaults to the current month.")
     parser.add_argument("--fetch-results", default=str(DEFAULT_FETCH_RESULTS),
-                        help="Path to fetch-data.py --json-out results. Deterministic tier is skipped if absent.")
-    parser.add_argument("--dry-run", action="store_true", help="Skip the search and relevance tiers. Runs offline with no secrets.")
+                        help=("Path to fetch-data.py --json-out results. Required unless "
+                              "--no-deterministic is used."))
+    parser.add_argument(
+        "--ethics-prior-cache", default=None,
+        help=("Immutable pre-fetch Ethics cache snapshot used to bind the "
+              "reported prior keys to accepted state."))
+    parser.add_argument("--dry-run", action="store_true",
+                        help=("Skip search and relevance, run offline, and never update "
+                              "monitor state."))
     parser.add_argument("--no-search", action="store_true", help="Skip the Tavily search fan-out tier.")
     parser.add_argument("--no-classify", action="store_true", help="Skip the Claude relevance pass.")
     parser.add_argument("--rebuild-registry", action="store_true", help="Rebuild monitoring/sources.json from the data, then exit.")
@@ -2293,9 +3525,20 @@ def main(argv=None):
     parser.add_argument("--window-start", default=None, help="Fixed search window start, YYYY-MM-DD.")
     parser.add_argument("--window-end", default=None, help="Fixed search window end, YYYY-MM-DD.")
     parser.add_argument("--no-deterministic", action="store_true",
-                        help="Intentionally skip deterministic fetch-results parsing.")
+                        help=("Skip deterministic parsing for a fixed-window historical "
+                              "run. Requires --window-start, --window-end, and an isolated "
+                              "--state-file."))
     parser.add_argument("--seen-ledger", default=None,
-                        help="Prior candidate ledger whose fingerprints/URLs should be treated as already seen.")
+                        help=("Prior candidate ledger whose fingerprints and URLs are "
+                              "treated as already seen. Accepted ledgers suppress "
+                              "matches. Legacy ledgers suppress only when acceptance and "
+                              "statePersistence metadata are both absent. Explicit failed "
+                              "acceptance is ignored. "
+                              "Missing or invalid input fails before monitor work."))
+    parser.add_argument(
+        "--carry-forward-ledger", default=None,
+        help=("Accepted same-cycle candidate ledger to preserve on a rerun. "
+              "Carried rows are not reclassified."))
     parser.add_argument("--adjacent", action="store_true",
                         help="Also search curated adjacent-authority hosts from monitoring/adjacent-authorities.json.")
     parser.add_argument("--adjacent-file", default=str(MONITORING_DIR / "adjacent-authorities.json"),
@@ -2304,6 +3547,11 @@ def main(argv=None):
                         help="Optional registry path to summarize source-set delta.")
     parser.add_argument("--title-note", default=None, help="Banner note rendered near the top of the packet.")
     args = parser.parse_args(argv)
+
+    if not CYCLE_RE.fullmatch(args.cycle):
+        print(f"ERROR: --cycle must use YYYY-MM with month 01 through 12: {args.cycle}",
+              file=sys.stderr)
+        return 1
 
     if args.out_suffix and not re.match(r"^[A-Za-z0-9._-]+$", args.out_suffix):
         print("ERROR: --out-suffix may contain only letters, digits, dot, dash, or underscore",
@@ -2321,6 +3569,63 @@ def main(argv=None):
         print(f"Wrote {args.sources_file} with {len(registry['sources'])} source surfaces.")
         return 0
 
+    if canonical_state_path is None:
+        state_path, state_path_error = canonical_monitor_state_path(
+            args.state_file)
+        if state_path_error:
+            print(f"ERROR: {state_path_error}", file=sys.stderr)
+            return 1
+    else:
+        state_path = Path(canonical_state_path)
+    args.state_file = str(state_path)
+
+    suffix = args.out_suffix
+    cycle = args.cycle
+    cand_path = (Path(args.ledger_path) if args.ledger_path else
+                 CANDIDATES_DIR / f"{cycle}{suffix}.json")
+    packet_path = (Path(args.packet_path) if args.packet_path else
+                   DOCS_DIR / f"Source-Monitoring-Candidates-{cycle}{suffix}.md")
+    recovery_marker_path = state_recovery_marker_path(state_path)
+    output_paths = {
+        "candidate ledger": cand_path.expanduser().resolve(),
+        "packet": packet_path.expanduser().resolve(),
+        "state": state_path.expanduser().resolve(),
+        "recovery marker": recovery_marker_path.expanduser().resolve(),
+    }
+    output_path_values = list(output_paths.values())
+    if any(
+            monitor_paths_overlap(first, second)
+            for index, first in enumerate(output_path_values)
+            for second in output_path_values[index + 1:]):
+        print("ERROR: candidate ledger, packet, state, and recovery marker paths "
+              "must resolve to four distinct files", file=sys.stderr)
+        return 1
+    for output_label, output_path in output_paths.items():
+        for input_option, input_path in monitor_input_paths(args).items():
+            if monitor_paths_overlap(output_path, input_path):
+                print(
+                    f"ERROR: {output_label} output path must not overlap "
+                    f"{input_option} input path",
+                    file=sys.stderr,
+                )
+                return 1
+    if recovery_marker_exists(recovery_marker_path):
+        print(
+            "ERROR: unresolved monitor state recovery marker exists: "
+            f"{display_path(recovery_marker_path)}. Resolve the prior failed "
+            "state/output transaction before rerunning.",
+            file=sys.stderr,
+        )
+        return 1
+
+    ethics_prior_report_keys = None
+    if args.ethics_prior_cache:
+        ethics_prior_report_keys, ethics_prior_cache_error = load_ethics_prior_cache(
+            args.ethics_prior_cache)
+        if ethics_prior_cache_error:
+            print(f"ERROR: {ethics_prior_cache_error}", file=sys.stderr)
+            return 1
+
     if (args.window_start and not args.window_end) or (args.window_end and not args.window_start):
         print("ERROR: --window-start and --window-end must be supplied together", file=sys.stderr)
         return 1
@@ -2335,20 +3640,75 @@ def main(argv=None):
             return 1
         fixed_window = (window_start_date.isoformat(), window_end_date.isoformat())
 
+    if args.no_deterministic:
+        historical_errors = []
+        if not fixed_window:
+            historical_errors.append(
+                "--no-deterministic requires --window-start and --window-end")
+        if Path(args.state_file).resolve() == STATE_FILE.resolve():
+            historical_errors.append(
+                "--no-deterministic requires an isolated --state-file, not "
+                "monitoring/state.json")
+        if args.dry_run or args.no_search:
+            historical_errors.append(
+                "--no-deterministic requires the search tier to remain enabled")
+        if historical_errors:
+            for error in historical_errors:
+                print(f"ERROR: {error}", file=sys.stderr)
+            return 1
+
+    if args.carry_forward_ledger and (args.no_deterministic or args.seen_ledger):
+        print("ERROR: --carry-forward-ledger cannot be combined with "
+              "--no-deterministic or --seen-ledger", file=sys.stderr)
+        return 1
+
     registry = load_json(args.sources_file)
     if not registry:
         print(f"ERROR: {args.sources_file} not found. Run --rebuild-registry first.", file=sys.stderr)
         return 1
 
-    dimensions = load_json(args.dimensions_file) or []
-    state = load_state(args.state_file)
-    cycle = args.cycle
+    dimensions = load_json(args.dimensions_file)
+    if (not isinstance(dimensions, list) or not dimensions or
+            any(not isinstance(dimension, dict) or
+                not isinstance(dimension.get("id"), str) or
+                not SAFE_DIMENSION_ID_RE.fullmatch(dimension["id"])
+                for dimension in dimensions)):
+        print(f"ERROR: {display_path(args.dimensions_file)} is not a valid "
+              "dashboard dimensions list", file=sys.stderr)
+        return 1
+    valid_dimension_ids = {dimension["id"] for dimension in dimensions}
+    if len(valid_dimension_ids) != len(dimensions):
+        print(f"ERROR: {display_path(args.dimensions_file)} contains duplicate "
+              "dashboard dimension ids", file=sys.stderr)
+        return 1
 
+    carry_forward, carry_error = load_carry_forward_ledger(
+        args.carry_forward_ledger, args.cycle, valid_dimension_ids)
+    if carry_error:
+        print(f"ERROR: {carry_error}", file=sys.stderr)
+        return 1
+
+    state, state_error = load_state(args.state_file)
+    if state_error:
+        print(f"ERROR: {state_error}", file=sys.stderr)
+        return 1
+    state_snapshot_existed = state_path.exists()
+    state_snapshot_bytes = None
+    state_snapshot_mode = None
+    if state_snapshot_existed:
+        try:
+            state_snapshot_bytes = state_path.read_bytes()
+            state_snapshot_mode = state_path.stat().st_mode & 0o777
+        except OSError as exc:
+            detail = scrub_public_text(exc.strerror or exc)
+            print(f"ERROR: could not snapshot state file "
+                  f"{display_path(state_path)}: {detail}", file=sys.stderr)
+            return 1
     tavily_key = os.environ.get("TAVILY_API_KEY")
     anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
     do_search = not args.dry_run and not args.no_search
     do_classify = not args.dry_run and not args.no_classify
-    required_key_preflight_failed = args.require_keys and (
+    required_key_preflight_failed = (args.require_keys or args.require_complete) and (
         (do_search and not tavily_key) or
         (do_classify and not anthropic_key)
     )
@@ -2356,9 +3716,23 @@ def main(argv=None):
     warnings = []
     tiers = {}
     skipped_seen = []
-    seen = load_seen_ledger(args.seen_ledger)
+    if args.carry_forward_ledger:
+        tiers["carry_forward"] = (
+            f"loaded ({len(carry_forward['candidates'])} surfaced, "
+            f"{len(carry_forward['suppressed'])} suppressed)"
+        )
+    seen, seen_error = load_seen_ledger(args.seen_ledger)
+    if seen_error:
+        print(f"ERROR: {seen_error}", file=sys.stderr)
+        return 1
     if args.seen_ledger:
-        tiers["seen_ledger"] = f"loaded ({len(seen['fingerprints'])} fingerprints, {len(seen['urls'])} URLs)"
+        if seen.get("ignoredReason"):
+            tiers["seen_ledger"] = f"ignored ({seen['ignoredReason']})"
+        else:
+            tiers["seen_ledger"] = (
+                f"loaded ({len(seen['fingerprints'])} fingerprints, "
+                f"{len(seen['urls'])} URLs)"
+            )
 
     adjacent_by_dim = load_adjacent_authorities(args.adjacent_file) if args.adjacent else {}
     adjacent_entries = adjacent_registry_entries(adjacent_by_dim, registry) if adjacent_by_dim else []
@@ -2368,13 +3742,26 @@ def main(argv=None):
 
     # --- deterministic tier --------------------------------------------------
     fetch_path = Path(args.fetch_results)
-    results_payload = None if args.no_deterministic else load_json(fetch_path)
+    results_payload = None
+    fetch_error = None
+    if not args.no_deterministic:
+        results_payload, fetch_error = load_fetch_results(fetch_path)
     if args.no_deterministic:
         det_candidates, det_failures = [], []
         tiers["deterministic"] = "intentionally_skipped (--no-deterministic)"
         warnings.append("Deterministic tier intentionally skipped for a historical/windowed run; "
                         "live endpoint state cannot be reconstructed for a past window.")
-    elif results_payload:
+    elif fetch_error:
+        det_candidates = []
+        det_failures = [{
+            "surface": "fetch-results",
+            "method": "file",
+            "detail": fetch_error,
+        }]
+        tiers["deterministic"] = f"failed ({fetch_error})"
+        warnings.append(
+            f"Deterministic tier could not load its input: {fetch_error}.")
+    else:
         expected_coverage = expected_deterministic_coverage(dimensions)
         payload_errors = deterministic_payload_errors(
             results_payload,
@@ -2382,27 +3769,23 @@ def main(argv=None):
             require_link_rot=args.require_complete,
             expected_link_urls=expected_coverage["link_urls"],
             expected_legisinfo=expected_coverage["legisinfo"],
+            ethics_prior_report_keys=ethics_prior_report_keys,
+            require_ethics_prior_cache=args.require_complete,
         )
-        if isinstance(results_payload, dict):
+        if payload_errors:
+            det_candidates = []
+            det_failures = ircc_access_failures_from_fetch_results(results_payload)
+        else:
             det_candidates, det_failures = candidates_from_fetch_results(
                 results_payload, registry, state, cycle)
-        else:
-            det_candidates, det_failures = [], []
         if payload_errors:
             tiers["deterministic"] = f"failed ({'; '.join(payload_errors)})"
             warnings.append(
-                "Deterministic tier payload is incomplete. Parsed results are retained "
-                "for diagnosis, but strict acceptance and state advancement are blocked.")
+                "Deterministic tier contract failed. Candidate extraction was skipped, "
+                "but safe IRCC access diagnostics were retained.")
         else:
             tiers["deterministic"] = f"run ({fetch_path.name})"
-    else:
-        det_candidates, det_failures = [], []
-        tiers["deterministic"] = "not_run (no fetch-results file)"
-        warnings.append("Deterministic tier did not run: no fetch-results file. "
-                        "Run `fetch-data.py --json-out` first. This is not a clean cycle.")
-
     deterministic_preflight_failed = (
-        args.require_complete and
         not args.no_deterministic and
         not tiers["deterministic"].startswith("run (")
     )
@@ -2416,7 +3799,7 @@ def main(argv=None):
     elif deterministic_preflight_failed:
         tiers["search_fanout"] = "skipped (deterministic preflight failed)"
         warnings.append("Search fan-out tier skipped before paid work because the "
-                        "strict deterministic preflight failed.")
+                        "required deterministic preflight failed.")
     elif required_key_preflight_failed:
         if not tavily_key:
             tiers["search_fanout"] = "skipped (TAVILY_API_KEY not set)"
@@ -2433,7 +3816,8 @@ def main(argv=None):
     else:
         search_candidates, search_failures = run_search_fanout(
             registry, state, cycle, tavily_key, fixed_window=fixed_window,
-            adjacent_entries=adjacent_entries)
+            adjacent_entries=adjacent_entries,
+            stop_on_failure=args.require_complete)
         candidates.extend(search_candidates)
         access_failures.extend(search_failures)
         if search_failures:
@@ -2450,12 +3834,17 @@ def main(argv=None):
     candidates = collapse_candidates_by_title(candidates)
     candidates, skipped_seen = filter_seen_ledger(candidates, seen)
 
+    strict_search_incomplete = (
+        args.require_complete and do_search and
+        not tiers["search_fanout"].startswith("run (")
+    )
+
     # --- relevance pass ------------------------------------------------------
     if not do_classify:
         tiers["classification"] = "skipped (dry-run)" if args.dry_run else "skipped (--no-classify)"
     elif deterministic_preflight_failed:
         tiers["classification"] = "skipped (deterministic preflight failed)"
-        warnings.append("Relevance pass skipped before paid work because the strict "
+        warnings.append("Relevance pass skipped before paid work because the required "
                         "deterministic preflight failed.")
     elif required_key_preflight_failed:
         if not anthropic_key:
@@ -2466,6 +3855,10 @@ def main(argv=None):
             tiers["classification"] = "skipped (required API key preflight failed)"
             warnings.append("Relevance pass skipped before paid work because another "
                             "required API key is missing.")
+    elif strict_search_incomplete:
+        tiers["classification"] = "skipped (strict search tier incomplete)"
+        warnings.append("Relevance pass skipped before paid work because strict "
+                        "completion was already impossible after the search tier.")
     elif not anthropic_key:
         tiers["classification"] = "skipped (ANTHROPIC_API_KEY not set)"
         warnings.append("Relevance pass skipped: ANTHROPIC_API_KEY not set. "
@@ -2482,9 +3875,10 @@ def main(argv=None):
             tiers["classification"] = f"run (model {args.model})"
 
     # --- split, write --------------------------------------------------------
+    new_candidate_count = len(candidates)
     surfaced, suppressed = _suppressed(candidates, threshold=args.surface_threshold)
     acceptance_errors = required_tier_errors(
-        tiers, len(candidates),
+        tiers, new_candidate_count,
         expect_deterministic=not args.no_deterministic,
         expect_search=do_search,
         expect_classification=do_classify,
@@ -2496,19 +3890,36 @@ def main(argv=None):
     for error in acceptance_errors:
         warnings.append(f"Required tier acceptance failed: {error}.")
 
-    if not acceptance_errors:
-        state["lastRun"] = now_iso()
-        # Remember processed candidates only after required tiers pass. Otherwise
-        # a retry could suppress failed, unclassified candidates and pass empty.
-        for c in surfaced + suppressed:
-            remember_candidate(state, c)
+    state_blockers = state_persistence_blockers(
+        tiers, new_candidate_count,
+        expect_deterministic=not args.no_deterministic,
+        expect_search=do_search,
+        expect_classification=do_classify,
+        dry_run=args.dry_run,
+        no_search=args.no_search,
+        no_classify=args.no_classify,
+    )
+    state_eligible = not acceptance_errors and not state_blockers
+    for blocker in state_blockers:
+        warnings.append(f"State persistence blocked: {blocker}.")
 
-    suffix = args.out_suffix
-    cand_path = Path(args.ledger_path) if args.ledger_path else CANDIDATES_DIR / f"{cycle}{suffix}.json"
-    packet_path = Path(args.packet_path) if args.packet_path else DOCS_DIR / f"Source-Monitoring-Candidates-{cycle}{suffix}.md"
+    current_surfaced_count = len(surfaced)
+    current_suppressed_count = len(suppressed)
+    surfaced, suppressed, carry_counts = merge_carry_forward(
+        surfaced, suppressed, carry_forward)
+
+    if state_eligible:
+        state["lastRun"] = now_iso()
+        # Remember candidates only after every expected tier completes. Diagnostic
+        # runs must leave them eligible for a later strict retry.
+        remember_accepted_candidates(
+            state, surfaced, suppressed,
+            current_surfaced_count, current_suppressed_count)
 
     compare_registry = load_json(args.compare_sources_file) if args.compare_sources_file else None
     delta = source_set_delta(registry, compare_registry)
+    acceptance_required = bool(
+        not args.no_deterministic or args.require_keys or args.require_complete)
     metadata = {
         "surfaceThreshold": args.surface_threshold,
         "normalThreshold": NORMAL_SURFACE_THRESHOLD,
@@ -2518,40 +3929,236 @@ def main(argv=None):
         "titleNote": args.title_note,
         "sourceSetDelta": delta,
         "acceptance": {
-            "required": bool(args.require_keys or args.require_complete),
+            "required": acceptance_required,
             "passed": not acceptance_errors,
             "errors": acceptance_errors,
         },
+        "statePersistence": {
+            "eligible": state_eligible,
+            "blockers": state_blockers,
+        },
     }
+    if args.carry_forward_ledger:
+        metadata["carryForward"] = carry_counts
 
-    write_candidate_json(cand_path, cycle, tiers, surfaced, access_failures, suppressed,
-                         skipped_seen=skipped_seen, metadata=metadata)
-    packet = render_packet_md(cycle, tiers, registry, surfaced, access_failures,
-                              suppressed, args.dry_run, warnings,
-                              title_note=args.title_note,
-                              surface_threshold=args.surface_threshold,
-                              normal_threshold=NORMAL_SURFACE_THRESHOLD,
-                              skipped_seen=skipped_seen,
-                              source_delta=delta,
-                              show_borderline=args.surface_threshold < NORMAL_SURFACE_THRESHOLD)
-    packet_path.parent.mkdir(parents=True, exist_ok=True)
-    packet_path.write_text(packet)
-    if not acceptance_errors:
-        write_json(args.state_file, state)
+    def write_outputs(output_warnings, *, ledger_last=False):
+        packet = render_packet_md(
+            cycle, tiers, registry, surfaced, access_failures, suppressed,
+            args.dry_run, output_warnings, title_note=args.title_note,
+            surface_threshold=args.surface_threshold,
+            normal_threshold=NORMAL_SURFACE_THRESHOLD,
+            skipped_seen=skipped_seen, source_delta=delta,
+            show_borderline=args.surface_threshold < NORMAL_SURFACE_THRESHOLD)
+        packet_path.parent.mkdir(parents=True, exist_ok=True)
+        if not ledger_last:
+            write_candidate_json(
+                cand_path, cycle, tiers, surfaced, access_failures, suppressed,
+                skipped_seen=skipped_seen, metadata=metadata)
+        packet_path.write_text(packet)
+        if ledger_last:
+            write_candidate_json(
+                cand_path, cycle, tiers, surfaced, access_failures, suppressed,
+                skipped_seen=skipped_seen, metadata=metadata)
+
+    def output_write_error(exc):
+        return f"could not write monitor artifacts: {scrub_public_text(exc.strerror or exc)}"
+
+    state_advanced = False
+    state_write_error = None
+    recovery_marker_error = None
+    if state_eligible:
+        pending_error = "state persistence has not completed"
+        metadata["acceptance"] = {
+            "required": acceptance_required,
+            "passed": False,
+            "errors": [pending_error],
+        }
+        metadata["statePersistence"] = {
+            "eligible": False,
+            "blockers": [pending_error],
+        }
+        try:
+            write_outputs(warnings + [
+                "State persistence has not completed. This diagnostic artifact is "
+                "not accepted."
+            ])
+        except OSError as exc:
+            print(f"ERROR: {output_write_error(exc)}", file=sys.stderr)
+            return 1
+        try:
+            create_state_recovery_marker(recovery_marker_path)
+        except OSError as exc:
+            detail = scrub_public_text(exc.strerror or exc)
+            recovery_marker_error = (
+                "could not create state recovery marker "
+                f"{display_path(recovery_marker_path)}: {detail}"
+            )
+            metadata["acceptance"] = {
+                "required": acceptance_required,
+                "passed": False,
+                "errors": [recovery_marker_error],
+            }
+            metadata["statePersistence"] = {
+                "eligible": False,
+                "blockers": [recovery_marker_error],
+            }
+            warnings.append(
+                f"State recovery marker failed: {recovery_marker_error}.")
+            try:
+                write_outputs(warnings)
+            except OSError as output_exc:
+                print(f"ERROR: {output_write_error(output_exc)}", file=sys.stderr)
+            print(f"ERROR: {recovery_marker_error}", file=sys.stderr)
+            return 1
+        try:
+            write_json_atomic(args.state_file, state)
+        except OSError as exc:
+            state_write_error = (
+                f"could not persist state file {display_path(args.state_file)}: "
+                f"{scrub_public_text(exc.strerror or exc)}"
+            )
+            persistence_errors = [state_write_error]
+            try:
+                clear_state_recovery_marker(recovery_marker_path)
+            except OSError as marker_exc:
+                detail = scrub_public_text(marker_exc.strerror or marker_exc)
+                recovery_marker_error = (
+                    "could not clear state recovery marker after state write "
+                    f"failure: {detail}"
+                )
+                persistence_errors.append(recovery_marker_error)
+            metadata["acceptance"] = {
+                "required": acceptance_required,
+                "passed": False,
+                "errors": persistence_errors,
+            }
+            metadata["statePersistence"] = {
+                "eligible": False,
+                "blockers": persistence_errors,
+            }
+            warnings.append(f"State persistence failed: {state_write_error}.")
+            if recovery_marker_error:
+                warnings.append(
+                    f"State recovery marker cleanup failed: "
+                    f"{recovery_marker_error}.")
+        else:
+            state_advanced = True
+            metadata["acceptance"] = {
+                "required": acceptance_required,
+                "passed": True,
+                "errors": [],
+            }
+            metadata["statePersistence"] = {
+                "eligible": True,
+                "blockers": [],
+            }
+
+        try:
+            write_outputs(warnings, ledger_last=state_advanced)
+        except OSError as exc:
+            print(f"ERROR: {output_write_error(exc)}", file=sys.stderr)
+            if state_advanced:
+                try:
+                    restore_file_snapshot_atomic(
+                        state_path,
+                        existed=state_snapshot_existed,
+                        data=state_snapshot_bytes,
+                        mode=state_snapshot_mode,
+                    )
+                except OSError as restore_exc:
+                    detail = scrub_public_text(
+                        restore_exc.strerror or restore_exc)
+                    print(
+                        "ERROR: could not restore the pre-run state after "
+                        f"artifact failure: {detail}",
+                        file=sys.stderr,
+                    )
+                else:
+                    try:
+                        clear_state_recovery_marker(recovery_marker_path)
+                    except OSError as marker_exc:
+                        detail = scrub_public_text(
+                            marker_exc.strerror or marker_exc)
+                        print(
+                            "ERROR: could not clear state recovery marker after "
+                            f"rollback: {detail}",
+                            file=sys.stderr,
+                        )
+            return 1
+        if state_advanced:
+            try:
+                clear_state_recovery_marker(recovery_marker_path)
+            except OSError as marker_exc:
+                detail = scrub_public_text(marker_exc.strerror or marker_exc)
+                print(
+                    "ERROR: could not clear state recovery marker after accepted "
+                    f"output: {detail}",
+                    file=sys.stderr,
+                )
+                return 1
+    else:
+        try:
+            write_outputs(warnings)
+        except OSError as exc:
+            print(f"ERROR: {output_write_error(exc)}", file=sys.stderr)
+            return 1
 
     print(f"Cycle {cycle}: {len(surfaced)} candidates surfaced, "
           f"{len(suppressed)} suppressed, {len(access_failures)} access failures.")
-    print(f"  candidates: {cand_path}")
-    print(f"  packet:     {packet_path}")
-    if acceptance_errors:
-        print(f"  state:      {args.state_file} (not advanced)")
+    print(f"  candidates: {display_path(cand_path)}")
+    print(f"  packet:     {display_path(packet_path)}")
+    if state_advanced:
+        print(f"  state:      {display_path(args.state_file)} (advanced)")
     else:
-        print(f"  state:      {args.state_file}")
+        print(f"  state:      {display_path(args.state_file)} (not advanced)")
     for w in warnings:
         print(f"  warning: {w}")
     for error in acceptance_errors:
         print(f"ERROR: {error}", file=sys.stderr)
-    return 1 if acceptance_errors else 0
+    if state_write_error:
+        print(f"ERROR: {state_write_error}", file=sys.stderr)
+    if recovery_marker_error:
+        print(f"ERROR: {recovery_marker_error}", file=sys.stderr)
+    return 1 if acceptance_errors or state_write_error or recovery_marker_error else 0
+
+
+def main(argv=None):
+    """Run one monitor process with exclusive ownership of its state path."""
+    lock_parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
+    lock_parser.add_argument("--state-file", default=str(STATE_FILE))
+    lock_parser.add_argument("--rebuild-registry", action="store_true")
+    lock_args, _ = lock_parser.parse_known_args(argv)
+    if lock_args.rebuild_registry:
+        return _main_unlocked(argv)
+
+    state_path, state_path_error = canonical_monitor_state_path(
+        lock_args.state_file)
+    if state_path_error:
+        print(f"ERROR: {state_path_error}", file=sys.stderr)
+        return 1
+
+    try:
+        lock_fd = acquire_monitor_run_lock(state_path)
+    except BlockingIOError:
+        print(
+            "ERROR: another source monitor run is active for state file "
+            f"{display_path(state_path)}",
+            file=sys.stderr,
+        )
+        return 1
+    except OSError as exc:
+        detail = scrub_public_text(exc.strerror or exc)
+        print(
+            "ERROR: could not acquire source monitor run lock for state file "
+            f"{display_path(state_path)}: {detail}",
+            file=sys.stderr,
+        )
+        return 1
+
+    try:
+        return _main_unlocked(argv, canonical_state_path=state_path)
+    finally:
+        release_monitor_run_lock(lock_fd)
 
 
 if __name__ == "__main__":

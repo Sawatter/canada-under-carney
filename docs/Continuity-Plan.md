@@ -2,7 +2,7 @@
 
 - **Purpose:** Name the single-editor continuity risk and record what a successor, a reader, or an archivist would need to know if the current editor stops maintaining the dashboard.
 - **Status:** Active. Written in response to finding F8 of the July 2026 external review (see [Review-Adjudication-2026-07-02.md](Review-Adjudication-2026-07-02.md)).
-- **Last updated:** 2026-07-02
+- **Last updated:** 2026-08-29
 - **Depends on:** [Monthly-Cycle-Playbook.md](Monthly-Cycle-Playbook.md), [Scoring-Rubric-v1.1.md](Scoring-Rubric-v1.1.md), [QA-Gatekeeping-Rules.md](QA-Gatekeeping-Rules.md), [Source-Authority-Map.md](Source-Authority-Map.md), [Continuity-Quickstart-2026-06-30.md](Continuity-Quickstart-2026-06-30.md), [CLAUDE.md](../CLAUDE.md)
 - **Used by:** Any successor evaluating a takeover, any reader asking what happens if updates stop.
 
@@ -35,7 +35,78 @@ The monthly update is editor-run with AI assistance. No part of it publishes on 
 3. **Test gates.** `npm run test:data` checks the data files and the frozen GPA surface. `npm run build` must pass. `npm run test:browser` runs the Playwright suite for UI-affecting changes.
 4. **Deploy.** A push to `main` triggers GitHub Actions, which publishes to GitHub Pages. That push is the whole deployment. There are no other release steps and no other infrastructure.
 
-The one scheduled automation, the monthly source scout workflow, prepares fetch and link-rot artifacts on a review branch and opens a draft PR. It never edits dashboard data, never moves grades, and never pushes to `main`.
+The current source-scout hardening candidate is not accepted. The first two
+completed 2026-08-29 read-only Claude reviews each ended with the literal result
+`VERDICT: REVISE`. A later saved response ended with `VERDICT: APPROVED`, but its
+bridge exit code was not recorded, so it does not count as approval. The complete
+worktree monitor suite passes 551 checks and parses all three workflow files.
+Post-fix staged checks, a completed Claude review with a recorded exit code, and
+hosted acceptance remain open.
+
+Before parsing monitor inputs or starting paid work, the monitor takes a
+host-local exclusive run lock keyed to the case-normalized resolved state path.
+A second process using that state path exits nonzero instead of reading stale
+state. The operating system releases this lock when the process ends, including
+an abrupt exit.
+An existing state path that is itself a symbolic link or has hard-link aliases
+is rejected before monitor work. A missing state path under a symbolic-linked
+parent is resolved once, and that canonical path is used for the lock, marker,
+state write, and rollback.
+
+Before replacing accepted monitor state, the scout creates a separate persistent
+`<state-file>.recovery-pending` marker. Accepted outputs or an exact state
+rollback clear it. A failed rollback or marker cleanup leaves it in place, and
+the next monitor run stops before loading deterministic input or starting paid
+work. An operator must reconcile the prior state, packet, and ledger before
+removing the marker.
+
+The one scheduled automation, the monthly source scout, cannot publish dashboard
+data or push to `main`. Its read-only analysis job runs from the exact triggering
+commit on `main`. It may upload a privacy-cleared `NOT ACCEPTED` diagnostic
+artifact after failure, but a diagnostic artifact cannot update the review
+branch. Its separate publish job runs only after successful live analysis,
+installs no dependencies, downloads that run's guarded artifact, stages five
+fixed monitoring paths, and rechecks the analysis-observed PR state before
+pushing. Its lease uses the exact observed SHA for an existing review branch or
+expected absence for a new branch. If the staged monitoring set is identical to
+`main`, it makes no commit or PR update. Zero candidates alone do not establish
+no change.
+
+The analysis job writes the private-rule secret to an owner-only file before
+dependency installation, branch preparation, fetch, Tavily, or Anthropic work.
+The pinned scanner parses those rules while scanning its own file, then removes
+the file before the next step. The artifact guard later scans only the exact
+files declared for the current live or backtest upload. Historical
+monitoring files outside that payload are out of scope for that run. Within
+scanned content, an ordinary `home` or `users` path segment in a public URL that
+starts with `http://` or `https://` is not a local-machine path. Bare,
+`file:` URL, encoded, HTML-reference, repeated-separator, URL query or fragment,
+Windows, and Windows network-share local-path forms remain blocked. All three
+privacy checks verify the scanner hash,
+require the private identity patterns, create the private file with owner-only
+permissions only inside the scan step, and remove it before the next trust
+boundary. The publish checkout does not persist credentials, and `GH_TOKEN` is
+explicitly added only to the authenticated shell mutation step after the scan.
+GitHub still creates a job token that can be available through `github.token`;
+these controls do not claim that no token exists during earlier publish steps.
+A successor must configure `ANTHROPIC_API_KEY`, `TAVILY_API_KEY`, and
+`PRIVACY_IDENTITY_PATTERNS`, keep GitHub Actions PR creation enabled, and treat a
+green analysis job plus accepted ledger metadata as the minimum evidence for
+publication. Artifact existence alone is not acceptance.
+
+The repository currently has no branch protection or ruleset for `main`. The
+source-scout workflow never pushes to `main`, but that workflow rule does not
+protect the branch from another write-capable workflow or credential. Claude
+classified this as a tolerable repository-level residual, not a blocker for the
+current candidate. A successor should record it and consider branch protection
+separately, without treating it as a source-scout acceptance prerequisite.
+
+The canonical deterministic-source, state, continuity, privacy, and
+review-branch contracts are maintained in
+[Source-Monitoring-System.md](Source-Monitoring-System.md). The operator gates,
+including the accepted-ledger checks, are maintained in
+[Monthly-Cycle-Playbook.md](Monthly-Cycle-Playbook.md). Those documents, not this
+continuity summary, govern the implementation details.
 
 ## 4. What happens if updates stop
 
