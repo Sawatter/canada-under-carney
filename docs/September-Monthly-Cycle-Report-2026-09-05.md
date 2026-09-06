@@ -1,8 +1,8 @@
 # September monthly cycle report
 
-Status: LOCAL ADJUDICATION AND RELEASE CHECKS COMPLETE. Publication verification follows. The remaining September judgments were completed under explicit delegation on September 6. The Affordability evidence gap remains disclosed under a temporary exception. This report does not claim publication, hosted acceptance or a successful release check before its result is recorded.
+Status: PUBLISHED AND LIVE CHECKS PASSED. Local adjudication and release checks are complete. The Pages deployment and final live checks passed as recorded below. The September judgments were completed under delegation on September 6. Affordability retains its disclosed temporary exception, and hosted source-monitor acceptance remains blocked by API credit.
 
-Current status on September 6: ordinary grade, trend, promise-status and Research Co. admission decisions are integrated. The user then delegated the remaining editorial judgment to finish the cycle. The analyst selected the transparent, cycle-only Affordability display exception and completed the Housing party-symmetry check below. These are delegated analyst decisions, not invented editor quotations or personal beliefs. Earlier pending labels are historical preparation checkpoints superseded by this section. The prior final Opus 4.8 review approved the September 5 prepared changes; the new closure decisions and their display still require the final release checks and review.
+Current status on September 6: ordinary grade, trend, promise-status and Research Co. admission decisions are integrated. The user then delegated the remaining editorial judgment to finish the cycle. The analyst selected the transparent, cycle-only Affordability display exception and completed the Housing party-symmetry check below. These are delegated analyst decisions, not invented editor quotations or personal beliefs. Earlier pending labels are historical preparation checkpoints superseded by this section. The completed September 6 release checks and Opus 4.8 review are recorded below. Release 5.178 is published in commit `dab895a34fb121ef56fb40ff21edb989c1a785b6`. The final live checks below passed.
 
 Evidence publication window: August 1 through August 31, 2026, inclusive. Source review date: September 5, 2026. Final adjudication and local closure date: September 6, 2026. The review date does not backdate an observation to the evidence cutoff. A current page supports a historical absence only if contemporaneous evidence establishes that absence.
 
@@ -50,7 +50,7 @@ Opened: [Coast Guard icebreaker contract, August 24](https://www.pm.gc.ca/en/new
 
 ### Approval polling, admitted for reviewed integration
 
-Opened primary releases support direct government or prime-minister approval pairs from Abacus and Leger. Opened [Research Co. August 10 article](https://researchco.ca/2026/08/10/cdnpoli-aug2026/) and [full tables](https://researchco.ca/wp-content/uploads/2026/08/Tables_Politics_CAN_10Aug2026.pdf) also support a broad job-approval wave, unlike its previously excluded tariff-response question. The Canada response categories give approval 59 and disapproval 32 by adding the corresponding strong and moderate categories. Rounded categories sum to 99 with unsure responses, so no renormalization is applied. This fits the current direct-question rule. A bounded known-answer qualification reproduced an older Research Co. direct-job-approval wave using the exact Claude Fable 5.1 model. The bridge exited 0 with `VERDICT: EXTRACTED`; the independent code comparison exited 0 with `VERDICT: KNOWN ANSWER MATCHED; DELEGATE WITH REVIEW`. The baseline was newly transcribed from opened publisher evidence, not prior editor-adopted data. Current-wave admission is now an analyst decision under the existing equivalent-transparency route. The admitted waves and source-family records are integrated locally; final review remains required. Deduplicate the Abacus August 30 and August 31 releases, which cover the same wave. The August 31 article's headline and methodology disagree on sample size, so use the internally consistent August 30 source.
+Opened primary releases support direct government or prime-minister approval pairs from Abacus and Leger. Opened [Research Co. August 10 article](https://researchco.ca/2026/08/10/cdnpoli-aug2026/) and [full tables](https://researchco.ca/wp-content/uploads/2026/08/Tables_Politics_CAN_10Aug2026.pdf) also support a broad job-approval wave, unlike its previously excluded tariff-response question. The Canada response categories give approval 59 and disapproval 32 by adding the corresponding strong and moderate categories. Rounded categories sum to 99 with unsure responses, so no renormalization is applied. This fits the current direct-question rule. A bounded known-answer qualification reproduced an older Research Co. direct-job-approval wave using the exact Claude Fable 5.1 model. The bridge exited 0 with `VERDICT: EXTRACTED`; the independent code comparison exited 0 with `VERDICT: KNOWN ANSWER MATCHED; DELEGATE WITH REVIEW`. The baseline was newly transcribed from opened publisher evidence, not prior editor-adopted data. Current-wave admission is now an analyst decision under the existing equivalent-transparency route. The admitted waves and source-family records are included in the reviewed September release. Deduplicate the Abacus August 30 and August 31 releases, which cover the same wave. The August 31 article's headline and methodology disagree on sample size, so use the internally consistent August 30 source.
 
 Opened: [Innovative August 28 release](https://innovativeresearch.ca/broad-support-for-carney-as-canada-hits-back-in-trade-war-with-u-s/) and its full PDF include both broad government satisfaction and narrower approval of handling the United States. Analyst decision under delegation: exclude both from the direct approve/disapprove aggregate under its existing question rule. Broad satisfaction is not the same question as issue approval, so do not describe the full PDF as trade-only. Adding satisfaction would be a methodology choice.
 
@@ -62,7 +62,7 @@ Opened: [Nanos August 25 release](https://nanos.co/worry-about-jobs-the-economy-
 
 Editor decision, September 5: "Use manual review for September and pause the hosted scout". This authorizes the documented manual source review as the September scout substitute. The hosted workflow was confirmed `disabled_manually` by the source-monitor agent. Failed packets remain diagnostic, and no hosted classification acceptance is claimed. Factual cycle closure still requires ledger, link, editor, data and adversarial review gates.
 
-### Other evidence requiring completion
+### Other evidence considered in the completed review
 
 Opened: [July CPI, August 17](https://www150.statcan.gc.ca/n1/daily-quotidien/260817/dq260817a-eng.htm) reports food bought from stores at 3.1% year over year. The greater-than-7% review condition is not crossed. A lower inflation rate does not on its own prove federal policy caused the improvement.
 
@@ -104,7 +104,7 @@ Opened publisher pages and named public searches found no qualifying August Main
 
 The proposed Housing changes were checked across current outcomes, modelled need, federal scale, planned spending, legal authority, funding conditions, construction attribution, promise evidence and explanatory copy. Unsupported old attributions and stronger-than-source statements were removed from the candidate. The spending metric, band explanation and perspectives now describe PBO's December 2025 projection explicitly as a dated forecast. The non-binding jurisdiction modifier explanation no longer contains an obsolete current-grade letter.
 
-Residual limits are retained: the older CMHC news URL has an opened framework fallback; the federal Ontario agreement index was inaccessible but the dated Bradford source independently names funding conditions; the old Policy Options source yielded no usable text and is not needed for any retained scoring claim; PBO projections require their staleness qualifier. The existing Housing promise statuses are retained under the current delegation. Candidate claim mapping is complete. The Housing edits are already integrated locally and passed the bounded prepared-output review recorded below; the delegated symmetry check is recorded below, with final release checks still in progress.
+Residual limits are retained: the older CMHC news URL has an opened framework fallback; the federal Ontario agreement index was inaccessible but the dated Bradford source independently names funding conditions; the old Policy Options source yielded no usable text and is not needed for any retained scoring claim; PBO projections require their staleness qualifier. The existing Housing promise statuses are retained under the current delegation. Candidate claim mapping is complete. The Housing edits are already integrated locally and passed the bounded prepared-output review recorded below; the delegated symmetry check and completed local release checks are recorded below.
 
 ## Exception Queue
 
@@ -113,11 +113,11 @@ E1 through E8 are the exception categories defined in the active verification ru
 | Category | Status | Resolution or required action |
 | --- | --- | --- |
 | E1, source inaccessible | Open with fallback | Retail Council remains blocked. Use opened Statistics Canada CPI and Food Banks Canada for supported claims, then recheck next cycle or obtain an editor browser view before sole-source use. Moody's issuer detail and the current federal housing agreement index retain dated access limits. An inaccessible sole source blocks a grade-moving claim. |
-| E2, value mismatch | Housing values corrected locally | July values and the revised June comparison are integrated. The one-unit table/narrative trend discrepancy is explicitly qualified. Final integrated checks remain required. |
+| E2, value mismatch | Corrected in the release | July values and the revised June comparison are integrated. The one-unit table/narrative trend discrepancy is explicitly qualified. Completed local release checks are recorded below. |
 | E3, stale event-driven source | Age check completed | The recorded July 1 recertification is 66 days before September 5; August 28 checks are 8 days old and September 5 checks are 0 days old. None establishes a missed recheck beyond six months. Issuer and registry detail access limits remain E1; an index search is not a fresh current-rating or absence finding. |
 | E4, unresolved new primary metric | Evidence gap remains; September display exception adopted | The household coverage ratio and D band below-20% criterion remain unestablished, so CF-BLOCK-3 still excludes ordinary carry-forward. Unsupported claims are removed. The delegated September 6 decision permits only a temporary prior D- display, with unchanged trend and score inclusion for comparability. It expires October 1 and requires a supported measure or explicit alternative before the next cycle closes. See the dated Affordability exception. |
 | E5, transformation needs documentation | Household derivation failed | Affordability household amount lacks a reproducible denominator and period in the checked source and history. Do not infer a replacement from aggregate spending or example households. Poll candidates retain publisher totals and explicit component sums without renormalization. |
-| E6, wording more certain than evidence | Local repairs integrated; final review pending | Housing groundbreaking, conditional allocations, attributable starts and completions are distinct. Environmental copy says repeal proposed. Flagship trade overlap and unsupported current legislative count are repaired. |
+| E6, wording more certain than evidence | Repairs integrated and reviewed | Housing groundbreaking, conditional allocations, attributable starts and completions are distinct. Environmental copy says repeal proposed. Flagship trade overlap and unsupported current legislative count are repaired. |
 | E7, methodology drift risk | Current scope applications resolved | Settled Housing/grid decisions stand. The analyst retains annual goods-only trade, limits Coast Guard evidence to civilian procurement, and applies direct approval rather than satisfaction. The hypothetical Flagship failing-file distribution conflict is recorded below without changing its frozen rules. |
 | E8, source revised after cycle close | Current revision recorded and integrated | CMHC July release revises June monthly SAAR to 240,773. The current copy records that revision. Historical date and grade corrections remain in the ordered backlog. |
 
@@ -125,7 +125,7 @@ Separate operating limits: failed live and backtest scouts and deterministic con
 
 ## Carry-forward statement
 
-CF1 through CF5 mean unchanged source value, no contradictory evidence, no scoring-blocking exception, a current reference period, and unchanged dashboard display. They are not globally confirmed. Housing has a publisher revision and current E2 handling. The Affordability ratio remains open under E4. Stale PBO projections require explicit qualifiers. The Housing grade move put its full evidence base into renewed review under CF-BLOCK-6. The candidate now maps its retained claims to opened sources, narrows unsupported copy, and explicitly dates the PBO forecast. Integrated-data and adversarial checks remain pending. This report does not claim "conditions CF1-CF5 confirmed by editor."
+CF1 through CF5 mean unchanged source value, no contradictory evidence, no scoring-blocking exception, a current reference period, and unchanged dashboard display. They are not globally confirmed. Housing has a publisher revision and current E2 handling. The Affordability ratio remains open under E4. Stale PBO projections require explicit qualifiers. The Housing grade move put its full evidence base into renewed review under CF-BLOCK-6. The candidate now maps its retained claims to opened sources, narrows unsupported copy, and explicitly dates the PBO forecast. Integrated-data and adversarial release checks are complete as recorded below. This report does not claim "conditions CF1-CF5 confirmed by editor."
 
 ## Completed macro source checks and material gaps
 
@@ -145,7 +145,7 @@ Opened: the [July 3 payment announcement](https://www.canada.ca/en/department-fi
 
 ## Flagship Delivery retention assessment
 
-This is the reviewed current-input assessment for the local draft, not whole-cycle release approval. The [Flagship rules](Flagship-Delivery-Rules.md) require the following checks each cycle. The initial pass found an out-of-scope trade claim. The integrator repaired that copy locally. The analyst retains the delivery categories under current delegation, and the final bounded Opus review passed.
+This is the reviewed current-input assessment included in the published release. Publication and final live-check results are recorded below. The [Flagship rules](Flagship-Delivery-Rules.md) require the following checks each cycle. The initial pass found an out-of-scope trade claim. The integrator repaired that copy locally. The analyst retains the delivery categories under current delegation, and the final bounded Opus review passed.
 
 | Check | September finding | State |
 | --- | --- | --- |
@@ -166,9 +166,9 @@ Initial assessment before the copy repair, command: `python3 tmp/prepare-septemb
 
 The integrator reported a current-versus-base comparison, exit 0, literal `VERDICT: SAME FLAG TYPES AND DIMENSIONS; HOUSING SOURCE DENOMINATOR UPDATED`. Its recorded scope was 12 audited dimensions and 8 flagged dimensions in both states, with Housing's source denominator changing from 11 to 12 and the flagged URL unchanged. These are diagnostic flags, not a claim that the project is free of bias. The script comparison does not establish party symmetry. The separate delegated analyst check and unavailable outside-review status are recorded in the September 6 closure section below.
 
-The current data check was reported by the integrator as exit 1 because refreshed cards still lack editor-authorized held-review markers. An old August review date must not be restored beneath a September update, and a new held marker must not be invented to pass the check. The evidence-view browser check was reported exit 0 at desktop and mobile widths, but it does not close editorial decisions or the whole-cycle data gate.
+At the earlier September 5 preparation checkpoint, the integrator reported data-check exit 1 because refreshed cards still lacked authorized review records. The September 6 passing data gate below supersedes that failure. An old August review date must not be restored beneath a September update, and a new held marker must not be invented to pass the check. The evidence-view browser check was reported exit 0 at desktop and mobile widths, but it does not close editorial decisions or the whole-cycle data gate.
 
-## Current delegated decisions and remaining human gates
+## Current delegated decisions
 
 The current user authorization delegates grade and promise-status decisions. These are analyst decisions under that authorization, not invented editor quotations. The settled Housing monthly measure, D- grade, grid In Progress status and manual workflow exception are preserved.
 
@@ -183,7 +183,7 @@ The current user authorization delegates grade and promise-status decisions. The
 | Immigration | Hold C+ and Improving. | Temporary-resident stock remains above target and exposed sectors face risks. The implemented correction and falling stock support the existing band; no qualifying reversal or documented unfixed collapse was established in the checked scope. |
 | Ethics | Hold C and Stable with the official-registry access exception. | The inaccessible specific registry record limits a fresh August conclusion. Prior verified disclosures can be retained under the held-grade access rule, but generic current listings cannot prove no event. |
 | Flagship | Hold C, retain the existing delivery categories and change arrow to Stable. | Weaker national housing starts support the Housing decision. The specific overlap rule permits them as Flagship context only, and separate deterioration of attributable federal execution was not established. |
-| Affordability | No normal grade confirmation or new arrow. Lower confidence in the assessment to Low. | The household coverage ratio failed verification, so the D band itself is unestablished. Program operation cannot supply the missing ratio. Temporary display of prior D- needs the pending explicit exception. |
+| Affordability | Retain the prior grade and arrow temporarily for September, with Low confidence and an explicit exception. | The household coverage ratio and D band remain unestablished. Program operation cannot supply the missing ratio. The delegated September 6 display exception expires October 1 and is not normal carry-forward. |
 | Promise statuses | Retain the current statuses, including the settled grid change. | Contracts and conditional allocations do not prove delivery; policy abandonment and legal repeal are different judgments. Existing programme operation supports retained Delivered statuses without claiming adequate scale. |
 | Approval Signal | Admit the direct Abacus, Leger and Research Co. waves. Keep Nanos separate. | Research Co. meets the existing memo disclosure criteria, with recruitment, ownership and sponsorship limits visible. Its admission does not claim CRIC accreditation or equivalence to every CRIC standard. Issue approval and satisfaction remain excluded. |
 
@@ -193,9 +193,9 @@ Analyst carry-forward findings under delegation are scoped to retained claims in
 
 Flagship counter-case calculation: the retained 2 Delivering and 3 Stalled distribution uses the expressly adopted C row. A hypothetical 2 Delivering, 1 Failing and 2 Stalled distribution matches no exact row in the published distribution table. The one-notch move language would suggest C-, while the live C threshold permits one failing file. That hypothetical conflict requires rule reconciliation if qualifying independent execution-deterioration evidence arises. It is not an active authority to change a frozen threshold, invent table precedence or double-count housing starts. The current narrower overlap interpretation supports Stalled and C.
 
-Prepared integration uses the new legitimate held-review records and the current delegation provenance. The separate regulatory correction preserves the old and corrected classification/count statements and appends to the existing September release. Final integrated data, source, browser and Opus review gates still follow. No publication approval is implied.
+The published integration uses the legitimate held-review records and delegated exception. The regulatory correction preserves the old and corrected classification/count statements in the September release. Completed local data, source, browser and Opus review gates are recorded below; final live checks remain separately identified.
 
-## Checks and closeout
+## Earlier September 5 preparation checks
 
 - `npm run source:ledger:check -- docs/Source-Coverage-Ledger-2026-09.md`, exit 0 before edits: `OK. Ledger covers 186 unique cited URLs across 341 citation surfaces.`
 - `npm run source:links -- --cycle 2026-09 --exceptions-out docs/source-recertification/source-link-exceptions-2026-09.json`, exit 0: `OK 180 | REDIRECTED 4 | SUSPECT 0 | BLOCKED 2 | TIMEOUT 0 | DEAD 0`.
@@ -280,7 +280,7 @@ Prepared checks after the repairs:
 
 At that checkpoint, the normal data gate was red on missing Defence, Affordability and Flagship records. Under the resumed delegation, legitimate ordinary holds and the Approval Signal/source records are now integrated. Only Affordability lacks an authorized review record. Coverage, history and next-update metadata still await cycle closure. No push, merge or publication occurred.
 
-## Resumed candidate validation
+## Earlier resumed candidate validation
 
 `python3 tmp/prepare-september-delegated-decisions.py` exited 0 with `VERDICT: DELEGATED SEPTEMBER CANDIDATE PREPARED; FROZEN VALUES PRESERVED; AFFORDABILITY AND HUMAN ATTESTATIONS REMAIN`. The prepared patch contains 9 held decisions and preserves the 43 current promise statuses. It changes no grade value, trigger, scoring threshold or formula. Regulatory review makes the lever mix 1 Executing, 2 Authorized and 2 Announced, giving 3 qualifying levers. Only 1 quarter in the latest pair is non-declining.
 
@@ -290,7 +290,9 @@ The established source-citation collector compared current and proposed data. It
 
 The Opus 4.8 bridge's bounded repair review exited 0 with `VERDICT: APPROVED`, and its diagnostic named Claude Code 2.1.261 with model `claude-opus-4-8`. It approved the prior correction repairs and pending Flagship test, not these later delegated decisions or the whole release. The final integrated review remains required.
 
-## Current local reconciliation after delegation
+## Earlier September 5 local reconciliation after delegation
+
+This is the preparation state before the September 6 exception and symmetry decisions. Its pending labels and failed gates are historical, superseded by the closure and release sections below.
 
 The integrator applied the delegated decisions, August polls, Research Co. source register and memo updates, and the regulatory correction to the existing September release. The correction's previous text is taken from the published HEAD record, including its consecutive-decline statement, rather than from an unpublished intermediate draft. The existing release now contains 9 correction records. No duplicate release entry was created.
 
@@ -309,7 +311,9 @@ The same pass found Ethics current-status copy that stated disclosure gaps witho
 The candidate contains 32 field edits and is awaiting integration and review. Its preparation command exited 0 with `VERDICT: TRACKER COUNTS RECONCILED AND ETHICS CURRENT CLAIMS DATE-QUALIFIED; CANONICAL TESTS AND SOURCES UNCHANGED`. The dimension validator against the proposed snapshot exited 1 solely for the unresolved Affordability review record. The check recorded `VERDICT: COPY CANDIDATE PASSES ALL OTHER DIMENSION CHECKS; AFFORDABILITY EXCEPTION STILL OPEN`. The existing citation collector compared the current and proposed entries exactly and exited 0 with `VERDICT: COPY RECONCILIATION PRESERVES EXACT CURRENT CITATION ENTRIES`: both contain 201 unique URLs across 357 citation surfaces. No new source review or complete-release approval is claimed by this copy repair.
 
 
-## Final local checks and remaining release gates
+## Earlier September 5 local checks before final delegation
+
+This checkpoint preserves the failures and unanswered requests at that time. The September 6 decisions, passing release checks and publication record below supersede its open-state descriptions.
 
 The tracker and Ethics copy candidate above is now integrated. Tracker counts
 match the promise records. Ethics current-status claims retain their July 31
@@ -394,16 +398,16 @@ The strongest counter-case remains monthly volatility and shared jurisdiction: t
 
 ### Closure dates and score snapshot
 
-The local release remains the existing unpublished version 5.178. Its closure and release-entry date is September 6. The evidence cutoff and Approval Signal window remain August 31, and the next scheduled cycle is October 1. Source-check dates, the September 5 Housing evidence review, promise status histories and older release/history entries are preserved. The status record uses September 5 as the manual source-scan date and September 6 for the delegated cycle adjudication. The older field name `lastEditorReviewedScoreCycleAt` denotes that delegated cycle decision; it is not a claim of a new source search or a direct personal review by the editor.
+Version 5.178 was published from commit `dab895a34fb121ef56fb40ff21edb989c1a785b6`. Its closure and release-entry date is September 6. The evidence cutoff and Approval Signal window remain August 31, and the next scheduled cycle is October 1. Source-check dates, the September 5 Housing evidence review, promise status histories and older release/history entries are preserved. The status record uses September 5 as the manual source-scan date and September 6 for the delegated cycle adjudication. The older field name `lastEditorReviewedScoreCycleAt` denotes that delegated cycle decision; it is not a claim of a new source search or a direct personal review by the editor.
 
 The September history snapshot was computed with the existing score functions. Full Policy Audit is 1.85 after rounding its raw value of 1.8545454545454545. Household Impact is 1.72. Those scores include the temporary Affordability display described above. Promise counts are 14 Delivered, 17 In Progress, 3 Too Early, 6 Stalled, 3 Abandoned and 0 Thwarted, totaling 43. Prior history records remain unchanged.
 
-The data integration command exited 0 with `VERDICT: SEPTEMBER EXCEPTION AND SYMMETRY DECISIONS INTEGRATED; HISTORICAL DATA AND FROZEN RULES PRESERVED`. The snapshot and citation comparison exited 0 with `VERDICT: SEPTEMBER SNAPSHOT COMPUTED WITH EXISTING FORMULAS; PRIOR HISTORY AND EXACT CITATIONS UNCHANGED`. Exact current citation entries remain 201 unique URLs across 357 surfaces. These checks establish the local data changes and preserved source selection, not browser behavior or publication approval. Final data, browser and adversarial results follow when available.
+The data integration command exited 0 with `VERDICT: SEPTEMBER EXCEPTION AND SYMMETRY DECISIONS INTEGRATED; HISTORICAL DATA AND FROZEN RULES PRESERVED`. The snapshot and citation comparison exited 0 with `VERDICT: SEPTEMBER SNAPSHOT COMPUTED WITH EXISTING FORMULAS; PRIOR HISTORY AND EXACT CITATIONS UNCHANGED`. Exact current citation entries remain 201 unique URLs across 357 surfaces. These checks establish the local data changes and preserved source selection, not browser behavior or publication approval. The completed local data, browser and adversarial results appear in the release-check section below.
 
 
 ### September 6 local data gate
 
-After the exception schema and display support were added by the integrator, `npm run test:data` exited 0. Literal outputs include `OK. Dashboard status metadata passes.`, `OK. All shape invariants pass.`, `OK. latestReview validator accepts current data and rejects 30 invalid fixtures.`, `OK. Approval Signal invariants pass.`, and `GPA frozen-surface test passed (56 assertions across 9 test groups).` The earlier missing-record failure is resolved through an explicit exception record, not disguised as a normal hold. Local data adjudication is complete. The final normal build, browser pass and adversarial review remain separate release gates.
+After the exception schema and display support were added by the integrator, `npm run test:data` exited 0. Literal outputs include `OK. Dashboard status metadata passes.`, `OK. All shape invariants pass.`, `OK. latestReview validator accepts current data and rejects 30 invalid fixtures.`, `OK. Approval Signal invariants pass.`, and `GPA frozen-surface test passed (56 assertions across 9 test groups).` The earlier missing-record failure is resolved through an explicit exception record, not disguised as a normal hold. Local data adjudication is complete. The completed normal build, browser pass and adversarial review are recorded below. Final live checks remain distinct from these local gates.
 
 
 ## September 6 release checks
@@ -412,7 +416,7 @@ The isolated publication checkout matches the task files and excludes unrelated
 local changes. `npm run test:data` exited 0 with `OK. All shape invariants pass.`,
 `OK. latestReview validator accepts current data and rejects 30 invalid fixtures.`,
 `OK. Approval Signal invariants pass.` and the frozen-score test passing its
-56 assertions. The normal production build passed its bundle budget. The full
+56 assertions. `npm run build` exited 0 with `bundle budget: OK`. The full
 `CI=true npm run test:browser -- --workers=4` run exited 0: `277 passed` and
 `2 skipped`. The skips are duplicate server-rendering cases, which run in the
 main Chromium project instead. No failing browser cases remain in this run.
@@ -442,3 +446,17 @@ The original manual September exception makes publication independent of hosted
 source-monitor acceptance. The publication commit contains the exception decision
 document referenced by the UI. No successful paid request, hosted acceptance or
 live deployment is inferred from these local checks.
+
+
+## September 6 publication and hosted recovery
+
+The integrator reports that release [dab895a34fb121ef56fb40ff21edb989c1a785b6](https://github.com/Sawatter/canada-under-carney/commit/dab895a34fb121ef56fb40ff21edb989c1a785b6) was pushed to `main`. [Pages run 34016994009](https://github.com/Sawatter/canada-under-carney/actions/runs/34016994009) concluded `success`; the integrator's `gh run watch` exited 0. Opened by the integrator: the live site displays v5.178 with the September 6 review date, August 31 evidence cutoff and October 1 next update. The completed independent live checks follow below.
+
+The source-monitor agent's [recovery run 34017049937](https://github.com/Sawatter/canada-under-carney/actions/runs/34017049937) used the same commit and failed before source search, deterministic fetch or backtest. Its run-watch command exited 1, and the failed-log command exited 0 with the literal error `ERROR: classifier preflight failed: Your credit balance is too low to access the Anthropic API.` No candidate artifacts were generated, and accepted state and Ethics cache did not advance. The workflow was re-disabled. This is a concrete external credit blocker, not hosted acceptance. The approved manual September review remains the evidence basis. Do not retry the unchanged configuration or purchase credit.
+
+### Final live-check results
+
+- Automated live audit [34017295594](https://github.com/Sawatter/canada-under-carney/actions/runs/34017295594): `success`. `gh run watch 34017295594 --repo Sawatter/canada-under-carney --exit-status` exited 0. Log retrieval exited 0 with `PASS=362 ISSUE=0 TOTAL=362`. Downloaded artifact `9984374371` independently matches deployed commit `dab895a34fb121ef56fb40ff21edb989c1a785b6` and the same passing totals. Pages artifact: `9984209141`.
+- Live desktop and phone probe: the integrator ran `node tmp/september-six-live-check.mjs`, exit 0, with `VERDICT: LIVE SEPTEMBER VERSION, COMMIT, DATES, GRADE, EXCEPTION AND PHONE NAVIGATION PASS; DECISION WEB RESPONSE RECORDED SEPARATELY`. It checked 1280 by 900, 390 by 844 and 320 by 780 viewports against deployed commit `dab895a34fb121ef56fb40ff21edb989c1a785b6`, version 5.178 and the August 31, September 6 and October 1 dates. Housing D-, promise counts, exception/expiry, the Read why link, Escape behavior and absence of page overflow or runtime errors passed. The integrator also viewed the screenshots. Opened by the integrator: the GitHub decision page rendered in the browser, and the contents API confirmed the published file. Scripted HTTP requests included both 200 and 429 responses; no universal HTTP-success claim is made.
+
+September release acceptance is complete. Hosted source-monitor acceptance remains blocked by the confirmed external credit error.

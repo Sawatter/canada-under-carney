@@ -28,10 +28,10 @@ manual review for September and pausing the hosted scout. Opened: GitHub now
 reports `monthly-source-scout.yml` as `disabled_manually`. Paid retries and
 credential changes were held after the no-payment decision. The renewed
 2026-09-06 instruction authorizes completion using existing credit, including
-a single classifier preflight after reviewed publication. It does not authorize
-an API credit purchase, top-up, or credential replacement. Usable credit remains
-unproven. The workflow stays disabled until the reviewed code is published and
-its authorized test begins.
+a single classifier preflight after reviewed publication. That request ran on
+commit `dab895a34fb121ef56fb40ff21edb989c1a785b6` and again failed for low API
+credit. Search and the monitor backtest never started. The workflow is paused
+again. No API credit purchase, top-up, or credential replacement is authorized.
 The earlier review sequence follows.
 
 1. Claude reproduced a scanner defect: an unanchored local-path rule treated
@@ -132,10 +132,10 @@ was started against the unchanged failing configuration.
 
 After this failure, the editor stated that they will not pay for API use.
 The later request to restore successful hosted monitoring reopens acceptance
-preparation. The 2026-09-06 instruction authorizes one existing-credit test after
-reviewed publication. No further paid search or
-classification retry, purchase, credential change, or workflow enable has been
-performed. Hosted acceptance remains uncompleted.
+preparation. The 2026-09-06 instruction authorized the single existing-credit
+preflight recorded below. It failed before source search and the workflow was
+paused again. No purchase or credential change occurred. Hosted acceptance
+remains uncompleted.
 
 Under the renewed instruction to finish using existing credit, the acceptance criteria
 remain unchanged: real classified candidates, completed search and
@@ -182,10 +182,48 @@ candidate ID, classification and safety flags, then explicitly reports
 It cannot stand in for the backtest or live acceptance fields. Those later
 runs still require their complete tiers, persistence and publication guards.
 
-The preflight remains a local reviewed-publication prerequisite until a hosted
-request returns. If that single request fails for low credit, do not retry the
-unchanged configuration or start source search. No API purchase or top-up is
-authorized.
+Opened: [recovery run 34017049937](https://github.com/Sawatter/canada-under-carney/actions/runs/34017049937)
+used exact execution commit `dab895a34fb121ef56fb40ff21edb989c1a785b6`.
+The dispatch command was:
+
+```bash
+gh workflow run monthly-source-scout.yml --repo Sawatter/canada-under-carney --ref main \
+  -f label=2026-08-recovery-2026-09-06 \
+  -f window_start=2026-08-01 -f window_end=2026-08-29 \
+  -f surface_threshold=0.08 \
+  -f registry_ref=d1c49f72fd2739ffe9777ec82d0e21d9359c6cbe
+```
+
+It exited 0 and returned the run URL. No seen ledger was supplied. These inputs
+preserve the earlier backtest's search window and registry snapshot. They do
+not widen the August review or substitute current responses for old evidence.
+`gh run watch 34017049937 --repo Sawatter/canada-under-carney --exit-status`
+exited 1. The `Test classifier access before source search` step failed with
+process exit 1 at `2026-09-06T06:39:44.9337297Z`, reporting:
+
+> ERROR: classifier preflight failed: Your credit balance is too low to access the Anthropic API.
+
+`gh run view 34017049937 --repo Sawatter/canada-under-carney --log-failed`
+exited 0 and returned that literal error. The private identity preflight and
+backtest-input checks passed. Review-branch preparation, deterministic fetch,
+ledger generation and validation, both full monitor steps, and backtest registry
+reconstruction were skipped. No Tavily search or full classification pass ran.
+The `publish-review` job was skipped.
+
+The current-upload guard passed, but the backtest upload step failed because
+the preflight had produced no files. Its log states `No artifacts will be
+uploaded.` The GitHub artifacts query exited 0 and returned no artifacts.
+This is not a privacy-cleared diagnostic candidate packet and provides no
+accepted ledger, persisted state, or proof of successful live publication.
+Read-only repository checks found no September monitor review branch or PR.
+The remote accepted state and Ethics-cache blob IDs matched the tested commit.
+
+`gh workflow disable monthly-source-scout.yml --repo Sawatter/canada-under-carney`
+exited 0. The follow-up workflow API query exited 0 and reported
+`state: disabled_manually`, with `updated_at: 2026-09-06T00:40:13.000-06:00`.
+No monthly scan or further paid retry was dispatched. The current API-credit
+failure is a concrete external blocker. Do not retry this unchanged
+configuration. No API purchase or top-up is authorized.
 
 ### Current deterministic input blockers, 2026-09-05
 
@@ -289,10 +327,9 @@ still apply.
 The existing `--no-search` and `--no-classify` options are diagnostic paths.
 They intentionally prevent durable monitoring-state advancement. Do not remove
 those guards or describe a local manual review as successful hosted acceptance.
-The hosted scout remains paused pending reviewed publication and the authorized
-existing-credit test. The later hosted-acceptance request reopens the local Ethics and
-MPO repairs described above. Their local review passed. They still need
-authorized publication and actual hosted acceptance.
+The hosted scout is paused again after the existing-credit preflight failed.
+The reviewed Ethics and MPO repairs are published in the tested commit, but
+the credit failure prevents their hosted acceptance.
 PBO title recovery remains a deferred source exception. Manual cycle closure
 does not close any of these automated acceptance requirements.
 
@@ -420,8 +457,8 @@ monitor input stops before input parsing or paid work.
 
 `.github/workflows/monthly-source-scout.yml` is configured for the first of
 each month when enabled. It is currently paused under the approved September
-manual-review decision above, until reviewed publication and the authorized
-existing-credit test. The following describes its retained automated contract.
+manual-review decision above and the failed existing-credit recovery test.
+The following describes its retained automated contract.
 
 Live runs share one concurrency group, so only one can change the review branch
 at a time. Backtests with the same label are also serialized.

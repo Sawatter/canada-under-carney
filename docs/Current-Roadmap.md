@@ -13,21 +13,22 @@ do not introduce unrelated work while it remains open. A later item may move
 forward only when it directly unblocks the active item. Preserve editor gates
 and the explicit holds on parked work.
 
-- [ ] Complete the September release. Active owner: integrator. Local evidence
+- [x] Complete the September release. Owner: integrator. Evidence
   review and delegated judgments are complete. Affordability has a documented
   temporary exception expiring October 1. Housing's party-symmetry check is
   recorded as a delegated analyst decision. Local data/build, browser and review
-  gates are complete. Publication verification follows.
+  gates passed. Version 5.178 is published from `dab895a`, with Pages run
+  `34016994009` successful. Final live-check evidence is recorded below.
 - [ ] Obtain successful hosted source-monitor acceptance. Active owner: monitor
-  agent and integrator. The user resumed this original objective. The earlier
-  manual September exception and scout pause remain recorded and valid. Credit
-  restoration is unproved. The resumed completion instruction permits one
-  existing-credit preflight after reviewed publication, with no credit purchase
-  or key replacement. Hosted acceptance is separate from the manual cycle.
+  agent and integrator. Recovery run `34017049937` on `dab895a` failed before
+  source search with the provider's insufficient-credit error. The workflow is
+  paused again. No purchase, key replacement or further paid attempt occurred.
+  Successful backtest and monthly acceptance remain blocked by usable credit.
+  The manual September exception remains valid.
 - [ ] Resolve the editor decisions listed below. Bring forward a decision only
   when the active cycle needs it, with the evidence and a concrete recommendation.
 - [ ] Complete the queued redaction and Pages monitor-test work in Next after
-  the active cycle and monitor acceptance work. Funding clarification belongs
+  the active cycle and monitor acceptance work. The credit blocker belongs
   to the active monitor item, not this maintenance lane.
 - [ ] Revisit the Editor-Parked lane with the editor when its turn arrives.
   The existing hold remains until explicit instruction resumes each item.
@@ -47,9 +48,9 @@ check applies the same evidence and rule under party substitution. It is not
 attributed to an invented editor quotation or personal political belief.
 
 The earlier no-payment instruction still bars purchasing API credit. The
-reviewed workflow now performs one small classification request before source
-search to test existing access. A low-credit failure ends retries and returns
-the workflow to its paused state. The approved manual-source exception remains
+reviewed workflow performed its authorized small classification request before
+source search. Its low-credit failure ended retries and the workflow returned
+to `disabled_manually`. The approved manual-source exception remains
 valid for September. No local fixture or preflight result may substitute for
 real hosted backtest and monthly acceptance. Keep maintenance and parked work
 behind the original items.
@@ -61,22 +62,32 @@ or presentation changes, and keep deferred work from disappearing.
 
 ## Current State
 
-- September v5.178 has completed local adjudication, with evidence through
+- September v5.178 is published from `dab895a34fb121ef56fb40ff21edb989c1a785b6`, with evidence through
   August 31, review September 6 and next update October 1. Normal data and
   production-build checks pass. The original Housing and grid decisions are
   preserved. Affordability retains its prior grade and arrow temporarily, with
   the unestablished coverage ratio disclosed on the score header, card, detail
   and share text. Its exception expires October 1 and cannot silently carry
-  through that date. The final Opus review and browser release checks are in
-  progress. Publication is not yet claimed.
+  through that date. The Opus 4.8 release review exited 0 with
+  `## VERDICT: APPROVED`. The full browser suite exited 0 with `277 passed`
+  and `2 skipped` duplicate server-rendering cases. Pages run `34016994009`
+  passed. Live browser inspection opened version 5.178 with the release dates
+  and disclosure. Automatic live audit `34017295594` passed on that exact deployed commit,
+  exit 0: `PASS=362 ISSUE=0 TOTAL=362`, artifact `9984374371`. The integrator
+  also inspected the scorecard and exception route at 1280 by 900, 390 by 844
+  and 320 by 780. Navigation, expiry and absence of page overflow passed.
 - Monitor repairs cover Ethics pagination, unmatched project-name input, and
   an early classifier preflight before source search. `npm run test:monitor`
   exits 0 with `all 610 checks passed` and
   `all 3 workflow YAML file(s) parsed`. Fresh public input diagnostics pass while
   preserving accepted state. Cold parser qualification matched the independent
-  reference. These local results do not establish hosted acceptance or API
-  credit. The hosted workflow is paused until the reviewed code is published
-  and its single authorized existing-credit test begins.
+  reference. Hosted recovery run `34017049937` then exited 1 at classifier
+  preflight: `Your credit balance is too low to access the Anthropic API.`
+  Search, deterministic fetch, backtest and review publication were skipped.
+  GitHub returned no artifacts, and accepted state and Ethics cache were
+  unchanged. Workflow disable exited 0 and read-back confirmed
+  `disabled_manually`. No monthly scan was dispatched. Hosted acceptance is
+  blocked, not complete. The API account's balance and ownership were not read.
 - Next cycle priority: establish Affordability's representative household
   relief numerator, cost denominator, population and common period. If it
   remains unsupported, make an explicit methodology decision before the
@@ -456,16 +467,15 @@ Earlier deployment record:
 
 ## Now
 
-1. **Complete the September evidence cycle.** The
-   [September 5 cycle report](September-Monthly-Cycle-Report-2026-09-05.md)
-   records the final-window manual evidence work and remaining editor choices.
-   The source ledger has closed dispositions and the link-exception check is
-   closed, but those structural checks do not establish factual cycle approval.
-   Housing and grid decisions are prepared locally. The manual-source exception is approved. Other material scope and hold
-   decisions, integrated checks, and publication remain open. Failed September scout packets stay excluded.
-   No paid API retry or key setup is authorized. Priority reason: close the
-   evidence window from named sources and explicit decisions, without treating
-   unavailable automation or a closed checklist as proof of coverage.
+1. **Unblock hosted monitor acceptance without buying API credit.** Owner:
+   integrator. September's manual cycle is published and its decisions are
+   recorded in the [cycle report](September-Monthly-Cycle-Report-2026-09-05.md).
+   The repaired hosted test independently confirmed insufficient Anthropic
+   credit. Keep the scout paused until usable access is supplied. Then obtain
+   an accepted backtest and monthly scan under the existing rules. The user has
+   not authorized a purchase, key replacement or a provider change. Failed
+   packets remain excluded. Priority reason: this is the remaining original
+   item, and repeating an unfunded request cannot establish acceptance.
 
 ---
 
@@ -537,14 +547,15 @@ cancelled or completed. Resume them only on later editor instruction.
 
 ## Next
 
-1. **Source-monitor acceptance resumed in the active execution order.**
+1. **Source-monitor acceptance blocked in the active execution order.**
    Owner: monitor agent and integrator. This entry preserves the earlier failure
-   record. The later request reopens local recovery and hosted acceptance, with
-   funding clarification pending. Preserve the paused state and manual September
-   evidence record until the conflict is resolved.
+   record. Local recovery is published in `dab895a`. Its authorized existing-credit
+   hosted test `34017049937` again failed on insufficient Anthropic credit before
+   search or backtest. No artifacts or accepted state changes resulted. Preserve
+   the confirmed `disabled_manually` state and manual September evidence record.
    Hosted acceptance remains open and is not completed by a manual exception.
-   Commit
-   `d1c49f7` is on `main`. Local release gates passed and the final Claude review
+   Earlier baseline commit
+   `d1c49f7` was on `main`. Its local release gates passed and the final Claude review
    exited 0 with `VERDICT: APPROVED`. Hosted backtest run `33341015470` failed
    on insufficient API credit. Its private-rule preflight and upload guard
    passed, but the ledger is not accepted, state advancement was blocked, and
@@ -566,8 +577,8 @@ cancelled or completed. Resume them only on later editor instruction.
    criteria are not claimed and do not block the manual cycle. The review history and exact backtest inputs are
    in [Source-Monitoring-System.md](Source-Monitoring-System.md#current-hardening-review).
    Priority reason: failed paid work must not look like a completed evidence
-   scan. Local fixes and their Opus review passed, but credit and the paid
-   hosted runs remain unverified. Finish the active September and monitor work
+   scan. Local fixes and their Opus review passed. The fresh low-credit failure
+   is verified, while successful hosted runs remain blocked. Finish monitor work
    before moving to maintenance.
 
 2. **Align monitor redaction with the privacy detector.** Owner: Codex. Keep

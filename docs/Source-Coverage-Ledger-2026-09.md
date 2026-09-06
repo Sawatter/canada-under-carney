@@ -8,7 +8,7 @@
 **Repository version:** v5.177 (as of 2026-08-28)
 **Total source rows:** 623 at September 5 review. The original 560 preparation rows and their completed dispositions remain intact; exact September review rows are appended.
 **Automation split:** Of the 527 generated skeleton rows, 41 have automated check coverage from `scripts/fetch-data.py` and 486 require manual review. The single generic touched-source placeholder was replaced with 34 exact rows checked manually, bringing the August preparation total to 560 before the dated September additions.
-**Coverage level achieved:** Manual August source checks and current citation coverage are recorded with named limits. Delegated September decisions and polls are integrated. September 6 closure retains the prior Affordability display under an explicit exception expiring October 1, with the band still unestablished. The analyst Housing symmetry check is complete under delegation. Final release review remains open. Failed scouts remain diagnostic. See September-Monthly-Cycle-Report-2026-09-05.md.
+**Coverage level achieved:** Manual August source checks and current citation coverage are recorded with named limits. Delegated September decisions and polls are integrated. September 6 closure retains the prior Affordability display under an explicit exception expiring October 1, with the band still unestablished. The analyst Housing symmetry check is complete under delegation. Local release checks and review are complete. Version 5.178 is published from dab895a34fb121ef56fb40ff21edb989c1a785b6 and its Pages deployment succeeded. Final live checks passed as recorded in the cycle report. Failed scouts remain excluded; the latest low-credit preflight produced no candidates. See September-Monthly-Cycle-Report-2026-09-05.md.
 
 ## How To Use
 
@@ -697,10 +697,10 @@ Record each source or item considered for inclusion but not used. Leave the tabl
 
 | Check | Result | Notes |
 |---|---|---|
-| `npm run test:data` |  |  |
-| `npm run build` |  |  |
-| Source changes summarized in changelog |  |  |
-| Open gaps copied to next cycle or roadmap |  |  |
+| `npm run test:data` | Passed | September 6 publication checkout, exit 0: `OK. All shape invariants pass.` See cycle report release checks. |
+| `npm run build` | Passed | September 6 normal production build, exit 0: `bundle budget: OK`. See cycle report release checks. |
+| Source changes summarized in changelog | Recorded | Published v5.178 records the evidence refresh, corrections, Housing grade move, grid status and Affordability exception. |
+| Open gaps copied to next cycle or roadmap | Recorded | Affordability coverage and its October 1 expiry, legislative-count reconciliation, source-access limits and the hosted credit blocker retain named follow-ups. |
 
 | September Flagship energy agreement context | Flagship Delivery | https://www.pm.gc.ca/en/news/news-releases/2026/08/17/prime-minister-carney-announces-largest-clean-energy-investment-north | Monthly, touched | 2026-09-05 | new release found | Compare agreement stage only | Opened again August17 publication. Regional agreement and prospective federal financing support the cross-file process comparison, not payment, national completion or an independent Flagship grade move. Climate retains the grid outcome home. Category hold and repaired retention review remain pending. |
 | September Flagship Bradford agreement context | Flagship Delivery | https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/canada-and-ontario-making-homes-more-affordable-in-bradford-west-gwillimbury.html | Monthly, touched | 2026-09-05 | new release found | Compare agreement stage only | Opened again August28 publication. Bilateral agreement, federal review and municipal agreement remain funding conditions. Comparison with energy supports uneven agreement-stage implementation across files. Housing starts and supply outcomes are not independently scored here. Retention is not yet closed. |
@@ -723,3 +723,12 @@ The current Flagship bills count was not reproduced as an August 31 parliamentar
 ## Current status after delegated integration
 
 The current user delegated ordinary grade and promise-status decisions. The analyst retained the recorded ordinary grades/statuses, admitted the eligible direct approval waves under existing rules, and preserved the settled Housing/grid decisions. Earlier pending-integration notes remain historical source-review records; the admitted data is now integrated locally. Research Co admission uses the existing narrow disclosure route, with recruitment, ownership and sponsor limits stated. The official registry and issuer detail exceptions do not establish a fresh no-event finding. The September 6 delegated decision now permits the cycle-only Affordability display exception and records analyst Housing symmetry. The Affordability source gap remains unestablished and ordinary carry-forward remains blocked. No personal editor belief or blanket attestation is invented.
+
+
+## September 6 publication closure
+
+The local source, data, build, browser and review gates are recorded in the [cycle report](September-Monthly-Cycle-Report-2026-09-05.md#september-6-release-checks). Release `dab895a34fb121ef56fb40ff21edb989c1a785b6` is published, and Pages run `34016994009` succeeded. The desktop/phone probe passed as recorded in the cycle report. Final live audit `34017295594` passed on that exact deployed commit. Run-watch exit 0 and the published log reports `PASS=362 ISSUE=0 TOTAL=362`, artifact `9984374371`.
+
+Earlier source-row notes that await integration or Flagship retention are preserved as dated preparation history. The delegated category hold, repaired deconfliction copy and retention assessment are included in the reviewed release. No original source disposition or evidence-check date is overwritten. The Affordability band gap remains unresolved under the temporary exception.
+
+Hosted recovery run `34017049937` failed its classifier preflight with the low-credit error before search, fetch or backtest. It produced no candidate artifacts and did not advance accepted state or the Ethics cache. The workflow is paused again. The manual September exception remains valid, and no further retry of the unchanged configuration is authorized.
