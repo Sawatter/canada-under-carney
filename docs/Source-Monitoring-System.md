@@ -18,8 +18,21 @@ re-implement them. It reads their output.
 
 ## Current hardening review
 
-The first completed 2026-08-29 read-only Claude review ended with the literal
-result `VERDICT: REVISE`. Source-monitor hardening acceptance remains open.
+Commit `d1c49f72fd2739ffe9777ec82d0e21d9359c6cbe` was pushed to `main`
+on 2026-08-30 after the final read-only Claude review exited 0 with the literal
+result `VERDICT: APPROVED`. Hosted acceptance remains open. Opened on
+2026-09-05: the fresh hosted backtest again received Anthropic's low-credit
+error for the repository's configured API key. Its account ownership and
+balance were not inspected. The editor declined paid API use, then approved
+manual review for September and pausing the hosted scout. Opened: GitHub now
+reports `monthly-source-scout.yml` as `disabled_manually`. Paid retries and
+credential changes were held after the no-payment decision. The renewed
+2026-09-06 instruction authorizes completion using existing credit, including
+a single classifier preflight after reviewed publication. It does not authorize
+an API credit purchase, top-up, or credential replacement. Usable credit remains
+unproven. The workflow stays disabled until the reviewed code is published and
+its authorized test begins.
+The earlier review sequence follows.
 
 1. Claude reproduced a scanner defect: an unanchored local-path rule treated
    ordinary public URL pathnames containing `home` or `users` segments as local
@@ -58,12 +71,230 @@ result `VERDICT: REVISE`. Source-monitor hardening acceptance remains open.
    defense-in-depth fixes. The bootstrap trusted scanner hash now names the
    approved scanner instead of an older internal snapshot, the configured local
    hook requires a non-empty private identity-rule file, and this review sequence
-   is recorded in the repository. A fresh post-fix Claude review remains required.
+   is recorded in the repository. The subsequent post-fix review exited 0 with
+   the final line `VERDICT: APPROVED` and approved the exact committed patch.
 
-These are candidate corrections, not accepted release evidence. The complete
-worktree monitor suite passes 551 checks and parses all three workflow files.
-Post-fix staged checks, a completed Claude review with a recorded exit code, and
-hosted workflow acceptance remain required.
+The approved patch SHA-256 is
+`44be95ff15ac0d7058eda297a757a141bf2183b77095e425ab599c2d215fef6a`.
+The monitor suite passed 551 checks and parsed all three workflow files.
+Post-fix staged checks, outgoing-file privacy checks, and the pre-push data
+and browser gates passed. These close the local release gates, not hosted
+source-monitor acceptance.
+
+### Hosted acceptance, 2026-08-30
+
+[Run 33341015470](https://github.com/Sawatter/canada-under-carney/actions/runs/33341015470),
+attempt 1, used the exact commit above with label
+`2026-08-hardening-acceptance-d1c49f7`, window `2026-08-01` through
+`2026-08-29`, threshold `0.08`, the same commit as `registry_ref`, and no
+seen ledger. This is an isolated backtest, not the September monthly cycle.
+
+The private-rule preflight passed. Search completed, but Anthropic returned
+HTTP 400 with `Your credit balance is too low to access the Anthropic API.`
+The monitor step exited 1. Its diagnostic ledger contains 244 unclassified
+candidates and records `acceptance.required: true`, `acceptance.passed: false`,
+and `statePersistence.eligible: false`. The isolated state was not advanced.
+The upload privacy guard passed and retained diagnostic artifact `9740571212`.
+The review-branch publication job was skipped, as required for a labelled
+backtest. This does not test the live publication gate. The artifact is not
+accepted evidence and must not be used as a successful seen ledger.
+
+### Hosted acceptance retry, 2026-09-05
+
+Opened: [run 33341015470, attempt 2](https://github.com/Sawatter/canada-under-carney/actions/runs/33341015470/attempts/2)
+used exact commit `d1c49f72fd2739ffe9777ec82d0e21d9359c6cbe` and retained
+the original labelled-backtest inputs above. The rerun request exited 0.
+`gh run watch 33341015470 --repo Sawatter/canada-under-carney --exit-status`
+exited 1, matching the hosted `source-analysis` failure.
+`gh run view 33341015470 --repo Sawatter/canada-under-carney --attempt 2 --log-failed`
+exited 0 and returned the literal Anthropic HTTP 400 error at
+`2026-09-05T23:27:54Z`:
+
+> Your credit balance is too low to access the Anthropic API.
+
+The downloaded ledger records completed search, failed classification,
+`acceptance.required: true`, `acceptance.passed: false`, and
+`statePersistence.eligible: false`. No candidate was classified and the
+isolated state did not advance. The private-rule preflight, upload privacy
+guard, and diagnostic upload passed. The retained artifact is
+`monthly-source-scout-2026-08-hardening-acceptance-d1c49f7-33341015470-2`,
+artifact ID `9978834926`. It remains diagnostic only and cannot suppress a
+later retry as an accepted seen ledger. `publish-review` was skipped, as
+required for this isolated backtest. This result does not test live publication.
+
+Opened: `gh secret list --repo Sawatter/canada-under-carney --json name,updatedAt`
+exited 0 and reports that repository secret `ANTHROPIC_API_KEY` was last
+updated at `2026-06-14T01:29:49Z`. Both the live and backtest steps bind that
+same repository secret. Its value was not accessed or changed. Secret metadata
+does not identify its Anthropic account or organization, so funding another
+account cannot be assumed to resolve this failure. No further paid search run
+was started against the unchanged failing configuration.
+
+After this failure, the editor stated that they will not pay for API use.
+The later request to restore successful hosted monitoring reopens acceptance
+preparation. The 2026-09-06 instruction authorizes one existing-credit test after
+reviewed publication. No further paid search or
+classification retry, purchase, credential change, or workflow enable has been
+performed. Hosted acceptance remains uncompleted.
+
+Under the renewed instruction to finish using existing credit, the acceptance criteria
+remain unchanged: real classified candidates, completed search and
+classification, true acceptance and state-persistence fields, and successful
+artifact guards. An empty success does not prove usable classification credit.
+The live monthly workflow would also have to establish
+live deterministic fetching, Ethics continuity, source-ledger preservation,
+completed search and classification, state persistence, guarded artifact upload,
+and guarded draft review-branch publication. These remain open. The live
+search window ends on the execution date and looks back from each source's
+`lastSuccessfulCheck`; it is not a fixed August-only search. Keep evidence
+published after the September cycle's `2026-08-31` cutoff separate from the
+August review, and do not describe current endpoint responses as historical
+August snapshots.
+
+### Existing-credit preflight, 2026-09-06
+
+Opened: the latest hosted attempt still reports the literal low-credit error.
+Repository secret metadata does not show a changed `ANTHROPIC_API_KEY` since
+the earlier check. The local process has no configured API key. The existing
+Claude subscription login does not establish funded access for the repository's
+API credential. No credential values were read or changed.
+
+Opened: Anthropic's [Opus 4.8 model reference](https://platform.claude.com/docs/fr/models/opus-4-8/overview)
+lists `claude-opus-4-8` as a still-available Claude API model. That matches
+`DEFAULT_MODEL`. The observed failure names credit, not an unknown model.
+
+The new `python3 scripts/monitor_sources.py --classifier-preflight` mode calls
+the existing classifier with one fixed public Statistics Canada Consumer Price
+Index table item and an Affordability context about household food prices.
+It contains no grade, live dashboard data, personal data or search results.
+It requires a complete valid classified response and keeps the editor-review
+and no-automatic-grade flags. It reads no monitor inputs, creates no lock,
+writes no files or accepted state, and makes no Tavily call. Automatic SDK
+retries are disabled for this request. It accepts only an optional `--model`
+override; mixing it with monitor flags fails before API work.
+
+The workflow invokes this mode after the private-rule and backtest-input checks,
+before source search. Failure stops later steps. The low-credit diagnosis is
+preserved as a fixed error string; other provider errors and model-authored
+text are not copied into the preflight log. Success logs the selected model,
+candidate ID, classification and safety flags, then explicitly reports
+`VERDICT: CLASSIFIER PREFLIGHT PASSED; FULL MONITOR ACCEPTANCE NOT TESTED`.
+It cannot stand in for the backtest or live acceptance fields. Those later
+runs still require their complete tiers, persistence and publication guards.
+
+The preflight remains a local reviewed-publication prerequisite until a hosted
+request returns. If that single request fails for low credit, do not retry the
+unchanged configuration or start source search. No API purchase or top-up is
+authorized.
+
+### Current deterministic input blockers, 2026-09-05
+
+A fresh run of the existing fetch script in an isolated checkout exited 0.
+Its payload did not pass the monitor's deterministic contract. Accepted
+monitoring state and the Ethics cache remained unchanged. Fixing the API
+credit issue alone will not resolve these input failures.
+
+- Opened: the Ethics listing is paginated. The existing fetch reads its first
+  page only. Carson Report remains on the next page, so the current
+  `suspicious_removal` result reflects an incomplete listing. The existing
+  no-removal guard must remain in place while pagination handling is corrected.
+  Historical reports first observed on later pages must not be described as
+  newly published reports.
+- The MPO comparison emits unmatched project names as strings, while the
+  monitor validator requires objects containing `display` and `tokens`.
+  A current name mismatch exposes that contract disagreement. The repair must
+  preserve the matcher threshold and tracked cohort, and describe a name
+  mismatch as needing editor comparison rather than proof of a new project.
+
+The reopened work adds local repairs to `scripts/fetch-data.py` and
+`scripts/monitor_sources.py`. The Ethics fetch now traverses the advertised
+numbered listing, verifies each response's official host, path, investigation
+filter and page identity, and rejects incomplete, repeated or inconsistent
+pagination. Traversal is bounded. The accepted-cache no-removal rule is
+unchanged. MPO validation accepts the producer's non-empty name strings and
+the existing valid object shape. Its matcher and cohort remain unchanged.
+Candidate wording asks for project identity comparison and distinguishes a
+first-observed Ethics listing entry from a newly published report.
+
+The local `npm run test:monitor` exited 0 with `all 591 checks passed` and
+`all 3 workflow YAML file(s) parsed`. Before the fixture refresh, the same
+patched scripts passed those checks against an isolated copy of the exact
+hosted source data. The refreshed offline fixture changes only synthetic
+source-URL coverage to match the final September data selection. Its `live`
+sample statuses are test inputs, not evidence of actual link availability.
+
+Known-answer qualification uses saved official listing pages and the separate
+previously accepted cache. An independent HTML anchor reader supplies the
+expected title/URL parts, which were inspected before running the new helper.
+The local reproduction matches those parts and the unchanged prior-cache
+subset. The cold Opus 4.8 reproduction exited 0 with `VERDICT: EXTRACTED`.
+The first response omitted its full result array and was not accepted. After an
+output-only prompt repair, the explicit array matched the independent reference:
+73 title/URL pairs, no missing or unexpected entries, no duplicates, and all 30
+previously accepted entries retained. The requested page sequence also matched.
+The comparison exited 0 with `VERDICT: KNOWN ANSWER MATCHED; DELEGATE WITH REVIEW`.
+The final read-only Opus code review exited 0 with `VERDICT: APPROVED`, limited
+to the prepared local changes. This bounded source sample does not
+establish that every future listing layout will work. No scoring or
+promise-status change is authorized by the parser repair.
+
+The same repair is isolated on `codex/source-monitor-recovery` from the freshly
+checked remote main commit `d1c49f72fd2739ffe9777ec82d0e21d9359c6cbe`.
+It contains only the fetcher, monitor and monitor-test scripts. It excludes the
+unpublished September data and its fixture membership changes. Its
+`npm run test:monitor` exited 0 with `all 591 checks passed` and
+`all 3 workflow YAML file(s) parsed`. Staged whitespace and identifier checks
+passed. Publication has not occurred. Because the workflow requires the main
+ref, rerunning the old failed run would not test this repaired code.
+
+PBO is a separate source exception. Opened: its official RSS feed contains an
+empty title within the default fetch limit, so the existing parser rejects the
+feed. The linked Public debt charges calculator page supplies an official
+heading, while the other feed advertised by the homepage also omits the title.
+The monitor records this failed source as an access failure. It does not make
+the deterministic tier fail when the payload contract otherwise passes. Keep
+the failure visible and use manual official-page evidence for the cycle.
+Optional title recovery remains deferred and is not required for automated
+acceptance while the source failure remains explicit.
+
+### Approved manual September operation, 2026-09-05
+
+The editor chose: "Use manual review for September and pause the hosted scout."
+The September evidence review covers publications from `2026-08-01` through
+`2026-08-31`. Later publications remain separate cycle context. This decision
+allows the manual evidence cycle to proceed and leaves hosted acceptance open.
+
+Opened: `gh workflow disable monthly-source-scout.yml --repo Sawatter/canada-under-carney`
+exited 0. The follow-up command
+`gh api repos/Sawatter/canada-under-carney/actions/workflows/monthly-source-scout.yml --jq '{id,name,path,state,updated_at}'`
+also exited 0 and returned workflow ID `290946053`, path
+`.github/workflows/monthly-source-scout.yml`, and state `disabled_manually`,
+with `updated_at: 2026-09-05T18:36:24.000-06:00`. The state before the action
+was `active`. This pauses the existing hosted workflow. It creates no new
+schedule and does not change its YAML, accepted monitoring state, or secrets.
+
+The existing `scripts/fetch-data.py` can pull public source data and write local
+draft reports without Anthropic or Tavily keys. The approved September process
+uses those source results, direct official-page
+checks, source-ledger entries, and explicit scoring decisions. A failed source
+must retain its exception until the manual review records a supported outcome.
+Use an isolated copy of the accepted Ethics cache for diagnostic pulls.
+
+The existing signed-in Claude bridge can assist a local evidence review using
+the editor-requested model and the editor's account access. That is a manual
+review step. It does not meet the hosted monitor's paid-tier acceptance contract
+or create a replacement scheduled classifier. Current account usage limits
+still apply.
+
+The existing `--no-search` and `--no-classify` options are diagnostic paths.
+They intentionally prevent durable monitoring-state advancement. Do not remove
+those guards or describe a local manual review as successful hosted acceptance.
+The hosted scout remains paused pending reviewed publication and the authorized
+existing-credit test. The later hosted-acceptance request reopens the local Ethics and
+MPO repairs described above. Their local review passed. They still need
+authorized publication and actual hosted acceptance.
+PBO title recovery remains a deferred source exception. Manual cycle closure
+does not close any of these automated acceptance requirements.
 
 ## Why this exists
 
@@ -187,7 +418,10 @@ monitor input stops before input parsing or paid work.
 
 ## How it runs in CI
 
-`.github/workflows/monthly-source-scout.yml` runs on the first of each month:
+`.github/workflows/monthly-source-scout.yml` is configured for the first of
+each month when enabled. It is currently paused under the approved September
+manual-review decision above, until reviewed publication and the authorized
+existing-credit test. The following describes its retained automated contract.
 
 Live runs share one concurrency group, so only one can change the review branch
 at a time. Backtests with the same label are also serialized.
@@ -424,6 +658,12 @@ separately, but do not hold source-monitor acceptance on it. Do not describe the
 workflow controls as protecting `main` at the repository level.
 
 ## Running it locally
+
+The paid acceptance example below is retained for authorized resumption after
+reviewed publication and a successful existing-credit preflight. It is not part
+of the approved manual September procedure. API credit purchases and key
+changes remain outside the authorization. The offline fixture dry-run remains
+available without API keys.
 
 Installing the repository hook with `npm run setup:hooks` also makes the local
 privacy tripwire mandatory. Each contributor must keep a gitignored, untracked

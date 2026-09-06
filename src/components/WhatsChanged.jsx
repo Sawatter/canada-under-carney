@@ -9,11 +9,13 @@ const CHIP_STYLES = {
   event:   { label: "EVENT",   bg: "#fff7ed", text: "#9a3412", border: "#fed7aa" },
   product: { label: "PRODUCT", bg: "#ecfdf5", text: "#065f46", border: "#a7f3d0" },
   method:  { label: "METHOD",  bg: "#f5f3ff", text: "#5b21b6", border: "#ddd6fe" },
+  correction: { label: "CORRECTION", bg: "#fff7ed", text: "#9a3412", border: "#fed7aa" },
 };
 
 const FILTERS = [
   { key: "all",      label: "All" },
   { key: "grade",    label: "Grades" },
+  { key: "correction", label: "Corrections" },
   { key: "event",    label: "Events" },
   { key: "product",  label: "Product" },
 ];
@@ -119,7 +121,7 @@ function GradeItem({ item }) {
   );
 }
 
-function StandardItem({ item, chipType }) {
+function StandardItem({ item, chipType, children }) {
   return (
     <div style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
       <div style={{ paddingTop: "2px" }}>
@@ -134,6 +136,7 @@ function StandardItem({ item, chipType }) {
             {item.body}
           </div>
         )}
+        {children}
         {item.affects && item.affects.length > 0 && (
           <div style={{ marginTop: "4px", fontSize: "13px", color: "#555" }}>
             <strong style={{ color: "#333" }}>Affects:</strong>{" "}
@@ -153,6 +156,21 @@ function StandardItem({ item, chipType }) {
           </div>
         )}
       </div>
+    </div>
+  );
+}
+
+function CorrectionItem({ item }) {
+  return (
+    <div data-change-type="correction">
+      <StandardItem item={item} chipType="correction">
+        <dl style={{ margin: "8px 0 0", fontSize: "14px", lineHeight: 1.5, color: "#333" }}>
+          <dt style={{ fontWeight: 700 }}>Previously reported</dt>
+          <dd style={{ margin: "0 0 6px" }}>{item.previousValue}</dd>
+          <dt style={{ fontWeight: 700 }}>Corrected explanation</dt>
+          <dd style={{ margin: 0 }}>{item.correctedValue}</dd>
+        </dl>
+      </StandardItem>
     </div>
   );
 }
@@ -231,6 +249,7 @@ function EntryItems({ entry, filter }) {
   const match = filterMatchFor(filter);
 
   const grouped = {
+    correction: items.filter(i => i.type === "correction" && match("correction")),
     grade:   items.filter(i => i.type === "grade"   && match("grade")),
     event:   items.filter(i => i.type === "event"   && match("event")),
     product: items.filter(i => (i.type === "product" || i.type === "method") && match("product")),
@@ -238,11 +257,17 @@ function EntryItems({ entry, filter }) {
   };
 
   const hasMajor =
-    grouped.grade.length > 0 || grouped.event.length > 0 || grouped.product.length > 0;
+    grouped.correction.length > 0 || grouped.grade.length > 0 || grouped.event.length > 0 || grouped.product.length > 0;
   const quietCount = grouped.quiet.length;
 
   return (
     <div>
+      {grouped.correction.length > 0 && (
+        <GroupSection title="Corrections">
+          {grouped.correction.map((it, i) => <CorrectionItem key={i} item={it} />)}
+        </GroupSection>
+      )}
+
       {grouped.grade.length > 0 && (
         <GroupSection title="Grade changes">
           {grouped.grade.map((it, i) => <GradeItem key={i} item={it} />)}
@@ -338,7 +363,11 @@ function EarlierEntry({ entry, filter }) {
 }
 
 export default function WhatsChanged({ changelog }) {
-  const [filter, setFilter] = useState("all");
+  const [filter, setFilter] = useState(() => (
+    typeof window !== "undefined" && window.location.hash === "#change-corrections"
+      ? "correction"
+      : "all"
+  ));
 
   // Pagination is component-local. If the page arrives on a #change- hash
   // that points past the first page, start expanded so the anchor can render
@@ -356,6 +385,11 @@ export default function WhatsChanged({ changelog }) {
     if (typeof window === "undefined") return undefined;
     const handleHashChange = () => {
       const target = window.location.hash.replace(/^#/, "");
+      if (target === "change-corrections") {
+        setFilter("correction");
+        setShowAllEntries(false);
+        return;
+      }
       const targetIndex = findEntryIndexForAnchor(changelog, target);
       if (targetIndex >= 0) setFilter("all");
       if (targetIndex >= PAGE_SIZE) {
@@ -384,6 +418,8 @@ export default function WhatsChanged({ changelog }) {
 
   return (
     <div
+      id="change-corrections"
+      tabIndex={-1}
       style={{
         background: "#fff",
         border: "1px solid #e0e0e0",

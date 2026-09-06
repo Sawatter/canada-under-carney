@@ -22,6 +22,7 @@ const VALID_CHANGE_TYPES = new Set([
   "grade",
   "fix",
   "minor",
+  "correction",
 ]);
 const VERDICT_GRADE_TOKEN_PATTERNS = [
   /\b[A-F][+\-](?!\w)/,
@@ -179,6 +180,23 @@ function validateNewestRelease() {
   }
 }
 
+function validateCorrections() {
+  if (!Array.isArray(changelog)) return;
+  changelog.forEach((entry, entryIndex) => {
+    if (!Array.isArray(entry?.items)) return;
+    entry.items.forEach((item, itemIndex) => {
+      if (item?.type !== "correction") return;
+      for (const field of [
+        "headline", "body", "affectedDimension", "previousValue", "correctedValue", "reportedBy",
+      ]) {
+        if (typeof item[field] !== "string" || item[field].trim().length === 0) {
+          err(`changelog[${entryIndex}].items[${itemIndex}].${field} is required for a correction`);
+        }
+      }
+    });
+  });
+}
+
 function validateWatch() {
   if (!validIsoDate(meta?.nextUpdate)) {
     err("meta.nextUpdate must be an ISO date (YYYY-MM-DD)");
@@ -192,6 +210,7 @@ function validateWatch() {
 
 validateOverallVerdictLine();
 validateNewestRelease();
+validateCorrections();
 validateWatch();
 
 if (errors.length > 0) {

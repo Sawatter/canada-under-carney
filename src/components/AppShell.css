@@ -331,6 +331,22 @@
   font-weight: 800;
 }
 
+.app-shell .first-look-verdict-block {
+  grid-area: verdict;
+  align-self: start;
+}
+
+.app-shell .first-look-exception-note {
+  margin: 8px 0 0;
+  color: var(--app-ink);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+}
+
+.app-shell .first-look-exception-note a {
+  display: inline-block;
+}
+
 .app-shell .first-look-overall-verdict {
   grid-area: verdict;
   align-self: start;
@@ -1847,6 +1863,10 @@
 }
 
 @media (max-width: 340px) {
+  .app-shell .first-look-exception-note .first-look-exception-inline-link {
+    display: none;
+  }
+
   .app-shell .first-look-update .first-look-inline-link {
     display: none;
   }

@@ -46,6 +46,28 @@ const fallbackPayload = buildDimensionSharePayload({
   url: "https://example.test/canada-under-carney/#dim-economic-policy",
 });
 
+const exceptionPayload = buildDimensionSharePayload({
+  dim: {
+    name: "Affordability Response", grade: "D-", trend: "down",
+    lastUpdated: "2026-09-05",
+    latestReview: {
+      date: "2026-09-06", outcome: "exception", expiresOn: "2026-10-01",
+      summary: "The prior grade is displayed while household coverage remains unestablished.",
+    },
+  },
+  url: "https://example.test/#dim-affordability-response-briefing",
+});
+assert.equal(exceptionPayload.shareData.text, [
+  "Canada Under Carney performance scorecard",
+  "Affordability Response",
+  "Temporary prior grade: D- | Retained trend: Declining",
+  "The prior grade is displayed while household coverage remains unestablished.",
+  "Exception expires: 2026-10-01",
+  "Policy file reviewed: 2026-09-06",
+  "Evidence and grading method:",
+].join("\n"), "an exception must remain disclosed when shared, with its review date and expiry");
+assert.equal(exceptionPayload.clipboardText, `${exceptionPayload.shareData.text}\n${exceptionPayload.shareData.url}`);
+
 assert.match(
   fallbackPayload.shareData.text,
   /Policy file reviewed: 2026-07-21/,

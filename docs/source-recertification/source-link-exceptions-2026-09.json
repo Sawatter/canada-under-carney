@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "cycle": "2026-09",
+  "totalChecked": 186,
+  "exceptionCount": 6,
+  "counts": {
+    "DEAD": 0,
+    "SUSPECT": 0,
+    "TIMEOUT": 0,
+    "REDIRECTED": 4,
+    "BLOCKED": 2
+  },
+  "exceptions": [
+    {
+      "state": "REDIRECTED",
+      "status": 200,
+      "url": "https://foodbankscanada.ca/hungercount/",
+      "finalUrl": "https://foodbankscanada.ca/hunger-in-canada/hungercount/",
+      "reason": null,
+      "references": [
+        {
+          "area": "Affordability Response",
+          "field": "gradeTriggers.down[].additionalSources[].url",
+          "label": "Affordability Response: down trigger challenge - Food Banks Canada - Hunger Count"
+        },
+        {
+          "area": "Affordability Response",
+          "field": "sources[].url",
+          "label": "Affordability Response: Food Banks Canada - Hunger Count"
+        }
+      ],
+      "manualDisposition": {
+        "status": "accepted-redirect",
+        "date": "2026-09-05",
+        "note": "Opened the destination HungerCount page on September 5. It contains the current report, data, methodology, and prior-year report links. The redirect preserves the cited source family."
+      }
+    },
+    {
+      "state": "REDIRECTED",
+      "status": 200,
+      "url": "https://transparencycanada.ca/s/2024-CPI-TI-Canada-Statement-EN.pdf",
+      "finalUrl": "https://static1.squarespace.com/static/5df7c3de2e4d3d3fce16c185/t/67abe5390db434555b96a608/1739318585786/2024+CPI+TI+Canada+Statement+EN.pdf",
+      "reason": null,
+      "references": [
+        {
+          "area": "Ethics & Transparency",
+          "field": "metrics[].sourceRefs[].url",
+          "label": "Ethics & Transparency: metric - Committee / governance review - Transparency International Canada - Canada's CPI ranking"
+        },
+        {
+          "area": "Ethics & Transparency",
+          "field": "sources[].url",
+          "label": "Ethics & Transparency: Transparency International Canada - Canada's CPI ranking"
+        }
+      ],
+      "manualDisposition": {
+        "status": "accepted-redirect",
+        "date": "2026-09-05",
+        "note": "Opened the destination PDF on September 5. It is the Transparency International Canada February 11, 2025 statement for the 2024 Corruption Perceptions Index and retains the cited historical ranking."
+      }
+    },
+    {
+      "state": "REDIRECTED",
+      "status": 200,
+      "url": "https://www.canada.ca/en/campaign/2-billion-trees.html",
+      "finalUrl": "https://natural-resources.canada.ca/forests-forestry/2-billion-trees-program",
+      "reason": null,
+      "references": [
+        {
+          "area": "Promise Delivery",
+          "field": "promises[].originalSourceUrl",
+          "label": "Promise Delivery: promise original - 2 Billion Trees (wound down)"
+        }
+      ],
+      "manualDisposition": {
+        "status": "accepted-redirect",
+        "date": "2026-09-05",
+        "note": "Opened the Natural Resources Canada destination with an ordinary HTTP request on September 5 after the web tool returned 403. HTTP 200 and the page states the program is winding down, existing agreements will be honoured, and new applications are closed. Budget 2025 chapter 5 provides an independent official access fallback."
+      }
+    },
+    {
+      "state": "REDIRECTED",
+      "status": 200,
+      "url": "https://www.csls.ca/reports/csls2025-04.pdf",
+      "finalUrl": "https://csls.ca/research/can-a-lack-of-pro-productivity-policies-explain-the-secular-decline-in-canadas-productivity-growth/",
+      "reason": null,
+      "references": [
+        {
+          "area": "Economic Policy Response",
+          "field": "gradeTriggers.up[].additionalSources[].url",
+          "label": "Economic Policy Response: up trigger challenge - CSLS Research Report 2025-04"
+        }
+      ],
+      "manualDisposition": {
+        "status": "accepted-redirect",
+        "date": "2026-09-05",
+        "note": "Opened the destination CSLS report page on September 5. It identifies Research Report 2025-04, the authors, publication date, abstract and a download for the cited paper on productivity-policy limits."
+      }
+    },
+    {
+      "state": "BLOCKED",
+      "status": 403,
+      "url": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html",
+      "finalUrl": "https://www.oecd.org/en/publications/2025/05/oecd-economic-surveys-canada-2025_ee18a269.html",
+      "reason": null,
+      "references": [
+        {
+          "area": "Economic Policy Response",
+          "field": "sources[].url",
+          "label": "Economic Policy Response: OECD Economic Surveys: Canada 2025"
+        }
+      ],
+      "manualDisposition": {
+        "status": "confirmed-live",
+        "date": "2026-09-05",
+        "note": "Opened the exact OECD publication URL in the web tool on September 5 after the script returned 403. It resolves to OECD Economic Surveys: Canada 2025 with publication content. This is an access check, not a new numeric extraction."
+      }
+    },
+    {
+      "state": "BLOCKED",
+      "status": 403,
+      "url": "https://www.retailcouncil.org/topics/food-grocery/truth-of-canadian-grocery-price-inflation/",
+      "finalUrl": "https://www.retailcouncil.org/topics/food-grocery/truth-of-canadian-grocery-price-inflation/",
+      "reason": null,
+      "references": [
+        {
+          "area": "Affordability Response",
+          "field": "sources[].url",
+          "label": "Affordability Response: Retail Council of Canada - grocery and food"
+        }
+      ],
+      "manualDisposition": {
+        "status": "open-with-fallback",
+        "date": "2026-09-05",
+        "note": "The exact URL remained behind a 403 browser challenge in both the web tool and a normal HTTP request on September 5. Retain as an industry-view source, not sole numerical evidence. Fallback for grocery-price facts is the opened Statistics Canada July CPI release and for hardship the opened Food Banks Canada HungerCount source. Next check: October source recertification, or manual editor browser access before this source is used to change a grade."
+      }
+    }
+  ]
+}

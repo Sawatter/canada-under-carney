@@ -68,7 +68,7 @@ When a correction is issued, the following happens:
 
 ## Versioning the corrections schema itself
 
-The first `type: "correction"` entry will land in a future cycle. The schema above is committed in advance so it can be referenced when the first correction is issued. If the schema needs to evolve, that itself becomes a `type: "method"` changelog entry.
+The September 2026 draft uses the existing `type: "correction"` schema above for its first correction records. Those records remain subject to the cycle's release gates. If the schema needs to evolve, that itself becomes a `type: "method"` changelog entry.
 
 ## Authority and scope
 

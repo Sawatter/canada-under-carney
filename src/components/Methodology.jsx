@@ -354,10 +354,11 @@ export default function Methodology({ onReady }) {
         <p style={{ marginTop: "16px", fontSize: "14px", color: "#444" }}>
           <strong>Approval Signal at the top of the dashboard:</strong> The
           public-opinion approval box above the grades is not part of the
-          scoring model. It averages direct PM/government approval across
-          the included pollster set (Léger, Abacus Data, Ipsos, Angus Reid
-          Institute, and Innovative Research Group) over a
-          rolling 60-day window that gives bigger polls more weight. Nanos
+          scoring model. It averages qualifying direct PM/government approval
+          polls over a rolling 60-day window that gives bigger polls more weight.
+          The source history includes Léger, Abacus Data, Ipsos, Angus Reid
+          Institute, Innovative Research Group, and Research Co. A firm contributes
+          to the current average only when its poll falls inside that window. Nanos
           preferred-PM tracking sits beside it as separate context only. It
           is placed visibly so readers do not mistake the grades for
           popularity, but it does not feed either headline score. See

@@ -36,6 +36,16 @@ function heldReview(date) {
   };
 }
 
+function exceptionReview(date) {
+  return {
+    date,
+    outcome: "exception",
+    summary: "The prior grade is displayed temporarily while a central evidence gap is unresolved.",
+    exceptionRef: "docs/Monthly-Cycle-Playbook.md",
+    expiresOn: addUtcDays(date, 1),
+  };
+}
+
 function addUtcDays(date, days) {
   const value = new Date(`${date}T00:00:00Z`);
   value.setUTCDate(value.getUTCDate() + days);
@@ -183,9 +193,53 @@ const invalidFixtures = [
   },
   {
     name: "invalid-outcome",
-    expected: "latestReview.outcome must be exactly \"held\"",
+    expected: "latestReview.outcome must be \"held\" or \"exception\"",
     mutate: (fixture) => {
       reviewedDimension(fixture).latestReview.outcome = "changed";
+    },
+  },
+  {
+    name: "undocumented-exception",
+    expected: "latestReview.exceptionRef must name an existing decision document",
+    mutate: (fixture) => {
+      const review = exceptionReview(fixture.meta.lastUpdated);
+      delete review.exceptionRef;
+      reviewedDimension(fixture).latestReview = review;
+    },
+  },
+  {
+    name: "missing-exception-document",
+    expected: "latestReview.exceptionRef must name an existing decision document",
+    mutate: (fixture) => {
+      const review = exceptionReview(fixture.meta.lastUpdated);
+      review.exceptionRef = "docs/no-such-decision-fixture.md";
+      reviewedDimension(fixture).latestReview = review;
+    },
+  },
+  {
+    name: "exception-without-expiry",
+    expected: "latestReview.expiresOn must be a valid YYYY-MM-DD date",
+    mutate: (fixture) => {
+      const review = exceptionReview(fixture.meta.lastUpdated);
+      delete review.expiresOn;
+      reviewedDimension(fixture).latestReview = review;
+    },
+  },
+  {
+    name: "expired-exception",
+    expected: "latestReview exception has expired",
+    mutate: (fixture) => {
+      const review = exceptionReview(fixture.meta.lastUpdated);
+      review.expiresOn = fixture.meta.lastUpdated;
+      reviewedDimension(fixture).latestReview = review;
+    },
+  },
+  {
+    name: "exception-fields-on-held-review",
+    expected: "latestReview exceptionRef and expiresOn are only allowed for an exception",
+    mutate: (fixture) => {
+      const reviewed = reviewedDimension(fixture);
+      reviewed.latestReview = { ...exceptionReview(fixture.meta.lastUpdated), outcome: "held" };
     },
   },
   {
@@ -264,6 +318,11 @@ try {
     0,
     `current data should pass the fixture validator:\n${validResult.output}`,
   );
+
+  const validException = structuredClone(baseFixture);
+  reviewedDimension(validException).latestReview = exceptionReview(validException.meta.lastUpdated);
+  const exceptionResult = runValidator(validException, "valid-documented-exception");
+  assert.equal(exceptionResult.status, 0, exceptionResult.output);
 
   invalidFixtures.forEach((fixtureCase, index) => {
     const fixture = structuredClone(baseFixture);

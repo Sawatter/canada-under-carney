@@ -1,10 +1,10 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-08-14",
-  "lastSourceScanAt": "2026-08-14",
-  "nextScheduledSourceScanAt": "2026-09-01",
-  "lastEditorReviewedScoreCycleAt": "2026-08-14",
-  "coverageThrough": "2026-07-31",
+  "generatedAt": "2026-09-06",
+  "lastSourceScanAt": "2026-09-05",
+  "nextScheduledSourceScanAt": "2026-10-01",
+  "lastEditorReviewedScoreCycleAt": "2026-09-06",
+  "coverageThrough": "2026-08-31",
   "watchItemsAwaitingReviewCount": 0,
   "disclaimerKey": "scan_vs_review_v1",
   "nextChecks": [
@@ -16,10 +16,17 @@
       "href": "#dim-housing-supply-evidence"
     },
     {
-      "id": "september-monthly-cycle",
-      "label": "September monthly cycle",
+      "id": "affordability-coverage-review",
+      "label": "Affordability coverage review",
       "dateSource": "nextScheduledSourceScanAt",
-      "status": "Review August source releases, trigger evidence, polling, and promise records.",
+      "status": "Establish a supported household relief-to-cost comparison or replace the expiring temporary grade display through an explicit decision.",
+      "href": "#dim-affordability-response-evidence"
+    },
+    {
+      "id": "october-monthly-cycle",
+      "label": "October monthly cycle",
+      "dateSource": "nextScheduledSourceScanAt",
+      "status": "Review September source releases, trigger evidence, polling and promise records.",
       "href": "#view-changelog"
     }
   ]

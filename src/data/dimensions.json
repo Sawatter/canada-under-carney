@@ -8,11 +8,6 @@
     "trend": "stable",
     "status": "NATO's 2% target was met, at an estimated 2.03% in 2025 and 2.13% in 2026. The U.S. share of Canadian exports fell from 75.9% to 71.7% in the annual evidence. Defence scores A and Trade scores B; their equal-weight average produces the A- headline.",
     "verdictLine": "The NATO spending target was met, and Canada's trade is measurably more diversified.",
-    "latestReview": {
-      "date": "2026-08-14",
-      "outcome": "held",
-      "summary": "The NATO estimate increased and a preferred submarine supplier was named, while annual trade evidence and the split conditions stayed unchanged."
-    },
     "judgmentCall": "Defence and Trade are scored separately and weighted equally. Trade is B because its 4.2-point gain falls below the roughly five-point A marker; market-driven change remains an attribution constraint.",
     "judgmentDetail": "The headline follows a fixed calculation, not an anchor-and-modifier judgment. Defence is A because NATO independently confirmed spending at 2.03% of GDP. Trade is B because the annual non-U.S. export-share gain was 4.2 points and corridor execution is underway. Whole-letter sub-scores convert to 4.0 and 3.0, average equally to 3.50, and map to A-. The existing External Constraint entry discloses that the U.S. trade shock drove part of the gain; it does not separately change the Trade band or headline arithmetic. The June 2026 editor decision treated Budget 2025's $81.8B five-year envelope as satisfying the narrower B-5yr funded-pathway condition; it did not establish that the full 3.5% trajectory is appropriated. If the sub-scores move in opposite directions, or differ by more than 1.0 GPA points for two consecutive monthly cycles, the file splits into separate grades.",
     "surfaceTags": [
@@ -110,7 +105,7 @@
         }
       ]
     },
-    "rationale": "NATO's July expenditure tables estimate Canada at 2.03% of GDP in 2025 and 2.13% in 2026, which keeps Defence at A. Global Affairs Canada reported that the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025 and non-U.S. exports rose 17.2%. That puts Trade at B: the annual gain is measurable and corridor execution is underway, but it is below the roughly five-point A marker and partly reflects the U.S. trade shock. May trade data added a $4.2 billion monthly surplus and a 69.7% U.S. export share, but the grade uses durable annual evidence. The whole-letter sub-scores average equally to 3.50, producing the A- headline. Budget 2025's $81.8 billion five-year envelope satisfied the narrower funded-pathway condition adopted in June 2026, but it is not described here as full appropriation of the 3.5% path.",
+    "rationale": "NATO's July expenditure tables estimate Canada at 2.03% of GDP in 2025 and 2.13% in 2026, which keeps Defence at A. Global Affairs Canada reported that the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025 and non-U.S. exports rose 17.2%. That puts Trade at B: the annual gain is measurable and corridor execution is underway, but it is below the roughly five-point A marker and partly reflects the U.S. trade shock. The June report, with an August 6 modification date, adds a $3.9 billion monthly goods surplus as context. The grade continues to use the annual goods-only measure. The State of Trade report combines goods and services and is not substituted into that ladder. The whole-letter sub-scores average equally to 3.50, producing the A- headline. Budget 2025's $81.8 billion five-year envelope satisfied the narrower funded-pathway condition adopted in June 2026, but it is not described here as full appropriation of the 3.5% path.",
     "sources": [
       {
         "label": "NATO Defence Expenditure of NATO Countries (2014-2026)",
@@ -149,10 +144,10 @@
         "dateKind": "published"
       },
       {
-        "label": "Global Affairs Canada Monthly Trade Report (May 2026)",
-        "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-05",
-        "date": "2026-07-07",
-        "dateKind": "published"
+        "label": "Global Affairs Canada Monthly Trade Report (June 2026)",
+        "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-06",
+        "date": "2026-08-06",
+        "dateKind": "updated"
       },
       {
         "label": "PMO - Canadian Patrol Submarine Project preferred supplier",
@@ -161,7 +156,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "NATO spending (2025e)",
@@ -194,12 +189,12 @@
         "value": "71.7%",
         "source": "global-affairs-canada",
         "sourceId": "12-10-0011-01",
-        "sourceNote": "Global Affairs Canada's December 2025 report says the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025. The May 2026 report shows U.S. exports of $53.724 billion out of $77.099 billion in total goods exports, about 69.7% for that month. The dashboard does not use a single-month share for the grade trigger.",
+        "sourceNote": "Global Affairs Canada's December 2025 report says the U.S. share of Canadian goods exports fell 4.2 percentage points to 71.7% in 2025. The June 2026 report shows U.S. exports of $53.889 billion out of $77.486 billion in total goods exports, about 69.5% for that month. The dashboard does not use a single-month share for the grade trigger.",
         "automatable": true,
         "sourceRefs": [
           {
-            "label": "Global Affairs Canada Monthly Trade Report (May 2026)",
-            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-05"
+            "label": "Global Affairs Canada Monthly Trade Report (June 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-06"
           }
         ]
       },
@@ -209,12 +204,12 @@
         "value": "+17.2%",
         "source": "global-affairs-canada",
         "sourceId": "12-10-0011-01",
-        "sourceNote": "Global Affairs Canada's December 2025 report says annual goods exports to non-U.S. countries rose 17.2% to an all-time high. The May 2026 report shows $23.375 billion in non-U.S. goods exports for the month; the annual figure remains the grading evidence.",
+        "sourceNote": "Global Affairs Canada's December 2025 report says annual goods exports to non-U.S. countries rose 17.2%. The June 2026 report shows $23.597 billion in non-U.S. goods exports, calculated as total goods exports less U.S. goods exports. The annual figure remains the grading evidence.",
         "automatable": true,
         "sourceRefs": [
           {
-            "label": "Global Affairs Canada Monthly Trade Report (May 2026)",
-            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-05"
+            "label": "Global Affairs Canada Monthly Trade Report (June 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-06"
           }
         ]
       },
@@ -223,12 +218,12 @@
         "lead": true,
         "value": "+23.4%",
         "source": "global-affairs-canada",
-        "sourceNote": "Global Affairs Canada's December 2025 report records EU goods exports up 23.4% in 2025. The annual figure remains the grading evidence; the May 2026 report supplies the monthly trade context.",
+        "sourceNote": "Global Affairs Canada's December 2025 report records EU goods exports up 23.4% in 2025. That annual figure remains the grading evidence. The June 2026 report supplies monthly goods-trade context.",
         "automatable": true,
         "sourceRefs": [
           {
-            "label": "Global Affairs Canada Monthly Trade Report (May 2026)",
-            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-05"
+            "label": "Global Affairs Canada Monthly Trade Report (June 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-06"
           }
         ]
       },
@@ -236,12 +231,12 @@
         "label": "Overall goods trade deficit (2025)",
         "value": "$31.3B (4x 2024)",
         "source": "global-affairs-canada",
-        "sourceNote": "Global Affairs Canada's December 2025 report records a $31.3 billion annual goods trade deficit. The May 2026 report adds current context: exports were $77.099 billion, imports were $72.856 billion, and the monthly surplus was $4.243 billion. The dashboard keeps the annual value because the trade trigger uses durable annual movement.",
+        "sourceNote": "Global Affairs Canada's December 2025 report records a $31.3 billion annual goods trade deficit. The June 2026 report adds current context: exports were $77.486 billion, imports were $73.631 billion, and the monthly surplus was $3.855 billion. The annual value remains because the trade condition uses annual movement.",
         "automatable": true,
         "sourceRefs": [
           {
-            "label": "Global Affairs Canada Monthly Trade Report (May 2026)",
-            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-05"
+            "label": "Global Affairs Canada Monthly Trade Report (June 2026)",
+            "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-06"
           }
         ]
       }
@@ -313,7 +308,7 @@
         "text": "Buy Canadian procurement strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "Public Services and Procurement Canada launched initial small-business procurement measures in July and reported $726 million in contracts under the broader approach. The full strategy remains in implementation.",
+        "evidence": "Initial Buy Canadian measures are in implementation. The August 24 announcement adds an $11 billion Canadian Coast Guard contract for six icebreakers as domestic procurement evidence. These are contracted civilian vessels, not delivered ships, and the amount is not added to NATO spending.",
         "durability": "Framework",
         "history": [
           {
@@ -324,8 +319,8 @@
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
-        "statusSourceUrl": "https://www.canada.ca/en/public-services-procurement/news/2026/07/public-services-and-procurement-canada-launches-new-small-business-procurement-program-measures-to-modernize-federal-contracting-and-boost-access-f.html",
-        "statusSourceLabel": "PSPC - initial Buy Canadian procurement measures"
+        "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/08/24/prime-minister-carney-announces-largest-shipbuilding-contract-quebecs",
+        "statusSourceLabel": "PMO - Canadian Coast Guard icebreaker contract, August 24"
       },
       {
         "text": "Full foreign policy review (first since 2005)",
@@ -412,6 +407,11 @@
           }
         ]
       }
+    },
+    "latestReview": {
+      "date": "2026-09-05",
+      "outcome": "held",
+      "summary": "The annual goods-only measure and NATO estimate retain the existing sub-scores. The Coast Guard contract is civilian procurement progress, not delivered vessels or NATO spending."
     }
   },
   {
@@ -424,9 +424,9 @@
     "status": "The Major Projects Office is tracking 18 projects. Ten are above the first stage, called designated, but only five show documented progress after referral. No project has completed an entire MPO review cycle, and the government has not used its national-interest designation power.",
     "verdictLine": "The office tracks 18 projects, but only five show documented progress after referral.",
     "latestReview": {
-      "date": "2026-08-14",
+      "date": "2026-09-05",
       "outcome": "held",
-      "summary": "The official list grew to 18 projects. Five show post-referral advancement, still below the published progress threshold, and the national-interest power is unused."
+      "summary": "The dated cohort assessment is retained. August assessment evidence does not establish faster completed delivery or justify a cohort-stage change."
     },
     "judgmentCall": "The grade rests on documented progress after a project is added to the list. It does not rest on how many projects were announced, or on whether any project is a good idea.",
     "judgmentDetail": "This grade does not judge whether each project is good policy. It judges the federal delivery process: the 18 projects the Major Projects Office tracks, whether they reached a higher stage on a date after referral, and whether the government used its national-interest power. The editor's judgment enters in two places. A stage already reached when a project joins the list does not count as post-referral progress. And a credit-claiming penalty applies where the government overstates its role in projects that were already moving before it stepped in.",
@@ -600,7 +600,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "Projects in the MPO list",
@@ -1029,23 +1029,18 @@
     "whatThisGrades": "Where the federal budget is headed. Can Ottawa keep up its spending and deficit path without it becoming a problem, and do outside watchers find the plan believable?",
     "grade": "C",
     "previousGrade": "D",
-    "trend": "up",
-    "status": "The Spring Economic Update expects a $66.9B deficit for the 2025-26 fiscal year. The PBO (Parliamentary Budget Officer, Parliament's independent fiscal watchdog) says both fiscal anchors (the government's self-set fiscal targets) are on track. Three open worries hold the grade at C: rising interest costs on the debt, how capital spending is labelled, and defence costs that may not all be counted yet.",
-    "verdictLine": "Both fiscal anchors are on track, but rising interest costs and other open worries remain.",
-    "latestReview": {
-      "date": "2026-08-14",
-      "outcome": "held",
-      "summary": "July PBO and Finance publisher checks found no fiscal-table, anchor, or sovereign-rating event that changed the assessment."
-    },
-    "judgmentCall": "The C grade rests on the fiscal anchors (the government's self-set fiscal targets) now looking more believable. Worries stay open on rising interest costs, how capital spending is labelled, and defence costs that may not all be counted yet.",
-    "judgmentDetail": "The Spring Economic Update and the PBO materially improve the read on where the budget is headed, meaning enough to affect the grade. The deficit-to-GDP anchor is projected to decline and the operating-balance anchor is on track. Judgment still enters in how much weight to give the open worries. The PBO says the rules for what counts as capital spending are still not precise, interest costs keep rising, and not all expected defence spending appears in the projections yet.",
+    "trend": "stable",
+    "status": "PBO's June outlook projects a deficit of 2.2% of GDP for 2025-26. Its baseline deficit ratio declines later, but stress tests show substantial risk. The newer Fiscal Monitor improves the interim budgetary results without settling the annual result.",
+    "verdictLine": "The projected deficit remains within the current band, with substantial risk around the fiscal path.",
+    "judgmentCall": "The grade weighs the annual deficit and published fiscal targets. PBO's baseline still meets the declining deficit-ratio target, while its stress tests show substantial risk. Interest costs, capital definitions and future defence funding remain concerns.",
+    "judgmentDetail": "The annual deficit and fiscal-anchor evidence govern this grade. PBO's June baseline is weaker than the Spring Economic Update and its stress tests sharply qualify the earlier on-track assessment. A declining baseline path is distinct from confidence that the ratio falls in every year. The April-June Fiscal Monitor is interim evidence and does not replace the annual deficit, resolve capital classification, or fund the full future defence path.",
     "construct": "Whether the federal budget path can keep going without becoming a problem, and whether the plan for the next several years is believable.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "The deficit sits between 2% and 4% of the size of the economy (GDP). The government has published its deficit-to-GDP and operating-balance fiscal targets, and the Parliamentary Budget Officer (PBO) currently rates them as on track. But material caveats remain, meaning caveats big enough to affect the grade, on interest burden, capital classification, and whether all defence costs are counted.",
-      "plusMinusRationale": "A plain C, no plus or minus. The Spring Economic Update and the PBO fiscal-anchor assessment lift the grade out of D. But the deficit is still above the level needed for a B, and the PBO still flags capital-classification, interest-burden, and defence-cost risks.",
-      "whyNotHigher": "The next band up needs the deficit below 2% of the economy's size and no rating-agency warning out. The PBO's latest projection puts the deficit at 2.2%, still above that line.",
-      "whyNotLower": "The band below would mean a deficit above 4% of the economy's size or no published fiscal target at all. The deficit is projected at 2.2% and the PBO rates both fiscal anchors on track.",
+      "bandCriterion": "The latest PBO annual deficit projection remains within the published band. Fiscal anchors exist, but the June outlook adds risk to the earlier on-track assessment. Capital classification, debt-service costs and future defence funding remain relevant caveats.",
+      "plusMinusRationale": "The C hold rests on the annual deficit range and the continued baseline path, with material risk caveats. Interim fiscal improvement does not establish the next band, and stress uncertainty is not treated as a revoked baseline projection.",
+      "whyNotHigher": "PBO projects the annual deficit at 2.2% of GDP. The next band needs a deficit below 2% and fiscal-risk conditions that remain unmet.",
+      "whyNotLower": "The annual deficit projection remains below the lower-band boundary, and published fiscal anchors remain in place despite their risks.",
       "activeModifiers": [
         {
           "name": "External Constraint",
@@ -1112,7 +1107,7 @@
         }
       ]
     },
-    "rationale": "The Spring Economic Update lowers the projected deficit for the 2025-26 fiscal year to $66.9B, down from Budget 2025's $78.3B. PBO attributes the improvement mostly to stronger revenues and lower spending. PBO's fiscal-anchor note says the government is on track to respect both anchors: the deficit-to-GDP ratio is projected to decline from 2.1% in 2025-26 to 1.4% by 2030-31, and the operating-balance anchor is projected to be met by 2028-29. That moves this grade out of D. It does not move to B for four reasons. The deficit remains above 2% of GDP. PBO says the capital-budgeting framework still lacks precision. Interest burden rises from 10.6% to 13.2% of revenues by 2030-31. And the projections do not include all anticipated defence spending. Fitch maintained AA+/stable but previously warned that persistent fiscal expansion could raise pressure on Canada's rating over the next several years.",
+    "rationale": "PBO's June outlook projects a $72.0 billion deficit, or 2.2% of GDP, for 2025-26. Its baseline ratio declines later, while stress tests give less than a 1% chance of a decline in every projected year. This is uncertainty around the path, not a new annual outcome. The June Fiscal Monitor reports a $0.37 billion April-June deficit versus $6.28 billion a year earlier. That interim improvement does not replace the annual anchor evidence or resolve capital and future defence-funding caveats.",
     "sources": [
       {
         "label": "Budget 2025",
@@ -1169,13 +1164,13 @@
         "dateKind": "published"
       },
       {
-        "label": "Finance Canada Fiscal Monitor (April-May 2026)",
-        "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/04.html",
-        "date": "2026-07-31",
+        "label": "Finance Canada Fiscal Monitor (June 2026)",
+        "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/06.html",
+        "date": "2026-08-28",
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "Deficit (FY 2025-26, latest reads)",
@@ -1196,14 +1191,15 @@
         ]
       },
       {
-        "label": "Fiscal Monitor (April-May 2026)",
-        "value": "$1.36B deficit vs. $9.91B a year earlier",
+        "label": "Fiscal Monitor (April-June 2026)",
+        "value": "$0.37B deficit vs. $6.28B a year earlier",
         "source": "finance-canada",
-        "sourceNote": "Finance Canada's July 31 Fiscal Monitor reports a $1.359 billion deficit for April and May 2026, compared with $9.905 billion in the same period a year earlier. This early-year flow does not provide a new deficit-to-GDP result or replace the PBO anchor assessment.",
+        "sourceNote": "Finance Canada reports an April-June 2026-27 budgetary deficit of $370 million, compared with $6,277 million in the same prior-year period. June alone recorded a $989 million surplus. These are fiscal-quarter and monthly results, not the annual fiscal-anchor measure.",
         "sourceRefs": [
           {
-            "label": "Finance Canada Fiscal Monitor (April-May 2026)",
-            "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/04.html"
+            "primary": true,
+            "label": "Finance Canada Fiscal Monitor, June 2026",
+            "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/06.html"
           }
         ],
         "automatable": false
@@ -1243,13 +1239,14 @@
       {
         "label": "PBO fiscal-anchor assessment",
         "lead": true,
-        "value": "Broadly in line, higher-risk stress read",
+        "value": "Declining baseline; substantial stress-test risk",
         "source": "pbo",
-        "sourceNote": "The earlier PBO note on the Spring Economic Update said the government was on track to respect both fiscal anchors, with caveats. PBO's June 2026 Economic and Fiscal Outlook says the baseline is broadly in line with that update. But it projects weaker growth and higher deficits, and its stress tests show material uncertainty, meaning uncertainty big enough to matter to the assessment. This is flagged for editor review rather than converted into a grade move.",
+        "sourceNote": "PBO's June 4 outlook retains a declining baseline deficit-to-GDP path but estimates less than a 1% chance that the ratio declines in every year from 2026-27 through 2030-31 under its stress simulations. This is not the same construct as the baseline projection. The earlier May note's on-track language is dated context, and a later capital-framework assessment was still planned in the June report.",
         "automatable": false,
         "sourceRefs": [
           {
-            "label": "PBO Economic and Fiscal Outlook (June 2026)",
+            "primary": true,
+            "label": "PBO Economic and Fiscal Outlook, June 4, 2026",
             "url": "https://www.pbo-dpb.ca/en/publications/RP-2627-002-S--economic-fiscal-outlook-june-2026--perspectives-economiques-financieres-juin-2026"
           }
         ]
@@ -1351,7 +1348,12 @@
       "lag": "Short"
     },
     "nextTrigger": "Next Finance fiscal monitor, any PBO fiscal-anchor update, and Fitch/Moody's/S&P rating actions.",
-    "inherited": "Elevated post-pandemic deficits. Rising debt-servicing costs. Fiscal anchor of reducing debt-to-GDP already abandoned by prior government."
+    "inherited": "Elevated post-pandemic deficits. Rising debt-servicing costs. Fiscal anchor of reducing debt-to-GDP already abandoned by prior government.",
+    "latestReview": {
+      "date": "2026-09-05",
+      "outcome": "held",
+      "summary": "The annual deficit projection remains in range. Interim improvement does not meet the next band, while stress risk alone does not establish the lower band."
+    }
   },
   {
     "id": "economic-policy",
@@ -1359,11 +1361,11 @@
     "whatThisGrades": "Federal action to make Canada's economy more productive and competitive. That means investment, innovation, jobs, and wages.",
     "grade": "C",
     "previousGrade": "D",
-    "trend": "down",
-    "status": "Two of the five core productivity levers have cleared the action bar: the productivity tax measure is executing and the internal trade law is authorized. The other three remain announced, and business investment has fallen for five straight quarters.",
-    "verdictLine": "Two core levers have cleared authorization, but business investment has fallen for five straight quarters.",
+    "trend": "up",
+    "status": "The tax lever is executing, while internal trade and regulatory review are authorized. Business investment rose in Q2, but the consecutive-quarter condition is not yet met.",
+    "verdictLine": "More policy levers meet the action test, and business investment has begun to rise.",
     "judgmentCall": "The grade is about how far the government's policy levers have been carried out. It is not about the inherited productivity weakness, which is treated as background.",
-    "judgmentDetail": "The July 21 correction applies the action-first rule literally. Productivity-tax competitiveness is executing and interprovincial trade is authorized, so the qualifying count is two and the prior D no longer fits its fewer-than-two condition. The grade moves to C as a correction, not because an up-trigger fired or the economy improved. Business investment has fallen for five straight quarters, which blocks the next band. Timing Fairness keeps that outcome from vetoing the action count until March 14, 2027. The same two authorized-or-better levers and five-quarter investment decline would produce the same result under a government of another party.",
+    "judgmentDetail": "The July 21 correction met the action-first C row using the tax and internal-trade levers. This cycle adds a separate current classification correction: regulatory review meets its authorization test through the issued mandate and named initiative queue. That is not a new August launch. Business investment rose in Q2 after a revised Q1 decline, but consecutive non-declining quarters are not yet established. The classification applies the published authorization test; it does not change the historical grade record.",
     "surfaceTags": [
       "Mostly inherited baseline",
       "Long-lag area (slow to show results)"
@@ -1371,14 +1373,14 @@
     "construct": "The federal government's overall stance on productivity and competitiveness, looked at across four kinds of levers: funding, tax, regulation, and trade.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Productivity-tax competitiveness is executing and interprovincial trade is authorized. The other three core levers remain announced. That count meets the action-first C row. A fifth consecutive business-investment decline keeps the file below the next band. Each lever is rated as announced, authorized, or executing using the published criteria below. Statistics Canada GDP data is the main investment evidence, with the Centre for the Study of Living Standards and Signal49 Research as independent context.",
+      "bandCriterion": "Productivity-tax competitiveness is executing. Internal trade and regulatory review are authorized. AI compute and critical minerals remain announced under their exact evidence tests. The qualifying count meets the action-first C row. Business investment rose in Q2 after a Q1 decline, so the next outcome condition is not yet met.",
       "leverOperationalization": [
         {
           "name": "AI compute strategy",
           "announced": "Public commitment with named program",
           "authorized": "Treasury Board sign-off OR a funded allocation visible in estimates with named program leadership",
           "executing": "At least one compute capacity deployment or sovereign-compute investment live with public announcement, dollar figure, and named recipient",
-          "currentStatus": "announced. The ISED strategy page names funding envelopes and open applications, but this cycle did not locate Treasury Board authorization in estimates or a named capacity deployment and recipient."
+          "currentStatus": "announced. The specific infrastructure call closed June 1. Its funding is explicitly notional and conditional on appropriations and Treasury Board authority. The Access Fund has announced support, but the checked releases do not identify a live named compute-capacity deployment under this lever."
         },
         {
           "name": "Critical minerals execution",
@@ -1392,14 +1394,14 @@
           "announced": "Federal commitment to reduce barriers stated",
           "authorized": "Legislative instrument enacted (Bill C-5 Free Trade and Labour Mobility in Canada Act in force)",
           "executing": "Bill C-5 in force AND signed federal-provincial implementation agreements operationalizing specific barrier reductions in at least three provinces with measurable change",
-          "currentStatus": "authorized. Bill C-5's Free Trade and Labour Mobility in Canada Act and its regulations came into force on January 1, 2026. Executing status under this ladder still requires measurable barrier reduction in at least three provinces, which is not yet confirmed."
+          "currentStatus": "authorized. The Act is in force. The August 26 statement reports implementation of goods mutual recognition and a trade-commissioner network, but does not establish measured barrier reduction in the required provinces."
         },
         {
           "name": "Regulatory-review execution",
           "announced": "Red tape review or regulatory modernization commitment stated",
           "authorized": "Treasury Board mandate issued with named regulatory initiatives in queue",
           "executing": "Regulatory initiatives reduced, repealed, or modernized with measurable change in compliance burden via PBO, Treasury Board, or independent burden estimate",
-          "currentStatus": "announced. The Red Tape Review reports mix recent achievements with forward-looking actions. This cycle did not locate a government-wide burden estimate attributable to the 2025 review, which the executing condition requires."
+          "currentStatus": "authorized. The Treasury Board President launched the departmental review with a reporting mandate and oversight office. Published progress reports name regulatory initiatives. The checked evidence does not yet isolate a measured compliance-burden result attributable to this review, so executing is not established."
         },
         {
           "name": "Productivity-tax competitiveness",
@@ -1409,10 +1411,10 @@
           "currentStatus": "executing. Bill C-15 received Royal Assent on March 26, 2026 and implemented the productivity super-deduction measures. Budget 2025 estimates that the marginal effective tax rate on new business investment falls from 15.6% to 13.2%."
         }
       ],
-      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), and 3 announced (AI compute, critical minerals, regulatory review). The authorized-or-executing count is two, which meets the action-first C row. Five consecutive quarterly investment declines block the next band.",
-      "plusMinusRationale": "The whole-letter C reflects two qualifying policy levers alongside a worsening investment outcome. The response has cleared the action floor, but most levers are still announced and the outcome check has not turned.",
-      "whyNotHigher": "The next band needs one executing lever and two consecutive quarters without an investment decline. One lever is executing, but investment has fallen for five straight quarters.",
-      "whyNotLower": "The lower band requires fewer than two levers authorized or executing. The productivity tax measure is executing and the internal trade law is authorized.",
+      "leverScoreSummary": "Five levers assessed: 1 executing (productivity-tax competitiveness), 2 authorized (interprovincial trade and regulatory review), and 2 announced (AI compute and critical minerals). The qualifying count is three. Investment rose in Q2, but consecutive non-declining quarters are not yet established.",
+      "plusMinusRationale": "The whole-letter C reflects the qualifying action count and an initial improvement in investment. Additional authorization does not replace the required consecutive-quarter outcome evidence.",
+      "whyNotHigher": "The next band needs an executing lever and consecutive quarters without an investment decline. Execution is present, but only the latest quarter was non-declining.",
+      "whyNotLower": "The lower band requires fewer than two qualifying levers. The tax measure is executing, and internal trade and regulatory review are authorized.",
       "activeModifiers": [
         {
           "name": "Timing Fairness",
@@ -1487,7 +1489,7 @@
         }
       ]
     },
-    "rationale": "This dimension grades the government's response on productivity and competitiveness, not the inherited GDP-per-capita level. Budget 2025's productivity super-deduction is executing, and Bill C-5's Free Trade and Labour Mobility in Canada Act is authorized. The other three core levers remain announced. That two-lever count clears the action-first floor, while five consecutive quarterly business-investment declines keep the grade from moving higher. Timing Fairness remains active because outcomes take longer to respond than policy authorization.",
+    "rationale": "The tax measure is executing, while internal trade and regulatory review meet their authorization tests. The latter is a current classification correction based on previously published evidence, not a new August program launch. AI compute and critical minerals do not yet meet their next evidence tests. Business investment rose 2.3% in Q2 after a revised Q1 decline. The grade remains at the action-first C row because consecutive non-declining quarters are not yet established.",
     "sources": [
       {
         "label": "OECD Economic Surveys: Canada 2025",
@@ -1496,9 +1498,9 @@
         "dateKind": "published"
       },
       {
-        "label": "StatsCan GDP, income and expenditure - Q1 2026",
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm",
-        "date": "2026-05-29",
+        "label": "StatsCan GDP, income and expenditure - Q2 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260828/dq260828a-eng.htm",
+        "date": "2026-08-28",
         "dateKind": "published"
       },
       {
@@ -1550,7 +1552,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "group": "Inherited baseline / context only",
@@ -1563,17 +1565,17 @@
       },
       {
         "group": "Inherited baseline / context only",
-        "label": "Real GDP (Q1 2026)",
+        "label": "Real GDP (Q2 2026)",
         "lead": true,
-        "value": "0.0% q/q",
+        "value": "+0.8% q/q",
         "source": "statcan",
         "sourceRefs": [
           {
-            "label": "StatCan - GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
-            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
+            "label": "StatCan Q2 2026 GDP release, August 28",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260828/dq260828a-eng.htm"
           }
         ],
-        "sourceNote": "Statistics Canada reported that real GDP was unchanged quarter-over-quarter in Q1 2026 after declining 0.2% in Q4 2025. Real GDP per capita rose 0.2%, household spending rose 0.4%, and business capital investment fell 0.7%. This is context only because the dimension grades the policy response, not the GDP level.",
+        "sourceNote": "Statistics Canada reported real GDP up 0.8% quarter over quarter in Q2 2026 and real GDP per capita up 1.0%. Q1 real GDP was revised from 0.0% to 0.1%. These are outcome context for the policy-response grade.",
         "automatable": false
       },
       {
@@ -1586,31 +1588,33 @@
       },
       {
         "group": "Response metrics",
-        "label": "Business investment (Q1 2026)",
+        "label": "Business investment (Q2 2026)",
         "lead": true,
-        "value": "-0.7% q/q (5th straight quarterly decline)",
+        "value": "+2.3% q/q (first quarterly rise after declines)",
         "source": "statcan",
         "sourceRefs": [
           {
-            "label": "StatCan - GDP, income and expenditure, Q1 2026 (The Daily, May 29 2026)",
-            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260529/dq260529a-eng.htm"
+            "primary": true,
+            "label": "StatCan Q2 2026 GDP expenditure table, August 28",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260828/t002a-eng.htm"
           }
         ],
-        "sourceNote": "Statistics Canada's May 29, 2026 release says business capital investment fell 0.7% quarter-over-quarter in Q1 2026, its fifth consecutive quarterly decline. Engineering structures fell 4.6%, partly offset by gains in machinery and equipment, mineral exploration, non-residential buildings, and software. This is the load-bearing outcome check for the current band.",
+        "sourceNote": "Statistics Canada's August 28 release, Table 2, reports business gross fixed capital formation up 2.3% in Q2 2026 after a revised 1.3% decline in Q1. This is the first non-declining quarter, so the published condition requiring two consecutive non-declining quarters is not yet met. The measure includes residential business investment and is not the narrower non-residential structures, machinery and equipment row.",
         "automatable": false
       },
       {
         "group": "Response metrics",
-        "label": "Labour market change (June 2026)",
-        "value": "+18,000 jobs m/m; unemployment 6.5%",
+        "label": "Labour market change (July 2026)",
+        "value": "+75,000 jobs m/m; unemployment 6.4%",
         "source": "statcan",
         "sourceId": "14-10-0287-01",
-        "sourceNote": "Statistics Canada's June 2026 Labour Force Survey reported employment up 18,000, the unemployment rate at 6.5%, and participation at 65.0%. This is labour-market context; the response grade still rests mainly on business investment and policy execution.",
+        "sourceNote": "Statistics Canada reports July employment up 75,000 and the unemployment rate at 6.4%. This is labour-market context. The August reference-month release was published September 4 and is outside this cycle's publication window.",
         "automatable": true,
         "sourceRefs": [
           {
-            "label": "StatCan - Labour Force Survey, June 2026",
-            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260710/dq260710a-eng.htm"
+            "primary": true,
+            "label": "StatCan July 2026 Labour Force Survey, August 7",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260807/dq260807a-eng.htm"
           }
         ]
       },
@@ -1644,8 +1648,14 @@
         "label": "Red Tape Review initiatives identified",
         "value": "~500",
         "source": "treasury-board-secretariat",
-        "sourceNote": "Treasury Board's 2024-25 annual report says the Red Tape Review has published progress reports. They identify nearly 500 recent and planned initiatives to reduce duplication, streamline services, and lower costs.",
-        "automatable": false
+        "sourceNote": "Treasury Board's 2024-25 annual report says the Red Tape Review has published progress reports. They identify nearly 500 recent and planned initiatives to reduce duplication, streamline services, and lower costs. The issued departmental mandate and named initiative queue support the authorization classification. They do not isolate a measured compliance-burden result attributable to this review.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "label": "Treasury Board departmental red-tape review mandate, July 9, 2025",
+            "url": "https://www.canada.ca/en/treasury-board-secretariat/news/2025/07/government-of-canada-moves-forward-to-modernize-outdated-regulations-and-reduce-red-tape.html"
+          }
+        ]
       },
       {
         "group": "Policy breadth checks",
@@ -1667,7 +1677,7 @@
         "text": "$2B sovereign AI compute strategy",
         "status": "In Progress",
         "since": "2026-04-14",
-        "evidence": "The official ISED page lists the $2B strategy, open applications for public supercomputing infrastructure, an AI Compute Challenge of up to $700M, and an access fund of up to $300M. The cited page does not name a completed capacity deployment.",
+        "evidence": "The strategy has infrastructure, commercial-compute and access-fund components. The specific public-infrastructure call closed June 1 and remains conditional on required spending authority and agreements. May 12 Access Fund support is progress, but these sources do not establish a completed named compute-capacity deployment.",
         "durability": "Program",
         "history": [
           {
@@ -1678,8 +1688,8 @@
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
-        "statusSourceUrl": "https://ised-isde.canada.ca/site/ised/en/canadian-sovereign-ai-compute-strategy",
-        "statusSourceLabel": "ISED - Canadian Sovereign AI Compute Strategy"
+        "statusSourceUrl": "https://www.ised-isde.canada.ca/site/ised/en/ai-sovereign-compute-infrastructure-program",
+        "statusSourceLabel": "ISED - AI Sovereign Compute Infrastructure Program"
       },
       {
         "text": "Critical minerals strategy",
@@ -1732,12 +1742,12 @@
       "attribution": "Direct (policy response)",
       "lag": "Long"
     },
-    "nextTrigger": "Q2 2026 business-investment data. Any authorization or execution evidence for AI compute, critical minerals, or regulatory review.",
+    "nextTrigger": "Q3 business-investment release and new evidence of authorization or attributable execution for the core policy levers.",
     "inherited": "GDP per capita declined 2.0% from 2020-2024. Business investment falling since 2006. R&D at half the US rate. Population-driven growth masked per-capita decline for a decade.",
     "latestReview": {
-      "date": "2026-08-14",
+      "date": "2026-09-05",
       "outcome": "held",
-      "summary": "June employment and the critical-minerals agreement added context, but the action count and investment outcome were unchanged."
+      "summary": "Regulatory review meets the existing authorization test. Investment rose in the latest quarter, but consecutive non-declining quarters are not established, so the grade is held."
     }
   },
   {
@@ -1747,27 +1757,22 @@
     "grade": "D-",
     "previousGrade": null,
     "trend": "down",
-    "status": "This grade is about what Ottawa did, not about how high world prices are. The relief measures cover only a small slice of the extra costs families face. The Grocery Code is voluntary, so it is weaker than a mandatory rule. And tariffs (taxes on imported goods) are adding to what households pay.",
-    "verdictLine": "Relief measures cover only a small slice of the extra costs families face, and tariffs add more.",
-    "latestReview": {
-      "date": "2026-08-14",
-      "outcome": "held",
-      "summary": "Food-store inflation eased to 3.9%, but the review found no additional relief measure or mandatory grocery competition rule."
-    },
-    "judgmentCall": "The low grade compares federal relief to the measured rise in household costs. It is not a judgment on world prices.",
-    "judgmentDetail": "The D- grade rates how well federal action measures up against documented cost increases. The editor's judgment comes in three places. First, matching the size of the relief to the yearly cost burden it is meant to ease. Second, counting voluntary grocery measures as weaker than ones the government can enforce. Third, separating Ottawa's policy response from world price spikes that Ottawa does not fully control.",
+    "status": "The prior grade is displayed temporarily for September. The benefit is operating, but the household relief-to-cost ratio and the band it determines remain unestablished.",
+    "verdictLine": "The prior grade is displayed temporarily while household relief coverage remains unestablished.",
+    "judgmentCall": "The prior grade remains visible for this cycle under an explicit exception. It is not a newly supported finding about relief adequacy or world prices.",
+    "judgmentDetail": "The published band requires a household relief-to-cost comparison. The previous household average and cost figures could not be reproduced and have been removed. The band and its minus remain unestablished. Under the user's delegated September closure decision, the prior grade, trend and inclusion in the overall scores are retained for comparability only. This is a temporary display exception, not normal carry-forward or a fresh scoring result. It expires at the October cycle, when the coverage measure must be established or an explicit alternative adopted.",
     "construct": "How well the federal response measures up against rising household costs from groceries, tariffs (taxes on imported goods), and relief aimed at specific groups.",
     "gradeBasis": {
       "band": "D",
-      "bandCriterion": "Federal relief covers less than 20% of the estimated yearly cost increase.",
-      "plusMinusRationale": "D- per rubric, near-total failure. Relief covers a very small share of the identified cost, and the deeper causes of those costs are still not dealt with.",
-      "whyNotHigher": "The next band needs relief covering 20% to 40% of the cost increase and targeted programs running. The main relief is about $307 per household, while store food prices rose 3.9% in the year to June.",
-      "whyNotLower": "The band below would mean no material federal relief or competition response at all. The grocery benefit and the voluntary Grocery Code exist, even if they are weak.",
+      "bandCriterion": "The published band requires relief below 20% of identified annual cost increases. That household coverage ratio remains unestablished. The prior band is displayed only under the September exception.",
+      "plusMinusRationale": "Neither the band nor its minus has been re-established. Both are retained temporarily for September under the documented exception, with the household relief-to-cost comparison still unresolved.",
+      "whyNotHigher": "An operating benefit alone does not establish the required household coverage ratio or a mandatory sector-wide competition measure.",
+      "whyNotLower": "Federal relief and a voluntary grocery framework exist. Their adequacy still needs a supported household comparison.",
       "activeModifiers": [
         {
           "name": "External Constraint",
           "status": "applicable, not applied",
-          "reason": "Tariffs add $1,450-$2,000/yr per household. Under the rubric, this adjustment can lift the grade only when the government's response is adequate given that pressure. The response is judged inadequate, so the adjustment was not applied."
+          "reason": "Tariff pressure is relevant context. The earlier household cost range was not reproduced, so it does not establish the response ratio. The prior modifier effect remains unchanged under the temporary display exception."
         }
       ]
     },
@@ -1876,12 +1881,12 @@
         }
       ]
     },
-    "rationale": "This dimension grades how well the federal government's policy response handles rising household costs, not price levels themselves. Prices are driven by global markets, exchange rates, and supply chains largely outside federal control. The $307 grocery benefit covers less than 20% of the estimated annual cost increase. The Grocery Code of Conduct is voluntary. Retaliatory tariffs (taxes on imported goods imposed in trade disputes) add to the burden. The grade reflects what the government chose to do about affordability, and whether its actions match the scale of the problem.",
+    "rationale": "CRA and Finance Canada confirm that the enhanced benefit is operating. The Grocery Code remains voluntary and does not regulate prices. Food-store inflation slowed to 3.1% year over year in July. The previous household benefit average and claim that relief covers less than 20% of cost increases could not be reproduced from the cited costing and are removed. Benefit operation and price movements do not fill that central evidence gap. The prior grade and trend remain visible for September under a documented exception, with unchanged inclusion in the overall scores for comparability. The exception expires at the October cycle and does not establish the missing band evidence.",
     "sources": [
       {
-        "label": "StatsCan CPI June 2026",
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260720/dq260720a-eng.htm",
-        "date": "2026-07-20",
+        "label": "StatsCan CPI July 2026",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260817/dq260817a-eng.htm",
+        "date": "2026-08-17",
         "dateKind": "published"
       },
       {
@@ -1939,21 +1944,22 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-06",
     "metrics": [
       {
-        "label": "Food CPI (stores, year over year, June 2026)",
+        "label": "Food CPI (stores, year over year, July 2026)",
         "lead": true,
-        "value": "3.9%",
+        "value": "3.1%",
         "source": "statcan",
         "sourceId": "18-10-0004-01",
         "sourceRefs": [
           {
-            "label": "StatsCan CPI June 2026",
-            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260720/dq260720a-eng.htm"
+            "primary": true,
+            "label": "StatCan July 2026 CPI, August 17",
+            "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260817/dq260817a-eng.htm"
           }
         ],
-        "sourceNote": "Statistics Canada's July 20 release reports food purchased from stores up 3.9% year over year in June, down from 4.3% in May. Headline inflation was 2.8%. The food reading remains below the dashboard's greater-than-7% down trigger.",
+        "sourceNote": "Statistics Canada reports prices for food purchased from stores up 3.1% year over year in July 2026, after 3.9% in June. This is the grocery measure, not all-items CPI or restaurant prices. The published condition above 7% is not crossed.",
         "automatable": true
       },
       {
@@ -1970,21 +1976,22 @@
         "automatable": false
       },
       {
-        "label": "Grocery benefit",
+        "label": "Grocery benefit design",
         "lead": true,
-        "value": "~$307/household (incremental)",
-        "source": "pbo",
+        "value": "25% increase; one-time 50% top-up",
+        "source": "government-of-canada",
         "sourceRefs": [
           {
-            "label": "PBO - Canada Groceries and Essentials Benefit",
-            "url": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels"
+            "primary": true,
+            "label": "CRA Canada Groceries and Essentials Benefit",
+            "url": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html"
           },
           {
-            "label": "Fraser Institute - GST affordability strategy critique",
-            "url": "https://www.fraserinstitute.org/commentary/carney-governments-gst-plan-new-name-same-flawed-affordability-strategy"
+            "label": "PBO February 2, 2026 benefit costing",
+            "url": "https://www.pbo-dpb.ca/en/publications/LEG-2526-010-S--canada-groceries-essentials-benefit--allocation-canadienne-epicerie-besoins-essentiels"
           }
         ],
-        "sourceNote": "PBO carries the incremental value estimate. That is the added amount, not the full benefit. Fraser Institute carries an independent market-oriented critique of the same GST / Canada Groceries and Essentials Benefit strategy. It argues the payment is poorly targeted even where the government is right to focus on cost of living.",
+        "sourceNote": "PBO's February 2, 2026 costing describes a one-time payment equal to 50% of the prior annual credit and a 25% annual increase for five years from July 2026. The costing projects aggregate program costs, not a reproducible average annual amount per household. CRA confirms the enhanced program is operating. This does not establish the share of household cost increases covered.",
         "automatable": false
       },
       {
@@ -2007,7 +2014,7 @@
         "text": "Canada Groceries and Essentials Benefit",
         "status": "Delivered",
         "since": "2025-11-04",
-        "evidence": "The one-time top-up was paid in June, and the first enriched quarterly payment under the 25% increase began July 3. PBO estimates about $307 in added annual support per household on average.",
+        "evidence": "Finance Canada reports that the one-time top-up was paid in June and the first enriched quarterly payment began July 3. The program increases the existing benefit by 25%. The cited PBO costing does not directly establish the former household average.",
         "durability": "Budget measure",
         "history": [
           {
@@ -2019,13 +2026,13 @@
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
         "statusSourceUrl": "https://www.canada.ca/en/department-finance/news/2026/07/following-junes-one-time-payment-canadians-to-start-receiving-first-enriched-quarterly-canada-groceries-and-essentials-benefit-payment-today.html",
-        "statusSourceLabel": "Finance Canada - first enriched quarterly groceries benefit payment"
+        "statusSourceLabel": "Finance Canada - first enriched quarterly benefit payment"
       },
       {
         "text": "Grocery Code of Conduct",
         "status": "Delivered",
         "since": "2026-01-01",
-        "evidence": "Operational Jan 1, 2026. Voluntary framework. Experts broadly aligned it will not lower retail prices.",
+        "evidence": "The code is operational for participating members and includes a dispute process. Membership is voluntary, and the code says it does not regulate prices.",
         "durability": "Framework",
         "history": [
           {
@@ -2036,8 +2043,8 @@
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
-        "statusSourceUrl": "https://canadacode.org/",
-        "statusSourceLabel": "Canada Grocery Code - official site"
+        "statusSourceUrl": "https://canadacode.org/resources/faqs/",
+        "statusSourceLabel": "Canada Grocery Code - scope and membership FAQ"
       },
       {
         "text": "Buy Canadian food labelling",
@@ -2059,16 +2066,23 @@
       }
     ],
     "perspectives": {
-      "critics": "NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design. The government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies (the few big companies that control the market).",
-      "defenders": "Analyses from the Parliamentary Budget Officer (PBO) and the OECD identify global food markets, exchange rates, and retaliatory tariffs as drivers of most of the price increase. These forces sit largely outside federal control. The PBO costing of the Canada Groceries and Essentials Benefit notes the benefit reaches the lowest-income households first."
+      "critics": "The Grocery Code FAQ confirms that membership is voluntary and the code does not regulate prices. Those limits leave room to question its reach. Relief adequacy still needs a supported household comparison.",
+      "defenders": "CRA describes an operating benefit for people with low and modest incomes. The Grocery Code FAQ describes member rules and a dispute process. These are concrete program features even though their effect on household costs is unresolved."
     },
     "tags": {
-      "confidence": "High",
+      "confidence": "Low",
       "attribution": "Mixed (prices external, policy response direct)",
       "lag": "Short"
     },
     "nextTrigger": "Next monthly CPI release. Any new grocery benefit or mandatory grocery competition measure. Next PROOF food insecurity release.",
-    "inherited": "Prices already 30%+ above pre-pandemic levels. Highly concentrated retail sector. Competition Bureau investigations underway."
+    "inherited": "Prices already 30%+ above pre-pandemic levels. Highly concentrated retail sector. Competition Bureau investigations underway.",
+    "latestReview": {
+      "date": "2026-09-06",
+      "outcome": "exception",
+      "summary": "The prior grade is displayed for this cycle only. Household relief coverage is unestablished, so this is an explicit exception and not a normal carry-forward.",
+      "exceptionRef": "docs/September-Affordability-Exception-2026-09-06.md",
+      "expiresOn": "2026-10-01"
+    }
   },
   {
     "id": "carbon-pricing",
@@ -2080,9 +2094,9 @@
     "status": "The consumer carbon price was eliminated, which delivered a campaign promise. Industrial pricing was kept on paper, but the price it actually puts on a tonne of pollution (its effective price) is weak. This grade covers the pricing tool only. The wider climate framework is graded under Climate & Environment.",
     "verdictLine": "The consumer carbon price is gone as promised, but the industrial price is weak in practice.",
     "latestReview": {
-      "date": "2026-08-14",
+      "date": "2026-09-05",
       "outcome": "held",
-      "summary": "July Finance and environment publisher checks found no carbon-border adjustment or industrial-pricing change that crossed a trigger."
+      "summary": "The prior effective-price estimate retains its market-refresh limitation. Announced future price floors do not establish a current effective-price change."
     },
     "judgmentCall": "The middle grade gives credit for keeping the consumer-price promise. It also marks the grade down for the weak industrial price (the price it actually charges per tonne).",
     "judgmentDetail": "The C grade keeps two things separate: whether a promise was kept, and how strong the pricing tool is. Removing the consumer charge gets credit as a campaign promise that was carried out. The industrial system gets marked down because the price it actually charges (the effective price signal) is far below the official posted schedule. Judgment comes in by treating the pricing tool as partly intact, but not clearly strong enough to earn a higher grade. The editor fixed the definition on 2026-06-12: the effective-price checks are decided on the marginal compliance price. That is the market price of the compliance credits big emitters buy under the federal Output-Based Pricing System (OBPS) and matching provincial systems, currently about $20 per tonne. It is not the average cost per tonne across the whole economy, which is shown only as background and does not move the grade. Under that definition, the May 15 Canada-Alberta agreement was checked against the $15/t down condition and did not set it off. The agreement weakens the future price path, not the current marginal price.",
@@ -2214,7 +2228,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "Consumer carbon tax",
@@ -2367,15 +2381,10 @@
     "grade": "D",
     "previousGrade": "D+",
     "trend": "down",
-    "status": "Big environmental rules have been rolled back, with nothing new put in their place. The Canadian Climate Institute (CCI) says Canada is on track to hit only about half the emissions cut its 2030 target requires. For the carbon price on big industrial emitters, see the Carbon Pricing Policy grade.",
+    "status": "Major environmental commitments were dropped, while a replacement framework that closes the target gap remains unproven. The Canadian Climate Institute (CCI) says Canada is on track to hit only about half the emissions cut its 2030 target requires. For the carbon price on big industrial emitters, see the Carbon Pricing Policy grade.",
     "verdictLine": "Big environmental rules were rolled back, and Canada is on track for only about half its 2030 target.",
-    "latestReview": {
-      "date": "2026-08-14",
-      "outcome": "held",
-      "summary": "July environment and treaty checks found no replacement plan, target recovery, or formal Paris-status change that crossed a trigger."
-    },
     "judgmentCall": "The low grade is about the missing replacement strategy after the rollbacks, not about how emissions moved in any one month.",
-    "judgmentDetail": "The D grade comes from the whole policy framework. Big rules were rolled back, no funded replacement strategy exists, the department doing the work is shrinking, and the government admits the 2030 targets are out of reach. The editor's judgment shows up in two places: keeping this grade from overlapping with Carbon Pricing Policy, and weighing how believable the framework is more heavily than month-to-month emissions noise. Editor decision (June 12, 2026): on May 14 the government said it intends to weaken the Clean Electricity Regulations (CER), the rules pushing the power grid toward clean electricity. That was checked against the down condition for cutting climate programs and did not set it off. Announced is not done, in both directions: the same rule that refuses credit for an announcement refuses to dock points for one. The condition stays active: if a CER amendment that materially weakens the rules is published in the Canada Gazette (the government's official record of new law), or the CER is repealed, the condition comes back to be decided.",
+    "judgmentDetail": "The D grade comes from the whole policy framework. Big rules were rolled back, a funded replacement framework that closes the target gap remains unproven, the department doing the work is shrinking, and the government admits the 2030 targets are out of reach. The editor's judgment shows up in two places: keeping this grade from overlapping with Carbon Pricing Policy, and weighing how believable the framework is more heavily than month-to-month emissions noise. Editor decision (June 12, 2026): on May 14 the government said it intends to weaken the Clean Electricity Regulations (CER), the rules pushing the power grid toward clean electricity. That was checked against the down condition for cutting climate programs and did not set it off. Announced is not done, in both directions: the same rule that refuses credit for an announcement refuses to dock points for one. The condition stays active: if a CER amendment that materially weakens the rules is published in the Canada Gazette (the government's official record of new law), or the CER is repealed, the condition comes back to be decided.",
     "surfaceTags": [
       "Framework grade"
     ],
@@ -2471,7 +2480,7 @@
         }
       ]
     },
-    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was scrapped via the Carney-Smith MOU (Nov 27, 2025), the EV mandate was scrapped and retooled through tailpipe rules, and the Greener Homes Grant and tree-planting program were eliminated or wound down. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
+    "rationale": "The Canadian Climate Institute’s Feb 2026 assessment found Canada on track for 18-22% emissions reduction by 2030, against a 40-45% target, and IISD analysis likewise argues that current policy remains insufficient to close the target gap. The PM acknowledged targets will be missed. ECCC faces cumulative budget reductions of approximately $1.3B by 2030 and a workforce reduction of roughly 840 full-time positions (~10% of staff), per departmental plans and media reporting. The emissions cap was scrapped via the Carney-Smith MOU (Nov 27, 2025), the government announced it would end the EV sales mandate and published proposed repeal regulations in August, and the Greener Homes Grant and tree-planting program were eliminated or wound down. The trade-war context provides partial justification, but the scale goes beyond tactical adjustment. The gas tax suspension (April 14, $2.4B cost) adds further pressure.",
     "sources": [
       {
         "label": "CCI - Canada off course",
@@ -2534,7 +2543,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "Emissions cap",
@@ -2577,15 +2586,16 @@
       {
         "label": "EV mandate",
         "lead": true,
-        "value": "Scrapped / retooled",
+        "value": "Repeal proposed",
         "source": "eccc",
         "sourceRefs": [
           {
-            "label": "Fraser Institute - EV mandate critique",
-            "url": "https://www.fraserinstitute.org/commentary/ottawa-should-finally-end-costly-push-evs-canada"
+            "primary": true,
+            "label": "Canada Gazette Part I - proposed vehicle regulation amendments, August 15",
+            "url": "https://gazette.gc.ca/rp-pr/p1/2026/2026-08-15/html/reg2-eng.html"
           }
         ],
-        "sourceNote": "The federal EV sales mandate was scrapped and replaced with a tailpipe-emissions approach plus renewed EV supports. Fraser Institute makes the market-oriented case that the policy pressure carries on in retooled form. That is why this metric reads 'scrapped / retooled' rather than a plain repeal.",
+        "sourceNote": "The government announced its intention to end the Electric Vehicle Availability Standard. Canada Gazette Part I published proposed repeal regulations on August 15, 2026. The opened proposal does not establish final legal repeal or completed implementation of replacement tailpipe rules.",
         "automatable": false
       },
       {
@@ -2625,21 +2635,26 @@
     "promises": [
       {
         "text": "East-west electricity grid",
-        "status": "Too Early",
-        "since": "2026-04-14",
-        "evidence": "The federal government funded engineering and regulatory work for the PEI-New Brunswick intertie in July. That regional project does not yet establish the promised broader east-west grid scope or a national construction plan.",
+        "status": "In Progress",
+        "since": "2026-09-05",
+        "evidence": "The August 17 federal clean-energy agreement provides financing for a regional energy package and explicitly advances the National Electricity Strategy and interprovincial grid. The editor counts the funded agreement as a step toward the promise. Nationwide construction and delivery remain unproven.",
         "durability": "Commitment",
         "history": [
           {
             "date": "2026-04-14",
             "status": "Too Early",
             "note": "Initial assessment"
+          },
+          {
+            "date": "2026-09-05",
+            "status": "In Progress",
+            "note": "Editor review of the August 17 funded regional agreement: counts as progress toward the interprovincial grid, with national delivery still unproven."
           }
         ],
         "originalSourceUrl": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
         "originalSourceLabel": "Canada Strong - Liberal Party 2025 platform",
-        "statusSourceUrl": "https://www.canada.ca/en/natural-resources-canada/news/2026/07/canada-invests-in-the-prince-edward-islandnew-brunswick-interconnection-expansion-project.html",
-        "statusSourceLabel": "NRCan - PEI-New Brunswick interconnection expansion"
+        "statusSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/08/17/prime-minister-carney-announces-largest-clean-energy-investment-north",
+        "statusSourceLabel": "PMO clean-energy agreement, August 17, 2026"
       },
       {
         "text": "Conserve biodiversity / freshwater",
@@ -2711,7 +2726,12 @@
       "lag": "Short"
     },
     "nextTrigger": "Government response to CCI February 2026 assessment. Any new climate plan or replacement strategy. ECCC budget execution. OBPS-only pricing changes remain primary to Carbon Pricing Policy.",
-    "inherited": "Broad climate policy framework inherited (emissions cap, EV mandate, carbon pricing, conservation), but already off-track on 2030 targets. Trade war creating genuine economic pressure."
+    "inherited": "Broad climate policy framework inherited (emissions cap, EV mandate, carbon pricing, conservation), but already off-track on 2030 targets. Trade war creating genuine economic pressure.",
+    "latestReview": {
+      "date": "2026-09-05",
+      "outcome": "held",
+      "summary": "The funded regional grid agreement advances its promise. It does not establish delivery of a national replacement framework, and the EV legal record remains at proposed repeal."
+    }
   },
   {
     "id": "immigration",
@@ -2723,9 +2743,9 @@
     "status": "Immigration has been cut sharply. The correction is big and was needed, and the temporary-resident share is now down to about 6.18% of the population. But there is still no long-term plan for how the system should run. That plan is the main thing being watched for the next grade move.",
     "verdictLine": "The needed immigration correction has been made, but there is still no long-term plan for the system.",
     "latestReview": {
-      "date": "2026-08-14",
+      "date": "2026-09-05",
       "outcome": "held",
-      "summary": "July IRCC and population checks found no levels-plan or temporary-resident evidence that crossed a published trigger."
+      "summary": "The implemented correction and falling temporary-resident stock retain the assessment. The latest admitted population share remains above target."
     },
     "judgmentCall": "The plus on the grade gives credit for a real cut to immigration levels. The grade is held back because there is still no settled plan for the right long-term level.",
     "judgmentDetail": "The C+ gives credit for a big correction to a system that was overloaded. It stops short of a B because there is no durable long-term plan yet. Editor judgment shows up in two places. First, treating the correction as needed rather than as punishment. Second, weighing the open risks (to specific industries, public services, and long-term planning) against the fact that the lower levels were clearly carried out. No External Constraint adjustment is applied. The absorption strain (the system taking in more people than housing, health care, and the job market could handle) that triggered the correction was left over from earlier policy choices. But this grade is about how the current government responded, not the strain itself, so the inherited conditions do not ease the read on what the government did.",
@@ -2885,7 +2905,7 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "PR target (2026-2028)",
@@ -3035,18 +3055,13 @@
     "id": "housing-supply",
     "name": "Housing Supply",
     "whatThisGrades": "Whether federal housing policy is getting homes delivered at the scale Canada needs.",
-    "grade": "D",
-    "previousGrade": null,
-    "trend": "stable",
-    "status": "Federal housing programs remain too small to meet the need. The Build Canada Homes Act is law, and July evidence links some Nunavut homes to construction, but it does not establish that construction began because of the program. Housing starts remain below the pace needed to close the shortfall.",
-    "verdictLine": "Construction-linked evidence appeared, but attribution, scale, and national starts remain weak.",
-    "latestReview": {
-      "date": "2026-08-14",
-      "outcome": "held",
-      "summary": "June starts stayed above the lower trigger. Construction-linked evidence did not establish sufficient scale or attribution, and Ontario execution remained unproven."
-    },
+    "grade": "D-",
+    "previousGrade": "D",
+    "trend": "down",
+    "status": "July housing starts fell below the published lower condition. Federal programs remain active but small, and August funding announcements do not establish enough attributable construction to offset the weaker national pace.",
+    "verdictLine": "Weaker monthly starts add to a small federal contribution and limited proof of attributable construction.",
     "judgmentCall": "The low grade rests on actual housing starts and the size of federal programs. Announced homes count only when construction starts or there is a signed or legally committed path to delivery. An announcement alone does not count.",
-    "judgmentDetail": "The D grade looks at three things: actual housing starts, program size, and binding delivery, meaning a signed or legally committed path to delivery. The editor gives Build Canada Homes some early credit for moving forward, but does not count announced homes as built homes. The editor also separates federal action from what provinces, cities, and the market control.",
+    "judgmentDetail": "The grade weighs monthly housing starts, the size of federal programs, and a signed or legally committed path to delivery. July monthly starts crossed the lower review condition, and the editor judged the weaker pace enough deterioration within the existing D band. The six-month average is context for volatility. Announced homes do not count as built homes, and shared provincial, municipal and market causes limit federal attribution. The delegated analyst symmetry check applies the same monthly condition, attribution limits and treatment of conditional announcements under any governing party. An outside reviewer with different political priors was not available.",
     "surfaceTags": [
       "Shared-jurisdiction topic (federal, provincial, and municipal governments all share control)",
       "Long-lag topic (results take years to show up)"
@@ -3054,15 +3069,15 @@
     "construct": "How big and how effective federal housing actions are, compared with the need that has been measured.",
     "gradeBasis": {
       "band": "D",
-      "bandCriterion": "Housing starts stay below the level needed, federal programs cover only a tiny part of the gap (the shortfall), and spending is shrinking instead of growing.",
-      "plusMinusRationale": "The current D reflects the gap between announced and attributable starts, federal scale that remains small beside the shortfall, and spending that is shrinking instead of speeding up.",
-      "whyNotHigher": "The next band needs 280,000 to 350,000 starts a year and a federal share of 5% to 10% of the gap. June's trend was 248,123, without enough construction-linked evidence of attributable delivery.",
-      "whyNotLower": "The band below would mean no meaningful federal housing program running, or starts collapsing further. Build Canada Homes is now legislated and federal programs are running, just too small.",
+      "bandCriterion": "Housing starts remain below the needed level and federal programs cover a small part of the gap. PBO's December 2025 outlook projects planned housing spending to fall by 2028-29. This is dated forecast context.",
+      "plusMinusRationale": "The minus reflects July monthly starts falling below the published 240,000 condition while federal delivery remains small and attributable construction is still limited. The editor judged this enough deterioration within the existing D band.",
+      "whyNotHigher": "July monthly starts fell below the lower condition, and the federal contribution remains too small to offset the weaker national pace.",
+      "whyNotLower": "Federal programs remain active. Conditional housing partnerships show a pipeline, though they do not establish delivery at scale or a new August funding withdrawal.",
       "activeModifiers": [
         {
           "name": "Jurisdictional limits",
           "status": "non-binding",
-          "reason": "A C+ ceiling could apply when more than half the result depends on non-federal players (provinces and cities) that have no agreement in place. But the current D is already below that ceiling, so it does not bite here."
+          "reason": "A C+ ceiling could apply when more than half the result depends on provinces and municipalities without an agreement. The current grade is already below that ceiling, so the modifier remains non-binding."
         },
         {
           "name": "Timing Fairness",
@@ -3132,7 +3147,7 @@
         }
       ]
     },
-    "rationale": "Housing delivery remains a fraction of identified need. Build Canada Homes is on firmer legal footing after Royal Assent, and a July Nunavut agreement says some supported Iqaluit units were already under construction. That release does not establish when those starts occurred or that Build Canada Homes caused them, so it earns early credit without satisfying the scale and attribution test. The Ontario partnership remains conditional on agreements, approvals, and transfer-payment execution. CMHC's June release puts the six-month starts trend at 248,123 and the monthly seasonally adjusted annual rate at 238,971. CMHC uses the trend measure to smooth volatile monthly readings, so the dashboard reads that trend rather than one month's swing by itself. Federal housing spending still declines 56% by 2028-29.",
+    "rationale": "Housing delivery remains a fraction of identified need. July monthly housing starts were 229,074 at a seasonally adjusted annual rate, below the published 240,000 lower condition. The six-month average was 247,377 in CMHC's release narrative and remains context for monthly volatility. The editor lowered the grade within the existing D band because weaker monthly starts add to a small federal contribution and limited attributable delivery. Build Canada Homes has legal authority and an active pipeline. July Nunavut evidence mentions construction already underway, but does not establish when those starts occurred or that Build Canada Homes caused them. Ottawa's August groundbreaking release still describes construction as expected in 2026 and federal funding as conditional. Ontario's August allocations remain conditional on agreements, approvals and transfer-payment execution. PBO's December 2025 projection of a 56% spending decline by 2028-29 remains dated forecast context, not a new August cut.",
     "sources": [
       {
         "label": "PBO - BCH 26,000 units",
@@ -3147,9 +3162,9 @@
         "dateKind": "published"
       },
       {
-        "label": "CMHC June 2026 starts",
-        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-june-2026",
-        "date": "2026-07-16",
+        "label": "CMHC July 2026 starts",
+        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026",
+        "date": "2026-08-18",
         "dateKind": "published"
       },
       {
@@ -3196,131 +3211,91 @@
       }
     ],
     "latestEvidenceReview": {
-      "date": "2026-08-14",
-      "title": "July housing delivery review",
-      "triggerUnderReview": "Federal housing contribution rises above about 5% of the gap, with money actually going out or construction underway",
+      "date": "2026-09-05",
+      "title": "August housing delivery review",
+      "triggerUnderReview": "Housing starts fall below 240,000",
       "evidenceEarningCredit": [
         {
-          "text": "Toronto has a conditional $1.5 billion DCRP allocation for housing-enabling infrastructure.",
-          "sourceLabel": "Ontario and Canada - Toronto DCRP announcement",
-          "sourceUrl": "https://news.ontario.ca/en/release/1007662/ontario-and-canada-making-homes-more-affordable-in-toronto",
-          "sourceDate": "2026-06-23",
-          "sourceRole": "Official program announcement"
-        },
-        {
-          "text": "The Canada-Nunavut agreement supports at least 750 homes and says some supported Iqaluit units were already under construction.",
-          "sourceLabel": "Canada-Nunavut Build Canada Homes agreement",
+          "text": "The Nunavut agreement links some supported homes to construction already underway, without establishing new starts caused by Build Canada Homes.",
+          "sourceLabel": "Canada-Nunavut housing agreement",
           "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-nunavut-partner-to-build-essential-infrastructure-and-more-homes.html",
           "sourceDate": "2026-07-23",
-          "sourceRole": "Official construction-linked evidence"
+          "sourceRole": "Construction-linked evidence with attribution limit"
         }
       ],
       "evidenceLimitingCredit": [
         {
-          "text": "The federal Toronto release says funding remains subject to a Canada-Ontario agreement and further due diligence.",
-          "sourceLabel": "Housing, Infrastructure and Communities Canada - Toronto release",
-          "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-making-homes-more-affordable-in-toronto.html",
-          "sourceDate": "2026-06-23",
+          "text": "July monthly starts were 229,074 at a seasonally adjusted annual rate, below the 240,000 review condition. The narrative six-month average was 247,377 and is context.",
+          "sourceLabel": "CMHC July starts",
+          "sourceUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026",
+          "sourceDate": "2026-08-18",
+          "sourceRole": "Primary monthly outcome and context"
+        },
+        {
+          "text": "Ottawa's groundbreaking release still describes construction as expected in 2026 and Build Canada Homes funding as conditional.",
+          "sourceLabel": "Ottawa Build Canada Homes release",
+          "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/ground-broken-on-159-new-affordable-homes-in-ottawas-lowertown-neighbourhood.html",
+          "sourceDate": "2026-08-19",
+          "sourceRole": "Funding and construction qualifier"
+        },
+        {
+          "text": "Bradford funding remains subject to a federal-provincial agreement, federal approval and an Ontario-municipal transfer-payment agreement.",
+          "sourceLabel": "Bradford housing infrastructure release",
+          "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/canada-and-ontario-making-homes-more-affordable-in-bradford-west-gwillimbury.html",
+          "sourceDate": "2026-08-28",
           "sourceRole": "Official funding conditions"
         },
         {
-          "text": "The federal FAQ says agreements are being finalized and priority projects follow signed agreements.",
-          "sourceLabel": "Build Communities Strong Fund - FAQ",
-          "sourceUrl": "https://housing-infrastructure.canada.ca/bcsf-fbcf/faq-eng.html",
-          "sourceDate": "2026-07-21",
-          "sourceRole": "Official agreement and project-selection process"
-        },
-        {
-          "text": "The Nunavut release does not establish that the cited construction began after or because of Build Canada Homes.",
-          "sourceLabel": "Canada-Nunavut Build Canada Homes agreement",
-          "sourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-nunavut-partner-to-build-essential-infrastructure-and-more-homes.html",
-          "sourceDate": "2026-07-23",
-          "sourceRole": "Attribution limit"
-        },
-        {
-          "text": "CMHC's six-month starts trend was 248,123 in June, below the next band's starts range.",
-          "sourceLabel": "CMHC June 2026 starts",
-          "sourceUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-june-2026",
-          "sourceDate": "2026-07-16",
-          "sourceRole": "Official national starts evidence"
+          "text": "PBO projects a modest housing contribution and a 56% planned federal spending decline by 2028-29. This December 2025 forecast is dated context.",
+          "sourceLabel": "PBO housing-program outlook",
+          "sourceUrl": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025",
+          "sourceDate": "2025-12-02",
+          "sourceRole": "Dated forecast and scale context"
         }
       ],
       "stillUnproven": [
-        "Signed Canada-Ontario BCSF Provincial and Territorial stream agreement",
-        "Completed federal DCRP project approval",
-        "Signed Toronto-Ontario Transfer Payment Agreement",
-        "First DCRP payment",
-        "DCRP-attributable construction",
-        "Build Canada Homes construction at enough scale and with clear program attribution"
+        "Enough attributable federal construction to offset the weaker national pace",
+        "Completed federal and municipal transfer conditions for the August Ontario allocations",
+        "Housing delivery at the scale required by the next band"
       ],
-      "scorecardRead": "The construction-linked evidence earns early credit, but neither the attribution and scale test nor the Ontario execution condition is satisfied.",
-      "outcome": "The published trigger conditions were not met, so the Housing assessment is unchanged.",
-      "nextCheck": "Signed Ontario agreement, first payment, attributable construction, and the next CMHC starts release.",
-      "caveat": "Not finding Ontario execution documents on the official pages checked is dated evidence, not proof that unpublished steps do not exist.",
+      "scorecardRead": "Monthly starts crossed the lower condition while attributable federal delivery remains limited. The six-month average provides context for monthly volatility.",
+      "outcome": "The editor lowered Housing from D to D- for deterioration within the existing band.",
+      "nextCheck": "Next monthly CMHC release, executed funding agreements, first payments and attributable construction.",
+      "caveat": "Current pages do not establish an August absence without dated evidence. A groundbreaking headline alone is not proof of attributable starts. PBO's spending path remains a dated forecast.",
       "pagesChecked": [
         {
-          "label": "Ontario - Development Charge Reduction Program",
-          "url": "https://www.ontario.ca/page/development-charge-reduction-program",
-          "checkedAt": "2026-08-14",
-          "role": "Program status and application terms"
-        },
-        {
-          "label": "Build Communities Strong Fund - FAQ",
-          "url": "https://housing-infrastructure.canada.ca/bcsf-fbcf/faq-eng.html",
-          "checkedAt": "2026-08-14",
-          "role": "Agreement and project-selection process"
-        },
-        {
-          "label": "Build Communities Strong Fund - Provincial and Territorial stream",
-          "url": "https://housing-infrastructure.canada.ca/bcsf-fbcf/provincial-territorial/index-eng.html",
-          "checkedAt": "2026-08-14",
-          "role": "Agreement publication and allocations"
-        },
-        {
-          "label": "Build Communities Strong Fund - announcements",
-          "url": "https://housing-infrastructure.canada.ca/bcsf-fbcf/news-nouvelles-eng.html",
-          "checkedAt": "2026-08-14",
-          "role": "Published program announcements"
-        },
-        {
-          "label": "Housing, Infrastructure and Communities Canada - Toronto release",
-          "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-making-homes-more-affordable-in-toronto.html",
-          "checkedAt": "2026-08-14",
-          "role": "Federal Toronto funding conditions"
-        },
-        {
-          "label": "Ontario and Canada - Toronto DCRP announcement",
-          "url": "https://news.ontario.ca/en/release/1007662/ontario-and-canada-making-homes-more-affordable-in-toronto",
-          "checkedAt": "2026-08-14",
-          "role": "Provincial Toronto funding announcement"
-        },
-        {
-          "label": "Toronto Council item MM42.44",
-          "url": "https://secure.toronto.ca/council/agenda-item.do?item=2026.MM42.44",
-          "checkedAt": "2026-08-14",
-          "role": "Municipal authority to negotiate"
-        },
-        {
-          "label": "Toronto Council July 29-30 agenda",
-          "url": "https://secure.toronto.ca/council/report.do?meeting=2026.CC43&type=agenda",
-          "checkedAt": "2026-08-14",
-          "role": "Municipal agreement report-back check"
-        },
-        {
-          "label": "Canada-Nunavut Build Canada Homes agreement",
+          "label": "Canada-Nunavut housing agreement",
           "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-nunavut-partner-to-build-essential-infrastructure-and-more-homes.html",
-          "checkedAt": "2026-08-14",
-          "role": "Construction-linked evidence and attribution limit"
+          "checkedAt": "2026-09-05",
+          "role": "Construction-linked evidence with attribution limit"
         },
         {
-          "label": "CMHC June 2026 starts",
-          "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-june-2026",
-          "checkedAt": "2026-08-14",
-          "role": "National starts evidence"
+          "label": "CMHC July starts",
+          "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026",
+          "checkedAt": "2026-09-05",
+          "role": "Primary monthly outcome and context"
+        },
+        {
+          "label": "Ottawa Build Canada Homes release",
+          "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/ground-broken-on-159-new-affordable-homes-in-ottawas-lowertown-neighbourhood.html",
+          "checkedAt": "2026-09-05",
+          "role": "Funding and construction qualifier"
+        },
+        {
+          "label": "Bradford housing infrastructure release",
+          "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/canada-and-ontario-making-homes-more-affordable-in-bradford-west-gwillimbury.html",
+          "checkedAt": "2026-09-05",
+          "role": "Official funding conditions"
+        },
+        {
+          "label": "PBO housing-program outlook",
+          "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025",
+          "checkedAt": "2026-09-05",
+          "role": "Dated forecast and scale context"
         }
       ]
     },
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-06",
     "metrics": [
       {
         "label": "Housing starts (2025)",
@@ -3331,21 +3306,18 @@
         "automatable": true
       },
       {
-        "label": "Housing starts (June 2026 trend; SAAR = seasonally adjusted annual rate)",
+        "label": "Housing starts (July 2026 SAAR, seasonally adjusted annual rate)",
         "lead": true,
-        "value": "248,123 trend (238,971 SAAR)",
+        "value": "229,074 SAAR (247,377 six-month average)",
         "source": "cmhc",
         "sourceRefs": [
           {
-            "label": "CMHC June 2026 starts",
-            "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-june-2026"
-          },
-          {
-            "label": "CHBA - Q1 2026 Housing Market Index",
-            "url": "https://www.chba.ca/2026/04/21/low-builder-confidence-illustrates-need-for-sustained-federal-action-plan-focused-on-homeownership-housing/"
+            "primary": true,
+            "label": "CMHC July 2026 starts",
+            "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026"
           }
         ],
-        "sourceNote": "CMHC's June 2026 release puts the six-month trend at 248,123 units and the monthly SAAR at 238,971. Actual June starts in centres of 10,000 or more fell 13% year over year to 20,265; year-to-date starts were 113,017, down 1%. The trend remains above the less-than-240,000 lower trigger but below the next band's starts range.",
+        "sourceNote": "CMHC's August 18 release reports July monthly SAAR of 229,074, below the 240,000 review condition. The editor retained monthly SAAR as primary and the six-month average as context. The release narrative gives that average as 247,377, while its table gives 247,376. June monthly SAAR was revised to 240,773. These source revisions are recorded without rewriting prior review dates.",
         "automatable": false
       },
       {
@@ -3353,23 +3325,37 @@
         "lead": true,
         "value": "430,000-480,000/yr",
         "source": "cmhc",
-        "sourceNote": "CMHC 'Canada's Housing Supply Shortages' series: 3.45 million additional units needed. Annual construction need: 430,000-480,000 units by 2035 to restore affordability. See cmhc-schl.gc.ca housing supply shortages reports.",
-        "automatable": false
+        "sourceNote": "CMHC's new housing-supply framework estimates that around 430,000 to 480,000 annual starts through 2035 are needed to restore affordability, compared with a projected baseline of about 250,000. This is an annual modelled need, not a count of homes completed or a cumulative shortfall.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "primary": true,
+            "label": "CMHC housing supply shortages, new framework",
+            "url": "https://www.cmhc-schl.gc.ca/professionals/housing-markets-data-and-research/housing-research/research-reports/accelerate-supply/canadas-housing-supply-shortages-a-new-framework"
+          }
+        ]
       },
       {
         "label": "BCH initial six-site plan",
         "lead": true,
         "value": "4,000",
         "source": "housing-infrastructure-canada",
-        "sourceNote": "Housing Infrastructure Canada announced 4,000 factory-built units across six initial sites. A July Canada-Nunavut agreement supports at least 750 homes and says some Iqaluit units were already under construction, but it does not establish that construction started after or because of Build Canada Homes. PBO projects about 26,000 BCH units over five years.",
+        "sourceNote": "The January 7, 2026 federal announcement described up to 4,000 planned Direct Build homes across six federal-land sites. This is an initial planned pipeline, not a completed-unit count. The July Nunavut agreement links some supported homes to construction already underway but does not establish that the starts occurred after or because of Build Canada Homes. PBO's dated December 2025 projection estimates about 26,000 added units over five years.",
         "automatable": false
       },
       {
-        "label": "Federal spending trajectory",
-        "value": "Declining 56% by 2028-29",
+        "label": "Federal spending outlook (PBO, December 2025)",
+        "value": "Projected 56% decline by 2028-29",
         "source": "pbo",
-        "sourceNote": "PBO report RP-2526-020-S (December 2025): federal planned spending on housing programs declines from $9.8B in 2025-26 to $4.3B in 2028-29 = 56% decline. Due to expiry of existing program funding and Budget 2025 cuts.",
-        "automatable": false
+        "sourceNote": "PBO's December 2, 2025 housing-program outlook projects planned federal spending to fall from $9.8 billion in 2025-26 to $4.3 billion in 2028-29, a reported 56% decline. This forecast is older than six months and remains dated context, not an observed spending result or a new August funding cut.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "primary": true,
+            "label": "PBO housing-program outlook, December 2, 2025",
+            "url": "https://www.pbo-dpb.ca/en/publications/RP-2526-020-S--build-canada-homes-outlook-housing-programs-under-budget-2025--maisons-canada-perspectives-entourant-programmes-logement-dans-cadre-budget-2025"
+          }
+        ]
       }
     ],
     "promises": [
@@ -3377,9 +3363,9 @@
         "text": "Almost 500,000 new homes a year",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "CMHC's June release puts the six-month starts trend at 248,123, while 430,000 to 480,000 annual starts are estimated to be needed to restore affordability. PBO projects about 26,000 BCH units over five years.",
-        "statusSourceUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-june-2026",
-        "statusSourceLabel": "CMHC June 2026 starts",
+        "evidence": "CMHC reports July monthly starts of 229,074 at a seasonally adjusted annual rate. The six-month average was 247,377 in the release narrative. Both remain below the annual need estimate.",
+        "statusSourceUrl": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026",
+        "statusSourceLabel": "CMHC July 2026 starts",
         "durability": "Target",
         "history": [
           {
@@ -3395,11 +3381,11 @@
         "text": "Build Canada Homes",
         "status": "In Progress",
         "since": "2025-09-14",
-        "evidence": "The Act received Royal Assent on June 19. A July Nunavut agreement says some supported Iqaluit units were already under construction, but it does not establish that the starts occurred after or because of Build Canada Homes.",
+        "evidence": "The Act received Royal Assent on June 19. July Nunavut evidence mentions construction already underway without establishing new attributable starts. Ottawa's August 19 groundbreaking release still describes construction as expected in 2026 and federal funding as conditional.",
         "originalSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/01/build-canada-homes-thousands-of-homes-in-the-pipeline.html",
         "originalSourceLabel": "Canada.ca - Build Canada Homes",
-        "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-nunavut-partner-to-build-essential-infrastructure-and-more-homes.html",
-        "statusSourceLabel": "Canada-Nunavut Build Canada Homes agreement",
+        "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/ground-broken-on-159-new-affordable-homes-in-ottawas-lowertown-neighbourhood.html",
+        "statusSourceLabel": "Ottawa Build Canada Homes announcement, August 19",
         "durability": "Program",
         "history": [
           {
@@ -3413,7 +3399,7 @@
         "text": "Canada-Ontario Partnership ($8.8B)",
         "status": "In Progress",
         "since": "2026-03-30",
-        "evidence": "$8.8 billion over 10 years. Ontario opened DCRP applications, but the July 31 official-page check found no published signed Canada-Ontario agreement, federal project approval, Toronto transfer-payment agreement, first payment, or attributable construction.",
+        "evidence": "August municipal allocations identify proposed projects, but the Bradford August 28 release still conditions federal funding on a signed Canada-Ontario agreement, federal review and approval, and an Ontario-municipal transfer-payment agreement. It does not establish payment or construction.",
         "originalSourceUrl": "https://www.pm.gc.ca/en/news/news-releases/2026/03/30/prime-minister-carney-secures-new-partnership-ontario-cut-taxes",
         "originalSourceLabel": "Canada-Ontario Partnership",
         "durability": "Program",
@@ -3424,8 +3410,8 @@
             "note": "Initial assessment"
           }
         ],
-        "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-open-applications-for-new-development-charge-reduction-program0.html",
-        "statusSourceLabel": "Canada-Ontario DCRP applications open"
+        "statusSourceUrl": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/canada-and-ontario-making-homes-more-affordable-in-bradford-west-gwillimbury.html",
+        "statusSourceLabel": "Bradford conditional housing infrastructure allocation, August 28"
       },
       {
         "text": "Apprenticeship training up to $8,000",
@@ -3447,8 +3433,8 @@
       }
     ],
     "perspectives": {
-      "critics": "NDP: where is the public housing? PBO projects Build Canada Homes delivers about 26,000 units over five years, a 2.1% increase in completions. Federal spending declines 56% by 2028-29 (PBO). The Tyee: Vancouver increased housing stock 200% while prices soared. Supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\"",
-      "defenders": "The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Smart Prosperity Institute housing analyst Mike Moffatt called it meaningful. CMHC's own housing data publishes both the current starts trend and the required pace, so the federal contribution-versus-need gap is transparently reported. Housing is a shared-jurisdiction problem. The federal government cannot unilaterally override municipal zoning or provincial building codes."
+      "critics": "PBO projects that Build Canada Homes will make a modest contribution while planned federal housing spending declines. The August releases still leave funding conditions and delivery attribution unresolved, so announcements alone do not demonstrate enough progress.",
+      "defenders": "Build Canada Homes has an active pipeline and legal authority. The Ontario partnership targets development charges, and Nunavut evidence links some supported homes to construction. Housing delivery also depends on provinces, municipalities and market conditions."
     },
     "tags": {
       "confidence": "Medium",
@@ -3456,7 +3442,7 @@
       "lag": "Long"
     },
     "nextTrigger": "Next CMHC monthly starts release. Actual Build Canada Homes construction commencement. Signed Ontario BCSF / DCRP agreement, first payment, or construction evidence.",
-    "inherited": "430-480K annual starts needed, ~245K actual. Construction insolvencies highest of any sector. Development charges up 1,000% in some municipalities."
+    "inherited": "CMHC estimates that restoring affordability needs around 430,000 to 480,000 annual starts through 2035, compared with its projected baseline of about 250,000 a year. This is a modelled need, not a count of completed homes."
   },
   {
     "id": "ethics-transparency",
@@ -3465,15 +3451,15 @@
     "grade": "C",
     "previousGrade": null,
     "trend": "stable",
-    "status": "Four of five disclosure pieces are now documented. House ETHI Report 5 counts as a substantive independent review, but no PM-specific Ethics Commissioner review or full public accounting has been published.",
-    "verdictLine": "Four disclosure pieces are documented, but full accounting and a Commissioner finding remain absent.",
+    "status": "The assessment through July 31, checked August 14, documented four disclosure pieces but no full accounting or PM-specific Commissioner adequacy review. August registry coverage is incomplete, so that assessment is retained.",
+    "verdictLine": "The assessment through July 31 is retained. August registry coverage is incomplete.",
     "latestReview": {
-      "date": "2026-08-14",
+      "date": "2026-09-05",
       "outcome": "held",
-      "summary": "The Commissioner site migration changed URLs, but July registry and report checks found no prime-minister finding or disclosure event."
+      "summary": "The prior disclosure assessment is retained with the official-registry access exception. Current generic listings do not establish a new August finding or its absence."
     },
-    "judgmentCall": "The middle grade separates two findings. The disclosure and screening setup still has gaps, but no wrongdoing has been proven.",
-    "judgmentDetail": "The C is about whether the rules are good enough, not whether he did anything wrong. House ETHI Report 5 substantively reviewed the Prime Minister's divestment and conflict screen, so the independent-review component is present. It also counts as a separate institutional critique alongside Democracy Watch. The grade still cannot move higher because full public accounting is absent and the Ethics Commissioner has not published a PM-specific review finding the screen adequate. It does not move lower because four components are present and Report 5 did not make a formal finding that the current PM-specific screen is inadequate.",
+    "judgmentCall": "The grade concerns the adequacy of disclosure and screening. It retains the prior assessment with an August registry-access limit; it makes no fresh finding about wrongdoing.",
+    "judgmentDetail": "The grade concerns the adequacy of the rules, not a finding of wrongdoing. The assessment through July 31, checked August 14, counted House committee Report 5 as a substantive independent review and a separate institutional critique alongside Democracy Watch. That reviewed record did not establish full public accounting or a PM-specific Ethics Commissioner finding that the screen was adequate. It also did not establish a formal finding that the current screen was inadequate. August registry access was incomplete, so these are retained prior findings rather than a new August absence determination.",
     "surfaceTags": [
       "Whole-letter grade",
       "Medium confidence"
@@ -3481,38 +3467,38 @@
     "construct": "Whether the federal ethics setup provides the extra disclosure called for by the Prime Minister's financial and career background.",
     "gradeBasis": {
       "band": "C",
-      "bandCriterion": "Four of the five disclosure pieces are in place: a blind trust, the agreed-measure filing, the Annex A conflict-screen scope, and a substantive independent parliamentary review in House ETHI Report 5. A full public accounting of holdings is still absent. The next band also requires a PM-specific Ethics Commissioner review finding the screen adequate, which has not been published.",
+      "bandCriterion": "The assessment through July 31, checked August 14, counted four pieces: the blind trust, agreed-measure filing, Annex A screen scope and substantive House committee review. Full public accounting and a PM-specific Commissioner adequacy review were not established in that record. The next-band requirement is unchanged. August registry coverage was incomplete, so the prior assessment is retained.",
       "componentOperationalization": [
         {
           "name": "Blind trust",
           "presentIfX": "Ethics Commissioner Annex A or equivalent registry entry confirms a blind trust is established AND names the categories of assets held in trust",
-          "currentStatus": "present. Annex A March 2025 confirms the blind trust holds Brookfield assets with category disclosure."
+          "currentStatus": "present in the assessment through July 31, checked August 14. The prior record documents the blind trust and asset-category disclosure. August registry coverage was incomplete."
         },
         {
           "name": "Agreed-measure filing",
           "presentIfX": "The PM's agreed-measure filing under the Conflict of Interest Act is published in full on the Ethics Commissioner registry",
-          "currentStatus": "present. Agreed-measure filing is on the Office of the Ethics Commissioner registry."
+          "currentStatus": "present in the assessment through July 31, checked August 14. The agreed-measure filing was documented on the registry. August registry coverage was incomplete."
         },
         {
           "name": "Annex A conflict-screen scope",
           "presentIfX": "The conflict screen explicitly enumerates which government decisions the PM is recused from, with named entities and decision categories",
-          "currentStatus": "present. Annex A enumerates the conflict-screen scope; the dashboard treats this as the baseline differentiator from D."
+          "currentStatus": "present in the assessment through July 31, checked August 14. Annex A documented the named conflict-screen scope. August registry coverage was incomplete."
         },
         {
           "name": "Full public accounting of holdings",
           "presentIfX": "Brookfield holdings, returns, divestments, and any related-party transactions during the trust period are published with figures and dates by either the PM, the trustee, or via a documented Ethics Commissioner inspection",
-          "currentStatus": "absent. Holdings categories are disclosed (per blind-trust criterion) but figures and divestments are not. Democracy Watch and other critics have flagged this gap explicitly."
+          "currentStatus": "absent in the assessment through July 31, checked August 14. That record disclosed holdings categories but did not establish the required figures and divestments. August completeness was not newly verified."
         },
         {
           "name": "Published independent ethics review",
           "presentIfX": "The Ethics Commissioner has published a formal review of the PM's screen and disclosure (not a procedural acknowledgement that a filing was received), OR an independent parliamentary committee review has produced a substantive report",
-          "currentStatus": "present. House ETHI Report 5 substantively examined the Prime Minister's divestment and conflict screen. No PM-specific Ethics Commissioner review has been published."
+          "currentStatus": "present in the assessment through July 31, checked August 14, through substantive House committee Report 5. No PM-specific Commissioner review was found in that checked period; August registry coverage is incomplete."
         }
       ],
-      "componentScoreSummary": "Five components assessed: 4 present (blind trust, agreed-measure filing, Annex A conflict-screen scope, substantive independent parliamentary review) and 1 absent (full public accounting of holdings). The grade holds at C because the B row specifically requires a PM-specific Ethics Commissioner review finding the screen adequate.",
-      "plusMinusRationale": "The whole-letter C reflects a real disclosure framework and a substantive committee review, alongside an unresolved accounting gap and no PM-specific Commissioner finding on adequacy.",
-      "whyNotHigher": "Four pieces are present, but the next band requires an Ethics Commissioner review finding the screen adequate. No such review is published.",
-      "whyNotLower": "Four pieces are present. Report 5 is an independent review and a separate critique alongside Democracy Watch, so the lower band's no-review condition is not met.",
+      "componentScoreSummary": "The assessment through July 31, checked August 14, counted four components present and full public accounting absent. It did not establish the Commissioner adequacy review required by the next band. The component judgments are retained with incomplete August registry coverage, not asserted as new August findings.",
+      "plusMinusRationale": "The whole-letter assessment retains the disclosure framework and committee review documented through July 31, alongside the gaps found then. Incomplete August registry coverage limits a fresh conclusion.",
+      "whyNotHigher": "The record through July 31 did not establish the required Commissioner adequacy review. August registry coverage was incomplete, so that earlier assessment is retained.",
+      "whyNotLower": "The July 31 record had four components and a substantive committee review. It did not establish the lower-band conditions; August registry coverage remains incomplete.",
       "activeModifiers": []
     },
     "scoring": {
@@ -3582,7 +3568,7 @@
         }
       ]
     },
-    "rationale": "No public evidence shows he steered decisions to benefit himself. This dimension grades whether the Prime Minister's ethics setup provides the extra disclosure called for by his financial and career background. It looks at the completeness of the disclosure, the recusal screen, and independent review. Carney held about $6.8M USD in unexercised Brookfield options. The Ethics Commissioner has not published a detailed review. Democracy Watch calls the ethics screen \"loophole-filled.\" The House Ethics Committee's 2026 review of the Conflict of Interest Act recommended stronger public reporting and binding directions for conflict-of-interest screens. For a Prime Minister with a background like his, the standard should include a full public accounting reviewed by an independent body.",
+    "rationale": "This dimension grades whether the Prime Minister's ethics setup provides the extra disclosure called for by his financial and career background. It examines disclosure, the recusal screen and independent review. The assessment through July 31, checked August 14, did not establish self-dealing or a detailed PM-specific Ethics Commissioner adequacy review. Prior reporting described about $6.8M USD in unexercised Brookfield options. Democracy Watch criticized the screen, and House committee Report 5 recommended stronger public reporting and binding directions for conflict screens. August registry access was incomplete. The prior assessment is retained without claiming a new August finding about disclosure, wrongdoing or Commissioner action.",
     "sources": [
       {
         "label": "Globe and Mail - ethics filing",
@@ -3633,15 +3619,15 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "Ethics Commissioner review",
         "lead": true,
-        "value": "Not published",
+        "value": "Not found through July 31",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "Checked the migrated Ethics Commissioner public registry and investigation-report index on August 14 for July 1-31 records. July gift declarations did not provide a PM-specific review of the screen and disclosure. This dated absence is evidence, not proof that no unpublished work exists.",
+        "sourceNote": "The August 14 check covered registry and investigation-report records for July 1 to 31. It found no PM-specific adequacy review in that checked period. The September attempt did not establish complete August registry coverage. This is a retained dated finding, not a new claim that no August review exists or that no unpublished work is underway.",
         "sourceRefs": [
           {
             "label": "Office of the Ethics Commissioner - public registry",
@@ -3652,30 +3638,30 @@
       {
         "label": "Blind trust status",
         "lead": true,
-        "value": "Established",
+        "value": "Established in prior record",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "PM blind-trust summary statement records divestment of listed assets into a blind trust established pursuant to section 27 of the Act."
+        "sourceNote": "The prior record documents a blind trust under section 27 of the Act. This component is retained from the assessment through July 31, checked August 14; incomplete August registry coverage is not a new status finding."
       },
       {
         "label": "Agreed measure filing",
         "lead": true,
-        "value": "Filed",
+        "value": "Filed in prior record",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "Annex A public declaration of agreed measure is published."
+        "sourceNote": "The prior record documents the published Annex A agreed-measure declaration. This component is retained from the assessment through July 31, checked August 14, with incomplete August registry coverage."
       },
       {
         "label": "Conflict screening scope",
         "lead": true,
-        "value": "Declared in Annex A",
+        "value": "Annex A in prior record",
         "source": "manual",
         "automatable": false,
-        "sourceNote": "Annex A publicly lists the entities covered by the agreed measure and ethics screen."
+        "sourceNote": "The prior Annex A record lists entities covered by the agreed measure and ethics screen. This component is retained from the assessment through July 31, checked August 14; August registry coverage was incomplete."
       },
       {
         "label": "Committee / governance review",
-        "value": "ETHI report published; no Commissioner review",
+        "value": "House report published; July 31 assessment retained",
         "source": "manual",
         "automatable": false,
         "sourceRefs": [
@@ -3695,7 +3681,7 @@
             "role": "International benchmark. The Corruption Perceptions Index ranks 180 countries on perceived public-sector corruption; Canada's drop to its lowest-ever 15th-place rank gives an international point of comparison for federal governance quality."
           }
         ],
-        "sourceNote": "The House ETHI committee's April 2026 review of the Conflict of Interest Act addresses the Prime Minister's conflict screen and recommends stronger public reporting. The Ethics Commissioner has still not published a PM-specific review. Democracy Watch carries the independent watchdog critique on the same screen. Transparency International Canada's CPI ranking gives the international benchmark for federal governance quality. The ETHI committee report is family-6 parliamentary critique (independent challenge), not family-5 procedural. The dashboard's source schema does not currently carry a per-source family field, so the bias-audit script infers family from labels and URLs."
+        "sourceNote": "House committee Report 5, presented April 23, substantively reviews the conflict-screen framework and recommends stronger public reporting. Democracy Watch supplies a separate watchdog critique, and Transparency International supplies international context. The assessment through July 31, checked August 14, did not locate a PM-specific Commissioner adequacy review. August registry access was incomplete, so that negative finding is not extended to August. The committee report remains an independent parliamentary review; it does not satisfy the Commissioner-specific requirement."
       }
     ],
     "promises": [
@@ -3703,7 +3689,7 @@
         "text": "Full financial disclosure",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "Ethics screen and blind trust established. Democracy Watch and House Ethics Committee have raised concerns about completeness.",
+        "evidence": "The assessment through July 31, checked August 14, documented the screen and blind trust, alongside Democracy Watch and House committee concerns about completeness. That status is retained with incomplete August registry coverage, not a new August finding about full accounting.",
         "originalSourceUrl": "https://www.ethicscanada.ca/Declarations/43657/Appendix%20Summary%20Statement%20-%20Annexe%20Declaration%20Sommaire.pdf",
         "originalSourceLabel": "PM blind-trust summary statement",
         "statusSourceUrl": "https://democracywatch.ca/pm-carneys-ethics-screen-and-blind-trust-are-loophole-filled-unethical-smokescreens/",
@@ -3721,7 +3707,7 @@
         "text": "Independent Ethics Commissioner review",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "No PM-specific Ethics Commissioner review of the screen and disclosure has been published. House ETHI Report 5 is a separate parliamentary review and does not satisfy this Commissioner-specific promise.",
+        "evidence": "The August 14 check found no PM-specific Commissioner review in the records reviewed through July 31. House committee Report 5 is a separate parliamentary review and does not meet this Commissioner-specific promise. August registry coverage was incomplete, so the prior status is retained.",
         "statusSourceUrl": "https://www.ethicscanada.ca/en/public-registry",
         "statusSourceLabel": "Office of the Ethics Commissioner - public registry",
         "durability": "Framework",
@@ -3737,8 +3723,8 @@
       }
     ],
     "perspectives": {
-      "critics": "Democracy Watch says the ethics screen is “loophole-filled.” Carney held ~$6.8M in unexercised Brookfield options. The House ETHI committee's 2026 review recommended stronger public reporting and binding directions for screens, reinforcing that the framework still depends on incomplete external visibility.",
-      "defenders": "No public evidence demonstrates self-dealing. The frameworks Carney helped build (carbon pricing, ESG disclosure) are mainstream G7 consensus, not one individual's agenda. The industrial carbon system would likely exist under any PM. The Ethics Commissioner has not found wrongdoing."
+      "critics": "Democracy Watch criticized the screen, and prior reporting described about $6.8M USD in unexercised Brookfield options. House committee Report 5 recommended stronger public reporting and binding screen directions. These are dated critiques supporting the prior assessment; August disclosure completeness was not newly verified.",
+      "defenders": "Prior records document a blind trust, an agreed-measure filing and a conflict screen. The reviewed record through July 31 did not establish self-dealing. August registry access was incomplete, so this hold makes no fresh finding about wrongdoing or Commissioner action."
     },
     "tags": {
       "confidence": "Medium",
@@ -3755,16 +3741,11 @@
     "whatThisGrades": "A combined delivery score pulled from five of the government's biggest areas: defence, housing, major projects, climate, and immigration. This grade is built from those five, not judged on its own.",
     "grade": "C",
     "previousGrade": null,
-    "trend": "down",
-    "status": "Defence and immigration are clearly getting done. Housing, major projects, and climate are stalled, meaning no measurable progress yet or progress has stopped after initial action.",
-    "verdictLine": "Defence and immigration are getting done, while housing, major projects, and climate are stalled.",
-    "latestReview": {
-      "date": "2026-08-14",
-      "outcome": "held",
-      "summary": "July execution checks preserved the underlying mix: two files delivering and three stalled, with no retention-condition breach."
-    },
+    "trend": "stable",
+    "status": "Defence and immigration retain delivery classifications. Housing, projects and climate still lack established delivery at the required scale.",
+    "verdictLine": "Delivery remains uneven across the flagship files, with domestic implementation gaps still unresolved.",
     "judgmentCall": "The middle grade comes from counting how the five flagship areas split across delivery statuses. It is not a fresh opinion on whether each policy is good.",
-    "judgmentDetail": "The C grade comes from the published combination rule applied to the five flagship areas. The editor's judgment is in sorting each area into one of four statuses: delivering, partially delivering, stalled, or failing. The mix of statuses then sets the grade automatically. This grade measures delivery capacity, the ability to turn plans into results, not whether defence, housing, major projects, climate, or immigration are good policies. It passed its July 2026 retention check and exited probation. The rule ran through a real cycle without changes. Its direction did not contradict the status moves in the five areas underneath. It showed a delivery pattern spanning two or more flagship areas that no single home card makes obvious. And no metric was counted twice, once in a home area and again here.",
+    "judgmentDetail": "The published combination rule maps the home-file delivery categories to the headline grade. It does not average home grades or score their outcomes again. September process evidence supports retaining the existing categories. Housing starts weakened, but their primary outcome home is Housing; separate deterioration of attributable federal execution was not established. The cycle compares agreement stages across energy and housing and removes the out-of-scope trade claim. This retains the rule, consistent grade direction and the cross-file delivery distinction.",
     "surfaceTags": [
       "Combination rule"
     ],
@@ -3844,17 +3825,17 @@
           {
             "file": "Housing",
             "status": "Stalled",
-            "evidence": "4,000 units announced, not underway, spending declining"
+            "evidence": "Federal housing programs are active. Bradford funding still requires agreements and approvals; attributable delivery at national scale is not established."
           },
           {
             "file": "Major Projects",
             "status": "Stalled",
-            "evidence": "MPO created, national interest designation unused"
+            "evidence": "The office and referral process exist. Reviewed evidence does not establish faster completed delivery attributable to the national-interest machinery."
           },
           {
             "file": "Climate",
             "status": "Stalled",
-            "evidence": "Major reversals, no funded replacement strategy"
+            "evidence": "The regional grid agreement advances one commitment. Delivery of the wider national climate framework remains unestablished."
           },
           {
             "file": "Immigration",
@@ -3936,12 +3917,12 @@
         }
       ]
     },
-    "rationale": "This dimension measures the government's cross-cutting capacity to convert announcements into measurable results across its five highest-profile areas: defence (NATO 2%), housing (Build Canada Homes), major projects (MPO), climate (policy framework), and immigration (levels reduction). It is deliberately narrow. It grades execution machinery, not policy merit. Defence shows the government can deliver when focused. Housing and climate show it cannot yet deliver at scale on domestic areas. The 40,000 public service job cuts while pursuing an ambitious agenda raise structural capacity questions, a concern reinforced by C.D. Howe's analysis of a worsening executive-to-rank-and-file ratio.",
+    "rationale": "This combined grade uses the home files to assess execution across defence, housing, major projects, climate and immigration. As context from Climate and Housing, the August energy agreement records a financing agreement, while the Bradford housing allocation still requires bilateral and municipal agreements and federal review. The comparison shows different implementation gates across the domestic files. Neither announcement alone proves funds were paid or construction completed. National housing starts remain Housing outcome evidence and are not independently scored again here.",
     "sources": [
       {
         "label": "Policy Options - federalism failure",
         "url": "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
-        "date": "2026-02",
+        "date": "2026-02-23",
         "dateKind": "published"
       },
       {
@@ -3967,9 +3948,27 @@
         "url": "https://thehub.ca/2025/11/17/carneys-budget-has-a-94-billion-gap-in-investment-spending-and-a-shortfall-in-government-operating-balance-pbo/",
         "date": "2025-11-17",
         "dateKind": "published"
+      },
+      {
+        "label": "PMO regional energy agreement, August 17, 2026",
+        "url": "https://www.pm.gc.ca/en/news/news-releases/2026/08/17/prime-minister-carney-announces-largest-clean-energy-investment-north",
+        "date": "2026-08-17",
+        "dateKind": "published"
+      },
+      {
+        "label": "Bradford housing agreement conditions, August 28, 2026",
+        "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/canada-and-ontario-making-homes-more-affordable-in-bradford-west-gwillimbury.html",
+        "date": "2026-08-28",
+        "dateKind": "published"
+      },
+      {
+        "label": "Marten Falls federal assessment completion, August 31, 2026",
+        "url": "https://www.canada.ca/en/impact-assessment-agency/news/2026/08/federal-impact-assessment-of-the-marten-falls-community-access-road-project-complete.html",
+        "date": "2026-08-31",
+        "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "Flagship files delivering",
@@ -3988,19 +3987,30 @@
         "automatable": false
       },
       {
-        "label": "Bills passed",
-        "value": "11 of 26",
-        "lead": true,
-        "source": "legisinfo",
-        "automatable": false
-      },
-      {
         "label": "Federal-provincial coordination",
         "lead": true,
-        "value": "Weak (Policy Options)",
-        "source": "policy-options",
-        "sourceNote": "Policy Options / IRPP analysis of competitive federalism failures. Source URL in dimension sources array. Editorial characterization, not a quantitative metric.",
-        "automatable": false
+        "value": "Different agreement stages across energy and housing",
+        "source": "editorial",
+        "sourceNote": "Comparison of the opened August 17 regional energy agreement and August 28 Bradford conditions. This describes agreement stages, not proven payment or completed construction. It is context for the cross-file execution assessment. Policy Options' February 23 analysis supplies an earlier critique of weak intergovernmental institutions. It is an independent perspective on coordination, not confirmation of the August agreements or their delivery.",
+        "automatable": false,
+        "sourceRefs": [
+          {
+            "label": "PMO regional energy agreement, August 17, 2026",
+            "url": "https://www.pm.gc.ca/en/news/news-releases/2026/08/17/prime-minister-carney-announces-largest-clean-energy-investment-north"
+          },
+          {
+            "label": "Bradford housing agreement conditions, August 28, 2026",
+            "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/canada-and-ontario-making-homes-more-affordable-in-bradford-west-gwillimbury.html"
+          },
+          {
+            "label": "Marten Falls federal assessment completion, August 31, 2026",
+            "url": "https://www.canada.ca/en/impact-assessment-agency/news/2026/08/federal-impact-assessment-of-the-marten-falls-community-access-road-project-complete.html"
+          },
+          {
+            "label": "Policy Options February 23 analysis, earlier institutional critique",
+            "url": "https://policyoptions.irpp.org/2026/02/competitive-federalism/"
+          }
+        ]
       }
     ],
     "promises": [
@@ -4008,9 +4018,9 @@
         "text": "Get big projects built quickly",
         "status": "Stalled",
         "since": "2026-04-14",
-        "evidence": "National interest designation unused. Most referred projects were already in motion. Federalism coordination gaps documented by Policy Options.",
-        "statusSourceUrl": "https://policyoptions.irpp.org/2026/02/competitive-federalism/",
-        "statusSourceLabel": "Policy Options - federalism failure",
+        "evidence": "The reviewed evidence does not establish quicker completed project delivery attributable to the federal coordination machinery. The August 31 Marten Falls federal assessment still carries binding conditions and further permitting requirements. This is process context, not proof of completed construction or a new cohort stage.",
+        "statusSourceUrl": "https://www.canada.ca/en/impact-assessment-agency/news/2026/08/federal-impact-assessment-of-the-marten-falls-community-access-road-project-complete.html",
+        "statusSourceLabel": "IAAC Marten Falls assessment decision, August 31, 2026",
         "durability": "Commitment",
         "history": [
           {
@@ -4024,17 +4034,22 @@
       }
     ],
     "perspectives": {
-      "critics": "Policy Options: cooperative federalism is failing. BC's Premier was blindsided by a pipeline deal, and Ontario got hours of notice. NDP and PSAC: you cannot cut 40,000 public service positions while pursuing the most ambitious delivery agenda in years. C.D. Howe notes Budget 2025 also worsens the public-service executive-to-rank-and-file ratio. The state literally cannot execute what the government announces.",
-      "defenders": "Defence and trade show genuine follow-through: NATO 2%, trade diversification, and the One Canadian Economy Act. The government has demonstrated it can execute when focused. 11 of 26 bills passed in 13 months under minority conditions. The majority secured April 13 should accelerate the domestic agenda."
+      "critics": "Policy Options' February analysis argues that weak intergovernmental institutions undermine lasting coordination. As current context, Bradford funding remains conditional, and the regional energy agreement does not establish completed national delivery.",
+      "defenders": "As context from the home files, defence spending and immigration administration show delivery through existing federal machinery. The regional energy agreement also shows that intergovernmental agreement formation can advance. It does not establish national grid delivery or independently move this combined grade."
     },
     "tags": {
       "confidence": "Medium",
       "attribution": "Direct",
       "lag": "Short"
     },
-    "nextTrigger": "Post-majority legislative pace (bills passed per month). First Ministers Meeting outcomes. April 28 economic update implementation.",
+    "nextTrigger": "An editor-confirmed change in a flagship delivery category, supported by qualifying evidence under the published combination and overlap rules.",
     "inherited": "Federal delivery capacity had been declining. Procurement timelines among slowest in OECD. Multiple program delivery failures documented in prior government.",
-    "gpaValue": 2
+    "gpaValue": 2,
+    "latestReview": {
+      "date": "2026-09-05",
+      "outcome": "held",
+      "summary": "The existing categories retain the combination-rule result. Weaker housing starts remain Housing context; separate federal execution deterioration was not established."
+    }
   },
   {
     "id": "promise-delivery",
@@ -4042,7 +4057,7 @@
     "whatThisGrades": "A running tracker of specific things the government promised to do. Each one is marked delivered, in progress, too early to judge, stalled, or abandoned.",
     "informationalGrade": "C+",
     "trend": "stable",
-    "status": "Of 43 tracked promises, 14 are delivered, 16 are in progress, 4 are too early to judge, 6 are stalled, and 3 are abandoned.",
+    "status": "Of 43 tracked promises, 14 are delivered, 17 are in progress, 3 are too early to judge, 6 are stalled, and 3 are abandoned.",
     "surfaceTags": [
       "Derivative tracker",
       "Tracker only"
@@ -4162,20 +4177,20 @@
         "dateKind": "published"
       }
     ],
-    "lastUpdated": "2026-08-14",
+    "lastUpdated": "2026-09-05",
     "metrics": [
       {
         "label": "Key commitments delivered",
         "value": "14 of 43",
         "source": "editorial",
-        "sourceNote": "Editorial tally based on promise-by-promise status assessment. Each promise status is documented with evidence in the promises array. Built from home-dimension evidence. Data-freshness sweep on 2026-06-05 found no automatic count change; carbon-pricing trajectory remains an editor-review item, not a count move here.",
+        "sourceNote": "Calculated from the current promise rows in this September review: 14 of 43 are Delivered. The approved grid move changes In Progress to 17 and Too Early to 3; it does not add a delivered promise. Each status retains its individual evidence and history.",
         "automatable": false
       },
       {
         "label": "Commitments stalled or abandoned",
         "value": "9 of 43",
         "source": "editorial",
-        "sourceNote": "Editorial tally after the 2026-06 quarterly recert and editor adjudications: 6 stalled and 3 abandoned. See individual promise entries for evidence basis.",
+        "sourceNote": "Calculated from the current promise rows in this September review: 6 Stalled plus 3 Abandoned equals 9 of 43. The approved grid move does not change either count. Each status retains its individual evidence and history.",
         "automatable": false
       },
       {
@@ -4288,7 +4303,7 @@
         "text": "EV mandate",
         "status": "Abandoned",
         "since": "2025-11-27",
-        "evidence": "Repealed. Limited connection to trade competitiveness rationale.",
+        "evidence": "The government announced that it would end the electric-vehicle sales mandate. Canada Gazette Part I published proposed repeal regulations on August 15, 2026. That proposal does not establish a completed legal repeal. The commitment status remains an editor judgment, separate from the legal stage.",
         "durability": "Commitment",
         "history": [
           {
@@ -4299,8 +4314,8 @@
         ],
         "originalSourceUrl": "https://www.canada.ca/en/environment-climate-change/news/2023/12/canadas-electric-vehicle-availability-standard-regulated-targets-for-zero-emission-vehicles.html",
         "originalSourceLabel": "ECCC - Electric Vehicle Availability Standard",
-        "statusSourceUrl": "https://electricautonomy.ca/policy-regulations/2026-02-05/canada-repeals-ev-availability-standard-restores-5000-vehicle-incentives-with-new-automotive-policy/",
-        "statusSourceLabel": "Electric Autonomy - EVAS repeal announced (2026-02-05)"
+        "statusSourceUrl": "https://gazette.gc.ca/rp-pr/p1/2026/2026-08-15/html/reg2-eng.html",
+        "statusSourceLabel": "Canada Gazette Part I - proposed vehicle regulation amendments, August 15"
       },
       {
         "text": "2 Billion Trees (wound down)",

@@ -23,14 +23,17 @@ function buildShareText(dim, trackerStat) {
     ].filter(Boolean).join("\n");
   }
 
-  const reviewedDate = dim.latestReview?.outcome === "held"
-    ? dim.latestReview.date
-    : dim.lastUpdated;
+  const reviewedDate = dim.latestReview?.date || dim.lastUpdated;
+  const exception = dim.latestReview?.outcome === "exception" ? dim.latestReview : null;
 
   return [
     "Canada Under Carney performance scorecard",
     dim.name,
-    `Grade: ${dim.grade || "Not available"} | Trend: ${trend}`,
+    exception
+      ? `Temporary prior grade: ${dim.grade} | Retained trend: ${trend}`
+      : `Grade: ${dim.grade || "Not available"} | Trend: ${trend}`,
+    exception?.summary,
+    exception ? `Exception expires: ${exception.expiresOn}` : null,
     reviewedDate ? `Policy file reviewed: ${reviewedDate}` : null,
     "Evidence and grading method:",
   ].filter(Boolean).join("\n");

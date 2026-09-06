@@ -430,9 +430,9 @@ export default function About({ onReady }) {
             PROOF (U of T)
             <br />
             <strong>Polling / public opinion:</strong> Angus Reid; Approval
-            Signal pollsters are tracked separately outside the grades (Léger,
-            Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group;
-            Nanos preferred-PM context)
+            Signal pollsters are tracked separately outside the grades. The source history includes Léger,
+            Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group,
+            and Research Co. Nanos preferred-PM tracking is separate context.
             <br />
             <strong>Context-only official announcements:</strong> PMO or other
             government press releases may appear as context, but they do not by
@@ -631,6 +631,11 @@ export default function About({ onReady }) {
               corrections policy
             </a>{" "}
             documents what gets corrected, how, and on what timeline.
+            {" "}
+            <a href="#change-corrections" style={{ color: "#1565c0" }}>
+              Read published corrections
+            </a>
+            .
             <br />
             Federal ministries, agencies, watchdogs, and named third-party
             analysts cited in any policy area's evidence chain can submit

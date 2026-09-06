@@ -225,6 +225,37 @@ try {
     `valid status fixture should pass:\n${validStatusResult.output}`,
   );
 
+  const correction = {
+    type: "correction",
+    headline: "Housing source periods clarified",
+    body: "The source note combined estimates with different time periods.",
+    affectedDimension: "housing-supply",
+    previousValue: "A cumulative gap and an annual estimate were combined.",
+    correctedValue: "The current annual estimate is stated with its own period.",
+    reportedBy: "anonymous",
+  };
+  const correctionFixture = structuredClone(baseFixture);
+  correctionFixture.changelog[0].items = [correction];
+  const correctionResult = runFirstLookValidator(correctionFixture, "valid-correction");
+  assert.equal(correctionResult.status, 0, correctionResult.output);
+
+  const olderCorrectionFixture = structuredClone(baseFixture);
+  const incompleteCorrection = { ...correction };
+  delete incompleteCorrection.previousValue;
+  olderCorrectionFixture.changelog.push({
+    date: "2026-07-01",
+    items: [incompleteCorrection],
+  });
+  const olderCorrectionResult = runFirstLookValidator(
+    olderCorrectionFixture,
+    "older-incomplete-correction",
+  );
+  assert.equal(olderCorrectionResult.status, 1, olderCorrectionResult.output);
+  assert.ok(olderCorrectionResult.output.includes(
+    "changelog[1].items[0].previousValue is required for a correction",
+  ), olderCorrectionResult.output);
+  console.log("OK. Correction records are accepted and older incomplete corrections are rejected.");
+
   invalidFixtures.forEach((fixtureCase, index) => {
     const fixture = structuredClone(baseFixture);
     fixtureCase.mutate(fixture);

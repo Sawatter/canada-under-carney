@@ -34,6 +34,7 @@ function pubDate(isoDate) {
 }
 
 const TYPE_LABELS = {
+  correction: "Correction",
   grade:   "Grade change",
   event:   "Policy event",
   product: "Product update",

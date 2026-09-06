@@ -128,6 +128,7 @@ export default function ScoreboardHeader({
   overallGrade,
   overallGPA,
   overallVerdictLine,
+  reviewExceptions = [],
   latestRelease,
   nextUpdate,
   primaryNextCheck,
@@ -206,7 +207,16 @@ export default function ScoreboardHeader({
           </div>
         </div>
 
-        <p className="first-look-overall-verdict">{overallVerdictLine}</p>
+        <div className="first-look-verdict-block">
+          <p className="first-look-overall-verdict">{overallVerdictLine}</p>
+          {reviewExceptions.map((dim) => (
+            <p className="first-look-exception-note" key={dim.id}>
+              The scores include a temporary prior grade for {dim.name} while its
+              evidence gap remains unresolved.{" "}
+              <a className="first-look-exception-inline-link" href={`#dim-${dim.id}-briefing`}>Read why</a>
+            </p>
+          ))}
+        </div>
 
         <div className="first-look-primary-context">
           <ReleaseUpdate latestRelease={latestRelease} />
@@ -234,6 +244,15 @@ export default function ScoreboardHeader({
           >
             Read the scoring method
           </a>
+          {reviewExceptions.map((dim) => (
+            <a
+              key={dim.id}
+              className="first-look-action first-look-narrow-action"
+              href={`#dim-${dim.id}-briefing`}
+            >
+              Read why
+            </a>
+          ))}
           <a
             className="first-look-action first-look-narrow-action"
             href="#view-changelog"

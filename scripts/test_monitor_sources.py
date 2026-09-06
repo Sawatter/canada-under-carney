@@ -1589,6 +1589,139 @@ def main():
               "url": fetch_data.ETHICS_REPORTS_URL,
           })
 
+    def ethics_listing_fixture(page, last_page, report_id):
+        controls = []
+        for label, target, disabled, active in [
+                ("Previous", page - 1, page == 1, False),
+                *[(str(n), n, False, n == page) for n in range(1, last_page + 1)],
+                ("Next", page + 1, page == last_page, False)]:
+            classes = "page-item" + (" disabled" if disabled else "") + (
+                " active" if active else "")
+            controls.append(f'<li class="{classes}"><button data-page="{target}">'
+                            f'{label}</button></li>')
+        return (f'<form id="filterForm" action="/en/report"><input name="p" value="{page}">'
+                '</form><nav aria-label="Pagination Navigation"><ul>' +
+                ''.join(controls) + '</ul></nav>' +
+                f'<a href="/en/report/{report_id}">Report {report_id}</a>')
+
+    def ethics_response(page, last_page, report_id, **changes):
+        values = {
+            "status_code": 200,
+            "url": fetch_data.ETHICS_REPORTS_URL + (f"&p={page}" if page > 1 else ""),
+            "text": ethics_listing_fixture(page, last_page, report_id),
+        }
+        return SimpleNamespace(**{**values, **changes})
+
+    for last_page in (1, 3):
+        responses = [ethics_response(n, last_page, f"example{n}")
+                     for n in range(1, last_page + 1)]
+        with patch.object(fetch_data.requests, "get", side_effect=responses) as get_page:
+            paginated = fetch_data.fetch_ethics_reports_page()
+        expected_reports = [{"title": f"Report example{n}",
+                             "url": f"https://www.ethicscanada.ca/en/report/example{n}"}
+                            for n in range(1, last_page + 1)]
+        check(f"Ethics advertised {last_page}-page listing is complete",
+              paginated.get("status") == "success" and
+              paginated.get("reports") == expected_reports and
+              paginated.get("count") == len(expected_reports) and
+              [call.args[0] for call in get_page.call_args_list] ==
+              [response.url for response in responses])
+
+    ethics_bad_pages = [
+        ("missing later page", [ethics_response(1, 2, "one"),
+                                ethics_response(2, 2, "two", status_code=404)]),
+        ("repeated report content", [ethics_response(1, 2, "one"),
+                                     ethics_response(2, 2, "one")]),
+        ("repeated first page", [ethics_response(1, 2, "one"),
+                                 ethics_response(1, 2, "one")]),
+        ("changed page count", [ethics_response(1, 2, "one"),
+                                ethics_response(2, 3, "two")]),
+        ("missing pager", [ethics_response(1, 1, "one", text=ethics_fixture)]),
+        ("wrong active page", [ethics_response(1, 2, "one", text=
+            ethics_listing_fixture(2, 2, "one").replace('name="p" value="2"',
+                                                      'name="p" value="1"'))]),
+        ("wrong page input", [ethics_response(1, 1, "one", text=
+            ethics_listing_fixture(1, 1, "one").replace('name="p" value="1"',
+                                                      'name="p" value="2"'))]),
+        ("misleading next control", [ethics_response(1, 2, "one", text=
+            ethics_listing_fixture(1, 2, "one").replace('data-page="2">Next',
+                                                      'data-page="3">Next'))]),
+        ("missing numbered page", [ethics_response(1, 3, "one", text=
+            ethics_listing_fixture(1, 3, "one").replace(
+                '<li class="page-item"><button data-page="2">2</button></li>', ''))]),
+        ("unbounded listing", [ethics_response(1, fetch_data.ETHICS_MAX_PAGES + 1, "one")]),
+    ]
+    for label, url in (
+            ("wrong host", "https://example.org/en/report?type=inv"),
+            ("wrong path", "https://www.ethicscanada.ca/en/report/Cards?type=inv"),
+            ("wrong report type", "https://www.ethicscanada.ca/en/report?type=oth"),
+            ("missing report type", "https://www.ethicscanada.ca/en/report"),
+            ("duplicate report type", fetch_data.ETHICS_REPORTS_URL + "&type=oth"),
+            ("unexpected filter", fetch_data.ETHICS_REPORTS_URL + "&year=2026"),
+            ("wrong response page", fetch_data.ETHICS_REPORTS_URL + "&p=2")):
+        ethics_bad_pages.append((label, [ethics_response(1, 1, "one", url=url)]))
+    for label, responses in ethics_bad_pages:
+        with tempfile.TemporaryDirectory() as td:
+            cache_path = Path(td) / "ethics-reports.json"
+            cache_path.write_text(json.dumps({"reports": ethics_fetch_result["reports"]}))
+            before = cache_path.read_bytes()
+            with patch.object(fetch_data.requests, "get", side_effect=responses) as get_page:
+                rejected_page = fetch_data.fetch_ethics_reports_page()
+            rejected_diff = fetch_data.diff_ethics_reports_against_cache(
+                rejected_page, cache_path=cache_path)
+            preserved = cache_path.read_bytes() == before
+        check(f"Ethics {label} rejects without cache overwrite or partial output",
+              rejected_page["status"] in {"http_error", "malformed_data"} and
+              "reports" not in rejected_page and "additions" not in rejected_diff and
+              preserved and get_page.call_count <= len(responses))
+
+    # Exercise the actual producer, including its JSON conversion of tuples and sets.
+    mpo_source = {"status": "success", "count": 2, "projects": [
+        {"display": "Matched Mine", "tokens": fetch_data._mpo_token_set("Matched Mine")},
+        {"display": "McIlvenna Bay Project", "tokens":
+         fetch_data._mpo_token_set("McIlvenna Bay Project")},
+    ]}
+    mpo_dimensions = [{"id": "major-projects", "projectCohort": {"projects": [
+        {"name": "Matched Mine"}, {"name": "McIlvenna Bay Foran Copper Mine"},
+    ]}}]
+    produced_diff = json.loads(json.dumps(fetch_data.diff_mpo_against_cohort(
+        mpo_dimensions, mpo_source), default=fetch_data.json_safe_default))
+    check("MPO actual serialized producer unmatched names pass consumer contract",
+          produced_diff == {"status": "success", "matched": [["Matched Mine", "Matched Mine"]],
+                            "mpo_only": ["McIlvenna Bay Project"],
+                            "cohort_only": ["McIlvenna Bay Foran Copper Mine"],
+                            "mpo_count": 2, "cohort_count": 2} and
+          not m.deterministic_success_shape_errors({"mpo_diff": produced_diff}))
+    for field in ("mpo_only", "cohort_only"):
+        for invalid in ("", "  ", True, {}, {"display": "Name"},
+                        {"display": "Name", "tokens": []},
+                        {"display": "Name", "tokens": [False]},
+                        {"display": "Name", "tokens": [" "]}):
+            malformed_diff = json.loads(json.dumps(produced_diff))
+            malformed_diff[field] = [invalid]
+            check(f"MPO {field} rejects unusable unmatched row {invalid!r}",
+                  f"mpo_diff {field} contains an unusable entry" in
+                  m.deterministic_success_shape_errors({"mpo_diff": malformed_diff}))
+    legacy_diff = json.loads(json.dumps(produced_diff))
+    legacy_diff["mpo_only"] = [{"display": "McIlvenna Bay Project", "tokens": ["mcilvenna"]}]
+    check("MPO legacy display and tokens unmatched row remains accepted",
+          not m.deterministic_success_shape_errors({"mpo_diff": legacy_diff}))
+    wrong_count_diff = {**produced_diff, "mpo_count": 3}
+    check("MPO unmatched names retain the count consistency guard",
+          "mpo_diff mpo_count is inconsistent with project rows" in
+          m.deterministic_success_shape_errors({"mpo_diff": wrong_count_diff}))
+    wording_payload = {"results": {"mpo_diff": produced_diff,
+                                  "ethics_reports_diff": {"status": "success", "additions": [
+                                      second_ethics_report]}}}
+    wording_candidates, _ = m.candidates_from_fetch_results(
+        wording_payload, reg, {"schemaVersion": 1, "sources": {}}, "2026-09")
+    check("MPO unmatched name is surfaced for identity review, without a new-project assertion",
+          any(c["discovery"] == "mpo_diff" and "needs a cohort comparison" in c["title"]
+              for c in wording_candidates))
+    check("Ethics additions are first observations with publication-date review",
+          any(c["discovery"] == "ethics_diff" and "First-observed" in c["title"] and
+              "publication date" in c["snippet"] for c in wording_candidates))
+
     # --- classifier never controls the safety flags ------------------------ #
     check("classifier tool schema cannot set the safety flags",
           "can_move_grade_automatically" not in json.dumps(m.CLASSIFIER_TOOL))
@@ -4322,6 +4455,90 @@ def main():
 
     real_classify_candidates = m.classify_candidates
 
+    def run_classifier_preflight_fixture(*, mode="valid", key="fixture-key", extra_args=None):
+        api_calls = []
+        client_calls = []
+        output = io.StringIO()
+        errors = io.StringIO()
+
+        def create_message(**kwargs):
+            api_calls.append(kwargs)
+            if mode == "credit":
+                raise RuntimeError("Your credit balance is too low to access the Anthropic API.")
+            if mode == "private error":
+                raise RuntimeError(SYNTHETIC_USER_PATH + " fixture-key")
+            candidate = json.loads(kwargs["messages"][0]["content"].split(
+                "Candidates to route:\n", 1)[1])[0]
+            rows = [] if mode == "empty" else [{
+                "candidate_id": candidate["candidate_id"],
+                "classification": "context" if mode == "valid" else "invented",
+                "affected_dimensions": ["affordability"],
+                "relevance_score": 0.8, "reason": "Public food price table.",
+                "evidence_limitations": "No numerical update supplied.",
+            }]
+            return SimpleNamespace(content=[SimpleNamespace(
+                type="tool_use", input={"classifications": rows})])
+
+        def client(**kwargs):
+            client_calls.append(kwargs)
+            return SimpleNamespace(messages=SimpleNamespace(create=create_message))
+
+        no_io = AssertionError("Preflight must not read or write monitor files or search")
+        with patch.dict(sys.modules, {"anthropic": SimpleNamespace(Anthropic=client)}), \
+                patch.dict(os.environ, {"ANTHROPIC_API_KEY": key}, clear=True), \
+                patch.object(m, "acquire_monitor_run_lock", side_effect=no_io), \
+                patch.object(m, "load_json", side_effect=no_io), \
+                patch.object(m, "write_json", side_effect=no_io), \
+                patch.object(m, "write_json_atomic", side_effect=no_io), \
+                patch.object(m, "run_search_fanout", side_effect=no_io), \
+                patch.object(Path, "write_text", side_effect=no_io), \
+                redirect_stdout(output), redirect_stderr(errors):
+            try:
+                code = m.main(["--classifier-preflight", *(extra_args or [])])
+            except SystemExit as exc:
+                code = exc.code
+        return code, output.getvalue(), errors.getvalue(), api_calls, client_calls
+
+    preflight_ok = run_classifier_preflight_fixture()
+    preflight_metadata = json.loads(preflight_ok[1].splitlines()[0])
+    check("classifier preflight requires a real valid response and disclaims full acceptance",
+          preflight_ok[0] == 0 and preflight_metadata["classification"] == "context" and
+          preflight_metadata["accepted_monitor_run"] is False and
+          preflight_metadata["requires_editor_review"] is True and
+          preflight_metadata["can_move_grade_automatically"] is False and
+          preflight_ok[1].splitlines()[-1] ==
+          "VERDICT: CLASSIFIER PREFLIGHT PASSED; FULL MONITOR ACCEPTANCE NOT TESTED")
+    check("classifier preflight uses one request with retries disabled and no Tavily key",
+          len(preflight_ok[3]) == 1 and len(preflight_ok[4]) == 1 and
+          preflight_ok[4][0]["max_retries"] == 0 and
+          preflight_ok[3][0]["model"] == m.DEFAULT_MODEL and
+          len(json.loads(preflight_ok[3][0]["messages"][0]["content"].split(
+              "Candidates to route:\n", 1)[1])) == 1)
+    for mode in ("empty", "invalid", "credit", "private error"):
+        failed_preflight = run_classifier_preflight_fixture(mode=mode)
+        check(f"classifier preflight rejects {mode} with no success output or retry",
+              failed_preflight[0] == 1 and failed_preflight[1] == "" and
+              len(failed_preflight[3]) == 1 and
+              "classifier preflight failed" in failed_preflight[2] and
+              SYNTHETIC_USER_PATH not in failed_preflight[2] and
+              "fixture-key" not in failed_preflight[2])
+        if mode == "credit":
+            check("classifier preflight preserves the literal low-credit diagnosis",
+                  "Your credit balance is too low to access the Anthropic API." in
+                  failed_preflight[2])
+    no_key_preflight = run_classifier_preflight_fixture(key="")
+    check("classifier preflight missing key fails before any API request",
+          no_key_preflight[0] == 1 and no_key_preflight[1] == "" and
+          "requires ANTHROPIC_API_KEY" in no_key_preflight[2] and
+          not no_key_preflight[3] and not no_key_preflight[4])
+    for args in (["--dry-run"], ["--no-search"], ["--no-classify"],
+                 ["--require-complete"], ["--state-file", "ignored.json"],
+                 ["--rebuild-registry"], ["--model", " "]):
+        mixed_preflight = run_classifier_preflight_fixture(extra_args=args)
+        check(f"classifier preflight rejects mixed monitor mode {args} before API work",
+              mixed_preflight[0] == 2 and not mixed_preflight[3] and
+              not mixed_preflight[4] and mixed_preflight[1] == "")
+
     def run_classifier_row(row):
         candidate = m._candidate(
             "2026-09", "fixture-source", "search_fanout", "Classifier fixture",
@@ -4514,6 +4731,7 @@ def main():
     publish_job_marker = "\n  publish-review:"
     determine_cycle_marker = "- name: Determine cycle month"
     validate_backtest_marker = "- name: Validate backtest inputs"
+    classifier_preflight_marker = "- name: Test classifier access before source search"
     privacy_preflight_marker = "- name: Preflight private identity patterns"
     install_dependencies_marker = "- name: Install dependencies"
     prepare_branch_marker = "- name: Prepare review branch"
@@ -4627,7 +4845,7 @@ def main():
             analysis_job_marker, publish_job_marker,
             privacy_preflight_marker, install_dependencies_marker,
             determine_cycle_marker,
-            validate_backtest_marker,
+            validate_backtest_marker, classifier_preflight_marker,
             prepare_branch_marker, fetch_marker, generate_ledger_marker,
             validate_ledger_marker, live_marker, registry_marker,
             backtest_marker, guard_marker, live_artifact_marker,
@@ -4645,7 +4863,9 @@ def main():
         privacy_preflight = workflow_section(
             analysis_job, privacy_preflight_marker, install_dependencies_marker)
         validate_backtest = workflow_section(
-            analysis_job, validate_backtest_marker, prepare_branch_marker)
+            analysis_job, validate_backtest_marker, classifier_preflight_marker)
+        classifier_check = workflow_section(
+            analysis_job, classifier_preflight_marker, prepare_branch_marker)
         prepare = workflow_section(
             analysis_job, prepare_branch_marker, fetch_marker)
         fetch = workflow_section(
@@ -4714,7 +4934,7 @@ def main():
         privacy_check = text.find(privacy_preflight_marker)
         protected_steps = (
             text.find(fetch_marker), text.find(live_marker),
-            text.find(backtest_marker),
+            text.find(backtest_marker), text.find(classifier_preflight_marker),
         )
         if (not all(value in privacy_preflight
                     for value in privacy_preflight_contract) or
@@ -4727,6 +4947,20 @@ def main():
                 "private identity secret is not validated before fetch and paid tiers")
         if workflow_condition(privacy_preflight) is not None:
             errors.append("private identity preflight can be skipped")
+
+        if (workflow_condition(classifier_check) is not None or
+                first_run_command(classifier_check) != "set -euo pipefail" or
+                "ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}" not in classifier_check or
+                "TAVILY_API_KEY:" in classifier_check or
+                "python3 scripts/monitor_sources.py --classifier-preflight" not in classifier_check or
+                "continue-on-error:" in classifier_check or
+                not (text.find(validate_backtest_marker) < text.find(classifier_preflight_marker) <
+                     min(text.find(live_marker), text.find(backtest_marker)))):
+            errors.append("classifier access is not checked before paid source search")
+        registry_commit_check = 'git cat-file -e "$REGISTRY_REF^{commit}"'
+        if (registry_commit_check not in validate_backtest or
+                registry_commit_check in classifier_check):
+            errors.append("backtest registry commit is not validated before classifier access")
 
         dynamic_path_names = ("ETHICS_PRIOR_CACHE", "CARRY_FORWARD_LEDGER")
         if any(f"{name}:" in analysis_header for name in dynamic_path_names):
@@ -5346,6 +5580,29 @@ def main():
           "draft PR state is not checked before commit and push" not in
           workflow_contract_errors(workflow))
     workflow_errors = workflow_contract_errors(workflow)
+    classifier_section = workflow_section(
+        workflow, classifier_preflight_marker, prepare_branch_marker)
+    late_registry_check = workflow.replace(
+        '          git cat-file -e "$REGISTRY_REF^{commit}"\n', "", 1).replace(
+            "          python3 scripts/monitor_sources.py --classifier-preflight\n",
+            "          python3 scripts/monitor_sources.py --classifier-preflight\n"
+            '          git cat-file -e "$REGISTRY_REF^{commit}"\n', 1)
+    check("workflow rejects a registry commit check moved after the paid preflight",
+          late_registry_check != workflow and
+          "backtest registry commit is not validated before classifier access" in
+          workflow_contract_errors(late_registry_check))
+    for label, changed_section in (
+            ("conditional", classifier_section.replace(
+                "        env:\n", "        if: false\n        env:\n", 1)),
+            ("ignored failure", classifier_section.replace(
+                "        env:\n", "        continue-on-error: true\n        env:\n", 1)),
+            ("missing request", classifier_section.replace(
+                "python3 scripts/monitor_sources.py --classifier-preflight", "true", 1))):
+        altered_workflow = workflow.replace(classifier_section, changed_section, 1)
+        check(f"workflow rejects {label} classifier preflight",
+              altered_workflow != workflow and
+              "classifier access is not checked before paid source search" in
+              workflow_contract_errors(altered_workflow))
     if workflow_errors:
         print("WORKFLOW CONTRACT ERRORS:", workflow_errors)
     check("workflow control-flow contract passes", workflow_errors == [])

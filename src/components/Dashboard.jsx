@@ -1114,6 +1114,7 @@ export default function Dashboard() {
         overallGrade={gpaToGrade(parseFloat(overallGPA))}
         overallGPA={overallGPA}
         overallVerdictLine={meta.overallVerdictLine}
+        reviewExceptions={dimensions.filter((dim) => !dim.excludeFromGPA && dim.latestReview?.outcome === "exception")}
         latestRelease={latestRelease}
         nextUpdate={meta.nextUpdate}
         primaryNextCheck={primaryNextCheck}

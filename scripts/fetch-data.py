@@ -27,8 +27,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, date
 from email.utils import parsedate_to_datetime
 from html import unescape
+from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import unquote_plus, urljoin, urlparse
+from urllib.parse import parse_qs, unquote_plus, urljoin, urlparse
 
 try:
     import requests
@@ -1162,6 +1163,7 @@ def diff_mpo_against_cohort(dimensions, mpo_result):
 # it against a tiny local cache. Fetch failures are reported but do not stop
 # the monthly fetch.
 ETHICS_REPORTS_URL = "https://www.ethicscanada.ca/en/report?type=inv"
+ETHICS_MAX_PAGES = 20
 # Durable diff cache. Lives under monitoring/ (committed) rather than tmp/
 # (gitignored, not durable in GitHub Actions) so the month-over-month diff
 # survives across CI runs.
@@ -1229,29 +1231,123 @@ def extract_ethics_report_links(html):
     return sorted(reports, key=lambda r: r["title"].lower())
 
 
+class _EthicsPaginationParser(HTMLParser):
+    """Read the official filter page and its numbered pagination controls."""
+
+    def __init__(self):
+        super().__init__()
+        self.in_filter = False
+        self.in_pager = False
+        self.pagers = 0
+        self.page_inputs = []
+        self.item_classes = set()
+        self.buttons = []
+        self.button = None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "form":
+            self.in_filter = (attrs.get("id") == "filterForm" and
+                              attrs.get("action") == "/en/report")
+        if tag == "input" and self.in_filter and attrs.get("name") == "p":
+            self.page_inputs.append(attrs.get("value"))
+        if tag == "nav" and attrs.get("aria-label") == "Pagination Navigation":
+            self.in_pager = True
+            self.pagers += 1
+        if tag == "li" and self.in_pager:
+            self.item_classes = set(attrs.get("class", "").split())
+        if tag == "button" and self.in_pager:
+            self.button = {"page": attrs.get("data-page"), "text": "",
+                           "disabled": "disabled" in self.item_classes,
+                           "active": "active" in self.item_classes}
+
+    def handle_data(self, data):
+        if self.button is not None:
+            self.button["text"] += data
+
+    def handle_endtag(self, tag):
+        if tag == "button" and self.button is not None:
+            self.button["text"] = self.button["text"].strip()
+            self.buttons.append(self.button)
+            self.button = None
+        if tag == "li":
+            self.item_classes = set()
+        if tag == "nav":
+            self.in_pager = False
+        if tag == "form":
+            self.in_filter = False
+
+
+def _ethics_pagination_last_page(html, response_url, requested_page):
+    """Reject changed filters, misleading controls and unbounded pagination."""
+    url = urlparse(response_url)
+    query = parse_qs(url.query, keep_blank_values=True)
+    if (url.scheme != "https" or url.netloc not in
+            {"www.ethicscanada.ca", "ethicscanada.ca"} or
+            url.path != "/en/report" or url.fragment or
+            set(query) - {"type", "p"} or query.get("type") != ["inv"] or
+            query.get("p", ["1"]) != [str(requested_page)]):
+        raise ValueError("Ethics listing response changed host, path, type or page")
+    parser = _EthicsPaginationParser()
+    parser.feed(html)
+    if parser.pagers != 1 or parser.page_inputs != [str(requested_page)]:
+        raise ValueError("Ethics listing has missing or inconsistent page controls")
+    numbered = [b for b in parser.buttons if b["text"].isdigit()]
+    numbers = [int(b["text"]) for b in numbered]
+    if (not numbers or max(numbers) > ETHICS_MAX_PAGES or
+            numbers != list(range(1, max(numbers) + 1)) or requested_page not in numbers or
+            any(b["page"] != b["text"] or b["disabled"] for b in numbered) or
+            [int(b["text"]) for b in numbered if b["active"]] != [requested_page]):
+        raise ValueError("Ethics listing has invalid numbered pagination")
+    last_page = max(numbers)
+    expected_controls = {
+        "Previous": (str(requested_page - 1), requested_page == 1),
+        "Next": (str(requested_page + 1), requested_page == last_page),
+    }
+    other = [b for b in parser.buttons if not b["text"].isdigit()]
+    if (len(other) != 2 or {b["text"] for b in other} != set(expected_controls) or
+            any((b["page"], b["disabled"]) != expected_controls[b["text"]] or
+                b["active"] for b in other)):
+        raise ValueError("Ethics listing has inconsistent previous or next controls")
+    return last_page
+
+
 def fetch_ethics_reports_page(timeout=20):
-    """Fetch and parse the Ethics Commissioner reports listing page."""
+    """Fetch the complete advertised investigation listing before diffing it."""
     try:
-        resp = requests.get(
-            ETHICS_REPORTS_URL,
-            timeout=timeout,
-            headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
-        )
-        if resp.status_code != 200:
-            return {"status": "http_error", "code": resp.status_code, "url": ETHICS_REPORTS_URL}
-        reports = extract_ethics_report_links(resp.text)
-        if not reports:
-            return {
-                "status": "malformed_data",
-                "error": "no Ethics report links found",
-                "url": ETHICS_REPORTS_URL,
-            }
+        reports = []
+        seen_keys = set()
+        last_page = None
+        for page in range(1, ETHICS_MAX_PAGES + 1):
+            page_url = ETHICS_REPORTS_URL + (f"&p={page}" if page > 1 else "")
+            resp = requests.get(
+                page_url, timeout=timeout,
+                headers={"User-Agent": "Mozilla/5.0 (Canada Under Carney monthly fetch)"},
+            )
+            if resp.status_code != 200:
+                return {"status": "http_error", "code": resp.status_code, "url": page_url}
+            page_reports = extract_ethics_report_links(resp.text)
+            if not page_reports:
+                raise ValueError("no Ethics report links found")
+            advertised_last = _ethics_pagination_last_page(resp.text, resp.url, page)
+            if last_page is not None and advertised_last != last_page:
+                raise ValueError("Ethics listing pagination changed during traversal")
+            last_page = advertised_last
+            keys = {_ethics_report_key(report) for report in page_reports}
+            if keys & seen_keys:
+                raise ValueError("Ethics listing repeats report content across pages")
+            seen_keys.update(keys)
+            reports.extend(page_reports)
+            if page == last_page:
+                break
         return {
             "status": "success",
             "url": ETHICS_REPORTS_URL,
             "count": len(reports),
-            "reports": reports,
+            "reports": sorted(reports, key=lambda r: r["title"].lower()),
         }
+    except ValueError as e:
+        return {"status": "malformed_data", "error": str(e), "url": ETHICS_REPORTS_URL}
     except Exception as e:
         return {"status": "error", "error": str(e), "url": ETHICS_REPORTS_URL}
 

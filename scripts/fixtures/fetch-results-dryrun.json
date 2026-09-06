@@ -466,6 +466,10 @@
         "status": "live"
       },
       {
+        "url": "https://canadacode.org/resources/faqs/",
+        "status": "live"
+      },
+      {
         "url": "https://cdhowe.org/publication/budget-2025-and-the-worsening-public-service-executive-to-rank-and-file-ratio/",
         "status": "live"
       },
@@ -494,11 +498,11 @@
         "status": "live"
       },
       {
-        "url": "https://electricautonomy.ca/policy-regulations/2026-02-05/canada-repeals-ev-availability-standard-restores-5000-vehicle-incentives-with-new-automotive-policy/",
+        "url": "https://foodbankscanada.ca/hungercount/",
         "status": "live"
       },
       {
-        "url": "https://foodbankscanada.ca/hungercount/",
+        "url": "https://gazette.gc.ca/rp-pr/p1/2026/2026-08-15/html/reg2-eng.html",
         "status": "live"
       },
       {
@@ -506,7 +510,7 @@
         "status": "live"
       },
       {
-        "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-05",
+        "url": "https://international.canada.ca/en/global-affairs/corporate/reports/chief-economist/monthly/2026-06",
         "status": "live"
       },
       {
@@ -622,7 +626,7 @@
         "status": "live"
       },
       {
-        "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/04.html",
+        "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2026/06.html",
         "status": "live"
       },
       {
@@ -662,11 +666,15 @@
         "status": "live"
       },
       {
-        "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/06/canada-and-ontario-open-applications-for-new-development-charge-reduction-program0.html",
+        "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-nunavut-partner-to-build-essential-infrastructure-and-more-homes.html",
         "status": "live"
       },
       {
-        "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/07/canada-and-nunavut-partner-to-build-essential-infrastructure-and-more-homes.html",
+        "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/canada-and-ontario-making-homes-more-affordable-in-bradford-west-gwillimbury.html",
+        "status": "live"
+      },
+      {
+        "url": "https://www.canada.ca/en/housing-infrastructure-communities/news/2026/08/ground-broken-on-159-new-affordable-homes-in-ottawas-lowertown-neighbourhood.html",
         "status": "live"
       },
       {
@@ -682,6 +690,10 @@
         "status": "live"
       },
       {
+        "url": "https://www.canada.ca/en/impact-assessment-agency/news/2026/08/federal-impact-assessment-of-the-marten-falls-community-access-road-project-complete.html",
+        "status": "live"
+      },
+      {
         "url": "https://www.canada.ca/en/intergovernmental-affairs/services/internal-trade.html",
         "status": "live"
       },
@@ -691,10 +703,6 @@
       },
       {
         "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/07/canada-announces-first-agreement-under-new-canada-critical-minerals-accelerator.html",
-        "status": "live"
-      },
-      {
-        "url": "https://www.canada.ca/en/natural-resources-canada/news/2026/07/canada-invests-in-the-prince-edward-islandnew-brunswick-interconnection-expansion-project.html",
         "status": "live"
       },
       {
@@ -782,10 +790,6 @@
         "status": "live"
       },
       {
-        "url": "https://www.canada.ca/en/public-services-procurement/news/2026/07/public-services-and-procurement-canada-launches-new-small-business-procurement-program-measures-to-modernize-federal-contracting-and-boost-access-f.html",
-        "status": "live"
-      },
-      {
         "url": "https://www.canada.ca/en/revenue-agency/services/child-family-benefits/canada-groceries-essentials-benefit.html",
         "status": "live"
       },
@@ -830,11 +834,11 @@
         "status": "live"
       },
       {
-        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
+        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026",
         "status": "live"
       },
       {
-        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-june-2026",
+        "url": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-december-2025",
         "status": "live"
       },
       {
@@ -879,6 +883,10 @@
       },
       {
         "url": "https://www.imf.org/en/publications/cr/issues/2026/01/21/canada-2025-article-iv-consultation-press-release-and-staff-report-573340/",
+        "status": "live"
+      },
+      {
+        "url": "https://www.ised-isde.canada.ca/site/ised/en/ai-sovereign-compute-infrastructure-program",
         "status": "live"
       },
       {
@@ -986,6 +994,14 @@
         "status": "live"
       },
       {
+        "url": "https://www.pm.gc.ca/en/news/news-releases/2026/08/17/prime-minister-carney-announces-largest-clean-energy-investment-north",
+        "status": "live"
+      },
+      {
+        "url": "https://www.pm.gc.ca/en/news/news-releases/2026/08/24/prime-minister-carney-announces-largest-shipbuilding-contract-quebecs",
+        "status": "live"
+      },
+      {
         "url": "https://www.pm.gc.ca/en/news/speeches/2026/07/06/prime-minister-carney-announces-preferred-supplier-canadian-patrol",
         "status": "live"
       },
@@ -1022,7 +1038,11 @@
         "status": "live"
       },
       {
-        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260720/dq260720a-eng.htm",
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260817/dq260817a-eng.htm",
+        "status": "live"
+      },
+      {
+        "url": "https://www150.statcan.gc.ca/n1/daily-quotidien/260828/dq260828a-eng.htm",
         "status": "live"
       },
       {

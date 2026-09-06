@@ -1,13 +1,58 @@
 [
   {
+    "date": "2026-09-06",
+    "version": "5.178",
+    "items": [
+      {
+        "type": "grade",
+        "dimensionId": "housing-supply",
+        "dimensionName": "Housing Supply",
+        "from": "D",
+        "to": "D-",
+        "deltaLabel": "Down one notch",
+        "headline": "Housing starts cross the lower review condition",
+        "body": "July monthly starts fell below the published lower condition. The editor judged the weaker pace enough for a lower grade within the existing band, while keeping the six-month average as context. A delegated analyst party-symmetry check found the same evidence supports this treatment under a different governing party. External red-team review from a person with different political priors was not available.",
+        "drivers": [
+          "July monthly starts were 229,074 at a seasonally adjusted annual rate, below 240,000.",
+          "Federal delivery remains small, and August conditional announcements do not establish enough attributable construction."
+        ],
+        "link": {
+          "label": "CMHC July 2026 housing starts",
+          "href": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026"
+        },
+        "itemIndex": 0
+      }
+    ],
+    "firstLook": {
+      "mode": "grade-moves",
+      "gradeMoveCount": 1,
+      "featuredItems": [
+        {
+          "type": "grade",
+          "dimensionId": "housing-supply",
+          "dimensionName": "Housing Supply",
+          "from": "D",
+          "to": "D-",
+          "deltaLabel": "Down one notch",
+          "headline": "Housing starts cross the lower review condition",
+          "body": "July monthly starts fell below the published lower condition. The editor judged the weaker pace enough for a lower grade within the existing band, while keeping the six-month average as context. A delegated analyst party-symmetry check found the same evidence supports this treatment under a different governing party. External red-team review from a person with different political priors was not available.",
+          "drivers": [
+            "July monthly starts were 229,074 at a seasonally adjusted annual rate, below 240,000.",
+            "Federal delivery remains small, and August conditional announcements do not establish enough attributable construction."
+          ],
+          "link": {
+            "label": "CMHC July 2026 housing starts",
+            "href": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026"
+          },
+          "itemIndex": 0
+        }
+      ]
+    }
+  },
+  {
     "date": "2026-08-28",
     "version": "5.177",
-    "items": [],
-    "firstLook": {
-      "mode": "maintenance-only",
-      "gradeMoveCount": 0,
-      "featuredItems": []
-    }
+    "items": []
   },
   {
     "date": "2026-08-26",

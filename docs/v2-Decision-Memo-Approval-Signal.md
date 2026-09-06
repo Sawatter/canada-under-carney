@@ -74,13 +74,15 @@ The v1 launch used a simple arithmetic mean across pollsters. v2 switched to a s
 ### Inclusion rule
 Canadian polling firm · publishes a direct PM or government approval question · publishes both approve and disapprove percentages · discloses sample size and methodology. CRIC accreditation (Canadian Research Insights Council) is preferred but not strictly required — public-interest institutes and well-established firms operating under equivalent transparency standards are admissible.
 
-### CRIC accreditation status (verified against the CRIC member directory, 2026-04-19)
+### CRIC accreditation status
+
+The original directory check was 2026-04-19. Research Co alone was rechecked on 2026-09-05 for its first inclusion. The other entries retain their stated earlier evidence dates.
 - **Léger** — CRIC accredited. Included.
 - **Abacus Data** — CRIC accredited. Included.
 - **Ipsos Canada** — CRIC accredited. Included.
 - **Angus Reid Institute** — *Not* CRIC accredited (the Institute is a non-profit public-interest polling arm; CRIC accreditation covers commercial research agencies). Included under the equivalent-transparency exception: the Institute publishes full methodology, cross-tabs, and sample details for every release.
 - **Innovative Research Group** — *Not* CRIC accredited per the current member directory, but a well-established Canadian public-affairs research firm publishing full methodology. Included under the equivalent-transparency exception. Worth rechecking CRIC status next cycle.
-- **Research Co.** — *Not* CRIC accredited. Excluded for now. A June 2026 public table surfaced a clean approve/disapprove pair with disclosed methodology and sample size, but the question asked about Carney's handling of U.S. tariffs rather than overall PM or government job approval. Revisit if a broad direct-approval pair surfaces.
+- **Research Co.** Not listed as accredited in the [CRIC member directory](https://www.canadianresearchinsightscouncil.ca/member-directory/) opened on 2026-09-05. Admitted under the equivalent-transparency exception for broad job approval: the [August release](https://researchco.ca/2026/08/10/cdnpoli-aug2026/) and [tables](https://researchco.ca/wp-content/uploads/2026/08/Tables_Politics_CAN_10Aug2026.pdf) disclose the exact national question and response cells, population, sample size, field dates, online method and weighting variables. Public releases in [2018](https://researchco.ca/2018/10/19/vancouver-surrey/) and [May 2026](https://researchco.ca/2026/05/11/cdnpoli-may2026/) support the established-firm finding. This is equivalent transparency for the memo disclosure criteria, not CRIC accreditation or equivalence to every CRIC standard. Recruitment source, legal ownership and the August sponsor remain unestablished, as recorded in S6. The earlier tariff-response wave remains excluded as issue-specific.
 - **Nanos Research Corporation** — CRIC accredited but *excluded from the approval mean* because Nanos publicly tracks "preferred PM" (best-choice question), not direct approve/disapprove. Different construct; shown as secondary context only.
 - **Pollara Strategic Insights** — CRIC accredited. No direct Carney approve/disapprove release surfaced in v1 research. Revisit on next cycle.
 - **Mainstreet Research** — CRIC accredited. A June 2026 public post surfaced an approve figure for Carney, but the accessed public snippet did not expose a clean full approve/disapprove pair. Remains excluded for now.
@@ -89,13 +91,15 @@ Canadian polling firm · publishes a direct PM or government approval question �
 ### v1 included (5 firms)
 Léger, Abacus Data, Ipsos Canada, Angus Reid Institute, Innovative Research Group.
 
-### Current included set (5 firms, as of 2026-07-01)
-Léger, Abacus Data, Ipsos Canada, Angus Reid Institute, Innovative Research Group.
+### Current included set (6 firms, as of 2026-09-05)
+Léger, Abacus Data, Ipsos Canada, Angus Reid Institute, Innovative Research Group, Research Co.
 
 ### Current excluded set (with reason)
 - **Nanos Research** — different construct (preferred-PM, not approval). Shown as secondary context only; not averaged into the approval mean.
 - **Spark Insights** — *confirmed not* CRIC accredited (2026-04-19 check against the CRIC member directory). Additionally, Spark's house numbers are 6–10 points higher than the CRIC-accredited firms in the same weeks, suggesting either a different question wording or a house-effect worth isolating. Remains excluded pending independent methodology review.
-- **Pollara, Mainstreet, EKOS, Research Co.** — still outside the mean. Pollara and EKOS have not surfaced a direct Carney approve/disapprove pair in the current window. Mainstreet surfaced an approve figure in June 2026, but not a clean full public pair in the accessed material. Research Co.'s June 2026 public pair was narrower issue approval, not broad job approval.
+- **Pollara** remains outside the mean. The [August 31 release](https://www.pollara.com/68-approve-of-how-pm-carney-is-handling-canada-us-relations/) concerns handling Canada-US relations, an issue-specific question rather than broad job approval.
+- **Mainstreet** remains outside the mean. The [public publisher index](https://www.mainstreetresearch.ca/polling), homepage and named August approval searches yielded no qualifying pair in the checked scope. Subscriber and unlisted material were not checked.
+- **EKOS** remains outside the mean. Opening the [August primary page](https://www.ekospolitics.com/index.php/2026/08/liberal-dominance-masks-a-rapidly-churning-political-landscape/) returned HTTP 406. Its broad approval pair and survey metadata remain unverified. This access failure is not evidence that no qualifying poll exists.
 
 ### New analytical source family treatment
 Per QA Rule 8, polling firms constitute a new analytical source family on this dashboard. This memo IS the reflection pass. Each of the five v1 pollsters receives a row in the Source Characterization Register covering institution type, ownership/funding, editorial independence, grounded ideological tendency (where sourced), best-use boundary, strongest SAM-role fit, and trust flags. The signal is live-shipping with this governance layer, not ahead of it.
@@ -134,7 +138,7 @@ Neither the Full Policy Audit nor the Household Impact grade includes approval. 
 
 ## Followups
 
-- Re-check Research Co. only if it surfaces a broad PM/government job-approval pair rather than another issue-approval item.
+- Check each new Research Co wave for a broad direct-approval pair and the recorded transparency disclosures. Issue-specific waves remain outside the approval mean.
 - Keep Nanos preferred-PM as secondary context only; do not average it into the approval mean.
 - Consider a sparkline on the approval signal if 6+ months of in-file polls accumulate and the trend is the more interesting story than the level.
 - Consider explicit house-effect adjustment if inter-pollster dispersion widens.

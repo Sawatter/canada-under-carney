@@ -37,7 +37,7 @@ Granularity rule:
 
 - **Total unique citation labels across all live `sources` arrays:** 97 (recomputed from live [dimensions.json](../src/data/dimensions.json) on 2026-07-19)
 - **Total source families registered below for graded dimensions:** 42 (17 official / administrative / institutional; 25 non-official)
-- **Additional polling families registered for the Approval Signal (outside the GPA):** 5 (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group). See the dedicated *Approval Signal source families* section below and [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
+- **Additional polling families registered for the Approval Signal (outside the GPA):** 6 (Léger, Abacus Data, Ipsos, Angus Reid Institute, Innovative Research Group, Research Co.). See the dedicated *Approval Signal source families* section below and [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md).
 
 | Institution-type category | Count | Families |
 |---|---|---|
@@ -577,7 +577,7 @@ Granularity rule:
 
 ## Approval Signal source families (outside GPA)
 
-These five polling families feed the ungraded Approval Signal at the top of the dashboard. They are listed separately because the signal sits outside the scoring model — see [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md). None of them can move a graded dimension; their trust boundary is "public-opinion context only." Angus Reid Institute appears twice in the register because its Public Interest Research arm (live in the Approval Signal) is institutionally distinct from the Vision Critical / Angus Reid commercial polling business (live in graded dimensions above).
+These six polling families feed the ungraded Approval Signal at the top of the dashboard. They are listed separately because the signal sits outside the scoring model. See [v2-Decision-Memo-Approval-Signal.md](v2-Decision-Memo-Approval-Signal.md). None of them can move a graded dimension; their trust boundary is "public-opinion context only." Angus Reid Institute appears twice in the register because its Public Interest Research arm (live in the Approval Signal) is institutionally distinct from the Vision Critical / Angus Reid commercial polling business (live in graded dimensions above).
 
 ### S1. Léger
 
@@ -633,6 +633,19 @@ These five polling families feed the ungraded Approval Signal at the top of the 
 - **Best-use boundary:** Approval Signal only (outside GPA)
 - **Strongest SAM-role fit:** Context truth (public sentiment)
 - **Trust flags:** Lower publication frequency than Abacus / Léger — can contribute 0–1 polls to a 60-day window. Sample size typically n≈1,000, smaller than Léger's typical n≈1,600.
+
+### S6. Research Co.
+
+- **Live usage:** Approval Signal use for broad prime-minister job approval. Outside the grade-point average (GPA), the dashboard's graded policy score.
+- **Institution type:** Opened: public-opinion research provider offering client services and using research partners. Inferred: commercial research activity. Legal corporate form was not established from the [official services page](https://researchco.ca/services/).
+- **Ownership / funding:** Not established from the opened official pages. The services page describes client work but does not disclose legal owners, ownership shares or a funding breakdown. The [August release](https://researchco.ca/2026/08/10/cdnpoli-aug2026/) names Mario Canseco as president; that title does not establish ownership. A sponsor for this wave was not identified in the opened release.
+- **Editorial independence / governance:** Opened: the services page states a commitment to factual findings and describes a research partner network. That is self-description. Independent editorial safeguards and a governance structure were not established from the opened pages.
+- **Accreditation / admissibility:** Opened: Research Co is not listed as accredited in the [official Canadian Research Insights Council (CRIC) member directory](https://www.canadianresearchinsightscouncil.ca/member-directory/) checked on 2026-09-05. Editor admissibility finding under the existing memo: equivalent transparency for this narrow Approval Signal use is supported by the published national question and response cells, population, sample size, field dates, online mode, weighting variables and accessible tables. The [2018 public release](https://researchco.ca/2018/10/19/vancouver-surrey/), [May 2026 release](https://researchco.ca/2026/05/11/cdnpoli-may2026/) and August release establish an ongoing public research record. This is an admissibility judgment, not CRIC accreditation or equivalence to its entire standards regime. Recruitment, ownership and current-wave sponsorship limits remain below.
+- **Grounded ideological tendency:** Not established. No ideological label is assigned from the organization's own description or its president's commentary.
+- **Best-use boundary:** Broad direct approval/disapproval of the prime minister or federal government, for Approval Signal context only. It cannot move a graded dimension. Vote intention, preferred prime minister, issue-specific approval and publisher commentary do not substitute for this measure.
+- **Strongest SAM-role fit:** Context truth, meaning evidence of public sentiment within the Source Authority Map (SAM).
+- **Methodology:** Opened: the August release reports an online survey of 1,001 Canadian adults, fielded August 5 to 7, 2026, weighted by census age, gender and region. It attributes a precision claim of plus or minus 3.1 percentage points, 19 times out of 20. Cite the release for survey metadata and the [tables, page 2](https://researchco.ca/wp-content/uploads/2026/08/Tables_Politics_CAN_10Aug2026.pdf) for the general leader job-performance question and response cells.
+- **Trust flags:** Recruitment source and a probability-sampling design were not established in the opened methodology. Keep the precision claim attributed to the publisher. Use the Canada column and retain published rounding. The August approval and disapproval totals come from their respective response cells, with no renormalization or inferred complement. The existing tariff-response wave stays excluded because its question is issue-specific. The completed known-answer check permits reviewed manual extraction, not unattended ingestion or a claim of hosted monitor acceptance.
 
 ---
 

@@ -1767,9 +1767,12 @@ def deterministic_success_shape_errors(
         for field in ("mpo_only", "cohort_only"):
             projects = mpo_diff.get(field)
             if isinstance(projects, list) and any(
-                    not has_text(project, "display") or
-                    not isinstance(project.get("tokens"), list) or
-                    not project["tokens"]
+                    not (isinstance(project, str) and project.strip()) and
+                    not (has_text(project, "display") and
+                         isinstance(project.get("tokens"), list) and
+                         project["tokens"] and
+                         all(isinstance(token, str) and token.strip()
+                             for token in project["tokens"]))
                     for project in projects):
                 errors.append(f"mpo_diff {field} contains an unusable entry")
         if (isinstance(matched, list) and
@@ -2652,14 +2655,14 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
             add(url, "legisinfo", title,
                 f"Latest stage: {rec.get('latest_stage')}. Ongoing: {rec.get('ongoing_stage')}.")
 
-    # MPO page diff (projects only on the live page, not in the cohort)
+    # MPO names without a token match need an editor identity comparison.
     mpo = object_result("mpo_diff")
     if mpo.get("status") == "success":
         mpo_url = "https://www.canada.ca/en/privy-council/major-projects-office/projects/national.html"
         for proj in mpo.get("mpo_only", []) or []:
             name = proj.get("display") if isinstance(proj, dict) else str(proj)
-            add(mpo_url, "mpo_diff", f"MPO page lists a project not in the cohort: {name}",
-                "Appears on the Major Projects Office page but not in the tracked cohort.")
+            add(mpo_url, "mpo_diff", f"MPO project name needs a cohort comparison: {name}",
+                "No name match was found. Check whether this is an existing cohort project.")
         mark_checked(state, slugify(surface_key(mpo_url)), True)
 
     # Ethics Commissioner additions
@@ -2670,8 +2673,8 @@ def candidates_from_fetch_results(results_payload, registry, state, cycle):
             if not isinstance(rep, dict):
                 continue
             add(rep.get("url") or "", "ethics_diff",
-                f"New Ethics Commissioner report listing: {rep.get('title')}",
-                "New entry on the investigation-report listing page since the last cache.")
+                f"First-observed Ethics Commissioner listing entry: {rep.get('title')}",
+                "Absent from the prior cache. Check the report's publication date before cycle use.")
         mark_checked(state, slugify("ethicscanada.ca"), True)
     elif ed:
         access_failures.append({"surface": "Conflict of Interest and Ethics Commissioner",
@@ -2982,7 +2985,8 @@ def normalize_classifier_rows(rows, chunk_ids, dimension_ids):
     return normalized, None
 
 
-def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
+def classify_candidates(candidates, dim_context, model, api_key, batch_size=12,
+                        *, max_retries=None):
     """Run the relevance pass. Returns (classified_candidates, error_or_None).
     Hard-sets the safety invariants regardless of model output."""
     try:
@@ -2990,7 +2994,10 @@ def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
     except Exception:
         return candidates, "anthropic SDK not installed"
 
-    client = anthropic.Anthropic(api_key=api_key)
+    client_options = {"api_key": api_key}
+    if max_retries is not None:
+        client_options["max_retries"] = max_retries
+    client = anthropic.Anthropic(**client_options)
     by_id = {c["candidate_id"]: c for c in candidates}
     classified_ids = set()
     dimension_ids = {
@@ -3061,6 +3068,48 @@ def classify_candidates(candidates, dim_context, model, api_key, batch_size=12):
                 f"Claude response omitted classifications for {len(missing)} candidate(s)")
 
     return list(by_id.values()), None
+
+
+def classifier_preflight(model):
+    """Classify one fixed public item without search, files or accepted state."""
+    api_key = os.environ.get("ANTHROPIC_API_KEY", "").strip()
+    if not api_key:
+        print("ERROR: classifier preflight requires ANTHROPIC_API_KEY", file=sys.stderr)
+        return 1
+    candidate = _candidate(
+        "preflight", "statcan", "classifier_preflight",
+        "Statistics Canada Consumer Price Index table",
+        "https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1810000401",
+        "The Consumer Price Index table contains food price index data.",
+        dims=["affordability"],
+    )
+    context = [{"id": "affordability", "name": "Affordability",
+                "whatThisGrades": "Household affordability, including food prices."}]
+    classified, error = classify_candidates(
+        [candidate], context, model, api_key, max_retries=0)
+    if error:
+        # Do not print a provider exception or model-authored text into CI logs.
+        detail = ("Your credit balance is too low to access the Anthropic API."
+                  if "credit balance is too low" in error.lower() else
+                  "The API did not return a complete valid classification.")
+        print(f"ERROR: classifier preflight failed: {detail}", file=sys.stderr)
+        return 1
+    if (len(classified) != 1 or
+            classified[0].get("candidate_id") != candidate["candidate_id"] or
+            classified[0].get("classification") not in VALID_CLASSIFICATIONS or
+            classified[0].get("requires_editor_review") is not True or
+            classified[0].get("can_move_grade_automatically") is not False):
+        print("ERROR: classifier preflight returned no valid classified item", file=sys.stderr)
+        return 1
+    print(json.dumps({
+        "mode": "classifier_preflight", "model": model,
+        "candidate_id": candidate["candidate_id"],
+        "classification": classified[0]["classification"],
+        "requires_editor_review": True, "can_move_grade_automatically": False,
+        "accepted_monitor_run": False,
+    }, sort_keys=True))
+    print("VERDICT: CLASSIFIER PREFLIGHT PASSED; FULL MONITOR ACCEPTANCE NOT TESTED")
+    return 0
 
 
 def required_tier_errors(tiers, candidate_count, *, expect_deterministic,
@@ -3509,6 +3558,8 @@ def _main_unlocked(argv=None, *, canonical_state_path=None):
     parser.add_argument("--rebuild-registry", action="store_true", help="Rebuild monitoring/sources.json from the data, then exit.")
     parser.add_argument("--out-suffix", default="", help="Suffix for output filenames, e.g. -dryrun.")
     parser.add_argument("--model", default=DEFAULT_MODEL, help="Claude model id for the relevance pass.")
+    parser.add_argument("--classifier-preflight", action="store_true",
+                        help="Test one fixed public classification, with no search or state writes. Use alone or with --model.")
     parser.add_argument("--require-keys", action="store_true", help="Exit non-zero if a needed API key is missing.")
     parser.add_argument(
         "--require-complete", action="store_true",
@@ -4124,6 +4175,18 @@ def _main_unlocked(argv=None, *, canonical_state_path=None):
 
 def main(argv=None):
     """Run one monitor process with exclusive ownership of its state path."""
+    argv = list(sys.argv[1:] if argv is None else argv)
+    if "--classifier-preflight" in argv:
+        preflight_parser = argparse.ArgumentParser(
+            description="One classifier credential check, not a monitor run",
+            allow_abbrev=False,
+        )
+        preflight_parser.add_argument("--classifier-preflight", action="store_true")
+        preflight_parser.add_argument("--model", default=DEFAULT_MODEL)
+        preflight_args = preflight_parser.parse_args(argv)
+        if not preflight_args.model.strip():
+            preflight_parser.error("--model must not be blank")
+        return classifier_preflight(preflight_args.model)
     lock_parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
     lock_parser.add_argument("--state-file", default=str(STATE_FILE))
     lock_parser.add_argument("--rebuild-registry", action="store_true")

@@ -1,5 +1,154 @@
 [
   {
+    "date": "2026-09-06",
+    "version": "5.178",
+    "summary": "The September cycle lowers Housing to D- and advances the grid promise. Affordability retains its prior grade under a temporary evidence-gap exception. Economic, fiscal and approval evidence is refreshed, with unsupported claims corrected.",
+    "items": [
+      {
+        "type": "grade",
+        "dimensionId": "housing-supply",
+        "dimensionName": "Housing Supply",
+        "from": "D",
+        "to": "D-",
+        "deltaLabel": "Down one notch",
+        "headline": "Housing starts cross the lower review condition",
+        "body": "July monthly starts fell below the published lower condition. The editor judged the weaker pace enough for a lower grade within the existing band, while keeping the six-month average as context. A delegated analyst party-symmetry check found the same evidence supports this treatment under a different governing party. External red-team review from a person with different political priors was not available.",
+        "drivers": [
+          "July monthly starts were 229,074 at a seasonally adjusted annual rate, below 240,000.",
+          "Federal delivery remains small, and August conditional announcements do not establish enough attributable construction."
+        ],
+        "link": {
+          "label": "CMHC July 2026 housing starts",
+          "href": "https://www.cmhc-schl.gc.ca/media-newsroom/news-releases/2026/housing-starts-construction-data-july-2026"
+        }
+      },
+      {
+        "type": "event",
+        "headline": "Electricity-grid promise moves to In Progress",
+        "body": "The August 17 federal clean-energy agreement provides financing for a regional energy package and explicitly advances the National Electricity Strategy and interprovincial grid. The editor counts the funded agreement as a step toward the promise. Nationwide construction and delivery remain unproven. The tracker now has 17 promises In Progress and 3 Too Early; the delivered count remains 14.",
+        "affects": [
+          "Climate & Environment"
+        ],
+        "link": {
+          "label": "PMO clean-energy agreement, August 17, 2026",
+          "href": "https://www.pm.gc.ca/en/news/news-releases/2026/08/17/prime-minister-carney-announces-largest-clean-energy-investment-north"
+        }
+      },
+      {
+        "type": "correction",
+        "headline": "Housing need note mixed measurement periods",
+        "body": "The housing-need note attached a cumulative additional-unit figure to CMHC's annual housing-starts framework through 2035. It now states the supported annual range and projected baseline, keeping annual required construction separate from an older cumulative gap. The annual range and grade thresholds are unchanged.",
+        "affectedDimension": "housing-supply",
+        "previousValue": "CMHC 'Canada's Housing Supply Shortages' series: 3.45 million additional units needed. Annual construction need: 430,000-480,000 units by 2035 to restore affordability. See cmhc-schl.gc.ca housing supply shortages reports.",
+        "correctedValue": "CMHC's new housing-supply framework estimates that around 430,000 to 480,000 annual starts through 2035 are needed to restore affordability, compared with a projected baseline of about 250,000. This is an annual modelled need, not a count of homes completed or a cumulative shortfall.",
+        "reportedBy": "September cycle evidence review"
+      },
+      {
+        "type": "correction",
+        "headline": "Housing trigger explanation follows the published monthly rule",
+        "body": "The earlier explanation applied the lower review condition to the six-month average even though the published measure-selection rule names monthly starts. The current review follows that monthly rule and uses the average as context. Prior grades are not rewritten.",
+        "affectedDimension": "housing-supply",
+        "previousValue": "CMHC's June 2026 release puts the six-month trend at 248,123 units and the monthly SAAR at 238,971. Actual June starts in centres of 10,000 or more fell 13% year over year to 20,265; year-to-date starts were 113,017, down 1%. The trend remains above the less-than-240,000 lower trigger but below the next band's starts range.",
+        "correctedValue": "CMHC's August 18 release reports July monthly SAAR of 229,074, below the 240,000 review condition. The editor retained monthly SAAR as primary and the six-month average as context. The release narrative gives that average as 247,377, while its table gives 247,376. June monthly SAAR was revised to 240,773. These source revisions are recorded without rewriting prior review dates.",
+        "reportedBy": "September cycle evidence review"
+      },
+      {
+        "type": "correction",
+        "headline": "Housing commentary now uses traceable claims",
+        "body": "The Housing review could not substantiate the specific city-level growth figures, insolvency ranking or named quotations in its prior commentary. Those assertions were removed. The replacement describes what the opened sources support and does not claim the removed statements were disproved.",
+        "affectedDimension": "housing-supply",
+        "previousValue": "Inherited context: 430-480K annual starts needed, ~245K actual. Construction insolvencies highest of any sector. Development charges up 1,000% in some municipalities. Critics: NDP: where is the public housing? PBO projects Build Canada Homes delivers about 26,000 units over five years, a 2.1% increase in completions. Federal spending declines 56% by 2028-29 (PBO). The Tyee: Vancouver increased housing stock 200% while prices soared. Supply alone does not deliver affordability. This is a proved failure, not \"too early to judge.\" Defenders: The Ontario partnership targets a real barrier (development charges) with real money ($8.8B). Smart Prosperity Institute housing analyst Mike Moffatt called it meaningful. CMHC's own housing data publishes both the current starts trend and the required pace, so the federal contribution-versus-need gap is transparently reported. Housing is a shared-jurisdiction problem. The federal government cannot unilaterally override municipal zoning or provincial building codes.",
+        "correctedValue": "Inherited context: CMHC estimates that restoring affordability needs around 430,000 to 480,000 annual starts through 2035, compared with its projected baseline of about 250,000 a year. This is a modelled need, not a count of completed homes. Critics: PBO projects that Build Canada Homes will make a modest contribution while planned federal housing spending declines. The August releases still leave funding conditions and delivery attribution unresolved, so announcements alone do not demonstrate enough progress. Defenders: Build Canada Homes has an active pipeline and legal authority. The Ontario partnership targets development charges, and Nunavut evidence links some supported homes to construction. Housing delivery also depends on provinces, municipalities and market conditions.",
+        "reportedBy": "September cycle evidence review"
+      },
+      {
+        "type": "correction",
+        "headline": "Electric-vehicle mandate legal stage clarified",
+        "affectedDimension": "promise-delivery",
+        "previousValue": "Repealed. Limited connection to trade competitiveness rationale.",
+        "correctedValue": "The government announced that it would end the electric-vehicle sales mandate. Canada Gazette Part I published proposed repeal regulations on August 15, 2026. That proposal does not establish a completed legal repeal. The commitment status remains an editor judgment, separate from the legal stage.",
+        "reportedBy": "September cycle evidence review",
+        "body": "The published evidence described the mandate as repealed. The August 15 Canada Gazette Part I publication contains proposed repeal regulations, so the evidence now distinguishes the proposal from a completed legal repeal. The commitment status is assessed separately.",
+        "link": {
+          "href": "https://gazette.gc.ca/rp-pr/p1/2026/2026-08-15/html/reg2-eng.html",
+          "label": "Canada Gazette Part I - proposed vehicle regulation amendments, August 15"
+        }
+      },
+      {
+        "type": "correction",
+        "affectedDimension": "affordability-response",
+        "headline": "Unsupported household relief estimate removed",
+        "previousValue": "Benefit metric: ~$307/household (incremental). Relief coverage: less than 20% of identified annual cost increases. Modifier explanation: Tariffs add $1,450-$2,000/yr per household. Under the rubric, this adjustment can lift the grade only when the government's response is adequate given that pressure. The response is judged inadequate, so the adjustment was not applied. Critics: NDP: $307 per household against $1,600+ in cost increases is an insult to struggling families. The Grocery Code is voluntary by design. The government chose not to regulate a concentrated industry. Broadbent: this is a wealth transfer from consumers to oligopolies (the few big companies that control the market).",
+        "correctedValue": "The benefit has a 25% ongoing increase and a one-time top-up. The prior household average, tariff-cost range and quoted household-cost comparison are removed. The household relief-to-cost ratio, and therefore the band test, remain unestablished.",
+        "body": "The cited PBO report gives program-wide costs and benefit-design percentages. The repository did not supply a reproducible household denominator or common time period for the relief and cost figures. The unsupported average, tariff-cost range, coverage assertion and named criticism are removed. Fraser Institute remains in the source list as commentary, but is no longer attached to the factual benefit-design metric. Scoring thresholds and modifier effects are unchanged. A delegated, cycle-only exception now retains the prior display through September, with the band unestablished and no normal carry-forward claim. The defenders explanation also replaces earlier general cost-driver commentary with named current program features.",
+        "reportedBy": "September cycle evidence review"
+      },
+      {
+        "type": "correction",
+        "affectedDimension": "economic-policy",
+        "headline": "AI infrastructure application status corrected",
+        "previousValue": "announced. The ISED strategy page names funding envelopes and open applications, but this cycle did not locate Treasury Board authorization in estimates or a named capacity deployment and recipient.",
+        "correctedValue": "announced. The specific infrastructure call closed June 1. Its funding is explicitly notional and conditional on appropriations and Treasury Board authority. The Access Fund has announced support, but the checked releases do not identify a live named compute-capacity deployment under this lever.",
+        "body": "The broad strategy page still says applications are open. The specific infrastructure program page records that its call closed June 1, 2026 and that funding remains conditional. The explanation now follows the specific program page. This does not establish completed funding or compute capacity.",
+        "reportedBy": "September cycle evidence review",
+        "link": {
+          "href": "https://www.ised-isde.canada.ca/site/ised/en/ai-sovereign-compute-infrastructure-program",
+          "label": "ISED AI Sovereign Compute Infrastructure Program"
+        }
+      },
+      {
+        "type": "correction",
+        "affectedDimension": "execution-delivery",
+        "headline": "Flagship explanation keeps each result in its scoring home",
+        "previousValue": "Defenders: Defence and trade show genuine follow-through: NATO 2%, trade diversification, and the One Canadian Economy Act. The government has demonstrated it can execute when focused. 11 of 26 bills passed in 13 months under minority conditions. The majority secured April 13 should accelerate the domestic agenda. Critics: Policy Options: cooperative federalism is failing. BC's Premier was blindsided by a pipeline deal, and Ontario got hours of notice. NDP and PSAC: you cannot cut 40,000 public service positions while pursuing the most ambitious delivery agenda in years. C.D. Howe notes Budget 2025 also worsens the public-service executive-to-rank-and-file ratio. The state literally cannot execute what the government announces. Federal-provincial coordination: Weak (Policy Options)",
+        "correctedValue": "Defenders: As context from the home files, defence spending and immigration administration show delivery through existing federal machinery. The regional energy agreement also shows that intergovernmental agreement formation can advance. It does not establish national grid delivery or independently move this combined grade. Critics: Policy Options' February analysis argues that weak intergovernmental institutions undermine lasting coordination. As current context, Bradford funding remains conditional, and the regional energy agreement does not establish completed national delivery. Federal-provincial coordination: Different agreement stages across energy and housing",
+        "reportedBy": "September cycle evidence review",
+        "body": "The previous explanation used trade diversification as evidence for Flagship Delivery even though the published overlap rules reserve that result for Defence and Trade. It now describes permitted delivery context. Housing and climate summaries also distinguish conditional programs and regional agreements from completed national delivery. The repair also removes the staffing-based absolute failure assertion and replaces the broad Weak coordination label with a dated comparison of agreement stages. The prior criticism and replacement are recorded here."
+      },
+      {
+        "type": "correction",
+        "affectedDimension": "execution-delivery",
+        "headline": "Unreconciled legislative count removed from current metrics",
+        "previousValue": "Bills passed: 11 of 26",
+        "correctedValue": "No current parliamentary count is presented. The prior displayed total remains in this correction record and historical versions.",
+        "reportedBy": "September cycle evidence review",
+        "body": "The previous total did not have a re-established legislative reference period and denominator for this cycle. It has been removed from current metrics and is not a September grade input. A reconciled source count remains due in the next cycle."
+      },
+      {
+        "type": "minor",
+        "headline": "Economic, fiscal and trade evidence refreshed",
+        "body": "The evidence cards now use second-quarter investment, July employment and grocery inflation, the April-June fiscal result and June goods-trade context. Fiscal explanations distinguish the projected annual path from stress-test risk. The annual goods-only trade measure stays in place."
+      },
+      {
+        "type": "correction",
+        "affectedDimension": "economic-policy",
+        "headline": "Regulatory review meets its published authorization test",
+        "previousValue": "Regulatory lever: announced. The Red Tape Review reports mix recent achievements with forward-looking actions. This cycle did not locate a government-wide burden estimate attributable to the 2025 review, which the executing condition requires. Lever summary: Five levers assessed: 1 executing (productivity-tax competitiveness), 1 authorized (interprovincial trade), and 3 announced (AI compute, critical minerals, regulatory review). The authorized-or-executing count is two, which meets the action-first C row. Five consecutive quarterly investment declines block the next band.",
+        "correctedValue": "Regulatory lever: authorized. The Treasury Board President launched the departmental review with a reporting mandate and oversight office. Published progress reports name regulatory initiatives. The checked evidence does not yet isolate a measured compliance-burden result attributable to this review, so executing is not established. Lever summary: Five levers assessed: 1 executing (productivity-tax competitiveness), 2 authorized (interprovincial trade and regulatory review), and 2 announced (AI compute and critical minerals). The qualifying count is three. Investment rose in Q2, but consecutive non-declining quarters are not yet established.",
+        "body": "The prior classification tested the missing execution result but skipped the separate authorization test. The issued departmental mandate and named initiative queue support Authorized. Measured compliance-burden reduction attributable to this review remains unestablished. This corrects the current classification using previously published evidence; it is not a new August launch and does not rewrite prior grades or change thresholds.",
+        "reportedBy": "September cycle evidence review",
+        "link": {
+          "href": "https://www.canada.ca/en/treasury-board-secretariat/news/2025/07/government-of-canada-moves-forward-to-modernize-outdated-regulations-and-reduce-red-tape.html",
+          "label": "Treasury Board departmental review mandate, July 9, 2025"
+        }
+      },
+      {
+        "type": "minor",
+        "headline": "Ethics assessment retains its verified date",
+        "body": "Ethics present-status copy now identifies the July 31 evidence cutoff checked on August 14. August registry coverage was incomplete, so the held assessment does not assert a new absence of disclosure or Commissioner action."
+      },
+      {
+        "type": "method",
+        "headline": "Affordability uses a temporary grade display",
+        "body": "The prior Affordability grade remains visible for September only, including in the overall scores for comparability. The household relief-to-cost ratio and band remain unestablished. This delegated exception expires at the October cycle; it does not change any threshold, weight or formula.",
+        "link": {
+          "label": "September Affordability exception",
+          "href": "https://github.com/sawatter/canada-under-carney/blob/main/docs/September-Affordability-Exception-2026-09-06.md"
+        }
+      }
+    ]
+  },
+  {
     "date": "2026-08-28",
     "version": "5.177",
     "summary": "Corrected the source contracts behind the trade and immigration metrics and recorded the August 28 September-cycle checkpoint. The trade monitor now follows the StatCan partner table named by Global Affairs Canada, and the immigration decline figures now link to direct IRCC new-arrival counts. No grade or score changed.",

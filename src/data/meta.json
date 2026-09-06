@@ -1,11 +1,11 @@
 {
-  "version": "5.177",
-  "lastUpdated": "2026-08-28",
+  "version": "5.178",
+  "lastUpdated": "2026-09-06",
   "overallVerdictLine": "Most files sit in the middle. Defence and trade leads. Housing and living costs trail alongside climate.",
-  "nextUpdate": "2026-09-01",
+  "nextUpdate": "2026-10-01",
   "coveragePeriod": {
     "start": "2025-03-14",
-    "end": "2026-07-31"
+    "end": "2026-08-31"
   },
   "rubricVersion": "1.1",
   "majorityDate": "2026-04-13",

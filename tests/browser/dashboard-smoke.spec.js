@@ -42,11 +42,11 @@ const flagshipDeliveryDimension = dimensions.find((dim) => dim.id === "execution
 const ordinaryGradedDimension = dimensions.find((dim) => dim.id === "economic-policy");
 const majorProjectsDimension = dimensions.find((dim) => dim.id === "major-projects");
 const housingReviewedDate = housingDimension.latestReview?.date || housingDimension.lastUpdated;
+const housingTrendLabel = { up: "Improving", stable: "Stable", down: "Declining" }[housingDimension.trend];
 const heldReviewDimensions = dimensions.filter((dim) => (
   !dim.excludeFromGPA && dim.latestReview?.outcome === "held"
 ));
 const expectedHeldReviewIds = [
-  "affordability-response",
   "carbon-pricing",
   "climate-environment",
   "defence-trade",
@@ -54,7 +54,6 @@ const expectedHeldReviewIds = [
   "ethics-transparency",
   "execution-delivery",
   "fiscal-health",
-  "housing-supply",
   "immigration",
   "major-projects",
 ];
@@ -2225,13 +2224,13 @@ test.describe("held policy review summaries", () => {
     test(`held reviews stay secondary and readable on ${viewportName}`, async ({ page }, testInfo) => {
       expect(
         heldReviewDimensions.map((dim) => dim.id).sort(),
-        "the release fixture must include all eleven documented held policies",
+        "the September fixture must include the documented held policies",
       ).toEqual(expectedHeldReviewIds);
       const consoleErrors = await installConsoleGuards(page);
       await page.setViewportSize(viewport);
       await page.goto(routePath({ hash: "#view-scorecard" }));
 
-      await expect(page.locator(".dim-latest-review-collapsed"))
+      await expect(page.locator('.dim-latest-review-collapsed[data-review-outcome="held"]'))
         .toHaveCount(heldReviewDimensions.length);
 
       for (const dim of heldReviewDimensions) {
@@ -2293,14 +2292,14 @@ test.describe("held policy review summaries", () => {
     expect(consoleErrors).toEqual([]);
   });
 
-  test("Housing keeps the compact hold singular and the dated evidence record in History", async ({ page }) => {
+  test("Housing shows its grade move without a held label and retains the dated evidence record", async ({ page }) => {
     const consoleErrors = await installConsoleGuards(page);
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto(routePath({ hash: "#dim-housing-supply-briefing" }));
 
     await expectPolicySection(page, housingDimension.id, "Briefing");
-    await expect(page.getByText(housingDimension.latestReview.summary, { exact: true }))
-      .toHaveCount(1);
+    expect(movedDimensionIds.has(housingDimension.id)).toBe(true);
+    await expect(page.locator('#dim-housing-supply [data-review-outcome="held"]')).toHaveCount(0);
     const { panel: history } = await selectPolicySection(page, housingDimension.id, "History");
     await expect(
       history.getByText(housingDimension.latestEvidenceReview.outcome, { exact: true }),
@@ -2369,8 +2368,7 @@ test.describe("approved dimension workspace architecture", () => {
     );
     await expect(briefing.getByText(housingDimension.grade, { exact: true }).first()).toBeVisible();
     await expectVisibleText(briefing, housingDimension.verdictLine);
-    await expect(page.getByText(housingDimension.latestReview.summary, { exact: true }))
-      .toHaveCount(1);
+    await expect(briefing.locator('.dim-latest-review')).toHaveCount(0);
 
     for (const metric of housingDimension.metrics.filter((item) => item.lead)) {
       await expectVisibleText(briefing, metric.label);
@@ -3074,9 +3072,14 @@ test.describe("v5.154 legibility wave", () => {
     await expect(page.locator(".desktop-focused-detail-wrap")).toBeVisible();
     await expect(page.getByText("Why not higher:")).toHaveCount(1);
     await expect(page.getByText("Why not lower:")).toHaveCount(1);
-    await expect(
-      page.getByText("The next band up needs the deficit below 2% of the economy's size"),
-    ).toHaveCount(1);
+    const fiscal = dimensions.find((dim) => dim.id === "fiscal-health");
+    const briefing = page.locator("#dim-fiscal-health-briefing");
+    const higher = briefing.locator(".dim-why-not").filter({ hasText: "Why not higher:" });
+    const lower = briefing.locator(".dim-why-not").filter({ hasText: "Why not lower:" });
+    await expect(higher).toHaveCount(1);
+    await expect(lower).toHaveCount(1);
+    await expect(higher).toHaveText(`Why not higher: ${fiscal.gradeBasis.whyNotHigher}`);
+    await expect(lower).toHaveText(`Why not lower: ${fiscal.gradeBasis.whyNotLower}`);
     expect(consoleErrors).toEqual([]);
   });
 });
@@ -3299,7 +3302,7 @@ test.describe("dimension workspace history and contextual share contract", () =>
     expect(clipboardText).toBe([
       "Canada Under Carney performance scorecard",
       "Housing Supply",
-      "Grade: D | Trend: Stable",
+      `Grade: ${housingDimension.grade} | Trend: ${housingTrendLabel}`,
       `Policy file reviewed: ${housingReviewedDate}`,
       "Evidence and grading method:",
       deepLink,
@@ -3332,7 +3335,7 @@ test.describe("dimension workspace history and contextual share contract", () =>
       text: [
         "Canada Under Carney performance scorecard",
         "Housing Supply",
-        "Grade: D | Trend: Stable",
+        `Grade: ${housingDimension.grade} | Trend: ${housingTrendLabel}`,
         `Policy file reviewed: ${housingReviewedDate}`,
         "Evidence and grading method:",
       ].join("\n"),
@@ -3389,7 +3392,7 @@ test.describe("dimension workspace history and contextual share contract", () =>
     await page.getByRole("button", { name: "Share this card" }).click();
     await expect(page.getByText("Share text copied", { exact: true })).toBeVisible();
     const clipboardText = await page.evaluate(() => navigator.clipboard.readText());
-    expect(clipboardText).toContain("Grade: D | Trend: Stable");
+    expect(clipboardText).toContain(`Grade: ${housingDimension.grade} | Trend: ${housingTrendLabel}`);
     expect(clipboardText.split("\n").at(-1)).toBe(page.url());
     expect(consoleErrors).toEqual([]);
   });

@@ -6,7 +6,7 @@
 // Wired into the prebuild step so it runs before every `npm run build`.
 // Run directly with `node scripts/validate-dimensions.mjs`.
 
-import { readFileSync, realpathSync } from "node:fs";
+import { existsSync, readFileSync, realpathSync } from "node:fs";
 import { tmpdir } from "node:os";
 import {
   dirname,
@@ -73,7 +73,7 @@ const VALID_TRENDS = new Set(["up", "stable", "down"]);
 const WHOLE_LETTER_GRADES = new Set(["A", "B", "C", "D", "F"]);
 const VALID_SOURCE_DATE_KINDS = new Set(["published", "updated", "as-of"]);
 const TARGET_OPERATOR_SET = new Set(TARGET_OPERATORS);
-const LATEST_REVIEW_KEYS = new Set(["date", "outcome", "summary"]);
+const LATEST_REVIEW_KEYS = new Set(["date", "outcome", "summary", "exceptionRef", "expiresOn"]);
 const LATEST_EVIDENCE_REVIEW_KEYS = new Set([
   "date",
   "title",
@@ -368,8 +368,23 @@ for (const d of dimensions) {
         err(name, `latestReview.date (${review.date}) must be later than the latest grade move (${latestGradeMoveDate})`);
       }
 
-      if (typeof review.outcome !== "string" || review.outcome !== "held") {
-        err(name, `latestReview.outcome must be exactly "held"`);
+      if (!["held", "exception"].includes(review.outcome)) {
+        err(name, `latestReview.outcome must be "held" or "exception"`);
+      }
+
+      if (review.outcome === "exception") {
+        if (typeof review.exceptionRef !== "string"
+          || !/^docs\/[A-Za-z0-9][A-Za-z0-9_-]*\.md$/.test(review.exceptionRef)
+          || !existsSync(resolve(__dirname, "..", review.exceptionRef))) {
+          err(name, `latestReview.exceptionRef must name an existing decision document directly under docs/`);
+        }
+        if (!validFullDateString(review.expiresOn)) {
+          err(name, `latestReview.expiresOn must be a valid YYYY-MM-DD date for an exception`);
+        } else if (review.expiresOn <= review.date || review.expiresOn <= meta.lastUpdated) {
+          err(name, `latestReview exception has expired or expires no later than its review date`);
+        }
+      } else if (review.exceptionRef !== undefined || review.expiresOn !== undefined) {
+        err(name, `latestReview exceptionRef and expiresOn are only allowed for an exception`);
       }
 
       if (!hasText(review.summary)) {

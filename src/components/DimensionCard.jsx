@@ -29,6 +29,23 @@ const WORKSPACE_PANELS = [
   { id: "method", label: "Method" },
 ];
 
+function reviewOutcomeLabel(review) {
+  return review.outcome === "exception" ? "Temporary grade display" : "Grade held";
+}
+
+function ReviewExceptionLink({ review }) {
+  if (review.outcome !== "exception") return null;
+  return (
+    <p>
+      This exception expires on <time dateTime={review.expiresOn}>{review.expiresOn}</time>.{" "}
+      <a href={`https://github.com/Sawatter/canada-under-carney/blob/main/${review.exceptionRef}`}
+        target="_blank" rel="noopener noreferrer">
+        Read the exception decision
+      </a>
+    </p>
+  );
+}
+
 function normalizeTrigger(trigger) {
   if (!trigger) return null;
   if (typeof trigger === "string") return { text: trigger };
@@ -493,13 +510,13 @@ export default function DimensionCard({
   onPolicyNavigate,
 }) {
   const isTracker = !!dim.excludeFromGPA;
-  const heldReview = !isTracker && dim.latestReview?.outcome === "held"
+  const cardReview = !isTracker && dim.latestReview
     ? dim.latestReview
     : null;
   const reviewedDate = isTracker
     ? dim.lastUpdated
     : (dim.latestReview?.date || dim.lastUpdated);
-  const collapsedReviewDescription = !isExpanded && heldReview
+  const collapsedReviewDescription = !isExpanded && cardReview
     ? [
       `dim-${dim.id}-latest-review`,
       reviewedDate ? `dim-${dim.id}-reviewed-date` : null,
@@ -1185,19 +1202,19 @@ export default function DimensionCard({
               >
                 {dim.verdictLine || dim.status}
               </div>
-              {!isExpanded && heldReview && (
+              {!isExpanded && cardReview && (
                 <div
                   id={`dim-${dim.id}-latest-review`}
                   className="dim-latest-review dim-latest-review-collapsed"
-                  data-review-outcome="held"
+                  data-review-outcome={cardReview.outcome}
                 >
                   <span className="dim-latest-review-meta">
                     <span className="dim-latest-review-label">This review</span>
                     <span className="dim-latest-review-separator" aria-hidden="true">&#183;</span>
-                    <strong>Grade held</strong>
+                    <strong>{reviewOutcomeLabel(cardReview)}</strong>
                   </span>
-                  <span className="dim-latest-review-copy" title={heldReview.summary}>
-                    {heldReview.summary}
+                  <span className="dim-latest-review-copy" title={cardReview.summary}>
+                    {cardReview.summary}
                   </span>
                 </div>
               )}
@@ -1221,7 +1238,7 @@ export default function DimensionCard({
               )}
               {reviewedDate && (
                 <div
-                  id={!isExpanded && heldReview ? `dim-${dim.id}-reviewed-date` : undefined}
+                  id={!isExpanded && cardReview ? `dim-${dim.id}-reviewed-date` : undefined}
                   className="last-reviewed-pill dim-last-reviewed-pill"
                 >
                   <span style={{ textTransform: "uppercase", letterSpacing: "0.35px" }}>
@@ -1486,10 +1503,11 @@ export default function DimensionCard({
                           <span className="dim-latest-review-meta">
                             <span className="dim-latest-review-label">This review</span>
                             <span className="dim-latest-review-separator" aria-hidden="true">&#183;</span>
-                            <strong>{dim.latestReview.outcome === "held" ? "Grade held" : "Review updated"}</strong>
+                            <strong>{reviewOutcomeLabel(dim.latestReview)}</strong>
                             <time dateTime={dim.latestReview.date}>{dim.latestReview.date}</time>
                           </span>
                           <p className="dim-latest-review-copy">{dim.latestReview.summary}</p>
+                          <ReviewExceptionLink review={dim.latestReview} />
                         </div>
                       )}
                       {dim.nextTrigger && (
@@ -1816,8 +1834,9 @@ export default function DimensionCard({
                             className="dimension-briefing-section dim-latest-review"
                           >
                             <time dateTime={historyEvent.date}>{historyEvent.date}</time>
-                            <h3>{historyEvent.review.outcome === "held" ? "Grade held" : "Review updated"}</h3>
+                            <h3>{reviewOutcomeLabel(historyEvent.review)}</h3>
                             <p>{historyEvent.review.summary}</p>
+                            <ReviewExceptionLink review={historyEvent.review} />
                           </article>
                         );
                       }
